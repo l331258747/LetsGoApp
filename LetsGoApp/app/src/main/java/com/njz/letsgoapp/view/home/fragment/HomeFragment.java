@@ -21,11 +21,12 @@ public class HomeFragment extends BaseFragment{
     public void initView() {
         TextView homeIv = $(R.id.home_iv);
         homeIv.setText("首页");
-
     }
 
     @Override
     public void initData() {
 
     }
+
+
 }
