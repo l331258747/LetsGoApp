@@ -3,9 +3,12 @@ package com.njz.letsgoapp;
 import android.app.Application;
 import android.content.Context;
 
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.LogUtil;
 import com.njz.letsgoapp.util.PreferencesUtils;
 import com.njz.letsgoapp.util.Utils;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 /**
  * Created by LGQ
@@ -18,6 +21,8 @@ public class MyApplication extends Application{
     private static MyApplication instance;
 
     private static Context context;
+
+    public static IWXAPI mWxApi;
 
     /**
      * 屏幕尺寸
@@ -49,9 +54,19 @@ public class MyApplication extends Application{
         Utils.init(this);
         LogUtil.setShowLog(true);
 
+        registToWX();
+
     }
 
     public static Context getContext() {
         return context;
+    }
+
+    private void registToWX() {
+        //AppConst.WEIXIN.APP_ID是指你应用在微信开放平台上的AppID，记得替换。
+        mWxApi = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID, false);
+        // 将该app注册到微信
+        mWxApi.registerApp(Constant.WEIXIN_APP_ID);
+
     }
 }

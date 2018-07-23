@@ -2,11 +2,19 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/njz/letsgoapp/util/ToastUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/njz/letsgoapp/wxapi/WXEntryActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/njz/letsgoapp/wxapi/WXHelp.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/njz/letsgoapp/wxapi/WXPayEntryActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/shape_base_title_tv_tools.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_base.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pay_fail.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pay_success.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_pay.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/pay_result.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/title_layout.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_pay_failed.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_pay_success.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

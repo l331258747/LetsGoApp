@@ -7,15 +7,6 @@
     android:orientation="vertical"
     tools:context="com.njz.letsgoapp.MainActivity">
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:text="Hello World!" />
-
-
     <Button
         android:id="@+id/btn"
         android:layout_width="match_parent"
@@ -23,6 +14,39 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:text="获取top250" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            tools:src="@mipmap/head_default" />
+
+        <ImageView
+            android:id="@+id/iv2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            tools:src="@mipmap/head_default" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_home"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="首页" />
+
 
     <include layout="@layout/layout_pay" />
 

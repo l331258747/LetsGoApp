@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_pay_failed"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="20dp"
+        android:text="订单支付失败"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/color_price"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_pay_failed"
+        android:layout_above="@id/tv_pay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        />
+
+
+    <Button
+        android:id="@+id/btn_repay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tv_pay"
+        android:background="#2cca64"
+        android:text="重新支付"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        />
+
+
+
+</RelativeLayout>

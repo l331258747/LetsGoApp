@@ -1,9 +1,11 @@
 package com.njz.letsgoapp.util.http;
 
-import com.njz.letsgoapp.bean.BaseResponse;
+import com.njz.letsgoapp.bean.MovieSubject;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by LGQ
@@ -11,7 +13,7 @@ import io.reactivex.observers.DisposableObserver;
  * Function:
  */
 
-public class UserApi {
+public class MethodApi {
 
     /**
      * 获取用户详细信息
@@ -28,6 +30,11 @@ public class UserApi {
 //                channel); //在HttpServer中
 //        HttpMethods.getInstance().toSubscribe(observable, subscriber);
 //    }
+
+    public static void getTop250(DisposableObserver<MovieSubject> subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().getTop250(0,2); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
 
 
 }

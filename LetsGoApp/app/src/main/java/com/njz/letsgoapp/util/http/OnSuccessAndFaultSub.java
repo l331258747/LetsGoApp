@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLHandshakeException;
 
+import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 import retrofit2.HttpException;
 
@@ -25,7 +26,7 @@ import retrofit2.HttpException;
  * Function: DisposableObserver
  */
 
-public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> implements ProgressCancelListener {
+public class OnSuccessAndFaultSub<T> extends DisposableObserver<T> implements ProgressCancelListener {
 
 
     /**
@@ -86,6 +87,11 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
     public void onComplete() {
         dismissProgressDialog();
         progressDialog = null;
+    }
+
+    @Override
+    public void onNext(@NonNull T t) {
+        mResponseCallback.onSuccess(t);
     }
 
     /**
@@ -151,8 +157,8 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
      * byte[] bytes = body.bytes();//获取字节数组
      * String str = body.string();//获取字符串数据
      */
-    @Override
-    public void onNext(BaseResponse body) {
+//    @Override
+//    public void onNext(BaseResponse body) {
 //        try {
 //            final String result = decompress(body.byteStream());
 //            LogUtil.e(result);
@@ -169,13 +175,13 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-
-        if(body.getCode()==1){
-            mResponseCallback.onSuccess(body);
-        }else{
-            mResponseCallback.onFault(body.getMsg());
-        }
-    }
+//
+//        if(body.getCode()==1){
+//            mResponseCallback.onSuccess(body);
+//        }else{
+//            mResponseCallback.onFault(body.getMsg());
+//        }
+//    }
 
     /**
      * 取消ProgressDialog的时候，取消对observable的订阅，同时也取消了http请求

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+    <com.njz.letsgoapp.widget.tab.TabLayout
+        android:id="@+id/cus_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+    </com.njz.letsgoapp.widget.tab.TabLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/cus_tab_layout"
+        android:background="@color/line_color_d8"/>
+
+    <FrameLayout
+        android:id="@+id/cus_tab_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/line">
+    </FrameLayout>
+
+</RelativeLayout>

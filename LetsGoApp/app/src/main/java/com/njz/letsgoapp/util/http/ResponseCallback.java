@@ -8,8 +8,8 @@ import com.njz.letsgoapp.bean.BaseResponse;
  * Function: 网络请求成功失败接口
  */
 
-public interface ResponseCallback {
-    void onSuccess(BaseResponse result);
+public interface ResponseCallback<T> {
+    void onSuccess(T t);
 
     void onFault(String errorMsg);
 

@@ -15,7 +15,7 @@ public class ActivityCollect {
     }
 
     /**
-     * µ¥ÊµÀı , UIÎŞĞè¿¼ÂÇ¶àÏß³ÌÍ¬²½ÎÊÌâ
+     * å•å®ä¾‹ , UIæ— éœ€è€ƒè™‘å¤šçº¿ç¨‹åŒæ­¥é—®é¢˜
      */
     public static ActivityCollect getAppCollect() {
         if (instance == null) {
@@ -26,7 +26,7 @@ public class ActivityCollect {
 
 
     /**
-     * Ìí¼ÓActivityµ½Õ»
+     * æ·»åŠ Activityåˆ°æ ˆ
      */
     public void addActivity(BaseActivity activity) {
         if (activityStack == null) {
@@ -36,7 +36,7 @@ public class ActivityCollect {
     }
 
     /**
-     * »ñÈ¡µ±Ç°Activity£¨Õ»¶¥Activity£©
+     * è·å–å½“å‰Activityï¼ˆæ ˆé¡¶Activityï¼‰
      */
     public BaseActivity currentActivity() {
         if (activityStack == null || activityStack.isEmpty()) {
@@ -48,7 +48,7 @@ public class ActivityCollect {
 
 
     /**
-     * ½áÊøÖ¸¶¨µÄActivity(ÖØÔØ)
+     * ç»“æŸæŒ‡å®šçš„Activity(é‡è½½)
      */
     public void finishAllNotHome() {
 //        for (BaseActivity activity : activityStack) {
@@ -61,7 +61,7 @@ public class ActivityCollect {
 
 
     /**
-     * »ñÈ¡µ±Ç°Activity£¨Õ»¶¥Activity£© Ã»ÓĞÕÒµ½Ôò·µ»Ønull
+     * è·å–å½“å‰Activityï¼ˆæ ˆé¡¶Activityï¼‰ æ²¡æœ‰æ‰¾åˆ°åˆ™è¿”å›null
      */
     public BaseActivity findActivity(Class<?> cls) {
         BaseActivity activity = null;
@@ -75,7 +75,7 @@ public class ActivityCollect {
     }
 
     /**
-     * ÅĞ”à®”Ç°activityÊÇ·ñÔÚ¶Ñ—£µ¹”µµÚ¶ş‚€
+     * åˆ¤æ–·ç•¶å‰activityæ˜¯å¦åœ¨å †æ£§å€’æ•¸ç¬¬äºŒå€‹
      *
      * @param cls
      * @return
@@ -92,7 +92,7 @@ public class ActivityCollect {
     }
 
     /**
-     * ½áÊøµ±Ç°Activity£¨Õ»¶¥Activity£©
+     * ç»“æŸå½“å‰Activityï¼ˆæ ˆé¡¶Activityï¼‰
      */
     public void finishActivity() {
         BaseActivity activity = activityStack.lastElement();
@@ -100,7 +100,7 @@ public class ActivityCollect {
     }
 
     /**
-     * ½áÊøÖ¸¶¨µÄActivity(ÖØÔØ)
+     * ç»“æŸæŒ‡å®šçš„Activity(é‡è½½)
      */
     public void finishActivity(Activity activity) {
         if (activity != null) {
@@ -111,7 +111,7 @@ public class ActivityCollect {
     }
 
     /**
-     * ½áÊøÖ¸¶¨µÄActivity(ÖØÔØ)
+     * ç»“æŸæŒ‡å®šçš„Activity(é‡è½½)
      */
     public void finishActivity(Class<?> cls) {
         for (BaseActivity activity : activityStack) {
@@ -143,7 +143,7 @@ public class ActivityCollect {
     }
 
     /**
-     * ½áÊøËùÓĞActivity
+     * ç»“æŸæ‰€æœ‰Activity
      */
     public void finishAllActivity() {
         for (int i = 0, size = activityStack.size(); i < size; i++) {
@@ -155,7 +155,7 @@ public class ActivityCollect {
     }
 
     /**
-     * Ó¦ÓÃ³ÌĞòÍË³ö
+     * åº”ç”¨ç¨‹åºé€€å‡º
      */
     public void AppExit(Context context) {
         try {

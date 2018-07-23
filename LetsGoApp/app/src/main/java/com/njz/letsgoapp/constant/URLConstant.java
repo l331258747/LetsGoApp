@@ -7,5 +7,5 @@ package com.njz.letsgoapp.constant;
  */
 
 public class URLConstant {
-    public static final String BASE_URL = "http://e.shouqianya.cn/";
+    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
 }
