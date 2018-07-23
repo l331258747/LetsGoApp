@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "28.0.1"
+
+    defaultConfig {
+        applicationId "com.njz.letsgoapp"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+//            signingConfig signingConfigs.debugConfig
+        }
+        release {
+            // 混淆
+            minifyEnabled true
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            // 前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明，后一个文件是自己的定义混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    //------file------
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    //--------test--------
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+
+
+    //-------远程库 start--------
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    //导入retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'//导入retrofit
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'//转换器，请求结果转换成Model
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'//配合Rxjava 使用
+
+    compile 'com.google.code.gson:gson:2.6.2'//Gson 库
+
+    //rxjava2
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    compile 'io.reactivex.rxjava2:rxjava:2.x.y'
+
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'//添加HttpLoggingInterceptor进行调试
+
+    //微信 包含统计功能
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
+    //-------远程库 end--------
+
+}
