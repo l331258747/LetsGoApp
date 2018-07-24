@@ -55,6 +55,7 @@
         </activity>
 
 
+        <!--支付 start -->
         <activity android:name=".view.pay.PaySuccessActivity" />
         <activity android:name=".view.pay.PayFaileActivity" />
 
@@ -92,6 +93,8 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+
+        <!--支付 end -->
 
         <activity android:name=".view.home.HomeActivity" />
 
