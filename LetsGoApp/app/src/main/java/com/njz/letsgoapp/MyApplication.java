@@ -10,6 +10,8 @@ import com.njz.letsgoapp.util.Utils;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by LGQ
  * Time: 2018/7/17
@@ -49,6 +51,9 @@ public class MyApplication extends Application{
         if (displayHeight <= 0) {
             displayHeight = getResources().getDisplayMetrics().heightPixels;
         }
+
+        JPushInterface.init(context);
+        JPushInterface.setDebugMode(true);
 
         PreferencesUtils.init(context);
         Utils.init(this);
