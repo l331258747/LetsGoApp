@@ -15,6 +15,10 @@ import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.view.home.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
+import com.tencent.bugly.Bugly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -30,7 +34,23 @@ public class MainActivity extends BaseActivity {
         paySet();
         imageSet();
         homeSet();
-        
+
+//        buglySet();
+
+
+
+    }
+
+    private void buglySet() {
+
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            datas.add(i + "");
+        }
+
+        for (int i = 0; i < 5; i++) {
+            LogUtil.e(datas.get(i));
+        }
     }
 
     private void homeSet() {
@@ -65,13 +85,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void imageSet() {
-        ImageView iv1 =  $(R.id.iv1);
-        ImageView iv2 =  $(R.id.iv2);
+        ImageView iv1 = $(R.id.iv1);
+        ImageView iv2 = $(R.id.iv2);
 
         String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
 
-        GlideUtil.LoadCircleImage(this,photo,iv1);
-        GlideUtil.LoadRoundImage(this,photo,iv2);
+        GlideUtil.LoadCircleImage(this, photo, iv1);
+        GlideUtil.LoadRoundImage(this, photo, iv2);
 
     }
 

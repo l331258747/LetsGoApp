@@ -7,6 +7,8 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.LogUtil;
 import com.njz.letsgoapp.util.PreferencesUtils;
 import com.njz.letsgoapp.util.Utils;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -60,6 +62,10 @@ public class MyApplication extends Application{
         LogUtil.setShowLog(true);
 
         registToWX();
+
+        //第三个参数为SDK调试模式开关 建议在测试阶段建议设置成true，发布时设置为false。
+//        CrashReport.initCrashReport(getApplicationContext(), "cd379e9015", true);
+        Bugly.init(getApplicationContext(), "cd379e9015", true);
 
     }
 
