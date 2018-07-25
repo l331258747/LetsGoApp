@@ -94,6 +94,12 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
+        <receiver android:name=".wxapi.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+
         <!--支付 end -->
 
         <activity android:name=".view.home.HomeActivity" />

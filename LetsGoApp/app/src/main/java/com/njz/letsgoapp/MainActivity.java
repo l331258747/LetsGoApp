@@ -15,6 +15,7 @@ import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.view.home.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
+import com.njz.letsgoapp.wxapi.WXHelp;
 import com.tencent.bugly.Bugly;
 
 import java.util.ArrayList;
@@ -35,22 +36,45 @@ public class MainActivity extends BaseActivity {
         imageSet();
         homeSet();
 
-//        buglySet();
+        buglySet();
+        shareSet();
 
 
 
     }
 
+    private void shareSet() {
+
+        Button btnShare = $(R.id.btn_share);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WXHelp.getInstance().wxShare(context,
+                        0,
+                        "那就走",
+                        "letsgoapp",
+                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532499677771&di=e4784c164d8dbed97327e53f344c1a54&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F15%2F60%2F67%2F09D58PICzbh_1024.jpg",
+                        "https://www.tianyancha.com/company/3200920352"
+                );
+            }
+        });
+    }
+
     private void buglySet() {
 
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            datas.add(i + "");
-        }
-
-        for (int i = 0; i < 5; i++) {
-            LogUtil.e(datas.get(i));
-        }
+        Button btnBugly = $(R.id.btn_bugly);
+        btnBugly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> datas = new ArrayList<>();
+                for (int i = 0; i < 4; i++) {
+                    datas.add(i + "");
+                }
+                for (int i = 0; i < 5; i++) {
+                    LogUtil.e(datas.get(i));
+                }
+            }
+        });
     }
 
     private void homeSet() {
