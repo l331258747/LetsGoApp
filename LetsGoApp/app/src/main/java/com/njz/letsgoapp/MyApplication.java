@@ -2,6 +2,7 @@ package com.njz.letsgoapp;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.LogUtil;
@@ -39,6 +40,16 @@ public class MyApplication extends Application{
             instance = new MyApplication();
         }
         return instance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        //Dalvik在5.0之前，为每一个APK只生成一个classes.dex，
+        // 所以会有上述所说的方法数超限的问题，如果我们可以将一个dex文件分成多个，
+        // 在应用启动时，加载第一个（主dex）dex文件，当启动以后，再依次加载其他dex文件。这样就可以规避上述问题了。
+        // MultiDex即是实现了这样的功能
+        MultiDex.install(this);
     }
 
     @Override
