@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.njz.letsgoapp.MyApplication;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;

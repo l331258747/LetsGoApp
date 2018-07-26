@@ -1,7 +1,7 @@
 package com.njz.letsgoapp.util.http;
 
 import com.njz.letsgoapp.constant.URLConstant;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.StringUtils;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.util;
+package com.njz.letsgoapp.util.log;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,7 +13,7 @@ public class LogUtil {
     public static boolean showLog = true;
 
     public static void setShowLog(boolean showLog) {
-        showLog = showLog;
+        LogUtil.showLog = showLog;
     }
 
     /**

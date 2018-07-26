@@ -3,8 +3,7 @@ package com.njz.letsgoapp.util.http;
 import android.content.Context;
 import android.util.Log;
 
-import com.njz.letsgoapp.bean.BaseResponse;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 
 import java.io.BufferedReader;

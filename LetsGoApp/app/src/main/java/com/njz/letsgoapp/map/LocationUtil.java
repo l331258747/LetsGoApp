@@ -5,7 +5,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.njz.letsgoapp.MyApplication;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

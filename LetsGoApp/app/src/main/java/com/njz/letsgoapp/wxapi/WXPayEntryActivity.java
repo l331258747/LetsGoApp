@@ -12,7 +12,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;

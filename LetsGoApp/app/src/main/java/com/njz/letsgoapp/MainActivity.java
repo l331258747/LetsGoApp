@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.map.MapActivity;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -47,6 +48,20 @@ public class MainActivity extends BaseActivity {
         locationSet();
         locationUnSet();
 
+        crashSet();
+
+
+    }
+
+    private void crashSet() {
+        Button btnCrash = $(R.id.btn_crash);
+        btnCrash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView iv = null;
+                iv.setText("asdf");
+            }
+        });
 
     }
 

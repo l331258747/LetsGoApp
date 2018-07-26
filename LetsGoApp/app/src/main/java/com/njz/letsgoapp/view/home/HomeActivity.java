@@ -1,6 +1,5 @@
 package com.njz.letsgoapp.view.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +9,7 @@ import android.view.KeyEvent;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.fragment.FindFragment;
 import com.njz.letsgoapp.view.home.fragment.HomeFragment;
 import com.njz.letsgoapp.view.home.fragment.MyFragment;

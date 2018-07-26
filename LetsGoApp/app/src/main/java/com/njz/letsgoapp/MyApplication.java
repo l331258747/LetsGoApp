@@ -5,11 +5,11 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.util.LogUtil;
+import com.njz.letsgoapp.util.log.ExceptionCrashHandler;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.PreferencesUtils;
 import com.njz.letsgoapp.util.Utils;
 import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -55,6 +55,8 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ExceptionCrashHandler.getInstance().init(this);
 
         context = getApplicationContext();
         if (displayWidth <= 0) {
