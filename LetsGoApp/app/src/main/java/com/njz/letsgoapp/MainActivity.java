@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.map.LocationUtil;
+import com.njz.letsgoapp.map.MapActivity;
 import com.njz.letsgoapp.util.LogUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
@@ -16,12 +17,13 @@ import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.view.home.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
-import com.tencent.bugly.Bugly;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
+
+    LocationUtil locationUtil;
 
     @Override
     public int getLayoutId() {
@@ -31,6 +33,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
 
+        locationUtil = new LocationUtil();
+
         httpSet();
         paySet();
         imageSet();
@@ -39,7 +43,47 @@ public class MainActivity extends BaseActivity {
         buglySet();
         shareSet();
 
+        mapSet();
+        locationSet();
+        locationUnSet();
 
+
+    }
+
+    private void locationUnSet() {
+        Button btnUnLocation = $(R.id.btn_un_location);
+
+        btnUnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationUtil.stopLocation();
+            }
+        });
+    }
+
+    private void locationSet() {
+        Button btnLocation = $(R.id.btn_location);
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationUtil.startLocation(new LocationUtil.LocationListener() {
+                    @Override
+                    public void getAdress(int code, String adress) {
+                        LogUtil.e("code:" + code + " adress:" + adress);
+                    }
+                });
+            }
+        });
+    }
+
+    private void mapSet() {
+        Button btnMap = $(R.id.btn_map);
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
+            }
+        });
 
     }
 
