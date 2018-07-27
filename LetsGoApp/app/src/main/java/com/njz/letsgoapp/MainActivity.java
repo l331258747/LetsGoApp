@@ -10,17 +10,22 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.map.MapActivity;
-import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.CacheUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
+import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.view.home.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity {
 
@@ -50,6 +55,41 @@ public class MainActivity extends BaseActivity {
 
         crashSet();
 
+        cleanCache();
+
+
+    }
+
+
+    private void cleanCache() {
+
+        final Button btnCleanCache = $(R.id.btn_clean_cache);
+        try {
+            String cacheSize = CacheUtil.getTotalCacheSize(AppUtils.getContext());
+            btnCleanCache.setText("缓存：" + cacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        RxBus2.getInstance().toObservable(String.class,new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                btnCleanCache.setText(s);
+            }
+        });
+
+        btnCleanCache.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CacheUtil.clearAllCache(AppUtils.getContext());
+                        RxBus2.getInstance().post("1k");
+                    }
+                }).start();
+            }
+        });
 
     }
 

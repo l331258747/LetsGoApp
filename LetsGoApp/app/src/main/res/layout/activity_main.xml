@@ -136,13 +136,13 @@
             android:text="崩溃日志" />
 
         <Button
-            android:id="@+id/btn_4"
+            android:id="@+id/btn_clean_cache"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="60dp"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:text="4" />
+            android:text="缓存大小" />
 
     </LinearLayout>
 
