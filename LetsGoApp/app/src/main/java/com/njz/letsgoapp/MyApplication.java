@@ -64,6 +64,8 @@ public class MyApplication extends Application{
             displayHeight = getResources().getDisplayMetrics().heightPixels;
         }
 
+        ExceptionCrashHandler.getInstance().init(context);
+
         JPushInterface.init(context);
         JPushInterface.setDebugMode(true);
 

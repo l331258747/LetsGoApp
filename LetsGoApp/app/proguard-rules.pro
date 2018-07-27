@@ -170,7 +170,7 @@
 
 #-----------处理实体类---------------
 # 在开发的时候我们可以将所有的实体类放在一个包内，这样我们写一次混淆就行了。
--keep public class com.zhuzhou.travelapp.data.model** {
+-keep public class com.njz.letsgoapp.bean.** {
     public void set*(***);
     public *** get*();
     public *** is*();
@@ -268,3 +268,4 @@
 # 2D地图
 -keep class com.amap.api.maps2d.**{*;}
 -keep class com.amap.api.mapcore2d.**{*;}
+-dontwarn com.amap.api.**
