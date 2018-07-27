@@ -25,6 +25,7 @@ import com.njz.letsgoapp.wxapi.WXHelp;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity {
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    Disposable disCleanCache;
 
     private void cleanCache() {
 
@@ -71,7 +73,7 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        RxBus2.getInstance().toObservable(String.class,new Consumer<String>() {
+        disCleanCache = RxBus2.getInstance().toObservable(String.class,new Consumer<String>() {
             @Override
             public void accept(String s) throws Exception {
                 btnCleanCache.setText(s);
@@ -237,5 +239,11 @@ public class MainActivity extends BaseActivity {
             }
         };
         MethodApi.getTop250(new OnSuccessAndFaultSub(getTopListener));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus2.getInstance().setDispose(disCleanCache);
     }
 }

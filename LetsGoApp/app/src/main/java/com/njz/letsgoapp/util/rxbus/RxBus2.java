@@ -75,4 +75,10 @@ public class RxBus2 {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(consumer);
     }
+
+    public void setDispose(Disposable dis){
+        if (!dis.isDisposed()) {
+            dis.dispose();
+        }
+    }
 }
