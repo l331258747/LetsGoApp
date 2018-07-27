@@ -12,10 +12,12 @@ import com.google.gson.JsonParser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by llt on 2017/11/3.
- */
 
+/**
+ * Created by LGQ
+ * Time: 2018/7/17
+ * Function: String 工具类
+ */
 public class StringUtils {
 
     /**

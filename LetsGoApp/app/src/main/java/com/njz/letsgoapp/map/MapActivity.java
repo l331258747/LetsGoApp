@@ -19,7 +19,7 @@ import com.njz.letsgoapp.R;
 /**
  * Created by LGQ
  * Time: 2018/7/25
- * Function:
+ * Function: map activity
  */
 
 public class MapActivity extends AppCompatActivity {

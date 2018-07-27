@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.FileUtil;
 
 import java.io.File;
@@ -19,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Darren on 2017/2/8.
- * Email: 240336124@qq.com
- * Description: 拦截应用的闪退信息
+ * Created by LGQ
+ * Time: 2018/7/17
+ * Function: 崩溃日志处理
  */
 public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
@@ -71,35 +72,12 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
         LogUtil.e("fileName --> " + crashFileName);
 
-        // 3. 缓存崩溃日志文件
-        cacheCrashFile(crashFileName);
         // 系统默认处理
         mDefaultHandler.uncaughtException(t, ex);
     }
 
     /**
-     * 缓存崩溃日志文件
-     *
-     * @param fileName
-     */
-    private void cacheCrashFile(String fileName) {
-        SharedPreferences sp = mContext.getSharedPreferences("crash", Context.MODE_PRIVATE);
-        sp.edit().putString("CRASH_FILE_NAME", fileName).commit();
-    }
-
-    /**
-     * 获取崩溃文件名称
-     *
-     * @return
-     */
-    public File getCrashFile() {
-        String crashFileName = mContext.getSharedPreferences("crash", Context.MODE_PRIVATE).getString("CRASH_FILE_NAME", "");
-        return new File(crashFileName);
-    }
-
-    /**
      * 保存获取的 软件信息，设备信息和出错信息保存在SDcard中
-     *
      * @param ex
      * @return
      */
@@ -117,16 +95,7 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
         sb.append(obtainExceptionInfo(ex) + "\r\n\r\n\r\n");
 
-        File dir = FileUtil.getFolder("log");
-
-//        // 先删除之前的异常信息
-//        if (dir.exists()) {
-//            deleteDir(dir);
-//        }
-//        // 再从新创建文件夹
-//        if (!dir.exists()) {
-//            dir.mkdir();
-//        }
+        File dir = FileUtil.getFolder(Constant.LOG_PATH);
 
         try {
             fileName = dir.toString() + File.separator + getAssignTime("yyyy_MM_dd") + ".log";
@@ -215,26 +184,9 @@ public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {
 
 
     /**
-     * 递归删除目录下的所有文件及子目录下所有文件
-     *
-     * @param dir 将要删除的文件目录
-     * @return boolean Returns "true" if all deletions were successful. If a
-     * deletion fails, the method stops attempting to delete and returns
-     * "false".
+     * 用来上传服务器后删除操作
      */
-    private boolean deleteDir(File dir) {
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
-            // 递归删除目录中的子目录下
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-        }
-        // 目录此时为空，可以删除
-        return true;
+    private void delLogFile(){
+        FileUtil.delAllFile(FileUtil.getFolder(Constant.LOG_PATH));
     }
-
 }

@@ -3,8 +3,11 @@ package com.njz.letsgoapp.util;
 import android.content.Context;
 import android.widget.Toast;
 
+
 /**
- * toast工具类
+ * Created by LGQ
+ * Time: 2018/7/17
+ * Function: toast 工具类
  */
 public class ToastUtil {
 

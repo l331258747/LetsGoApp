@@ -6,6 +6,11 @@ import android.support.annotation.Nullable;
 
 import java.util.Set;
 
+/**
+ * Created by LGQ
+ * Time: 2018/7/17
+ * Function: Preferences 工具类
+ */
 public class PreferencesUtils {
 
 	public static final String SP_USER_ID = "sp_user_id";
@@ -38,7 +43,7 @@ public class PreferencesUtils {
 	private static PreferencesUtils mPreferenceUtils;
 	private static SharedPreferences.Editor editor;
 
-	public static final String PREFERENCE_NAME = "com.njz.etrip_preferences";
+	public static final String PREFERENCE_NAME = "com.njz.letsgo_preferences";
 
 
 	public static synchronized void init(Context cxt){

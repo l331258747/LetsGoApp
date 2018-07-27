@@ -1,7 +1,5 @@
 package com.njz.letsgoapp.util.http;
 
-import com.njz.letsgoapp.bean.BaseResponse;
-
 /**
  * Created by LGQ
  * Time: 2018/7/18

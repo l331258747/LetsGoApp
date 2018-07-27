@@ -3,7 +3,7 @@ package com.njz.letsgoapp.constant;
 /**
  * Created by LGQ
  * Time: 2018/7/17
- * Function:
+ * Function: url常量
  */
 
 public class URLConstant {

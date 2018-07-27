@@ -10,7 +10,7 @@ import com.njz.letsgoapp.R;
 /**
  * Created by LGQ
  * Time: 2018/7/23
- * Function:
+ * Function: glide工具类
  */
 
 public class GlideUtil {

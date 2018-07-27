@@ -7,6 +7,11 @@ import android.content.Context;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Created by LGQ
+ * Time: 2018/7/19
+ * Function: activity 统一管理
+ */
 public class ActivityCollect {
     private static Stack<BaseActivity> activityStack;
     private static ActivityCollect instance;

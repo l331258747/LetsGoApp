@@ -4,7 +4,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.njz.letsgoapp.MyApplication;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 
 import java.text.SimpleDateFormat;
@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * Created by LGQ
  * Time: 2018/7/25
- * Function:
+ * Function: 定位工具类
  */
 
 public class LocationUtil {
@@ -27,7 +27,7 @@ public class LocationUtil {
     public void initLocationClient(final LocationListener locationListener) {
         if (mLocationClient != null) return;
 
-        mLocationClient = new AMapLocationClient(MyApplication.getContext());
+        mLocationClient = new AMapLocationClient(AppUtils.getContext());
 
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override

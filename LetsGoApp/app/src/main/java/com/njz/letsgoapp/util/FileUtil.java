@@ -2,14 +2,14 @@ package com.njz.letsgoapp.util;
 
 import android.os.Environment;
 
-import com.njz.letsgoapp.MyApplication;
+import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
 
 /**
  * Created by LGQ
  * Time: 2018/7/26
- * Function:
+ * Function: file工具类
  */
 
 public class FileUtil {
@@ -66,21 +66,36 @@ public class FileUtil {
      */
 
 
-    //获取文件夹
+    //获取文件夹 filename:log
     public static File getFolder(String filename){
         String filePath;
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) { // SD卡根目录的hello.text
             filePath = Environment.getExternalStorageDirectory().getPath() + File.separator +
-                    "letsgoapp" + File.separator + filename;
+                    Constant.BASE_PATH + File.separator + filename;
         } else  // 系统下载缓存根目录的hello.text
-            filePath = Utils.getContext().getFilesDir().getPath() + File.separator + filename;
+            filePath = AppUtils.getContext().getFilesDir().getPath() + File.separator + filename;
         File dir = new File(filePath);
 
         if (!dir.exists()) {
             dir.mkdirs();
         }
         return dir;
+    }
+
+    /**
+     * 删除文件目录，或指定文件
+     */
+    public static void delAllFile(File file){
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                File f = files[i];
+                delAllFile(f);
+            }
+        } else if (file.exists()) {
+            file.delete();
+        }
     }
 
 }

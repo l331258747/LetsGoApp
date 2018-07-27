@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 
 /**
+ * Created by LGQ
+ * Time: 2018/7/25
+ * Function: 请等待对话框
  */
 public class LoadingDialog extends Dialog {
 

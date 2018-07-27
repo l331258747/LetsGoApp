@@ -8,7 +8,7 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.log.ExceptionCrashHandler;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.PreferencesUtils;
-import com.njz.letsgoapp.util.Utils;
+import com.njz.letsgoapp.util.AppUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -36,9 +36,6 @@ public class MyApplication extends Application{
     public static int displayHeight = 0;
 
     public static MyApplication getInstance() {
-        if (instance == null) {
-            instance = new MyApplication();
-        }
         return instance;
     }
 
@@ -56,9 +53,9 @@ public class MyApplication extends Application{
     public void onCreate() {
         super.onCreate();
 
-        ExceptionCrashHandler.getInstance().init(this);
-
+        instance = this;
         context = getApplicationContext();
+
         if (displayWidth <= 0) {
             displayWidth = getResources().getDisplayMetrics().widthPixels;
         }
@@ -71,7 +68,7 @@ public class MyApplication extends Application{
         JPushInterface.setDebugMode(true);
 
         PreferencesUtils.init(context);
-        Utils.init(this);
+        AppUtils.init(this);
         LogUtil.setShowLog(true);
 
         registToWX();
@@ -80,10 +77,6 @@ public class MyApplication extends Application{
 //        CrashReport.initCrashReport(getApplicationContext(), "cd379e9015", true);
         Bugly.init(getApplicationContext(), "cd379e9015", true);
 
-    }
-
-    public static Context getContext() {
-        return context;
     }
 
     private void registToWX() {
