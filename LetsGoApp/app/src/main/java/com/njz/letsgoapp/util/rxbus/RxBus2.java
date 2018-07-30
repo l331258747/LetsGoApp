@@ -1,8 +1,13 @@
 package com.njz.letsgoapp.util.rxbus;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.processors.FlowableProcessor;
+import io.reactivex.processors.PublishProcessor;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -39,10 +44,10 @@ public class RxBus2 {
 
 
     private static RxBus2 defaultRxBus;
-    private Subject<Object> bus;
+    private FlowableProcessor<Object> bus;
 
     private RxBus2() {
-        bus = PublishSubject.create().toSerialized();
+        bus = PublishProcessor.create().toSerialized();
     }
 
     public static RxBus2 getInstance() {
@@ -63,11 +68,11 @@ public class RxBus2 {
     }
 
     public boolean hasObservable() {
-        return bus.hasObservers();
+        return bus.hasSubscribers();
     }
 
     /*
-     * 转换为特定类型的Obserbale
+     * 转换为特定类型的Obserbale,type 不要使用基础类型。
      */
     public <T> Disposable toObservable(Class<T> type, Consumer<T> consumer) {
         return bus.ofType(type)
@@ -76,7 +81,40 @@ public class RxBus2 {
                 .subscribe(consumer);
     }
 
-    public void setDispose(Disposable dis){
+    public void post(int code, Object obj) {
+        if (hasObservable()) {//判断当前是否已经添加订阅
+            bus.onNext(new RxBusBaseMessage(code, obj));
+        }
+    }
+
+    /***
+     *  * 根据传递的code和 eventType 类型返回特定类型(eventType)的 被观察者
+     *  对于注册了code为0，class为voidMessage的观察者，那么就接收不到code为0之外的voidMessage。
+     */
+    public <T> Disposable toObservable(final int code, final Class<T> eventType, Consumer<T> consumer) {
+        return bus.ofType(RxBusBaseMessage.class)
+                .filter(new Predicate<RxBusBaseMessage>() {
+                    @Override
+                    public boolean test(RxBusBaseMessage o) throws Exception {
+                        return o.getCode() == code && eventType.isInstance(o.getObject());
+                    }
+                })
+                .map(new Function<RxBusBaseMessage, Object>() {
+                    @Override
+                    public Object apply(RxBusBaseMessage o) throws Exception {
+                        return o.getObject();
+                    }
+                })
+                .cast(eventType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(consumer);
+
+    }
+
+
+    //注意取消订阅调用此方法，如：activity->onDestroy
+    public void setDispose(Disposable dis) {
         if (!dis.isDisposed()) {
             dis.dispose();
         }
