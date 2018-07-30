@@ -7,9 +7,10 @@
     android:orientation="vertical"
     tools:context="com.njz.letsgoapp.MainActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100"
+        android:layout_height="@dimen/dp_60"
         android:layout_margin="5dp"
         android:orientation="horizontal">
 
@@ -41,21 +42,39 @@
             android:id="@+id/btn"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_weight="1"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="获取top250" />
+            android:text="网络交互" />
 
         <Button
             android:id="@+id/btn_home"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="60dp"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="首页" />
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="分享" />
+
+        <Button
+            android:id="@+id/btn_bugly"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="bugly" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -64,23 +83,6 @@
         android:layout_margin="5dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_share"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="分享" />
-
-        <Button
-            android:id="@+id/btn_bugly"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="60dp"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="bugly" />
 
     </LinearLayout>
 
@@ -95,26 +97,26 @@
             android:id="@+id/btn_map"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_weight="1"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="地图" />
 
         <Button
             android:id="@+id/btn_location"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="60dp"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="定位" />
 
         <Button
             android:id="@+id/btn_un_location"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="60dp"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="取消定位" />
 
@@ -130,24 +132,49 @@
             android:id="@+id/btn_crash"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_weight="1"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="崩溃日志" />
 
         <Button
             android:id="@+id/btn_clean_cache"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="60dp"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="缓存大小" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_editor1"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="富文本编译器" />
+
+        <Button
+            android:id="@+id/btn_editor2"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="富文本编译器2" />
+
+    </LinearLayout>
+
 
     <include layout="@layout/layout_pay" />
-
 
 </LinearLayout>
