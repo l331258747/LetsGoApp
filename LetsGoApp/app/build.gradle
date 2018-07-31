@@ -114,5 +114,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0' //64k限制
     //控件
     //banner
+    //富文本
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
     //-------远程库 end--------
 }

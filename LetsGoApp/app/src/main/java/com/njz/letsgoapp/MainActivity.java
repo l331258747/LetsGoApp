@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.editor.EditorActivity;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.map.MapActivity;
 import com.njz.letsgoapp.util.AppUtils;
@@ -58,7 +59,19 @@ public class MainActivity extends BaseActivity {
 
         cleanCache();
 
+        richEditorSet();
 
+
+    }
+
+    private void richEditorSet() {
+        final Button btnEditor1 = $(R.id.btn_editor1);
+        btnEditor1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context,EditorActivity.class));
+            }
+        });
     }
 
     Disposable disCleanCache;
