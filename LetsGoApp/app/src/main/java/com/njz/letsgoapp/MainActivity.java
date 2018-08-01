@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dali.custompicker.CalendarActivity;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.editor.EditorActivity;
@@ -61,6 +62,30 @@ public class MainActivity extends BaseActivity {
 
         richEditorSet();
 
+        calendarSet();
+
+    }
+
+    private void calendarSet() {
+        final Button btnCalendar = $(R.id.btn_calendar);
+        final Button btnCalendar2 = $(R.id.btn_calendar2);
+        btnCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(context, CalendarActivity.class);
+                intent.putExtra("CalendarTag",1);
+                startActivity(intent);
+            }
+        });
+
+        btnCalendar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(context, CalendarActivity.class);
+                intent.putExtra("CalendarTag",2);
+                startActivity(intent);
+            }
+        });
 
     }
 

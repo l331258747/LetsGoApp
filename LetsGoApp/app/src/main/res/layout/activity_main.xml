@@ -45,7 +45,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="网络交互" />
+            android:text="网络" />
 
         <Button
             android:id="@+id/btn_home"
@@ -161,17 +161,25 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="富文本编译器" />
+            android:text="富文本" />
 
         <Button
-            android:id="@+id/btn_editor2"
+        android:id="@+id/btn_calendar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="游客日历" />
+
+        <Button
+            android:id="@+id/btn_calendar2"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="富文本编译器2" />
-
+            android:text="导游日历" />
     </LinearLayout>
 
 
