@@ -269,3 +269,22 @@
 -keep class com.amap.api.maps2d.**{*;}
 -keep class com.amap.api.mapcore2d.**{*;}
 -dontwarn com.amap.api.**
+
+# 阿里 热修复
+#基线包使用，生成mapping.txt
+-printmapping mapping.txt
+#生成的mapping.txt在app/build/outputs/mapping/release路径下，移动到/app路径下
+#修复后的项目使用，保证混淆结果一致
+#-applymapping mapping.txt
+#hotfix
+-keep class com.taobao.sophix.**{*;}
+-keep class com.ta.utdid2.device.**{*;}
+#防止inline
+-dontoptimize
+#不混淆某个类的构造方法
+-keepclassmembers class com.njz.letsgoapp.MyApplication {
+    public <init>();
+}
+# 如果不使用android.support.annotation.Keep则需加上此行
+# -keep class com.my.pkg.SophixStubApplication$RealApplicationStub
+-dontwarn com.alibaba.sdk.android.utils.**

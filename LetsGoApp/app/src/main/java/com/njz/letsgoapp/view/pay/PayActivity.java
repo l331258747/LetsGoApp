@@ -186,7 +186,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
             @Override
             public void run() {
                 PayTask alipay = new PayTask(PayActivity.this);
-                Map<String, String> result = alipay.payV2("agaegaegae123123123", true);
+                Map<String, String> result = alipay.payV2("alipay_sdk=alipay-sdk-java-3.0.52.ALL&app_id=2018071760720301&biz_content=%7B%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE-By+Javen%22%2C%22out_trade_no%22%3A%22080214345815331%22%2C%22passback_params%22%3A%22callback+params%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22App%E6%94%AF%E4%BB%98%E6%B5%8B%E8%AF%95-By+Javen%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%220.01%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fnajiuzou.uicp.net%3A26641%2Falipay%2Fnotify_url&sign=LD2EJAXvjuUMWI4UU6kI8P5yYU9I6RP5qusT%2FBY6oxihStJlRjKqjEECL85OpyvEGOdTAprnOwSpaB9SfVq3yGL1%2F53teg%2FxPymq91rbsWdcGuCJ%2FWIanjKkqjWnhUwmu8P4r6vGusTQ%2BwQ%2FCZPze3xHZ2THpBMlIzPcarW38Kk0wXmzyRArZPk4H8ydU0mXzqD2V%2BdmKet8S6wC9Sg9tBdzR9iXcTLVF4VBY%2BgjDPlE%2BeI6gVieFoBE6lD5XPhqmpzUYpso7leI2gH%2BPfz15GKPCPjVMp3Y432v8EpnhDZ1eRwneU34o4y2p3Ov6FQuMkLCT4wWiExZQkJ5Hst2Qw%3D%3D&sign_type=RSA2&timestamp=2018-08-02+14%3A34%3A58&version=1.0", true);
                 Log.i("msp", result.toString());
 
                 Message msg = new Message();

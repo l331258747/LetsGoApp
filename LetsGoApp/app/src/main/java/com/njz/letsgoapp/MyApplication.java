@@ -2,13 +2,13 @@ package com.njz.letsgoapp;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
 
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.log.ExceptionCrashHandler;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.PreferencesUtils;
 import com.njz.letsgoapp.util.AppUtils;
+import com.taobao.sophix.SophixManager;
 import com.tencent.bugly.Bugly;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -40,16 +40,6 @@ public class MyApplication extends Application{
     }
 
     @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        //Dalvik在5.0之前，为每一个APK只生成一个classes.dex，
-        // 所以会有上述所说的方法数超限的问题，如果我们可以将一个dex文件分成多个，
-        // 在应用启动时，加载第一个（主dex）dex文件，当启动以后，再依次加载其他dex文件。这样就可以规避上述问题了。
-        // MultiDex即是实现了这样的功能
-        MultiDex.install(this);
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
 
@@ -78,6 +68,9 @@ public class MyApplication extends Application{
         //第三个参数为SDK调试模式开关 建议在测试阶段建议设置成true，发布时设置为false。
 //        CrashReport.initCrashReport(getApplicationContext(), "cd379e9015", true);
         Bugly.init(getApplicationContext(), "cd379e9015", true);
+
+        //sophix 热修复
+        SophixManager.getInstance().queryAndLoadNewPatch();
 
     }
 

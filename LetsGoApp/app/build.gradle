@@ -104,16 +104,18 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     //jpush log
     compile 'com.orhanobut:logger:1.15'
-    //bugly
     //    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
     //    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    //bugly
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
     //64k限制
-    //控件
+    compile 'com.android.support:multidex:1.0.0'
+    //阿里云 热修复
+    compile 'com.aliyun.ams:alicloud-android-hotfix:3.2.4'
+    //-------控件----------
     //banner
     //富文本
     compile 'jp.wasabeef:richeditor-android:1.2.2'
