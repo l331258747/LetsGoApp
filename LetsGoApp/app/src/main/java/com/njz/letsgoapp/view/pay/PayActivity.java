@@ -47,8 +47,6 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
     private int orderId;
     private int payIndex = 1;
 
-    private LoadingDialog loadingDialog;
-
     private IWXAPI api;
 
     public static void startActivity(Activity activity, int orderId) {
@@ -121,7 +119,6 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
         ivZhifubao = $(R.id.iv_sel_zhifubao);
         btnPay = $(R.id.btn_pay);
 
-        loadingDialog = new LoadingDialog(this);
         ivWX.setOnClickListener(this);
         ivZhifubao.setOnClickListener(this);
         btnPay.setOnClickListener(this);
@@ -186,15 +183,12 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void appPay(){
-        loadingDialog.showDialog("正在支付中...");
 
         ResponseCallback getTopListener = new ResponseCallback<AliPay>() {
             @Override
             public void onSuccess(AliPay t) {
 
-                loadingDialog.dismiss();
                 LogUtil.e("onSuccess");
-
 
                 String orderinfo = t.getData();
                 LogUtil.e("orderinfo:"+orderinfo);
@@ -203,13 +197,10 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
 
             @Override
             public void onFault(String errorMsg) {
-
-                loadingDialog.dismiss();
-
                 LogUtil.e("onFault" + errorMsg);
             }
         };
-        MethodApi.appPay(new OnSuccessAndFaultSub(getTopListener));
+        MethodApi.appPay(new OnSuccessAndFaultSub(getTopListener,context));
     }
 
     private void payAli(final String orderinfo) {
