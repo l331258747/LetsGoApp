@@ -230,7 +230,8 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getUserData();
+//                getUserData();
+                showLongToast("网络请求看payactivity");
             }
         });
     }

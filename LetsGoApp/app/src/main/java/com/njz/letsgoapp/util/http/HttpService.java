@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util.http;
 
+import com.njz.letsgoapp.bean.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
 import io.reactivex.Observable;
@@ -17,5 +18,9 @@ public interface HttpService {
     //获取豆瓣Top250 榜单
     @GET("top250")
     Observable<MovieSubject> getTop250(@Query("start") int start, @Query("count")int count);
+
+    @GET("alipay/appPay")
+    Observable<AliPay> appPay();
+
 
 }

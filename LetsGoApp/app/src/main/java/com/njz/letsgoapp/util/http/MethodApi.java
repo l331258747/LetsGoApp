@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util.http;
 
+import com.njz.letsgoapp.bean.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
 import io.reactivex.Observable;
@@ -36,5 +37,9 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    public static void appPay(DisposableObserver<AliPay> subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().appPay(); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
 
 }
