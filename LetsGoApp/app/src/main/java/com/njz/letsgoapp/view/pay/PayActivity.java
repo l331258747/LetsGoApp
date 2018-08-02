@@ -197,6 +197,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
 
 
                 String orderinfo = t.getData();
+                LogUtil.e("orderinfo:"+orderinfo);
                 payAli(orderinfo);
             }
 
