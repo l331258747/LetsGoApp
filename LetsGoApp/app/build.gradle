@@ -22,6 +22,7 @@ android {
         }
     }
 
+    //versioncode versionname命名规则查看redme.txt
     defaultConfig {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 14

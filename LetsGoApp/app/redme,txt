@@ -1,0 +1,17 @@
+-----------versioncode versionname命名规则
+code版本从1 00 00 00开始
+name版本从1.00.00.00开始
+aa:大版本
+bb:功能模块
+cc:线上bug更新
+dd:测试环境更新
+
+aa增加需要把bb,cc,dd清0
+bb增加需要把cc,dd清0
+cc增加需要把dd清0
+
+versioncode最后为00为正式版本，否则为测试版本（能被100整除为正式环境）
+versioncode     versionname
+1 00 00 01 00       1.0.1       正式
+1 00 00 10 00       1.0.10      正式
+1 00 00 10 11       1.0.10.11   测试
