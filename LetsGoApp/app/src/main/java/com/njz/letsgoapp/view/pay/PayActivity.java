@@ -2,39 +2,27 @@ package com.njz.letsgoapp.view.pay;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alipay.sdk.app.PayTask;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.AliPay;
-import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.util.dialog.LoadingDialog;
-import com.njz.letsgoapp.util.http.MethodApi;
-import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
-import com.njz.letsgoapp.util.http.ResponseCallback;
+import com.njz.letsgoapp.mvp.pay.PayContract;
+import com.njz.letsgoapp.mvp.pay.PayPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
-import java.lang.ref.WeakReference;
-import java.util.Map;
 
 /**
  * 支付界面
  * Created by llt on 2017/12/4.
  */
 
-public class PayActivity extends BaseActivity implements View.OnClickListener{
+public class PayActivity extends BaseActivity implements View.OnClickListener,PayContract.View{
 
     private static final int SDK_PAY_FLAG = 1;
 
@@ -49,60 +37,33 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
 
     private IWXAPI api;
 
+    PayContract.Presenter mPresenter;
+
     public static void startActivity(Activity activity, int orderId) {
         Intent intent = new Intent(activity, PayActivity.class);
         intent.putExtra("orderId", orderId);
         activity.startActivity(intent);
     }
 
-    private final MyHandler mHandler = new MyHandler(this);
-
-
-    private static class MyHandler extends Handler {
-        WeakReference<PayActivity> mActivity;
-
-        public MyHandler(PayActivity activity) {
-            mActivity = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            PayActivity theActivity = mActivity.get();
-            switch (msg.what) {
-                case SDK_PAY_FLAG: {
-                    @SuppressWarnings("unchecked")
-                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
-                    /**
-                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
-                     */
-                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-                    String resultStatus = payResult.getResultStatus();
-                    // 判断resultStatus 为9000则代表支付成功
-                    if (TextUtils.equals(resultStatus, "9000")) {
-                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-//                        theActivity.showShortToast("支付成功");
-                            theActivity.paySuccess();
-                    } else {
-                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-//                        theActivity.showShortToast("支付失败");
-                        theActivity.payFailed();
-                    }
-                    break;
-                }
-
-            }
-        }
+    @Override
+    public void getAliOrderInfoSeccess(String orderInfo) {
+        mPresenter.getAliPay(orderInfo);
     }
 
+    @Override
+    public void getAliOrderInfoFailed(String msg) {
+        LogUtil.e(msg);
+    }
 
-    private void paySuccess(){
+    @Override
+    public void getAliPaySeccess() {
         startActivity(new Intent(PayActivity.this,PaySuccessActivity.class));
     }
 
-    private void payFailed(){
+    @Override
+    public void getAliPayFailed() {
         startActivity(new Intent(PayActivity.this,PayFaileActivity.class));
     }
-
 
     @Override
     public int getLayoutId() {
@@ -126,15 +87,12 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
         initWXPay();
     }
 
-    private void initWXPay() {
-        api = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID);
-        api.registerApp(Constant.WEIXIN_APP_ID);
 
-    }
 
     @Override
     public void initData() {
-//        loadingDialog.showNoText();
+        mPresenter = new PayPresenter(this,activity);
+        mPresenter.registDisposable();
     }
 
     @Override
@@ -156,15 +114,19 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
                 if (payIndex == 1) {
                     payWeiXin();
                 } else {
-                    appPay();
+                    mPresenter.getAliOrderInfo();
                 }
                 break;
         }
     }
 
+    private void initWXPay() {
+        api = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID);
+        api.registerApp(Constant.WEIXIN_APP_ID);
+
+    }
 
     private void payWeiXin() {
-//        loadingDialog.showDialog("正在支付中...");
         wxPay();
     }
 
@@ -182,46 +144,9 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
         api.sendReq(req);
     }
 
-    private void appPay(){
-
-        ResponseCallback getTopListener = new ResponseCallback<AliPay>() {
-            @Override
-            public void onSuccess(AliPay t) {
-
-                LogUtil.e("onSuccess");
-
-                String orderinfo = t.getData();
-                LogUtil.e("orderinfo:"+orderinfo);
-                payAli(orderinfo);
-            }
-
-            @Override
-            public void onFault(String errorMsg) {
-                LogUtil.e("onFault" + errorMsg);
-            }
-        };
-        MethodApi.appPay(new OnSuccessAndFaultSub(getTopListener,context));
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.closeDisposable();
     }
-
-    private void payAli(final String orderinfo) {
-//        loadingDialog.showDialog("正在支付中...");
-
-        Runnable payRunnable = new Runnable() {
-            @Override
-            public void run() {
-                PayTask alipay = new PayTask(PayActivity.this);
-                Map<String, String> result = alipay.payV2(orderinfo, true);
-                Log.i("msp", result.toString());
-
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
-    }
-
 }
