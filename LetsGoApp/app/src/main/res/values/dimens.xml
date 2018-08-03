@@ -65,5 +65,6 @@
     <dimen name="sp_24">24sp</dimen>
     <dimen name="sp_26">26sp</dimen>
 
+    <dimen name="custom_section_height">36dp</dimen>
 
 </resources>

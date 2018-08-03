@@ -20,9 +20,11 @@ import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
+import com.zaaach.citypicker.CityPicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,21 @@ public class MainActivity extends BaseActivity {
 
         calendarSet();
 
+        citypickSet();
+
+    }
+
+    private void citypickSet() {
+        final Button btnDestination = $(R.id.btn_city_pick);
+        btnDestination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, CityPickActivity.class));
+            }
+        });
+
+
+
     }
 
     private void calendarSet() {
@@ -72,8 +89,8 @@ public class MainActivity extends BaseActivity {
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(context, CalendarActivity.class);
-                intent.putExtra("CalendarTag",1);
+                Intent intent = new Intent(context, CalendarActivity.class);
+                intent.putExtra("CalendarTag", 1);
                 startActivity(intent);
             }
         });
@@ -81,8 +98,8 @@ public class MainActivity extends BaseActivity {
         btnCalendar2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(context, CalendarActivity.class);
-                intent.putExtra("CalendarTag",2);
+                Intent intent = new Intent(context, CalendarActivity.class);
+                intent.putExtra("CalendarTag", 2);
                 startActivity(intent);
             }
         });
@@ -94,7 +111,7 @@ public class MainActivity extends BaseActivity {
         btnEditor1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context,EditorActivity.class));
+                startActivity(new Intent(context, EditorActivity.class));
             }
         });
     }
@@ -106,12 +123,12 @@ public class MainActivity extends BaseActivity {
         final Button btnCleanCache = $(R.id.btn_clean_cache);
         try {
             String cacheSize = CacheUtil.getTotalCacheSize(AppUtils.getContext());
-            btnCleanCache.setText("缓存：" + cacheSize);
+            btnCleanCache.setText(cacheSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        disCleanCache = RxBus2.getInstance().toObservable(String.class,new Consumer<String>() {
+        disCleanCache = RxBus2.getInstance().toObservable(String.class, new Consumer<String>() {
             @Override
             public void accept(String s) throws Exception {
                 btnCleanCache.setText(s);

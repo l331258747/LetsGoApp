@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
-        android:layout_margin="5dp"
+        android:layout_margin="2dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -35,14 +35,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="2dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="网络" />
@@ -51,7 +51,7 @@
             android:id="@+id/btn_home"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="首页" />
@@ -60,7 +60,7 @@
             android:id="@+id/btn_share"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="分享" />
@@ -69,7 +69,7 @@
             android:id="@+id/btn_bugly"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="bugly" />
@@ -80,7 +80,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="2dp"
         android:orientation="horizontal">
 
 
@@ -90,14 +90,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="2dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_map"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="地图" />
@@ -106,7 +106,7 @@
             android:id="@+id/btn_location"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="定位" />
@@ -115,71 +115,82 @@
             android:id="@+id/btn_un_location"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="取消定位" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_crash"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="崩溃日志" />
-
-        <Button
-            android:id="@+id/btn_clean_cache"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="缓存大小" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="2dp"
         android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btn_clean_cache"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="缓存大小" />
 
         <Button
             android:id="@+id/btn_editor1"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="富文本" />
 
         <Button
-        android:id="@+id/btn_calendar"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="游客日历" />
+            android:id="@+id/btn_calendar"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="游客日历" />
 
         <Button
             android:id="@+id/btn_calendar2"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="导游日历" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_city_pick"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="目的地" />
+
     </LinearLayout>
 
 
