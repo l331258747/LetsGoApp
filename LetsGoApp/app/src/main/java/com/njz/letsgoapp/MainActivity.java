@@ -24,7 +24,6 @@ import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
-import com.zaaach.citypicker.CityPicker;
 
 import java.util.ArrayList;
 import java.util.List;

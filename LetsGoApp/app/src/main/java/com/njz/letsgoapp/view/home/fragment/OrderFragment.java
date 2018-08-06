@@ -14,7 +14,7 @@ import com.njz.letsgoapp.base.BaseFragment;
 public class OrderFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_order;
     }
 
     @Override

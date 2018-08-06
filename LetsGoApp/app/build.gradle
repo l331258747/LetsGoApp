@@ -120,8 +120,7 @@ dependencies {
     //banner
     //富文本
     compile 'jp.wasabeef:richeditor-android:1.2.2'
-    //城市选择
-    compile 'com.zaaach:citypicker:2.0.2'
     //-------远程库 end--------
     compile project(':CalendarLib')
+    compile project(':citypicker')
 }

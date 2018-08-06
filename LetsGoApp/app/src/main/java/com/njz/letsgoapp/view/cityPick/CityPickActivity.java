@@ -29,8 +29,13 @@ public class CityPickActivity extends BaseActivity {
         return R.layout.activity_city_pick;
     }
 
+
+
     @Override
     public void initView() {
+
+        setTheme(R.style.CustomTheme);
+
         Button btnCityPick = $(R.id.button);
         btnCityPick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,11 +47,41 @@ public class CityPickActivity extends BaseActivity {
                 hotCities.add(new HotCity("深圳", "广东", "101280601"));
                 hotCities.add(new HotCity("杭州", "浙江", "101210101"));
 
+                List<City> citys = new ArrayList<>();
+                citys.add(new City("北京", "北京","beijing", "101010100"));
+                citys.add(new City("北京", "北京","beijing", "101010100"));
+                citys.add(new City("北京", "北京","beijing", "101010100"));
+                citys.add(new City("北京", "北京","beijing", "101010100"));
+                citys.add(new City("北京", "北京","beijing", "101010100"));
+                citys.add(new City("上海", "上海","shanghai", "101020100"));
+                citys.add(new City("上海", "上海","shanghai", "101020100"));
+                citys.add(new City("上海", "上海","shanghai", "101020100"));
+                citys.add(new City("上海", "上海","shanghai", "101020100"));
+                citys.add(new City("上海", "上海","shanghai", "101020100"));
+                citys.add(new City("广州", "广东","guangzhou", "101280101"));
+                citys.add(new City("广州", "广东","guangzhou", "101280101"));
+                citys.add(new City("广州", "广东","guangzhou", "101280101"));
+                citys.add(new City("广州", "广东","guangzhou", "101280101"));
+                citys.add(new City("广州", "广东","guangzhou", "101280101"));
+                citys.add(new City("深圳", "广东","shenzhen", "101280601"));
+                citys.add(new City("深圳", "广东","shenzhen", "101280601"));
+                citys.add(new City("深圳", "广东","shenzhen", "101280601"));
+                citys.add(new City("深圳", "广东","shenzhen", "101280601"));
+                citys.add(new City("深圳", "广东","shenzhen", "101280601"));
+                citys.add(new City("杭州", "浙江","hangzhou", "101210101"));
+                citys.add(new City("杭州", "浙江","hangzhou", "101210101"));
+                citys.add(new City("杭州", "浙江","hangzhou", "101210101"));
+                citys.add(new City("杭州", "浙江","hangzhou", "101210101"));
+                citys.add(new City("杭州", "浙江","hangzhou", "101210101"));
+
+
                 CityPicker.getInstance()
                         .setFragmentManager(getSupportFragmentManager())	//此方法必须调用
                         .enableAnimation(true)	//启用动画效果
-                        .setAnimationStyle(R.style.DefaultCityPickerAnimation)	//自定义动画
-                        .setLocatedCity(new LocatedCity("杭州", "浙江", "101210101"))  //APP自身已定位的城市，默认为null（定位失败）
+//                        .setAnimationStyle(R.style.DefaultCityPickerAnimation)	//自定义动画
+                        .setAnimationStyle(R.style.CustomAnim)	//自定义动画
+                        .setCitys(citys)
+//                        .setLocatedCity(new LocatedCity("杭州", "浙江", "101210101"))  //APP自身已定位的城市，默认为null（定位失败）
                         .setHotCities(hotCities)	//指定热门城市
                         .setOnPickListener(new OnPickListener() {
                             @Override

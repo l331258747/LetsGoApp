@@ -21,6 +21,11 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="CustomAnim">
+        <item name="android:windowEnterAnimation">@anim/custom_push_down_in</item>
+        <item name="android:windowExitAnimation">@anim/custom_push_up_out</item>
+    </style>
+
     <style name="CustomTheme" parent="DefaultCityPickerTheme">
         <item name="cpCancelTextColor">@color/color_green</item>
         <item name="cpSearchCursorDrawable">@color/color_green</item>
