@@ -66,19 +66,18 @@
             android:layout_height="wrap_content"
             android:text="2563次服务  |  5.0分 （2300条点评）"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="11sp" />
 
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/tv_price"
+    <com.njz.letsgoapp.widget.PriceView
+        android:id="@+id/tv_price1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ll_times"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:text="￥270起" />
+        android:layout_marginRight="10dp"/>
 
     <TextView
         android:id="@+id/tv_content"

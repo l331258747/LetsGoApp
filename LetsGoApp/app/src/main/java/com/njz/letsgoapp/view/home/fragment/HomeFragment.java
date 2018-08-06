@@ -1,16 +1,13 @@
 package com.njz.letsgoapp.view.home.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
-import com.njz.letsgoapp.HomeAdapter;
+import com.njz.letsgoapp.adapter.HomeAdapter;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.home.HomeData;
-import com.zaaach.citypicker.adapter.CityListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

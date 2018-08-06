@@ -1,4 +1,4 @@
-package com.njz.letsgoapp;
+package com.njz.letsgoapp.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +11,11 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.MyRatingBar;
+import com.njz.letsgoapp.widget.PriceView;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     private static final int HOME_VIEW_TYPE_BANNER = 10;
     private static final int HOME_VIEW_TYPE_TRIPSETTING = 11;
+    private static final int HOME_VIEW_TYPE_GUIDE_TIME = 12;
 
 
     public HomeAdapter(Context context, List<HomeData.HomeBanner> homeBanners, List<HomeData.Guide> guides) {
@@ -50,6 +53,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             case HOME_VIEW_TYPE_TRIPSETTING:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_item_trip_setting, parent, false);
                 return new HomeTripSettingViewHolder(view);
+            case HOME_VIEW_TYPE_GUIDE_TIME:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide_title, parent, false);
+                return new HomeGuideTitleViewHolder(view);
             default:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide, parent, false);
                 return new HomeGuideViewHolder(view);
@@ -62,6 +68,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             return HOME_VIEW_TYPE_BANNER;
         if (position == 1)
             return HOME_VIEW_TYPE_TRIPSETTING;
+        if(position == 2)
+            return HOME_VIEW_TYPE_GUIDE_TIME;
         return super.getItemViewType(position);
 
     }
@@ -70,7 +78,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         if (holder == null) return;
         if (holder instanceof HomeGuideViewHolder) {
-            final int pos = holder.getAdapterPosition() - 2;
+            final int pos = holder.getAdapterPosition() - 3;
             final HomeData.Guide data = guides.get(pos);
             if (data == null) return;
 
@@ -79,6 +87,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             ((HomeGuideViewHolder) holder).tv_name.setText(data.getName());
             ((HomeGuideViewHolder) holder).rating_bar_route.setRating(data.getLevel());
             ((HomeGuideViewHolder) holder).tv_content.setText(data.getContent());
+            ((HomeGuideViewHolder) holder).tv_price1.setPrice(data.getPrice());
         }
 
 
@@ -96,9 +105,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                     //设置自动切换（同时设置了切换时间间隔）
                     .startTurning(10000)
                     //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-//                    .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
+                    .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
                     //设置指示器的方向（左、中、右）
-                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
+                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                     //设置点击监听事件
 //                    .setOnItemClickListener(this)
                     //设置手动影响（设置了该项无法手动切换）
@@ -109,16 +118,27 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         if (holder instanceof HomeTripSettingViewHolder){
 
         }
+
+        if (holder instanceof HomeGuideTitleViewHolder){
+
+        }
     }
 
     @Override
     public int getItemCount() {
-        return guides == null ? 2 : 2+guides.size();
+        return guides == null ? 3 : 3+guides.size();
     }
 
 
     static class BaseViewHolder extends RecyclerView.ViewHolder {
         BaseViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    public static class HomeGuideTitleViewHolder extends BaseViewHolder{
+
+        HomeGuideTitleViewHolder(View itemView) {
             super(itemView);
         }
     }
@@ -129,6 +149,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         TextView tv_name;
         MyRatingBar rating_bar_route;
         TextView tv_content;
+        PriceView tv_price1;
 
         HomeGuideViewHolder(View itemView) {
             super(itemView);
@@ -137,6 +158,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             tv_name = itemView.findViewById(R.id.tv_name);
             rating_bar_route = itemView.findViewById(R.id.rating_bar_route);
             tv_content = itemView.findViewById(R.id.tv_content);
+            tv_price1 = itemView.findViewById(R.id.tv_price1);
         }
     }
 
