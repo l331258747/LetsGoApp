@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="my_ratingbar">
+        <attr name="my_ratingbar_margin" format="dimension"/>
+        <attr name="my_ratingbar_size" format="dimension"/>
+        <attr name="my_ratingbar_click" format="boolean"/>
+    </declare-styleable>
+
+</resources>

@@ -6,8 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.njz.letsgoapp.HomeAdapter;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.home.HomeData;
+import com.zaaach.citypicker.adapter.CityListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +21,13 @@ import java.util.List;
  * Function:
  */
 
-public class HomeFragment extends BaseFragment{
+public class HomeFragment extends BaseFragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     static RecyclerView recyclerView;
+
+    HomeAdapter mAdapter;
+    HomeData homeData;
 
 
     @Override
@@ -31,13 +37,35 @@ public class HomeFragment extends BaseFragment{
 
     @Override
     public void initView() {
+
+        initDataTest();
+
         initRecycler();
         initSwipeLayout();
 
     }
 
+    private void initDataTest() {
+        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
+        String headImg = "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg";
+        List<HomeData.HomeBanner> homeBanners = new ArrayList<>();
+        HomeData.HomeBanner homeBanner = new HomeData.HomeBanner(bannerImg);
+        homeBanners.add(homeBanner);
+        homeBanners.add(homeBanner);
+        homeBanners.add(homeBanner);
+
+        List<HomeData.Guide> guides = new ArrayList<>();
+        HomeData.Guide guide = new HomeData.Guide(bannerImg, headImg, "那就走", 5, 5615, 2210, 366d, "安静地分行阿我不管看不惯阿嘎哥啊恩格斯噶十多个阿萨德噶尔");
+        guides.add(guide);
+        guides.add(guide);
+        guides.add(guide);
+
+        homeData = new HomeData(homeBanners,guides);
+    }
+
     @Override
     public void initData() {
+
 
     }
 
@@ -45,20 +73,11 @@ public class HomeFragment extends BaseFragment{
     private void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
 
-//        final List<HomeItem2> data = new ArrayList<HomeItem2>();
-//        homeAdapter = new HomeAdapter2(activity, data);
-//        homeAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
-//                return data.get(position).getSpanSize();
-//            }
-//        });
-//        recyclerView.setAdapter(homeAdapter);
-//
-//        homeAdapter.setOnItemClickListener(this);
-//
-//        homeAdapter.setOnItemChildClickListener(this);
+        mAdapter = new HomeAdapter(activity, homeData.getHomeBanners(),homeData.getGuides());
+
+        recyclerView.setAdapter(mAdapter);
     }
 
     //初始化SwipeLayout

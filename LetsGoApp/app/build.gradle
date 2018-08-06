@@ -118,6 +118,7 @@ dependencies {
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.2.4'
     //-------控件----------
     //banner
+    compile 'com.bigkoo:convenientbanner:2.0.5'
     //富文本
     compile 'jp.wasabeef:richeditor-android:1.2.2'
     //-------远程库 end--------

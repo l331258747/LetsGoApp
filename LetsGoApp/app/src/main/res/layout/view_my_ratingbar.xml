@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:background="@color/black"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_star1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selector_my_ratingbar" />
+
+    <ImageView
+        android:id="@+id/iv_star2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_3"
+        android:src="@drawable/selector_my_ratingbar" />
+
+    <ImageView
+        android:id="@+id/iv_star3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_3"
+        android:src="@drawable/selector_my_ratingbar" />
+
+    <ImageView
+        android:id="@+id/iv_star4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_3"
+        android:src="@drawable/selector_my_ratingbar" />
+
+    <ImageView
+        android:id="@+id/iv_star5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_3"
+        android:src="@drawable/selector_my_ratingbar" />
+
+</LinearLayout>
