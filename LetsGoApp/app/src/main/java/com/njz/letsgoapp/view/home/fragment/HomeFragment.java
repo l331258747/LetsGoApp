@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.home.fragment;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import com.njz.letsgoapp.adapter.HomeAdapter;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.home.HomeData;
+import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +68,12 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
-
+        mAdapter.setDestinationListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, CityPickActivity.class));
+            }
+        });
     }
 
     //初始化recyclerview
