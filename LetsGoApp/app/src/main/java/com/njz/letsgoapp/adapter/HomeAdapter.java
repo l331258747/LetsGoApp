@@ -68,7 +68,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             return HOME_VIEW_TYPE_BANNER;
         if (position == 1)
             return HOME_VIEW_TYPE_TRIPSETTING;
-        if(position == 2)
+        if (position == 2)
             return HOME_VIEW_TYPE_GUIDE_TIME;
         return super.getItemViewType(position);
 
@@ -100,33 +100,27 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                     return new LocalImageHolderView();
                 }
             }, homeBanners)
-                    //设置指示器是否可见
-                    .setPointViewVisible(true)
-                    //设置自动切换（同时设置了切换时间间隔）
-                    .startTurning(10000)
-                    //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                    .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
-                    //设置指示器的方向（左、中、右）
-                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
-                    //设置点击监听事件
-//                    .setOnItemClickListener(this)
-                    //设置手动影响（设置了该项无法手动切换）
-                    .setManualPageable(true);
+                    .setPointViewVisible(true) //设置指示器是否可见
+                    .startTurning(4000)//设置自动切换（同时设置了切换时间间隔）
+                    .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
+//                    .setOnItemClickListener(this) //设置点击监听事件
+                    .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
 
         }
 
-        if (holder instanceof HomeTripSettingViewHolder){
+        if (holder instanceof HomeTripSettingViewHolder) {
 
         }
 
-        if (holder instanceof HomeGuideTitleViewHolder){
+        if (holder instanceof HomeGuideTitleViewHolder) {
 
         }
     }
 
     @Override
     public int getItemCount() {
-        return guides == null ? 3 : 3+guides.size();
+        return guides == null ? 3 : 3 + guides.size();
     }
 
 
@@ -136,7 +130,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
     }
 
-    public static class HomeGuideTitleViewHolder extends BaseViewHolder{
+    public static class HomeGuideTitleViewHolder extends BaseViewHolder {
 
         HomeGuideTitleViewHolder(View itemView) {
             super(itemView);
