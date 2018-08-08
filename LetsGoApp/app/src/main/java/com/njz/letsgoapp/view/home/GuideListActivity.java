@@ -1,16 +1,27 @@
 package com.njz.letsgoapp.view.home;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.amap.api.maps2d.model.Text;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.GuideData;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
+import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -18,13 +29,19 @@ import java.util.List;
  * Function:
  */
 
-public class GuideListActivity extends BaseActivity {
+public class GuideListActivity extends BaseActivity implements View.OnClickListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     static RecyclerView recyclerView;
 
     GuideListAdapter mAdapter;
     GuideData guideList;
+
+    ImageView ivLeft;
+    TextView tvCityPick;
+    TextView tvSearch;
+
+    Disposable desDisposable;
 
     @Override
     public int getLayoutId() {
@@ -33,7 +50,22 @@ public class GuideListActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
         hideTitleLayout();
+
+        ivLeft = $(R.id.iv_left);
+        tvCityPick = $(R.id.tv_city_pick);
+        tvSearch = $(R.id.tv_search);
+
+        ivLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tvCityPick.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
+
 
         initRecycler();
         initSwipeLayout();
@@ -101,4 +133,26 @@ public class GuideListActivity extends BaseActivity {
         return guideDatas;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_left:
+                finish();
+                break;
+            case R.id.tv_city_pick:
+                startActivity(new Intent(context, CityPickActivity.class));
+                activity.overridePendingTransition(0, 0);
+                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+                    @Override
+                    public void accept(CityPickEvent cityPickEvent) throws Exception {
+                        tvCityPick.setText(cityPickEvent.getCity());
+                        desDisposable.dispose();
+                    }
+                });
+                break;
+            case R.id.tv_search:
+
+                break;
+        }
+    }
 }
