@@ -1,4 +1,4 @@
-package com.dali.custompicker;
+package com.njz.letsgoapp.view.calendar;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,20 +9,28 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dali.custompicker.CalendarData;
 import com.dali.custompicker.adapter.MonthTimeAdapter;
 import com.dali.custompicker.bean.DayTimeEntity;
 import com.dali.custompicker.bean.MonthTimeEntity;
 import com.dali.custompicker.bean.UpdataCalendar;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class CalendarActivity extends Activity {
+
+    private TextView tvRight;
 
     private TextView startTime;          //开始时间
     private TextView stopTime;           //结束时间
@@ -39,7 +47,7 @@ public class CalendarActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_picker);
+        setContentView(com.dali.custompicker.R.layout.activity_picker);
 
         initIntent();
         initView();
@@ -81,10 +89,27 @@ public class CalendarActivity extends Activity {
     }
 
     private void initView() {
-        startTime = (TextView) findViewById(R.id.plan_time_txt_start);
-        stopTime = (TextView) findViewById(R.id.plan_time_txt_stop);
-        plan_time_txt_month = (TextView) findViewById(R.id.plan_time_txt_month);
-        reycycler = (RecyclerView) findViewById(R.id.plan_time_calender);
+        tvRight = (TextView) findViewById(com.dali.custompicker.R.id.tv_right);
+        tvRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CalendarData.stopDay.getDay() < 1 || CalendarData.startDay.getDay() < 1){
+                    RxBus2.getInstance().post(new CalendarEvent("","",""));
+                }else{
+                    String startTime = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
+                    String endTime = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();
+                    RxBus2.getInstance().post(new CalendarEvent(CalendarData.startDay.getMonth()+"月"+CalendarData.startDay.getDay()+"日"
+                            ,CalendarData.stopDay.getMonth() + "月" + CalendarData.stopDay.getDay() + "日"
+                            ,getGapCount(startTime,endTime) + "天"));
+                }
+                finish();
+            }
+        });
+
+        startTime = (TextView) findViewById(com.dali.custompicker.R.id.plan_time_txt_start);
+        stopTime = (TextView) findViewById(com.dali.custompicker.R.id.plan_time_txt_stop);
+        plan_time_txt_month = (TextView) findViewById(com.dali.custompicker.R.id.plan_time_txt_month);
+        reycycler = (RecyclerView) findViewById(com.dali.custompicker.R.id.plan_time_calender);
         final LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this,   // 上下文
                         LinearLayout.VERTICAL,  //垂直布局,
@@ -147,5 +172,43 @@ public class CalendarActivity extends Activity {
         for (DayTimeEntity dayTimeEntity : CalendarData.markerDays){
             Log.e("---------","tear:"+ dayTimeEntity.getYear() + ",month:" + dayTimeEntity.getMonth() + ",day:" + dayTimeEntity.getDay());
         }
+    }
+
+    public static int getGapCount(String startStr, String endStr) {
+
+
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = stringToDate(startStr);
+            endDate =  stringToDate(endStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+
+        Calendar fromCalendar = Calendar.getInstance();
+        fromCalendar.setTime(startDate);
+        fromCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        fromCalendar.set(Calendar.MINUTE, 0);
+        fromCalendar.set(Calendar.SECOND, 0);
+        fromCalendar.set(Calendar.MILLISECOND, 0);
+
+        Calendar toCalendar = Calendar.getInstance();
+        toCalendar.setTime(endDate);
+        toCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        toCalendar.set(Calendar.MINUTE, 0);
+        toCalendar.set(Calendar.SECOND, 0);
+        toCalendar.set(Calendar.MILLISECOND, 0);
+
+        return (int) ((toCalendar.getTime().getTime() - fromCalendar.getTime().getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    }
+
+    public static Date stringToDate(String strTime) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        date = formatter.parse(strTime);
+        return date;
     }
 }

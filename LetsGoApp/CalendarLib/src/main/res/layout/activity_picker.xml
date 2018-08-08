@@ -1,126 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!--标题栏-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
         android:background="@android:color/white"
-        >
+        android:padding="6dp">
 
 
         <!--标题-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="预定日期"
             android:layout_centerInParent="true"
-            android:textSize="20sp"
-            />
+            android:text="预定日期"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="确定"
+            android:textSize="16sp" />
+
     </RelativeLayout>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d9d9d9"
-        />
+        android:background="#d9d9d9" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f2f4f7"
-        android:paddingTop="20dp"
-        >
+        android:paddingTop="20dp">
+
         <TextView
             android:id="@+id/plan_time_txt_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开始\n时间"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="87dp"
             android:layout_marginStart="87dp"
             android:gravity="center"
-            />
+            android:text="开始\n时间" />
+
         <TextView
             android:id="@+id/plan_time_txt_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="结束\n时间"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="74dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="74dp"
-            android:gravity="center"/>
+            android:layout_marginRight="74dp"
+            android:gravity="center"
+            android:text="结束\n时间" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="#f2f4f7"
-        android:paddingTop="20dp"
+        android:orientation="horizontal"
         android:paddingBottom="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="S"
-            android:gravity="center"
-            />
+        android:paddingTop="20dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="M"
             android:gravity="center"
-            />
+            android:text="S" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="T"
             android:gravity="center"
-            />
+            android:text="M" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="W"
             android:gravity="center"
-            />
+            android:text="T" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="T"
             android:gravity="center"
-            />
+            android:text="W" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
+            android:text="T" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="F"
-            android:gravity="center"
 
             />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="S"
             android:gravity="center"
-            />
+            android:text="S" />
     </LinearLayout>
 
     <FrameLayout
@@ -128,16 +136,16 @@
         android:layout_height="match_parent"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/plan_time_calender"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            >
+            android:background="@android:color/white">
 
         </android.support.v7.widget.RecyclerView>
 
-        <include layout="@layout/stickyhead"/>
+        <include layout="@layout/stickyhead" />
     </FrameLayout>
 
 

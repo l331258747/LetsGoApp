@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dali.custompicker.CalendarActivity;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.editor.EditorActivity;
@@ -20,6 +19,7 @@ import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
