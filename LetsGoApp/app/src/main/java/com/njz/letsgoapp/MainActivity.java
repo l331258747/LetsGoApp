@@ -21,7 +21,7 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
-import com.njz.letsgoapp.view.home.HomeActivity;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
 

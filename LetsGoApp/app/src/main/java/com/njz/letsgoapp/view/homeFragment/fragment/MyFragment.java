@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home.fragment;
+package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.widget.TextView;
 

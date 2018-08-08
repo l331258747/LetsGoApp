@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 
-import com.njz.letsgoapp.view.home.HomeActivity;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
 import java.util.List;
 import java.util.Stack;

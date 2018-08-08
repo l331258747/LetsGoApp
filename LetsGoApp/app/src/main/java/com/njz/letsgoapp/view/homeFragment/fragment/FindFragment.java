@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home.fragment;
+package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.widget.TextView;
 
@@ -11,16 +11,16 @@ import com.njz.letsgoapp.base.BaseFragment;
  * Function:
  */
 
-public class OrderFragment extends BaseFragment {
+public class FindFragment extends BaseFragment{
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_order;
+        return R.layout.fragment_find;
     }
 
     @Override
     public void initView() {
         TextView homeIv = $(R.id.home_iv);
-        homeIv.setText("订单");
+        homeIv.setText("发现");
 
     }
 

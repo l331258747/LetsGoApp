@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home;
+package com.njz.letsgoapp.view.homeFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +10,11 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.util.log.LogUtil;
-import com.njz.letsgoapp.view.home.fragment.FindFragment;
-import com.njz.letsgoapp.view.home.fragment.HomeFragment;
-import com.njz.letsgoapp.view.home.fragment.MyFragment;
-import com.njz.letsgoapp.view.home.fragment.NotifyFragment;
-import com.njz.letsgoapp.view.home.fragment.OrderFragment;
+import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
+import com.njz.letsgoapp.view.homeFragment.fragment.HomeFragment;
+import com.njz.letsgoapp.view.homeFragment.fragment.MyFragment;
+import com.njz.letsgoapp.view.homeFragment.fragment.NotifyFragment;
+import com.njz.letsgoapp.view.homeFragment.fragment.OrderFragment;
 import com.njz.letsgoapp.widget.tab.TabItem;
 import com.njz.letsgoapp.widget.tab.TabLayout;
 import com.njz.letsgoapp.widget.tab.TabView;
