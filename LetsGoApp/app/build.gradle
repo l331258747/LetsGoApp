@@ -84,6 +84,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //-------远程库 start--------
     compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:cardview-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //导入retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'

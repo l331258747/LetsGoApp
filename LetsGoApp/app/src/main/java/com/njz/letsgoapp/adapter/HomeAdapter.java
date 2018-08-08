@@ -168,12 +168,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         HomeGuideTitleViewHolder(View itemView) {
             super(itemView);
             tvCheckAll = itemView.findViewById(R.id.tv_check_all);
-            tvCheckAll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext, "查看全部");
-                }
-            });
+            tvCheckAll.setOnClickListener(guideAllListener);
         }
     }
 
