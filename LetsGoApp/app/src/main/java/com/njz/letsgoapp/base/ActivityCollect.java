@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 
+import com.njz.letsgoapp.view.home.HomeActivity;
+
 import java.util.List;
 import java.util.Stack;
 
@@ -13,7 +15,7 @@ import java.util.Stack;
  * Function: activity 统一管理
  */
 public class ActivityCollect {
-    private static Stack<BaseActivity> activityStack;
+    private static Stack<Activity> activityStack;
     private static ActivityCollect instance;
 
     private ActivityCollect() {
@@ -33,9 +35,9 @@ public class ActivityCollect {
     /**
      * 添加Activity到栈
      */
-    public void addActivity(BaseActivity activity) {
+    public void addActivity(Activity activity) {
         if (activityStack == null) {
-            activityStack = new Stack<BaseActivity>();
+            activityStack = new Stack<Activity>();
         }
         activityStack.add(activity);
     }
@@ -43,34 +45,34 @@ public class ActivityCollect {
     /**
      * 获取当前Activity（栈顶Activity）
      */
-    public BaseActivity currentActivity() {
+    public Activity currentActivity() {
         if (activityStack == null || activityStack.isEmpty()) {
             return null;
         }
-        BaseActivity activity = activityStack.lastElement();
+        Activity activity = activityStack.lastElement();
         return activity;
     }
 
 
     /**
-     * 结束指定的Activity(重载)
+     * 结束除homeActivity外的所有activity
      */
     public void finishAllNotHome() {
-//        for (BaseActivity activity : activityStack) {
-//            if (!activity.getClass().equals(HomeActivity.class)) {
-//                activity.finish();
-//            }
-//        }
+        for (Activity activity : activityStack) {
+            if (!activity.getClass().equals(HomeActivity.class)) {
+                activity.finish();
+            }
+        }
 
     }
 
 
     /**
-     * 获取当前Activity（栈顶Activity） 没有找到则返回null
+     * 获取指定activity 没有找到则返回null
      */
-    public BaseActivity findActivity(Class<?> cls) {
-        BaseActivity activity = null;
-        for (BaseActivity aty : activityStack) {
+    public Activity findActivity(Class<?> cls) {
+        Activity activity = null;
+        for (Activity aty : activityStack) {
             if (aty.getClass().equals(cls)) {
                 activity = aty;
                 break;
@@ -100,7 +102,7 @@ public class ActivityCollect {
      * 结束当前Activity（栈顶Activity）
      */
     public void finishActivity() {
-        BaseActivity activity = activityStack.lastElement();
+        Activity activity = activityStack.lastElement();
         finishActivity(activity);
     }
 
@@ -119,7 +121,7 @@ public class ActivityCollect {
      * 结束指定的Activity(重载)
      */
     public void finishActivity(Class<?> cls) {
-        for (BaseActivity activity : activityStack) {
+        for (Activity activity : activityStack) {
             if (activity.getClass().equals(cls)) {
                 finishActivity(activity);
                 break;
@@ -138,9 +140,9 @@ public class ActivityCollect {
         int startPosition = i + 1, endPosition = activityStack.size();
 
         if (startPosition < activityStack.size() && endPosition >= startPosition) {
-            List<BaseActivity> list = activityStack.subList(startPosition, endPosition);
+            List<Activity> list = activityStack.subList(startPosition, endPosition);
             if (null != list && !list.isEmpty()) {
-                for (BaseActivity acts : list) {
+                for (Activity acts : list) {
                     acts.finish();
                 }
             }

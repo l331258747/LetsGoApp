@@ -13,6 +13,7 @@ import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 
@@ -40,6 +41,7 @@ public class HomeFragment extends BaseFragment {
     LinearLayoutManager linearLayoutManager;
 
     Disposable calDisposable;
+    Disposable desDisposable;
 
     @Override
     public int getLayoutId() {
@@ -64,6 +66,15 @@ public class HomeFragment extends BaseFragment {
             public void onClick(View v) {
                 showShortToast("城市选择");
                 startActivity(new Intent(context, CityPickActivity.class));
+                activity.overridePendingTransition(0, 0);
+
+                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+                    @Override
+                    public void accept(CityPickEvent cityPickEvent) throws Exception {
+                        mAdapter.setDestination(cityPickEvent.getCity());
+                        desDisposable.dispose();
+                    }
+                });
             }
         });
 

@@ -1,13 +1,18 @@
 package com.njz.letsgoapp.view.cityPick;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.base.BaseActivity;
-import com.zaaach.citypicker.CityPicker;
+import com.njz.letsgoapp.base.ActivityCollect;
+import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.zaaach.citypicker.adapter.OnPickListener;
 import com.zaaach.citypicker.model.City;
 import com.zaaach.citypicker.model.HotCity;
@@ -23,24 +28,25 @@ import java.util.List;
  * Function:
  */
 
-public class CityPickActivity extends BaseActivity {
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_city_pick;
-    }
-
+public class CityPickActivity extends AppCompatActivity {
 
 
     @Override
-    public void initView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(new View(this));
+
+        ActivityCollect.getAppCollect().addActivity(this);
 
         setTheme(R.style.CustomTheme);
 
-        Button btnCityPick = $(R.id.button);
-        btnCityPick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<HotCity> hotCities = new ArrayList<>();
+        initView();
+    }
+
+    public void initView() {
+
+        List<HotCity> hotCities = new ArrayList<>();
                 hotCities.add(new HotCity("北京", "北京", "101010100"));
                 hotCities.add(new HotCity("上海", "上海", "101020100"));
                 hotCities.add(new HotCity("广州", "广东", "101280101"));
@@ -86,30 +92,21 @@ public class CityPickActivity extends BaseActivity {
                         .setOnPickListener(new OnPickListener() {
                             @Override
                             public void onPick(int position, City data) {
-                                Toast.makeText(getApplicationContext(), data.getName(), Toast.LENGTH_SHORT).show();
+                                ToastUtil.showShortToast(AppUtils.getContext(),data.getName());
+                                RxBus2.getInstance().post(new CityPickEvent(data.getName()));
                             }
 
                             @Override
                             public void onLocate() {
-                                //开始定位，这里模拟一下定位
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //定位完成之后更新数据
-                                        CityPicker.getInstance()
-                                                .locateComplete(new LocatedCity("深圳", "广东", "101280601"), LocateState.SUCCESS);
-                                    }
-                                }, 2000);
                             }
                         })
                         .show();
-            }
-        });
-
     }
 
     @Override
-    public void initData() {
-
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
+
 }

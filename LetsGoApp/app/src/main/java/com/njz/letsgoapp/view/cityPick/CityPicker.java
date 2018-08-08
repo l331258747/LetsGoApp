@@ -1,4 +1,4 @@
-package com.zaaach.citypicker;
+package com.njz.letsgoapp.view.cityPick;
 
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
@@ -7,9 +7,9 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.zaaach.citypicker.adapter.OnPickListener;
 import com.zaaach.citypicker.model.City;
+import com.zaaach.citypicker.model.HotCity;
 import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.model.LocatedCity;
-import com.zaaach.citypicker.model.HotCity;
 
 import java.util.List;
 

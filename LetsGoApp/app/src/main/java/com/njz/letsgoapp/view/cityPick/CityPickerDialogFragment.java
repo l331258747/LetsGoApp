@@ -1,5 +1,6 @@
-package com.zaaach.citypicker;
+package com.njz.letsgoapp.view.cityPick;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.njz.letsgoapp.base.ActivityCollect;
 import com.zaaach.citypicker.adapter.CityListAdapter;
 import com.zaaach.citypicker.adapter.InnerListener;
 import com.zaaach.citypicker.adapter.OnPickListener;
@@ -28,7 +30,6 @@ import com.zaaach.citypicker.adapter.decoration.SectionItemDecoration;
 import com.zaaach.citypicker.db.DBManager;
 import com.zaaach.citypicker.model.City;
 import com.zaaach.citypicker.model.HotCity;
-import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.model.LocatedCity;
 import com.zaaach.citypicker.view.SideIndexBar;
 
@@ -59,7 +60,7 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
     private DBManager dbManager;
 
     private boolean enableAnim = false;
-    private int mAnimStyle = R.style.DefaultCityPickerAnimation;
+    private int mAnimStyle = com.zaaach.citypicker.R.style.DefaultCityPickerAnimation;
 //    private LocatedCity mLocatedCity;
 //    private int locateState;
     private OnPickListener mOnPickListener;
@@ -80,7 +81,7 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(STYLE_NO_TITLE, R.style.CityPickerStyle);
+        setStyle(STYLE_NO_TITLE, com.zaaach.citypicker.R.style.CityPickerStyle);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -138,15 +139,15 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
     }
 
     public void setAnimationStyle(@StyleRes int style){
-        this.mAnimStyle = style <= 0 ? R.style.DefaultCityPickerAnimation : style;
+        this.mAnimStyle = style <= 0 ? com.zaaach.citypicker.R.style.DefaultCityPickerAnimation : style;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.cp_dialog_city_picker, container, false);
+        mContentView = inflater.inflate(com.zaaach.citypicker.R.layout.cp_dialog_city_picker, container, false);
 
-        mRecyclerView = mContentView.findViewById(R.id.cp_city_recyclerview);
+        mRecyclerView = mContentView.findViewById(com.zaaach.citypicker.R.id.cp_city_recyclerview);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -167,18 +168,18 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
             }
         });
 
-        mEmptyView = mContentView.findViewById(R.id.cp_empty_view);
-        mOverlayTextView = mContentView.findViewById(R.id.cp_overlay);
+        mEmptyView = mContentView.findViewById(com.zaaach.citypicker.R.id.cp_empty_view);
+        mOverlayTextView = mContentView.findViewById(com.zaaach.citypicker.R.id.cp_overlay);
 
-        mIndexBar = mContentView.findViewById(R.id.cp_side_index_bar);
+        mIndexBar = mContentView.findViewById(com.zaaach.citypicker.R.id.cp_side_index_bar);
         mIndexBar.setOverlayTextView(mOverlayTextView)
                 .setOnIndexChangedListener(this);
 
-        mSearchBox = mContentView.findViewById(R.id.cp_search_box);
+        mSearchBox = mContentView.findViewById(com.zaaach.citypicker.R.id.cp_search_box);
         mSearchBox.addTextChangedListener(this);
 
-        mCancelBtn = mContentView.findViewById(R.id.cp_cancel);
-        mClearAllBtn = mContentView.findViewById(R.id.cp_clear_all);
+        mCancelBtn = mContentView.findViewById(com.zaaach.citypicker.R.id.cp_cancel);
+        mClearAllBtn = mContentView.findViewById(com.zaaach.citypicker.R.id.cp_clear_all);
         mCancelBtn.setOnClickListener(this);
         mClearAllBtn.setOnClickListener(this);
 
@@ -235,9 +236,9 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.cp_cancel) {
+        if (id == com.zaaach.citypicker.R.id.cp_cancel) {
             dismiss(-1, null);
-        }else if(id == R.id.cp_clear_all){
+        }else if(id == com.zaaach.citypicker.R.id.cp_clear_all){
             mSearchBox.setText("");
         }
     }
@@ -269,5 +270,11 @@ public class CityPickerDialogFragment extends AppCompatDialogFragment implements
 
     public void setOnPickListener(OnPickListener listener){
         this.mOnPickListener = listener;
+    }
+
+    @Override
+    public void onDestroy() {
+        ActivityCollect.getAppCollect().finishActivity(CityPickActivity.class);
+        super.onDestroy();
     }
 }
