@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.mine.MyInfoActivity;
 import com.njz.letsgoapp.view.mine.SystemSettingActivity;
 import com.njz.letsgoapp.widget.MineItemView;
 
@@ -64,7 +65,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.mine_info:
-
+                startActivity(new Intent(context,MyInfoActivity.class));
                 break;
             case R.id.mine_modify:
 

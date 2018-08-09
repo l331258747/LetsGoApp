@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_line_33"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:src="@mipmap/head_default" />
+
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/info_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:content="那就走"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="昵称" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/info_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:content="男"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="性别" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/info_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:content="1990-01-01"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="生日" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/info_lacation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:content="长沙"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="常住地" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/info_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:content="长沙"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="故乡" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/info_introduce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="个人说明" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/info_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="标签" />
+
+
+</LinearLayout>

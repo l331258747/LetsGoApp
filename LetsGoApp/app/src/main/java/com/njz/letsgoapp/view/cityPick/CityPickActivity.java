@@ -14,6 +14,7 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.zaaach.citypicker.adapter.OnPickListener;
+import com.zaaach.citypicker.db.DBManager;
 import com.zaaach.citypicker.model.City;
 import com.zaaach.citypicker.model.HotCity;
 import com.zaaach.citypicker.model.LocateState;
@@ -30,6 +31,12 @@ import java.util.List;
 
 public class CityPickActivity extends AppCompatActivity {
 
+    public static final String CITYPICK_TAG = "CITYPICK_TAG";
+
+    public static final int CITYPICK_LOCATION = 11;
+    public static final int CITYPICK_COUNTRY = 12;
+    public static final int CITYPICK_DEFULT = 0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +48,45 @@ public class CityPickActivity extends AppCompatActivity {
 
         setTheme(R.style.CustomTheme);
 
-        initView();
+        int intentTag = getIntent().getIntExtra(CITYPICK_TAG,CITYPICK_DEFULT);
+        if(intentTag == CITYPICK_DEFULT){
+            initView();
+        }else{
+            initView2(intentTag);
+        }
+    }
+
+    public void initView2(int intentTag){
+
+        List<HotCity> hotCities = new ArrayList<>();
+        hotCities.add(new HotCity("北京", "北京", "101010100"));
+        hotCities.add(new HotCity("上海", "上海", "101020100"));
+        hotCities.add(new HotCity("广州", "广东", "101280101"));
+        hotCities.add(new HotCity("深圳", "广东", "101280601"));
+        hotCities.add(new HotCity("杭州", "浙江", "101210101"));
+
+        DBManager dbManager = new DBManager(this);
+        List<City> citys = dbManager.getAllCities();
+
+        CityPicker.getInstance()
+                .setFragmentManager(getSupportFragmentManager())	//此方法必须调用
+                .enableAnimation(true)	//启用动画效果
+                .setAnimationStyle(R.style.CustomAnim)	//自定义动画
+                .setCitys(citys)
+                .setSearchShow(true)
+                .setHotCities(hotCities)	//指定热门城市
+                .setOnPickListener(new OnPickListener() {
+                    @Override
+                    public void onPick(int position, City data) {
+                        ToastUtil.showShortToast(AppUtils.getContext(),data.getName());
+                        RxBus2.getInstance().post(new CityPickEvent(data.getName()));
+                    }
+
+                    @Override
+                    public void onLocate() {
+                    }
+                })
+                .show();
     }
 
     public void initView() {

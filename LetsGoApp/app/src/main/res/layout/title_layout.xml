@@ -24,6 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_30"
+        android:layout_centerVertical="true"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
@@ -74,7 +75,7 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:layout_below="@id/title_tv"
+        android:layout_alignParentBottom="true"
         android:background="@color/line_color_d8" />
 
 </RelativeLayout>

@@ -40,10 +40,10 @@ public class CityPicker {
 
     private boolean enableAnim;
     private int mAnimStyle;
-//    private LocatedCity mLocation;
     private List<City> mCitys;
     private List<HotCity> mHotCities;
     private OnPickListener mOnPickListener;
+    private boolean isSearchShow = false;
 
     public CityPicker setFragmentManager(FragmentManager fm) {
         this.mFragmentManager = fm;
@@ -65,16 +65,6 @@ public class CityPicker {
         return this;
     }
 
-    /**
-     * 设置当前已经定位的城市
-     * @param location
-     * @return
-     */
-//    public CityPicker setLocatedCity(LocatedCity location) {
-//        this.mLocation = location;
-//        return this;
-//    }
-
     public CityPicker setHotCities(List<HotCity> data){
         this.mHotCities = data;
         return this;
@@ -92,6 +82,11 @@ public class CityPicker {
      */
     public CityPicker enableAnimation(boolean enable){
         this.enableAnim = enable;
+        return this;
+    }
+
+    public CityPicker setSearchShow(boolean isShow){
+        isSearchShow = isShow;
         return this;
     }
 
@@ -119,7 +114,7 @@ public class CityPicker {
         final CityPickerDialogFragment cityPickerFragment =
                 CityPickerDialogFragment.newInstance(enableAnim);
         cityPickerFragment.setCitys(mCitys);
-//        cityPickerFragment.setLocatedCity(mLocation);
+        cityPickerFragment.setSearchView(isSearchShow);
         cityPickerFragment.setHotCities(mHotCities);
         cityPickerFragment.setAnimationStyle(mAnimStyle);
         cityPickerFragment.setOnPickListener(mOnPickListener);
