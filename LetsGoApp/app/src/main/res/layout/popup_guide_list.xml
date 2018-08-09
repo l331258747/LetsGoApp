@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="导游性别" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_sex_unrestricted"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="不限" />
+
+            <TextView
+                android:id="@+id/tv_sex_man"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="男" />
+
+            <TextView
+                android:id="@+id/tv_sex_lady"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="女" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="导游年龄" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_age_unrestricted"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="不限" />
+
+            <TextView
+                android:id="@+id/tv_age_18"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="18-25" />
+
+            <TextView
+                android:id="@+id/tv_age_26"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="26-30" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+
+            <TextView
+                android:id="@+id/tv_age_31"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="31-40" />
+
+            <TextView
+                android:id="@+id/tv_age_41"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="41-50" />
+
+            <TextView
+                android:id="@+id/tv_age_50"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="50以上" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="服务年限" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_year_1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="1-3年" />
+
+            <TextView
+                android:id="@+id/tv_year_3"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="3-5年" />
+
+            <TextView
+                android:id="@+id/tv_year_5"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="5年以上" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="价格范围" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
+                android:id="@+id/ll_price_start"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_black_hollow">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="金额  " />
+
+
+                <EditText
+                    android:id="@+id/et_price_low"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:hint="最低价"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:textColorHint="@color/gray_999"
+                    android:textSize="12dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  元" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_price_line"
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/ll_price_start"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/ll_price_end"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/tv_price_line"
+                android:background="@drawable/btn_black_hollow">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="金额  " />
+
+
+                <EditText
+                    android:id="@+id/et_price_high"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:hint="最高价"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:textColorHint="@color/gray_999"
+                    android:textSize="12dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  元" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="服务类型" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_type_guide"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="向导陪游" />
+
+            <TextView
+                android:id="@+id/tv_type_car"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="包车服务" />
+
+            <TextView
+                android:id="@+id/tv_type_hotel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="代订酒店" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_type_scenic"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="代订门票" />
+
+            <TextView
+                android:id="@+id/tv_type_private"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_black_hollow"
+                android:gravity="center"
+                android:text="私人定制" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--</ScrollView>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_black_hollow"
+            android:text="重置" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="确定"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+

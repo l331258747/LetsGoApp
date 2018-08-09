@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.amap.api.maps2d.model.Text;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -17,6 +17,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
+import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     MyGuideTab myGuideTab;
 
     Disposable desDisposable;
+
+    PopGuideList popGuideList;
 
     @Override
     public int getLayoutId() {
@@ -79,6 +82,19 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         showShortToast("筛选");
+
+                        if (popGuideList == null){
+                            popGuideList = new PopGuideList(context, myGuideTab);
+
+                            popGuideList.setSubmitLisener(new PopGuideList.SubmitLisener() {
+                                @Override
+                                public void onSubmit() {
+                                    //设置选中，获取回调信息，服务器交互
+                                }
+                            });
+                        }
+
+                        popGuideList.showPopupWindow(myGuideTab);
                         break;
                 }
             }
@@ -98,6 +114,14 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         initSwipeLayout();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(popGuideList.isShowing()){
+            popGuideList.dismissPopupWindow();
+            return;
+        }
+        super.onBackPressed();
+    }
 
     //初始化recyclerview
     private void initRecycler() {

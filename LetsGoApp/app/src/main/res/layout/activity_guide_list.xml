@@ -67,10 +67,8 @@
     <com.njz.letsgoapp.widget.MyGuideTab
         android:id="@+id/my_guide_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content" />
 
     <include layout="@layout/base_swiperefresh_layout" />
-
 
 </LinearLayout>
