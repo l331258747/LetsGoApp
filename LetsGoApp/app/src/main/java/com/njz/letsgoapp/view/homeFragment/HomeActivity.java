@@ -78,7 +78,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         tabItems.add(new TabItem(R.drawable.tab_home, R.string.home, 0, fragmentCls[0]));
         tabItems.add(new TabItem(R.drawable.tab_home, R.string.home_find, 0, fragmentCls[1]));
         tabItems.add(new TabItem(R.drawable.tab_home, R.string.home_order, 0, fragmentCls[2]));
-        tabItems.add(new TabItem(R.drawable.tab_home, R.string.home_notify, 3, fragmentCls[3]));
+        tabItems.add(new TabItem(R.drawable.tab_home, R.string.home_notify, -1, fragmentCls[3]));
         tabItems.add(new TabItem(R.drawable.tab_home, R.string.home_my, 0, fragmentCls[4]));
 
         tabLayout.initData(tabItems, this);
@@ -125,7 +125,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         int index = tabItems.indexOf(tabItem);
         switch (index) {
             case 0:
-                setTitleSingle(true, getResString(R.string.home));
+                setTitleSingle(false, getResString(R.string.home));
                 break;
             case 1:
                 setTitleSingle(true, getResString(R.string.home_find));
@@ -137,7 +137,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
                 setTitleSingle(true, getResString(R.string.home_notify));
                 break;
             case 4:
-                setTitleSingle(true, getResString(R.string.home_my));
+                setTitleSingle(false, getResString(R.string.home_my));
                 break;
         }
 

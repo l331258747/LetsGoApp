@@ -58,7 +58,7 @@ public class GlideUtil {
                                        ImageView imageview) {
 
         Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.head_default)
-                .transform(new GlideCircleTransform(mContext,2,mContext.getResources().getColor(R.color.colorAccent)))
+                .transform(new GlideCircleTransform(mContext,2,mContext.getResources().getColor(R.color.white)))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
 
     }

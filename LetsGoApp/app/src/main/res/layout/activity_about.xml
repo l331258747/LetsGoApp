@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@color/color_line_33"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="50dp"
+        android:src="@mipmap/icon" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/about_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_img"
+        android:layout_marginTop="8dp"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="用户协议" />
+
+    <com.njz.letsgoapp.widget.MineItemView
+        android:id="@+id/about_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/about_agreement"
+        android:layout_marginTop="8dp"
+        app:left_drawable="@mipmap/ic_arrow_right"
+        app:title="去评分" />
+
+</RelativeLayout>

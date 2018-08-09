@@ -1,0 +1,29 @@
+package com.njz.letsgoapp.view.mine;
+
+import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.base.BaseActivity;
+
+/**
+ * Created by LGQ
+ * Time: 2018/8/9
+ * Function:
+ */
+
+public class FeedbackActivity extends BaseActivity {
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_feedback;
+    }
+
+    @Override
+    public void initView() {
+        showLeftAndTitle("意见反馈");
+
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+}

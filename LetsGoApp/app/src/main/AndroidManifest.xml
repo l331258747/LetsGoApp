@@ -89,8 +89,13 @@
         <activity android:name=".editor.EditorActivity" />
         <activity android:name=".view.cityPick.CityPickActivity" android:theme="@style/DefaultCityPickerTheme"/>
         <activity android:name=".view.calendar.CalendarActivity" />
+        <activity android:name=".view.home.GuideDetailActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.home.GuideListActivity"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.mine.SystemSettingActivity"/>
+        <activity android:name=".view.mine.FeedbackActivity"/>
+        <activity android:name=".view.mine.AboutActivity"/>
 
 
         <!-- 高德地图 start -->

@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.home;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -132,6 +133,13 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new GuideListAdapter(activity, guideDatas);
         recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                startActivity(new Intent(context,GuideDetailActivity.class));
+            }
+        });
 
     }
 

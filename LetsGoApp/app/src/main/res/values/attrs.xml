@@ -7,4 +7,10 @@
         <attr name="my_ratingbar_click" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="home_my_item">
+        <attr name="title" format="string"/>
+        <attr name="content" format="string"/>
+        <attr name="left_drawable" format="reference"/>
+    </declare-styleable>
+
 </resources>

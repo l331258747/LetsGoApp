@@ -1,15 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_line_33"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/home_iv"
+
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@mipmap/bg_home_my">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:src="@mipmap/head_default" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/iv_head"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="那就走"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="5000粉丝 | 330关注"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="3dp"
+            android:drawableRight="@drawable/icon_arrow_right"
+            android:text="个人主页"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="home" />
+        android:layout_below="@+id/rl_head"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/mine_bind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="绑定手机" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/mine_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="个人资料" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/mine_modify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="修改密码" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/mine_commont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="我的评论" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/mine_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:left_drawable="@mipmap/mine_phone"
+            app:title="联系客服" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/mine_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="设置" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_blue_solid_r5"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+
+        />
 
 
 </RelativeLayout>
