@@ -85,7 +85,7 @@ public class TabLayout extends LinearLayout implements View.OnClickListener{
 				((TextView)view.findViewById(R.id.tab_lable)).setTextColor(getResources().getColor(R.color.calendar_blue));
 				if (selectView != null){
 					selectView.setSelected(false);
-					((TextView)selectView.findViewById(R.id.tab_lable)).setTextColor(getResources().getColor(R.color.gray_999));
+					((TextView)selectView.findViewById(R.id.tab_lable)).setTextColor(getResources().getColor(R.color.black));
 				}
 				selectView = view;
 			}
