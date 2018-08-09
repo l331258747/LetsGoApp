@@ -181,6 +181,10 @@ public class HomeFragment extends BaseFragment {
 
         List<HomeData.Guide> guides = new ArrayList<>();
         HomeData.Guide guide = new HomeData.Guide(bannerImg, headImg, "那就走", 5, 5615, 2210, 366d, "安静地分行阿我不管看不惯阿嘎哥啊恩格斯噶十多个阿萨德噶尔");
+        List<String> serviceTags = new ArrayList<>();
+        serviceTags.add("私人定制");
+        serviceTags.add("向导陪游");
+        guide.setServiceTags(serviceTags);
         guides.add(guide);
         guides.add(guide);
         guides.add(guide);

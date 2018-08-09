@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/color_59">
+        android:background="@color/colorPrimaryDark">
 
         <ImageView
             android:id="@+id/iv_left"
@@ -63,6 +63,11 @@
 
 
     </RelativeLayout>
+
+    <com.njz.letsgoapp.widget.MyGuideTab
+        android:id="@+id/my_guide_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
     <include layout="@layout/base_swiperefresh_layout" />

@@ -16,6 +16,7 @@ import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.widget.MyGuideTab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     TextView tvCityPick;
     TextView tvSearch;
 
+    MyGuideTab myGuideTab;
+
     Disposable desDisposable;
 
     @Override
@@ -56,6 +59,30 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         ivLeft = $(R.id.iv_left);
         tvCityPick = $(R.id.tv_city_pick);
         tvSearch = $(R.id.tv_search);
+
+        myGuideTab = $(R.id.my_guide_tab);
+        myGuideTab.setCallback(new MyGuideTab.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                switch (position) {
+                    case MyGuideTab.MYGUIDETAB_SYNTHESIZE:
+                        showShortToast("综合");
+                        break;
+                    case MyGuideTab.MYGUIDETAB_COMMENT:
+                        showShortToast("评价");
+                        break;
+                    case MyGuideTab.MYGUIDETAB_SELL:
+                        showShortToast("销量");
+                        break;
+                    case MyGuideTab.MYGUIDETAB_PRICE:
+                        showShortToast("价格");
+                        break;
+                    case MyGuideTab.MYGUIDETAB_SCREEN:
+                        showShortToast("筛选");
+                        break;
+                }
+            }
+        });
 
         ivLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +162,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_left:
                 finish();
                 break;

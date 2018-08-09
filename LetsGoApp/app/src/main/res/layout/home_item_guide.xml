@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -85,11 +86,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_times"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="阿尔噶尔阿哥噶尔噶啊噶诶玩过阿尔噶围观按个发文稿啊哥哥艾尔"
         android:textSize="16sp" />
+
+    <com.njz.letsgoapp.widget.ServiceTagView
+        android:id="@+id/tv_service_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="向导陪游"
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

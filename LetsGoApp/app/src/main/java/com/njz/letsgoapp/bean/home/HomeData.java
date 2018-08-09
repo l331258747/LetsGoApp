@@ -47,6 +47,7 @@ public class HomeData {
         public int CommentTimes;
         public double price;
         public String content;
+        private List<String> serviceTags;
 
         public Guide(String backgroundImg, String headImg, String name, int level, int times, int commentTimes, double price, String content) {
             this.backgroundImg = backgroundImg;
@@ -90,6 +91,14 @@ public class HomeData {
 
         public String getContent() {
             return content;
+        }
+
+        public List<String> getServiceTags() {
+            return serviceTags;
+        }
+
+        public void setServiceTags(List<String> serviceTags) {
+            this.serviceTags = serviceTags;
         }
     }
 

@@ -14,6 +14,7 @@ import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.PriceView;
+import com.njz.letsgoapp.widget.ServiceTagView;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((GuideListAdapter.GuideViewHolder) holder).rating_bar_route.setRating(data.getStars());
             ((GuideListAdapter.GuideViewHolder) holder).tv_content.setText(data.getContent());
             ((GuideListAdapter.GuideViewHolder) holder).tv_price1.setPrice(data.getPrice());
+            ((GuideViewHolder) holder).tv_service_item.setServiceTag(data.getServiceItems());
             if (mOnItemClickListener != null) {
                 ((GuideViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -84,7 +86,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         MyRatingBar rating_bar_route;
         PriceView tv_price1;
         TextView tv_content;
-        TextView tv_service_item;
+        ServiceTagView tv_service_item;
 
         GuideViewHolder(View itemView) {
             super(itemView);

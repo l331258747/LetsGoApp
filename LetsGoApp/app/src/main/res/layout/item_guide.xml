@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -91,7 +92,7 @@
             android:textSize="14sp" />
 
 
-        <TextView
+        <com.njz.letsgoapp.widget.ServiceTagView
             android:id="@+id/tv_service_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +100,7 @@
             android:layout_toEndOf="@id/iv_head"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="向导陪游 | 私人定制 | 代订酒店"
+            tools:text="向导陪游"
             android:textSize="11sp" />
 
     </RelativeLayout>
