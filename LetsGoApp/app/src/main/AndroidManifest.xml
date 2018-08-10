@@ -102,6 +102,13 @@
         <activity android:name=".view.mine.AboutActivity" />
         <activity android:name=".view.mine.MyInfoActivity" />
 
+        <activity android:name=".view.login.LoginActivity" />
+        <activity android:name=".view.login.VerifyLoginActivity" />
+        <activity android:name=".view.login.RegistActivity" />
+        <activity android:name=".view.login.ForgetActivity" />
+        <activity android:name=".view.login.ModifyPasswordActivity" />
+        <activity android:name=".view.login.ModifyPhoneActivity" />
+
 
         <!-- 高德地图 start -->
         <service android:name="com.amap.api.location.APSService"></service>
@@ -304,6 +311,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".view.login.VerifyLoginActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

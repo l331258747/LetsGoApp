@@ -115,7 +115,7 @@ public class RxBus2 {
 
     //注意取消订阅调用此方法，如：activity->onDestroy
     public void setDispose(Disposable dis) {
-        if (!dis.isDisposed()) {
+        if (dis !=null && !dis.isDisposed()) {
             dis.dispose();
         }
     }

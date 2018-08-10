@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
+import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
 import com.njz.letsgoapp.view.mine.SystemSettingActivity;
 import com.njz.letsgoapp.widget.MineItemView;
@@ -62,13 +64,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mine_bind:
-
+                startActivity(new Intent(context,ModifyPhoneActivity.class));
                 break;
             case R.id.mine_info:
                 startActivity(new Intent(context,MyInfoActivity.class));
                 break;
             case R.id.mine_modify:
-
+                startActivity(new Intent(context,ModifyPasswordActivity.class));
                 break;
             case R.id.mine_commont:
 

@@ -22,6 +22,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
 
@@ -66,6 +67,19 @@ public class MainActivity extends BaseActivity {
         calendarSet();
 
         citypickSet();
+
+        loginSet();
+
+    }
+
+    private void loginSet() {
+        final Button btnLogin = $(R.id.btn_login);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, LoginActivity.class));
+            }
+        });
 
     }
 
