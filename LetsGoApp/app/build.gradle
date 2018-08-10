@@ -125,4 +125,5 @@ dependencies {
     //-------远程库 end--------
     compile project(':CalendarLib')
     compile project(':citypicker')
+    compile project(':PhotoPicker')
 }

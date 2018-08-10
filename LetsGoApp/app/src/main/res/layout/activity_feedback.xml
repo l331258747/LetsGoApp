@@ -14,7 +14,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:background="@color/transparent"
         android:gravity="top"
         android:hint="我们期待着您的反馈"
@@ -32,8 +32,9 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:gravity="top"
+        android:inputType="number"
         android:hint="手机号码/QQ号/邮箱"
-        android:maxLength="20"
+        android:maxLength="25"
         android:maxLines="1"
         android:padding="10dp" />
 
@@ -42,5 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="请选取您遇到的问题的图片(选填)" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
 
 </LinearLayout>

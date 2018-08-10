@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.njz.letsgoapp">
 
     <!-- jpush start -->
@@ -98,7 +99,8 @@
             android:name=".view.home.GuideListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.mine.SystemSettingActivity" />
-        <activity android:name=".view.mine.FeedbackActivity" />
+        <activity android:name=".view.mine.FeedbackActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.mine.AboutActivity" />
         <activity android:name=".view.mine.MyInfoActivity" />
 
@@ -109,6 +111,16 @@
         <activity android:name=".view.login.ModifyPasswordActivity" />
         <activity android:name=".view.login.ModifyPhoneActivity" />
 
+        <!-- 图片选择 start-->
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/customTheme" />
+        <!--大图-->
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/customTheme" />
+
+        <!-- 图片选择 end-->
 
         <!-- 高德地图 start -->
         <service android:name="com.amap.api.location.APSService"></service>
@@ -311,16 +323,17 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".view.login.VerifyLoginActivity" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".util.BuglyFileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="name,authorities,exported,grantUriPermissions">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
+                android:resource="@xml/provider_paths"
+                tools:replace="name,resource"/>
         </provider>
 
         <!-- bugly 升级 end -->

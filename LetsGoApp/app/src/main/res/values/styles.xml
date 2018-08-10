@@ -11,7 +11,7 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
-
+    <!--等待对话框 start-->
     <style name="LoadingDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -22,7 +22,9 @@
         <item name="android:background">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    <!--等待对话框 end-->
 
+    <!--动画 start-->
     <style name="CustomAnim">
         <item name="android:windowEnterAnimation">@anim/custom_push_down_in</item>
         <item name="android:windowExitAnimation">@anim/custom_push_up_out</item>
@@ -37,7 +39,9 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
     </style>
+    <!--动画 end-->
 
+    <!--城市选择 start-->
     <style name="CustomTheme" parent="DefaultCityPickerTheme">
         <item name="cpCancelTextColor">@color/color_green</item>
         <item name="cpSearchCursorDrawable">@color/color_green</item>
@@ -46,5 +50,28 @@
         <item name="cpSectionHeight">@dimen/custom_section_height</item>
         <item name="cpOverlayBackground">@color/color_green</item>
     </style>
+    <!--城市选择 end-->
+
+    <!--附件 样式start-->
+    <style name="Theme.AppCompat.Light.Dialog.Alert.Self"
+        parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!--修改AlertDialog按钮的颜色 最后一张照片确认删除对话框 里面文字的颜色-->
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <!--修改 完成(*/*) 颜色 android:actionMenuTextColor-->
+    <!--修改 所有图片 颜色 __picker_fragment_photo_picker.xml-->
+    <style name="customTheme" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--标题 1/1 图片的颜色-->
+        <item name="android:textColorPrimary">#ffffff</item>
+        <item name="android:homeAsUpIndicator">@drawable/icon_back</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog.Alert.Self</item>
+        <!--标题栏 底色-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--撤销文字颜色  多张删除其中一张提示时 撤销文字的颜色-->
+        <item name="colorAccent">#ffffff</item>
+    </style>
+    <!--附件 样式end-->
 
 </resources>
