@@ -117,7 +117,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if(popGuideList.isShowing()){
+        if(popGuideList != null && popGuideList.isShowing()){
             popGuideList.dismissPopupWindow();
             return;
         }
