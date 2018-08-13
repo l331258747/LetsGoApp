@@ -16,6 +16,7 @@ import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 
 import java.util.ArrayList;
@@ -123,6 +124,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(int position) {
                 showShortToast("点击第" + position);
+                startActivity(new Intent(context, GuideDetailActivity.class));
             }
         });
     }
