@@ -3,13 +3,16 @@ package com.njz.letsgoapp.widget.popupwindow;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.PopServiceAdapter;
@@ -57,6 +60,24 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
         serviceInfo = initData();
 
+        initSpecial();
+
+    }
+
+    private void initSpecial() {
+        TextView tv_special = contentView.findViewById(R.id.tv_special);
+        final NestedScrollView scrollView = contentView.findViewById(R.id.scrollView);
+        final EditText et_special = contentView.findViewById(R.id.et_special);
+        tv_special.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(et_special.getVisibility() == View.GONE){
+                    et_special.setVisibility(View.VISIBLE);
+                }else{
+                    et_special.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     public ServiceInfo initData() {

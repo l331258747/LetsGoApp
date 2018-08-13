@@ -6,6 +6,7 @@
 
 
     <TextView
+        android:id="@+id/tv_special"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -14,9 +15,11 @@
 
 
     <EditText
+        android:id="@+id/et_special"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
+        android:visibility="gone"
         android:background="@drawable/btn_black_hollow"
         android:gravity="top"
         android:hint="请输入其他需求。（选填）" />
