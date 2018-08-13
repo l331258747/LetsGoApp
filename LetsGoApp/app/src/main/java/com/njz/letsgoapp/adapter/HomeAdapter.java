@@ -17,6 +17,7 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.widget.MyRatingBar;
@@ -224,7 +225,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             convenientBanner.setPages(new CBViewHolderCreator() {
                 @Override
                 public Object createHolder() {
-                    return new LocalImageHolderView();
+                    return new LocalImageHolderView(new LocalImageHolderView.BannerListener<HomeData.HomeBanner>() {
+
+                        @Override
+                        public void bannerListener(Context context, int position, HomeData.HomeBanner data, ImageView view) {
+                            GlideUtil.LoadImage(context, data.getImgUrl(), view);
+                        }
+                    });
                 }
             }, homeBanners)
                     .setPointViewVisible(true) //设置指示器是否可见
@@ -240,25 +247,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     //--------------View Holder end----------------
 
 
-    //--------------banner holder start----------------
-    //为了方便改写，来实现复杂布局的切换
-    public class LocalImageHolderView implements Holder<HomeData.HomeBanner> {
-        private ImageView imageView;
-
-        @Override
-        public View createView(Context context) {
-            //你可以通过layout文件来创建，不一定是Image，任何控件都可以进行翻页
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, int position, HomeData.HomeBanner data) {
-            GlideUtil.LoadImage(context, data.getImgUrl(), imageView);
-        }
-    }
-    //--------------banner holder end----------------
+//    //--------------banner holder start----------------
+//    //为了方便改写，来实现复杂布局的切换
+//    public class LocalImageHolderView implements Holder<HomeData.HomeBanner> {
+//        private ImageView imageView;
+//
+//        @Override
+//        public View createView(Context context) {
+//            //你可以通过layout文件来创建，不一定是Image，任何控件都可以进行翻页
+//            imageView = new ImageView(context);
+//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//            return imageView;
+//        }
+//
+//        @Override
+//        public void UpdateUI(Context context, int position, HomeData.HomeBanner data) {
+//            GlideUtil.LoadImage(context, data.getImgUrl(), imageView);
+//        }
+//    }
+//    //--------------banner holder end----------------
 
 
     public void setData(HomeData homeData) {
@@ -303,7 +310,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         tripSettingViewHolder.tv_destination_content.setText(str);
     }
 
-    public void setCalender(String startTime,String endTime,String days){
+    public void setCalender(String startTime, String endTime, String days) {
         tripSettingViewHolder.tv_start_time_content.setText(startTime);
         tripSettingViewHolder.tv_end_time_content.setText(endTime);
         tripSettingViewHolder.tv_day_time.setText(days);

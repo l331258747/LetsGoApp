@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_gray_bottom_line"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="预订规则"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/indicator_normal"
+        android:drawablePadding="8dp"
+        android:text="为保障您的利益和服务质量，请不要线下与导游交易，平台仅以真实订单作为产生纠纷的调差依据。" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/indicator_normal"
+        android:drawablePadding="8dp"
+        android:text="那就走平台仅提供信息展示，您所购买的服务由向导提供，如需发票，请与导游协调索取。" />
+
+</LinearLayout>

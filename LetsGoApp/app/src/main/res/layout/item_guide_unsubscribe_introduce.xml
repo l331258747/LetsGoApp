@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_gray_bottom_line"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="退订规则"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/indicator_normal"
+        android:drawablePadding="8dp"
+        android:text="向导确认订单前不收取违约金" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/indicator_normal"
+        android:drawablePadding="8dp"
+        android:text="行程开始前7-19日取消订单，收取游客已付费用30%的违约金" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/indicator_normal"
+        android:drawablePadding="8dp"
+        android:text="行程开始前1-6日取消订单，收取游客已付费用50%的违约金" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/indicator_normal"
+        android:drawablePadding="8dp"
+        android:text="行程开始当天取消订单，收取游客已付费用100%的违约金" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/indicator_normal"
+        android:drawablePadding="8dp"
+        android:text="行程开始前其他时间取消订单，不收取违约金" />
+
+</LinearLayout>
