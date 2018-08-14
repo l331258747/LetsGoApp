@@ -105,6 +105,9 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
             mAdapter = new PopServiceAdapter(mContext, serviceInfo);
             recyclerView.setAdapter(mAdapter);
 
+            //NestedScroll 嵌套 recyclerView 触摸到RecyclerView的时候滑动还有些粘连的感觉
+            recyclerView.setNestedScrollingEnabled(false);
+
             setDarkStyle(-1);
             setDarkColor(Color.parseColor("#a0000000"));
             resetDarkPosition();
