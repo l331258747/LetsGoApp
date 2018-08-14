@@ -1,16 +1,25 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.HomeAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.home.HomeData;
+import com.njz.letsgoapp.util.banner.LocalImageHolderView;
+import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
@@ -31,7 +40,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     static RecyclerView recyclerView;
@@ -39,11 +48,15 @@ public class HomeFragment extends BaseFragment {
     HomeAdapter mAdapter;
     HomeData homeData;
 
-    RelativeLayout mSuspensionBar;
     LinearLayoutManager linearLayoutManager;
 
     Disposable calDisposable;
     Disposable desDisposable;
+
+    LinearLayout ll_destination, ll_start_time, ll_end_time;
+    TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, tv_check_all,btn_trip_setting;
+
+    ConvenientBanner convenientBanner;
 
     @Override
     public int getLayoutId() {
@@ -53,72 +66,109 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void initView() {
 
-        mSuspensionBar = $(R.id.suspension_bar);
-        mSuspensionBar.setVisibility(View.GONE);
-
         initRecycler();
         initSwipeLayout();
+
+        ll_destination = $(R.id.ll_destination);
+        tv_destination_content = $(R.id.tv_destination_content);
+        ll_start_time = $(R.id.ll_start_time);
+        ll_end_time = $(R.id.ll_end_time);
+        tv_start_time_content = $(R.id.tv_start_time_content);
+        tv_end_time_content = $(R.id.tv_end_time_content);
+        tv_day_time = $(R.id.tv_day_time);
+        tv_check_all = $(R.id.tv_check_all);
+        btn_trip_setting = $(R.id.btn_trip_setting);
+        convenientBanner = $(R.id.convenientBanner);
+
+        ll_destination.setOnClickListener(this);
+        ll_start_time.setOnClickListener(this);
+        ll_end_time.setOnClickListener(this);
+        tv_check_all.setOnClickListener(this);
+        btn_trip_setting.setOnClickListener(this);
+
+
+    }
+
+    public void initBanner(List<HomeData.HomeBanner> homeBanners){
+        //开始自动翻页
+        convenientBanner.setPages(new CBViewHolderCreator() {
+            @Override
+            public Object createHolder() {
+                return new LocalImageHolderView(new LocalImageHolderView.BannerListener<HomeData.HomeBanner>() {
+
+                    @Override
+                    public void bannerListener(Context context, int position, HomeData.HomeBanner data, ImageView view) {
+                        GlideUtil.LoadImage(context, data.getImgUrl(), view);
+                    }
+                });
+            }
+        }, homeBanners)
+                .setPointViewVisible(true) //设置指示器是否可见
+                .startTurning(4000)//设置自动切换（同时设置了切换时间间隔）
+                .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
+//                    .setOnItemClickListener(this) //设置点击监听事件
+                .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
+
     }
 
     @Override
-    public void initData() {
-        //添加城市选择事件
-        mAdapter.setDestinationListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showShortToast("城市选择");
-                startActivity(new Intent(context, CityPickActivity.class));
-                activity.overridePendingTransition(0, 0);
-
-                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-                    @Override
-                    public void accept(CityPickEvent cityPickEvent) throws Exception {
-                        mAdapter.setDestination(cityPickEvent.getCity());
-                        desDisposable.dispose();
-                    }
-                });
-            }
-        });
-
-        //添加日历选择事件
-        mAdapter.setCalendarListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLongToast("日历选择");
-                Intent intent = new Intent(context, CalendarActivity.class);
-                intent.putExtra("CalendarTag", 1);
-                startActivity(intent);
-
-                calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
-                    @Override
-                    public void accept(CalendarEvent calendarEvent) throws Exception {
-                        mAdapter.setCalender(calendarEvent.getStartTime()
-                        ,calendarEvent.getEndTime()
-                        ,calendarEvent.getDays());
-                        calDisposable.dispose();
-                    }
-                });
-
-            }
-        });
-
-        //添加查看全部导游事件
-        mAdapter.setGuideAllListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_destination:
+                cityPick();
+                break;
+            case R.id.ll_start_time:
+                calendarPick();
+                break;
+            case R.id.ll_end_time:
+                calendarPick();
+                break;
+            case R.id.tv_check_all:
                 showLongToast("全部导游");
                 startActivity(new Intent(context, GuideListActivity.class));
-            }
-        });
-
-        //设置行程事件
-        mAdapter.setTripSettingListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.btn_trip_setting:
                 showLongToast("设置行程");
+                startActivity(new Intent(context, GuideListActivity.class));
+                break;
+        }
+    }
+
+    private void cityPick(){
+        showShortToast("城市选择");
+        startActivity(new Intent(context, CityPickActivity.class));
+        activity.overridePendingTransition(0, 0);
+        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+            @Override
+            public void accept(CityPickEvent cityPickEvent) throws Exception {
+                tv_destination_content.setText(cityPickEvent.getCity());
+                desDisposable.dispose();
             }
         });
+    }
 
+    private void calendarPick() {
+        showLongToast("日历选择");
+        Intent intent = new Intent(context, CalendarActivity.class);
+        intent.putExtra("CalendarTag", 1);
+        startActivity(intent);
+
+        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
+            @Override
+            public void accept(CalendarEvent calendarEvent) throws Exception {
+
+                tv_start_time_content.setText(calendarEvent.getStartTime());
+                tv_end_time_content.setText(calendarEvent.getEndTime());
+                tv_day_time.setText(calendarEvent.getDays());
+                calDisposable.dispose();
+            }
+        });
+    }
+
+
+    @Override
+    public void initData() {
         //item导游事件
         mAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
@@ -131,30 +181,14 @@ public class HomeFragment extends BaseFragment {
 
     //初始化recyclerview
     private void initRecycler() {
-        homeData = new HomeData(new ArrayList<HomeData.HomeBanner>(),new ArrayList<HomeData.Guide>());
+        homeData = new HomeData(new ArrayList<HomeData.HomeBanner>(), new ArrayList<HomeData.Guide>());
 
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new HomeAdapter(activity, homeData);
         recyclerView.setAdapter(mAdapter);
-
-        //导游标题悬浮效果
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                //找到列表第二个可见的View
-                View view = linearLayoutManager.findViewByPosition(2);
-                //判断View的top值是否小于悬浮条的高度
-                if (view == null || view.getTop()<0) {
-                    //被顶掉的效果
-                    mSuspensionBar.setVisibility(View.VISIBLE);
-                } else {
-                    mSuspensionBar.setVisibility(View.GONE);
-                }
-            }
-        });
+        recyclerView.setNestedScrollingEnabled(false);
     }
 
     //初始化SwipeLayout
@@ -164,7 +198,9 @@ public class HomeFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setData(getHomeData());
+                HomeData homeData = getHomeData();
+                mAdapter.setData(homeData);
+                initBanner(homeData.getHomeBanners());
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -191,6 +227,8 @@ public class HomeFragment extends BaseFragment {
         guides.add(guide);
         guides.add(guide);
 
-        return new HomeData(homeBanners,guides);
+        return new HomeData(homeBanners, guides);
     }
+
 }
+

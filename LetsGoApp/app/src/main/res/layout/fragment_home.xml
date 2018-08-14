@@ -1,20 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#ffffff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <FrameLayout
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/convenientBanner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/white"
+                app:canLoop="true" />
+
+            <include layout="@layout/home_item_trip_setting" />
+
+            <include layout="@layout/home_item_guide_title" />
+
+            <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 
-        <include layout="@layout/base_swiperefresh_layout" />
+    <!--&lt;!&ndash; 第一部分:CoordinatorLayout &ndash;&gt;-->
+    <!--<android.support.design.widget.CoordinatorLayout-->
+        <!--android:id="@+id/scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#ffffff">-->
 
-        <include layout="@layout/home_item_guide_title" />
+        <!--&lt;!&ndash;app:layout_behavior="com.njz.letsgoapp.util.appbar.FlingBehavior"&ndash;&gt;-->
+        <!--&lt;!&ndash; 第二部分:缩放控件&ndash;&gt;-->
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:id="@+id/id_appbarlayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--app:layout_behavior="com.njz.letsgoapp.util.appbar.FlingBehavior"-->
+            <!--android:layout_height="wrap_content">-->
 
-    </FrameLayout>
+            <!--<android.support.design.widget.CollapsingToolbarLayout-->
+                <!--android:id="@+id/collapsing_tool_bar_test_ctl"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--app:layout_scrollFlags="scroll">-->
 
-</RelativeLayout>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/userScroreRe"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical">-->
+
+                    <!--<com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                        <!--android:id="@+id/convenientBanner"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="200dp"-->
+                        <!--android:background="@color/white"-->
+                        <!--app:canLoop="true" />-->
+
+                    <!--<include layout="@layout/home_item_trip_setting" />-->
+
+                <!--</LinearLayout>-->
+
+
+            <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+
+
+            <!--<include layout="@layout/home_item_guide_title" />-->
+
+
+        <!--</android.support.design.widget.AppBarLayout>-->
+
+
+        <!--<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:id="@+id/recycler_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:overScrollMode="never"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
+</android.support.v4.widget.SwipeRefreshLayout>
