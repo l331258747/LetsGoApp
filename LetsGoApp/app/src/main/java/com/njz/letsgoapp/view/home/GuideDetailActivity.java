@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.view.home;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.SimpleImageAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
@@ -35,7 +38,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     MyRatingBar my_rating_bar;
     ServiceTagView stv_tag;
 
-    LinearLayout ll_select_service;
+    LinearLayout ll_select_service,ll_comment;
     Button btn_call, btn_submit;
 
     PopService popService;
@@ -53,8 +56,36 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         my_rating_bar = $(R.id.my_rating_bar);
         stv_tag = $(R.id.stv_tag);
         ll_select_service = $(R.id.ll_select_service);
+        ll_comment = $(R.id.ll_comment);
         btn_call = $(R.id.btn_call);
         btn_submit = $(R.id.btn_submit);
+
+        initCommont();
+    }
+
+    public void initCommont(){
+        ImageView commont_head = $(R.id.commont_head);
+
+        String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
+        GlideUtil.LoadCircleImage(context, photo, commont_head);
+
+
+        RecyclerView mRecyclerView = $(R.id.recycler_view);
+        mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
+        mRecyclerView.setLayoutManager(new GridLayoutManager(
+                mRecyclerView.getContext(), 4));
+
+        List<String> banners = new ArrayList<>();
+        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+
+        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context,banners);
+        mRecyclerView.setAdapter(enterAdapter);
+
 
     }
 
@@ -101,6 +132,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         stv_tag.setServiceTag(services);
 
         ll_select_service.setOnClickListener(this);
+        ll_comment.setOnClickListener(this);
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 
@@ -111,6 +143,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.ll_select_service:
                 showPopService();
+                break;
+            case R.id.ll_comment:
+                //TODO 评论列表
+
                 break;
             case R.id.btn_call:
                 showShortToast("联系客服");
