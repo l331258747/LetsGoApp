@@ -18,6 +18,7 @@ public class MethodApi {
 
     /**
      * 获取用户详细信息
+     *
      * @Field("telphone") String telphone,
      * @Field("passWord") String passWord,
      * @Field("captcha") String captcha,
@@ -31,14 +32,18 @@ public class MethodApi {
 //                channel); //在HttpServer中
 //        HttpMethods.getInstance().toSubscribe(observable, subscriber);
 //    }
-
-    public static void getTop250(DisposableObserver<MovieSubject> subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().getTop250(0,2); //在HttpServer中
+    public static void getTop250(DisposableObserver<MovieSubject> subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().getTop250(0, 2); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void appPay(DisposableObserver<AliPay> subscriber){
+    public static void appPay(DisposableObserver<AliPay> subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().appPay(); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void appPayWX(DisposableObserver<AliPay> subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().appPayWX(); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

@@ -23,4 +23,8 @@ public interface HttpService {
     Observable<AliPay> appPay();
 
 
+    @GET("wxpay/appPay")
+    Observable<AliPay> appPayWX();
+
+
 }

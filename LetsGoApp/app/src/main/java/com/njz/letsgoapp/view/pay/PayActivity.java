@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.constant.Constant;
@@ -16,6 +18,8 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.json.JSONObject;
 
 /**
  * 支付界面
@@ -52,6 +56,16 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     @Override
     public void getAliOrderInfoFailed(String msg) {
+        LogUtil.e(msg);
+    }
+
+    @Override
+    public void getWxOrderInfoSeccess(String orderInfo) {
+        mPresenter.getWxPay(orderInfo,api);
+    }
+
+    @Override
+    public void getWxOrderInfoFailed(String msg) {
         LogUtil.e(msg);
     }
 
@@ -112,7 +126,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
             case R.id.btn_pay:
                 if (payIndex == 1) {
-                    payWeiXin();
+                    mPresenter.getWxOrderInfo();
                 } else {
                     mPresenter.getAliOrderInfo();
                 }
@@ -123,25 +137,6 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     private void initWXPay() {
         api = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID);
         api.registerApp(Constant.WEIXIN_APP_ID);
-
-    }
-
-    private void payWeiXin() {
-        wxPay();
-    }
-
-    private void wxPay(){
-        PayReq req = new PayReq();
-        req.appId			= "asdgaegagwga123123";
-        req.partnerId		= "heaea2213123";
-        req.prepayId		= "data.prepayid";
-        req.nonceStr		= "data.noncestr";
-        req.timeStamp		= "data.timestamp";
-        req.packageValue	= "data.wvpackage";
-        req.sign			= "data.sign";
-//        req.extData			= "app data"; // optional
-        // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-        api.sendReq(req);
     }
 
     @Override
