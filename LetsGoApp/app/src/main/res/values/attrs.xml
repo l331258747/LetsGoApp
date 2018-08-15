@@ -21,4 +21,8 @@
         <attr name="login_item_max_length" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="guide_score">
+        <attr name="guide_score_text_size" format="integer"/>
+    </declare-styleable>
+
 </resources>

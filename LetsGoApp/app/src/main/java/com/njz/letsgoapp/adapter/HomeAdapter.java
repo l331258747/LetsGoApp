@@ -20,6 +20,7 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.ServiceTagView;
@@ -79,8 +80,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             ((HomeGuideViewHolder) holder).tv_name.setText(data.getName());
             ((HomeGuideViewHolder) holder).rating_bar_route.setRating(data.getLevel());
             ((HomeGuideViewHolder) holder).tv_content.setText(data.getContent());
-            ((HomeGuideViewHolder) holder).tv_price1.setPrice(data.getPrice());
             ((HomeGuideViewHolder) holder).serviceTagView.setServiceTag(data.getServiceTags());
+            ((HomeGuideViewHolder) holder).ll_times.setGuideScore(data.getTimes(), data.getLevel(), data.getCommentTimes());
 
             if (mOnItemClickListener != null) {
                 ((HomeGuideViewHolder) holder).rlParent.setOnClickListener(new View.OnClickListener() {
@@ -116,8 +117,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         TextView tv_name;
         MyRatingBar rating_bar_route;
         TextView tv_content;
-        PriceView tv_price1;
         ServiceTagView serviceTagView;
+
+        GuideScoreView ll_times;
 
         HomeGuideViewHolder(View itemView) {
             super(itemView);
@@ -127,12 +129,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             tv_name = itemView.findViewById(R.id.tv_name);
             rating_bar_route = itemView.findViewById(R.id.rating_bar_route);
             tv_content = itemView.findViewById(R.id.tv_content);
-            tv_price1 = itemView.findViewById(R.id.tv_price1);
             serviceTagView = itemView.findViewById(R.id.tv_service_item);
+            ll_times = itemView.findViewById(R.id.ll_times);
         }
     }
 
-    public class GuideTitleViewHolder extends BaseViewHolder{
+    public class GuideTitleViewHolder extends BaseViewHolder {
         TextView tv_check_all;
 
         GuideTitleViewHolder(View itemView) {
