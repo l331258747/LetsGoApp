@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -138,16 +140,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         TextView tv_special = contentView.findViewById(R.id.tv_special);
         final NestedScrollView scrollView = contentView.findViewById(R.id.scrollView);
         final EditText et_special = contentView.findViewById(R.id.et_special);
-        tv_special.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(et_special.getVisibility() == View.GONE){
-                    et_special.setVisibility(View.VISIBLE);
-                }else{
-                    et_special.setVisibility(View.GONE);
-                }
-            }
-        });
+
     }
 
     public ServiceInfo initData() {
@@ -159,10 +152,10 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         serviceItem.setPrice(360);
         serviceItems.add(serviceItem);
         serviceItems.add(serviceItem);
-        serviceInfo.setGuideServices(serviceItems);
-        serviceInfo.setCustomServices(serviceItems2);
+        serviceInfo.setGuideServices(serviceItems2);
+        serviceInfo.setCustomServices(serviceItems);
         serviceInfo.setCarServices(serviceItems);
-        serviceInfo.setHotelServices(serviceItems2);
+        serviceInfo.setHotelServices(serviceItems);
         return serviceInfo;
     }
 

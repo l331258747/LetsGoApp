@@ -3,18 +3,18 @@ package com.njz.letsgoapp.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.bean.home.ServiceInfo;
 import com.njz.letsgoapp.bean.home.ServiceInfoGroup;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.AppUtils;
-import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,12 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     private static final int SERVICE_TYPE_DEFAULT = 12;
     private static final int SERVICE_TYPE_DEFAULT2 = 13;
 
+    private static final String SERVICE_TYPE_GUIDE = "向导陪游服务";
+    private static final String SERVICE_TYPE_CUSTOM = "私人定制服务";
+    private static final String SERVICE_TYPE_CAR = "包车服务";
+    private static final String SERVICE_TYPE_HOTEL = "代订酒店服务";
+    private static final String SERVICE_TYPE_TICKET = "代订景点门票服务";
+
     ServiceInfo serviceInfo;
 
     private List<ServiceInfoGroup> serviceInfoGroups = new ArrayList<>();
@@ -46,11 +52,11 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     private void setData(ServiceInfo serviceInfo) {
         serviceInfoGroups.clear();
-        setData2(serviceInfo.getGuideServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, "向导陪游服务");
-        setData2(serviceInfo.getCustomServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, "私人定制服务");
-        setData2(serviceInfo.getCarServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, "包车服务");
-        setData2(serviceInfo.getHotelServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT_2, "代订酒店服务");
-        setData2(serviceInfo.getTicketServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT_2, "代订景点门票服务");
+        setData2(serviceInfo.getGuideServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_GUIDE);
+        setData2(serviceInfo.getCustomServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_CUSTOM);
+        setData2(serviceInfo.getCarServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_CAR);
+        setData2(serviceInfo.getHotelServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT_2, SERVICE_TYPE_HOTEL);
+        setData2(serviceInfo.getTicketServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT_2, SERVICE_TYPE_TICKET);
 
         notifyDataSetChanged();
     }
@@ -110,7 +116,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(final BaseViewHolder holder, int position) {
         if (holder == null) return;
         if (holder instanceof DefaultHolder) {
             final int pos = holder.getAdapterPosition();
@@ -132,6 +138,24 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             }else{
                 ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray999_solid_r15));
             }
+
+            ((TitleHolder) holder).service_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String strTitle = (((TitleHolder) holder).service_title).getText().toString();
+                    if(TextUtils.equals(strTitle,SERVICE_TYPE_GUIDE)){
+                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_GUIDE);
+                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_CUSTOM)){
+                        ToastUtil.showShortToast(mContext, SERVICE_TYPE_CUSTOM);
+                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_CAR)){
+                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_CAR);
+                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_HOTEL)){
+                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_HOTEL);
+                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_TICKET)){
+                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_TICKET);
+                    }
+                }
+            });
 
         }
 

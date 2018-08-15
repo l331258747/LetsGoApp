@@ -17,9 +17,8 @@
     <EditText
         android:id="@+id/et_special"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:layout_margin="10dp"
-        android:visibility="gone"
         android:background="@drawable/btn_black_hollow"
         android:gravity="top"
         android:hint="请输入其他需求。（选填）" />
