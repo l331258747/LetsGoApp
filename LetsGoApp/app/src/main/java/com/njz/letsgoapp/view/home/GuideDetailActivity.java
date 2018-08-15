@@ -250,7 +250,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         showShortToast("展示服务内容");
 
         if (popService == null) {
-            popService = new PopService(context, btn_submit);
+            popService = new PopService(activity, btn_submit);
         }
         popService.showPopupWindow(btn_submit);
     }

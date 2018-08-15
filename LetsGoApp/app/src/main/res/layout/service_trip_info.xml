@@ -30,25 +30,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="目的地" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="行程开始时间" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="行程结束时间" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="出行人数" />
 
         </LinearLayout>
@@ -60,54 +60,38 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="张家界" />
 
             <TextView
+                android:id="@+id/tv_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="08月13号" />
 
             <TextView
+                android:id="@+id/tv_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="08月17号" />
 
-            <LinearLayout
+
+
+            <com.njz.letsgoapp.widget.NumberView
+                android:id="@+id/number_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_black_hollow"
-                    android:text="-"/>
-
-                <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:background="@drawable/btn_black_hollow"
-                    android:text="3"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_black_hollow"
-                    android:text="+"/>
-
-
-            </LinearLayout>
-
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                />
 
         </LinearLayout>
 
@@ -119,6 +103,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_day"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

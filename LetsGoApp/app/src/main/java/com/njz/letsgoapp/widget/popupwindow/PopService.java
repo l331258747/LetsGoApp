@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.widget.popupwindow;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.widget.NestedScrollView;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,9 +21,22 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.PopServiceAdapter;
 import com.njz.letsgoapp.bean.home.ServiceInfo;
 import com.njz.letsgoapp.bean.home.ServiceItem;
+import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
+import com.njz.letsgoapp.view.calendar.CalendarActivity;
+import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.widget.GuideLabelView;
+import com.njz.letsgoapp.widget.MyRatingBar;
+import com.njz.letsgoapp.widget.NumberView;
+import com.njz.letsgoapp.widget.ServiceTagView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -31,12 +47,12 @@ import java.util.List;
 public class PopService extends BackgroundDarkPopupWindow implements View.OnClickListener {
 
     private View contentView;
-    private Context mContext;
+    private Activity mContext;
     private RecyclerView recyclerView;
     private ServiceInfo serviceInfo;
     private PopServiceAdapter mAdapter;
 
-    public PopService(final Context context, View parentView) {
+    public PopService(final Activity context, View parentView) {
         super(parentView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context
@@ -58,10 +74,64 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
         this.setFocusable(true);
 
+        initInfo();
+        initTrip();
+
         serviceInfo = initData();
 
         initSpecial();
 
+    }
+
+
+    TextView tv_city,tv_start_time,tv_end_time,tv_day;
+    NumberView number_view;
+
+    private void initTrip() {
+        tv_city = contentView.findViewById(R.id.tv_city);
+        tv_start_time = contentView.findViewById(R.id.tv_start_time);
+        tv_end_time = contentView.findViewById(R.id.tv_end_time);
+        tv_day = contentView.findViewById(R.id.tv_day);
+        number_view = contentView.findViewById(R.id.number_view);
+
+        tv_city.setOnClickListener(this);
+        tv_start_time.setOnClickListener(this);
+        tv_end_time.setOnClickListener(this);
+
+        number_view.setNum(1);
+
+    }
+
+    ImageView iv_head;
+    MyRatingBar my_rating_bar;
+    TextView tv_service_num;
+    GuideLabelView guideLabel;
+    ServiceTagView stv_tag;
+
+    private void initInfo() {
+        iv_head = contentView.findViewById(R.id.iv_head);
+        my_rating_bar = contentView.findViewById(R.id.my_rating_bar);
+        tv_service_num = contentView.findViewById(R.id.tv_service_num);
+        guideLabel = contentView.findViewById(R.id.guide_label);
+        stv_tag = contentView.findViewById(R.id.stv_tag);
+
+        String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
+        GlideUtil.LoadCircleImage(mContext, photo, iv_head);
+
+        my_rating_bar.setRating(4);
+        List<String> services = new ArrayList<>();
+        services.add("4年");
+        services.add("英语");
+        services.add("中文");
+        services.add("泰语");
+        services.add("葡萄牙语");
+        stv_tag.setServiceTag(services);
+        List<String> tabels = new ArrayList<>();
+        tabels.add("幽默达人");
+        tabels.add("风趣性感");
+        tabels.add("旅游玩家高手");
+        guideLabel.setTabel(tabels);
+        tv_service_num.setText("服务" + 6000 + "次");
     }
 
     private void initSpecial() {
@@ -123,6 +193,49 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_city:
+                cityPick();
+                break;
+            case R.id.tv_start_time:
+                calendarPick();
+                break;
+            case R.id.tv_end_time:
+                calendarPick();
+                break;
 
+        }
+    }
+
+
+    Disposable desDisposable;
+    Disposable calDisposable;
+
+    private void cityPick(){
+        mContext.startActivity(new Intent(mContext, CityPickActivity.class));
+        mContext.overridePendingTransition(0, 0);
+        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+            @Override
+            public void accept(CityPickEvent cityPickEvent) throws Exception {
+                tv_city.setText(cityPickEvent.getCity());
+                desDisposable.dispose();
+            }
+        });
+    }
+
+    private void calendarPick() {
+        Intent intent = new Intent(mContext, CalendarActivity.class);
+        intent.putExtra("CalendarTag", 1);
+        mContext.startActivity(intent);
+
+        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
+            @Override
+            public void accept(CalendarEvent calendarEvent) throws Exception {
+                tv_start_time.setText(calendarEvent.getStartTime());
+                tv_end_time.setText(calendarEvent.getEndTime());
+                tv_day.setText(calendarEvent.getDays());
+                calDisposable.dispose();
+            }
+        });
     }
 }
