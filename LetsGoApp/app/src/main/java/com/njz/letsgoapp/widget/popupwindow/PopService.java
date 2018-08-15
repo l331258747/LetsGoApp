@@ -23,6 +23,8 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.PopServiceAdapter;
 import com.njz.letsgoapp.bean.home.ServiceInfo;
 import com.njz.letsgoapp.bean.home.ServiceItem;
+import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
@@ -78,11 +80,17 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
         initInfo();
         initTrip();
+        initSubmit();
 
         serviceInfo = initData();
 
         initSpecial();
 
+    }
+
+    private void initSubmit() {
+        TextView tv_submit = contentView.findViewById(R.id.tv_submit);
+        tv_submit.setOnClickListener(this);
     }
 
 
@@ -191,6 +199,9 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 break;
             case R.id.tv_end_time:
                 calendarPick();
+                break;
+            case R.id.tv_submit:
+                ToastUtil.showShortToast(AppUtils.getContext(),"立即预定");
                 break;
 
         }
