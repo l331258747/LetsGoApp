@@ -34,6 +34,8 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder> {
 
+    public static final int VIEW_TITLE = 1;
+
     List<HomeData.Guide> guides;
 
     Context mContext;
@@ -47,6 +49,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     public HomeAdapter.BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
+            case VIEW_TITLE:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide_title, parent, false);
+                return new GuideTitleViewHolder(view);
             default:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide, parent, false);
                 return new HomeGuideViewHolder(view);
@@ -55,6 +60,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     @Override
     public int getItemViewType(int position) {
+        if (position == 0) {
+            return VIEW_TITLE;
+        }
         return super.getItemViewType(position);
     }
 
@@ -62,7 +70,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         if (holder == null) return;
         if (holder instanceof HomeGuideViewHolder) {
-            final int pos = holder.getAdapterPosition();
+            final int pos = holder.getAdapterPosition() - 1;
             final HomeData.Guide data = guides.get(pos);
             if (data == null) return;
 
@@ -82,7 +90,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                     }
                 });
             }
-
         }
     }
 
@@ -91,7 +98,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         if (guides == null || guides.size() == 0) {
             return 0;
         } else {
-            return guides.size();
+            return 1 + guides.size();
         }
     }
 
@@ -102,7 +109,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
     }
 
-    public static class HomeGuideViewHolder extends BaseViewHolder {
+    public class HomeGuideViewHolder extends BaseViewHolder {
         RelativeLayout rlParent;
         ImageView iv_backGround;
         ImageView iv_head;
@@ -125,6 +132,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
     }
 
+    public class GuideTitleViewHolder extends BaseViewHolder{
+        TextView tv_check_all;
+
+        GuideTitleViewHolder(View itemView) {
+            super(itemView);
+            tv_check_all = itemView.findViewById(R.id.tv_check_all);
+            tv_check_all.setOnClickListener(onCheckAllListener);
+        }
+    }
+
 
     //--------------View Holder end----------------
 
@@ -136,7 +153,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
-
+    View.OnClickListener onCheckAllListener;
 
 
     public interface OnItemClickListener {
@@ -147,7 +164,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         this.mOnItemClickListener = onItemClickListener;
     }
 
-
+    public void setCheckAllListener(View.OnClickListener onCheckAllListener) {
+        this.onCheckAllListener = onCheckAllListener;
+    }
     //---------事件 end---------
 
 

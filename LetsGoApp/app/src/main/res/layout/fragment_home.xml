@@ -28,8 +28,6 @@
 
             <include layout="@layout/home_item_trip_setting" />
 
-            <include layout="@layout/home_item_guide_title" />
-
             <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"

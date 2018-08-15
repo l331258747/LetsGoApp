@@ -54,7 +54,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     Disposable desDisposable;
 
     LinearLayout ll_destination, ll_start_time, ll_end_time;
-    TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, tv_check_all,btn_trip_setting;
+    TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, btn_trip_setting;
 
     ConvenientBanner convenientBanner;
 
@@ -76,14 +76,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tv_start_time_content = $(R.id.tv_start_time_content);
         tv_end_time_content = $(R.id.tv_end_time_content);
         tv_day_time = $(R.id.tv_day_time);
-        tv_check_all = $(R.id.tv_check_all);
         btn_trip_setting = $(R.id.btn_trip_setting);
         convenientBanner = $(R.id.convenientBanner);
 
         ll_destination.setOnClickListener(this);
         ll_start_time.setOnClickListener(this);
         ll_end_time.setOnClickListener(this);
-        tv_check_all.setOnClickListener(this);
         btn_trip_setting.setOnClickListener(this);
 
 
@@ -123,10 +121,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.ll_end_time:
                 calendarPick();
-                break;
-            case R.id.tv_check_all:
-                showLongToast("全部导游");
-                startActivity(new Intent(context, GuideListActivity.class));
                 break;
             case R.id.btn_trip_setting:
                 showLongToast("设置行程");
@@ -175,6 +169,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             public void onClick(int position) {
                 showShortToast("点击第" + position);
                 startActivity(new Intent(context, GuideDetailActivity.class));
+            }
+        });
+
+        mAdapter.setCheckAllListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context,GuideListActivity.class));
             }
         });
     }
