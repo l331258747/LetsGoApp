@@ -13,159 +13,219 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <include layout="@layout/home_item_banner" />
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_gray_bottom_line">
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_head"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@mipmap/head_default" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_head"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@mipmap/head_default" />
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toEndOf="@+id/iv_head"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="那就走"
+                            android:textSize="16sp" />
+
+                        <com.njz.letsgoapp.widget.MyRatingBar
+                            android:id="@+id/my_rating_bar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_service_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="服务4000次"
+                        android:textSize="16sp" />
+
+                    <com.njz.letsgoapp.widget.GuideLabelView
+                        android:id="@+id/guide_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ll_name"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/iv_head" />
+
+                    <com.njz.letsgoapp.widget.ServiceTagView
+                        android:id="@+id/stv_tag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/guide_label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/iv_head" />
+
+                </RelativeLayout>
+
+                <com.njz.letsgoapp.widget.GuideAuthenticationView
+                    android:id="@+id/guide_authentication"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_times"
+                    android:layout_toEndOf="@id/iv_head"
+                    android:background="@drawable/btn_gray_bottom_line"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔"
+                    android:textSize="14sp" />
 
 
                 <LinearLayout
-                    android:id="@+id/ll_name"
+                    android:id="@+id/ll_select_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toEndOf="@+id/iv_head"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="那就走" />
-
-                    <com.njz.letsgoapp.widget.MyRatingBar
-                        android:id="@+id/my_rating_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp" />
-
-                </LinearLayout>
-
-                <com.njz.letsgoapp.widget.ServiceTagView
-                    android:id="@+id/stv_tag"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_name"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_toEndOf="@+id/iv_head" />
-
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:id="@+id/ll_select_service"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_gray_bottom_line"
-                android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="请选择服务内容" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@mipmap/ic_arrow_right"
-                    android:text="（23:59前可定当日产品）"
-                    android:textColor="@color/gray_999" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/ll_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_gray_bottom_line"
-                android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="评价" />
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="@drawable/btn_gray_bottom_line"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5.0"
-                        android:textColor="@color/gray_999" />
+                        android:textSize="16sp"
+                        android:text="请选择服务内容" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="/5"
-                        android:textColor="@color/gray_999" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="(6000条点评)"
+                        android:drawableRight="@mipmap/ic_arrow_right"
+                        android:text="（23:59前可定当日产品）"
                         android:textColor="@color/gray_999" />
 
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:id="@+id/ll_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:textSize="16sp"
+                        android:text="评价" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5.0"
+                            android:textColor="@color/gray_999" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/5"
+                            android:textColor="@color/gray_999" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="(6000条点评)"
+                            android:textColor="@color/gray_999" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:drawableRight="@mipmap/ic_arrow_right"
+                        android:text="查看全部"
+                        android:textColor="@color/color_price" />
+
+                </LinearLayout>
+
+                <include layout="@layout/item_comment" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:drawableRight="@mipmap/ic_arrow_right"
-                    android:textColor="@color/color_price"
-                    android:text="查看全部" />
+                    android:paddingBottom="15dp"
+                    android:textSize="16sp"
+                    android:paddingTop="15dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="他的故事" />
+
+                <com.njz.letsgoapp.util.webview.LWebView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:scrollbars="none" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_999"/>
+
+                <include layout="@layout/item_guide_service_process" />
+
+                <include layout="@layout/item_guide_subscribe_introduce" />
 
             </LinearLayout>
-
-            <include layout="@layout/item_comment" />
-
-
-            <include layout="@layout/item_guide_service_process" />
-
-            <include layout="@layout/item_guide_price_introduce" />
-
-            <include layout="@layout/item_guide_unsubscribe_introduce" />
-
-            <include layout="@layout/item_guide_subscribe_introduce" />
 
         </LinearLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:paddingBottom="5dp"
-        android:background="@color/white"
-        android:paddingTop="5dp"
         android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
         <Button
             android:id="@+id/btn_call"
