@@ -96,7 +96,6 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         tv_day = contentView.findViewById(R.id.tv_day);
         number_view = contentView.findViewById(R.id.number_view);
 
-        tv_city.setOnClickListener(this);
         tv_start_time.setOnClickListener(this);
         tv_end_time.setOnClickListener(this);
 
@@ -187,9 +186,6 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_city:
-                cityPick();
-                break;
             case R.id.tv_start_time:
                 calendarPick();
                 break;
@@ -201,20 +197,8 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     }
 
 
-    Disposable desDisposable;
     Disposable calDisposable;
 
-    private void cityPick(){
-        mContext.startActivity(new Intent(mContext, CityPickActivity.class));
-        mContext.overridePendingTransition(0, 0);
-        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-            @Override
-            public void accept(CityPickEvent cityPickEvent) throws Exception {
-                tv_city.setText(cityPickEvent.getCity());
-                desDisposable.dispose();
-            }
-        });
-    }
 
     private void calendarPick() {
         Intent intent = new Intent(mContext, CalendarActivity.class);
