@@ -5,9 +5,9 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="10dp"
-    android:layout_margin="10dp">
+    app:cardElevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,7 +50,8 @@
 
         </LinearLayout>
 
-        <LinearLayout
+
+        <com.njz.letsgoapp.widget.GuideScoreView
             android:id="@+id/ll_times"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,26 +59,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
             android:layout_toEndOf="@+id/iv_head"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2563次服务  |  5.0分 （2300条点评）"
-                android:textColor="@color/black"
-                android:textSize="11sp" />
-
-        </LinearLayout>
-
-
-        <com.njz.letsgoapp.widget.PriceView
-            android:id="@+id/tv_price1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/ll_times"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp" />
+            app:guide_score_text_size="12" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -100,8 +82,8 @@
             android:layout_toEndOf="@id/iv_head"
             android:ellipsize="end"
             android:maxLines="1"
-            tools:text="向导陪游"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            tools:text="向导陪游" />
 
     </RelativeLayout>
 

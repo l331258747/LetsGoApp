@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.ServiceTagView;
@@ -51,11 +52,11 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (data == null) return;
 
             GlideUtil.LoadCircleImage(mContext, data.getHeadUrl(), ((GuideListAdapter.GuideViewHolder) holder).iv_head);
-            ((GuideListAdapter.GuideViewHolder) holder).tv_name.setText(data.getName());
-            ((GuideListAdapter.GuideViewHolder) holder).rating_bar_route.setRating(data.getStars());
-            ((GuideListAdapter.GuideViewHolder) holder).tv_content.setText(data.getContent());
-            ((GuideListAdapter.GuideViewHolder) holder).tv_price1.setPrice(data.getPrice());
+            ((GuideViewHolder) holder).tv_name.setText(data.getName());
+            ((GuideViewHolder) holder).rating_bar_route.setRating(data.getStars());
+            ((GuideViewHolder) holder).tv_content.setText(data.getContent());
             ((GuideViewHolder) holder).tv_service_item.setServiceTag(data.getServiceItems());
+            ((GuideViewHolder) holder).ll_times.setGuideScore(data.getServiceNum(),data.getStars(),data.getComment());
             if (mOnItemClickListener != null) {
                 ((GuideViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -84,9 +85,9 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView iv_head;
         TextView tv_name;
         MyRatingBar rating_bar_route;
-        PriceView tv_price1;
         TextView tv_content;
         ServiceTagView tv_service_item;
+        GuideScoreView ll_times;
 
         GuideViewHolder(View itemView) {
             super(itemView);
@@ -95,8 +96,8 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tv_name = itemView.findViewById(R.id.tv_name);
             rating_bar_route = itemView.findViewById(R.id.rating_bar_route);
             tv_content = itemView.findViewById(R.id.tv_content);
-            tv_price1 = itemView.findViewById(R.id.tv_price1);
             tv_service_item = itemView.findViewById(R.id.tv_service_item);
+            ll_times = itemView.findViewById(R.id.ll_times);
         }
     }
 

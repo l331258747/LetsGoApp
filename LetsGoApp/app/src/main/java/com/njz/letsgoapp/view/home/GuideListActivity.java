@@ -166,7 +166,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     public List<GuideData> getData() {
         List<GuideData> guideDatas = new ArrayList<>();
         GuideData guideData = new GuideData();
-        guideData.setComment("" + 400);
+        guideData.setComment(400);
         guideData.setContent("aegaegjaklegjalkag");
         guideData.setHeadUrl("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
         guideData.setName("导游");
@@ -176,7 +176,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         serviceItmes.add("包车服务");
         serviceItmes.add("代订门票");
         guideData.setServiceItems(serviceItmes);
-        guideData.setServiceNum(300 + "");
+        guideData.setServiceNum(300);
         guideData.setSex("男");
         guideData.setStars(5);
 

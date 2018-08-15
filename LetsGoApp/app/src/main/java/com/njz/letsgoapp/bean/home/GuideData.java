@@ -15,8 +15,8 @@ public class GuideData {
     int stars;
     String sex;
     double price;
-    String serviceNum;
-    String comment;
+    int serviceNum;
+    int comment;
     String content;
     List<String> serviceItems;
 
@@ -46,19 +46,19 @@ public class GuideData {
     }
 
 
-    public String getServiceNum() {
+    public int getServiceNum() {
         return serviceNum;
     }
 
-    public void setServiceNum(String serviceNum) {
+    public void setServiceNum(int serviceNum) {
         this.serviceNum = serviceNum;
     }
 
-    public String getComment() {
+    public int getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public void setComment(int comment) {
         this.comment = comment;
     }
 
