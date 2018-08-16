@@ -59,6 +59,9 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initView() {
+
+        showLeftAndTitle("向导详情介绍");
+
         convenientBanner = $(R.id.convenientBanner);
         iv_head = $(R.id.iv_head);
         tv_name = $(R.id.tv_name);

@@ -31,6 +31,7 @@ import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.view.home.OrderSubmitActivity;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.NumberView;
@@ -201,7 +202,8 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 calendarPick();
                 break;
             case R.id.tv_submit:
-                ToastUtil.showShortToast(AppUtils.getContext(),"立即预定");
+                mContext.startActivity(new Intent(mContext, OrderSubmitActivity.class));
+                dismissPopupWindow();
                 break;
 
         }

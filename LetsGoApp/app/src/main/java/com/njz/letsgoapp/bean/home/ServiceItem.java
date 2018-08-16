@@ -2,11 +2,20 @@ package com.njz.letsgoapp.bean.home;
 
 public class ServiceItem {
 
+    String img;
     String content;
     double price;
     String startTime;
     String endTime;
     int number;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public String getContent() {
         return content;

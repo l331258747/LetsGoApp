@@ -8,5 +8,11 @@
     <string name="home_my">我的</string>
 
 
+    <string name="guide_service_contract"><Data><![CDATA[点击提交订单表示已阅读并同意<font color="#508CCA">向导服务合同</font>]]></Data></string>
+
+
+
+
+
 
 </resources>

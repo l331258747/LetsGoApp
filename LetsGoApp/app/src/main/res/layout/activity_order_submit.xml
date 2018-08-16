@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.njz.letsgoapp.widget.LoginItemView
+                android:id="@+id/login_view_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_hint="请输入联系人"
+                app:login_item_max_length="5"
+                app:login_item_title="联系人"
+                app:login_item_title_width="80dp" />
+
+            <com.njz.letsgoapp.widget.LoginItemView
+                android:id="@+id/login_view_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_hint="请输入联系方式"
+                app:login_item_max_length="11"
+                app:login_item_title="联系方式"
+                app:login_item_title_width="80dp" />
+
+            <com.njz.letsgoapp.widget.FixedItemView
+                android:id="@+id/fixed_view_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_title="目的地"
+                app:login_item_title_width="80dp" />
+
+            <com.njz.letsgoapp.widget.FixedItemView
+                android:id="@+id/fixed_view_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_content_size="11"
+                app:login_item_title="行程时间"
+                app:login_item_title_width="80dp" />
+
+            <com.njz.letsgoapp.widget.FixedItemView
+                android:id="@+id/fixed_view_people_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_title="出行人数"
+                app:login_item_title_width="80dp" />
+
+            <com.njz.letsgoapp.widget.FixedItemView
+                android:id="@+id/fixed_view_special"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_title="特殊要求"
+                app:login_item_title_width="80dp" />
+
+            <include layout="@layout/base_recycler_view_layout" />
+
+            <TextView
+                android:id="@+id/tv_contract"
+                android:layout_width="match_parent"
+                android:drawableLeft="@mipmap/ic_register_read"
+                android:layout_height="match_parent"
+                android:drawablePadding="3dp"
+                android:padding="5dp"
+                android:background="@color/gray_999"
+                android:layout_margin="10dp"
+                android:text="@string/guide_service_contract"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@color/color_price"
+        android:text="提交订单（￥5000）"/>
+
+</FrameLayout>
+
+
+

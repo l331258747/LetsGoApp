@@ -96,8 +96,14 @@
             android:name=".view.home.GuideDetailActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".view.home.OrderSubmitActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".view.home.GuideListActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.home.GuideContractActivity"/>
+
         <activity android:name=".view.mine.SystemSettingActivity" />
         <activity android:name=".view.mine.FeedbackActivity"
             android:windowSoftInputMode="adjustPan"/>
