@@ -24,9 +24,7 @@ public class CommentDetailActivity extends BaseActivity {
 
     TagFlowLayout mFlowLayout;
     private String[] mVals = new String[]
-            {"Hello", "Android", "Weclome Hi ", "Button", "TextView", "Hello",
-                    "Android", "Weclome", "Button ImageView", "TextView", "Helloworld",
-                    "Android", "Weclome Hello", "Button Text", "TextView"};
+            {"全部(100)", "向导陪游(100)", "私人定制(100)", "车导服务(100)", "代订酒店(100)", "景点门票(100)"};
 
 
     @Override
