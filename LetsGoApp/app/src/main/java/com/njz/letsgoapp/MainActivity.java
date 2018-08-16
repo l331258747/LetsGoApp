@@ -21,6 +21,7 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.view.home.CommentDetailActivity;
 import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 import com.njz.letsgoapp.view.home.ServiceListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
@@ -262,7 +263,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, ReportActivity.class));
+                startActivity(new Intent(context, CommentDetailActivity.class));
             }
         });
     }
