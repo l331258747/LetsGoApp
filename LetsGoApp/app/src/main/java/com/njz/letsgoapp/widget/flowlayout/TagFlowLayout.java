@@ -131,8 +131,7 @@ public class TagFlowLayout extends FlowLayout
                 public void onClick(View v) {
                     doSelect(finalTagViewContainer, position);
                     if (mOnTagClickListener != null) {
-                        mOnTagClickListener.onTagClick(finalTagViewContainer, position,
-                                TagFlowLayout.this);
+                        mOnTagClickListener.onTagClick(finalTagViewContainer, position, TagFlowLayout.this);
                     }
                 }
             });

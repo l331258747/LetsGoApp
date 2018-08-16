@@ -44,8 +44,7 @@ public class CommentDetailActivity extends BaseActivity {
 
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow,
-                        mFlowLayout, false);
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow, mFlowLayout, false);
                 tv.setText(s);
                 return tv;
             }
@@ -61,13 +60,6 @@ public class CommentDetailActivity extends BaseActivity {
             }
         });
 
-
-        mFlowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
-            @Override
-            public void onSelected(Set<Integer> selectPosSet) {
-                LogUtil.e("choose:" + selectPosSet.toString());
-            }
-        });
     }
 
     @Override
