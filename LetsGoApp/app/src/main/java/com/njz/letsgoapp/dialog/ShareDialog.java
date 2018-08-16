@@ -24,7 +24,7 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
 
     Activity mContext;
     RelativeLayout layoutParent;
-    RelativeLayout ivFriend, ivFriends;
+    RelativeLayout ivFriend, ivFriends,ivPeport;
 
     int flag;
     String title;
@@ -56,10 +56,12 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         layoutParent = layout.findViewById(R.id.layout_parent);
         ivFriend = layout.findViewById(R.id.iv_friend);
         ivFriends = layout.findViewById(R.id.iv_friends);
+        ivPeport = layout.findViewById(R.id.iv_report);
 
         layoutParent.setOnClickListener(this);
         ivFriend.setOnClickListener(this);
         ivFriends.setOnClickListener(this);
+        ivPeport.setOnClickListener(this);
     }
 
     @Override
