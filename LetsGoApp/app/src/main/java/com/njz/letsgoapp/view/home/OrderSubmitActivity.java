@@ -6,11 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.njz.letsgoapp.MainActivity;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.OrderSubmitAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemView;
 import com.njz.letsgoapp.widget.LoginItemView;
 
@@ -28,7 +30,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     LoginItemView login_view_name, login_view_phone;
     FixedItemView fixed_view_city, fixed_view_calendar, fixed_view_people_num, fixed_view_special;
     RecyclerView recyclerView;
-    TextView tv_contract;
+    TextView tv_contract,tv_submit;
 
     @Override
     public int getLayoutId() {
@@ -48,10 +50,12 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         fixed_view_special = $(R.id.fixed_view_special);
         recyclerView = $(R.id.recycler_view);
         tv_contract = $(R.id.tv_contract);
+        tv_submit = $(R.id.tv_submit);
 
         StringUtils.setHtml(tv_contract, getResources().getString(R.string.guide_service_contract));
 
         tv_contract.setOnClickListener(this);
+        tv_submit.setOnClickListener(this);
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -90,6 +94,9 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.tv_contract:
                 startActivity(new Intent(context,GuideContractActivity.class));
+                break;
+            case R.id.tv_submit:
+                PayActivity.startActivity(activity, 12314341);
                 break;
         }
     }

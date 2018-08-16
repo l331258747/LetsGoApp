@@ -68,26 +68,27 @@
             <TextView
                 android:id="@+id/tv_contract"
                 android:layout_width="match_parent"
-                android:drawableLeft="@mipmap/ic_register_read"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@color/gray_999"
+                android:drawableLeft="@mipmap/ic_register_read"
                 android:drawablePadding="3dp"
                 android:padding="5dp"
-                android:background="@color/gray_999"
-                android:layout_margin="10dp"
-                android:text="@string/guide_service_contract"/>
+                android:text="@string/guide_service_contract" />
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
     <TextView
+        android:id="@+id/tv_submit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:gravity="center"
-        android:textColor="@color/white"
         android:background="@color/color_price"
-        android:text="提交订单（￥5000）"/>
+        android:gravity="center"
+        android:text="提交订单（￥5000）"
+        android:textColor="@color/white" />
 
 </FrameLayout>
 
