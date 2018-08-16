@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.home;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.SimpleImageAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.dialog.ShareDialog;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.webview.LWebView;
@@ -61,6 +64,9 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public void initView() {
 
         showLeftAndTitle("向导详情介绍");
+        showRightIv();
+        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.icon_share));
+        getRightIv().setOnClickListener(this);
 
         convenientBanner = $(R.id.convenientBanner);
         iv_head = $(R.id.iv_head);
@@ -244,6 +250,14 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.btn_submit:
                 showPopService();
+                break;
+            case R.id.right_iv:
+                ShareDialog dialog = new ShareDialog(activity,
+                        "那就走 标题",
+                        "那就走 内容",
+                        "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
+                        "https://www.ifanr.com/1084256");
+                dialog.show();
                 break;
 
         }

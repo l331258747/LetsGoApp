@@ -3,6 +3,8 @@ package com.njz.letsgoapp.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * Created by LGQ
@@ -90,6 +92,5 @@ public class AppUtils {
 		final float fontScale = getContext().getResources().getDisplayMetrics().scaledDensity;
 		return (int) (spValue * fontScale + 0.5f);
 	}
-
 
 }

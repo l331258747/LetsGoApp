@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +13,9 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
@@ -55,6 +58,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initView() {
         showLeftAndTitle(title + "详情介绍");
+        showRightIv();
+        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.icon_share));
+        getRightIv().setOnClickListener(this);
 
         convenientBanner = $(R.id.convenientBanner);
         tv_title = $(R.id.tv_title);
@@ -120,6 +126,14 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tv_destination:
                 startActivity(new Intent(context, MapActivity.class));
+                break;
+            case R.id.right_iv:
+                ShareDialog dialog = new ShareDialog(activity,
+                        "那就走 标题",
+                        "那就走 内容",
+                        "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
+                        "https://www.ifanr.com/1084256");
+                dialog.show();
                 break;
         }
     }

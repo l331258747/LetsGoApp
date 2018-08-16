@@ -106,6 +106,8 @@
         <activity android:name=".view.home.ServiceDetailActivity" />
         <activity android:name=".view.home.ServiceListActivity" />
 
+        <activity android:name=".view.other.ReportActivity" />
+
         <activity android:name=".view.mine.SystemSettingActivity" />
         <activity
             android:name=".view.mine.FeedbackActivity"
@@ -332,6 +334,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".view.other.ReportActivity" />
 
         <provider
             android:name=".util.BuglyFileProvider"
