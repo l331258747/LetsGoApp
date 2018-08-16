@@ -43,7 +43,7 @@ import io.reactivex.functions.Consumer;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    static RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     HomeAdapter mAdapter;
     HomeData homeData;

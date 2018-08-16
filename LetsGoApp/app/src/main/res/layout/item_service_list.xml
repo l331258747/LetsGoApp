@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/btn_black_hollow">
+
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/background" />
+
+    <TextView
+        android:id="@+id/iv_img_content"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_img"
+        android:background="#66999999"
+        android:maxLines="1"
+        android:padding="3dp"
+        android:textSize="12sp"
+        android:text="代订 | 张家界" />
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/iv_img"
+        android:maxLines="2"
+        android:text="我是标题，选我我是标题，选我我是标题，选我" />
+
+
+    <com.njz.letsgoapp.widget.PriceView
+        android:id="@+id/pv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_img"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/iv_img" />
+
+    <TextView
+        android:id="@+id/tv_sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_img"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/pv_price"
+        android:text="已售：11" />
+
+    <TextView
+        android:id="@+id/btn_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/iv_img"
+        android:background="@drawable/btn_blue_solid_r5_p5"
+        android:textColor="@color/white"
+        android:text="取消"/>
+
+</RelativeLayout>

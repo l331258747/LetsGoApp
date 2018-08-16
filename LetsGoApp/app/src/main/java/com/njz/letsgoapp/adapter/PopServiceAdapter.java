@@ -33,11 +33,11 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     private static final int SERVICE_TYPE_DEFAULT = 12;
     private static final int SERVICE_TYPE_DEFAULT2 = 13;
 
-    private static final String SERVICE_TYPE_GUIDE = "向导陪游服务";
-    private static final String SERVICE_TYPE_CUSTOM = "私人定制服务";
-    private static final String SERVICE_TYPE_CAR = "包车服务";
-    private static final String SERVICE_TYPE_HOTEL = "代订酒店服务";
-    private static final String SERVICE_TYPE_TICKET = "代订景点门票服务";
+    public static final String SERVICE_TYPE_GUIDE = "向导陪游服务";
+    public static final String SERVICE_TYPE_CUSTOM = "私人定制服务";
+    public static final String SERVICE_TYPE_CAR = "包车服务";
+    public static final String SERVICE_TYPE_HOTEL = "代订酒店服务";
+    public static final String SERVICE_TYPE_TICKET = "代订景点门票服务";
 
     ServiceInfo serviceInfo;
 
@@ -143,22 +143,11 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 @Override
                 public void onClick(View v) {
                     String strTitle = (((TitleHolder) holder).service_title).getText().toString();
-                    if(TextUtils.equals(strTitle,SERVICE_TYPE_GUIDE)){
-                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_GUIDE);
-                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_CUSTOM)){
-                        ToastUtil.showShortToast(mContext, SERVICE_TYPE_CUSTOM);
-                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_CAR)){
-                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_CAR);
-                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_HOTEL)){
-                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_HOTEL);
-                    }else if(TextUtils.equals(strTitle,SERVICE_TYPE_TICKET)){
-                        ToastUtil.showShortToast(mContext,SERVICE_TYPE_TICKET);
-                    }
+                    mOnItemClickListener.onClick(strTitle);
                 }
             });
 
         }
-
     }
 
     @Override
@@ -216,4 +205,15 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     }
 
     //--------------View Holder end----------------
+
+
+    //-----start 事件
+    OnTitleClickListener mOnItemClickListener;
+    public interface OnTitleClickListener {
+        void onClick(String titleType);
+    }
+    public void setOnItemClickListener(OnTitleClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+    //-----end 事件
 }

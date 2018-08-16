@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <include layout="@layout/home_item_banner" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_gray_bottom_line"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_destination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="目的地" />
+
+                <TextView
+                    android:id="@+id/tv_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_destination"
+                    android:layout_alignParentRight="true"
+                    android:text="已售：11" />
+
+                <com.njz.letsgoapp.widget.PriceView
+                    android:id="@+id/pv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_destination"
+                    android:layout_marginRight="3dp"
+                    android:layout_toStartOf="@+id/tv_sell" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:text="服务特色"
+                    android:textSize="16sp" />
+
+                <com.njz.letsgoapp.util.webview.LWebView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:scrollbars="none" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_999" />
+
+            <include layout="@layout/item_guide_price_introduce" />
+
+            <include layout="@layout/item_guide_subscribe_introduce" />
+
+            <include layout="@layout/item_guide_unsubscribe_introduce" />
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="预订（￥550）"
+        android:textColor="@color/white" />
+
+</FrameLayout>
+

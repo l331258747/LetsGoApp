@@ -21,6 +21,8 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.view.home.ServiceDetailActivity;
+import com.njz.letsgoapp.view.home.ServiceListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
@@ -91,7 +93,6 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(context, CityPickActivity.class));
             }
         });
-
 
 
     }
@@ -260,8 +261,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getUserData();
-                showLongToast("网络请求看payactivity");
+                startActivity(new Intent(context, ServiceListActivity.class));
             }
         });
     }

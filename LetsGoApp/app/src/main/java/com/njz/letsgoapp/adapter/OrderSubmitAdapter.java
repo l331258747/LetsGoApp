@@ -10,8 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.GuideData;
-import com.njz.letsgoapp.bean.home.ServiceInfo;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 

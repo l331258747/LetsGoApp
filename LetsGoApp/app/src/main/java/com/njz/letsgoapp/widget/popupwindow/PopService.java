@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.OrderSubmitActivity;
+import com.njz.letsgoapp.view.home.ServiceDetailActivity;
+import com.njz.letsgoapp.view.home.ServiceListActivity;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.NumberView;
@@ -175,6 +178,34 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
             recyclerView.setLayoutManager(linearLayoutManager);
             mAdapter = new PopServiceAdapter(mContext, serviceInfo);
             recyclerView.setAdapter(mAdapter);
+
+            mAdapter.setOnItemClickListener(new PopServiceAdapter.OnTitleClickListener() {
+                @Override
+                public void onClick(String titleType) {
+                    Intent intent;
+                    if(TextUtils.equals(titleType,PopServiceAdapter.SERVICE_TYPE_GUIDE)){
+
+                        ToastUtil.showShortToast(mContext,PopServiceAdapter.SERVICE_TYPE_GUIDE);
+                        intent = new Intent(mContext, ServiceDetailActivity.class);
+                        intent.putExtra("ServiceDetailActivity_title",titleType);
+                        mContext.startActivity(intent);
+                        return;
+
+                    }else if(TextUtils.equals(titleType,PopServiceAdapter.SERVICE_TYPE_CUSTOM)){
+                        ToastUtil.showShortToast(mContext, PopServiceAdapter.SERVICE_TYPE_CUSTOM);
+                    }else if(TextUtils.equals(titleType,PopServiceAdapter.SERVICE_TYPE_CAR)){
+                        ToastUtil.showShortToast(mContext,PopServiceAdapter.SERVICE_TYPE_CAR);
+                    }else if(TextUtils.equals(titleType,PopServiceAdapter.SERVICE_TYPE_HOTEL)){
+                        ToastUtil.showShortToast(mContext,PopServiceAdapter.SERVICE_TYPE_HOTEL);
+                    }else if(TextUtils.equals(titleType,PopServiceAdapter.SERVICE_TYPE_TICKET)){
+                        ToastUtil.showShortToast(mContext,PopServiceAdapter.SERVICE_TYPE_TICKET);
+                    }
+                    intent = new Intent(mContext, ServiceListActivity.class);
+                    intent.putExtra("ServiceDetailActivity_title",titleType);
+                    mContext.startActivity(intent);
+                }
+            });
+
 
             //NestedScroll 嵌套 recyclerView 触摸到RecyclerView的时候滑动还有些粘连的感觉
             recyclerView.setNestedScrollingEnabled(false);

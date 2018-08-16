@@ -101,12 +101,15 @@
         <activity
             android:name=".view.home.GuideListActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".view.home.GuideContractActivity"/>
+        <activity android:name=".view.home.GuideContractActivity" />
+
+        <activity android:name=".view.home.ServiceDetailActivity" />
+        <activity android:name=".view.home.ServiceListActivity" />
 
         <activity android:name=".view.mine.SystemSettingActivity" />
-        <activity android:name=".view.mine.FeedbackActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".view.mine.FeedbackActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.mine.AboutActivity" />
         <activity android:name=".view.mine.MyInfoActivity" />
 
@@ -339,7 +342,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"
-                tools:replace="name,resource"/>
+                tools:replace="name,resource" />
         </provider>
 
         <!-- bugly 升级 end -->

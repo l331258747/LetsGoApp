@@ -66,7 +66,7 @@ public class MapActivity extends AppCompatActivity {
         markerOption.title(title).snippet(content);//snippet 点标记的内容
         markerOption.draggable(false);//设置Marker可拖动
         markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(), R.mipmap.home)));
+                .decodeResource(getResources(), R.mipmap.map32)));
         aMap.addMarker(markerOption);
     }
 
