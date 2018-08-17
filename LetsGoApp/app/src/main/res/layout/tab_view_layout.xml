@@ -11,7 +11,7 @@
         android:layout_height="25dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
-        tools:src="@drawable/icon_nav_home_n"/>
+        tools:src="@mipmap/home"/>
 
     <TextView
         android:id="@+id/tab_lable"

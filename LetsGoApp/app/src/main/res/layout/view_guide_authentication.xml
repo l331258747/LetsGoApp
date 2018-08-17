@@ -7,25 +7,25 @@
     <ImageView
         android:id="@+id/iv_identity"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
+        android:layout_height="30dp"
         android:layout_margin="5dp"
+        android:scaleType="centerInside"
         android:src="@mipmap/authentication_identity" />
 
     <ImageView
         android:id="@+id/iv_guide"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
+        android:layout_height="30dp"
         android:layout_margin="5dp"
-        android:src="@mipmap/authentication_guide" />
+        android:scaleType="centerInside"
+        android:src="@mipmap/authentication_identity" />
 
     <ImageView
         android:id="@+id/iv_car"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
+        android:layout_height="30dp"
         android:layout_margin="5dp"
-        android:src="@mipmap/authentication_car" />
+        android:scaleType="centerInside"
+        android:src="@mipmap/authentication_identity" />
 
 </LinearLayout>

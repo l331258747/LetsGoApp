@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:padding="10dp"
-        android:src="@drawable/icon_back"
+        android:src="@mipmap/icon_back"
         android:visibility="gone" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:maxLines="1"
         android:minHeight="44dp"
         android:singleLine="true"
-        android:textColor="@color/black_66"
+        android:textColor="@color/black"
         android:textSize="17sp"
         android:visibility="visible"
         tools:text="Title" />

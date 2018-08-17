@@ -54,7 +54,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:drawablePadding="3dp"
-            android:drawableRight="@drawable/icon_arrow_right"
+            android:drawableRight="@mipmap/ic_arrow_right"
             android:text="个人主页"
             android:textColor="@color/white" />
 
