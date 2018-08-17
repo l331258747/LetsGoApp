@@ -10,6 +10,7 @@ import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
+import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
 import com.njz.letsgoapp.view.mine.SystemSettingActivity;
 import com.njz.letsgoapp.widget.MineItemView;
@@ -25,7 +26,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     MineItemView mine_bind, mine_info, mine_modify, mine_commont, mine_custom, mine_setting;
 
     ImageView iv_head;
-    TextView tv_name;
+    TextView tv_name,tv_follow,tv_fans;
 
     @Override
     public int getLayoutId() {
@@ -46,6 +47,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mine_commont = $(R.id.mine_commont);
         mine_custom = $(R.id.mine_custom);
         mine_setting = $(R.id.mine_setting);
+        tv_fans = $(R.id.tv_fans);
+        tv_follow = $(R.id.tv_follow);
 
         mine_bind.setOnClickListener(this);
         mine_info.setOnClickListener(this);
@@ -53,6 +56,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mine_commont.setOnClickListener(this);
         mine_setting.setOnClickListener(this);
         mine_custom.setOnClickListener(this);
+        tv_fans.setOnClickListener(this);
+        tv_follow.setOnClickListener(this);
+
     }
 
     @Override
@@ -80,6 +86,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.mine_setting:
                 startActivity(new Intent(context,SystemSettingActivity.class));
+                break;
+            case R.id.tv_fans:
+                Intent intentFans = new Intent(context,FansListActivity.class);
+                intentFans.putExtra("FansListActivity_title", "我的粉丝");
+                startActivity(intentFans);
+                break;
+            case R.id.tv_follow:
+                Intent intentFollow = new Intent(context,FansListActivity.class);
+                intentFollow.putExtra("FansListActivity_title", "我的关注");
+                startActivity(intentFollow);
                 break;
 
         }

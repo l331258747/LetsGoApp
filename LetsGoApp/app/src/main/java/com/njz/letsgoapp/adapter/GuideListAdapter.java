@@ -110,4 +110,5 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
+
 }

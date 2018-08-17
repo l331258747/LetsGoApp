@@ -115,6 +115,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.mine.AboutActivity" />
         <activity android:name=".view.mine.MyInfoActivity" />
+        <activity android:name=".view.mine.FansListActivity" />
 
         <activity android:name=".view.login.LoginActivity" />
         <activity android:name=".view.login.VerifyLoginActivity" />
@@ -336,6 +337,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".view.other.ReportActivity" />
+        <activity android:name=".view.mine.FansListActivity" />
 
         <provider
             android:name=".util.BuglyFileProvider"
