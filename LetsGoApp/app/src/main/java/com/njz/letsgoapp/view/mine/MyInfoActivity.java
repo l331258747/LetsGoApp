@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.mine;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.njz.letsgoapp.R;
@@ -24,7 +25,8 @@ import io.reactivex.functions.Consumer;
 
 public class MyInfoActivity extends BaseActivity implements View.OnClickListener {
     ImageView iv_head;
-    MineItemView info_name, info_sex, info_birthday, info_lacation, info_country, info_introduce, info_tag;
+    MineItemView info_sex, info_birthday, info_lacation, info_country, info_introduce, info_tag;
+    EditText et_name;
 
     @Override
     public int getLayoutId() {
@@ -41,13 +43,15 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         GlideUtil.LoadCircleImage(context, photo, iv_head);
 
 
-        info_name = $(R.id.info_name);
+        et_name = $(R.id.et_name);
         info_sex = $(R.id.info_sex);
         info_birthday = $(R.id.info_birthday);
         info_lacation = $(R.id.info_lacation);
         info_country = $(R.id.info_country);
         info_introduce = $(R.id.info_introduce);
         info_tag = $(R.id.info_tag);
+
+        et_name.setText("那就走");
 
         info_lacation.setOnClickListener(this);
         info_country.setOnClickListener(this);

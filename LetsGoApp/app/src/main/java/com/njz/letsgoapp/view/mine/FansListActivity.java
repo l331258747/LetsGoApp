@@ -52,7 +52,7 @@ public class FansListActivity extends BaseActivity {
         initSwipeLayout();
 
         layout_parent = $(R.id.layout_parent);
-        layout_parent.setBackgroundColor(getResources().getColor(R.color.color_line_33));
+        layout_parent.setBackgroundColor(getResources().getColor(R.color.parent_background));
     }
 
     @Override

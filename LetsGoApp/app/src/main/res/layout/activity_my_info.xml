@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_line_33"
+    android:background="@color/parent_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <ImageView
@@ -15,13 +17,16 @@
         android:src="@mipmap/head_default" />
 
 
-    <com.njz.letsgoapp.widget.MineItemView
-        android:id="@+id/info_name"
+    <EditText
+        android:id="@+id/et_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:content="那就走"
-        app:left_drawable="@mipmap/ic_arrow_right"
-        app:title="昵称" />
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="@color/white"
+        android:maxLines="1"
+        android:maxLength="15"
+        android:padding="8dp"
+        android:text="那就走" />
 
     <com.njz.letsgoapp.widget.MineItemView
         android:id="@+id/info_sex"
