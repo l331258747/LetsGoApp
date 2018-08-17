@@ -130,9 +130,6 @@ public class TagFlowLayout extends FlowLayout
                 @Override
                 public void onClick(View v) {
                     doSelect(finalTagViewContainer, position);
-                    if (mOnTagClickListener != null) {
-                        mOnTagClickListener.onTagClick(finalTagViewContainer, position, TagFlowLayout.this);
-                    }
                 }
             });
         }
@@ -165,6 +162,7 @@ public class TagFlowLayout extends FlowLayout
         if (!child.isChecked()) {
             //处理max_select=1的情况
             if (mSelectedMax == 1 && mSelectedView.size() == 1) {
+
                 Iterator<Integer> iterator = mSelectedView.iterator();
                 Integer preIndex = iterator.next();
                 TagView pre = (TagView) getChildAt(preIndex);
@@ -181,11 +179,18 @@ public class TagFlowLayout extends FlowLayout
                 mSelectedView.add(position);
             }
         } else {
-            setChildUnChecked(position, child);
-            mSelectedView.remove(position);
+            if (mSelectedMax == 1 && mSelectedView.size() == 1){
+                return;
+            }else {
+                setChildUnChecked(position, child);
+                mSelectedView.remove(position);
+            }
         }
         if (mOnSelectListener != null) {
             mOnSelectListener.onSelected(new HashSet<Integer>(mSelectedView));
+        }
+        if (mOnTagClickListener != null) {
+            mOnTagClickListener.onTagClick(child, position, TagFlowLayout.this);
         }
     }
 

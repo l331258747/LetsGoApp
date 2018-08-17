@@ -17,7 +17,7 @@
             android:src="@mipmap/head_default" />
 
         <TextView
-            android:id="@+id/commont_named"
+            android:id="@+id/commont_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -83,6 +83,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_margin="8dp"
         android:layout_height="wrap_content"
@@ -90,5 +91,61 @@
         android:text="行程很好行程很好行程很好行程很\n好行程很好\n行程很好行程很好行程很好\n行程很好行程很好\n行程很好行程很好" />
 
     <include layout="@layout/base_recycler_view_layout"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_reply"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_999_33"
+        android:visibility="gone"
+        android:padding="8dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回复："/>
+
+        <TextView
+            android:id="@+id/reply_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2018-04-06"/>
+
+        <TextView
+            android:id="@+id/reply_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/reply_time"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="4"
+            android:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容"/>
+        
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="8dp"
+        android:background="@color/gray_999_33"
+        android:gravity="center"
+        android:textColor="@color/blue"
+        android:text="查看全部订购信息"/>
+
+
+    <TextView
+        android:id="@+id/tv_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="8dp"
+        android:background="@color/gray_999_33"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="订购内容：订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容"/>
+
 
 </LinearLayout>

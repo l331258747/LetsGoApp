@@ -11,8 +11,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        app:max_select="1">
+        app:max_select="1" />
 
-    </com.njz.letsgoapp.widget.flowlayout.TagFlowLayout>
+    <include layout="@layout/base_swiperefresh_layout" />
+
 
 </LinearLayout>

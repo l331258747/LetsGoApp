@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     private ImageView ivWX;
     private ImageView ivZhifubao;
     private Button btnPay;
+    private RelativeLayout rl_sel_zhifubao,rl_sel_weixin;
 
     private double price;
     private int orderId;
@@ -93,10 +95,12 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
         ivWX = $(R.id.iv_sel_weixin);
         ivZhifubao = $(R.id.iv_sel_zhifubao);
         btnPay = $(R.id.btn_pay);
+        rl_sel_zhifubao = $(R.id.rl_sel_zhifubao);
+        rl_sel_weixin = $(R.id.rl_sel_weixin);
 
-        ivWX.setOnClickListener(this);
-        ivZhifubao.setOnClickListener(this);
         btnPay.setOnClickListener(this);
+        rl_sel_zhifubao.setOnClickListener(this);
+        rl_sel_weixin.setOnClickListener(this);
 
         initWXPay();
     }
@@ -112,13 +116,13 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_sel_weixin:
+            case R.id.rl_sel_weixin:
                 payIndex = 1;
                 ivWX.setImageResource(R.mipmap.ic_pay_select);
                 ivZhifubao.setImageResource(R.drawable.oval_unselect);
                 break;
 
-            case R.id.iv_sel_zhifubao:
+            case R.id.rl_sel_zhifubao:
                 payIndex = 2;
                 ivZhifubao.setImageResource(R.mipmap.ic_pay_select);
                 ivWX.setImageResource(R.drawable.oval_unselect);

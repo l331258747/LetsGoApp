@@ -35,7 +35,7 @@ import io.reactivex.functions.Consumer;
 public class GuideListActivity extends BaseActivity implements View.OnClickListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    static RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     GuideListAdapter mAdapter;
     GuideData guideList;

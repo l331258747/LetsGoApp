@@ -59,6 +59,7 @@
         android:paddingRight="15dp">
 
         <RelativeLayout
+            android:id="@+id/rl_sel_weixin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -115,6 +116,7 @@
             android:background="@color/color_f7" />
 
         <RelativeLayout
+            android:id="@+id/rl_sel_zhifubao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
