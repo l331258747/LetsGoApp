@@ -6,29 +6,28 @@
     <!--<color name="colorPrimaryDark">#fdca57</color>-->
     <color name="colorAccent">#FF4081</color>
 
-
-    <color name="color_59">#595959</color>
-    <color name="white">#ffffff</color>
-    <color name="color_price">#FF6231</color>
-    <color name="color_price_33">#33FF6231</color>
-    <color name="transparent">#00000000</color>
     <color name="line_color_d8">#f8f8f8</color>
     <color name="color_line_33">#33EBEBEB</color>
 
     <color name="color_f7">#f7f7f7</color>
     <color name="color_b3">#b3b3b3</color>
 
-    <color name="calendar_blue">#508CCA</color>
-    <color name="gray_999">#999999</color>
-    <color name="gray_999_33">#33999999</color>
-
     <color name="blue">#6cb7fe</color>
 
     <color name="color_green">#17a459</color>
     <color name="color_red">#dd0000</color>
 
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
 
     <color name="black">#000000</color>
     <color name="black_66">#66000000</color>
+    <color name="black_33">#33000000</color>
+
+    <color name="color_price">#FF6231</color>
+    <color name="color_price_33">#33FF6231</color>
+
+    <color name="gray_999">#999999</color>
+    <color name="gray_999_33">#33999999</color>
 
 </resources>

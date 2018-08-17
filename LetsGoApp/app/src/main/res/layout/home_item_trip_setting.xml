@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="目的地"
-                android:textColor="@color/color_59"
+                android:textColor="@color/black_66"
                 android:textSize="14sp" />
 
 
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="行程开始时间"
-                android:textColor="@color/color_59"
+                android:textColor="@color/black_66"
                 android:textSize="14sp" />
 
 
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="行程结束时间"
-                android:textColor="@color/color_59"
+                android:textColor="@color/black_66"
                 android:textSize="14sp" />
 
             <TextView

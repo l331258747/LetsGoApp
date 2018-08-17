@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="微信支付"
-                    android:textColor="@color/color_59"
+                    android:textColor="@color/black_66"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="支付宝支付"
-                    android:textColor="@color/color_59"
+                    android:textColor="@color/black_66"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 

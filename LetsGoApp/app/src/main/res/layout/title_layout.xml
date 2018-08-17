@@ -30,7 +30,7 @@
         android:maxLines="1"
         android:minHeight="44dp"
         android:singleLine="true"
-        android:textColor="@color/color_59"
+        android:textColor="@color/black_66"
         android:textSize="17sp"
         android:visibility="visible"
         tools:text="Title" />
