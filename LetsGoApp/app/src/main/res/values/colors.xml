@@ -2,6 +2,8 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <!--<color name="colorPrimary">#fdca57</color>-->
+    <!--<color name="colorPrimaryDark">#fdca57</color>-->
     <color name="colorAccent">#FF4081</color>
 
 
@@ -10,7 +12,6 @@
     <color name="color_price">#FF6231</color>
     <color name="color_price_33">#33FF6231</color>
     <color name="transparent">#00000000</color>
-    <color name="black">#000000</color>
     <color name="line_color_d8">#f8f8f8</color>
     <color name="color_line_33">#33EBEBEB</color>
 
@@ -25,5 +26,9 @@
 
     <color name="color_green">#17a459</color>
     <color name="color_red">#dd0000</color>
+
+
+    <color name="black">#000000</color>
+    <color name="black_66">#66000000</color>
 
 </resources>
