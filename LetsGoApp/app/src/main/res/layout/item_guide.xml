@@ -19,7 +19,7 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
-            android:src="@mipmap/head_default" />
+            tools:src="@mipmap/head_default" />
 
 
         <LinearLayout
@@ -70,7 +70,7 @@
             android:layout_toEndOf="@id/iv_head"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="阿尔噶尔阿哥噶尔噶啊噶诶玩过阿尔噶围观按个发文稿啊哥哥艾尔"
+            tools:text="阿尔噶尔阿哥噶尔噶啊噶诶玩过阿尔噶围观按个发文稿啊哥哥艾尔"
             android:textSize="14sp" />
 
 

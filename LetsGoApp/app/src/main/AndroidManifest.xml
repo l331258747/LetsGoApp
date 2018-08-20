@@ -120,6 +120,7 @@
         <activity android:name=".view.mine.MyInfoActivity" />
         <activity android:name=".view.mine.FansListActivity" />
         <activity android:name=".view.mine.LabelActivity" />
+        <activity android:name=".view.mine.MyCommentActivity" />
 
         <!--登录-->
         <activity android:name=".view.login.LoginActivity" />

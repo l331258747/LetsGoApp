@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -38,7 +39,7 @@
                     android:background="@drawable/btn_gray_bottom_line"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔"
+                    tools:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔"
                     android:textSize="14sp" />
 
 

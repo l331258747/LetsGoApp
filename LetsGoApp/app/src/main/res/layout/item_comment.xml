@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/btn_gray_bottom_line"
     android:orientation="vertical">
 
@@ -88,7 +89,7 @@
         android:layout_margin="8dp"
         android:layout_height="wrap_content"
         android:maxLines="5"
-        android:text="行程很好行程很好行程很好行程很\n好行程很好\n行程很好行程很好行程很好\n行程很好行程很好\n行程很好行程很好" />
+        tools:text="行程很好行程很好行程很好行程很\n好行程很好\n行程很好行程很好行程很好\n行程很好行程很好\n行程很好行程很好" />
 
     <include layout="@layout/base_recycler_view_layout"/>
 
@@ -120,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:maxLines="4"
-            android:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容"/>
+            tools:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容"/>
         
     </RelativeLayout>
 
@@ -145,7 +146,7 @@
         android:background="@color/gray_999_33"
         android:gravity="center"
         android:visibility="gone"
-        android:text="订购内容：订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容"/>
+        tools:text="订购内容：订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容"/>
 
 
 </LinearLayout>

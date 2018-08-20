@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/btn_gray_solid_r5"
@@ -20,7 +21,7 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:layout_weight="1"
-            android:text="阿萨德卡开始党纪国法阿里独守空房吉安市领导发斯蒂芬按时发电量复健科爱上了" />
+            tools:text="阿萨德卡开始党纪国法阿里独守空房吉安市领导发斯蒂芬按时发电量复健科爱上了" />
 
 
         <TextView

@@ -51,7 +51,7 @@ public class MyRatingBar extends LinearLayout implements View.OnClickListener {
         //TODO 设置大小，和间隔
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.my_ratingbar);
         if (attributes != null) {
-            int margin = (int) attributes.getDimension(R.styleable.my_ratingbar_my_ratingbar_margin, AppUtils.dip2px(context, 3f));
+            int margin = (int) attributes.getDimension(R.styleable.my_ratingbar_my_ratingbar_margin, AppUtils.dip2px(3f));
 
             int width = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
             int height = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);

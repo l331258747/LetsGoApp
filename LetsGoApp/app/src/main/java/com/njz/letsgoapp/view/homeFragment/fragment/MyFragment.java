@@ -11,6 +11,7 @@ import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
+import com.njz.letsgoapp.view.mine.MyCommentActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
 import com.njz.letsgoapp.view.mine.SystemSettingActivity;
 import com.njz.letsgoapp.widget.MineItemView;
@@ -45,7 +46,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mine_info = $(R.id.mine_info);
         mine_modify = $(R.id.mine_modify);
         mine_commont = $(R.id.mine_commont);
-        mine_custom = $(R.id.mine_custom);
+        mine_custom = $(R.id.mine_customer);
         mine_setting = $(R.id.mine_setting);
         tv_fans = $(R.id.tv_fans);
         tv_follow = $(R.id.tv_follow);
@@ -79,9 +80,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(context,ModifyPasswordActivity.class));
                 break;
             case R.id.mine_commont:
-
+                startActivity(new Intent(context, MyCommentActivity.class));
                 break;
-            case R.id.mine_custom:
+            case R.id.mine_customer:
 
                 break;
             case R.id.mine_setting:
