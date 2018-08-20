@@ -87,6 +87,34 @@ public class TackPicturesUtil {
         }
     }
 
+    //调用剪裁
+//    public void startPhotoZoomCertificate(Activity context, Uri uri) {
+//   /*
+//    * 至于下面这个Intent的ACTION是怎么知道的，大家可以看下自己路径下的如下网页
+//    * yourself_sdk_path/docs/reference/android/content/Intent.html
+//    */
+//        try {
+//            Intent intent = new Intent("com.android.camera.action.CROP");
+//            intent.setDataAndType(uri, "image/*");
+//            // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+//            intent.putExtra("crop", "true");
+//            // aspectX aspectY 是宽高的比例
+//            intent.putExtra("aspectX", 16);
+//            intent.putExtra("aspectY", 9);
+//            // outputX outputY 是裁剪图片宽高
+//            intent.putExtra("outputX", 800);
+//            intent.putExtra("outputY", 450);
+//            intent.putExtra("outputFormat",
+//                    Bitmap.CompressFormat.JPEG.toString());
+//            intent.putExtra("noFaceDetection", true);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileUtil.getFolder(Constant.IMAGE_PATH).getAbsolutePath());
+//            intent.putExtra("return-data", false);// 设置为不返回数据
+//
+//            context.startActivityForResult(intent, 3);
+//        } catch (Exception e) {
+//        }
+//    }
+
     /**
      * 获取从相册选择或者是拍照的照片的路径
      * 该方法必须在onActivityResult中调用，否则会返回null
