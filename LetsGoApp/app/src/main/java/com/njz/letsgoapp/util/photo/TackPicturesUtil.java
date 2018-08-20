@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.PicChooseDialog;
 import com.njz.letsgoapp.util.FileUtil;
 
 import java.io.File;

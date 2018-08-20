@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.util.photo;
+package com.njz.letsgoapp.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 
 /**
  * Created by liguoqiang on 2017/11/28.
