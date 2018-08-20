@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_33"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/bt_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/color_red"
+        android:text="取消选择"
+        android:textColor="@color/white"
+        android:textSize="11sp" />
+
+    <Button
+        android:id="@+id/tb_choose_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bt_close"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/white"
+        android:text="相册选择"
+        android:textColor="@color/black"
+        android:textSize="11sp" />
+
+    <Button
+        android:id="@+id/bt_tack_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tb_choose_pic"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/white"
+        android:text="拍照"
+        android:textColor="@color/black"
+        android:textSize="11sp" />
+
+</RelativeLayout>

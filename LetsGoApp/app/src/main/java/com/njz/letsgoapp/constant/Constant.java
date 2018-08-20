@@ -14,6 +14,7 @@ public class Constant {
     //文件路径
     public static final String BASE_PATH = "letsgoapp";
     public static final String LOG_PATH = "log";
+    public static final String IMAGE_PATH = "image";
 
     public static final String HTML_TEST = "<article class=\"o-single-content__body__content c-article-content s-single-article js-article\">\n" +
             "  <p>一年一度的黑客朝圣大会 DEF CON 又在美国拉斯维加斯举行了，各种五花八门的网络安全隐患被翻出来讨论，手机后端、物联网和语音攻击在今年被频繁提及。</p>\n" +

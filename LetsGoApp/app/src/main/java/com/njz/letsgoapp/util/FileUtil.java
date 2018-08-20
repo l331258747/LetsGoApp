@@ -5,6 +5,7 @@ import android.os.Environment;
 import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by LGQ
@@ -96,6 +97,63 @@ public class FileUtil {
         } else if (file.exists()) {
             file.delete();
         }
+    }
+
+    /**
+     * 创建下载文件路径
+     *
+     * @param filePath 文件名
+     * @return 生成的文件
+     */
+    public static File createDownloadFile(String filePath) {
+        return createFile(filePath);
+    }
+
+    /**
+     * 通过提供的文件名在默认路径下生成文件
+     *
+     * @param fileName 文件的名称
+     * @return 生成的文件
+     */
+    public static File createFile(String fileName) {
+        File file = new File(fileName);
+        if (!isFileExist(file)) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                if (fileName.lastIndexOf("/") > -1) {
+                    String fatherRoot = fileName.substring(0, fileName.lastIndexOf("/"));
+                    File filetemp = new File(fatherRoot);
+                    filetemp.mkdirs();
+                    try {
+                        file.createNewFile();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        }
+        return file;
+    }
+
+    /**
+     * 是否存在此文件
+     *
+     * @param file 判断是否存在的文件
+     * @return 存在返回true，否则返回false
+     */
+    public static boolean isFileExist(final File file) {
+        boolean isExist = false;
+        // 在无SD卡时file会为空
+        if (file == null) {
+            return false;
+        }
+        if (file.exists()) {
+            isExist = true;
+        } else {
+            isExist = false;
+        }
+        return isExist;
     }
 
 }

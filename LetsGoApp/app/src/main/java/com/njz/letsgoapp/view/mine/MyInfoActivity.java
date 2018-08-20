@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -15,15 +16,19 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.bumptech.glide.Glide;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.glide.GlideCircleTransform;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.widget.MineItemView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,6 +51,11 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     String bName, bBirthday, bLocation, bCountry, bSex;
 
     List<String> sexs;
+
+    private TackPicturesUtil tackPicUtil;
+
+    private String headpath;// 头像地址
+    private String headCompressPath;
 
     @Override
     public int getLayoutId() {
@@ -84,6 +94,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         info_sex.setOnClickListener(this);
 
         info_tag.setOnClickListener(this);
+        iv_head.setOnClickListener(this);
 
     }
 
@@ -112,6 +123,9 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 isChange();
             }
         });
+
+        tackPicUtil = new TackPicturesUtil(this);
+        getPicPermission(context);
     }
 
     Disposable desDisposable;
@@ -182,6 +196,9 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             case R.id.info_tag:
                 startActivity(new Intent(context, LabelActivity.class));
                 break;
+            case R.id.iv_head:
+                tackPicUtil.showDialog(context);
+                break;
         }
     }
 
@@ -212,5 +229,47 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             getRightTv().setEnabled(false);
         }
     }
+
+
+
+    //-----------start 拍照-----------
+
+    //拍照，存储权限
+    public void getPicPermission(Context context) {
+        tackPicUtil.checkPermission(context);
+    }
+
+
+    /**
+     * 获取图片回调
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TackPicturesUtil.CHOOSE_PIC:
+            case TackPicturesUtil.TACK_PIC:
+            case TackPicturesUtil.CROP_PIC:
+                String path = tackPicUtil.getPicture(requestCode, resultCode, data, false);
+                if (path == null)
+                    return;
+                headpath = path;
+                setHeadImg(headpath);
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setHeadImg(String path) {
+        GlideUtil.LoadCircleImage(context, path, iv_head);
+    }
+
+
+    //----------------end 拍照
 
 }
