@@ -122,6 +122,7 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     //富文本
     compile 'jp.wasabeef:richeditor-android:1.2.2'
+    compile 'com.contrarywind:Android-PickerView:4.1.6'
     //-------远程库 end--------
     compile project(':CalendarLib')
     compile project(':citypicker')

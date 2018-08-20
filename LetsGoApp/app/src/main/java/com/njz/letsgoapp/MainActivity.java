@@ -27,6 +27,7 @@ import com.njz.letsgoapp.view.home.ServiceListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
+import com.njz.letsgoapp.view.mine.LabelActivity;
 import com.njz.letsgoapp.view.other.ReportActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
@@ -264,7 +265,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, FansListActivity.class));
+                startActivity(new Intent(context, LabelActivity.class));
             }
         });
     }

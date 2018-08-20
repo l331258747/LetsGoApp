@@ -1,6 +1,5 @@
 package com.njz.letsgoapp.view.home;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +10,8 @@ import android.widget.Toast;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.CommentAdapter;
-import com.njz.letsgoapp.adapter.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.CommentData;
-import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
@@ -90,7 +87,7 @@ public class CommentDetailActivity extends BaseActivity {
         mFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow, mFlowLayout, false);
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_comment, mFlowLayout, false);
                 tv.setText(s);
                 return tv;
             }

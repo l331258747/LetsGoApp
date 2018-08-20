@@ -85,6 +85,7 @@
             </intent-filter>
         </activity>
 
+        <!--首页-->
         <activity android:name=".view.homeFragment.HomeActivity" />
         <activity android:name=".map.MapActivity" />
         <activity android:name=".editor.EditorActivity" />
@@ -107,8 +108,10 @@
         <activity android:name=".view.home.ServiceListActivity" />
         <activity android:name=".view.home.CommentDetailActivity" />
 
+        <!--other-->
         <activity android:name=".view.other.ReportActivity" />
 
+        <!--我的-->
         <activity android:name=".view.mine.SystemSettingActivity" />
         <activity
             android:name=".view.mine.FeedbackActivity"
@@ -116,7 +119,9 @@
         <activity android:name=".view.mine.AboutActivity" />
         <activity android:name=".view.mine.MyInfoActivity" />
         <activity android:name=".view.mine.FansListActivity" />
+        <activity android:name=".view.mine.LabelActivity" />
 
+        <!--登录-->
         <activity android:name=".view.login.LoginActivity" />
         <activity android:name=".view.login.VerifyLoginActivity" />
         <activity android:name=".view.login.RegistActivity" />
