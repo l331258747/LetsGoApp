@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.njz.letsgoapp.util.PreferencesUtils;
-import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
 /**
  * Created by LGQ

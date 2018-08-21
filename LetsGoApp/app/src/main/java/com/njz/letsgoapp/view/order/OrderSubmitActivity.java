@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home;
+package com.njz.letsgoapp.view.order;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +12,7 @@ import com.njz.letsgoapp.adapter.OrderSubmitAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemView;
 import com.njz.letsgoapp.widget.LoginItemView;

@@ -105,7 +105,7 @@
             android:name=".view.home.GuideDetailActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".view.home.OrderSubmitActivity"
+            android:name=".view.order.OrderSubmitActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.home.GuideListActivity"
