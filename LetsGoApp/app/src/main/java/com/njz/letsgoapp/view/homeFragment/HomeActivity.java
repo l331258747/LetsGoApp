@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.util.PreferencesUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.HomeFragment;

@@ -13,6 +13,8 @@ import java.util.Set;
  */
 public class PreferencesUtils {
 
+	public static final String FIRST_OPENED = "first_open";
+
 	public static final String SP_USER_ID = "sp_user_id";
 	public static final String SP_USER_PWD = "sp_user_pwd";
 	public static final String SP_USER_NICK = "sp_user_nick";
