@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
@@ -59,6 +60,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mine_custom.setOnClickListener(this);
         tv_fans.setOnClickListener(this);
         tv_follow.setOnClickListener(this);
+        iv_head.setOnClickListener(this);
 
     }
 
@@ -70,6 +72,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_head:
+                startActivity(new Intent(context,LoginActivity.class));
+                break;
             case R.id.mine_bind:
                 startActivity(new Intent(context,ModifyPhoneActivity.class));
                 break;
