@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.adapter;
+package com.njz.letsgoapp.adapter.order;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

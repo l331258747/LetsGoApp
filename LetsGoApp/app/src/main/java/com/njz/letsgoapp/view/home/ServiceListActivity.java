@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.HomeAdapter;
-import com.njz.letsgoapp.adapter.ServiceListAdapter;
+import com.njz.letsgoapp.adapter.home.HomeAdapter;
+import com.njz.letsgoapp.adapter.home.ServiceListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 

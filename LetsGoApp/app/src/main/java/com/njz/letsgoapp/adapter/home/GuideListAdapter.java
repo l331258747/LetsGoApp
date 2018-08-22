@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.adapter;
+package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -14,7 +14,6 @@ import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
-import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.ServiceTagView;
 
 import java.util.List;

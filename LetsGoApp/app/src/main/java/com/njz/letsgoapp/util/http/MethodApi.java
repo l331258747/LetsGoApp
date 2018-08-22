@@ -1,12 +1,10 @@
 package com.njz.letsgoapp.util.http;
 
-import com.njz.letsgoapp.bean.AliPay;
+import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 /**
  * Created by LGQ

@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.adapter;
+package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.PriceView;

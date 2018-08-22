@@ -2,20 +2,18 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.HomeAdapter;
+import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;

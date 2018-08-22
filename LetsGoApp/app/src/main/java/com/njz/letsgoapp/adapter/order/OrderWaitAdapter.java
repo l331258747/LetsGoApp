@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.HomeAdapter;
 import com.njz.letsgoapp.bean.order.OrderBean;
 import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.Suborders;

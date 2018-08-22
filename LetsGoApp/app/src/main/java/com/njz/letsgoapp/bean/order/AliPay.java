@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.bean;
+package com.njz.letsgoapp.bean.order;
 
 /**
  * Created by LGQ

@@ -1,6 +1,6 @@
 package com.njz.letsgoapp.util.http;
 
-import com.njz.letsgoapp.bean.AliPay;
+import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
 import io.reactivex.Observable;

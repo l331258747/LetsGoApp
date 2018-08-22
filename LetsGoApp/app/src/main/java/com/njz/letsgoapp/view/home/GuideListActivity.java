@@ -2,16 +2,14 @@ package com.njz.letsgoapp.view.home;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.GuideListAdapter;
+import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.util.rxbus.RxBus2;

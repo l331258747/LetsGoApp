@@ -1,28 +1,19 @@
-package com.njz.letsgoapp.adapter;
+package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.HomeData;
-import com.njz.letsgoapp.util.ToastUtil;
-import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
-import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.ServiceTagView;
 
 import java.util.List;

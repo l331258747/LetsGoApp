@@ -1,18 +1,14 @@
 package com.njz.letsgoapp.view.mine;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.HomeAdapter;
-import com.njz.letsgoapp.adapter.ServiceListAdapter;
 import com.njz.letsgoapp.adapter.mine.MyCommentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.mine.MyCommentBean;
-import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

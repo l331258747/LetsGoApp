@@ -6,9 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.njz.letsgoapp.MainActivity;
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.OrderSubmitAdapter;
+import com.njz.letsgoapp.adapter.order.OrderSubmitAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.StringUtils;

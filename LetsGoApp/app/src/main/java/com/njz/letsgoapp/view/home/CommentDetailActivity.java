@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.CommentAdapter;
+import com.njz.letsgoapp.adapter.home.CommentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.CommentData;
 import com.njz.letsgoapp.util.log.LogUtil;

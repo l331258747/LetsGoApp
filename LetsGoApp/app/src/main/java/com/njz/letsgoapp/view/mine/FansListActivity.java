@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.FansListAdapter;
-import com.njz.letsgoapp.adapter.GuideListAdapter;
+import com.njz.letsgoapp.adapter.mine.FansListAdapter;
+import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.mine.FansBean;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;

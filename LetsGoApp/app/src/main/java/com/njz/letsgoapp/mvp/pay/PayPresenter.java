@@ -3,11 +3,10 @@ package com.njz.letsgoapp.mvp.pay;
 import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
-import com.njz.letsgoapp.bean.AliPay;
+import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;

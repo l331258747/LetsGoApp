@@ -1,7 +1,5 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
-import android.widget.TextView;
-
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 
@@ -12,15 +10,17 @@ import com.njz.letsgoapp.base.BaseFragment;
  */
 
 public class NotifyFragment extends BaseFragment {
+
+
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_notify;
+        return R.layout.common_swiperefresh_layout;
     }
 
     @Override
     public void initView() {
-        TextView homeIv = $(R.id.home_iv);
-        homeIv.setText("消息");
+
+
 
     }
 

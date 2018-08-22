@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.PopServiceAdapter;
+import com.njz.letsgoapp.adapter.home.PopServiceAdapter;
 import com.njz.letsgoapp.bean.home.ServiceInfo;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.ToastUtil;

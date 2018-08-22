@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.adapter;
+package com.njz.letsgoapp.adapter.mine;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.bean.mine.FansBean;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
