@@ -66,8 +66,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initView() {
 
-        initRecycler();
-        initSwipeLayout();
+
 
         ll_destination = $(R.id.ll_destination);
         tv_destination_content = $(R.id.tv_destination_content);
@@ -163,6 +162,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initData() {
+        initRecycler();
+        initSwipeLayout();
+
         //item导游事件
         mAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
@@ -187,7 +189,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new HomeAdapter(activity, homeData);
+        mAdapter = new HomeAdapter(activity, getHomeData());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
     }
@@ -199,9 +201,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                HomeData homeData = getHomeData();
-                mAdapter.setData(homeData);
-                initBanner(homeData.getHomeBanners());
+                mAdapter.setData(getHomeData());
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -217,6 +217,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         homeBanners.add(homeBanner);
         homeBanners.add(homeBanner);
         homeBanners.add(homeBanner);
+
+        initBanner(homeBanners);
 
         List<HomeData.Guide> guides = new ArrayList<>();
         HomeData.Guide guide = new HomeData.Guide(bannerImg, headImg, "那就走", 4, 5615, 2210, 366d, "安静地分行阿我不管看不惯阿嘎哥啊恩格斯噶十多个阿萨德噶尔");
