@@ -11,16 +11,26 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
+    <!-- 启动页样式 -->
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@mipmap/welcome</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!-- 引导页样式 -->
     <style name="welcomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <!-- 沉浸式 ， 添加这个需要添加 v21  v19 -->
+    <!--<style name="ImageTranslucentTheme" parent="AppTheme">-->
+        <!--<item name="android:windowTranslucentStatus">false</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <!--&lt;!&ndash;Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色&ndash;&gt;-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+    <!--</style>-->
 
     <!--等待对话框 start-->
     <style name="LoadingDialog" parent="@android:style/Theme.Dialog">
