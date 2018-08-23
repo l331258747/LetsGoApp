@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util.http;
 
+import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
@@ -44,5 +45,16 @@ public class MethodApi {
         Observable observable = HttpMethods.getInstance().getHttpService().appPayWX(); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
+
+
+    //-----------login start------------
+    public static void login(String mobile, String password, DisposableObserver<LoginModel> subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().login(mobile,password); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
+
+    //-----------login end------------
 
 }

@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.mvp.login.LoginContract;
+import com.njz.letsgoapp.mvp.login.LoginPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
@@ -20,11 +23,13 @@ import com.njz.letsgoapp.widget.LoginItemView;
  * Function:
  */
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener,LoginContract.View{
 
     LoginItemView loginViewPhone, loginViewPassword;
     Button btnLogin;
     TextView tvForget, tvVerifyLogin;
+
+    LoginPresenter mPresenter;
 
 
     @Override
@@ -59,7 +64,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void initData() {
-
+        mPresenter = new LoginPresenter(this,context);
     }
 
     @Override
@@ -70,8 +75,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     return;
                 if(!LoginUtil.verifyPassword(loginViewPassword.getEtContent()))
                     return;
-                showShortToast("登陆");
-                startActivity(new Intent(context, HomeActivity.class));
+                mPresenter.login(loginViewPhone.getEtContent(),loginViewPassword.getEtContent());
                 break;
             case R.id.tv_forgett:
                 showShortToast("忘记密码");
@@ -86,5 +90,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(new Intent(context, RegistActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void loginSeccess(LoginModel loginModel) {
+
+    }
+
+    @Override
+    public void loginFailed(String msg) {
+
     }
 }

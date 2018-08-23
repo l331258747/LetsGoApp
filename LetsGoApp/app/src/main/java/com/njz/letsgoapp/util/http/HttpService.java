@@ -1,10 +1,14 @@
 package com.njz.letsgoapp.util.http;
 
+import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -25,6 +29,13 @@ public interface HttpService {
 
     @GET("wxpay/appPay")
     Observable<AliPay> appPayWX();
+
+    @FormUrlEncoded
+    @POST("user/login")
+    Observable<LoginModel> login(
+            @Field("mobile") String mobile,
+            @Field("password") String password
+    );
 
 
 }
