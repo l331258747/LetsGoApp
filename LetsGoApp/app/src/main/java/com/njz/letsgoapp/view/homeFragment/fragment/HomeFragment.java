@@ -2,20 +2,25 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.HomeAdapter;
+import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.bean.home.HomeData;
+import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -25,6 +30,7 @@ import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +48,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private RecyclerView recycler_view_h;
 
     HomeAdapter mAdapter;
-    HomeData homeData;
 
     LinearLayoutManager linearLayoutManager;
 
@@ -64,8 +70,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initView() {
 
-
-
         ll_destination = $(R.id.ll_destination);
         tv_destination_content = $(R.id.tv_destination_content);
         ll_start_time = $(R.id.ll_start_time);
@@ -80,7 +84,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ll_start_time.setOnClickListener(this);
         ll_end_time.setOnClickListener(this);
         btn_trip_setting.setOnClickListener(this);
-
 
     }
 
@@ -104,7 +107,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
 //                    .setOnItemClickListener(this) //设置点击监听事件
                 .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
-
     }
 
     @Override
@@ -160,8 +162,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initData() {
+
+        tv_destination_content.setText("张家界");
+        tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
+        tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
+        tv_day_time.setText("2天");
+
         initRecycler();
         initSwipeLayout();
+        intRecyclerH();
 
         //item导游事件
         mAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
@@ -182,14 +191,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     //初始化recyclerview
     private void initRecycler() {
-        homeData = new HomeData(new ArrayList<HomeData.HomeBanner>(), new ArrayList<HomeData.Guide>());
-
         recyclerView = $(R.id.recycler_view);
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new HomeAdapter(activity, getHomeData());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
+    }
+
+    HomeGuideAdapter mAdapterh;
+    private void intRecyclerH(){
+        recycler_view_h = $(R.id.recycler_view_h);
+        recycler_view_h.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        mAdapterh = new HomeGuideAdapter(activity, getDataH());
+        recycler_view_h.setAdapter(mAdapterh);
+        recycler_view_h.setNestedScrollingEnabled(false);
     }
 
     //初始化SwipeLayout
@@ -229,6 +245,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         guides.add(guide);
 
         return new HomeData(homeBanners, guides);
+    }
+
+    public List<GuideData> getDataH() {
+        List<GuideData> guideDatas = new ArrayList<>();
+        GuideData guideData = new GuideData();
+        guideData.setComment(400);
+        guideData.setContent("aegaegjaklegjalkag");
+        guideData.setHeadUrl("http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg");
+        guideData.setName("导游");
+        guideData.setPrice(390);
+        List<String> serviceItmes = new ArrayList<>();
+        serviceItmes.add("向导陪游");
+        serviceItmes.add("包车服务");
+        serviceItmes.add("代订门票");
+        guideData.setServiceItems(serviceItmes);
+        guideData.setServiceNum(300);
+        guideData.setSex("男");
+        guideData.setStars(5);
+
+        guideDatas.add(guideData);
+        guideDatas.add(guideData);
+        guideDatas.add(guideData);
+        guideDatas.add(guideData);
+        guideDatas.add(guideData);
+        guideDatas.add(guideData);
+        guideDatas.add(guideData);
+
+        return guideDatas;
     }
 
 }

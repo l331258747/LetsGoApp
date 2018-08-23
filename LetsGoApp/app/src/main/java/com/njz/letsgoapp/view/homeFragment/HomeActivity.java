@@ -1,10 +1,18 @@
 package com.njz.letsgoapp.view.homeFragment;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -20,6 +28,7 @@ import com.njz.letsgoapp.widget.tab.TabItem;
 import com.njz.letsgoapp.widget.tab.TabLayout;
 import com.njz.letsgoapp.widget.tab.TabView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +37,7 @@ import java.util.ArrayList;
  * Function:
  */
 
-public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickListener{
+public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickListener {
 
 
     private TabLayout tabLayout;
@@ -36,6 +45,53 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
 
     private Class[] fragmentCls = new Class[5];
     private Fragment[] fragments = new Fragment[5];
+
+    LinearLayout linear_bar;
+
+    //----------沉浸式 start ----------
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            linear_bar = (LinearLayout) findViewById(R.id.ll_bar);
+            //获取到状态栏的高度
+            int statusHeight = getStatusBarHeight();
+            //动态的设置隐藏布局的高度
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear_bar.getLayoutParams();
+            params.height = statusHeight;
+            linear_bar.setLayoutParams(params);
+        }
+    }
+
+    public void setMystatusViewShow(boolean isShow) {
+        if (linear_bar == null)
+            return;
+        linear_bar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * 通过反射的方式获取状态栏高度
+     *
+     * @return
+     */
+    private int getStatusBarHeight() {
+        try {
+            Class<?> c = Class.forName("com.android.internal.R$dimen");
+            Object obj = c.newInstance();
+            Field field = c.getField("status_bar_height");
+            int x = Integer.parseInt(field.get(obj).toString());
+            return getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    //----------沉浸式 end ----------
+
 
     @Override
     public int getLayoutId() {
@@ -111,9 +167,9 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     public void changeTabBadge(int badgeNum) {
         TabView tabView = tabLayout.getTabView();
         if (null != tabView) {
-            if(badgeNum >0){
+            if (badgeNum > 0) {
                 tabView.setDotNum(-1);
-            }else{
+            } else {
                 tabView.setDotNum(badgeNum);
             }
         }
@@ -127,18 +183,23 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         switch (index) {
             case 0:
                 setTitleSingle(false, getResString(R.string.home));
+                setMystatusViewShow(false);
                 break;
             case 1:
                 setTitleSingle(true, getResString(R.string.home_find));
+                setMystatusViewShow(true);
                 break;
             case 2:
                 setTitleSingle(true, getResString(R.string.home_order));
+                setMystatusViewShow(true);
                 break;
             case 3:
                 setTitleSingle(true, getResString(R.string.home_notify));
+                setMystatusViewShow(true);
                 break;
             case 4:
                 setTitleSingle(false, getResString(R.string.home_my));
+                setMystatusViewShow(true);
                 break;
         }
 

@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -91,6 +92,15 @@ public class AppUtils {
 	public static int sp2px(float spValue) {
 		final float fontScale = getContext().getResources().getDisplayMetrics().scaledDensity;
 		return (int) (spValue * fontScale + 0.5f);
+	}
+
+	public static int getStatusBarHeight(Activity activity) {
+		int statusBarHeight = 0;
+		if (activity != null) {
+			int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+			statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
+		}
+		return statusBarHeight;
 	}
 
 }

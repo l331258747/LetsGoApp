@@ -1,9 +1,13 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
+import android.os.Build;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by LGQ
@@ -28,4 +32,5 @@ public class FindFragment extends BaseFragment{
     public void initData() {
 
     }
+
 }

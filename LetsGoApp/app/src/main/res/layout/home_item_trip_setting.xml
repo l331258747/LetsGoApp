@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="160dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/gray_999" />
-
+    android:background="@mipmap/home_setting_trip_bg"
+    android:layout_height="180dp">
 
     <LinearLayout
+        android:id="@+id/ll_setting"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
 
@@ -31,8 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="目的地"
-                android:textColor="@color/black_66"
-                android:textSize="14sp" />
+                android:textColor="@color/color_99"
+                android:textSize="13sp" />
 
 
             <TextView
@@ -40,9 +36,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="张家界"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                tools:text="张家界"
+                android:textColor="@color/color_4b"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -50,7 +46,9 @@
         <TextView
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/gray_999" />
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/color_d9" />
 
 
         <LinearLayout
@@ -67,8 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="行程开始时间"
-                android:textColor="@color/black_66"
-                android:textSize="14sp" />
+                android:textColor="@color/color_99"
+                android:textSize="13sp" />
 
 
             <TextView
@@ -77,9 +75,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="7月10号"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                tools:text="1018-07-12"
+                android:textColor="@color/color_4b"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -87,7 +85,9 @@
         <TextView
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/gray_999" />
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/color_d9" />
 
         <LinearLayout
             android:id="@+id/ll_end_time"
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="行程结束时间"
-                android:textColor="@color/black_66"
+                android:textColor="@color/color_99"
                 android:textSize="14sp" />
 
             <TextView
@@ -111,9 +111,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="7月15号"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                tools:text="1218-07-16"
+                android:textColor="@color/color_4b"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -126,34 +126,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/btn_trip_setting"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/ll_setting"
         android:layout_marginTop="10dp"
-        android:text="5天"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+        tools:text="5天"
+        android:textColor="@color/color_theme"/>
 
+
+    <TextView
+        android:id="@+id/tv_slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="找最合适的当地向导，一起体验最当地的风土人情"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:textSize="11sp"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/btn_trip_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/tv_slogan"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/btn_blue_solid_r15"
+        android:background="@drawable/btn_theme_solid_r40"
         android:gravity="center"
-        android:text="设置行程"
+        android:text="搜索向导"
         android:textColor="@color/white"
         android:textSize="15sp" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/gray_999"
-        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

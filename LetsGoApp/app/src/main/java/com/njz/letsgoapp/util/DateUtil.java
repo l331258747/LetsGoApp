@@ -19,7 +19,7 @@ public class DateUtil {
     }
 
     //String 转 date
-    public static Date str2Date(String dateStr){
+    public static Date str2Date(String dateStr) {
         SimpleDateFormat df;
         df = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -33,25 +33,32 @@ public class DateUtil {
 
 
     //获取当前date
-    public static Date getNowDate(){
-        Date date = new Date(System.currentTimeMillis());
-        return date;
+    public static Date getNowDate() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTime();
+    }
+
+    //获取
+    public static Date getDate(int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, day); //向后走一天
+        return calendar.getTime();
     }
 
 
-    public static Calendar getSelectedDate(String str){
+    public static Calendar getSelectedDate(String str) {
         Calendar selectedDate = Calendar.getInstance();
         selectedDate.setTime(DateUtil.str2Date(str));
         return selectedDate;
     }
 
-    public static Calendar getStartDate(){
+    public static Calendar getStartDate() {
         Calendar startDate = Calendar.getInstance();
-        startDate.set(1949,0,1);
+        startDate.set(1949, 0, 1);
         return startDate;
     }
 
-    public static Calendar getEndDate(){
+    public static Calendar getEndDate() {
         Calendar endDate = Calendar.getInstance();
         endDate.setTime(DateUtil.getNowDate());
         return endDate;
