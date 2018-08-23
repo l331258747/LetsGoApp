@@ -300,18 +300,6 @@ public class MainActivity extends BaseActivity {
 
 
     private void getUserData() {
-        ResponseCallback getTopListener = new ResponseCallback<MovieSubject>() {
-            @Override
-            public void onSuccess(MovieSubject t) {
-                LogUtil.e("onSuccess");
-            }
-
-            @Override
-            public void onFault(String errorMsg) {
-                LogUtil.e("onFault");
-            }
-        };
-        MethodApi.getTop250(new OnSuccessAndFaultSub(getTopListener));
     }
 
     @Override

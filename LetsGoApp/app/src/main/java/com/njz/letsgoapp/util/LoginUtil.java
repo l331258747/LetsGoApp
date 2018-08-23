@@ -33,7 +33,7 @@ public class LoginUtil {
     }
 
     public static boolean verifyPasswordDouble(String password,String newPassword) {
-        if(TextUtils.equals(password,newPassword)){
+        if(!TextUtils.equals(password,newPassword)){
             ToastUtil.showShortToast(AppUtils.getContext(), "两次密码不正确");
         }else{
             return true;

@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.mvp.login.RegistContract;
+import com.njz.letsgoapp.mvp.login.RegistPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.widget.LoginItemView;
@@ -27,13 +29,15 @@ import io.reactivex.functions.Function;
  * Function:
  */
 
-public class RegistActivity extends BaseActivity implements View.OnClickListener {
+public class RegistActivity extends BaseActivity implements View.OnClickListener,RegistContract.View{
 
     LoginItemView loginViewPhone, loginViewVerify, loginViewPassword, loginViewPasswordAgin;
     Button btnRegist, btnVerify;
     TextView tvLogin;
 
     Disposable disposable;
+
+    RegistPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -66,7 +70,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
-
+        mPresenter = new RegistPresenter(this,context);
     }
 
     @Override
@@ -81,12 +85,13 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     return;
                 if (!LoginUtil.verifyPasswordDouble(loginViewPassword.getEtContent(), loginViewPasswordAgin.getEtContent()))
                     return;
-                finish();
+                mPresenter.msgCheckRegister(loginViewPhone.getEtContent(),loginViewVerify.getEtContent(),loginViewPassword.getEtContent());
                 break;
             case R.id.btn_verify:
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
                 verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"register");
                 break;
             case R.id.tv_login:
                 finish();
@@ -144,5 +149,25 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         super.onDestroy();
         if(disposable != null && !disposable.isDisposed())
             disposable.dispose();
+    }
+
+    @Override
+    public void msgCheckRegisterSeccess(String str) {
+        showShortToast("成功");
+    }
+
+    @Override
+    public void msgCheckRegisterFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void userSmsSendSeccess(String str) {
+        showShortToast("成功");
+    }
+
+    @Override
+    public void userSmsSendFailed(String msg) {
+        showShortToast(msg);
     }
 }

@@ -99,6 +99,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void loginFailed(String msg) {
-
+        showShortToast(msg);
     }
 }

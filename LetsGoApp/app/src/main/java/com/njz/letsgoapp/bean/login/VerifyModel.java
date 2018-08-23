@@ -6,7 +6,6 @@ package com.njz.letsgoapp.bean.login;
  * Function:
  */
 
-public class LoginModel {
-    String token;
-
+public class VerifyModel {
+    String msgCode;
 }

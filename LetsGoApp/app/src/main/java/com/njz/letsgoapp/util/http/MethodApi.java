@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util.http;
 
+import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
@@ -48,12 +49,36 @@ public class MethodApi {
 
 
     //-----------login start------------
-    public static void login(String mobile, String password, DisposableObserver<LoginModel> subscriber){
+    public static void login(String mobile, String password, DisposableObserver subscriber){
         Observable observable = HttpMethods.getInstance().getHttpService().login(mobile,password); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    public static void msgCheckRegister(String mobile,String msg, String password, DisposableObserver subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckRegister(mobile,msg,password); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
 
+
+    public static void msgCheckFindBy(String mobile,String msg, String password, DisposableObserver subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckFindBy(mobile,msg,password,password); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void userSmsLogin(String mobile,String msg, DisposableObserver subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().userSmsLogin(mobile,msg); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void userSmsSend(String mobile,String type, DisposableObserver subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().userSmsSend(mobile,type); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void changePwd(String token,String password, DisposableObserver subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(token,password,password); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
 
     //-----------login end------------
 

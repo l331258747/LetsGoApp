@@ -3,6 +3,7 @@ package com.njz.letsgoapp.util.http;
 import android.content.Context;
 import android.util.Log;
 
+import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 
@@ -25,7 +26,7 @@ import retrofit2.HttpException;
  * Function: DisposableObserver
  */
 
-public class OnSuccessAndFaultSub<T> extends DisposableObserver<T> implements ProgressCancelListener {
+public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> implements ProgressCancelListener {
 
 
     /**
@@ -89,8 +90,18 @@ public class OnSuccessAndFaultSub<T> extends DisposableObserver<T> implements Pr
     }
 
     @Override
-    public void onNext(@NonNull T t) {
-        mResponseCallback.onSuccess(t);
+    public void onNext(@NonNull BaseResponse t) {
+        LogUtil.e("code:"+t.getCode());
+        LogUtil.e("msg:"+t.getMsg());
+        LogUtil.e("data:"+t.getData());
+
+
+        if(t.getCode()==0){
+//            mResponseCallback.onSuccess(t.getData());
+            mResponseCallback.onSuccess(t.getData());
+        }else{
+            mResponseCallback.onFault(t.getMsg());
+        }
     }
 
     /**

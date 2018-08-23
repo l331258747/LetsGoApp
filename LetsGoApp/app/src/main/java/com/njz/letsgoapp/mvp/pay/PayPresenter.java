@@ -57,7 +57,7 @@ public class PayPresenter implements PayContract.Presenter {
                 iView.getAliOrderInfoFailed(errorMsg);
             }
         };
-        MethodApi.appPay(new OnSuccessAndFaultSub(getTopListener,activity));
+//        MethodApi.appPay(new OnSuccessAndFaultSub(getTopListener,activity));
     }
 
     @Override
@@ -78,7 +78,7 @@ public class PayPresenter implements PayContract.Presenter {
                 iView.getWxOrderInfoFailed(errorMsg);
             }
         };
-        MethodApi.appPayWX(new OnSuccessAndFaultSub(getTopListener,activity));
+//        MethodApi.appPayWX(new OnSuccessAndFaultSub(getTopListener,activity));
     }
 
 
