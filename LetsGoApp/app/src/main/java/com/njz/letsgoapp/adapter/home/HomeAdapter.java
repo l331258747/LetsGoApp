@@ -2,19 +2,23 @@ package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.widget.DynamicImageView;
 import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
+import com.njz.letsgoapp.widget.myTextView.ShowAllTextView;
 
 import java.util.List;
 
@@ -28,7 +32,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     public static final int VIEW_TITLE = 1;
 
-    List<HomeData.Guide> guides;
+    List<HomeData.Dynamic> guides;
 
     Context mContext;
 
@@ -45,8 +49,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide_title, parent, false);
                 return new GuideTitleViewHolder(view);
             default:
-                view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide, parent, false);
-                return new HomeGuideViewHolder(view);
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_item_dynamic, parent, false);
+                return new DynamicViewHolder(view);
         }
     }
 
@@ -61,27 +65,53 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         if (holder == null) return;
-        if (holder instanceof HomeGuideViewHolder) {
+        if (holder instanceof DynamicViewHolder) {
             final int pos = holder.getAdapterPosition() - 1;
-            final HomeData.Guide data = guides.get(pos);
+            final HomeData.Dynamic data = guides.get(pos);
             if (data == null) return;
 
-            GlideUtil.LoadImage(mContext, data.getBackgroundImg(), ((HomeGuideViewHolder) holder).iv_backGround);
-            GlideUtil.LoadCircleImage(mContext, data.getHeadImg(), ((HomeGuideViewHolder) holder).iv_head);
-            ((HomeGuideViewHolder) holder).tv_name.setText(data.getName());
-            ((HomeGuideViewHolder) holder).rating_bar_route.setRating(data.getLevel());
-            ((HomeGuideViewHolder) holder).tv_content.setText(data.getContent());
-            ((HomeGuideViewHolder) holder).serviceTagView.setServiceTag(data.getServiceTags());
-            ((HomeGuideViewHolder) holder).ll_times.setGuideScore(data.getTimes(), data.getLevel(), data.getCommentTimes());
+            GlideUtil.LoadCircleImage(mContext, data.getHeadImg(), ((DynamicViewHolder) holder).iv_img);
+            ((DynamicViewHolder) holder).tv_name.setText(data.getName());
+            ((DynamicViewHolder) holder).tv_time.setText(data.getTime());
+            ((DynamicViewHolder) holder).tv_location.setText(data.getLocation());
+            ((DynamicViewHolder) holder).tv_comment.setText(""+data.getComment());
+            ((DynamicViewHolder) holder).tv_nice.setText(""+data.getNice());
+
+            ((DynamicViewHolder) holder).tv_content.setMaxShowLines(3);
+            ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
+
+            ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getDynamicImgs());
+
 
             if (mOnItemClickListener != null) {
-                ((HomeGuideViewHolder) holder).rlParent.setOnClickListener(new View.OnClickListener() {
+                ((DynamicViewHolder) holder).ll_parent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mOnItemClickListener.onClick(pos);
                     }
                 });
             }
+//        if (holder instanceof HomeGuideViewHolder) {
+//            final int pos = holder.getAdapterPosition() - 1;
+//            final HomeData.Guide data = guides.get(pos);
+//            if (data == null) return;
+//
+//            GlideUtil.LoadImage(mContext, data.getBackgroundImg(), ((HomeGuideViewHolder) holder).iv_backGround);
+//            GlideUtil.LoadCircleImage(mContext, data.getHeadImg(), ((HomeGuideViewHolder) holder).iv_head);
+//            ((HomeGuideViewHolder) holder).tv_name.setText(data.getName());
+//            ((HomeGuideViewHolder) holder).rating_bar_route.setRating(data.getLevel());
+//            ((HomeGuideViewHolder) holder).tv_content.setText(data.getContent());
+//            ((HomeGuideViewHolder) holder).serviceTagView.setServiceTag(data.getServiceTags());
+//            ((HomeGuideViewHolder) holder).ll_times.setGuideScore(data.getTimes(), data.getLevel(), data.getCommentTimes());
+//
+//            if (mOnItemClickListener != null) {
+//                ((HomeGuideViewHolder) holder).rlParent.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        mOnItemClickListener.onClick(pos);
+//                    }
+//                });
+//            }
         }
     }
 
@@ -100,6 +130,29 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             super(itemView);
         }
     }
+
+    public class DynamicViewHolder extends BaseViewHolder {
+        LinearLayout ll_parent;
+        ImageView iv_img;
+        TextView tv_name,tv_time,tv_location,tv_comment,tv_nice;
+        DynamicImageView dynamic_image_view;
+        ShowAllTextView  tv_content;
+
+        DynamicViewHolder(View itemView) {
+            super(itemView);
+            ll_parent = itemView.findViewById(R.id.ll_parent);
+            iv_img = itemView.findViewById(R.id.iv_img);
+            tv_name = itemView.findViewById(R.id.tv_name);
+            tv_time = itemView.findViewById(R.id.tv_time);
+            tv_content = itemView.findViewById(R.id.tv_content);
+            tv_location = itemView.findViewById(R.id.tv_location);
+            tv_comment = itemView.findViewById(R.id.tv_comment);
+            tv_nice = itemView.findViewById(R.id.tv_nice);
+            dynamic_image_view = itemView.findViewById(R.id.dynamic_image_view);
+        }
+
+    }
+
 
     public class HomeGuideViewHolder extends BaseViewHolder {
         RelativeLayout rlParent;

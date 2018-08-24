@@ -236,15 +236,113 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         initBanner(homeBanners);
 
-        List<HomeData.Guide> guides = new ArrayList<>();
-        HomeData.Guide guide = new HomeData.Guide(bannerImg, headImg, "那就走", 4, 5615, 2210, 366d, "安静地分行阿我不管看不惯阿嘎哥啊恩格斯噶十多个阿萨德噶尔");
-        List<String> serviceTags = new ArrayList<>();
-        serviceTags.add("私人定制");
-        serviceTags.add("向导陪游");
-        guide.setServiceTags(serviceTags);
-        guides.add(guide);
-        guides.add(guide);
-        guides.add(guide);
+        List<HomeData.Dynamic> guides = new ArrayList<>();
+        HomeData.Dynamic dynamic0 = new HomeData.Dynamic();
+        dynamic0.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
+        dynamic0.setName("那就走");
+        dynamic0.setTime("23分钟前");
+        dynamic0.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
+        dynamic0.setComment(900);
+        dynamic0.setNice(2000);
+        dynamic0.setLocation("长沙");
+        List<String> dynamicImgs0 = new ArrayList<>();
+        dynamicImgs0.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535108387016&di=4f7792890c26aeaec1f3d73331685601&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3D7c6c39c1ac86c9171c0e5a79a04515a3%2F80cb39dbb6fd526639b0e12da018972bd4073674.jpg");
+        dynamic0.setDynamicImgs(dynamicImgs0);
+        guides.add(dynamic0);
+
+        HomeData.Dynamic dynamic1 = new HomeData.Dynamic();
+        dynamic1.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
+        dynamic1.setName("那就走");
+        dynamic1.setTime("23分钟前");
+        dynamic1.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
+        dynamic1.setComment(900);
+        dynamic1.setNice(2000);
+        dynamic1.setLocation("长沙");
+        List<String> dynamicImgs1 = new ArrayList<>();
+        dynamicImgs1.add("http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1710/03/c5/61691946_1507022504917_mthumb.jpg");
+        dynamic1.setDynamicImgs(dynamicImgs1);
+        guides.add(dynamic1);
+
+        HomeData.Dynamic dynamic2 = new HomeData.Dynamic();
+        dynamic2.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
+        dynamic2.setName("那就走");
+        dynamic2.setTime("23分钟前");
+        dynamic2.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
+        dynamic2.setComment(900);
+        dynamic2.setNice(2000);
+        dynamic2.setLocation("长沙");
+        List<String> dynamicImgs2 = new ArrayList<>();
+        dynamicImgs2.add("http://file27.mafengwo.net/M00/23/A2/wKgB6lPu81-AMcwcAAmzfksNM3A45.jpeg");
+        dynamicImgs2.add("http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg");
+        dynamic2.setDynamicImgs(dynamicImgs2);
+        guides.add(dynamic2);
+
+        HomeData.Dynamic dynamic3 = new HomeData.Dynamic();
+        dynamic3.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
+        dynamic3.setName("那就走");
+        dynamic3.setTime("23分钟前");
+        dynamic3.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
+        dynamic3.setComment(900);
+        dynamic3.setNice(2000);
+        dynamic3.setLocation("长沙");
+        List<String> dynamicImgs3 = new ArrayList<>();
+        dynamicImgs3.add("http://b2-q.mafengwo.net/s7/M00/D2/00/wKgB6lPuNOeAAQS0AArde4Ib0QM13.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
+        dynamicImgs3.add("http://b4-q.mafengwo.net/s7/M00/D2/03/wKgB6lPuNOmAT30yAAH_P6uPNak27.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
+        dynamicImgs3.add("http://n2-q.mafengwo.net/s7/M00/D1/F2/wKgB6lPuNN2AWV_HAB-DCItFN2w99.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
+        dynamic3.setDynamicImgs(dynamicImgs3);
+        guides.add(dynamic3);
+
+        HomeData.Dynamic dynamic4 = new HomeData.Dynamic();
+        dynamic4.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
+        dynamic4.setName("那就走");
+        dynamic4.setTime("23分钟前");
+        dynamic4.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
+        dynamic4.setComment(900);
+        dynamic4.setNice(2000);
+        dynamic4.setLocation("长沙");
+        List<String> dynamicImgs4 = new ArrayList<>();
+        dynamicImgs4.add("http://b4-q.mafengwo.net/s7/M00/D2/03/wKgB6lPuNOmAT30yAAH_P6uPNak27.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
+        dynamicImgs4.add("http://p1-q.mafengwo.net/s7/M00/D2/11/wKgB6lPuNPiAdyLOAAlPcxhyWdI05.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
+        dynamicImgs4.add("http://p1-q.mafengwo.net/s7/M00/D2/3D/wKgB6lPuNSCABs6xAANGgrlUXj856.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
+        dynamicImgs4.add("http://img05.tooopen.com/images/20140510/sy_60792363469.jpg");
+        dynamic4.setDynamicImgs(dynamicImgs4);
+        guides.add(dynamic4);
+
+        HomeData.Dynamic dynamic5 = new HomeData.Dynamic();
+        dynamic5.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
+        dynamic5.setName("那就走");
+        dynamic5.setTime("23分钟前");
+        dynamic5.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
+        dynamic5.setComment(900);
+        dynamic5.setNice(2000);
+        dynamic5.setLocation("长沙");
+        List<String> dynamicImgs5 = new ArrayList<>();
+        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/7c1ed21b0ef41bd51b2dc86a5bda81cb39db3d35.jpg");
+        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/1ad5ad6eddc451da85e2f318bcfd5266d0163228.jpg");
+        dynamicImgs5.add("http://img3.imgtn.bdimg.com/it/u=4085031288,3873323766&fm=214&gp=0.jpg");
+        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/d50735fae6cd7b8902253191052442a7d9330e52.jpg");
+        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/1f178a82b9014a9014246ba2a3773912b31bee93.jpg");
+        dynamic5.setDynamicImgs(dynamicImgs5);
+        guides.add(dynamic5);
+
+
+        HomeData.Dynamic dynamic6 = new HomeData.Dynamic();
+        dynamic6.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
+        dynamic6.setName("那就走");
+        dynamic6.setTime("23分钟前");
+        dynamic6.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
+        dynamic6.setComment(900);
+        dynamic6.setNice(2000);
+        dynamic6.setLocation("长沙");
+        List<String> dynamicImgs6 = new ArrayList<>();
+        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/5fdf8db1cb1349547414c5435d4e9258d1094a8a.jpg");
+        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/d0c8a786c9177f3ef70febf87acf3bc79f3d560f.jpg");
+        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/a8773912b31bb05154a7d2dd3c7adab44bede040.jpg");
+        dynamicImgs6.add("http://pic25.nipic.com/20121107/668573_150230597135_2.jpg");
+        dynamicImgs6.add("http://img06.tooopen.com/images/20170523/tooopen_sy_211650058843.jpg");
+        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/7c1ed21b0ef41bd51b2dc86a5bda81cb39db3d35.jpg");
+        dynamic6.setDynamicImgs(dynamicImgs6);
+        guides.add(dynamic6);
 
         return new HomeData(homeBanners, guides);
     }

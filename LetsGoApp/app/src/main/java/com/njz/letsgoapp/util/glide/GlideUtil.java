@@ -46,6 +46,12 @@ public class GlideUtil {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
 
+    public static void LoadImageFitCenter(Context mContext, String path,
+                                 ImageView imageview) {
+        Glide.with(mContext).load(path).fitCenter().placeholder(R.mipmap.head_default).error(R.mipmap.head_default)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+    }
+
     //加载本地图片
     public static void LoadImageWithLocation(Context mContext, Integer path,
                                              ImageView imageview) {

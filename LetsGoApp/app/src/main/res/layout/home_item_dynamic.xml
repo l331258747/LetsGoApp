@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp">
+
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/head_default" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@+id/iv_img"
+            android:textSize="13sp"
+            tools:text="那就走" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_img"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/iv_img"
+            android:textColor="@color/color_99"
+            android:textSize="11sp"
+            tools:text="23分钟前" />
+
+    </RelativeLayout>
+
+
+    <com.njz.letsgoapp.widget.myTextView.ShowAllTextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="3dp"
+        tools:text="案件管理上的觉案里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉" />
+
+    <com.njz.letsgoapp.widget.DynamicImageView
+        android:id="@+id/dynamic_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/ic_dynamic_location"
+            android:drawablePadding="10dp"
+            android:text="长沙"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@mipmap/ic_dynamic_comment"
+            android:drawablePadding="10dp"
+            android:text="1000" />
+
+
+        <TextView
+            android:id="@+id/tv_nice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"
+            android:drawableLeft="@mipmap/ic_dynamic_nice_un"
+            android:drawablePadding="10dp"
+            android:text="1000" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/color_d9" />
+
+
+</LinearLayout>

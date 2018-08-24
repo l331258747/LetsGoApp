@@ -11,19 +11,18 @@ import java.util.List;
 public class HomeData {
 
     List<HomeBanner> homeBanners;
-    List<Guide> guides;
+    List<Dynamic> guides;
 
-    public HomeData(List<HomeBanner> homeBanners, List<Guide> guides) {
+    public HomeData(List<HomeBanner> homeBanners, List<Dynamic> guides) {
         this.homeBanners = homeBanners;
         this.guides = guides;
     }
-
 
     public List<HomeBanner> getHomeBanners() {
         return homeBanners;
     }
 
-    public List<Guide> getGuides() {
+    public List<Dynamic> getGuides() {
         return guides;
     }
 
@@ -38,67 +37,78 @@ public class HomeData {
         }
     }
 
-    public static class Guide {
-        public String backgroundImg;
+    public static class Dynamic{
         public String headImg;
         public String name;
-        public int level;
-        public int times;
-        public int CommentTimes;
-        public double price;
+        public String time;
         public String content;
-        private List<String> serviceTags;
-
-        public Guide(String backgroundImg, String headImg, String name, int level, int times, int commentTimes, double price, String content) {
-            this.backgroundImg = backgroundImg;
-            this.headImg = headImg;
-            this.name = name;
-            this.level = level;
-            this.times = times;
-            CommentTimes = commentTimes;
-            this.price = price;
-            this.content = content;
-        }
-
-
-        public String getBackgroundImg() {
-            return backgroundImg;
-        }
+        public List<String> dynamicImgs;
+        public String location;
+        public int comment;
+        public int nice;
 
         public String getHeadImg() {
             return headImg;
+        }
+
+        public void setHeadImg(String headImg) {
+            this.headImg = headImg;
         }
 
         public String getName() {
             return name;
         }
 
-        public int getLevel() {
-            return level;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public int getTimes() {
-            return times;
+        public String getTime() {
+            return time;
         }
 
-        public int getCommentTimes() {
-            return CommentTimes;
-        }
-
-        public double getPrice() {
-            return price;
+        public void setTime(String time) {
+            this.time = time;
         }
 
         public String getContent() {
             return content;
         }
 
-        public List<String> getServiceTags() {
-            return serviceTags;
+        public void setContent(String content) {
+            this.content = content;
         }
 
-        public void setServiceTags(List<String> serviceTags) {
-            this.serviceTags = serviceTags;
+        public List<String> getDynamicImgs() {
+            return dynamicImgs;
+        }
+
+        public void setDynamicImgs(List<String> dynamicImgs) {
+            this.dynamicImgs = dynamicImgs;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public int getComment() {
+            return comment;
+        }
+
+        public void setComment(int comment) {
+            this.comment = comment;
+        }
+
+        public int getNice() {
+            return nice;
+        }
+
+        public void setNice(int nice) {
+            this.nice = nice;
         }
     }
 
