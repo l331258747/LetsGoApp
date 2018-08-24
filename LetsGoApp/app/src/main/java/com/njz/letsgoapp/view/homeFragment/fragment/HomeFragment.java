@@ -146,7 +146,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void calendarPick() {
         showLongToast("日历选择");
         Intent intent = new Intent(context, CalendarActivity.class);
-        intent.putExtra("CalendarTag", 1);
+        intent.putExtra("CalendarTag", 2);
         startActivity(intent);
 
         calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
