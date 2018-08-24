@@ -32,8 +32,7 @@
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/background"
-                android:visibility="gone" />
+                android:src="@mipmap/background" />
 
         </LinearLayout>
 
@@ -43,8 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="1dp"
-            android:layout_weight="0.8"
-            android:visibility="gone"
+            android:layout_weight="1.2"
             android:orientation="vertical">
 
             <ImageView
@@ -53,7 +51,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:visibility="gone"
                 android:src="@mipmap/background" />
 
             <ImageView
