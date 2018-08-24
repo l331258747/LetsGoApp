@@ -5,22 +5,21 @@ import com.njz.letsgoapp.bean.login.VerifyModel;
 
 /**
  * Created by LGQ
- * Time: 2018/8/23
+ * Time: 2018/8/24
  * Function:
  */
 
-public interface RegistContract {
+public interface VerifyLoginContract {
 
     interface Presenter {
-        void msgCheckRegister(String mobile, String msg, String password);
-
+        void msgCheckLogin(String mobile,String msg);
         void userSmsSend(String mobile,String type);
     }
 
     interface View {
-        void msgCheckRegisterSuccess(String str);
+        void msgCheckLoginSuccess(LoginModel str);
 
-        void msgCheckRegisterFailed(String msg);
+        void msgCheckLoginFailed(String msg);
 
         void userSmsSendSuccess(VerifyModel str);
 

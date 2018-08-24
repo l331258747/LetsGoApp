@@ -2,11 +2,13 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
@@ -30,6 +32,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     ImageView iv_head;
     TextView tv_name,tv_follow,tv_fans;
 
+    Button btn_loginoff;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_mine;
@@ -51,6 +55,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mine_setting = $(R.id.mine_setting);
         tv_fans = $(R.id.tv_fans);
         tv_follow = $(R.id.tv_follow);
+        btn_loginoff = $(R.id.btn_loginoff);
 
         mine_bind.setOnClickListener(this);
         mine_info.setOnClickListener(this);
@@ -61,6 +66,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         tv_fans.setOnClickListener(this);
         tv_follow.setOnClickListener(this);
         iv_head.setOnClickListener(this);
+        btn_loginoff.setOnClickListener(this);
 
     }
 
@@ -102,6 +108,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent intentFollow = new Intent(context,FansListActivity.class);
                 intentFollow.putExtra("FansListActivity_title", "我的关注");
                 startActivity(intentFollow);
+                break;
+            case R.id.btn_loginoff:
+                MySelfInfo.getInstance().loginOff();
+                Intent intent = new Intent(activity, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                activity.finish();
                 break;
 
         }

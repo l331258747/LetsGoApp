@@ -2,7 +2,7 @@ package com.njz.letsgoapp.mvp.login;
 
 import android.content.Context;
 
-import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -11,36 +11,35 @@ import com.njz.letsgoapp.util.log.LogUtil;
 
 /**
  * Created by LGQ
- * Time: 2018/8/23
+ * Time: 2018/8/24
  * Function:
  */
 
-public class RegistPresenter implements RegistContract.Presenter {
+public class ForgetPresenter implements ForgetContract.Presenter {
 
-    RegistContract.View iView;
+
     Context context;
+    ForgetContract.View iView;
 
-    public RegistPresenter(RegistContract.View iView, Context context) {
-        this.iView = iView;
+    public ForgetPresenter(Context context, ForgetContract.View view) {
         this.context = context;
+        this.iView = view;
     }
 
     @Override
-    public void msgCheckRegister(String mobile, String msg,String password) {
-        ResponseCallback listener = new ResponseCallback<LoginModel>() {
+    public void msgCheckFindBy(String mobile, String msg, String password) {
+        ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override
-            public void onSuccess(LoginModel data) {
-                LogUtil.e("orderinfo:" + data);
-                iView.msgCheckRegisterSuccess("成功");
+            public void onSuccess(EmptyModel data) {
+                iView.msgCheckFindBySuccess(data);
             }
 
             @Override
             public void onFault(String errorMsg) {
-                LogUtil.e("onFault" + errorMsg);
-                iView.msgCheckRegisterFailed(errorMsg);
+                iView.msgCheckFindByFailed(errorMsg);
             }
         };
-        MethodApi.msgCheckRegister(mobile,msg, password, new OnSuccessAndFaultSub(listener, context));
+        MethodApi.msgCheckFindBy(mobile,msg, password, new OnSuccessAndFaultSub(listener, context));
     }
 
     @Override
@@ -59,4 +58,5 @@ public class RegistPresenter implements RegistContract.Presenter {
         };
         MethodApi.userSmsSend(mobile, type, new OnSuccessAndFaultSub(listener, context));
     }
+
 }

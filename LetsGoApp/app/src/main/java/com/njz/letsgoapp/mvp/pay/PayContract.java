@@ -28,15 +28,15 @@ public interface PayContract {
     }
 
     interface View {
-        void getAliOrderInfoSeccess(String orderInfo);
+        void getAliOrderInfoSuccess(String orderInfo);
 
         void getAliOrderInfoFailed(String msg);
 
-        void getWxOrderInfoSeccess(String orderInfo);
+        void getWxOrderInfoSuccess(String orderInfo);
 
         void getWxOrderInfoFailed(String msg);
 
-        void getAliPaySeccess();
+        void getAliPaySuccess();
 
         void getAliPayFailed();
     }

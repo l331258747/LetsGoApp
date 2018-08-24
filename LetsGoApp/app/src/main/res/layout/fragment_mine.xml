@@ -145,6 +145,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_loginoff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

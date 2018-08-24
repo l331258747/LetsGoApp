@@ -11,36 +11,35 @@ import com.njz.letsgoapp.util.log.LogUtil;
 
 /**
  * Created by LGQ
- * Time: 2018/8/23
+ * Time: 2018/8/24
  * Function:
  */
 
-public class RegistPresenter implements RegistContract.Presenter {
+public class VerifyLoginPresenter implements VerifyLoginContract.Presenter {
 
-    RegistContract.View iView;
     Context context;
+    VerifyLoginContract.View iView;
 
-    public RegistPresenter(RegistContract.View iView, Context context) {
-        this.iView = iView;
+    public VerifyLoginPresenter(Context context, VerifyLoginContract.View iView) {
         this.context = context;
+        this.iView = iView;
     }
 
     @Override
-    public void msgCheckRegister(String mobile, String msg,String password) {
+    public void msgCheckLogin(String mobile, String msg) {
         ResponseCallback listener = new ResponseCallback<LoginModel>() {
             @Override
             public void onSuccess(LoginModel data) {
-                LogUtil.e("orderinfo:" + data);
-                iView.msgCheckRegisterSuccess("成功");
+                iView.msgCheckLoginSuccess(data);
             }
 
             @Override
             public void onFault(String errorMsg) {
                 LogUtil.e("onFault" + errorMsg);
-                iView.msgCheckRegisterFailed(errorMsg);
+                iView.msgCheckLoginFailed(errorMsg);
             }
         };
-        MethodApi.msgCheckRegister(mobile,msg, password, new OnSuccessAndFaultSub(listener, context));
+        MethodApi.msgCheckLogin(mobile, msg, new OnSuccessAndFaultSub(listener, context));
     }
 
     @Override

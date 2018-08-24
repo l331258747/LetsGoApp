@@ -9,4 +9,7 @@ package com.njz.letsgoapp.bean.login;
 public class LoginModel {
     String token;
 
+    public String getToken() {
+        return token;
+    }
 }

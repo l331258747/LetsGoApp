@@ -15,7 +15,7 @@ public interface LoginContract {
     }
 
     interface View {
-        void loginSeccess(LoginModel loginModel);
+        void loginSuccess(LoginModel loginModel);
         void loginFailed(String msg);
     }
 

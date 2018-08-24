@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.mvp.login.RegistContract;
 import com.njz.letsgoapp.mvp.login.RegistPresenter;
 import com.njz.letsgoapp.util.AppUtils;
@@ -152,8 +153,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void msgCheckRegisterSeccess(String str) {
-        showShortToast("成功");
+    public void msgCheckRegisterSuccess(String str) {
+        showShortToast("注册成功");
+        finish();
     }
 
     @Override
@@ -162,8 +164,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    public void userSmsSendSeccess(String str) {
-        showShortToast("成功");
+    public void userSmsSendSuccess(VerifyModel str) {
+        showLongToast("验证码：" + str.getMsgCode());
     }
 
     @Override

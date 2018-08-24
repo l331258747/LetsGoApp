@@ -9,6 +9,11 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.mvp.login.VerifyLoginContract;
+import com.njz.letsgoapp.mvp.login.VerifyLoginPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
@@ -29,13 +34,15 @@ import io.reactivex.functions.Function;
  * Function:
  */
 
-public class VerifyLoginActivity extends BaseActivity implements View.OnClickListener {
+public class VerifyLoginActivity extends BaseActivity implements View.OnClickListener,VerifyLoginContract.View {
 
     LoginItemView loginViewPhone, loginViewVerify;
     Button btnVerify, btnLogin;
     TextView tvLogin;
 
     Disposable disposable;
+
+    VerifyLoginPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -64,7 +71,7 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initData() {
-
+        mPresenter = new VerifyLoginPresenter(context,this);
     }
 
     @Override
@@ -75,13 +82,13 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
                     return;
                 if (!LoginUtil.verifyVerify(loginViewVerify.getEtContent()))
                     return;
-                showShortToast("登陆");
-                startActivity(new Intent(context, HomeActivity.class));
+                mPresenter.msgCheckLogin(loginViewPhone.getEtContent(),loginViewVerify.getEtContent());
                 break;
             case R.id.btn_verify:
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
                 verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"login");
                 break;
             case R.id.tv_login:
                 finish();
@@ -140,5 +147,27 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
         super.onDestroy();
         if (disposable != null && !disposable.isDisposed())
             disposable.dispose();
+    }
+
+    @Override
+    public void msgCheckLoginSuccess(LoginModel str) {
+        MySelfInfo.getInstance().setData(str);
+        startActivity(new Intent(context, HomeActivity.class));
+        finish();
+    }
+
+    @Override
+    public void msgCheckLoginFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void userSmsSendSuccess(VerifyModel str) {
+        showLongToast("验证码：" + str.getMsgCode());
+    }
+
+    @Override
+    public void userSmsSendFailed(String msg) {
+        showShortToast(msg);
     }
 }

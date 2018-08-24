@@ -6,6 +6,10 @@ import android.widget.Button;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.mvp.login.ModifyPasswordContract;
+import com.njz.letsgoapp.mvp.login.ModifyPasswordPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.widget.LoginItemView;
 
@@ -15,10 +19,12 @@ import com.njz.letsgoapp.widget.LoginItemView;
  * Function:
  */
 
-public class ModifyPasswordActivity extends BaseActivity implements View.OnClickListener {
+public class ModifyPasswordActivity extends BaseActivity implements View.OnClickListener,ModifyPasswordContract.View {
 
     LoginItemView loginViewPasswordOld,loginViewPassword,loginViewPasswordAgin;
     Button btnSubmit;
+
+    ModifyPasswordPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -43,7 +49,7 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initData() {
-
+        mPresenter = new ModifyPasswordPresenter(context,this);
     }
 
     @Override
@@ -56,8 +62,19 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
                     return;
                 if (!LoginUtil.verifyPasswordDouble(loginViewPassword.getEtContent(), loginViewPasswordAgin.getEtContent()))
                     return;
-                showShortToast("修改成功");
+                mPresenter.changePwd(MySelfInfo.getInstance().getUserToken(),loginViewPasswordOld.getEtContent(),loginViewPassword.getEtContent());
                 break;
         }
+    }
+
+    @Override
+    public void changePwdSuccess(EmptyModel str) {
+        showShortToast("修改成功");
+        finish();
+    }
+
+    @Override
+    public void changePwdFailed(String msg) {
+        showShortToast(msg);
     }
 }

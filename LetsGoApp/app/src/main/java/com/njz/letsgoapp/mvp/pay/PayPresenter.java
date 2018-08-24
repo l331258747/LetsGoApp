@@ -47,7 +47,7 @@ public class PayPresenter implements PayContract.Presenter {
                 LogUtil.e("onSuccess");
                 String orderinfo = t.getData();
                 LogUtil.e("orderinfo:"+orderinfo);
-                iView.getAliOrderInfoSeccess(t.getData());
+                iView.getAliOrderInfoSuccess(t.getData());
 //                payAli(orderinfo);
             }
 
@@ -68,7 +68,7 @@ public class PayPresenter implements PayContract.Presenter {
                 LogUtil.e("onSuccess");
                 String orderinfo = t.getData();
                 LogUtil.e("orderinfo:"+orderinfo);
-                iView.getWxOrderInfoSeccess(t.getData());
+                iView.getWxOrderInfoSuccess(t.getData());
 //                payAli(orderinfo);
             }
 
@@ -133,7 +133,7 @@ public class PayPresenter implements PayContract.Presenter {
                 if (TextUtils.equals(resultStatus, "9000")) {
                     // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
 //                        theActivity.showShortToast("支付成功");
-                    iView.getAliPaySeccess();
+                    iView.getAliPaySuccess();
 
                 } else {
                     // 该笔订单真实的支付结果，需要依赖服务端的异步通知。

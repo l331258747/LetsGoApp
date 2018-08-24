@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.mvp.login.LoginContract;
 import com.njz.letsgoapp.mvp.login.LoginPresenter;
@@ -93,8 +94,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void loginSeccess(LoginModel loginModel) {
-
+    public void loginSuccess(LoginModel loginModel) {
+        MySelfInfo.getInstance().setData(loginModel);
+        startActivity(new Intent(context,HomeActivity.class));
+        finish();
     }
 
     @Override

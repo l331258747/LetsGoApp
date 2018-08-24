@@ -7,6 +7,10 @@ import android.widget.Button;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.mvp.login.ForgetContract;
+import com.njz.letsgoapp.mvp.login.ForgetPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.widget.LoginItemView;
@@ -26,12 +30,14 @@ import io.reactivex.functions.Function;
  * Function:
  */
 
-public class ForgetActivity extends BaseActivity implements LoginItemView.OnClickListener{
+public class ForgetActivity extends BaseActivity implements LoginItemView.OnClickListener,ForgetContract.View{
 
     LoginItemView loginViewPhone, loginViewVerify, loginViewPassword, loginViewPasswordAgin;
     Button btnGetback, btnVerify;
 
     Disposable disposable;
+
+    ForgetPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -61,7 +67,7 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
 
     @Override
     public void initData() {
-
+        mPresenter = new ForgetPresenter(context,this);
     }
 
     @Override
@@ -76,12 +82,13 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
                     return;
                 if (!LoginUtil.verifyPasswordDouble(loginViewPassword.getEtContent(), loginViewPasswordAgin.getEtContent()))
                     return;
-                finish();
+                mPresenter.msgCheckFindBy(loginViewPhone.getEtContent(),loginViewVerify.getEtContent(),loginViewPassword.getEtContent());
                 break;
             case R.id.btn_verify:
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
                 verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"findBy");
                 break;
         }
     }
@@ -136,5 +143,26 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
         super.onDestroy();
         if(disposable != null && !disposable.isDisposed())
             disposable.dispose();
+    }
+
+    @Override
+    public void msgCheckFindBySuccess(EmptyModel str) {
+        showShortToast("修改成功");
+        finish();
+    }
+
+    @Override
+    public void msgCheckFindByFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void userSmsSendSuccess(VerifyModel str) {
+        showLongToast("验证码："+ str.getMsgCode());
+    }
+
+    @Override
+    public void userSmsSendFailed(String msg) {
+        showShortToast(msg);
     }
 }

@@ -1,6 +1,5 @@
 package com.njz.letsgoapp.mvp.login;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.BaseResponse;
@@ -28,16 +27,14 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void login(String mobile, String password) {
-        ResponseCallback listener = new ResponseCallback<BaseResponse>() {
+        ResponseCallback listener = new ResponseCallback<LoginModel>() {
             @Override
-            public void onSuccess(BaseResponse data) {
-                LogUtil.e("orderinfo:" + data);
-                iView.loginSeccess(null);
+            public void onSuccess(LoginModel data) {
+                iView.loginSuccess(data);
             }
 
             @Override
             public void onFault(String errorMsg) {
-                LogUtil.e("onFault" + errorMsg);
                 iView.loginFailed(errorMsg);
             }
         };

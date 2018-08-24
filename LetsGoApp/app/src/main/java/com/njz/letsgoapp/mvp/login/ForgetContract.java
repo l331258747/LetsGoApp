@@ -1,29 +1,30 @@
 package com.njz.letsgoapp.mvp.login;
 
-import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 
 /**
  * Created by LGQ
- * Time: 2018/8/23
+ * Time: 2018/8/24
  * Function:
  */
 
-public interface RegistContract {
+public interface ForgetContract {
 
     interface Presenter {
-        void msgCheckRegister(String mobile, String msg, String password);
+        void msgCheckFindBy(String mobile,String msg, String password);
 
         void userSmsSend(String mobile,String type);
     }
 
     interface View {
-        void msgCheckRegisterSuccess(String str);
+        void msgCheckFindBySuccess(EmptyModel str);
 
-        void msgCheckRegisterFailed(String msg);
+        void msgCheckFindByFailed(String msg);
 
         void userSmsSendSuccess(VerifyModel str);
 
         void userSmsSendFailed(String msg);
+
     }
 }

@@ -52,7 +52,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     }
 
     @Override
-    public void getAliOrderInfoSeccess(String orderInfo) {
+    public void getAliOrderInfoSuccess(String orderInfo) {
         mPresenter.getAliPay(orderInfo);
     }
 
@@ -62,7 +62,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     }
 
     @Override
-    public void getWxOrderInfoSeccess(String orderInfo) {
+    public void getWxOrderInfoSuccess(String orderInfo) {
         mPresenter.getWxPay(orderInfo,api);
     }
 
@@ -72,7 +72,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     }
 
     @Override
-    public void getAliPaySeccess() {
+    public void getAliPaySuccess() {
         startActivity(new Intent(PayActivity.this,PaySuccessActivity.class));
     }
 

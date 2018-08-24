@@ -61,12 +61,12 @@ public class MethodApi {
 
 
     public static void msgCheckFindBy(String mobile,String msg, String password, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckFindBy(mobile,msg,password,password); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckFindBy(mobile,msg,password); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void userSmsLogin(String mobile,String msg, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().userSmsLogin(mobile,msg); //在HttpServer中
+    public static void msgCheckLogin(String mobile,String msg, DisposableObserver subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckLogin(mobile,msg); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -75,8 +75,8 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void changePwd(String token,String password, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(token,password,password); //在HttpServer中
+    public static void changePwd(String token,String password,String newPassword, DisposableObserver subscriber){
+        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(token,password,newPassword); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

@@ -8,4 +8,8 @@ package com.njz.letsgoapp.bean.login;
 
 public class VerifyModel {
     String msgCode;
+
+    public String getMsgCode() {
+        return msgCode;
+    }
 }

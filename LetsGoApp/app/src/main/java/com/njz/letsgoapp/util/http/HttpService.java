@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.util.http;
 
 import com.njz.letsgoapp.bean.BaseResponse;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.bean.order.AliPay;
@@ -43,7 +44,7 @@ public interface HttpService {
     //注册
     @FormUrlEncoded
     @POST("sms/msgCheckRegister")
-    Observable<BaseResponse> msgCheckRegister(
+    Observable<BaseResponse<EmptyModel>> msgCheckRegister(
             @Field("mobile") String mobile,
             @Field("msg") String msg,
             @Field("password") String password
@@ -52,17 +53,16 @@ public interface HttpService {
     //找回密码
     @FormUrlEncoded
     @POST("sms/msgCheckFindBy")
-    Observable<BaseResponse> msgCheckFindBy(
+    Observable<BaseResponse<EmptyModel>> msgCheckFindBy(
             @Field("mobile") String mobile,
             @Field("msg") String msg,
-            @Field("newPassword") String newPassword,
-            @Field("newPasswordSure") String newPasswordSure
+            @Field("newPassword") String newPassword
     );
 
     //手机验证码登录
     @FormUrlEncoded
     @POST("sms/msgCheckLogin")
-    Observable<BaseResponse> userSmsLogin(
+    Observable<BaseResponse<LoginModel>> msgCheckLogin(
             @Field("mobile") String mobile,
             @Field("msg") String msg
     );
@@ -79,7 +79,7 @@ public interface HttpService {
     //修改密码
     @FormUrlEncoded
     @POST("user/changePwd")
-    Observable<BaseResponse> changePwd(
+    Observable<BaseResponse<EmptyModel>> changePwd(
             @Field("X-Nideshop-Token") String token,
             @Field("password") String password,
             @Field("newPassword") String newPassword
