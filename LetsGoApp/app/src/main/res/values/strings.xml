@@ -10,7 +10,7 @@
 
     <string name="guide_service_contract"><Data><![CDATA[点击提交订单表示已阅读并同意<font color="#508CCA">向导服务合同</font>]]></Data></string>
 
-    <string name="destination"><Data><![CDATA[目的地：<font color="#508CCA">%s</font>]]></Data></string>
+    <string name="destination2"><Data><![CDATA[<font color="#ff7c00"><u>查看地理位置</u></font>]]></Data></string>
 
 
 </resources>

@@ -35,7 +35,7 @@ import java.util.List;
 public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener {
 
     ConvenientBanner convenientBanner;
-    TextView tv_title, tv_destination, tv_sell,tv_submit;
+    TextView tv_title, tv_destination, tv_sell,tv_submit,tv_destination2,tv_phone;
     PriceView pv_price;
     LWebView webView;
 
@@ -65,13 +65,16 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         convenientBanner = $(R.id.convenientBanner);
         tv_title = $(R.id.tv_title);
         tv_destination = $(R.id.tv_destination);
+        tv_phone = $(R.id.tv_phone);
+        tv_destination2 = $(R.id.tv_destination2);
         tv_sell = $(R.id.tv_sell);
         pv_price = $(R.id.pv_price);
         tv_submit = $(R.id.tv_submit);
         webView = $(R.id.webview);
 
         tv_submit.setOnClickListener(this);
-        tv_destination.setOnClickListener(this);
+        tv_destination2.setOnClickListener(this);
+        tv_phone.setOnClickListener(this);
 
     }
 
@@ -100,20 +103,22 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         }, banners)
                 .setPointViewVisible(true) //设置指示器是否可见
                 .startTurning(4000)//设置自动切换（同时设置了切换时间间隔）
-                .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.drawable.oval_write_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
 //                    .setOnItemClickListener(this) //设置点击监听事件
                 .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
 
 
         tv_title.setText("我是导游，选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我");
-        StringUtils.setHtml(tv_destination,String.format(getResources().getString(R.string.destination), "张家界"));
-        tv_sell.setText("已售" + 11);
+        tv_destination.setText("张家界");
+        StringUtils.setHtml(tv_destination2,getResources().getString(R.string.destination2));
+
+        tv_sell.setText("已售:" + 11);
         pv_price.setPrice(300d);
 
 
-        webView.getSettings().setJavaScriptEnabled(true);//支持js
-        webView.setWebViewClient(new MyWebViewClient(webView));
+//        webView.getSettings().setJavaScriptEnabled(true);//支持js
+//        webView.setWebViewClient(new MyWebViewClient(webView));
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html" , "utf-8", null);
 
     }
@@ -124,7 +129,10 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.tv_submit:
                 showShortToast("预订成功");
                 break;
-            case R.id.tv_destination:
+            case R.id.tv_phone:
+                showShortToast("联系导游");
+                break;
+            case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));
                 break;
             case R.id.right_iv:

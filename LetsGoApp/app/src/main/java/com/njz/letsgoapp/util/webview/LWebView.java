@@ -40,7 +40,7 @@ public class LWebView extends WebView {
      */
     private void init() {
         WebSettings settings = getSettings();
-        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptEnabled(true);//支持js
         settings.setDisplayZoomControls(false); // 关闭自动缩放
         settings.setDefaultZoom(WebSettings.ZoomDensity.FAR); //  自适应屏幕处理，不设置，低分辨率显示异常
         settings.setDefaultTextEncodingName("utf-8");
@@ -50,20 +50,33 @@ public class LWebView extends WebView {
         settings.setDomStorageEnabled(true); // h5 本地缓存
         settings.setDatabaseEnabled(true); //启用数据库
 
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        this.setVerticalScrollBarEnabled(false);
+        this.setVerticalScrollbarOverlay(false);
+        this.setHorizontalScrollBarEnabled(false);
+        this.setHorizontalScrollbarOverlay(false);
 
 
-        setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                view.loadUrl("file:///android_asset/error.html");
-            }
+        setWebViewClient(new MyWebViewClient(this));
 
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // 不重写会调用系统浏览器
-                view.loadUrl(url);
-                return true;
-            }
-        });
+//        setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+//                view.loadUrl("file:///android_asset/error.html");
+//            }
+//
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                // 不重写会调用系统浏览器
+//                view.loadUrl(url);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//
+//            }
+//        });
     }
 }

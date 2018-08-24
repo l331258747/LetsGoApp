@@ -9,6 +9,6 @@ package com.njz.letsgoapp.constant;
 public class URLConstant {
 //    public static final String BASE_URL = "http://najiuzou.uicp.net:26641/";
 //
-    public static final String BASE_URL = "http://192.168.100.153:8090/travel-framework/api/travel/";
-//    public static final String BASE_URL = "http://192.168.100.131:8080/api/travel/";
+//    public static final String BASE_URL = "http://192.168.100.153:8090/travel-framework/api/travel/";
+    public static final String BASE_URL = "http://192.168.100.142:8080/api/travel/";
 }

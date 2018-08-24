@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/btn_gray_bottom_line"
+    android:background="@drawable/btn_write_bottom_line"
     android:orientation="vertical">
 
     <TextView
@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/black"
         android:text="费用说明"
         android:textSize="16sp" />
 

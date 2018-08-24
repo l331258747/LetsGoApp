@@ -84,6 +84,18 @@ public interface HttpService {
             @Field("password") String password,
             @Field("newPassword") String newPassword
     );
+
+    //修改手机号
+    @FormUrlEncoded
+    @POST("sms/updateMobile")
+    Observable<BaseResponse<EmptyModel>> updateMobile(
+            @Field("X-Nideshop-Token") String token,
+            @Field("mobile") String mobile,
+            @Field("msg") String msg,
+            @Field("password") String password
+    );
+
+
     //登录系列   end
 
 

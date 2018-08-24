@@ -1,5 +1,8 @@
 package com.njz.letsgoapp.util.webview;
 
+import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -13,13 +16,20 @@ public class MyWebViewClient extends WebViewClient {
     }
 
     @Override
+    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+        view.loadUrl("file:///android_asset/error.html");
+    }
+
+    @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
         imgReset();//重置webview中img标签的图片大小
+        viewMeasure();
     }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        // 不重写会调用系统浏览器
         view.loadUrl(url);
         return true;
     }
@@ -36,5 +46,14 @@ public class MyWebViewClient extends WebViewClient {
                 "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
                 "}" +
                 "})()");
+    }
+
+    private void viewMeasure(){
+        int w = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        //重新测量
+        webView.measure(w, h);
     }
 }

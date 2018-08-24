@@ -49,34 +49,39 @@ public class MethodApi {
 
 
     //-----------login start------------
-    public static void login(String mobile, String password, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().login(mobile,password); //在HttpServer中
+    public static void login(String mobile, String password, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().login(mobile, password); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void msgCheckRegister(String mobile,String msg, String password, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckRegister(mobile,msg,password); //在HttpServer中
+    public static void msgCheckRegister(String mobile, String msg, String password, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckRegister(mobile, msg, password); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
 
-    public static void msgCheckFindBy(String mobile,String msg, String password, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckFindBy(mobile,msg,password); //在HttpServer中
+    public static void msgCheckFindBy(String mobile, String msg, String password, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckFindBy(mobile, msg, password); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void msgCheckLogin(String mobile,String msg, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckLogin(mobile,msg); //在HttpServer中
+    public static void msgCheckLogin(String mobile, String msg, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckLogin(mobile, msg); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void userSmsSend(String mobile,String type, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().userSmsSend(mobile,type); //在HttpServer中
+    public static void userSmsSend(String mobile, String type, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userSmsSend(mobile, type); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void changePwd(String token,String password,String newPassword, DisposableObserver subscriber){
-        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(token,password,newPassword); //在HttpServer中
+    public static void changePwd(String token, String password, String newPassword, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(token, password, newPassword); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void updateMobile(String token, String mobile, String msg, String password, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().updateMobile(token, mobile, msg, password); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

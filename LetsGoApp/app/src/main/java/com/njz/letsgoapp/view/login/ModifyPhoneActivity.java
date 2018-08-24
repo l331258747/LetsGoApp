@@ -7,6 +7,11 @@ import android.widget.Button;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.mvp.login.ModifyPhoneContract;
+import com.njz.letsgoapp.mvp.login.ModifyPhonePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.widget.LoginItemView;
@@ -26,12 +31,14 @@ import io.reactivex.functions.Function;
  * Function:
  */
 
-public class ModifyPhoneActivity extends BaseActivity implements View.OnClickListener {
+public class ModifyPhoneActivity extends BaseActivity implements View.OnClickListener,ModifyPhoneContract.View {
 
     LoginItemView loginViewPassword,loginViewPhone,loginViewVerify;
-    Button btnVerifyPassword,btnVerify,btnSubmit;
+    Button btnVerify,btnSubmit;
 
     Disposable disposable;
+
+    ModifyPhonePresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -49,72 +56,36 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
         loginViewVerify = $(R.id.login_view_verify);
         loginViewVerify.setEtInputType(InputType.TYPE_CLASS_NUMBER);
 
-        btnVerifyPassword = $(R.id.btn_verify_password);
         btnVerify = $(R.id.btn_verify);
         btnSubmit = $(R.id.btn_submit);
 
-        btnVerifyPassword.setOnClickListener(this);
         btnVerify.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
 
-        showView(false);
-
-    }
-
-    public void showView(boolean isShow){
-        if(isShow){
-            loginViewPhone.getEtView().setEnabled(true);
-            loginViewVerify.getEtView().setEnabled(true);
-            btnVerify.setEnabled(true);
-            btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r5));
-            btnSubmit.setEnabled(true);
-            btnSubmit.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r40));
-
-            loginViewPassword.getEtView().setEnabled(false);
-            btnVerifyPassword.setEnabled(false);
-            btnVerifyPassword.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray_solid_r40));
-
-
-        }else{
-            loginViewPhone.getEtView().setEnabled(false);
-            loginViewVerify.getEtView().setEnabled(false);
-            btnVerify.setEnabled(false);
-            btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray_solid_r5));
-            btnSubmit.setEnabled(false);
-            btnSubmit.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray_solid_r40));
-
-        }
     }
 
     @Override
     public void initData() {
-
+        mPresenter = new ModifyPhonePresenter(context,this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_verify_password:
-                //// TODO: 测试
-                if (!LoginUtil.verifyPassword(loginViewPassword.getEtContent()))
-                    return;
-                if(loginViewPassword.getEtContent().equals("123456")){
-                    showView(true);
-                }else{
-                    showShortToast("密码请输入123456");
-                }
-                break;
             case R.id.btn_verify:
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
                 verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"update");
                 break;
             case R.id.btn_submit:
+                if(!LoginUtil.verifyPassword(loginViewPassword.getEtContent()))
+                    return;
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
                 if (!LoginUtil.verifyVerify(loginViewVerify.getEtContent()))
                     return;
-                showShortToast("修改成功");
+                mPresenter.updateMobile(MySelfInfo.getInstance().getUserToken(),loginViewPhone.getEtContent(),loginViewVerify.getEtContent(),loginViewPassword.getEtContent());
 
                 break;
 
@@ -171,5 +142,26 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
         super.onDestroy();
         if(disposable != null && !disposable.isDisposed())
             disposable.dispose();
+    }
+
+    @Override
+    public void updateMobileSuccess(EmptyModel str) {
+        showShortToast("修改成功");
+        finish();
+    }
+
+    @Override
+    public void updateMobileFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void userSmsSendSuccess(VerifyModel str) {
+        showLongToast("验证码：" + str.getMsgCode());
+    }
+
+    @Override
+    public void userSmsSendFailed(String msg) {
+        showShortToast(msg);
     }
 }
