@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
@@ -28,23 +29,22 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:maxLines="2"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:layout_marginLeft="5dp"
-                    tools:text="我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我"
-                     />
+                    tools:text="我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我" />
 
                 <TextView
                     android:id="@+id/tv_destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:drawableLeft="@mipmap/ic_dynamic_location"
                     android:drawablePadding="10dp"
-                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
                     tools:text="目的地" />
 
 
@@ -53,11 +53,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
+                    android:layout_marginTop="10dp"
                     android:layout_toEndOf="@+id/tv_destination"
-                    android:paddingTop="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:paddingTop="5dp"
                     tools:text="查看地址位置" />
 
 
@@ -68,8 +68,8 @@
                     android:layout_alignBottom="@+id/tv_destination"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="5dp"
-                    android:textColor="@color/color_99"
-                    android:text="已售：11" />
+                    android:text="已售：11"
+                    android:textColor="@color/color_99" />
 
                 <com.njz.letsgoapp.widget.PriceView
                     android:id="@+id/pv_price"
@@ -85,9 +85,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
+                android:orientation="vertical"
                 android:padding="5dp">
 
                 <TextView
@@ -96,8 +96,8 @@
                     android:layout_marginLeft="3dp"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
-                    android:textColor="@color/black"
                     android:text="服务特色"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <com.njz.letsgoapp.util.webview.LWebView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -126,66 +126,71 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
         android:layout_height="50dp"
+        android:layout_gravity="bottom"
         android:background="@color/white"
         android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/color_d9"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+            android:background="@color/color_d9" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/white"
             android:gravity="center"
-            android:background="@drawable/btn_theme_hollow_r5">
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_theme_hollow_r5"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_phone"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="联系导游"
+                    android:textColor="@color/color_theme" />
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/tv_phone"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_submit"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/ic_phone"
-                android:drawablePadding="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_theme_solid_r5"
                 android:gravity="center"
-                android:text="联系导游"
-                android:textColor="@color/color_theme" />
-
+                android:text="预订(￥550)"
+                android:textColor="@color/white" />
         </LinearLayout>
-
-
-
-        <TextView
-            android:id="@+id/tv_submit"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_theme_solid_r5"
-            android:gravity="center"
-            android:text="预订(￥550)"
-            android:textColor="@color/white" />
     </LinearLayout>
 
-
-    </LinearLayout>
-
-
+    <TextView
+        android:id="@+id/tv_back_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="15dp"
+        android:background="@mipmap/ic_back_top"/>
 
 </FrameLayout>
 

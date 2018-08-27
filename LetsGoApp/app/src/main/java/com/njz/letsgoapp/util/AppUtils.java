@@ -120,4 +120,13 @@ public class AppUtils {
 		return 0;
 	}
 
+	//获取屏幕宽度
+	public static int getDisplayWidth(){
+		return context.getResources().getDisplayMetrics().widthPixels;
+	}
+
+	//获取屏幕高度
+	public static int getDisplayHeight(){
+		return context.getResources().getDisplayMetrics().heightPixels;
+	}
 }

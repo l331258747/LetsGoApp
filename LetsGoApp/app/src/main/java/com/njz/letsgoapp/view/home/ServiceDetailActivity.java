@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.home;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,11 +36,14 @@ import java.util.List;
 public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener {
 
     ConvenientBanner convenientBanner;
-    TextView tv_title, tv_destination, tv_sell,tv_submit,tv_destination2,tv_phone;
+    TextView tv_title, tv_destination, tv_sell,tv_submit,tv_destination2,tv_phone,tv_back_top;
     PriceView pv_price;
     LWebView webView;
+    NestedScrollView scrollView;
 
     String title;
+
+    int mDisplayHeight;
 
     @Override
     public int getLayoutId() {
@@ -71,10 +75,14 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         pv_price = $(R.id.pv_price);
         tv_submit = $(R.id.tv_submit);
         webView = $(R.id.webview);
+        tv_back_top = $(R.id.tv_back_top);
+        tv_back_top.setVisibility(View.GONE);
+        scrollView = $(R.id.scrollView);
 
         tv_submit.setOnClickListener(this);
         tv_destination2.setOnClickListener(this);
         tv_phone.setOnClickListener(this);
+        tv_back_top.setOnClickListener(this);
 
     }
 
@@ -121,6 +129,18 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 //        webView.setWebViewClient(new MyWebViewClient(webView));
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html" , "utf-8", null);
 
+        mDisplayHeight = AppUtils.getDisplayHeight();
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY > mDisplayHeight){
+                    tv_back_top.setVisibility(View.VISIBLE);
+                }else{
+                    tv_back_top.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -134,6 +154,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));
+                break;
+            case R.id.tv_back_top:
+                scrollView.scrollTo(0,0);
                 break;
             case R.id.right_iv:
                 ShareDialog dialog = new ShareDialog(activity,

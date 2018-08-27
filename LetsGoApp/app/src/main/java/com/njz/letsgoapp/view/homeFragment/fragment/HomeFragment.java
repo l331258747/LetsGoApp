@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
@@ -65,6 +66,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     LinearLayout ll_destination, ll_start_time, ll_end_time;
     TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, btn_trip_setting;
+    RelativeLayout rl_guide_title;
+
 
     ConvenientBanner convenientBanner;
 
@@ -102,11 +105,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         btn_trip_setting = $(R.id.btn_trip_setting);
         convenientBanner = $(R.id.convenientBanner);
         scrollView = $(R.id.scrollView);
+        rl_guide_title = $(R.id.rl_guide_title);
 
         ll_destination.setOnClickListener(this);
         ll_start_time.setOnClickListener(this);
         ll_end_time.setOnClickListener(this);
         btn_trip_setting.setOnClickListener(this);
+        rl_guide_title.setOnClickListener(this);
 
         if(linear_bar2 != null){
             scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -156,6 +161,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.ll_end_time:
                 calendarPick();
                 break;
+            case R.id.rl_guide_title:
+                startActivity(new Intent(context,GuideListActivity.class));
+                break;
             case R.id.btn_trip_setting:
                 showLongToast("设置行程");
                 startActivity(new Intent(context, GuideListActivity.class));
@@ -179,13 +187,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void calendarPick() {
         showLongToast("日历选择");
         Intent intent = new Intent(context, CalendarActivity.class);
-        intent.putExtra("CalendarTag", 2);
+        intent.putExtra("CalendarTag", 1);
         startActivity(intent);
 
         calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
             @Override
             public void accept(CalendarEvent calendarEvent) throws Exception {
-
                 tv_start_time_content.setText(calendarEvent.getStartTime());
                 tv_end_time_content.setText(calendarEvent.getEndTime());
                 tv_day_time.setText(calendarEvent.getDays());
@@ -211,15 +218,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                showShortToast("点击第" + position);
-                startActivity(new Intent(context, GuideDetailActivity.class));
+//                showShortToast("点击第" + position);
+//                startActivity(new Intent(context, GuideDetailActivity.class));
+                //TODO 进入动态详情
+
             }
         });
 
         mAdapter.setCheckAllListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context,GuideListActivity.class));
+//                startActivity(new Intent(context,GuideListActivity.class));//TODO 进入动态列表
             }
         });
     }
@@ -241,6 +250,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mAdapterh = new HomeGuideAdapter(activity, getDataH());
         recycler_view_h.setAdapter(mAdapterh);
         recycler_view_h.setNestedScrollingEnabled(false);
+        mAdapterh.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                showShortToast("点击第" + position);
+                startActivity(new Intent(context, GuideDetailActivity.class));
+            }
+        });
     }
 
     //初始化SwipeLayout

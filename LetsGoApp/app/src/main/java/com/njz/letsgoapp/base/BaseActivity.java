@@ -19,7 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
 /**
  * Created by LGQ
@@ -99,6 +101,19 @@ public abstract class BaseActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private long mExitTime;
+    @Override
+    public void onBackPressed() {
+        if(activity instanceof HomeActivity){
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                showLongToast("再按一次退出那就走旅行");
+                mExitTime = System.currentTimeMillis();
+                return;
+            }
+        }
+        super.onBackPressed();
     }
 
     //----------------------titlebar end-----------------------

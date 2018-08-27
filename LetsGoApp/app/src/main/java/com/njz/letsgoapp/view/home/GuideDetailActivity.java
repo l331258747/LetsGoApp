@@ -173,38 +173,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
 
-        webView.getSettings().setJavaScriptEnabled(true);//支持js
-        webView.setWebViewClient(new MyWebViewClient());
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html" , "utf-8", null);
-    }
-
-    //图片过大处理
-    private class MyWebViewClient extends WebViewClient {
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            imgReset();//重置webview中img标签的图片大小
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    }
-
-    /**
-     * 对图片进行重置大小，宽度就是手机屏幕宽度，高度根据宽度比便自动缩放
-     **/
-    private void imgReset() {
-        webView.loadUrl("javascript:(function(){" +
-                "var objs = document.getElementsByTagName('img'); " +
-                "for(var i=0;i<objs.length;i++)  " +
-                "{"
-                + "var img = objs[i];   " +
-                "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
-                "}" +
-                "})()");
     }
 
 
