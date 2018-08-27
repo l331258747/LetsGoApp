@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.other.BigImageActivity;
 
 import java.util.ArrayList;
 
@@ -56,6 +57,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //点击进入的时候直接跳转到登录界面
                 Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
+//                Intent intent = new Intent(WelcomeActivity.this, BigImageActivity.class);
                 startActivity(intent);
                 finish();
             }

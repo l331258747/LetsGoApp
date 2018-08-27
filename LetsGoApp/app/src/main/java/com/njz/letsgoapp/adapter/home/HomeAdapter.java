@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,12 +15,14 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
 import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
 import com.njz.letsgoapp.widget.myTextView.ShowAllTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,7 +84,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
 
             ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getDynamicImgs());
-
+            ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicImageView.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    Intent intent = new Intent(mContext, BigImageActivity.class);
+                    intent.putExtra(BigImageActivity.BANNER_INDEX,position);
+                    intent.putStringArrayListExtra(BigImageActivity.BANNER_IMGS, (ArrayList<String>) data.getDynamicImgs());
+                    mContext.startActivity(intent);
+                }
+            });
 
             if (mOnItemClickListener != null) {
                 ((DynamicViewHolder) holder).ll_parent.setOnClickListener(new View.OnClickListener() {

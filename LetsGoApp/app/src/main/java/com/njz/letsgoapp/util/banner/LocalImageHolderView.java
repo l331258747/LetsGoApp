@@ -16,16 +16,26 @@ public class LocalImageHolderView<T> implements Holder<T> {
 
     BannerListener bannerListener;
     private ImageView imageView;
+    int scaleType = -1;
 
     public LocalImageHolderView(BannerListener bannerListener) {
+        this(bannerListener,-1);
+    }
+
+    public LocalImageHolderView(BannerListener bannerListener,int scaleType){
         this.bannerListener = bannerListener;
+        this.scaleType = scaleType;
     }
 
     @Override
     public View createView(Context context) {
         //你可以通过layout文件来创建，不一定是Image，任何控件都可以进行翻页
         imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        if(scaleType != -1){
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }else{
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
         return imageView;
     }
 

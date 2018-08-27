@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -26,7 +27,6 @@ public class DynamicImageView extends LinearLayout {
     ImageView iv_left1, iv_left2, iv_right1, iv_right2, iv_bottom1, iv_bottom2, iv_bottom3;
 
     Context context;
-
 
     public DynamicImageView(Context context) {
         this(context, null);
@@ -91,6 +91,8 @@ public class DynamicImageView extends LinearLayout {
                 iv_left1.setVisibility(VISIBLE);
                 iv_left1.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 GlideUtil.LoadImageFitCenter(context, datas.get(0), iv_left1);
+
+                setOnclick(iv_left1,0);
                 break;
             case 2:
                 iv_left1.setVisibility(VISIBLE);
@@ -99,6 +101,9 @@ public class DynamicImageView extends LinearLayout {
                 ll_right.setVisibility(VISIBLE);
                 iv_right1.setVisibility(VISIBLE);
                 GlideUtil.LoadImage(context, datas.get(1), iv_right1);
+
+                setOnclick(iv_left1,0);
+                setOnclick(iv_right1,1);
                 break;
             case 3:
                 iv_left1.setVisibility(VISIBLE);
@@ -110,6 +115,10 @@ public class DynamicImageView extends LinearLayout {
 
                 iv_right2.setVisibility(VISIBLE);
                 GlideUtil.LoadImage(context, datas.get(2), iv_right2);
+
+                setOnclick(iv_left1,0);
+                setOnclick(ll_right,1);
+                setOnclick(iv_right2,2);
                 break;
             case 4:
                 iv_left1.setVisibility(VISIBLE);
@@ -124,6 +133,11 @@ public class DynamicImageView extends LinearLayout {
 
                 iv_right2.setVisibility(VISIBLE);
                 GlideUtil.LoadImage(context, datas.get(3), iv_right2);
+
+                setOnclick(iv_left1,0);
+                setOnclick(iv_left2,1);
+                setOnclick(ll_right,2);
+                setOnclick(iv_right2,3);
                 break;
             case 5:
                 iv_left1.setVisibility(VISIBLE);
@@ -140,6 +154,12 @@ public class DynamicImageView extends LinearLayout {
                 GlideUtil.LoadImage(context, datas.get(2), iv_bottom1);
                 GlideUtil.LoadImage(context, datas.get(3), iv_bottom2);
                 GlideUtil.LoadImage(context, datas.get(4), iv_bottom3);
+
+                setOnclick(iv_left1,0);
+                setOnclick(iv_right1,1);
+                setOnclick(iv_bottom1,2);
+                setOnclick(iv_bottom2,3);
+                setOnclick(iv_bottom3,4);
 
                 break;
             default:
@@ -161,8 +181,34 @@ public class DynamicImageView extends LinearLayout {
                 GlideUtil.LoadImage(context, datas.get(3), iv_bottom1);
                 GlideUtil.LoadImage(context, datas.get(4), iv_bottom2);
                 GlideUtil.LoadImage(context, datas.get(5), iv_bottom3);
+
+                setOnclick(iv_left1,0);
+                setOnclick(iv_right1,1);
+                setOnclick(iv_right2,2);
+                setOnclick(iv_bottom1,3);
+                setOnclick(iv_bottom2,4);
+                setOnclick(iv_bottom3,5);
                 break;
 
         }
+    }
+
+    private void setOnclick(View view, final int position){
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onClick(position);
+            }
+        });
+    }
+
+    OnItemClickListener mOnItemClickListener;
+
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 }

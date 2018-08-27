@@ -118,6 +118,8 @@
 
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />
+        <activity android:name=".view.other.BigImageActivity"
+            android:theme="@style/welcomeTheme"/>
 
         <!--我的-->
         <activity android:name=".view.mine.SystemSettingActivity" />
