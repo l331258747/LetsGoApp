@@ -3,11 +3,10 @@ package com.njz.letsgoapp.view.home;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +27,6 @@ import com.njz.letsgoapp.widget.GuideAuthenticationView;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
-import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
 import com.njz.letsgoapp.widget.popupwindow.PopService;
 
 import java.util.ArrayList;
@@ -44,12 +42,12 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     ConvenientBanner convenientBanner;
     ImageView iv_head;
-    TextView tv_name, tv_service_num,tv_content;
+    TextView tv_name, tv_service_num,tv_comment_content,tv_content,tv_back_top,btn_submit;
     MyRatingBar my_rating_bar;
     ServiceTagView stv_tag;
+    NestedScrollView scrollView;
 
-    LinearLayout ll_select_service, ll_comment;
-    Button btn_call, btn_submit;
+    LinearLayout ll_select_service, ll_comment,btn_call;
 
     PopService popService;
     GuideLabelView guideLabel;
@@ -77,15 +75,20 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         stv_tag = $(R.id.stv_tag);
         ll_select_service = $(R.id.ll_select_service);
         ll_comment = $(R.id.ll_comment);
+        tv_content = $(R.id.tv_content);
         btn_call = $(R.id.btn_call);
         btn_submit = $(R.id.btn_submit);
         guideLabel = $(R.id.guide_label);
         tv_service_num = $(R.id.tv_service_num);
         guide_authentication = $(R.id.guide_authentication);
-        tv_content = $(R.id.tv_content);
+        tv_comment_content = $(R.id.tv_comment_content);
+        tv_back_top = $(R.id.tv_back_top);
         webView = $(R.id.webview);
+        scrollView = $(R.id.scrollView);
 
-        initCommont();
+        tv_back_top.setVisibility(View.GONE);
+        tv_back_top.setOnClickListener(this);
+
     }
 
     public void initCommont() {
@@ -139,7 +142,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         }, banners)
                 .setPointViewVisible(true) //设置指示器是否可见
                 .startTurning(4000)//设置自动切换（同时设置了切换时间间隔）
-                .setPageIndicator(new int[]{R.drawable.oval_write_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.drawable.oval_white_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
 //                    .setOnItemClickListener(this) //设置点击监听事件
                 .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
@@ -166,6 +169,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         authentications.add(GuideAuthenticationView.AUTHENT_IDENTITY);
         authentications.add(GuideAuthenticationView.AUTHENT_CAR);
         guide_authentication.setAuthentication(authentications);
+        tv_comment_content.setText("选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我");
         tv_content.setText("选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我");
 
         ll_select_service.setOnClickListener(this);
@@ -174,6 +178,20 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         btn_submit.setOnClickListener(this);
 
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html" , "utf-8", null);
+
+        initCommont();
+
+        final int mDisplayHeight = AppUtils.getDisplayHeight();
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY > mDisplayHeight){
+                    tv_back_top.setVisibility(View.VISIBLE);
+                }else{
+                    tv_back_top.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
 
@@ -208,6 +226,9 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                         "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
                         "https://www.ifanr.com/1084256");
                 dialog.show();
+                break;
+            case R.id.tv_back_top:
+                scrollView.scrollTo(0,0);
                 break;
 
         }

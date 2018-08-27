@@ -4,11 +4,13 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.AppUtils;
 
+import java.time.format.TextStyle;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public class ServiceTagView extends TextView {
     public ServiceTagView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        setTextSize(AppUtils.px2sp(11));
+        setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
 //        setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
 //        setCompoundDrawables();
 

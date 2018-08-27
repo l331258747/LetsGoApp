@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 
@@ -25,7 +26,7 @@ public class GuideAuthenticationView extends LinearLayout {
     public static final int AUTHENT_CAR = 2;
 
 
-    ImageView ivIdentity, ivGuide, ivCar;
+    TextView tvIdentity, tvGuide, tvCar;
 
     public GuideAuthenticationView(Context context) {
         this(context, null);
@@ -40,23 +41,23 @@ public class GuideAuthenticationView extends LinearLayout {
 
         View view = LayoutInflater.from(context).inflate(R.layout.view_guide_authentication, this, true);
 
-        ivIdentity = findViewById(R.id.iv_identity);
-        ivGuide = findViewById(R.id.iv_guide);
-        ivCar = findViewById(R.id.iv_car);
+        tvIdentity = findViewById(R.id.tv_identity);
+        tvGuide = findViewById(R.id.tv_guide);
+        tvCar = findViewById(R.id.tv_car);
 
     }
 
     public void setAuthentication(List<Integer> authentications) {
-        ivIdentity.setVisibility(GONE);
-        ivGuide.setVisibility(GONE);
-        ivCar.setVisibility(GONE);
+        tvIdentity.setVisibility(GONE);
+        tvGuide.setVisibility(GONE);
+        tvCar.setVisibility(GONE);
         for (Integer authentication : authentications) {
             if (authentication == AUTHENT_IDENTITY) {
-                ivIdentity.setVisibility(VISIBLE);
+                tvIdentity.setVisibility(VISIBLE);
             }else if (authentication == AUTHENT_GUIDE) {
-                ivGuide.setVisibility(VISIBLE);
+                tvGuide.setVisibility(VISIBLE);
             }else if (authentication == AUTHENT_CAR) {
-                ivCar.setVisibility(VISIBLE);
+                tvCar.setVisibility(VISIBLE);
             }
         }
     }

@@ -57,7 +57,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.commont_name.setText(data.getName());
         holder.commont_time.setText(data.getTime());
         holder.commont_score.setText(data.getScore()+".0");
-        holder.tv_content.setText(data.getContent());
+        holder.tv_comment_content.setText(data.getContent());
         holder.tv_order.setText(data.getOrderInfo());
         holder.reply_time.setText(data.getReplyTime());
         holder.reply_content.setText(data.getReply());
@@ -94,7 +94,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView commont_head;
-        TextView commont_name, commont_time, commont_score, tv_content, tv_order, reply_time, reply_content;
+        TextView commont_name, commont_time, commont_score, tv_comment_content, tv_order, reply_time, reply_content;
         RelativeLayout rl_reply;
         RecyclerView mRecyclerView;
 
@@ -106,7 +106,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             commont_name = itemView.findViewById(R.id.commont_name);
             commont_time = itemView.findViewById(R.id.commont_time);
             commont_score = itemView.findViewById(R.id.commont_score);
-            tv_content = itemView.findViewById(R.id.tv_content);
+            tv_comment_content = itemView.findViewById(R.id.tv_comment_content);
             tv_order = itemView.findViewById(R.id.tv_order);
             reply_time = itemView.findViewById(R.id.reply_time);
             reply_content = itemView.findViewById(R.id.reply_content);

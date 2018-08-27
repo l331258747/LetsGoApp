@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.other.BigImageActivity;
 
 import java.util.List;
 
@@ -30,22 +32,29 @@ public class SimpleImageAdapter extends RecyclerView.Adapter<SimpleImageAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_simple_image,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.activity_simple_image, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         //ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r15)
-        GlideUtil.LoadImage(context,data.get(position), holder.img);
+        GlideUtil.LoadImage(context, data.get(position), holder.img);
+
+//        holder.img.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                BigImageActivity.startActivity((Activity) context, position, data);
+//            }
+//        });
     }
 
     @Override
     public int getItemCount() {
-        if(data == null){
+        if (data == null) {
             return 0;
         }
-        if(data.size() > 4){
+        if (data.size() > 4) {
             return 4;
         }
         return data.size();

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/btn_gray_bottom_line"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_gray_bottom_line">
+        android:background="@drawable/btn_d9_bottom_line"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <ImageView
             android:id="@+id/commont_head"
@@ -21,7 +23,6 @@
             android:id="@+id/commont_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/commont_head"
             android:text="那就走" />
@@ -30,7 +31,9 @@
             android:id="@+id/commont_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignBottom="@+id/commont_head"
+            android:textSize="12sp"
+            android:textColor="@color/color_99"
             android:layout_marginLeft="50dp"
             android:text="2018-08-08" />
 
@@ -41,22 +44,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/white"
             android:layout_marginLeft="50dp"
-            android:background="@drawable/btn_blue_solid_r40"
-            android:text="5.0" />
+            android:background="@drawable/oval_green_solid"
+            android:padding="8dp"
+            android:text="5.0"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_gray_bottom_line"
-        android:orientation="horizontal">
+        android:background="@drawable/btn_d9_bottom_line"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="导游服务 5.0"
             android:textSize="12sp" />
 
@@ -64,6 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="行程安排 5.0"
             android:textSize="12sp" />
 
@@ -71,6 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="车辆状态 5.0"
             android:textSize="12sp" />
 
@@ -78,51 +87,52 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="代订服务 5.0"
             android:textSize="12sp" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_content"
+        android:id="@+id/tv_comment_content"
         android:layout_width="match_parent"
-        android:layout_margin="8dp"
         android:layout_height="wrap_content"
-        android:maxLines="5"
+        android:layout_margin="8dp"
+        android:maxLines="4"
         tools:text="行程很好行程很好行程很好行程很\n好行程很好\n行程很好行程很好行程很好\n行程很好行程很好\n行程很好行程很好" />
 
-    <include layout="@layout/base_recycler_view_layout"/>
+    <include layout="@layout/base_recycler_view_layout" />
 
     <RelativeLayout
         android:id="@+id/rl_reply"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:background="@color/gray_999_33"
-        android:visibility="gone"
-        android:padding="8dp">
-        
+        android:padding="8dp"
+        android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="回复："/>
+            android:text="回复：" />
 
         <TextView
             android:id="@+id/reply_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="2018-04-06"/>
+            android:text="2018-04-06" />
 
         <TextView
             android:id="@+id/reply_content"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/reply_time"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/reply_time"
             android:layout_marginTop="5dp"
             android:maxLines="4"
-            tools:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容"/>
-        
+            tools:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容" />
+
     </RelativeLayout>
 
     <TextView
@@ -130,11 +140,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:padding="8dp"
         android:background="@color/gray_999_33"
         android:gravity="center"
+        android:padding="8dp"
+        android:text="查看全部订购信息"
         android:textColor="@color/blue"
-        android:text="查看全部订购信息"/>
+        android:visibility="gone" />
 
 
     <TextView
@@ -142,11 +153,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:padding="8dp"
         android:background="@color/gray_999_33"
         android:gravity="center"
+        android:padding="8dp"
         android:visibility="gone"
-        tools:text="订购内容：订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容"/>
+        tools:text="订购内容：订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容" />
 
 
 </LinearLayout>

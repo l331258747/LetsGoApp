@@ -21,7 +21,6 @@ import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.webview.LWebView;
-import com.njz.letsgoapp.util.webview.MyWebViewClient;
 import com.njz.letsgoapp.widget.PriceView;
 
 import java.util.ArrayList;
@@ -42,8 +41,6 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     NestedScrollView scrollView;
 
     String title;
-
-    int mDisplayHeight;
 
     @Override
     public int getLayoutId() {
@@ -111,7 +108,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         }, banners)
                 .setPointViewVisible(true) //设置指示器是否可见
                 .startTurning(4000)//设置自动切换（同时设置了切换时间间隔）
-                .setPageIndicator(new int[]{R.drawable.oval_write_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.drawable.oval_white_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
 //                    .setOnItemClickListener(this) //设置点击监听事件
                 .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
@@ -129,7 +126,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 //        webView.setWebViewClient(new MyWebViewClient(webView));
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html" , "utf-8", null);
 
-        mDisplayHeight = AppUtils.getDisplayHeight();
+        final int mDisplayHeight = AppUtils.getDisplayHeight();
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {

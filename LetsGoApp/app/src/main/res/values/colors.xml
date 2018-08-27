@@ -13,7 +13,6 @@
 
     <color name="blue">#6cb7fe</color>
 
-    <color name="color_green">#17a459</color>
     <color name="color_red">#dd0000</color>
 
     <color name="white">#ffffff</color>
@@ -38,6 +37,8 @@
     <color name="color_99">#999999</color>
     <color name="color_4b">#4b4b4b</color>
     <color name="color_d9">#d9d9d9</color>
+
+    <color name="color_green">#32d9bf</color>
 
 
 </resources>

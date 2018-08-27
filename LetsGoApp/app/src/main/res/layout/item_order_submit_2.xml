@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/btn_gray999_hollow"
+    android:background="@drawable/btn_99_hollow_r5"
     android:orientation="vertical"
     android:padding="5dp">
 

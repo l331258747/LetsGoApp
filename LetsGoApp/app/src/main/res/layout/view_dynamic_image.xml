@@ -31,6 +31,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
+
                 android:scaleType="centerCrop"
                 android:src="@mipmap/background" />
 
@@ -42,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="1dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
