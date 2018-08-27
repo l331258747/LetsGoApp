@@ -1,7 +1,8 @@
 package com.njz.letsgoapp.view.other;
 
+import android.app.Activity;
 import android.content.Context;
-import android.view.View;
+import android.content.Intent;
 import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -9,7 +10,6 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.home.HomeData;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
@@ -30,6 +30,14 @@ public class BigImageActivity extends BaseActivity {
 
     int index;
     List<String> imgs;
+
+    public static void startActivity(Activity activity, int index, List<String> imgs){
+        Intent intent = new Intent(activity, BigImageActivity.class);
+        intent.putExtra(BANNER_INDEX,index);
+        intent.putStringArrayListExtra(BANNER_IMGS, (ArrayList<String>) imgs);
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.alpha_out, R.anim.alpha_in);// 淡出淡入动画效果
+    }
 
     @Override
     public int getLayoutId() {
@@ -80,10 +88,13 @@ public class BigImageActivity extends BaseActivity {
                     @Override
                     public void onItemClick(int position) {
                         finish();
+                        overridePendingTransition(R.anim.alpha_out, R.anim.alpha_in);// 淡出淡入动画效果
                     }
                 }) //设置点击监听事件
                 .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
 
         convenientBanner.setcurrentitem(index);
+//        convenientBanner.setCanLoop(false);
     }
+
 }

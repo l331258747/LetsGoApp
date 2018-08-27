@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.adapter.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -87,10 +88,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicImageView.OnItemClickListener() {
                 @Override
                 public void onClick(int position) {
-                    Intent intent = new Intent(mContext, BigImageActivity.class);
-                    intent.putExtra(BigImageActivity.BANNER_INDEX,position);
-                    intent.putStringArrayListExtra(BigImageActivity.BANNER_IMGS, (ArrayList<String>) data.getDynamicImgs());
-                    mContext.startActivity(intent);
+                    BigImageActivity.startActivity((Activity) mContext,position,data.getDynamicImgs());
                 }
             });
 
