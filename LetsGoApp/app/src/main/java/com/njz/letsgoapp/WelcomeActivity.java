@@ -131,10 +131,11 @@ public class WelcomeActivity extends AppCompatActivity {
             pointView.setImageResource(R.drawable.shape_point1);
             //初始化布局参数，父控件是谁，就初始化谁的布局参数
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            if (i > 0) {
+//            if (i > 0) {
                 //当添加的小圆点的个数超过一个的时候就设置当前小圆点的左边距为20dp;
                 params.leftMargin = 20;
-            }
+                params.rightMargin = 20;
+//            }
             //设置小灰点的宽高包裹内容
             pointView.setLayoutParams(params);
             //将小灰点添加到LinearLayout中
