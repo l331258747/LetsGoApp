@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.PreferencesUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
@@ -58,7 +59,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
 
             linear_bar = (LinearLayout) findViewById(R.id.ll_bar);
             //获取到状态栏的高度
-            int statusHeight = getStatusBarHeight();
+            int statusHeight = AppUtils.getStateBar();
             //动态的设置隐藏布局的高度
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear_bar.getLayoutParams();
             params.height = statusHeight;
@@ -70,24 +71,6 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         if (linear_bar == null)
             return;
         linear_bar.setVisibility(isShow ? View.VISIBLE : View.GONE);
-    }
-
-    /**
-     * 通过反射的方式获取状态栏高度
-     *
-     * @return
-     */
-    private int getStatusBarHeight() {
-        try {
-            Class<?> c = Class.forName("com.android.internal.R$dimen");
-            Object obj = c.newInstance();
-            Field field = c.getField("status_bar_height");
-            int x = Integer.parseInt(field.get(obj).toString());
-            return getResources().getDimensionPixelSize(x);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
     //----------沉浸式 end ----------

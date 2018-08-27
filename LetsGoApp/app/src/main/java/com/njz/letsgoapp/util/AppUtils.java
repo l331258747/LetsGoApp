@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.lang.reflect.Field;
+
 /**
  * Created by LGQ
  * Time: 2018/7/17
@@ -94,13 +96,28 @@ public class AppUtils {
 		return (int) (spValue * fontScale + 0.5f);
 	}
 
-	public static int getStatusBarHeight(Activity activity) {
-		int statusBarHeight = 0;
-		if (activity != null) {
-			int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
-			statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
+	//获取状态栏高度
+	public static int getStateBar(){
+		int result = 0;
+		int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			result = context.getResources().getDimensionPixelSize(resourceId);
 		}
-		return statusBarHeight;
+		return result;
+	}
+
+	//通过反射获取状态栏高度
+	public static int getStatusBarHeight() {
+		try {
+			Class<?> c = Class.forName("com.android.internal.R$dimen");
+			Object obj = c.newInstance();
+			Field field = c.getField("status_bar_height");
+			int x = Integer.parseInt(field.get(obj).toString());
+			return context.getResources().getDimensionPixelSize(x);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 }

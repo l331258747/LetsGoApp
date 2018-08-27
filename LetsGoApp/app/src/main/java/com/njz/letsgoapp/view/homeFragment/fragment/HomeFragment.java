@@ -2,12 +2,15 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,6 +37,7 @@ import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +68,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     ConvenientBanner convenientBanner;
 
+    NestedScrollView scrollView;
+    LinearLayout linear_bar2;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -71,6 +78,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initView() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            linear_bar2 = $(R.id.ll_bar2);
+            //获取到状态栏的高度
+            int statusHeight = AppUtils.getStateBar();
+            //动态的设置隐藏布局的高度
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linear_bar2.getLayoutParams();
+            params.height = statusHeight;
+            linear_bar2.setLayoutParams(params);
+        }
+
 
         ll_destination = $(R.id.ll_destination);
         tv_destination_content = $(R.id.tv_destination_content);
@@ -81,12 +101,25 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tv_day_time = $(R.id.tv_day_time);
         btn_trip_setting = $(R.id.btn_trip_setting);
         convenientBanner = $(R.id.convenientBanner);
+        scrollView = $(R.id.scrollView);
 
         ll_destination.setOnClickListener(this);
         ll_start_time.setOnClickListener(this);
         ll_end_time.setOnClickListener(this);
         btn_trip_setting.setOnClickListener(this);
 
+        if(linear_bar2 != null){
+            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if(AppUtils.px2dip(scrollY) > 250){
+                        linear_bar2.setVisibility(View.VISIBLE);
+                    }else{
+                        linear_bar2.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
     }
 
     public void initBanner(List<HomeData.HomeBanner> homeBanners){
