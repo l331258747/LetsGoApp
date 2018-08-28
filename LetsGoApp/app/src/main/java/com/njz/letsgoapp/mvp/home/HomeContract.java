@@ -1,8 +1,7 @@
 package com.njz.letsgoapp.mvp.home;
 
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
-import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public interface HomeContract {
         void orderReviewsSortTopSuccess(List<GuideModel> models);
         void orderReviewsSortTopFailed(String msg);
 
-        void friendFriendSterTopSuccess(DynamicModel models);
+        void friendFriendSterTopSuccess(DynamicListModel models);
         void friendFriendSterTopFailed(String msg);
     }
 }

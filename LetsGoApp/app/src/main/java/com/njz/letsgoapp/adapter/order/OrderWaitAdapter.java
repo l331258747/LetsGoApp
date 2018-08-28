@@ -191,7 +191,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             btn_cancel = itemView.findViewById(R.id.btn_cancel);
-            tv_price = itemView.findViewById(R.id.tv_price);
+            tv_price = itemView.findViewById(R.id.tv_comment);
             tv_num = itemView.findViewById(R.id.tv_num);
             tv_total_price = itemView.findViewById(R.id.tv_total_price);
         }
@@ -206,7 +206,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             super(itemView);
             tv_start_time = itemView.findViewById(R.id.tv_start_time);
             tv_end_time = itemView.findViewById(R.id.tv_end_time);
-            tv_price = itemView.findViewById(R.id.tv_price);
+            tv_price = itemView.findViewById(R.id.tv_comment);
             btn_1 = itemView.findViewById(R.id.btn_1);
             btn_2 = itemView.findViewById(R.id.btn_2);
             btn_3 = itemView.findViewById(R.id.btn_3);

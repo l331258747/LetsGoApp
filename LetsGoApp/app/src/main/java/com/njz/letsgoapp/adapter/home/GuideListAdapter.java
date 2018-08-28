@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.GuideData;
+import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
@@ -28,9 +29,9 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     Context mContext;
-    List<GuideData> guideDatas;
+    List<GuideModel> guideDatas;
 
-    public GuideListAdapter(Context context, List<GuideData> guideDatas) {
+    public GuideListAdapter(Context context, List<GuideModel> guideDatas) {
         this.mContext = context;
         this.guideDatas = guideDatas;
     }
@@ -47,15 +48,15 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder == null) return;
         if (holder instanceof GuideListAdapter.GuideViewHolder) {
             final int pos = holder.getAdapterPosition();
-            final GuideData data = guideDatas.get(pos);
+            final GuideModel data = guideDatas.get(pos);
             if (data == null) return;
 
-            GlideUtil.LoadImage(mContext, data.getHeadUrl(), ((GuideListAdapter.GuideViewHolder) holder).iv_head);
-            ((GuideViewHolder) holder).tv_name.setText(data.getName());
-            ((GuideViewHolder) holder).rating_bar_route.setRating(data.getStars());
-            ((GuideViewHolder) holder).tv_content.setText(data.getContent());
-            ((GuideViewHolder) holder).tv_service_item.setServiceTag(data.getServiceItems());
-            ((GuideViewHolder) holder).ll_times.setGuideScore(data.getServiceNum(),data.getStars(),data.getComment());
+            GlideUtil.LoadCircleImage(mContext, data.getGuideImg(), ((GuideListAdapter.GuideViewHolder) holder).iv_head);
+            ((GuideViewHolder) holder).tv_name.setText(data.getGuideName());
+            ((GuideViewHolder) holder).rating_bar_route.setRating((int)data.getGuideScore());
+            ((GuideViewHolder) holder).tv_content.setText(data.getIntroduce());
+            ((GuideViewHolder) holder).tv_service_item.setServiceTag(data.getServiceTags());
+            ((GuideViewHolder) holder).ll_times.setGuideScore(data.getCount(),(int)data.getGuideScore(),data.getServiceCounts());
             if (mOnItemClickListener != null) {
                 ((GuideViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -74,7 +75,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return guideDatas.size();
     }
 
-    public void setData(List<GuideData> guideDatas) {
+    public void setData(List<GuideModel> guideDatas) {
         this.guideDatas = guideDatas;
         notifyDataSetChanged();
     }

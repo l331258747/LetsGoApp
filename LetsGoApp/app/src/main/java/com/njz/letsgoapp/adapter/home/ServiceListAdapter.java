@@ -84,7 +84,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             iv_img_content = itemView.findViewById(R.id.iv_img_content);
-            tv_sell = itemView.findViewById(R.id.tv_sell);
+            tv_sell = itemView.findViewById(R.id.tv_score);
             btn_event = itemView.findViewById(R.id.btn_event);
             pv_price = itemView.findViewById(R.id.pv_price);
             rl_parent = itemView.findViewById(R.id.rl_parent);

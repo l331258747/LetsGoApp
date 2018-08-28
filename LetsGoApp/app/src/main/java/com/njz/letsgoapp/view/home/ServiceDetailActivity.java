@@ -68,7 +68,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_destination = $(R.id.tv_destination);
         tv_phone = $(R.id.tv_phone);
         tv_destination2 = $(R.id.tv_destination2);
-        tv_sell = $(R.id.tv_sell);
+        tv_sell = $(R.id.tv_score);
         pv_price = $(R.id.pv_price);
         tv_submit = $(R.id.tv_submit);
         webView = $(R.id.webview);

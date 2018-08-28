@@ -34,7 +34,7 @@ public class PriceView extends LinearLayout {
 
         View view = LayoutInflater.from(context).inflate(R.layout.view_my_price, this, true);
 
-        tvPrice = view.findViewById(R.id.tv_price);
+        tvPrice = view.findViewById(R.id.tv_comment);
 
     }
 

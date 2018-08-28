@@ -20,12 +20,12 @@ import com.njz.letsgoapp.util.AppUtils;
 
 public class MyGuideTab extends LinearLayout implements View.OnClickListener {
 
-    TextView tv_synthesize, tv_price, tv_comment, tv_screen, tv_sell;
-    public static final int MYGUIDETAB_SYNTHESIZE = 0;
-    public static final int MYGUIDETAB_PRICE = 3;
-    public static final int MYGUIDETAB_COMMENT = 1;
-    public static final int MYGUIDETAB_SCREEN = 4;
-    public static final int MYGUIDETAB_SELL = 2;
+    TextView tv_synthesize, tv_count, tv_score, tv_comment, tv_screen;
+    public static final int MYGUIDETAB_SYNTHESIZE = 1;
+    public static final int MYGUIDETAB_COUNT = 2;
+    public static final int MYGUIDETAB_SCORE = 3;
+    public static final int MYGUIDETAB_COMMENT = 4;
+    public static final int MYGUIDETAB_SCREEN = 5;
 
 
     public MyGuideTab(Context context) {
@@ -43,16 +43,16 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
 
 
         tv_synthesize = view.findViewById(R.id.tv_synthesize);
-        tv_price = view.findViewById(R.id.tv_price);
-        tv_comment = view.findViewById(R.id.tv_comment);
+        tv_count = view.findViewById(R.id.tv_count);
+        tv_score = view.findViewById(R.id.tv_score);
         tv_screen = view.findViewById(R.id.tv_screen);
-        tv_sell = view.findViewById(R.id.tv_sell);
+        tv_comment = view.findViewById(R.id.tv_comment);
 
         tv_synthesize.setOnClickListener(this);
-        tv_price.setOnClickListener(this);
-        tv_comment.setOnClickListener(this);
+        tv_count.setOnClickListener(this);
+        tv_score.setOnClickListener(this);
         tv_screen.setOnClickListener(this);
-        tv_sell.setOnClickListener(this);
+        tv_comment.setOnClickListener(this);
 
         setTextColor(tv_synthesize);
 
@@ -66,21 +66,21 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
                 setTextColor(tv_synthesize);
                 index = MYGUIDETAB_SYNTHESIZE;
                 break;
-            case R.id.tv_price:
-                setTextColor(tv_price);
-                index = MYGUIDETAB_PRICE;
-                break;
             case R.id.tv_comment:
                 setTextColor(tv_comment);
                 index = MYGUIDETAB_COMMENT;
                 break;
-            case R.id.tv_screen:
-                setTextColor(tv_screen);
-                index = MYGUIDETAB_SCREEN;
+            case R.id.tv_count:
+                setTextColor(tv_count);
+                index = MYGUIDETAB_COUNT;
                 break;
-            case R.id.tv_sell:
-                setTextColor(tv_sell);
-                index = MYGUIDETAB_SELL;
+            case R.id.tv_score:
+                setTextColor(tv_score);
+                index = MYGUIDETAB_SCORE;
+                break;
+            case R.id.tv_screen:
+                tv_screen.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.colorAccent));
+                index = MYGUIDETAB_SCREEN;
                 break;
         }
         if(onItemClickListener!=null){
@@ -97,10 +97,9 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
 
     private void setTextColor(TextView tv){
         tv_synthesize.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.white));
-        tv_price.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.white));
+        tv_count.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.white));
+        tv_score.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.white));
         tv_comment.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.white));
-        tv_screen.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.white));
-        tv_sell.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.white));
         tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.colorAccent));
     }
 
@@ -108,5 +107,9 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
 
     public interface OnItemClickListener {
         void onClick(int position);
+    }
+
+    public void setScreen(boolean isSelect){
+        tv_screen.setTextColor(isSelect?ContextCompat.getColor(AppUtils.getContext(),R.color.colorAccent):ContextCompat.getColor(AppUtils.getContext(),R.color.white));
     }
 }

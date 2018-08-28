@@ -11,7 +11,11 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.home.GuideData;
+import com.njz.letsgoapp.bean.home.GuideListModel;
+import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.home.GuideListContract;
+import com.njz.letsgoapp.mvp.home.GuideListPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
@@ -19,7 +23,6 @@ import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -30,13 +33,12 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class GuideListActivity extends BaseActivity implements View.OnClickListener {
+public class GuideListActivity extends BaseActivity implements View.OnClickListener,GuideListContract.View {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
     GuideListAdapter mAdapter;
-    GuideData guideList;
 
     ImageView ivLeft;
     TextView tvCityPick;
@@ -47,6 +49,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     Disposable desDisposable;
 
     PopGuideList popGuideList;
+
+    GuideListPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -68,16 +72,16 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             public void onClick(int position) {
                 switch (position) {
                     case MyGuideTab.MYGUIDETAB_SYNTHESIZE:
-                        showShortToast("综合");
+                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SYNTHESIZE);
+                        break;
+                    case MyGuideTab.MYGUIDETAB_COUNT:
+                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_COUNT);
+                        break;
+                    case MyGuideTab.MYGUIDETAB_SCORE:
+                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SCORE);
                         break;
                     case MyGuideTab.MYGUIDETAB_COMMENT:
-                        showShortToast("评价");
-                        break;
-                    case MyGuideTab.MYGUIDETAB_SELL:
-                        showShortToast("销量");
-                        break;
-                    case MyGuideTab.MYGUIDETAB_PRICE:
-                        showShortToast("价格");
+                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_COMMENT);
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         showShortToast("筛选");
@@ -89,6 +93,12 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                                 @Override
                                 public void onSubmit() {
                                     //设置选中，获取回调信息，服务器交互
+                                    myGuideTab.setScreen(true);
+                                }
+
+                                @Override
+                                public void onReset() {
+                                    myGuideTab.setScreen(false);
                                 }
                             });
                         }
@@ -124,12 +134,10 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     //初始化recyclerview
     private void initRecycler() {
-        List<GuideData> guideDatas = new ArrayList<>();
-
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new GuideListAdapter(activity, guideDatas);
+        mAdapter = new GuideListAdapter(activity, new ArrayList<GuideModel>());
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
@@ -148,47 +156,24 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setData(getData());
+                getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SYNTHESIZE);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
+    private void getGuideSortTop10ByLocation(int type){
+        mPresenter.guideSortTop10ByLocation("张家界",type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
+    }
+
 
     @Override
     public void initData() {
+        mPresenter = new GuideListPresenter(context,this);
 
+        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SYNTHESIZE);
     }
 
-
-    public List<GuideData> getData() {
-        List<GuideData> guideDatas = new ArrayList<>();
-        GuideData guideData = new GuideData();
-        guideData.setComment(400);
-        guideData.setContent("aegaegjaklegjalkag");
-        guideData.setHeadUrl("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        guideData.setName("导游");
-        guideData.setPrice(390);
-        List<String> serviceItmes = new ArrayList<>();
-        serviceItmes.add("向导陪游");
-        serviceItmes.add("包车服务");
-        serviceItmes.add("代订门票");
-        guideData.setServiceItems(serviceItmes);
-        guideData.setServiceNum(300);
-        guideData.setSex("男");
-        guideData.setStars(5);
-
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-
-
-        return guideDatas;
-    }
 
     @Override
     public void onClick(View v) {
@@ -211,5 +196,15 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
                 break;
         }
+    }
+
+    @Override
+    public void guideSortTop10ByLocationSuccess(GuideListModel models) {
+        mAdapter.setData(models.getList());
+    }
+
+    @Override
+    public void guideSortTop10ByLocationFailed(String msg) {
+        showShortToast(msg);
     }
 }

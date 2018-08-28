@@ -36,6 +36,21 @@ public class Constant {
             "  </article>";
 
 
+    //banner图默认时间 轮播
     public static final int BANNER_RUNNING_TIME = 4000;
+
+    //分页默认参数
+    public static final int DEFAULT_LIMIT = 10;
+    public static final int DEFAULT_PAGE = 1;
+
+    //banner type 1首页，
+    public static final int BANNER_HOME = 1;
+
+    //导游列表 type1 综合 2 销量 3得分 4评论次数
+    public static final int GUIDE_TYPE_SYNTHESIZE = 1;
+    public static final int GUIDE_TYPE_COUNT = 2;
+    public static final int GUIDE_TYPE_SCORE = 3;
+    public static final int GUIDE_TYPE_COMMENT = 4;
+
 
 }

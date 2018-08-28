@@ -29,11 +29,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     public static final int VIEW_TITLE = 1;
 
-    List<DynamicModel.ListBean> dynamis;
+    List<DynamicModel> dynamis;
 
     Context mContext;
 
-    public HomeAdapter(Context context, List<DynamicModel.ListBean> dynamis) {
+    public HomeAdapter(Context context, List<DynamicModel> dynamis) {
         this.dynamis = dynamis;
         this.mContext = context;
     }
@@ -64,7 +64,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         if (holder == null) return;
         if (holder instanceof DynamicViewHolder) {
             final int pos = holder.getAdapterPosition() - 1;
-            final DynamicModel.ListBean data = dynamis.get(pos);
+            final DynamicModel data = dynamis.get(pos);
             if (data == null) return;
 
             GlideUtil.LoadCircleImage(mContext, data.getImgUrl(), ((DynamicViewHolder) holder).iv_img);
@@ -127,7 +127,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_content = itemView.findViewById(R.id.tv_content);
             tv_location = itemView.findViewById(R.id.tv_location);
-            tv_comment = itemView.findViewById(R.id.tv_comment);
+            tv_comment = itemView.findViewById(R.id.tv_count);
             tv_nice = itemView.findViewById(R.id.tv_nice);
             dynamic_image_view = itemView.findViewById(R.id.dynamic_image_view);
         }
@@ -149,7 +149,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     //--------------View Holder end----------------
 
 
-    public void setData(List<DynamicModel.ListBean> dynamis) {
+    public void setData(List<DynamicModel> dynamis) {
         this.dynamis = dynamis;
         notifyDataSetChanged();
     }

@@ -3,7 +3,8 @@ package com.njz.letsgoapp.util.http;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
-import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.DynamicListModel;
+import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
@@ -119,8 +120,16 @@ public interface HttpService {
 
     //首页获取热动态
     @GET("region/getSterByLocation")
-    Observable<BaseResponse<DynamicModel>> regionGetSterByLocation(
+    Observable<BaseResponse<DynamicListModel>> regionGetSterByLocation(
             @Query("location") String location,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    @GET("guide/sortTop10ByLocation")
+    Observable<BaseResponse<GuideListModel>> guideSortTop10ByLocation(
+            @Query("location") String location,
+            @Query("type") int type,
             @Query("limit") int limit,
             @Query("page") int page
     );

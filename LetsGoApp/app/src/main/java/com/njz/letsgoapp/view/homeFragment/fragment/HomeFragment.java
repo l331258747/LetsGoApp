@@ -22,10 +22,9 @@ import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
+import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
-import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract;
@@ -157,9 +156,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     public void initData() {
 
         mPresenter = new HomePresenter(context,this);
-        mPresenter.friendFriendSterTop("长沙",5,1);
+        mPresenter.friendFriendSterTop("长沙",5,Constant.DEFAULT_PAGE);
         mPresenter.orderReviewsSortTop("张家界");
-        mPresenter.bannerFindByType(1,0);
+        mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
         tv_destination_content.setText("张家界");
         tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
@@ -196,7 +195,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new HomeAdapter(activity, new ArrayList<DynamicModel.ListBean>());
+        mAdapter = new HomeAdapter(activity, new ArrayList<DynamicModel>());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
     }
@@ -225,9 +224,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onRefresh() {
 
-                mPresenter.friendFriendSterTop("长沙",5,1);
+                mPresenter.friendFriendSterTop("长沙",5,Constant.DEFAULT_PAGE);
                 mPresenter.orderReviewsSortTop("张家界");
-                mPresenter.bannerFindByType(1,0);
+                mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -320,7 +319,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     @Override
-    public void friendFriendSterTopSuccess(DynamicModel models) {
+    public void friendFriendSterTopSuccess(DynamicListModel models) {
         mAdapter.setData(models.getList());
     }
 

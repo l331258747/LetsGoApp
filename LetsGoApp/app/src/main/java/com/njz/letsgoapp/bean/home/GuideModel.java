@@ -1,22 +1,19 @@
 package com.njz.letsgoapp.bean.home;
 
-/**
- * Created by LGQ
- * Time: 2018/8/28
- * Function:
- */
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuideModel {
-
     /**
-     * guideId : 1
-     * guideName : lm
+     * guideId : 4
+     * guideName : liyu
      * guideImg : http://pc03h8bbw.bkt.clouddn.com/1/20180731/1639442522501.jpg
-     * guideGender : 0
-     * serviceCounts : 3
-     * count : 3
-     * introduce : 美丽
-     * guideScore : 0
+     * guideGender : 1
+     * serviceCounts : 1
+     * count : null
+     * introduce : 个人简介
+     * guideScore : 0.0
+     * travelGuideServiceEntitys : [{"guideId":4,"commentId":null,"titleImg":"11111111111","servePrice":111111,"serveFeature":"11111111","serveType":"包车服务","renegePriceThree":111111,"renegePriceFive":111111,"costExplain":"1111111111111","title":"11111111111111","status":1,"location":"北京"},{"guideId":4,"commentId":null,"titleImg":"11","servePrice":111,"serveFeature":null,"serveType":"私人订制","renegePriceThree":11,"renegePriceFive":11,"costExplain":"11","title":"11","status":1,"location":"张家界"}]
      */
 
     private int guideId;
@@ -26,7 +23,8 @@ public class GuideModel {
     private int serviceCounts;
     private int count;
     private String introduce;
-    private int guideScore;
+    private double guideScore;
+    private List<GuideServiceModel> travelGuideServiceEntitys;
 
     public int getGuideId() {
         return guideId;
@@ -84,11 +82,29 @@ public class GuideModel {
         this.introduce = introduce;
     }
 
-    public int getGuideScore() {
+    public double getGuideScore() {
         return guideScore;
     }
 
-    public void setGuideScore(int guideScore) {
+    public void setGuideScore(double guideScore) {
         this.guideScore = guideScore;
     }
+
+    public List<GuideServiceModel> getTravelGuideServiceEntitys() {
+        return travelGuideServiceEntitys;
+    }
+
+    public void setTravelGuideServiceEntitys(List<GuideServiceModel> travelGuideServiceEntitys) {
+        this.travelGuideServiceEntitys = travelGuideServiceEntitys;
+    }
+
+    public List<String> getServiceTags(){
+        List<String> serviceTags= new ArrayList<>();
+        for (int i = 0;i<travelGuideServiceEntitys.size();i++){
+            serviceTags.add(travelGuideServiceEntitys.get(i).getServeType());
+        }
+        return serviceTags;
+    }
+
+
 }

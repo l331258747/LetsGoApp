@@ -3,7 +3,7 @@ package com.njz.letsgoapp.mvp.home;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.home.BannerModel;
-import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.mvp.home.HomeContract.Presenter;
 import com.njz.letsgoapp.util.http.MethodApi;
@@ -62,9 +62,9 @@ public class HomePresenter implements Presenter {
 
     @Override
     public void friendFriendSterTop(String location,int limit,int page) {
-        ResponseCallback listener = new ResponseCallback<DynamicModel>() {
+        ResponseCallback listener = new ResponseCallback<DynamicListModel>() {
             @Override
-            public void onSuccess(DynamicModel data) {
+            public void onSuccess(DynamicListModel data) {
                 iView.friendFriendSterTopSuccess(data);
             }
 

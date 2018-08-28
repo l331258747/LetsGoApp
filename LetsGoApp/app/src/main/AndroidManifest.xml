@@ -133,12 +133,18 @@
         <activity android:name=".view.mine.MyCommentActivity" />
 
         <!--登录-->
-        <activity android:name=".view.login.LoginActivity" />
-        <activity android:name=".view.login.VerifyLoginActivity" />
-        <activity android:name=".view.login.RegistActivity" />
-        <activity android:name=".view.login.ForgetActivity" />
-        <activity android:name=".view.login.ModifyPasswordActivity" />
-        <activity android:name=".view.login.ModifyPhoneActivity" />
+        <activity android:name=".view.login.LoginActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.login.VerifyLoginActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.login.RegistActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.login.ForgetActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.login.ModifyPasswordActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.login.ModifyPhoneActivity"
+            android:windowSoftInputMode="adjustPan"/>
 
         <!-- 图片选择 start-->
         <activity
@@ -352,8 +358,6 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".view.other.ReportActivity" />
-        <activity android:name=".view.mine.FansListActivity" />
 
         <provider
             android:name=".util.BuglyFileProvider"

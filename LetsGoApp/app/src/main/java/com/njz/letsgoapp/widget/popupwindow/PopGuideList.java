@@ -130,6 +130,8 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         et_price_high.setText("");
         setResetAllView(tv_type_private, tv_type_scenic, tv_type_hotel, tv_type_car, tv_type_guide, tv_year_5, tv_year_3, tv_year_1
                 , tv_age_50, tv_age_41, tv_age_31, tv_age_26, tv_age_18, tv_age_unrestricted, tv_sex_lady, tv_sex_man, tv_sex_unrestricted);
+        submitLisener.onReset();
+        dismissPopupWindow();
     }
 
 
@@ -235,6 +237,9 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
 
     public interface SubmitLisener {
         void onSubmit();
+        void onReset();
     }
+
+
 
 }
