@@ -2,8 +2,9 @@ package com.njz.letsgoapp.mvp.home;
 
 import android.content.Context;
 
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
+import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.mvp.home.HomeContract.Presenter;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -40,6 +41,38 @@ public class HomePresenter implements Presenter {
                 iView.bannerFindByTypeFailed(errorMsg);
             }
         };
-        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener, context));
+        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener));
+    }
+
+    @Override
+    public void orderReviewsSortTop(String location) {
+        ResponseCallback listener = new ResponseCallback<List<GuideModel>>() {
+            @Override
+            public void onSuccess(List<GuideModel> data) {
+                iView.orderReviewsSortTopSuccess(data);
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.orderReviewsSortTopFailed(errorMsg);
+            }
+        };
+        MethodApi.orderReviewsSortTop(location, new OnSuccessAndFaultSub(listener));
+    }
+
+    @Override
+    public void friendFriendSterTop(String location,int limit,int page) {
+        ResponseCallback listener = new ResponseCallback<DynamicModel>() {
+            @Override
+            public void onSuccess(DynamicModel data) {
+                iView.friendFriendSterTopSuccess(data);
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.friendFriendSterTopFailed(errorMsg);
+            }
+        };
+        MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener));
     }
 }

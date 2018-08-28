@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="60dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingRight="40dp"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="20dp">
 
         <LinearLayout
             android:id="@+id/ll_container"

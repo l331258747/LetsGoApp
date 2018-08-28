@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.GuideData;
+import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -25,9 +25,9 @@ import java.util.List;
 public class HomeGuideAdapter extends RecyclerView.Adapter<HomeGuideAdapter.ViewHolder> {
 
     Context context;
-    List<GuideData> datas;
+    List<GuideModel> datas;
 
-    public HomeGuideAdapter(Context context, List<GuideData> datas) {
+    public HomeGuideAdapter(Context context, List<GuideModel> datas) {
         this.context = context;
         this.datas = datas;
     }
@@ -41,13 +41,13 @@ public class HomeGuideAdapter extends RecyclerView.Adapter<HomeGuideAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (holder == null) return;
-        final GuideData data = datas.get(position);
+        final GuideModel data = datas.get(position);
         if (data == null) return;
 
-        GlideUtil.LoadRoundImage(context, data.getHeadUrl(), holder.iv_img);
-        holder.tv_name.setText(data.getName());
-        holder.iv_sex.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_girl));
-        holder.tv_service_num.setText(data.getContent());
+        GlideUtil.LoadRoundImage(context, data.getGuideImg(), holder.iv_img);
+        holder.tv_name.setText(data.getGuideName());
+        holder.iv_sex.setImageDrawable(data.getGuideGender() == 0?ContextCompat.getDrawable(context,R.mipmap.icon_girl):ContextCompat.getDrawable(context,R.mipmap.icon_boy));
+        holder.tv_service_num.setText(""+data.getCount());
         if (mOnItemClickListener != null) {
             holder.cv_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,7 +58,7 @@ public class HomeGuideAdapter extends RecyclerView.Adapter<HomeGuideAdapter.View
         }
     }
 
-    public void setData(List<GuideData> datas) {
+    public void setData(List<GuideModel> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }

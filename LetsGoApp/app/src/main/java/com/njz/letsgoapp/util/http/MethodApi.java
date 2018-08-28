@@ -95,6 +95,16 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    public static void orderReviewsSortTop(String location, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsSortTop(location); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void friendFriendSterTop(String location,int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().regionGetSterByLocation(location,limit,page); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
 
 
     //----------首页 end -------

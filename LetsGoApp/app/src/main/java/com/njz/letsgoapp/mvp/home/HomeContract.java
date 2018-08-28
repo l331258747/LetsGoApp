@@ -2,6 +2,8 @@ package com.njz.letsgoapp.mvp.home;
 
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
+import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.GuideModel;
 
 import java.util.List;
 
@@ -15,11 +17,18 @@ public interface HomeContract {
 
     interface Presenter {
         void bannerFindByType(int type, int guideId);
+        void orderReviewsSortTop(String location);
+        void friendFriendSterTop(String location,int limit,int page);
     }
 
     interface View {
         void bannerFindByTypeSuccess(List<BannerModel> models);
-
         void bannerFindByTypeFailed(String msg);
+
+        void orderReviewsSortTopSuccess(List<GuideModel> models);
+        void orderReviewsSortTopFailed(String msg);
+
+        void friendFriendSterTopSuccess(DynamicModel models);
+        void friendFriendSterTopFailed(String msg);
     }
 }

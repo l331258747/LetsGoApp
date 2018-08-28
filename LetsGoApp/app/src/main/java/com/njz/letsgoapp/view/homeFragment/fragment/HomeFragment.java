@@ -24,8 +24,9 @@ import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
+import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideData;
-import com.njz.letsgoapp.bean.home.HomeData;
+import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
@@ -131,6 +132,140 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_destination:
+                cityPick();
+                break;
+            case R.id.ll_start_time:
+                calendarPick();
+                break;
+            case R.id.ll_end_time:
+                calendarPick();
+                break;
+            case R.id.rl_guide_title:
+                startActivity(new Intent(context,GuideListActivity.class));
+                break;
+            case R.id.btn_trip_setting:
+                startActivity(new Intent(context, GuideListActivity.class));
+                break;
+        }
+    }
+
+    @Override
+    public void initData() {
+
+        mPresenter = new HomePresenter(context,this);
+        mPresenter.friendFriendSterTop("长沙",5,1);
+        mPresenter.orderReviewsSortTop("张家界");
+        mPresenter.bannerFindByType(1,0);
+
+        tv_destination_content.setText("张家界");
+        tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
+        tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
+        tv_day_time.setText("2天");
+
+        initRecycler();
+        initSwipeLayout();
+        intRecyclerH();
+
+        //item导游事件
+        mAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+//                showShortToast("点击第" + position);
+//                startActivity(new Intent(context, GuideDetailActivity.class));
+                //TODO 进入动态详情
+
+            }
+        });
+
+        mAdapter.setCheckAllListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(new Intent(context,GuideListActivity.class));//TODO 进入动态列表
+            }
+        });
+
+
+    }
+
+    //初始化recyclerview
+    private void initRecycler() {
+        recyclerView = $(R.id.recycler_view);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        mAdapter = new HomeAdapter(activity, new ArrayList<DynamicModel.ListBean>());
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
+    }
+
+    HomeGuideAdapter mAdapterh;
+    private void intRecyclerH(){
+        recycler_view_h = $(R.id.recycler_view_h);
+        recycler_view_h.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        mAdapterh = new HomeGuideAdapter(activity, new ArrayList<GuideModel>());
+        recycler_view_h.setAdapter(mAdapterh);
+        recycler_view_h.setNestedScrollingEnabled(false);
+        mAdapterh.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                showShortToast("点击第" + position);
+                startActivity(new Intent(context, GuideDetailActivity.class));
+            }
+        });
+    }
+
+    //初始化SwipeLayout
+    private void initSwipeLayout() {
+        swipeRefreshLayout = $(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.blue));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                mPresenter.friendFriendSterTop("长沙",5,1);
+                mPresenter.orderReviewsSortTop("张家界");
+                mPresenter.bannerFindByType(1,0);
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+
+    //城市选择
+    private void cityPick(){
+        startActivity(new Intent(context, CityPickActivity.class));
+        activity.overridePendingTransition(0, 0);
+        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+            @Override
+            public void accept(CityPickEvent cityPickEvent) throws Exception {
+                tv_destination_content.setText(cityPickEvent.getCity());
+                desDisposable.dispose();
+            }
+        });
+    }
+
+    //日历选择
+    private void calendarPick() {
+        Intent intent = new Intent(context, CalendarActivity.class);
+        intent.putExtra("CalendarTag", 1);
+        startActivity(intent);
+
+        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
+            @Override
+            public void accept(CalendarEvent calendarEvent) throws Exception {
+                tv_start_time_content.setText(calendarEvent.getStartTime());
+                tv_end_time_content.setText(calendarEvent.getEndTime());
+                tv_day_time.setText(calendarEvent.getDays());
+                calDisposable.dispose();
+            }
+        });
+    }
+
+    //----------banner start
     public void initBanner(List<BannerModel> homeBanners){
         //开始自动翻页
         convenientBanner.setPages(new CBViewHolderCreator() {
@@ -162,285 +297,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         super.onResume();
         convenientBanner.startTurning(Constant.BANNER_RUNNING_TIME);
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_destination:
-                cityPick();
-                break;
-            case R.id.ll_start_time:
-                calendarPick();
-                break;
-            case R.id.ll_end_time:
-                calendarPick();
-                break;
-            case R.id.rl_guide_title:
-                startActivity(new Intent(context,GuideListActivity.class));
-                break;
-            case R.id.btn_trip_setting:
-                showLongToast("设置行程");
-                startActivity(new Intent(context, GuideListActivity.class));
-                break;
-        }
-    }
-
-    private void cityPick(){
-        showShortToast("城市选择");
-        startActivity(new Intent(context, CityPickActivity.class));
-        activity.overridePendingTransition(0, 0);
-        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-            @Override
-            public void accept(CityPickEvent cityPickEvent) throws Exception {
-                tv_destination_content.setText(cityPickEvent.getCity());
-                desDisposable.dispose();
-            }
-        });
-    }
-
-    private void calendarPick() {
-        showLongToast("日历选择");
-        Intent intent = new Intent(context, CalendarActivity.class);
-        intent.putExtra("CalendarTag", 1);
-        startActivity(intent);
-
-        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
-            @Override
-            public void accept(CalendarEvent calendarEvent) throws Exception {
-                tv_start_time_content.setText(calendarEvent.getStartTime());
-                tv_end_time_content.setText(calendarEvent.getEndTime());
-                tv_day_time.setText(calendarEvent.getDays());
-                calDisposable.dispose();
-            }
-        });
-    }
-
-
-    @Override
-    public void initData() {
-
-        mPresenter = new HomePresenter(context,this);
-
-        tv_destination_content.setText("张家界");
-        tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
-        tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
-        tv_day_time.setText("2天");
-
-        initRecycler();
-        initSwipeLayout();
-        intRecyclerH();
-
-        //item导游事件
-        mAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-//                showShortToast("点击第" + position);
-//                startActivity(new Intent(context, GuideDetailActivity.class));
-                //TODO 进入动态详情
-
-            }
-        });
-
-        mAdapter.setCheckAllListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                startActivity(new Intent(context,GuideListActivity.class));//TODO 进入动态列表
-            }
-        });
-
-        mPresenter.bannerFindByType(1,0);
-    }
-
-    //初始化recyclerview
-    private void initRecycler() {
-        recyclerView = $(R.id.recycler_view);
-        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new HomeAdapter(activity, getHomeData());
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setNestedScrollingEnabled(false);
-    }
-
-    HomeGuideAdapter mAdapterh;
-    private void intRecyclerH(){
-        recycler_view_h = $(R.id.recycler_view_h);
-        recycler_view_h.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        mAdapterh = new HomeGuideAdapter(activity, getDataH());
-        recycler_view_h.setAdapter(mAdapterh);
-        recycler_view_h.setNestedScrollingEnabled(false);
-        mAdapterh.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-                showShortToast("点击第" + position);
-                startActivity(new Intent(context, GuideDetailActivity.class));
-            }
-        });
-    }
-
-    //初始化SwipeLayout
-    private void initSwipeLayout() {
-        swipeRefreshLayout = $(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.blue));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.setData(getHomeData());
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-    }
-
-
-    //假数据
-    private HomeData getHomeData() {
-        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
-        String headImg = "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg";
-        List<HomeData.HomeBanner> homeBanners = new ArrayList<>();
-        HomeData.HomeBanner homeBanner = new HomeData.HomeBanner(bannerImg);
-        homeBanners.add(homeBanner);
-        homeBanners.add(homeBanner);
-        homeBanners.add(homeBanner);
-
-//        initBanner(homeBanners);
-
-        List<HomeData.Dynamic> guides = new ArrayList<>();
-        HomeData.Dynamic dynamic0 = new HomeData.Dynamic();
-        dynamic0.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        dynamic0.setName("那就走");
-        dynamic0.setTime("23分钟前");
-        dynamic0.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        dynamic0.setComment(900);
-        dynamic0.setNice(2000);
-        dynamic0.setLocation("长沙");
-        List<String> dynamicImgs0 = new ArrayList<>();
-        dynamicImgs0.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535108387016&di=4f7792890c26aeaec1f3d73331685601&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3D7c6c39c1ac86c9171c0e5a79a04515a3%2F80cb39dbb6fd526639b0e12da018972bd4073674.jpg");
-        dynamic0.setDynamicImgs(dynamicImgs0);
-        guides.add(dynamic0);
-
-        HomeData.Dynamic dynamic1 = new HomeData.Dynamic();
-        dynamic1.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        dynamic1.setName("那就走");
-        dynamic1.setTime("23分钟前");
-        dynamic1.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        dynamic1.setComment(900);
-        dynamic1.setNice(2000);
-        dynamic1.setLocation("长沙");
-        List<String> dynamicImgs1 = new ArrayList<>();
-        dynamicImgs1.add("http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1710/03/c5/61691946_1507022504917_mthumb.jpg");
-        dynamic1.setDynamicImgs(dynamicImgs1);
-        guides.add(dynamic1);
-
-        HomeData.Dynamic dynamic2 = new HomeData.Dynamic();
-        dynamic2.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        dynamic2.setName("那就走");
-        dynamic2.setTime("23分钟前");
-        dynamic2.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        dynamic2.setComment(900);
-        dynamic2.setNice(2000);
-        dynamic2.setLocation("长沙");
-        List<String> dynamicImgs2 = new ArrayList<>();
-        dynamicImgs2.add("http://file27.mafengwo.net/M00/23/A2/wKgB6lPu81-AMcwcAAmzfksNM3A45.jpeg");
-        dynamicImgs2.add("http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg");
-        dynamic2.setDynamicImgs(dynamicImgs2);
-        guides.add(dynamic2);
-
-        HomeData.Dynamic dynamic3 = new HomeData.Dynamic();
-        dynamic3.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        dynamic3.setName("那就走");
-        dynamic3.setTime("23分钟前");
-        dynamic3.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        dynamic3.setComment(900);
-        dynamic3.setNice(2000);
-        dynamic3.setLocation("长沙");
-        List<String> dynamicImgs3 = new ArrayList<>();
-        dynamicImgs3.add("http://b2-q.mafengwo.net/s7/M00/D2/00/wKgB6lPuNOeAAQS0AArde4Ib0QM13.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
-        dynamicImgs3.add("http://b4-q.mafengwo.net/s7/M00/D2/03/wKgB6lPuNOmAT30yAAH_P6uPNak27.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
-        dynamicImgs3.add("http://n2-q.mafengwo.net/s7/M00/D1/F2/wKgB6lPuNN2AWV_HAB-DCItFN2w99.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
-        dynamic3.setDynamicImgs(dynamicImgs3);
-        guides.add(dynamic3);
-
-        HomeData.Dynamic dynamic4 = new HomeData.Dynamic();
-        dynamic4.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        dynamic4.setName("那就走");
-        dynamic4.setTime("23分钟前");
-        dynamic4.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        dynamic4.setComment(900);
-        dynamic4.setNice(2000);
-        dynamic4.setLocation("长沙");
-        List<String> dynamicImgs4 = new ArrayList<>();
-        dynamicImgs4.add("http://b4-q.mafengwo.net/s7/M00/D2/03/wKgB6lPuNOmAT30yAAH_P6uPNak27.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
-        dynamicImgs4.add("http://p1-q.mafengwo.net/s7/M00/D2/11/wKgB6lPuNPiAdyLOAAlPcxhyWdI05.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
-        dynamicImgs4.add("http://p1-q.mafengwo.net/s7/M00/D2/3D/wKgB6lPuNSCABs6xAANGgrlUXj856.jpeg?imageView2%2F2%2Fw%2F700%2Fh%2F600%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
-        dynamicImgs4.add("http://img05.tooopen.com/images/20140510/sy_60792363469.jpg");
-        dynamic4.setDynamicImgs(dynamicImgs4);
-        guides.add(dynamic4);
-
-        HomeData.Dynamic dynamic5 = new HomeData.Dynamic();
-        dynamic5.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        dynamic5.setName("那就走");
-        dynamic5.setTime("23分钟前");
-        dynamic5.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        dynamic5.setComment(900);
-        dynamic5.setNice(2000);
-        dynamic5.setLocation("长沙");
-        List<String> dynamicImgs5 = new ArrayList<>();
-        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/7c1ed21b0ef41bd51b2dc86a5bda81cb39db3d35.jpg");
-        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/1ad5ad6eddc451da85e2f318bcfd5266d0163228.jpg");
-        dynamicImgs5.add("http://img3.imgtn.bdimg.com/it/u=4085031288,3873323766&fm=214&gp=0.jpg");
-        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/d50735fae6cd7b8902253191052442a7d9330e52.jpg");
-        dynamicImgs5.add("http://imgsrc.baidu.com/imgad/pic/item/1f178a82b9014a9014246ba2a3773912b31bee93.jpg");
-        dynamic5.setDynamicImgs(dynamicImgs5);
-        guides.add(dynamic5);
-
-
-        HomeData.Dynamic dynamic6 = new HomeData.Dynamic();
-        dynamic6.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        dynamic6.setName("那就走");
-        dynamic6.setTime("23分钟前");
-        dynamic6.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        dynamic6.setComment(900);
-        dynamic6.setNice(2000);
-        dynamic6.setLocation("长沙");
-        List<String> dynamicImgs6 = new ArrayList<>();
-        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/5fdf8db1cb1349547414c5435d4e9258d1094a8a.jpg");
-        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/d0c8a786c9177f3ef70febf87acf3bc79f3d560f.jpg");
-        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/a8773912b31bb05154a7d2dd3c7adab44bede040.jpg");
-        dynamicImgs6.add("http://pic25.nipic.com/20121107/668573_150230597135_2.jpg");
-        dynamicImgs6.add("http://img06.tooopen.com/images/20170523/tooopen_sy_211650058843.jpg");
-        dynamicImgs6.add("http://imgsrc.baidu.com/imgad/pic/item/7c1ed21b0ef41bd51b2dc86a5bda81cb39db3d35.jpg");
-        dynamic6.setDynamicImgs(dynamicImgs6);
-        guides.add(dynamic6);
-
-        return new HomeData(homeBanners, guides);
-    }
-
-    public List<GuideData> getDataH() {
-        List<GuideData> guideDatas = new ArrayList<>();
-        GuideData guideData = new GuideData();
-        guideData.setComment(400);
-        guideData.setContent("aegaegjaklegjalkag");
-        guideData.setHeadUrl("http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg");
-        guideData.setName("导游");
-        guideData.setPrice(390);
-        List<String> serviceItmes = new ArrayList<>();
-        serviceItmes.add("向导陪游");
-        serviceItmes.add("包车服务");
-        serviceItmes.add("代订门票");
-        guideData.setServiceItems(serviceItmes);
-        guideData.setServiceNum(300);
-        guideData.setSex("男");
-        guideData.setStars(5);
-
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-        guideDatas.add(guideData);
-
-        return guideDatas;
-    }
+    //----------banner end
 
     @Override
     public void bannerFindByTypeSuccess(List<BannerModel> model) {
@@ -449,6 +306,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void bannerFindByTypeFailed(String msg) {
+        showLongToast(msg);
+    }
+
+    @Override
+    public void orderReviewsSortTopSuccess(List<GuideModel> models) {
+        mAdapterh.setData(models);
+    }
+
+    @Override
+    public void orderReviewsSortTopFailed(String msg) {
+        showLongToast(msg);
+    }
+
+    @Override
+    public void friendFriendSterTopSuccess(DynamicModel models) {
+        mAdapter.setData(models.getList());
+    }
+
+    @Override
+    public void friendFriendSterTopFailed(String msg) {
         showLongToast(msg);
     }
 }

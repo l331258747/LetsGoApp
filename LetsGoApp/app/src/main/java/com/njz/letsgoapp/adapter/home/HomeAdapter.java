@@ -2,28 +2,21 @@ package com.njz.letsgoapp.adapter.home;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.HomeData;
+import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
-import com.njz.letsgoapp.widget.GuideScoreView;
-import com.njz.letsgoapp.widget.MyRatingBar;
-import com.njz.letsgoapp.widget.ServiceTagView;
 import com.njz.letsgoapp.widget.myTextView.ShowAllTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,12 +29,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     public static final int VIEW_TITLE = 1;
 
-    List<HomeData.Dynamic> guides;
+    List<DynamicModel.ListBean> dynamis;
 
     Context mContext;
 
-    public HomeAdapter(Context context, HomeData homeData) {
-        this.guides = homeData.getGuides();
+    public HomeAdapter(Context context, List<DynamicModel.ListBean> dynamis) {
+        this.dynamis = dynamis;
         this.mContext = context;
     }
 
@@ -71,24 +64,24 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         if (holder == null) return;
         if (holder instanceof DynamicViewHolder) {
             final int pos = holder.getAdapterPosition() - 1;
-            final HomeData.Dynamic data = guides.get(pos);
+            final DynamicModel.ListBean data = dynamis.get(pos);
             if (data == null) return;
 
-            GlideUtil.LoadCircleImage(mContext, data.getHeadImg(), ((DynamicViewHolder) holder).iv_img);
-            ((DynamicViewHolder) holder).tv_name.setText(data.getName());
-            ((DynamicViewHolder) holder).tv_time.setText(data.getTime());
+            GlideUtil.LoadCircleImage(mContext, data.getImgUrl(), ((DynamicViewHolder) holder).iv_img);
+            ((DynamicViewHolder) holder).tv_name.setText(data.getNickname());
+            ((DynamicViewHolder) holder).tv_time.setText(data.getStartTime());
             ((DynamicViewHolder) holder).tv_location.setText(data.getLocation());
-            ((DynamicViewHolder) holder).tv_comment.setText(""+data.getComment());
-            ((DynamicViewHolder) holder).tv_nice.setText(""+data.getNice());
+            ((DynamicViewHolder) holder).tv_comment.setText(""+data.getReplyCount());
+            ((DynamicViewHolder) holder).tv_nice.setText(""+data.getLikeCount());
 
             ((DynamicViewHolder) holder).tv_content.setMaxShowLines(3);
             ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
 
-            ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getDynamicImgs());
+            ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
             ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicImageView.OnItemClickListener() {
                 @Override
                 public void onClick(int position) {
-                    BigImageActivity.startActivity((Activity) mContext,position,data.getDynamicImgs());
+                    BigImageActivity.startActivity((Activity) mContext,position,data.getImgUrls());
                 }
             });
 
@@ -100,36 +93,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                     }
                 });
             }
-//        if (holder instanceof HomeGuideViewHolder) {
-//            final int pos = holder.getAdapterPosition() - 1;
-//            final HomeData.Guide data = guides.get(pos);
-//            if (data == null) return;
-//
-//            GlideUtil.LoadImage(mContext, data.getBackgroundImg(), ((HomeGuideViewHolder) holder).iv_backGround);
-//            GlideUtil.LoadCircleImage(mContext, data.getHeadImg(), ((HomeGuideViewHolder) holder).iv_head);
-//            ((HomeGuideViewHolder) holder).tv_name.setText(data.getName());
-//            ((HomeGuideViewHolder) holder).rating_bar_route.setRating(data.getLevel());
-//            ((HomeGuideViewHolder) holder).tv_content.setText(data.getContent());
-//            ((HomeGuideViewHolder) holder).serviceTagView.setServiceTag(data.getServiceTags());
-//            ((HomeGuideViewHolder) holder).ll_times.setGuideScore(data.getTimes(), data.getLevel(), data.getCommentTimes());
-//
-//            if (mOnItemClickListener != null) {
-//                ((HomeGuideViewHolder) holder).rlParent.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mOnItemClickListener.onClick(pos);
-//                    }
-//                });
-//            }
         }
     }
 
     @Override
     public int getItemCount() {
-        if (guides == null || guides.size() == 0) {
+        if (dynamis == null || dynamis.size() == 0) {
             return 0;
         } else {
-            return 1 + guides.size();
+            return 1 + dynamis.size();
         }
     }
 
@@ -163,30 +135,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     }
 
 
-    public class HomeGuideViewHolder extends BaseViewHolder {
-        RelativeLayout rlParent;
-        ImageView iv_backGround;
-        ImageView iv_head;
-        TextView tv_name;
-        MyRatingBar rating_bar_route;
-        TextView tv_content;
-        ServiceTagView serviceTagView;
-
-        GuideScoreView ll_times;
-
-        HomeGuideViewHolder(View itemView) {
-            super(itemView);
-            iv_backGround = itemView.findViewById(R.id.iv_backGround);
-            rlParent = itemView.findViewById(R.id.rl_parent);
-            iv_head = itemView.findViewById(R.id.iv_head);
-            tv_name = itemView.findViewById(R.id.tv_name);
-            rating_bar_route = itemView.findViewById(R.id.rating_bar_route);
-            tv_content = itemView.findViewById(R.id.tv_content);
-            serviceTagView = itemView.findViewById(R.id.tv_service_item);
-            ll_times = itemView.findViewById(R.id.ll_times);
-        }
-    }
-
     public class GuideTitleViewHolder extends BaseViewHolder {
         TextView tv_check_all;
 
@@ -201,8 +149,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
     //--------------View Holder end----------------
 
 
-    public void setData(HomeData homeData) {
-        this.guides = homeData.getGuides();
+    public void setData(List<DynamicModel.ListBean> dynamis) {
+        this.dynamis = dynamis;
         notifyDataSetChanged();
     }
 

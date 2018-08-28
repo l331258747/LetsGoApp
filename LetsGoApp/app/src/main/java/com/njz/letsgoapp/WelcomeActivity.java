@@ -3,6 +3,7 @@ package com.njz.letsgoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
-    private int[] mImageIds = new int[]{R.mipmap.welcome, R.mipmap.welcome, R.mipmap.welcome};
+    private int[] mImageIds = new int[]{R.mipmap.welcome1, R.mipmap.welcome2, R.mipmap.welcome3};
     private ArrayList<ImageView> mImageViewList;
     private LinearLayout llContainer;
     private ImageView ivRedPoint;
@@ -105,8 +106,12 @@ public class WelcomeActivity extends AppCompatActivity {
                 System.out.println("position:" + position);
                 if (position == mImageViewList.size() - 1) {
                     start_btn.setVisibility(View.VISIBLE);
+                    llContainer.setVisibility(View.GONE);
+                    ivRedPoint.setVisibility(View.GONE);
                 } else {
                     start_btn.setVisibility(View.GONE);
+                    llContainer.setVisibility(View.VISIBLE);
+                    ivRedPoint.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -123,7 +128,9 @@ public class WelcomeActivity extends AppCompatActivity {
         for (int i = 0; i < mImageIds.length; i++) {
             //创建ImageView把mImgaeViewIds放进去
             ImageView view = new ImageView(this);
-            view.setBackgroundResource(mImageIds[i]);
+            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            view.setImageDrawable(ContextCompat.getDrawable(this,mImageIds[i]));
+//            view.setBackgroundResource(mImageIds[i]);
             //添加到ImageView的集合中
             mImageViewList.add(view);
             //小圆点

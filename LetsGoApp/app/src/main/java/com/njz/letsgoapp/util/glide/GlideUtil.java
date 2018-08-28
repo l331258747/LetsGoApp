@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.util.glide;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -42,12 +43,14 @@ public class GlideUtil {
     //加载网络图片
     public static void LoadImage(Context mContext, String path,
                                  ImageView imageview) {
+        if(TextUtils.isEmpty(path)) return;
         Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.head_default).error(R.mipmap.head_default)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
 
     public static void LoadImageFitCenter(Context mContext, String path,
                                  ImageView imageview) {
+        if(TextUtils.isEmpty(path)) return;
         Glide.with(mContext).load(path).fitCenter().placeholder(R.mipmap.head_default).error(R.mipmap.head_default)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
@@ -62,7 +65,7 @@ public class GlideUtil {
     //圆形加载
     public static void LoadCircleImage(Context mContext, String path,
                                        ImageView imageview) {
-
+        if(TextUtils.isEmpty(path)) return;
         Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.head_default)
                 .transform(new GlideCircleTransform(mContext,2,mContext.getResources().getColor(R.color.white)))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
@@ -72,6 +75,7 @@ public class GlideUtil {
     //加载圆角图片
     public static void LoadRoundImage(Context mContext, String path,
                                        ImageView imageview) {
+        if(TextUtils.isEmpty(path)) return;
         Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.head_default)
                 .transform(new GlideRoundTransform(mContext, 10))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);

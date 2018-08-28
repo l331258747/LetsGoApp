@@ -3,6 +3,8 @@ package com.njz.letsgoapp.util.http;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
+import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.bean.order.AliPay;
@@ -109,6 +111,19 @@ public interface HttpService {
             @Query("guideId") int guideId
     );
 
+    //首页获取热门导游
+    @GET("orderReviews/sortTop")
+        Observable<BaseResponse<List<GuideModel>>> orderReviewsSortTop(
+            @Query("location") String location
+    );
+
+    //首页获取热动态
+    @GET("region/getSterByLocation")
+    Observable<BaseResponse<DynamicModel>> regionGetSterByLocation(
+            @Query("location") String location,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
 
     //首页 end
 
