@@ -1,7 +1,7 @@
 package com.njz.letsgoapp.bean;
 
 import com.njz.letsgoapp.bean.login.LoginModel;
-import com.njz.letsgoapp.util.PreferencesUtils;
+import com.njz.letsgoapp.util.SPUtils;
 
 /**
  * Created by LGQ
@@ -26,15 +26,15 @@ public class MySelfInfo {
 
 
     public void setData(LoginModel model) {
-        PreferencesUtils.getInstance().putString(PreferencesUtils.SP_USER_TOKEN, model.getToken());
+        SPUtils.getInstance().putString(SPUtils.SP_USER_TOKEN, model.getToken());
     }
 
     public String getUserToken() {
-        return PreferencesUtils.getInstance().getString(PreferencesUtils.SP_USER_TOKEN);
+        return SPUtils.getInstance().getString(SPUtils.SP_USER_TOKEN);
     }
 
     public void loginOff() {
-        PreferencesUtils.getInstance().logoff();
+        SPUtils.getInstance().logoff();
     }
 
 

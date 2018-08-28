@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_margin="10dp"
-        android:background="@drawable/btn_black_hollow"
+        android:background="@drawable/btn_black_hollow_p5"
         android:gravity="top"
         android:hint="请输入其他需求。（选填）" />
 

@@ -149,7 +149,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/btn_blue_solid_r5"
+        android:background="@drawable/btn_blue_solid_r5_p8"
         android:text="退出登录"
         android:textColor="@color/white"
         android:layout_margin="10dp"

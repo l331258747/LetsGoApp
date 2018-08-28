@@ -152,7 +152,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/btn_theme_solid_r40"
+        android:background="@drawable/btn_theme_solid_r40_p8"
         android:gravity="center"
         android:text="搜索向导"
         android:textColor="@color/white"

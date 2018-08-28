@@ -9,9 +9,9 @@ import java.util.Set;
 /**
  * Created by LGQ
  * Time: 2018/7/17
- * Function: Preferences 工具类
+ * Function:SharedPreferences 工具类
  */
-public class PreferencesUtils {
+public class SPUtils {
 
     public static final String FIRST_OPENED = "first_open";
 
@@ -45,7 +45,7 @@ public class PreferencesUtils {
 
 
     private static SharedPreferences mSharedPreferences;
-    private static PreferencesUtils mPreferenceUtils;
+    private static SPUtils mPreferenceUtils;
     private static SharedPreferences.Editor editor;
 
     public static final String PREFERENCE_NAME = "com.njz.letsgo_preferences";
@@ -53,16 +53,16 @@ public class PreferencesUtils {
 
     public static synchronized void init(Context cxt) {
         if (mPreferenceUtils == null) {
-            mPreferenceUtils = new PreferencesUtils(cxt);
+            mPreferenceUtils = new SPUtils(cxt);
         }
     }
 
-    private PreferencesUtils(Context cxt) {
+    private SPUtils(Context cxt) {
         mSharedPreferences = cxt.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         editor = mSharedPreferences.edit();
     }
 
-    public static PreferencesUtils getInstance() {
+    public static SPUtils getInstance() {
         if (mPreferenceUtils == null) {
             throw new RuntimeException("please init first!");
         }

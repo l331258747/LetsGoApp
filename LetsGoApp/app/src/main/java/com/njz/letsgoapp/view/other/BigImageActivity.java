@@ -96,5 +96,4 @@ public class BigImageActivity extends BaseActivity {
         convenientBanner.setcurrentitem(index);
 //        convenientBanner.setCanLoop(false);
     }
-
 }

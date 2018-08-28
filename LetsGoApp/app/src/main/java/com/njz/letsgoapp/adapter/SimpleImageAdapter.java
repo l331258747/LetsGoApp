@@ -38,7 +38,7 @@ public class SimpleImageAdapter extends RecyclerView.Adapter<SimpleImageAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        //ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r15)
+        //ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r15_p8)
         GlideUtil.LoadImage(context, data.get(position), holder.img);
 
 //        holder.img.setOnClickListener(new View.OnClickListener() {

@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_blue_solid_r5"
+            android:background="@drawable/btn_blue_solid_r5_p8"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
             android:text="获取验证码"
@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:background="@drawable/btn_blue_solid_r40"
+        android:background="@drawable/btn_blue_solid_r40_p8"
         android:text="找回密码"
         android:textColor="@color/white"
         android:textSize="16sp" />

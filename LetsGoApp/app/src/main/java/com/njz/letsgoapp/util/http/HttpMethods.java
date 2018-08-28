@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.util.http;
 
 import com.njz.letsgoapp.constant.URLConstant;
+import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.StringUtils;
 
@@ -56,6 +57,7 @@ public class HttpMethods {
 //                        .addHeader("Accept-Encoding", "gzip")
                         .addHeader("Connection", "keep-alive")
                         .addHeader("Accept", "*/*")
+                        .addHeader("X-Nideshop-Token", SPUtils.getInstance().getString(SPUtils.SP_USER_TOKEN) == null?"": SPUtils.getInstance().getString(SPUtils.SP_USER_TOKEN))
                         .method(originalRequest.method(), originalRequest.body());
                 Request request = requestBuilder.build();
                 return chain.proceed(request);

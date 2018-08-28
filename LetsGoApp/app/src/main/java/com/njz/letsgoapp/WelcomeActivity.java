@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
@@ -32,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private LinearLayout llContainer;
     private ImageView ivRedPoint;
     private int mPaintDis;
-    private Button start_btn;
+    private TextView start_btn;
 
 
     @Override
@@ -48,7 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.vp_guide);
         llContainer = (LinearLayout) findViewById(R.id.ll_container);
         ivRedPoint = (ImageView) findViewById(R.id.iv_red);
-        start_btn = (Button) findViewById(R.id.start_btn);
+        start_btn = (TextView) findViewById(R.id.start_btn);
 
         start_btn.setOnClickListener(new View.OnClickListener() {
 

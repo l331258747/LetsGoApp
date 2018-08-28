@@ -99,7 +99,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
     //取消选中状态
     private void setResetAllView(TextView... tvs) {
         for (TextView tv : tvs) {
-            tv.setBackgroundResource(R.drawable.btn_black_hollow);
+            tv.setBackgroundResource(R.drawable.btn_black_hollow_p5);
             tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
             tv.setSelected(false);
         }
@@ -108,7 +108,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
     //被选中
     private void setViewSelect(TextView tv) {
         if (tv.isSelected()) {
-            tv.setBackgroundResource(R.drawable.btn_black_hollow);
+            tv.setBackgroundResource(R.drawable.btn_black_hollow_p5);
             tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
             tv.setSelected(false);
         } else {

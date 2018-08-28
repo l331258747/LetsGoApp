@@ -51,7 +51,7 @@
         tools:background="@drawable/shape_base_title_tv_tools"
         tools:text="登录"
         tools:textColor="@color/black"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/right_iv"
@@ -67,7 +67,7 @@
         android:paddingTop="2dp"
         tools:src="@mipmap/ic_launcher"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <View
         android:id="@+id/line"

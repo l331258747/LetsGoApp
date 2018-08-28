@@ -2,10 +2,13 @@ package com.njz.letsgoapp.util.http;
 
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -35,7 +38,7 @@ public interface HttpService {
     //登录系列   start
     //登录
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("travel/user/login")
     Observable<BaseResponse<LoginModel>> login(
             @Field("mobile") String mobile,
             @Field("password") String password
@@ -43,7 +46,7 @@ public interface HttpService {
 
     //注册
     @FormUrlEncoded
-    @POST("sms/msgCheckRegister")
+    @POST("travel/sms/msgCheckRegister")
     Observable<BaseResponse<EmptyModel>> msgCheckRegister(
             @Field("mobile") String mobile,
             @Field("msg") String msg,
@@ -52,7 +55,7 @@ public interface HttpService {
 
     //找回密码
     @FormUrlEncoded
-    @POST("sms/msgCheckFindBy")
+    @POST("travel/sms/msgCheckFindBy")
     Observable<BaseResponse<EmptyModel>> msgCheckFindBy(
             @Field("mobile") String mobile,
             @Field("msg") String msg,
@@ -61,7 +64,7 @@ public interface HttpService {
 
     //手机验证码登录
     @FormUrlEncoded
-    @POST("sms/msgCheckLogin")
+    @POST("travel/sms/msgCheckLogin")
     Observable<BaseResponse<LoginModel>> msgCheckLogin(
             @Field("mobile") String mobile,
             @Field("msg") String msg
@@ -69,7 +72,7 @@ public interface HttpService {
 
     //短信验证码
     @FormUrlEncoded
-    @POST("sms/userSmsSend")
+    @POST("travel/sms/userSmsSend")
     Observable<BaseResponse<VerifyModel>> userSmsSend(
             @Field("mobile") String mobile,
             @Field("type") String type
@@ -78,25 +81,37 @@ public interface HttpService {
 
     //修改密码
     @FormUrlEncoded
-    @POST("user/changePwd")
+    @POST("travel/user/changePwd")
     Observable<BaseResponse<EmptyModel>> changePwd(
-            @Field("X-Nideshop-Token") String token,
+//            @Field("X-Nideshop-Token") String token,
             @Field("password") String password,
             @Field("newPassword") String newPassword
     );
 
     //修改手机号
     @FormUrlEncoded
-    @POST("sms/updateMobile")
+    @POST("travel/sms/updateMobile")
     Observable<BaseResponse<EmptyModel>> updateMobile(
-            @Field("X-Nideshop-Token") String token,
+//            @Field("X-Nideshop-Token") String token,
             @Field("mobile") String mobile,
             @Field("msg") String msg,
             @Field("password") String password
     );
 
-
     //登录系列   end
+
+
+    //首页 start
+    //轮播图 banner/findAll
+    @GET("banner/findByTypeAndGuideId")
+    Observable<BaseResponse<List<BannerModel>>> bannerFindByType(
+            @Query("type") int type,
+            @Query("guideId") int guideId
+    );
+
+
+    //首页 end
+
 
 
 }

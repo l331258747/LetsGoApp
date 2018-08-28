@@ -14,6 +14,7 @@ import com.dali.custompicker.adapter.MonthTimeAdapter;
 import com.dali.custompicker.bean.DayTimeEntity;
 import com.dali.custompicker.bean.MonthTimeEntity;
 import com.dali.custompicker.bean.UpdataCalendar;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 
@@ -94,7 +95,8 @@ public class CalendarActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(CalendarData.stopDay.getDay() < 1 || CalendarData.startDay.getDay() < 1){
-                    RxBus2.getInstance().post(new CalendarEvent("","",""));
+                    ToastUtil.showShortToast(CalendarActivity.this,"请完善开始结束时间");
+                    return;
                 }else{
                     String startTime = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
                     String endTime = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();

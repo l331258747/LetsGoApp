@@ -134,7 +134,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             if(data.isServiceTitleColor()){
                 ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r15));
             }else{
-                ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray999_solid_r15));
+                ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_99_solid_r15));
             }
 
             ((TitleHolder) holder).service_title.setOnClickListener(new View.OnClickListener() {

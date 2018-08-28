@@ -76,15 +76,27 @@ public class MethodApi {
     }
 
     public static void changePwd(String token, String password, String newPassword, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(token, password, newPassword); //在HttpServer中
+//        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(token, password, newPassword); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().changePwd(password, newPassword); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     public static void updateMobile(String token, String mobile, String msg, String password, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().updateMobile(token, mobile, msg, password); //在HttpServer中
+//        Observable observable = HttpMethods.getInstance().getHttpService().updateMobile(token, mobile, msg, password); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().updateMobile(mobile, msg, password); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     //-----------login end------------
+
+    //----------首页 start -------
+    public static void bannerFindByType(int type, int guideId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().bannerFindByType(type, guideId); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
+
+    //----------首页 end -------
 
 }

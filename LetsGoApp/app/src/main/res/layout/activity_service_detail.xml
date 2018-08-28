@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_theme_hollow_r5"
+                android:background="@drawable/btn_theme_hollow_r5_p8"
                 android:gravity="center">
 
                 <TextView
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_theme_solid_r5"
+                android:background="@drawable/btn_theme_solid_r5_p8"
                 android:gravity="center"
                 android:text="预订(￥550)"
                 android:textColor="@color/white" />

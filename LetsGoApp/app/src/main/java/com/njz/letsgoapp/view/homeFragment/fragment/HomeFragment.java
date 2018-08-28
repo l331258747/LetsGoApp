@@ -22,8 +22,13 @@ import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.GuideData;
 import com.njz.letsgoapp.bean.home.HomeData;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.home.HomeContract;
+import com.njz.letsgoapp.mvp.home.HomePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
@@ -48,7 +53,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -70,6 +75,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     NestedScrollView scrollView;
     LinearLayout linear_bar2;
+
+    HomePresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -124,26 +131,36 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    public void initBanner(List<HomeData.HomeBanner> homeBanners){
+    public void initBanner(List<BannerModel> homeBanners){
         //开始自动翻页
         convenientBanner.setPages(new CBViewHolderCreator() {
             @Override
             public Object createHolder() {
-                return new LocalImageHolderView(new LocalImageHolderView.BannerListener<HomeData.HomeBanner>() {
+                return new LocalImageHolderView(new LocalImageHolderView.BannerListener<BannerModel>() {
 
                     @Override
-                    public void bannerListener(Context context, int position, HomeData.HomeBanner data, ImageView view) {
+                    public void bannerListener(Context context, int position, BannerModel data, ImageView view) {
                         GlideUtil.LoadImage(context, data.getImgUrl(), view);
                     }
                 });
             }
         }, homeBanners)
                 .setPointViewVisible(true) //设置指示器是否可见
-                .startTurning(4000)//设置自动切换（同时设置了切换时间间隔）
                 .setPageIndicator(new int[]{R.drawable.oval_white_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
-//                    .setOnItemClickListener(this) //设置点击监听事件
-                .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
+                .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）设置为false后手点击后 停止轮播了
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        convenientBanner.stopTurning();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        convenientBanner.startTurning(Constant.BANNER_RUNNING_TIME);
     }
 
     @Override
@@ -202,6 +219,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initData() {
 
+        mPresenter = new HomePresenter(context,this);
+
         tv_destination_content.setText("张家界");
         tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
         tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
@@ -228,6 +247,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                startActivity(new Intent(context,GuideListActivity.class));//TODO 进入动态列表
             }
         });
+
+        mPresenter.bannerFindByType(1,0);
     }
 
     //初始化recyclerview
@@ -280,7 +301,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         homeBanners.add(homeBanner);
         homeBanners.add(homeBanner);
 
-        initBanner(homeBanners);
+//        initBanner(homeBanners);
 
         List<HomeData.Dynamic> guides = new ArrayList<>();
         HomeData.Dynamic dynamic0 = new HomeData.Dynamic();
@@ -421,5 +442,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         return guideDatas;
     }
 
+    @Override
+    public void bannerFindByTypeSuccess(List<BannerModel> model) {
+        initBanner(model);
+    }
+
+    @Override
+    public void bannerFindByTypeFailed(String msg) {
+        showLongToast(msg);
+    }
 }
 

@@ -6,7 +6,7 @@ import android.content.Context;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.log.ExceptionCrashHandler;
 import com.njz.letsgoapp.util.log.LogUtil;
-import com.njz.letsgoapp.util.PreferencesUtils;
+import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.AppUtils;
 import com.taobao.sophix.SophixManager;
 import com.tencent.bugly.Bugly;
@@ -59,7 +59,7 @@ public class MyApplication extends Application{
         JPushInterface.init(context);
         JPushInterface.setDebugMode(true);
 
-        PreferencesUtils.init(context);
+        SPUtils.init(context);
         AppUtils.init(this);
         LogUtil.setShowLog(true);
 

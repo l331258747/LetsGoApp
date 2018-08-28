@@ -36,4 +36,6 @@ public class Constant {
             "  </article>";
 
 
+    public static final int BANNER_RUNNING_TIME = 4000;
+
 }

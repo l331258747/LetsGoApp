@@ -131,8 +131,8 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
                         //回复原来初始状态
                         btnVerify.setEnabled(true);
                         btnVerify.setText("发送验证码");
-                        //@drawable/btn_blue_solid_r5
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r5));//背景色设为灰色
+                        //@drawable/btn_blue_solid_r5_p8
+                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r5_p8));//背景色设为灰色
                     }
                 });
     }

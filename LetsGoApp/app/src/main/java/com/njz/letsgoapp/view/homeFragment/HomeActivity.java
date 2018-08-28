@@ -1,24 +1,20 @@
 package com.njz.letsgoapp.view.homeFragment;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.util.AppUtils;
-import com.njz.letsgoapp.util.PreferencesUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.HomeFragment;
@@ -29,7 +25,6 @@ import com.njz.letsgoapp.widget.tab.TabItem;
 import com.njz.letsgoapp.widget.tab.TabLayout;
 import com.njz.letsgoapp.widget.tab.TabView;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**

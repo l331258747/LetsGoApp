@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.njz.letsgoapp.util.PreferencesUtils;
+import com.njz.letsgoapp.util.SPUtils;
 
 /**
  * Created by LGQ
@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void initUserInfo() {
-        if (PreferencesUtils.getInstance().isLogin()) {
+        if (SPUtils.getInstance().isLogin()) {
 //            MySelfInfo.getInstance().getCache();
         }
     }
@@ -37,10 +37,10 @@ public class SplashActivity extends AppCompatActivity {
     private void toHome() {
 
         // 判断是否是第一次开启应用
-        boolean isFirstOpened = PreferencesUtils.getInstance().getBoolean(PreferencesUtils.FIRST_OPENED,false);
+        boolean isFirstOpened = SPUtils.getInstance().getBoolean(SPUtils.FIRST_OPENED,false);
         // 如果是第一次启动，则先进入功能引导页
         if (!isFirstOpened) {
-            PreferencesUtils.getInstance().putBoolean(PreferencesUtils.FIRST_OPENED,true);
+            SPUtils.getInstance().putBoolean(SPUtils.FIRST_OPENED,true);
 
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();
