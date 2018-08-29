@@ -37,9 +37,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     Context mContext;
 
     private static final int SERVICE_TYPE_TITLE = 10;
-//    private static final int SERVICE_TYPE_FOOT = 11;
     private static final int SERVICE_TYPE_DEFAULT = 12;
-//    private static final int SERVICE_TYPE_DEFAULT2 = 13;
 
     public static final String SERVICE_TYPE_GUIDE = "向导陪游服务";
     public static final String SERVICE_TYPE_CUSTOM = "私人定制服务";
@@ -64,8 +62,6 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
         setData2(serviceInfo.getGuideServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_GUIDE);
         setData2(serviceInfo.getCustomServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_CUSTOM);
         setData2(serviceInfo.getCarServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_CAR);
-//        setData2(serviceInfo.getHotelServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT_2, SERVICE_TYPE_HOTEL);
-//        setData2(serviceInfo.getTicketServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT_2, SERVICE_TYPE_TICKET);
 
         notifyDataSetChanged();
     }
@@ -84,10 +80,6 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     serviceInfoGroup2.setServiceItem(si);
                     serviceInfoGroups.add(serviceInfoGroup2);
                 }
-//                ServiceInfoGroup serviceInfoGroup3 = new ServiceInfoGroup();
-//                serviceInfoGroup3.setLabelTab(ServiceInfoGroup.LABEL_TAB_FOOT);
-//                serviceInfoGroup3.setServiceFoot(title);
-//                serviceInfoGroups.add(serviceInfoGroup3);
             }
         }
     }
@@ -99,12 +91,6 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             case SERVICE_TYPE_TITLE:
                 view = LayoutInflater.from(mContext).inflate(R.layout.item_service_title, parent, false);
                 return new TitleHolder(view);
-//            case SERVICE_TYPE_FOOT:
-//                view = LayoutInflater.from(mContext).inflate(R.layout.item_service_foot, parent, false);
-//                return new FootHolder(view);
-//            case SERVICE_TYPE_DEFAULT2:
-//                view = LayoutInflater.from(mContext).inflate(R.layout.item_service_defualt2, parent, false);
-//                return new Default2Holder(view);
             default:
                 view = LayoutInflater.from(mContext).inflate(R.layout.item_service_defualt_new, parent, false);
                 return new DefaultHolder(view);
@@ -116,10 +102,6 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     public int getItemViewType(int position) {
         if (serviceInfoGroups.get(position).getLabelTab() == ServiceInfoGroup.LABEL_TAB_TITLE)
             return SERVICE_TYPE_TITLE;
-//        if (serviceInfoGroups.get(position).getLabelTab() == ServiceInfoGroup.LABEL_TAB_FOOT)
-//            return SERVICE_TYPE_FOOT;
-//        if (serviceInfoGroups.get(position).getLabelTab() == ServiceInfoGroup.LABEL_TAB_DEFAULT_2)
-//            return SERVICE_TYPE_DEFAULT2;
         return super.getItemViewType(position);
 
     }
@@ -127,8 +109,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, int position) {
         if (holder == null) return;
-        holder.setIsRecyclable(false);
-        
+        holder.setIsRecyclable(false);//禁止复用
+
         if (holder instanceof DefaultHolder) {
             final int pos = holder.getAdapterPosition();
             final ServiceInfoGroup data = serviceInfoGroups.get(pos);
