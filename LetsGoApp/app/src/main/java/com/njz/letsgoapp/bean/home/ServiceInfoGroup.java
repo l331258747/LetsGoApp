@@ -10,8 +10,8 @@ public class ServiceInfoGroup {
 
     public static final int LABEL_TAB_TITLE = 1;
     public static final int LABEL_TAB_DEFAULT = 2;
-    public static final int LABEL_TAB_FOOT = 3;
-    public static final int LABEL_TAB_DEFAULT_2 = 4;
+//    public static final int LABEL_TAB_FOOT = 3;
+//    public static final int LABEL_TAB_DEFAULT_2 = 4;
 
     private int labelTab;
     private ServiceItem serviceItem;

@@ -46,6 +46,9 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
     public void setNum(int num) {
         this.num = num;
         tv_num.setText(num + "");
+        if(onItemClickListener == null)
+            return;
+        onItemClickListener.onClick(num);
     }
 
 
@@ -65,5 +68,15 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
                 setNum(num);
                 break;
         }
+    }
+
+    OnItemClickListener onItemClickListener;
+
+    public void setCallback(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onClick(int num);
     }
 }

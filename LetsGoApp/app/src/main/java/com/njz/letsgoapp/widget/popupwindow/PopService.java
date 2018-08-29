@@ -78,12 +78,9 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         this.setFocusable(true);
 
         initInfo();
-        initTrip();
         initSubmit();
 
         serviceInfo = initData();
-
-        initSpecial();
 
     }
 
@@ -92,23 +89,6 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         tv_submit.setOnClickListener(this);
     }
 
-
-    TextView tv_city,tv_start_time,tv_end_time,tv_day;
-    NumberView number_view;
-
-    private void initTrip() {
-        tv_city = contentView.findViewById(R.id.tv_city);
-        tv_start_time = contentView.findViewById(R.id.tv_start_time);
-        tv_end_time = contentView.findViewById(R.id.tv_end_time);
-        tv_day = contentView.findViewById(R.id.tv_day);
-        number_view = contentView.findViewById(R.id.number_view);
-
-        tv_start_time.setOnClickListener(this);
-        tv_end_time.setOnClickListener(this);
-
-        number_view.setNum(1);
-
-    }
 
     ImageView iv_head;
     MyRatingBar my_rating_bar;
@@ -140,13 +120,6 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         tabels.add("旅游玩家高手");
         guideLabel.setTabel(tabels);
         tv_service_num.setText("服务" + 6000 + "次");
-    }
-
-    private void initSpecial() {
-        TextView tv_special = contentView.findViewById(R.id.tv_special);
-        final NestedScrollView scrollView = contentView.findViewById(R.id.scrollView);
-        final EditText et_special = contentView.findViewById(R.id.et_special);
-
     }
 
     public ServiceInfo initData() {
@@ -221,37 +194,11 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_start_time:
-                calendarPick();
-                break;
-            case R.id.tv_end_time:
-                calendarPick();
-                break;
             case R.id.tv_submit:
                 mContext.startActivity(new Intent(mContext, OrderSubmitActivity.class));
                 dismissPopupWindow();
                 break;
 
         }
-    }
-
-
-    Disposable calDisposable;
-
-
-    private void calendarPick() {
-        Intent intent = new Intent(mContext, CalendarActivity.class);
-        intent.putExtra("CalendarTag", 1);
-        mContext.startActivity(intent);
-
-        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
-            @Override
-            public void accept(CalendarEvent calendarEvent) throws Exception {
-                tv_start_time.setText(calendarEvent.getStartTime());
-                tv_end_time.setText(calendarEvent.getEndTime());
-                tv_day.setText(calendarEvent.getDays());
-                calDisposable.dispose();
-            }
-        });
     }
 }
