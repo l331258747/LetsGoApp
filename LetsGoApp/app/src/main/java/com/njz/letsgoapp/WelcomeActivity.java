@@ -58,12 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //点击进入的时候直接跳转到登录界面
-//                Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
-
-//                Intent intent = new Intent(WelcomeActivity.this, GuideDetailActivity.class);
-//                intent.putExtra(GuideDetailActivity.GUIDEID,4);
-
-                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }

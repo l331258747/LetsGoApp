@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.login;
 
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         loginViewPasswordAgin = $(R.id.login_view_password_agin);
         loginViewPasswordAgin.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         tvVerify = loginViewVerify.getRightText();
+        tvVerify.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
         tvVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +111,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         tvVerify.setEnabled(false);//在发送数据的时候设置为不能点击
+                        tvVerify.setTextColor(ContextCompat.getColor(context,R.color.color_68));
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
@@ -133,6 +136,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         //回复原来初始状态
                         tvVerify.setEnabled(true);
                         tvVerify.setText("发送验证码");
+                        tvVerify.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
                     }
                 });
     }

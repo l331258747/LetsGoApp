@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.njz.letsgoapp.util.SPUtils;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
 /**
  * Created by LGQ
@@ -37,18 +39,23 @@ public class SplashActivity extends AppCompatActivity {
     private void toHome() {
 
         // 判断是否是第一次开启应用
-        boolean isFirstOpened = SPUtils.getInstance().getBoolean(SPUtils.FIRST_OPENED,false);
+        boolean isFirstOpened = SPUtils.getInstance().getBoolean(SPUtils.FIRST_OPENED, false);
         // 如果是第一次启动，则先进入功能引导页
         if (!isFirstOpened) {
-            SPUtils.getInstance().putBoolean(SPUtils.FIRST_OPENED,true);
+            SPUtils.getInstance().putBoolean(SPUtils.FIRST_OPENED, true);
 
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();
             return;
         }
 
-//        startActivity(new Intent(this, HomeActivity.class));
-        startActivity(new Intent(this, WelcomeActivity.class));
+        Intent intent = new Intent(this, HomeActivity.class);
+
+//        Intent intent = new Intent(this, GuideDetailActivity.class);
+//        intent.putExtra(GuideDetailActivity.GUIDEID, 4);
+
+        startActivity(intent);
+
         this.finish();
     }
 }

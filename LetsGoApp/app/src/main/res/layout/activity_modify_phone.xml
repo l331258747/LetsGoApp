@@ -20,7 +20,8 @@
         android:id="@+id/login_view_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        app:login_item_hint="请输入密码"
+        app:login_item_max_length="18"/>
 
 
     <com.njz.letsgoapp.widget.LoginItemView2
@@ -36,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:login_item_hint="请输验证码"
-        app:login_item_max_length="6" />
+        app:login_item_max_length="6"
+        app:login_item_right_text="发送验证码"/>
 
 
     <TextView
