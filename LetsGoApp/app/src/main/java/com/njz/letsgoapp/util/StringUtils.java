@@ -300,4 +300,12 @@ public class StringUtils {
         }
     }
 
+    public static String getHtml(String content){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(content,Html.FROM_HTML_MODE_LEGACY).toString();
+        } else {
+            return Html.fromHtml(content).toString();
+        }
+    }
+
 }

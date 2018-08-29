@@ -4,69 +4,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="40dp"
-        android:text="手机号登陆"
-        android:textSize="24sp" />
+        android:layout_margin="30dp"
+        android:src="@mipmap/ic_logo_hollow" />
 
-    <com.njz.letsgoapp.widget.LoginItemView
+    <com.njz.letsgoapp.widget.LoginItemView2
         android:id="@+id/login_view_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:login_item_hint="请输入手机号"
-        app:login_item_max_length="11"
-        app:login_item_title="手机号"
-        app:login_item_title_width="50dp" />
+        app:login_item_max_length="11" />
 
 
-    <com.njz.letsgoapp.widget.LoginItemView
+    <com.njz.letsgoapp.widget.LoginItemView2
         android:id="@+id/login_view_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         app:login_item_hint="请输入密码"
         app:login_item_max_length="16"
-        app:login_item_title="密码"
-        app:login_item_title_width="50dp" />
-
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:background="@drawable/btn_blue_solid_r40_p8"
-        android:text="登陆"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        app:login_item_right_text="忘记密码" />
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <TextView
             android:id="@+id/tv_verify_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="验证码登陆" />
-
-        <TextView
-            android:id="@+id/tv_forgett"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:padding="5dp"
-            android:text="忘记密码" />
+            android:text="验证码登陆"
+            android:textColor="@color/color_68" />
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="5dp"
+            android:text="立即注册"
+            android:textColor="@color/color_68" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_theme_solid_r40"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="登陆"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 
 </LinearLayout>

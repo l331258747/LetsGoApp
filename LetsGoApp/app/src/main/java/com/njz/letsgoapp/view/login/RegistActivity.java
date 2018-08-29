@@ -1,9 +1,7 @@
 package com.njz.letsgoapp.view.login;
 
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -11,9 +9,9 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.mvp.login.RegistContract;
 import com.njz.letsgoapp.mvp.login.RegistPresenter;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
-import com.njz.letsgoapp.widget.LoginItemView;
+import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,9 +30,9 @@ import io.reactivex.functions.Function;
 
 public class RegistActivity extends BaseActivity implements View.OnClickListener,RegistContract.View{
 
-    LoginItemView loginViewPhone, loginViewVerify, loginViewPassword, loginViewPasswordAgin;
-    Button btnRegist, btnVerify;
-    TextView tvLogin;
+    LoginItemView2 loginViewPhone, loginViewVerify, loginViewPassword, loginViewPasswordAgin;
+    TextView btnRegist;
+    TextView tvVerify;
 
     Disposable disposable;
 
@@ -48,8 +46,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initView() {
 
+//        showLeftAndTitle("注册");
         showLeftIcon();
-
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         loginViewVerify = $(R.id.login_view_verify);
@@ -58,14 +56,20 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         loginViewPassword.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         loginViewPasswordAgin = $(R.id.login_view_password_agin);
         loginViewPasswordAgin.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        tvVerify = loginViewVerify.getRightText();
+        tvVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
+                    return;
+                verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"register");
+            }
+        });
 
         btnRegist = $(R.id.btn_regist);
-        btnVerify = $(R.id.btn_verify);
-        tvLogin = $(R.id.tv_login);
 
         btnRegist.setOnClickListener(this);
-        btnVerify.setOnClickListener(this);
-        tvLogin.setOnClickListener(this);
 
     }
 
@@ -88,15 +92,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     return;
                 mPresenter.msgCheckRegister(loginViewPhone.getEtContent(),loginViewVerify.getEtContent(),loginViewPassword.getEtContent());
                 break;
-            case R.id.btn_verify:
-                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
-                    return;
-                verifyEvent();
-                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"register");
-                break;
-            case R.id.tv_login:
-                finish();
-                break;
         }
     }
 
@@ -113,8 +108,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        btnVerify.setEnabled(false);//在发送数据的时候设置为不能点击
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray_solid_r5));
+                        tvVerify.setEnabled(false);//在发送数据的时候设置为不能点击
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
@@ -126,7 +120,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
                     @Override
                     public void onNext(Long num) {
-                        btnVerify.setText("剩余" + num + "秒");
+                        StringUtils.setHtml(tvVerify,String.format(getResources().getString(R.string.verify), num));
                     }
 
                     @Override
@@ -137,10 +131,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onComplete() {
                         //回复原来初始状态
-                        btnVerify.setEnabled(true);
-                        btnVerify.setText("发送验证码");
-                        //@drawable/btn_blue_solid_r5_p8
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r5_p8));//背景色设为灰色
+                        tvVerify.setEnabled(true);
+                        tvVerify.setText("发送验证码");
                     }
                 });
     }

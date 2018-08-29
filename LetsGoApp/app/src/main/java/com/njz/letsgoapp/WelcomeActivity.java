@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -58,8 +59,11 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //点击进入的时候直接跳转到登录界面
 //                Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
-                Intent intent = new Intent(WelcomeActivity.this, GuideDetailActivity.class);
-                intent.putExtra(GuideDetailActivity.GUIDEID,4);
+
+//                Intent intent = new Intent(WelcomeActivity.this, GuideDetailActivity.class);
+//                intent.putExtra(GuideDetailActivity.GUIDEID,4);
+
+                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

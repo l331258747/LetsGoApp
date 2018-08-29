@@ -1,10 +1,8 @@
 package com.njz.letsgoapp.view.login;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -13,10 +11,9 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.mvp.login.LoginContract;
 import com.njz.letsgoapp.mvp.login.LoginPresenter;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
-import com.njz.letsgoapp.widget.LoginItemView;
+import com.njz.letsgoapp.widget.LoginItemView2;
 
 /**
  * Created by LGQ
@@ -26,9 +23,9 @@ import com.njz.letsgoapp.widget.LoginItemView;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener,LoginContract.View{
 
-    LoginItemView loginViewPhone, loginViewPassword;
-    Button btnLogin;
-    TextView tvForget, tvVerifyLogin;
+    LoginItemView2 loginViewPhone, loginViewPassword;
+    TextView btnLogin;
+    TextView tvRegister, tvVerifyLogin;
 
     LoginPresenter mPresenter;
 
@@ -41,23 +38,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void initView() {
         showLeftIcon();
-        showRightTv();
-        getRightTv().setText("注册");
-        getRightTv().setOnClickListener(this);
-        getRightTv().setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.colorPrimary));
-
 
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         loginViewPassword = $(R.id.login_view_password);
         loginViewPassword.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
+        loginViewPassword.setOnClickLisener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, ForgetActivity.class));
+            }
+        });
+
         btnLogin = $(R.id.btn_login);
-        tvForget = $(R.id.tv_forgett);
+        tvRegister = $(R.id.tv_register);
         tvVerifyLogin = $(R.id.tv_verify_login);
 
         btnLogin.setOnClickListener(this);
-        tvForget.setOnClickListener(this);
+        tvRegister.setOnClickListener(this);
         tvVerifyLogin.setOnClickListener(this);
 
 
@@ -78,17 +77,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     return;
                 mPresenter.login(loginViewPhone.getEtContent(),loginViewPassword.getEtContent());
                 break;
-            case R.id.tv_forgett:
-                showShortToast("忘记密码");
-                startActivity(new Intent(context, ForgetActivity.class));
+            case R.id.tv_register:
+                startActivity(new Intent(context, RegistActivity.class));
                 break;
             case R.id.tv_verify_login:
-                showShortToast("验证码登陆");
                 startActivity(new Intent(context, VerifyLoginActivity.class));
-                break;
-            case R.id.right_tv:
-                showShortToast("注册");
-                startActivity(new Intent(context, RegistActivity.class));
                 break;
         }
     }

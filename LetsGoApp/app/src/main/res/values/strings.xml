@@ -12,5 +12,7 @@
 
     <string name="destination2"><Data><![CDATA[<font color="#ff7c00"><u>查看地理位置</u></font>]]></Data></string>
 
+    <string name="verify"><Data><![CDATA[重新发送<font color="#dd0000">%ds</font>]]></Data></string>
+
 
 </resources>

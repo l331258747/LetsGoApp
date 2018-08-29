@@ -1,10 +1,8 @@
 package com.njz.letsgoapp.view.login;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -14,10 +12,10 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.mvp.login.VerifyLoginContract;
 import com.njz.letsgoapp.mvp.login.VerifyLoginPresenter;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
+import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
-import com.njz.letsgoapp.widget.LoginItemView;
+import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,13 +34,14 @@ import io.reactivex.functions.Function;
 
 public class VerifyLoginActivity extends BaseActivity implements View.OnClickListener,VerifyLoginContract.View {
 
-    LoginItemView loginViewPhone, loginViewVerify;
-    Button btnVerify, btnLogin;
-    TextView tvLogin;
+    LoginItemView2 loginViewPhone, loginViewVerify;
+    TextView btnLogin;
 
     Disposable disposable;
 
     VerifyLoginPresenter mPresenter;
+
+    TextView tvVerify;
 
     @Override
     public int getLayoutId() {
@@ -52,20 +51,26 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initView() {
 
+//        showLeftAndTitle("动态码登录");
         showLeftIcon();
-
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         loginViewVerify = $(R.id.login_view_verify);
         loginViewVerify.setEtInputType(InputType.TYPE_CLASS_NUMBER);
+        tvVerify = loginViewVerify.getRightText();
 
         btnLogin = $(R.id.btn_login);
-        btnVerify = $(R.id.btn_verify);
-        tvLogin = $(R.id.tv_login);
 
         btnLogin.setOnClickListener(this);
-        btnVerify.setOnClickListener(this);
-        tvLogin.setOnClickListener(this);
+        tvVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
+                    return;
+                verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"login");
+            }
+        });
 
     }
 
@@ -84,15 +89,6 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
                     return;
                 mPresenter.msgCheckLogin(loginViewPhone.getEtContent(),loginViewVerify.getEtContent());
                 break;
-            case R.id.btn_verify:
-                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
-                    return;
-                verifyEvent();
-                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"login");
-                break;
-            case R.id.tv_login:
-                finish();
-                break;
 
         }
     }
@@ -110,8 +106,7 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        btnVerify.setEnabled(false);//在发送数据的时候设置为不能点击
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray_solid_r5));
+                        tvVerify.setEnabled(false);//在发送数据的时候设置为不能点击
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
@@ -123,7 +118,7 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
 
                     @Override
                     public void onNext(Long num) {
-                        btnVerify.setText("剩余" + num + "秒");
+                        StringUtils.setHtml(tvVerify,String.format(getResources().getString(R.string.verify), num));
                     }
 
                     @Override
@@ -134,10 +129,8 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onComplete() {
                         //回复原来初始状态
-                        btnVerify.setEnabled(true);
-                        btnVerify.setText("发送验证码");
-                        //@drawable/btn_blue_solid_r5_p8
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r5_p8));//背景色设为灰色
+                        tvVerify.setEnabled(true);
+                        tvVerify.setText("发送验证码");
                     }
                 });
     }

@@ -15,6 +15,7 @@
 
     <declare-styleable name="login_item">
         <attr name="login_item_title" format="string"/>
+        <attr name="login_item_right_text" format="string"/>
         <attr name="login_item_title_width" format="dimension"/>
         <attr name="login_item_hint" format="string"/>
         <attr name="login_item_right_drawable" format="reference"/>

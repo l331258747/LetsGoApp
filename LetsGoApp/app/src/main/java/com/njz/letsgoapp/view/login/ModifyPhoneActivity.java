@@ -1,9 +1,8 @@
 package com.njz.letsgoapp.view.login;
 
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -12,9 +11,9 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.mvp.login.ModifyPhoneContract;
 import com.njz.letsgoapp.mvp.login.ModifyPhonePresenter;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
-import com.njz.letsgoapp.widget.LoginItemView;
+import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,8 +32,9 @@ import io.reactivex.functions.Function;
 
 public class ModifyPhoneActivity extends BaseActivity implements View.OnClickListener,ModifyPhoneContract.View {
 
-    LoginItemView loginViewPassword,loginViewPhone,loginViewVerify;
-    Button btnVerify,btnSubmit;
+    LoginItemView2 loginViewPassword,loginViewPhone,loginViewVerify;
+    TextView btnSubmit;
+    TextView tvVerify;
 
     Disposable disposable;
 
@@ -47,19 +47,27 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initView() {
+//        showLeftAndTitle("改绑手机号");
         showLeftIcon();
-
         loginViewPassword = $(R.id.login_view_password);
         loginViewPassword.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         loginViewVerify = $(R.id.login_view_verify);
         loginViewVerify.setEtInputType(InputType.TYPE_CLASS_NUMBER);
+        tvVerify = loginViewVerify.getRightText();
+        tvVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
+                    return;
+                verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"update");
+            }
+        });
 
-        btnVerify = $(R.id.btn_verify);
         btnSubmit = $(R.id.btn_submit);
 
-        btnVerify.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
 
     }
@@ -72,12 +80,6 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_verify:
-                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
-                    return;
-                verifyEvent();
-                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"update");
-                break;
             case R.id.btn_submit:
                 if(!LoginUtil.verifyPassword(loginViewPassword.getEtContent()))
                     return;
@@ -105,8 +107,7 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        btnVerify.setEnabled(false);//在发送数据的时候设置为不能点击
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray_solid_r5));
+                        tvVerify.setEnabled(false);//在发送数据的时候设置为不能点击
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
@@ -118,7 +119,7 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
 
                     @Override
                     public void onNext(Long num) {
-                        btnVerify.setText("剩余" + num + "秒");
+                        StringUtils.setHtml(tvVerify,String.format(getResources().getString(R.string.verify), num));
                     }
 
                     @Override
@@ -129,10 +130,8 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onComplete() {
                         //回复原来初始状态
-                        btnVerify.setEnabled(true);
-                        btnVerify.setText("发送验证码");
-                        //@drawable/btn_blue_solid_r5_p8
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r5_p8));//背景色设为灰色
+                        tvVerify.setEnabled(true);
+                        tvVerify.setText("发送验证码");
                     }
                 });
     }

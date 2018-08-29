@@ -62,6 +62,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     LWebView webView;
 
     GuideDetailPresenter mPresenter;
+    DefaultDialog defaultDialog;
 
     int guideId;
     public static final String GUIDEID = "GUIDEID";
@@ -209,33 +210,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         mPresenter.guideFindGuideDetails("张家界", guideId);
         mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
-
-//        String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
-//        GlideUtil.LoadCircleImage(context, photo, iv_head);
-//
-//        my_rating_bar.setRating(4);
-//        List<String> services = new ArrayList<>();
-//        services.add("4年");
-//        services.add("英语");
-//        services.add("中文");
-//        services.add("泰语");
-//        services.add("葡萄牙语");
-//        stv_tag.setServiceTag(services);
-//        List<String> tabels = new ArrayList<>();
-//        tabels.add("幽默达人");
-//        tabels.add("风趣性感");
-//        tabels.add("旅游玩家高手");
-//        guideLabel.setTabel(tabels);
-//        tv_service_num.setText("服务" + 6000 + "次");
-//        List<Integer> authentications = new ArrayList<>();
-//        authentications.add(GuideAuthenticationView.AUTHENT_IDENTITY);
-//        authentications.add(GuideAuthenticationView.AUTHENT_CAR);
-//        guide_authentication.setAuthentication(authentications);
-//        tv_comment_content.setText("选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我");
-//        tv_content.setText("选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我");
-//        webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html", "utf-8", null);
-//        initCommont();
-
         final int mDisplayHeight = AppUtils.getDisplayHeight();
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -268,6 +242,16 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         initCommont(model.getTravelFirstReviewVO());
 
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html", "utf-8", null);
+
+        defaultDialog = new DefaultDialog(context, "123123",
+                new DefaultDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle("提示")
+                .setNegativeButton("呼叫");
 
     }
 
@@ -313,17 +297,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(new Intent(context, CommentDetailActivity.class));
                 break;
             case R.id.btn_call:
-                showShortToast("联系客服");
-                new DefaultDialog(context, "123123",
-                        new DefaultDialog.OnCloseListener() {
-                            @Override
-                            public void onClick(Dialog dialog, boolean confirm) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setTitle("提示")
-                        .setNegativeButton("呼叫")
-                        .show();
+                if(defaultDialog == null) return;
+                defaultDialog.show();
                 break;
             case R.id.btn_submit:
                 showPopService();

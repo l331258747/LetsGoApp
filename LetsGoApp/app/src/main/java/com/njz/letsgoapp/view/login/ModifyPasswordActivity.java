@@ -2,7 +2,7 @@ package com.njz.letsgoapp.view.login;
 
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -11,7 +11,7 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.mvp.login.ModifyPasswordContract;
 import com.njz.letsgoapp.mvp.login.ModifyPasswordPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
-import com.njz.letsgoapp.widget.LoginItemView;
+import com.njz.letsgoapp.widget.LoginItemView2;
 
 /**
  * Created by LGQ
@@ -21,8 +21,8 @@ import com.njz.letsgoapp.widget.LoginItemView;
 
 public class ModifyPasswordActivity extends BaseActivity implements View.OnClickListener,ModifyPasswordContract.View {
 
-    LoginItemView loginViewPasswordOld,loginViewPassword,loginViewPasswordAgin;
-    Button btnSubmit;
+    LoginItemView2 loginViewPasswordOld,loginViewPassword,loginViewPasswordAgin;
+    TextView btnSubmit;
 
     ModifyPasswordPresenter mPresenter;
 
@@ -33,6 +33,7 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
+//        showLeftAndTitle("修改密码");
         showLeftIcon();
         loginViewPasswordOld = $(R.id.login_view_password_old);
         loginViewPasswordOld.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);

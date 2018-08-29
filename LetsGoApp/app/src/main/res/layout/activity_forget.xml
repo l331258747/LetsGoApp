@@ -4,78 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="40dp"
-        android:text="找回密码"
-        android:textSize="24sp" />
+        android:layout_margin="30dp"
+        android:src="@mipmap/ic_logo_hollow" />
 
-    <com.njz.letsgoapp.widget.LoginItemView
+    <com.njz.letsgoapp.widget.LoginItemView2
         android:id="@+id/login_view_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:login_item_hint="请输入手机号"
-        app:login_item_max_length="11"
-        app:login_item_title="手机号"
-        app:login_item_title_width="80dp" />
+        app:login_item_max_length="11" />
 
-    <LinearLayout
+
+    <com.njz.letsgoapp.widget.LoginItemView2
+        android:id="@+id/login_view_verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:login_item_hint="请输验证码"
+        app:login_item_max_length="6"
+        app:login_item_right_text="发送验证码" />
 
-        <com.njz.letsgoapp.widget.LoginItemView
-            android:id="@+id/login_view_verify"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:login_item_hint="请输验证码"
-            app:login_item_max_length="6"
-            app:login_item_title="验证码"
-            app:login_item_title_width="80dp" />
 
-        <Button
-            android:id="@+id/btn_verify"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/btn_blue_solid_r5_p8"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            android:text="获取验证码"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
-
-    <com.njz.letsgoapp.widget.LoginItemView
+    <com.njz.letsgoapp.widget.LoginItemView2
         android:id="@+id/login_view_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:login_item_hint="请输入密码"
-        app:login_item_max_length="11"
-        app:login_item_title="新密码"
-        app:login_item_title_width="80dp" />
+        app:login_item_max_length="11" />
 
-    <com.njz.letsgoapp.widget.LoginItemView
+    <com.njz.letsgoapp.widget.LoginItemView2
         android:id="@+id/login_view_password_agin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:login_item_hint="再次输入密码"
-        app:login_item_max_length="11"
-        app:login_item_title="确认新密码"
-        app:login_item_title_width="80dp" />
+        app:login_item_max_length="11" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_getback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:background="@drawable/btn_blue_solid_r40_p8"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_theme_solid_r40"
+        android:gravity="center"
+        android:padding="8dp"
         android:text="找回密码"
         android:textColor="@color/white"
         android:textSize="16sp" />

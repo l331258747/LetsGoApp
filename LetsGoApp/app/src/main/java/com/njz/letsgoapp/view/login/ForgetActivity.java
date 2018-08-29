@@ -1,9 +1,8 @@
 package com.njz.letsgoapp.view.login;
 
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -11,9 +10,9 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.mvp.login.ForgetContract;
 import com.njz.letsgoapp.mvp.login.ForgetPresenter;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
-import com.njz.letsgoapp.widget.LoginItemView;
+import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,10 +29,12 @@ import io.reactivex.functions.Function;
  * Function:
  */
 
-public class ForgetActivity extends BaseActivity implements LoginItemView.OnClickListener,ForgetContract.View{
+public class ForgetActivity extends BaseActivity implements View.OnClickListener,ForgetContract.View{
 
-    LoginItemView loginViewPhone, loginViewVerify, loginViewPassword, loginViewPasswordAgin;
-    Button btnGetback, btnVerify;
+    LoginItemView2 loginViewPhone, loginViewVerify, loginViewPassword, loginViewPasswordAgin;
+    TextView btnGetback;
+
+    TextView tvVerify;
 
     Disposable disposable;
 
@@ -47,6 +48,7 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
     @Override
     public void initView() {
 
+//        showLeftAndTitle("找回密码");
         showLeftIcon();
 
         loginViewPhone = $(R.id.login_view_phone);
@@ -58,11 +60,20 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
         loginViewPasswordAgin = $(R.id.login_view_password_agin);
         loginViewPasswordAgin.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
+        tvVerify = loginViewVerify.getRightText();
+        tvVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
+                    return;
+                verifyEvent();
+                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"findBy");
+            }
+        });
+
         btnGetback = $(R.id.btn_getback);
-        btnVerify = $(R.id.btn_verify);
 
         btnGetback.setOnClickListener(this);
-        btnVerify.setOnClickListener(this);
     }
 
     @Override
@@ -84,12 +95,6 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
                     return;
                 mPresenter.msgCheckFindBy(loginViewPhone.getEtContent(),loginViewVerify.getEtContent(),loginViewPassword.getEtContent());
                 break;
-            case R.id.btn_verify:
-                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
-                    return;
-                verifyEvent();
-                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"findBy");
-                break;
         }
     }
 
@@ -106,8 +111,7 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        btnVerify.setEnabled(false);//在发送数据的时候设置为不能点击
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_gray_solid_r5));
+                        tvVerify.setEnabled(false);//在发送数据的时候设置为不能点击
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())//ui线程中进行控件更新
@@ -119,7 +123,7 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
 
                     @Override
                     public void onNext(Long num) {
-                        btnVerify.setText("剩余" + num + "秒");
+                        StringUtils.setHtml(tvVerify,String.format(getResources().getString(R.string.verify), num));
                     }
 
                     @Override
@@ -130,10 +134,8 @@ public class ForgetActivity extends BaseActivity implements LoginItemView.OnClic
                     @Override
                     public void onComplete() {
                         //回复原来初始状态
-                        btnVerify.setEnabled(true);
-                        btnVerify.setText("发送验证码");
-                        //@drawable/btn_blue_solid_r5_p8
-                        btnVerify.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r5_p8));//背景色设为灰色
+                        tvVerify.setEnabled(true);
+                        tvVerify.setText("发送验证码");
                     }
                 });
     }
