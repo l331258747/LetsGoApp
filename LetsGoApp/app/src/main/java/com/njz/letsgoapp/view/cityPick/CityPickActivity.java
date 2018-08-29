@@ -78,6 +78,8 @@ public class CityPickActivity extends AppCompatActivity {
                 .setOnPickListener(new OnPickListener() {
                     @Override
                     public void onPick(int position, City data) {
+                        if(data == null)
+                            return;
                         ToastUtil.showShortToast(AppUtils.getContext(),data.getName());
                         RxBus2.getInstance().post(new CityPickEvent(data.getName()));
                     }
@@ -137,6 +139,8 @@ public class CityPickActivity extends AppCompatActivity {
                         .setOnPickListener(new OnPickListener() {
                             @Override
                             public void onPick(int position, City data) {
+                                if(data == null)
+                                    return;
                                 ToastUtil.showShortToast(AppUtils.getContext(),data.getName());
                                 RxBus2.getInstance().post(new CityPickEvent(data.getName()));
                             }
