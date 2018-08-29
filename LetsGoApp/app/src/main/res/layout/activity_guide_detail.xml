@@ -87,6 +87,7 @@
 
             <!--评价-->
             <LinearLayout
+                android:id="@+id/ll_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -97,7 +98,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll_comment"
+                    android:id="@+id/ll_comment_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -122,6 +123,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_comment_title_score"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5.0"
@@ -129,6 +131,7 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/tv_comment_title_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"

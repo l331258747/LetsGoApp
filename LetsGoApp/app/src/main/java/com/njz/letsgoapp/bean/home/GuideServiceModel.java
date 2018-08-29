@@ -16,6 +16,8 @@ public class GuideServiceModel {
      * location : 北京
      */
 
+
+
     private int guideId;
     private Object commentId;
     private String titleImg;

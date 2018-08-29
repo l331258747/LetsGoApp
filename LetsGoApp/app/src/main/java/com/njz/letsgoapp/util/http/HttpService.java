@@ -4,6 +4,7 @@ import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
+import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
@@ -126,12 +127,20 @@ public interface HttpService {
             @Query("page") int page
     );
 
+    //获取导游列表
     @GET("guide/sortTop10ByLocation")
     Observable<BaseResponse<GuideListModel>> guideSortTop10ByLocation(
             @Query("location") String location,
             @Query("type") int type,
             @Query("limit") int limit,
             @Query("page") int page
+    );
+
+    //获取导游详情
+    @GET("guide/findGuideDetails")
+    Observable<BaseResponse<GuideDetailModel>> guideFindGuideDetails(
+            @Query("location") String location,
+            @Query("guideId") int guideId
     );
 
     //首页 end

@@ -16,6 +16,7 @@ import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.GuideListContract;
 import com.njz.letsgoapp.mvp.home.GuideListPresenter;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
@@ -23,6 +24,7 @@ import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -51,6 +53,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     PopGuideList popGuideList;
 
     GuideListPresenter mPresenter;
+
+    List<GuideModel> datas;
 
     @Override
     public int getLayoutId() {
@@ -134,16 +138,20 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     //初始化recyclerview
     private void initRecycler() {
+        datas = new ArrayList<>();
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new GuideListAdapter(activity, new ArrayList<GuideModel>());
+        mAdapter = new GuideListAdapter(activity, datas);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                startActivity(new Intent(context,GuideDetailActivity.class));
+                Intent intent = new Intent(context, GuideDetailActivity.class);
+                LogUtil.e(datas.get(position).getGuideId() + "");
+                intent.putExtra(GuideDetailActivity.GUIDEID,datas.get(position).getGuideId());
+                startActivity(intent);
             }
         });
 
@@ -200,7 +208,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void guideSortTop10ByLocationSuccess(GuideListModel models) {
-        mAdapter.setData(models.getList());
+        datas = models.getList();
+        mAdapter.setData(datas);
     }
 
     @Override

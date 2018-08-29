@@ -91,22 +91,27 @@ public class MethodApi {
 
     //----------首页 start -------
     public static void bannerFindByType(int type, int guideId, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().bannerFindByType(type, guideId); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().bannerFindByType(type, guideId);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     public static void orderReviewsSortTop(String location, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsSortTop(location); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsSortTop(location);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     public static void friendFriendSterTop(String location,int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().regionGetSterByLocation(location,limit,page); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().regionGetSterByLocation(location,limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     public static void guideSortTop10ByLocation(String location,int type, int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location,type,limit,page); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location,type,limit,page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void guideFindGuideDetails(String location,int guideId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().guideFindGuideDetails(location,guideId);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

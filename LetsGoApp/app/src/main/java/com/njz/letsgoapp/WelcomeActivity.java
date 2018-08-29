@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -60,6 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 //点击进入的时候直接跳转到登录界面
 //                Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
                 Intent intent = new Intent(WelcomeActivity.this, GuideDetailActivity.class);
+                intent.putExtra(GuideDetailActivity.GUIDEID,4);
                 startActivity(intent);
                 finish();
             }

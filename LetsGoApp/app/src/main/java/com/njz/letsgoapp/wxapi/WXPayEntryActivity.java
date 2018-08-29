@@ -109,7 +109,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         } else {
 
             if (type == ConstantsAPI.COMMAND_PAY_BY_WX) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                DefaultDialog.Builder builder = new DefaultDialog.Builder(this);
 //                builder.setTitle("提示");
 //                builder.setMessage(getString(R.string.pay_result_callback_msg, String.valueOf(errCode)));
 //                builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {

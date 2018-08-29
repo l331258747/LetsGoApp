@@ -78,6 +78,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     HomePresenter mPresenter;
 
+    List<GuideModel> datas;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -202,16 +204,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     HomeGuideAdapter mAdapterh;
     private void intRecyclerH(){
+
+        datas = new ArrayList<>();
         recycler_view_h = $(R.id.recycler_view_h);
         recycler_view_h.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        mAdapterh = new HomeGuideAdapter(activity, new ArrayList<GuideModel>());
+        mAdapterh = new HomeGuideAdapter(activity, datas);
         recycler_view_h.setAdapter(mAdapterh);
         recycler_view_h.setNestedScrollingEnabled(false);
         mAdapterh.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                showShortToast("点击第" + position);
-                startActivity(new Intent(context, GuideDetailActivity.class));
+                Intent intent = new Intent(context, GuideDetailActivity.class);
+                intent.putExtra(GuideDetailActivity.GUIDEID,datas.get(position).getGuideId());
+                startActivity(intent);
             }
         });
     }
@@ -299,8 +304,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     //----------banner end
 
     @Override
-    public void bannerFindByTypeSuccess(List<BannerModel> model) {
-        initBanner(model);
+    public void bannerFindByTypeSuccess(List<BannerModel> models) {
+        initBanner(models);
     }
 
     @Override
@@ -310,7 +315,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void orderReviewsSortTopSuccess(List<GuideModel> models) {
-        mAdapterh.setData(models);
+        datas = models;
+        mAdapterh.setData(datas);
     }
 
     @Override

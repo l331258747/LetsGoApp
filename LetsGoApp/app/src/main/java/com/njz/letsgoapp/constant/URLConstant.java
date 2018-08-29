@@ -10,5 +10,5 @@ public class URLConstant {
 //    public static final String BASE_URL = "http://najiuzou.uicp.net:26641/";
 //
 //    public static final String BASE_URL = "http://192.168.100.156:8090/travel-framework/api/";
-    public static final String BASE_URL = "http://192.168.100.108:8080/api/";
+    public static final String BASE_URL = "http://192.168.100.115:8080/api/";
 }

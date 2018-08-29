@@ -1,16 +1,11 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.home.GuideListAdapter;
-import com.njz.letsgoapp.adapter.mine.FansListAdapter;
-import com.njz.letsgoapp.adapter.notify.NotifyAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.view.home.GuideDetailActivity;
 
 /**
  * Created by LGQ

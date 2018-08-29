@@ -1,17 +1,15 @@
 package com.njz.letsgoapp.view.mine;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.mine.FansListAdapter;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
+import com.njz.letsgoapp.adapter.mine.FansListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.mine.FansBean;
-import com.njz.letsgoapp.view.home.GuideDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +70,6 @@ public class FansListActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                startActivity(new Intent(context,GuideDetailActivity.class));
             }
         });
 
