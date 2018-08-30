@@ -73,6 +73,18 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
 
     }
 
+    public void setTime(String startTime,String endTime){
+        tv_time_start.setText(startTime);
+        tv_time_end.setText(endTime);
+
+        tv_time_start.setBackgroundResource(R.drawable.btn_green_solid);
+        tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+        tv_time_start.setSelected(true);
+        tv_time_end.setBackgroundResource(R.drawable.btn_green_solid);
+        tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+        tv_time_end.setSelected(true);
+    }
+
     private void initView() {
         btn_submit = contentView.findViewById(R.id.btn_submit);
         btn_reset = contentView.findViewById(R.id.btn_reset);
@@ -226,7 +238,6 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 reset();
                 break;
             case R.id.btn_submit:
-
                 submit();
                 break;
             //tv_sex_lady,tv_sex_man,tv_sex_unrestricted;

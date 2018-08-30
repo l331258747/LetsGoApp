@@ -3,7 +3,6 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +22,6 @@ import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
@@ -46,7 +44,6 @@ import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.zaaach.citypicker.model.City;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,10 +149,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 calendarPick();
                 break;
             case R.id.rl_guide_title:
-                startActivity(new Intent(context,GuideListActivity.class));
+                startActivity(new Intent(context, GuideListActivity.class));
                 break;
             case R.id.btn_trip_setting:
-                startActivity(new Intent(context, GuideListActivity.class));
+                Intent intent = new Intent(context,GuideListActivity.class);
+                intent.putExtra("startTime",tv_start_time_content.getText().toString());
+                intent.putExtra("endTime",tv_end_time_content.getText().toString());
+                startActivity(intent);
                 break;
         }
     }

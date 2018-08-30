@@ -5,6 +5,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -60,6 +62,16 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     List<GuideModel> datas;
     Map<String,String> maps;
     int type = 1;
+
+    String startTime;
+    String endTime;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        startTime = intent.getStringExtra("startTime");
+        endTime = intent.getStringExtra("endTime");
+    }
 
     @Override
     public int getLayoutId() {
@@ -99,39 +111,43 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         showShortToast("筛选");
 
-                        if (popGuideList == null){
-                            popGuideList = new PopGuideList(context, myGuideTab);
-
-                            popGuideList.setSubmitLisener(new PopGuideList.SubmitLisener() {
-                                @Override
-                                public void onSubmit(Map<String,String> result) {
-                                    //设置选中，获取回调信息，服务器交互
-                                    myGuideTab.setScreen(true);
-
-                                    for (String key : result.keySet()) {
-                                        System.out.println("key= "+ key + " and value= " + result.get(key));
-                                    }
-
-                                    if(result.size() > 0){
-                                        maps = result;
-                                    }else{
-                                        maps = null;
-                                    }
-                                    getGuideSortTop10ByLocation(type);
-                                }
-
-                                @Override
-                                public void onReset() {
-                                    myGuideTab.setScreen(false);
-                                    maps = null;
-                                    getGuideSortTop10ByLocation(type);
-                                }
-                            });
-                        }
-
                         popGuideList.showPopupWindow(myGuideTab);
                         break;
                 }
+            }
+        });
+
+        popGuideList = new PopGuideList(context, myGuideTab);
+        if(!TextUtils.isEmpty(startTime)){
+            popGuideList.setTime(startTime,endTime);
+            myGuideTab.setScreen(true);
+            maps = new HashMap<>();
+            maps.put("startTime", startTime);
+            maps.put("startTime", endTime);
+        }
+        popGuideList.setSubmitLisener(new PopGuideList.SubmitLisener() {
+            @Override
+            public void onSubmit(Map<String,String> result) {
+                //设置选中，获取回调信息，服务器交互
+                myGuideTab.setScreen(true);
+
+                for (String key : result.keySet()) {
+                    System.out.println("key= "+ key + " and value= " + result.get(key));
+                }
+
+                if(result.size() > 0){
+                    maps = result;
+                }else{
+                    maps = null;
+                }
+                getGuideSortTop10ByLocation(type);
+            }
+
+            @Override
+            public void onReset() {
+                myGuideTab.setScreen(false);
+                maps = null;
+                getGuideSortTop10ByLocation(type);
             }
         });
 

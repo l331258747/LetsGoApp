@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_left"
@@ -35,7 +35,6 @@
                 android:drawableRight="@mipmap/ic_arrow_down"
                 android:paddingLeft="10dp"
                 android:text="张家界"
-                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -43,7 +42,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/gray_999" />
+                android:background="@color/color_d9" />
 
 
             <TextView
