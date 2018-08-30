@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.util.StringUtils;
 
 /**
  * Created by LGQ
@@ -56,11 +57,15 @@ public class GuideScoreView extends LinearLayout {
     }
 
     public void setGuideScoreService(int service) {
-        guideScoreService.setText(service + "次服务");
+        //service_cout
+//        guideScoreService.setText(service + "次服务");
+        StringUtils.setHtml(guideScoreService,String.format(getResources().getString(R.string.service_cout),service));
     }
 
     public void setGuideScoreScore(float score) {
-        guideScoreScore.setText(score + "分");
+        //service_score
+//        guideScoreScore.setText(score + "分");
+        StringUtils.setHtml(guideScoreService,String.format(getResources().getString(R.string.service_score),score));
     }
 
     public void setGuideScoreComment(int comment) {

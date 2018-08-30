@@ -15,4 +15,8 @@
     <string name="verify"><Data><![CDATA[重新发送<font color="#dd0000">%ds</font>]]></Data></string>
 
 
+    <string name="service_cout"><Data><![CDATA[服务<font color="#5fb1ff">%d</font>次]]></Data></string>
+    <string name="service_score"><Data><![CDATA[<font color="##ff7c00">%f</font>分]]></Data></string>
+
+
 </resources>

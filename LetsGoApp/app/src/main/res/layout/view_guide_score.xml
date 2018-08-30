@@ -15,6 +15,7 @@
         android:id="@+id/guide_score_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/color_99"
         android:text="  |  " />
 
     <TextView

@@ -13,13 +13,29 @@
         android:layout_width="match_parent"
         android:layout_height="95dp">
 
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+
+        <RelativeLayout
+            android:id="@+id/rl_head"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            tools:src="@mipmap/head_default" />
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@mipmap/head_default" />
+
+            <ImageView
+                android:id="@+id/iv_sex"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                tools:background="@mipmap/icon_boy" />
+
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -28,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/iv_head"
+            android:layout_toEndOf="@+id/rl_head"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -58,7 +74,7 @@
             android:layout_below="@id/ll_name"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
-            android:layout_toEndOf="@+id/iv_head"
+            android:layout_toEndOf="@+id/rl_head"
             app:guide_score_text_size="12" />
 
         <TextView
@@ -67,11 +83,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_times"
             android:layout_margin="5dp"
-            android:layout_toEndOf="@id/iv_head"
+            android:layout_toEndOf="@id/rl_head"
             android:ellipsize="end"
             android:maxLines="1"
-            tools:text="阿尔噶尔阿哥噶尔噶啊噶诶玩过阿尔噶围观按个发文稿啊哥哥艾尔"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="阿尔噶尔阿哥噶尔噶啊噶诶玩过阿尔噶围观按个发文稿啊哥哥艾尔" />
 
 
         <com.njz.letsgoapp.widget.ServiceTagView
@@ -79,10 +95,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_content"
-            android:layout_toEndOf="@id/iv_head"
+            android:layout_toEndOf="@id/rl_head"
+            android:textColor="@color/color_99"
+            android:layout_marginLeft="5dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textSize="11sp"
+            android:textSize="12sp"
             tools:text="向导陪游" />
 
     </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,6 +65,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
+            ((GuideViewHolder) holder).iv_sex.setImageDrawable(data.getGuideGender() == 0? ContextCompat.getDrawable(mContext,R.mipmap.icon_girl):ContextCompat.getDrawable(mContext,R.mipmap.icon_boy));
 
         }
 
@@ -81,7 +83,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static class GuideViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        ImageView iv_head;
+        ImageView iv_head,iv_sex;
         TextView tv_name;
         MyRatingBar rating_bar_route;
         TextView tv_content;
@@ -97,6 +99,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tv_content = itemView.findViewById(R.id.tv_content);
             tv_service_item = itemView.findViewById(R.id.tv_service_item);
             ll_times = itemView.findViewById(R.id.ll_times);
+            iv_sex = itemView.findViewById(R.id.iv_sex);
         }
     }
 
