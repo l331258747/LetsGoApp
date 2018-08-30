@@ -207,7 +207,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public void initData() {
 
         mPresenter = new GuideDetailPresenter(context, this);
-        mPresenter.guideFindGuideDetails("张家界", guideId);
+        mPresenter.guideFindGuideDetails(Constant.DEFAULT_CITY, guideId);
         mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
         final int mDisplayHeight = AppUtils.getDisplayHeight();

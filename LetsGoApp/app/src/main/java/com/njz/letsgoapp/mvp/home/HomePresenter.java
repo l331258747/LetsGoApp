@@ -2,6 +2,7 @@ package com.njz.letsgoapp.mvp.home;
 
 import android.content.Context;
 
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
@@ -74,5 +75,21 @@ public class HomePresenter implements Presenter {
             }
         };
         MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener));
+    }
+
+    @Override
+    public void regionFindProAndCity() {
+        ResponseCallback listener = new ResponseCallback<EmptyModel>() {
+            @Override
+            public void onSuccess(EmptyModel data) {
+                iView.regionFindProAndCitySuccess(data);
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.regionFindProAndCityFailed(errorMsg);
+            }
+        };
+        MethodApi.regionFindProAndCity(new OnSuccessAndFaultSub(listener));
     }
 }

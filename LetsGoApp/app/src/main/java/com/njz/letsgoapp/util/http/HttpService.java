@@ -146,5 +146,10 @@ public interface HttpService {
     //首页 end
 
 
+    //城市选择 region/findProAndCity
+    @GET("region/findProAndCity")
+    Observable<BaseResponse<EmptyModel>> regionFindProAndCity(
+    );
+
 
 }

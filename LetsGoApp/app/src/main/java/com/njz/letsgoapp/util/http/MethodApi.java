@@ -117,4 +117,11 @@ public class MethodApi {
 
     //----------首页 end -------
 
+    //--------城市选择 start
+    public static void regionFindProAndCity(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().regionFindProAndCity();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+    //--------城市选择 end
+
 }

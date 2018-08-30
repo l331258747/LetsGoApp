@@ -171,7 +171,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void getGuideSortTop10ByLocation(int type){
-        mPresenter.guideSortTop10ByLocation("张家界",type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
+        mPresenter.guideSortTop10ByLocation(Constant.DEFAULT_CITY,type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
     }
 
 

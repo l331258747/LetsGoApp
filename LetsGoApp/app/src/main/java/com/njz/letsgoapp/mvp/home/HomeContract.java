@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.mvp.home;
 
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
@@ -18,6 +19,7 @@ public interface HomeContract {
         void bannerFindByType(int type, int guideId);
         void orderReviewsSortTop(String location);
         void friendFriendSterTop(String location,int limit,int page);
+        void regionFindProAndCity();
     }
 
     interface View {
@@ -29,5 +31,8 @@ public interface HomeContract {
 
         void friendFriendSterTopSuccess(DynamicListModel models);
         void friendFriendSterTopFailed(String msg);
+
+        void regionFindProAndCitySuccess(EmptyModel model);
+        void regionFindProAndCityFailed(String msg);
     }
 }

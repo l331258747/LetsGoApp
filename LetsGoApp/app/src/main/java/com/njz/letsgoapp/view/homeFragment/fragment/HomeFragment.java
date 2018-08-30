@@ -22,6 +22,7 @@ import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
@@ -157,12 +158,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initData() {
 
+        //TODO
+
         mPresenter = new HomePresenter(context,this);
         mPresenter.friendFriendSterTop("长沙",5,Constant.DEFAULT_PAGE);
-        mPresenter.orderReviewsSortTop("张家界");
+        mPresenter.orderReviewsSortTop(Constant.DEFAULT_CITY);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
-        tv_destination_content.setText("张家界");
+        tv_destination_content.setText("");
         tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
         tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
         tv_day_time.setText("2天");
@@ -230,7 +233,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             public void onRefresh() {
 
                 mPresenter.friendFriendSterTop("长沙",5,Constant.DEFAULT_PAGE);
-                mPresenter.orderReviewsSortTop("张家界");
+                mPresenter.orderReviewsSortTop(Constant.DEFAULT_CITY);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
                 swipeRefreshLayout.setRefreshing(false);
@@ -241,15 +244,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     //城市选择
     private void cityPick(){
-        startActivity(new Intent(context, CityPickActivity.class));
-        activity.overridePendingTransition(0, 0);
-        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-            @Override
-            public void accept(CityPickEvent cityPickEvent) throws Exception {
-                tv_destination_content.setText(cityPickEvent.getCity());
-                desDisposable.dispose();
-            }
-        });
+
+        mPresenter.regionFindProAndCity();
     }
 
     //日历选择
@@ -331,6 +327,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void friendFriendSterTopFailed(String msg) {
+        showLongToast(msg);
+    }
+
+    @Override
+    public void regionFindProAndCitySuccess(EmptyModel model) {
+        startActivity(new Intent(context, CityPickActivity.class));
+        activity.overridePendingTransition(0, 0);
+        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+            @Override
+            public void accept(CityPickEvent cityPickEvent) throws Exception {
+                tv_destination_content.setText(cityPickEvent.getCity());
+                desDisposable.dispose();
+            }
+        });
+    }
+
+    @Override
+    public void regionFindProAndCityFailed(String msg) {
         showLongToast(msg);
     }
 }
