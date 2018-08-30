@@ -6,6 +6,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.mvp.home.HomeContract.Presenter;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -79,9 +80,9 @@ public class HomePresenter implements Presenter {
 
     @Override
     public void regionFindProAndCity() {
-        ResponseCallback listener = new ResponseCallback<EmptyModel>() {
+        ResponseCallback listener = new ResponseCallback<List<ProvinceModel>>() {
             @Override
-            public void onSuccess(EmptyModel data) {
+            public void onSuccess(List<ProvinceModel> data) {
                 iView.regionFindProAndCitySuccess(data);
             }
 

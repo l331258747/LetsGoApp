@@ -11,6 +11,7 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.bean.other.ProvinceModel;
 
 import java.util.List;
 import java.util.Map;
@@ -160,7 +161,7 @@ public interface HttpService {
 
     //城市选择 region/findProAndCity
     @GET("region/findProAndCity")
-    Observable<BaseResponse<EmptyModel>> regionFindProAndCity(
+    Observable<BaseResponse<List<ProvinceModel>>> regionFindProAndCity(
     );
 
 }

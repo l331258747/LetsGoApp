@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,8 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.other.CityModel;
+import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
@@ -41,7 +44,9 @@ import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.zaaach.citypicker.model.City;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -331,8 +336,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     @Override
-    public void regionFindProAndCitySuccess(EmptyModel model) {
-        startActivity(new Intent(context, CityPickActivity.class));
+    public void regionFindProAndCitySuccess(List<ProvinceModel> models) {
+        Intent intent = new Intent(context, CityPickActivity.class);
+        List<City> citys = new ArrayList<>();
+        for (int i = 0; i<models.size();i++){
+            List<CityModel> cityModels = models.get(i).getTravelRegionEntitys();
+            for (int j = 0; j<cityModels.size();j++){
+                CityModel cityModel = cityModels.get(j);
+                City city = new City(cityModel.getName(),models.get(i).getProName(),cityModel.getSpell(),"12312");
+                citys.add(city);
+            }
+        }
+        intent.putParcelableArrayListExtra("citys", (ArrayList<City>) citys);
+        startActivity(intent);
         activity.overridePendingTransition(0, 0);
         desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
             @Override

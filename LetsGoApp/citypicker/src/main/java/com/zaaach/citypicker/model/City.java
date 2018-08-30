@@ -1,14 +1,17 @@
 package com.zaaach.citypicker.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * author Bro0cL on 2016/1/26.
  */
-public class City {
+public class City implements Parcelable {
     private String name;
     private String province;
     private String pinyin;
@@ -73,5 +76,38 @@ public class City {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+
+    protected City(Parcel in) {
+        name = in.readString();
+        province = in.readString();
+        pinyin = in.readString();
+        code = in.readString();
+    }
+
+    public static final Creator<City> CREATOR = new Creator<City>() {
+        @Override
+        public City createFromParcel(Parcel in) {
+            return new City(in);
+        }
+
+        @Override
+        public City[] newArray(int size) {
+            return new City[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(province);
+        dest.writeString(pinyin);
+        dest.writeString(code);
     }
 }

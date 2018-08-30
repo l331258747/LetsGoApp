@@ -73,12 +73,8 @@ public class GsonUtil {
     public static <T> T convertString2Collection(String jsonStr, TypeToken<T> typeToken) {
         try {
             Gson gson = new Gson();
-            if (isJson(jsonStr)) {
-                T t = gson.fromJson(jsonStr, typeToken.getType());
-                return t;
-            } else {
-                return null;
-            }
+            T t = gson.fromJson(jsonStr, typeToken.getType());
+            return t;
         } catch (Exception e) {
             LogUtil.e("convertString2Collection \r\n  error = \r\n    " + Log.getStackTraceString(e));
             return null;

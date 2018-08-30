@@ -49,8 +49,14 @@ public class CityPickActivity extends AppCompatActivity {
         setTheme(R.style.CustomTheme);
 
         int intentTag = getIntent().getIntExtra(CITYPICK_TAG,CITYPICK_DEFULT);
+        List<City> citys = getIntent().getParcelableArrayListExtra("citys");
         if(intentTag == CITYPICK_DEFULT){
-            initView();
+            if(citys == null){
+                initView();
+            }else{
+                initView(citys);
+            }
+
         }else{
             initView2(intentTag);
         }
@@ -90,6 +96,8 @@ public class CityPickActivity extends AppCompatActivity {
                 })
                 .show();
     }
+
+
 
     public void initView() {
 
@@ -150,6 +158,39 @@ public class CityPickActivity extends AppCompatActivity {
                             }
                         })
                         .show();
+    }
+
+    public void initView(List<City> citys) {
+
+        List<HotCity> hotCities = new ArrayList<>();
+        hotCities.add(new HotCity("北京", "北京", "101010100"));
+        hotCities.add(new HotCity("上海", "上海", "101020100"));
+        hotCities.add(new HotCity("广州", "广东", "101280101"));
+        hotCities.add(new HotCity("深圳", "广东", "101280601"));
+        hotCities.add(new HotCity("杭州", "浙江", "101210101"));
+
+        CityPicker.getInstance()
+                .setFragmentManager(getSupportFragmentManager())	//此方法必须调用
+                .enableAnimation(true)	//启用动画效果
+//                        .setAnimationStyle(R.style.DefaultCityPickerAnimation)	//自定义动画
+                .setAnimationStyle(R.style.CustomAnim)	//自定义动画
+                .setCitys(citys)
+//                        .setLocatedCity(new LocatedCity("杭州", "浙江", "101210101"))  //APP自身已定位的城市，默认为null（定位失败）
+                .setHotCities(hotCities)	//指定热门城市
+                .setOnPickListener(new OnPickListener() {
+                    @Override
+                    public void onPick(int position, City data) {
+                        if(data == null)
+                            return;
+                        ToastUtil.showShortToast(AppUtils.getContext(),data.getName());
+                        RxBus2.getInstance().post(new CityPickEvent(data.getName()));
+                    }
+
+                    @Override
+                    public void onLocate() {
+                    }
+                })
+                .show();
     }
 
     @Override
