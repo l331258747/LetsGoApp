@@ -100,8 +100,8 @@ public class CalendarActivity extends Activity {
                 }else{
                     String startTime = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
                     String endTime = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();
-                    RxBus2.getInstance().post(new CalendarEvent(CalendarData.startDay.getMonth()+"月"+CalendarData.startDay.getDay()+"日"
-                            ,CalendarData.stopDay.getMonth() + "月" + CalendarData.stopDay.getDay() + "日"
+                    RxBus2.getInstance().post(new CalendarEvent(CalendarData.startDay.getYear() +"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay()
+                            ,CalendarData.startDay.getYear() +"-"+CalendarData.stopDay.getMonth() + "-" + CalendarData.stopDay.getDay()
                             ,getGapCount(startTime,endTime) + "天"));
                 }
                 finish();

@@ -165,7 +165,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         mPresenter.orderReviewsSortTop(Constant.DEFAULT_CITY);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
-        tv_destination_content.setText("");
+        tv_destination_content.setText(Constant.DEFAULT_CITY);
         tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
         tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
         tv_day_time.setText("2天");

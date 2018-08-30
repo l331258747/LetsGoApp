@@ -1,9 +1,11 @@
 package com.njz.letsgoapp.widget.popupwindow;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +15,12 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
+import com.njz.letsgoapp.view.calendar.CalendarActivity;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -26,12 +34,19 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
     TextView tv_year_5, tv_year_3, tv_year_1;
     TextView tv_age_50, tv_age_41, tv_age_31, tv_age_26, tv_age_18, tv_age_unrestricted;
     TextView tv_sex_lady, tv_sex_man, tv_sex_unrestricted;
-    EditText et_price_low, et_price_high;
+    TextView tv_time_start, tv_time_end,tv_time_unrestricted;
+//    EditText et_price_low, et_price_high;
 
     private View contentView;
+    private Context context;
+
+    private ArrayMap<String,String> result = new ArrayMap();
+    Disposable calDisposable;
 
     public PopGuideList(final Context context, View parentView) {
         super(parentView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        this.context = context;
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -80,14 +95,19 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         tv_sex_man = contentView.findViewById(R.id.tv_sex_man);
         tv_sex_unrestricted = contentView.findViewById(R.id.tv_sex_unrestricted);
         //et_price_low,et_price_hight;
-        et_price_low = contentView.findViewById(R.id.et_price_low);
-        et_price_high = contentView.findViewById(R.id.et_price_high);
+//        et_price_low = contentView.findViewById(R.id.et_price_low);
+//        et_price_high = contentView.findViewById(R.id.et_price_high);
+        //tv_time_start, tv_time_end
+        tv_time_start = contentView.findViewById(R.id.tv_time_start);
+        tv_time_end = contentView.findViewById(R.id.tv_time_end);
+        tv_time_unrestricted = contentView.findViewById(R.id.tv_time_unrestricted);
 
         setClickLisener(btn_submit, btn_reset);
         setClickLisener(tv_type_private, tv_type_scenic, tv_type_hotel, tv_type_car, tv_type_guide);
         setClickLisener(tv_year_5, tv_year_3, tv_year_1);
         setClickLisener(tv_age_50, tv_age_41, tv_age_31, tv_age_26, tv_age_18, tv_age_unrestricted);
         setClickLisener(tv_sex_lady, tv_sex_man, tv_sex_unrestricted);
+        setClickLisener(tv_time_start, tv_time_end,tv_time_unrestricted);
     }
 
     private void setClickLisener(View... views) {
@@ -120,14 +140,49 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
 
     //确定
     public void submit() {
-        submitLisener.onSubmit();
+        result.put("sex", tv_sex_lady.isSelected() ? "0"
+                : tv_sex_man.isSelected() ? "1"
+                : "");
+        result.put("age", tv_age_18.isSelected() ? "18,25"
+                : tv_age_26.isSelected() ? "26,30"
+                : tv_age_31.isSelected() ? "31,40"
+                : tv_age_41.isSelected() ? "41,50"
+                : tv_age_50.isSelected() ? "51,100"
+                : "");
+        result.put("workYear", tv_year_1.isSelected() ? "1,3"
+                : tv_year_3.isSelected() ? "3,5"
+                : tv_year_5.isSelected() ? "6,100"
+                : "");
+        result.put("time", tv_time_start.isSelected() ? tv_time_start.getText().toString() + "," + tv_time_end.getText().toString()
+                : "");
+        result.put("service",getServices());
+
+        submitLisener.onSubmit(result);
         dismissPopupWindow();
+    }
+
+    private String getServices(){
+        StringBuffer services = new StringBuffer("");
+        //tv_type_private,tv_type_scenic,tv_type_hotel,tv_type_car,tv_type_guide
+        if(tv_type_private.isSelected())
+            services.append("私人订制，");
+        if(tv_type_scenic.isSelected())
+            services.append("代订门票，");
+        if(tv_type_hotel.isSelected())
+            services.append("代订酒店，");
+        if(tv_type_car.isSelected())
+            services.append("包车服务，");
+        if(tv_type_guide.isSelected())
+            services.append("向导陪游，");
+        if(services.toString().length() > 0)
+            return services.toString().substring(0,services.toString().length() - 1);
+        return services.toString();
     }
 
     //重置
     private void reset() {
-        et_price_low.setText("");
-        et_price_high.setText("");
+//        et_price_low.setText("");
+//        et_price_high.setText("");
         setResetAllView(tv_type_private, tv_type_scenic, tv_type_hotel, tv_type_car, tv_type_guide, tv_year_5, tv_year_3, tv_year_1
                 , tv_age_50, tv_age_41, tv_age_31, tv_age_26, tv_age_18, tv_age_unrestricted, tv_sex_lady, tv_sex_man, tv_sex_unrestricted);
         submitLisener.onReset();
@@ -163,6 +218,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 reset();
                 break;
             case R.id.btn_submit:
+
                 submit();
                 break;
             //tv_sex_lady,tv_sex_man,tv_sex_unrestricted;
@@ -232,14 +288,55 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 setViewSelect(tv_age_unrestricted);
                 setResetAllView(tv_age_41, tv_age_31, tv_age_26, tv_age_18, tv_age_50);
                 break;
+            case R.id.tv_time_start:
+                setTime();
+                break;
+            case R.id.tv_time_end:
+                setTime();
+                break;
+            case R.id.tv_time_unrestricted:
+                tv_time_start.setBackgroundResource(R.drawable.btn_black_hollow_p5);
+                tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+                tv_time_start.setSelected(false);
+                tv_time_end.setBackgroundResource(R.drawable.btn_black_hollow_p5);
+                tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+                tv_time_end.setSelected(false);
+                tv_time_start.setText("开始时间");
+                tv_time_end.setText("结束时间");
+
+                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_green_solid);
+                tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+                tv_time_unrestricted.setSelected(true);
+                break;
         }
     }
 
-    public interface SubmitLisener {
-        void onSubmit();
-        void onReset();
+    private void setTime() {
+
+        context.startActivity(new Intent(context, CalendarActivity.class));
+        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
+            @Override
+            public void accept(CalendarEvent calendarEvent) throws Exception {
+                tv_time_start.setText(calendarEvent.getStartTime());
+                tv_time_end.setText(calendarEvent.getEndTime());
+
+                tv_time_start.setBackgroundResource(R.drawable.btn_green_solid);
+                tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+                tv_time_start.setSelected(true);
+                tv_time_end.setBackgroundResource(R.drawable.btn_green_solid);
+                tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+                tv_time_end.setSelected(true);
+
+                calDisposable.dispose();
+            }
+        });
     }
 
+    public interface SubmitLisener {
+        void onSubmit(ArrayMap<String,String> result);
+
+        void onReset();
+    }
 
 
 }

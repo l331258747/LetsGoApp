@@ -151,5 +151,4 @@ public interface HttpService {
     Observable<BaseResponse<EmptyModel>> regionFindProAndCity(
     );
 
-
 }

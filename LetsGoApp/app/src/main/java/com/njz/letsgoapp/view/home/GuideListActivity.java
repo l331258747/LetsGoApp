@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.home;
 
 import android.content.Intent;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,8 @@ import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -95,9 +98,14 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
                             popGuideList.setSubmitLisener(new PopGuideList.SubmitLisener() {
                                 @Override
-                                public void onSubmit() {
+                                public void onSubmit(ArrayMap<String,String> result) {
                                     //设置选中，获取回调信息，服务器交互
                                     myGuideTab.setScreen(true);
+
+                                    for (String key : result.keySet()) {
+                                        System.out.println("key= "+ key + " and value= " + result.get(key));
+                                    }
+
                                 }
 
                                 @Override
