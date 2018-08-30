@@ -2,6 +2,8 @@ package com.njz.letsgoapp.mvp.home;
 
 import com.njz.letsgoapp.bean.home.GuideListModel;
 
+import java.util.Map;
+
 /**
  * Created by LGQ
  * Time: 2018/8/28
@@ -11,7 +13,7 @@ import com.njz.letsgoapp.bean.home.GuideListModel;
 public interface GuideListContract {
 
     interface Presenter {
-        void guideSortTop10ByLocation(String location, int type, int limit, int page);
+        void guideSortTop10ByLocation(String location, int type, int limit, int page, Map<String,String> maps);
     }
 
     interface View {

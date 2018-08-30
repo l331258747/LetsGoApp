@@ -13,6 +13,7 @@ import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -20,6 +21,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by LGQ
@@ -134,6 +136,16 @@ public interface HttpService {
             @Query("type") int type,
             @Query("limit") int limit,
             @Query("page") int page
+    );
+
+    //获取导游列表
+    @GET("guide/sortTop10ByLocation")
+    Observable<BaseResponse<GuideListModel>> guideSortTop10ByLocation2(
+            @Query("location") String location,
+            @Query("type") int type,
+            @Query("limit") int limit,
+            @Query("page") int page,
+            @QueryMap Map<String, String> maps
     );
 
     //获取导游详情

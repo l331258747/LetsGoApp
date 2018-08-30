@@ -5,6 +5,8 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -105,10 +107,18 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void guideSortTop10ByLocation(String location,int type, int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location,type,limit,page);
+    public static void guideSortTop10ByLocation(String location, int type, int limit, int page, Map<String, String> maps, DisposableObserver subscriber) {
+        Observable observable;
+        if(maps == null){
+            observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location,type,limit,page);
+        }else{
+            observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation2(location,type,limit,page,maps);
+        }
+
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
+
+
 
     public static void guideFindGuideDetails(String location,int guideId, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().guideFindGuideDetails(location,guideId);

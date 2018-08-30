@@ -19,6 +19,9 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -40,7 +43,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
     private View contentView;
     private Context context;
 
-    private ArrayMap<String,String> result = new ArrayMap();
+    private Map<String,String> result = new HashMap<>();
     Disposable calDisposable;
 
     public PopGuideList(final Context context, View parentView) {
@@ -140,22 +143,24 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
 
     //确定
     public void submit() {
-        result.put("sex", tv_sex_lady.isSelected() ? "0"
+        result.put("gender", tv_sex_lady.isSelected() ? "0"
                 : tv_sex_man.isSelected() ? "1"
                 : "");
-        result.put("age", tv_age_18.isSelected() ? "18,25"
+        result.put("ages", tv_age_18.isSelected() ? "18,25"
                 : tv_age_26.isSelected() ? "26,30"
                 : tv_age_31.isSelected() ? "31,40"
                 : tv_age_41.isSelected() ? "41,50"
                 : tv_age_50.isSelected() ? "51,100"
                 : "");
-        result.put("workYear", tv_year_1.isSelected() ? "1,3"
+        result.put("workYears", tv_year_1.isSelected() ? "1,3"
                 : tv_year_3.isSelected() ? "3,5"
                 : tv_year_5.isSelected() ? "6,100"
                 : "");
-        result.put("time", tv_time_start.isSelected() ? tv_time_start.getText().toString() + "," + tv_time_end.getText().toString()
+        result.put("startTime", tv_time_start.isSelected() ? tv_time_start.getText().toString()
                 : "");
-        result.put("service",getServices());
+        result.put("startTime", tv_time_end.isSelected() ? tv_time_end.getText().toString()
+                : "");
+        result.put("serviceTypes",getServices());
 
         submitLisener.onSubmit(result);
         dismissPopupWindow();
@@ -165,15 +170,15 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         StringBuffer services = new StringBuffer("");
         //tv_type_private,tv_type_scenic,tv_type_hotel,tv_type_car,tv_type_guide
         if(tv_type_private.isSelected())
-            services.append("私人订制，");
+            services.append("私人订制,");
         if(tv_type_scenic.isSelected())
-            services.append("代订门票，");
+            services.append("代订门票,");
         if(tv_type_hotel.isSelected())
-            services.append("代订酒店，");
+            services.append("代订酒店,");
         if(tv_type_car.isSelected())
-            services.append("包车服务，");
+            services.append("包车服务,");
         if(tv_type_guide.isSelected())
-            services.append("向导陪游，");
+            services.append("向导陪游,");
         if(services.toString().length() > 0)
             return services.toString().substring(0,services.toString().length() - 1);
         return services.toString();
@@ -184,7 +189,10 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
 //        et_price_low.setText("");
 //        et_price_high.setText("");
         setResetAllView(tv_type_private, tv_type_scenic, tv_type_hotel, tv_type_car, tv_type_guide, tv_year_5, tv_year_3, tv_year_1
-                , tv_age_50, tv_age_41, tv_age_31, tv_age_26, tv_age_18, tv_age_unrestricted, tv_sex_lady, tv_sex_man, tv_sex_unrestricted);
+                , tv_age_50, tv_age_41, tv_age_31, tv_age_26, tv_age_18, tv_age_unrestricted, tv_sex_lady, tv_sex_man,
+                tv_sex_unrestricted,tv_time_start,tv_time_end,tv_time_unrestricted);
+        tv_time_start.setText("开始时间");
+        tv_time_end.setText("结束时间");
         submitLisener.onReset();
         dismissPopupWindow();
     }
@@ -333,7 +341,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
     }
 
     public interface SubmitLisener {
-        void onSubmit(ArrayMap<String,String> result);
+        void onSubmit(Map<String,String> result);
 
         void onReset();
     }

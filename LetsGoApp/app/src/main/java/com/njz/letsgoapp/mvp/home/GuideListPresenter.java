@@ -8,6 +8,8 @@ import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 
+import java.util.Map;
+
 /**
  * Created by LGQ
  * Time: 2018/8/28
@@ -25,7 +27,7 @@ public class GuideListPresenter implements GuideListContract.Presenter {
     }
 
     @Override
-    public void guideSortTop10ByLocation(String location, int type, int limit, int page) {
+    public void guideSortTop10ByLocation(String location, int type, int limit, int page, Map<String,String> maps) {
         ResponseCallback listener = new ResponseCallback<GuideListModel>() {
             @Override
             public void onSuccess(GuideListModel data) {
@@ -37,6 +39,6 @@ public class GuideListPresenter implements GuideListContract.Presenter {
                 iView.guideSortTop10ByLocationFailed(errorMsg);
             }
         };
-        MethodApi.guideSortTop10ByLocation(location, type, limit, page, new OnSuccessAndFaultSub(listener));
+        MethodApi.guideSortTop10ByLocation(location, type, limit, page, maps,new OnSuccessAndFaultSub(listener));
     }
 }

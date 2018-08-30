@@ -58,6 +58,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     GuideListPresenter mPresenter;
 
     List<GuideModel> datas;
+    Map<String,String> maps;
+    int type = 1;
 
     @Override
     public int getLayoutId() {
@@ -79,16 +81,20 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             public void onClick(int position) {
                 switch (position) {
                     case MyGuideTab.MYGUIDETAB_SYNTHESIZE:
-                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SYNTHESIZE);
+                        type = Constant.GUIDE_TYPE_SYNTHESIZE;
+                        getGuideSortTop10ByLocation(type);
                         break;
                     case MyGuideTab.MYGUIDETAB_COUNT:
-                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_COUNT);
+                        type = Constant.GUIDE_TYPE_COUNT;
+                        getGuideSortTop10ByLocation(type);
                         break;
                     case MyGuideTab.MYGUIDETAB_SCORE:
-                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SCORE);
+                        type = Constant.GUIDE_TYPE_SCORE;
+                        getGuideSortTop10ByLocation(type);
                         break;
                     case MyGuideTab.MYGUIDETAB_COMMENT:
-                        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_COMMENT);
+                        type = Constant.GUIDE_TYPE_COMMENT;
+                        getGuideSortTop10ByLocation(type);
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         showShortToast("筛选");
@@ -98,7 +104,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
                             popGuideList.setSubmitLisener(new PopGuideList.SubmitLisener() {
                                 @Override
-                                public void onSubmit(ArrayMap<String,String> result) {
+                                public void onSubmit(Map<String,String> result) {
                                     //设置选中，获取回调信息，服务器交互
                                     myGuideTab.setScreen(true);
 
@@ -106,11 +112,19 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                                         System.out.println("key= "+ key + " and value= " + result.get(key));
                                     }
 
+                                    if(result.size() > 0){
+                                        maps = result;
+                                    }else{
+                                        maps = null;
+                                    }
+                                    getGuideSortTop10ByLocation(type);
                                 }
 
                                 @Override
                                 public void onReset() {
                                     myGuideTab.setScreen(false);
+                                    maps = null;
+                                    getGuideSortTop10ByLocation(type);
                                 }
                             });
                         }
@@ -172,14 +186,14 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SYNTHESIZE);
+                getGuideSortTop10ByLocation(type);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
     private void getGuideSortTop10ByLocation(int type){
-        mPresenter.guideSortTop10ByLocation(Constant.DEFAULT_CITY,type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
+        mPresenter.guideSortTop10ByLocation(Constant.DEFAULT_CITY,type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE,maps);
     }
 
 
@@ -187,7 +201,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     public void initData() {
         mPresenter = new GuideListPresenter(context,this);
 
-        getGuideSortTop10ByLocation(Constant.GUIDE_TYPE_SYNTHESIZE);
+        getGuideSortTop10ByLocation(type);
     }
 
 
