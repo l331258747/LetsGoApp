@@ -110,7 +110,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         showShortToast("筛选");
-
                         popGuideList.showPopupWindow(myGuideTab);
                         break;
                 }

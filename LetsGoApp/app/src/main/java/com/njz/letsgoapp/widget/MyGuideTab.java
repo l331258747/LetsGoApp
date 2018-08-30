@@ -89,7 +89,6 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
                 index = MYGUIDETAB_SCORE;
                 break;
             case R.id.tv_screen:
-                tv_screen.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.color_theme));
                 index = MYGUIDETAB_SCREEN;
                 break;
         }

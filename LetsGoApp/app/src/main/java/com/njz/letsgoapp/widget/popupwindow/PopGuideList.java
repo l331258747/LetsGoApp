@@ -346,6 +346,10 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
                 tv_time_end.setSelected(true);
 
+                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_black_hollow_p5);
+                tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+                tv_time_unrestricted.setSelected(false);
+
                 calDisposable.dispose();
             }
         });
