@@ -118,6 +118,7 @@
 
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />
+        <activity android:name=".view.other.MyCityPickActivity" />
         <activity android:name=".view.other.BigImageActivity"
             android:theme="@style/welcomeTheme"/>
 

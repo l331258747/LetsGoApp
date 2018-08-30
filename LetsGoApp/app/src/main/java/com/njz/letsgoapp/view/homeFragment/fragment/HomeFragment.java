@@ -42,6 +42,7 @@ import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.zaaach.citypicker.model.City;
 
 import java.util.ArrayList;
@@ -219,7 +220,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         mAdapterh = new HomeGuideAdapter(activity, datas);
         recycler_view_h.setAdapter(mAdapterh);
         recycler_view_h.setNestedScrollingEnabled(false);
-        mAdapterh.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
+        mAdapterh.setOnItemClickListener(new HomeGuideAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
@@ -250,7 +251,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     //城市选择
     private void cityPick(){
 
-        mPresenter.regionFindProAndCity();
+        startActivity(new Intent(context, MyCityPickActivity.class));
+
+//        mPresenter.regionFindProAndCity();
     }
 
     //日历选择

@@ -8,7 +8,6 @@
 
     <color name="line_color_d8">#f8f8f8</color>
 
-    <color name="color_f7">#f7f7f7</color>
     <color name="color_b3">#b3b3b3</color>
 
     <color name="blue">#6cb7fe</color>
@@ -42,6 +41,7 @@
 
     <color name="color_green">#32d9bf</color>
     <color name="color_ee">#eeeeee</color>
+    <color name="color_f7">#f7f7f7</color>
 
 
 </resources>

@@ -86,12 +86,12 @@ public class HomeGuideAdapter extends RecyclerView.Adapter<HomeGuideAdapter.View
         }
     }
 
-    GuideListAdapter.OnItemClickListener mOnItemClickListener;
+    OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
         void onClick(int position);
     }
 
-    public void setOnItemClickListener(GuideListAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 }
