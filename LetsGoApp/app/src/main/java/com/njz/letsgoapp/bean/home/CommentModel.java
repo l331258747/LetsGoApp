@@ -2,6 +2,8 @@ package com.njz.letsgoapp.bean.home;
 
 import com.njz.letsgoapp.util.DateUtil;
 
+import java.util.List;
+
 /**
  * Created by LGQ
  * Time: 2018/8/29
@@ -33,7 +35,15 @@ public class CommentModel {
     private String userContent;
     private String img;
     private String level;
+    private List<String> imageUrls;
 
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
 
     public String getName() {
         return name;

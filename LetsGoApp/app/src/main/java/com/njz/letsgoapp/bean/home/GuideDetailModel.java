@@ -53,8 +53,8 @@ public class GuideDetailModel {
     private Object guideAge;
     private String guideName;
     private Object serviceAge;
-    private String language;
-    private String sign;
+    private List<String> language;
+    private List<String> sign;
     private Object authViable;
     private Object guideViable;
     private Object driveViable;
@@ -121,27 +121,18 @@ public class GuideDetailModel {
     }
 
     public List<String> getLanguage() {
-
-        List<String> languages = new ArrayList<>();
-        if(TextUtils.isEmpty(sign)) return languages;
-
-        languages = GsonUtil.convertString2Collection(language,new TypeToken<List<String>>(){});
-        return languages;
+        return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(List<String> language) {
         this.language = language;
     }
 
     public List<String> getSign() {
-        List<String> signs = new ArrayList<>();
-        if(TextUtils.isEmpty(sign)) return signs;
-
-        signs = GsonUtil.convertString2Collection(sign,new TypeToken<List<String>>(){});
-        return signs;
+        return sign;
     }
 
-    public void setSign(String sign) {
+    public void setSign(List<String> sign) {
         this.sign = sign;
     }
 
