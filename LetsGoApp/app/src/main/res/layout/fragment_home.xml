@@ -75,6 +75,7 @@
                             android:paddingLeft="15dp"
                             android:layout_alignParentRight="true"
                             android:layout_alignBottom="@+id/tv_guide_title"
+                            android:textColor="@color/color_theme"
                             android:paddingRight="15dp"
                             android:text="查看全部"/>
 
