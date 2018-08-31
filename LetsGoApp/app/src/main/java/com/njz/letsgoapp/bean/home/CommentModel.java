@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.home;
 
+import com.njz.letsgoapp.util.DateUtil;
+
 /**
  * Created by LGQ
  * Time: 2018/8/29
@@ -42,7 +44,7 @@ public class CommentModel {
     }
 
     public String getGuideService() {
-        return guideService;
+        return "导游服务"+guideService;
     }
 
     public void setGuideService(String guideService) {
@@ -50,7 +52,7 @@ public class CommentModel {
     }
 
     public String getCarCondition() {
-        return carCondition;
+        return "车辆状况"+carCondition;
     }
 
     public void setCarCondition(String carCondition) {
@@ -58,7 +60,7 @@ public class CommentModel {
     }
 
     public String getBuyService() {
-        return buyService;
+        return "代订服务"+buyService;
     }
 
     public void setBuyService(String buyService) {
@@ -66,7 +68,7 @@ public class CommentModel {
     }
 
     public String getTravelArrange() {
-        return travelArrange;
+        return "行程安排"+travelArrange;
     }
 
     public void setTravelArrange(String travelArrange) {
@@ -82,7 +84,7 @@ public class CommentModel {
     }
 
     public String getUserDate() {
-        return userDate;
+        return DateUtil.longToStr(userDate);
     }
 
     public void setUserDate(String userDate) {

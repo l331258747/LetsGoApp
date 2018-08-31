@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.ServiceInfo;
+import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.home.ServiceInfoGroup;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.util.AppUtils;
@@ -41,45 +41,58 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     public static final String SERVICE_TYPE_GUIDE = "向导陪游服务";
     public static final String SERVICE_TYPE_CUSTOM = "私人定制服务";
-    public static final String SERVICE_TYPE_CAR = "包车服务";
+    public static final String SERVICE_TYPE_CAR = "车导服务";
     public static final String SERVICE_TYPE_HOTEL = "代订酒店服务";
     public static final String SERVICE_TYPE_TICKET = "代订景点门票服务";
 
-    ServiceInfo serviceInfo;
+    List<GuideServiceModel> serviceInfo;
     Disposable calDisposable;
 
     private List<ServiceInfoGroup> serviceInfoGroups = new ArrayList<>();
 
-    public PopServiceAdapter(Context mContext, ServiceInfo serviceInfo) {
+    public PopServiceAdapter(Context mContext, List<GuideServiceModel> serviceInfo) {
         this.mContext = mContext;
         this.serviceInfo = serviceInfo;
 
         setData(serviceInfo);
     }
 
-    private void setData(ServiceInfo serviceInfo) {
+    private void setData(List<GuideServiceModel> serviceInfo) {
         serviceInfoGroups.clear();
-        setData2(serviceInfo.getGuideServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_GUIDE);
-        setData2(serviceInfo.getCustomServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_CUSTOM);
-        setData2(serviceInfo.getCarServices(), ServiceInfoGroup.LABEL_TAB_DEFAULT, SERVICE_TYPE_CAR);
-
+        for (GuideServiceModel item : serviceInfo) {
+            switch (item.getServeType()) {
+                case "私人订制":
+                    setData2(item.getServiceItems(), SERVICE_TYPE_CUSTOM);
+                    break;
+                case "代订酒店":
+                    setData2(item.getServiceItems(), SERVICE_TYPE_HOTEL);
+                    break;
+                case "代订门票":
+                    setData2(item.getServiceItems(), SERVICE_TYPE_TICKET);
+                    break;
+                case "车导服务":
+                    setData2(item.getServiceItems(), SERVICE_TYPE_CAR);
+                    break;
+                case "导游陪游":
+                    setData2(item.getServiceItems(), SERVICE_TYPE_GUIDE);
+                    break;
+            }
+        }
         notifyDataSetChanged();
     }
 
-    public void setData2(List<ServiceItem> serviceItems, int type, String title) {
-        if (serviceItems != null) {
-            ServiceInfoGroup serviceInfoGroup = new ServiceInfoGroup();
-            serviceInfoGroup.setLabelTab(ServiceInfoGroup.LABEL_TAB_TITLE);
-            serviceInfoGroup.setServiceTitle(title);
-            serviceInfoGroups.add(serviceInfoGroup);
-            if (serviceItems.size() > 0) {
-                serviceInfoGroup.setServiceTitleColor(true);
-                for (ServiceItem si : serviceItems) {
-                    ServiceInfoGroup serviceInfoGroup2 = new ServiceInfoGroup();
-                    serviceInfoGroup2.setLabelTab(type);
-                    serviceInfoGroup2.setServiceItem(si);
-                    serviceInfoGroups.add(serviceInfoGroup2);
-                }
+    public void setData2(List<ServiceItem> serviceItems, String title) {
+        ServiceInfoGroup serviceInfoGroup = new ServiceInfoGroup();
+        serviceInfoGroup.setLabelTab(ServiceInfoGroup.LABEL_TAB_TITLE);
+        serviceInfoGroup.setServiceTitle(title);
+        serviceInfoGroups.add(serviceInfoGroup);
+        if (serviceItems != null && serviceItems.size() > 0) {
+            serviceInfoGroup.setServiceTitleColor(true);
+            for (ServiceItem si : serviceItems) {
+                ServiceInfoGroup serviceInfoGroup2 = new ServiceInfoGroup();
+                serviceInfoGroup2.setLabelTab(ServiceInfoGroup.LABEL_TAB_DEFAULT);
+                serviceInfoGroup2.setServiceItem(si);
+                serviceInfoGroups.add(serviceInfoGroup2);
             }
         }
     }
@@ -120,7 +133,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             ((DefaultHolder) holder).btn_content_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"取消");
+                    ToastUtil.showShortToast(mContext, "取消");
                 }
             });
 
@@ -129,7 +142,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 @Override
                 public void onClick(View v) {
                     mContext.startActivity(new Intent(mContext, CalendarActivity.class));
-                     calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
+                    calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
                         @Override
                         public void accept(CalendarEvent calendarEvent) throws Exception {
                             ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getDays());
@@ -144,11 +157,10 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             ((DefaultHolder) holder).nv_count_content.setCallback(new NumberView.OnItemClickListener() {
                 @Override
                 public void onClick(int num) {
-                    ((DefaultHolder) holder).tv_price_count.setText(""+num+" x "+"￥"+data.getServiceItem().getPrice());
-                    ((DefaultHolder) holder).tv_price_total.setText("￥"+num*data.getServiceItem().getPrice());
+                    ((DefaultHolder) holder).tv_price_count.setText("" + num + " x " + "￥" + data.getServiceItem().getPrice());
+                    ((DefaultHolder) holder).tv_price_total.setText("￥" + num * data.getServiceItem().getPrice());
                 }
             });
-
 
 
         }
@@ -159,9 +171,9 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             if (data == null) return;
 
             ((TitleHolder) holder).service_title.setText(data.getServiceTitle());
-            if(data.isServiceTitleColor()){
+            if (data.isServiceTitleColor()) {
                 ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r40));
-            }else{
+            } else {
                 ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_99_solid_r15));
             }
 
@@ -199,7 +211,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     public static class DefaultHolder extends BaseViewHolder {
 
-        TextView tv_content_title,tv_time_title,tv_time_content,tv_count_title,tv_price_total,tv_price_count;
+        TextView tv_content_title, tv_time_title, tv_time_content, tv_count_title, tv_price_total, tv_price_count;
         TextView btn_content_cancel;
         LinearLayout ll_time;
         NumberView nv_count_content;
@@ -224,9 +236,11 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     //-----start 事件
     OnTitleClickListener mOnItemClickListener;
+
     public interface OnTitleClickListener {
         void onClick(String titleType);
     }
+
     public void setOnItemClickListener(OnTitleClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }

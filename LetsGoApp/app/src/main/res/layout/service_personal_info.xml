@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/btn_d9_bottom_line"
@@ -17,14 +18,14 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/head_default" />
+            tools:src="@mipmap/head_default" />
 
         <ImageView
             android:id="@+id/iv_sex"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_gravity="bottom|right"
-            android:background="@mipmap/icon_boy"/>
+            tools:background="@mipmap/icon_boy"/>
 
     </FrameLayout>
 
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="那就走"
+            tools:text="那就走"
             android:textSize="16sp" />
 
         <com.njz.letsgoapp.widget.MyRatingBar
@@ -58,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="服务4000次"
+        tools:text="服务4000次"
         android:textSize="16sp" />
 
     <com.njz.letsgoapp.widget.GuideLabelView

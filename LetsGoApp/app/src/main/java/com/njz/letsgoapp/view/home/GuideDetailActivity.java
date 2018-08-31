@@ -26,6 +26,7 @@ import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.home.GuideDetailContract;
 import com.njz.letsgoapp.mvp.home.GuideDetailPresenter;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.webview.LWebView;
@@ -55,6 +56,9 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     LinearLayout ll_select_service, btn_call;
 
+    LinearLayout ll_comment_title;
+    TextView tv_comment_title_score,tv_comment_title_count;
+
     PopService popService;
     GuideLabelView guideLabel;
     GuideAuthenticationView guide_authentication;
@@ -63,6 +67,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     GuideDetailPresenter mPresenter;
     DefaultDialog defaultDialog;
+
+    GuideDetailModel guideDetailModel;
 
     int guideId;
     public static final String GUIDEID = "GUIDEID";
@@ -107,87 +113,17 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         tv_back_top = $(R.id.tv_back_top);
         webView = $(R.id.webview);
         scrollView = $(R.id.scrollView);
+        ll_comment_title = $(R.id.ll_comment_title);
+        tv_comment_title_score = $(R.id.tv_comment_title_score);
+        tv_comment_title_count = $(R.id.tv_comment_title_count);
 
         tv_back_top.setVisibility(View.GONE);
         tv_back_top.setOnClickListener(this);
 
+        ll_comment_title.setOnClickListener(this);
         ll_select_service.setOnClickListener(this);
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
-
-    }
-
-    //    public void initCommont() {
-//        ImageView commont_head = $(R.id.commont_head);
-//
-//        String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
-//        GlideUtil.LoadCircleImage(context, photo, commont_head);
-//
-//
-//        RecyclerView mRecyclerView = $(R.id.recycler_view);
-//        mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
-//        mRecyclerView.setLayoutManager(new GridLayoutManager(
-//                mRecyclerView.getContext(), 4));
-//
-//        List<String> banners = new ArrayList<>();
-//        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
-//        banners.add(bannerImg);
-//        banners.add(bannerImg);
-//        banners.add(bannerImg);
-//        banners.add(bannerImg);
-//        banners.add(bannerImg);
-//
-//        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, banners);
-//        mRecyclerView.setAdapter(enterAdapter);
-//
-//
-//    }
-    public void initCommont(CommentModel commentModel) {
-        if (commentModel == null) {
-            LinearLayout ll_comment = $(R.id.ll_comment);
-            ll_comment.setVisibility(View.GONE);
-            return;
-        }
-
-        LinearLayout ll_comment_title = $(R.id.ll_comment_title);
-        ImageView comment_head = $(R.id.commont_head);
-        TextView tv_comment_title_score = $(R.id.tv_comment_title_score);
-        TextView tv_comment_title_count = $(R.id.tv_comment_title_count);
-
-        ImageView commont_head = $(R.id.commont_head);
-        TextView commont_name = $(R.id.commont_name);
-        TextView commont_time = $(R.id.commont_time);
-        TextView commont_score = $(R.id.commont_score);
-        TextView tv_comment_content = $(R.id.tv_comment_content);
-
-        ll_comment_title.setOnClickListener(this);
-        GlideUtil.LoadCircleImage(context, commentModel.getImg(), comment_head);
-        tv_comment_title_score.setText("5.0");
-        tv_comment_title_count.setText("(6655条评论)");
-
-        GlideUtil.LoadCircleImage(context, commentModel.getImg(), commont_head);
-        commont_name.setText(commentModel.getName());
-        commont_time.setText(commentModel.getUserContent());
-        commont_score.setText("" + commentModel.getScore());
-        tv_comment_content.setText("阿里斯顿库工具奥利给阿数量点击阿里斯顿控件");
-
-
-        RecyclerView mRecyclerView = $(R.id.recycler_view);
-        mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
-        mRecyclerView.setLayoutManager(new GridLayoutManager(
-                mRecyclerView.getContext(), 4));
-
-        List<String> banners = new ArrayList<>();
-        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-
-        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, banners);
-        mRecyclerView.setAdapter(enterAdapter);
-
 
     }
 
@@ -237,13 +173,16 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         authentications.add(GuideAuthenticationView.AUTHENT_IDENTITY);
         authentications.add(GuideAuthenticationView.AUTHENT_CAR);
         guide_authentication.setAuthentication(authentications);
-        tv_comment_content.setText(model.getIntroduce());
+        tv_content.setText(model.getIntroduce());
 
+
+        tv_comment_title_score.setText(""+model.getGuideScore());
+        tv_comment_title_count.setText("("+model.getCount()+"条评论)");
         initCommont(model.getTravelFirstReviewVO());
 
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html", "utf-8", null);
 
-        defaultDialog = new DefaultDialog(context, "123123",
+        defaultDialog = new DefaultDialog(context, model.getMobile(),
                 new DefaultDialog.OnCloseListener() {
                     @Override
                     public void onClick(Dialog dialog, boolean confirm) {
@@ -252,7 +191,50 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 })
                 .setTitle("提示")
                 .setNegativeButton("呼叫");
+    }
 
+    public void initCommont(CommentModel commentModel) {
+        if (commentModel == null) {
+            LinearLayout ll_comment = $(R.id.ll_comment);
+            ll_comment.setVisibility(View.GONE);
+            return;
+        }
+
+        ImageView comment_head = $(R.id.comment_head);
+        TextView commont_name = $(R.id.commont_name);
+        TextView commont_time = $(R.id.commont_time);
+        TextView commont_score = $(R.id.commont_score);
+        TextView tv_comment_content = $(R.id.tv_comment_content);
+        TextView tv_comment_guide = $(R.id.tv_comment_guide);
+        TextView tv_comment_trip = $(R.id.tv_comment_trip);
+        TextView tv_comment_car = $(R.id.tv_comment_car);
+        TextView tv_comment_book = $(R.id.tv_comment_book);
+
+        GlideUtil.LoadCircleImage(context, commentModel.getImg(), comment_head);
+        commont_name.setText(commentModel.getName());
+        commont_time.setText(commentModel.getUserDate());
+        commont_score.setText("" + commentModel.getScore());
+        tv_comment_content.setText(commentModel.getUserContent());
+        tv_comment_guide.setText(commentModel.getGuideService());
+        tv_comment_trip.setText(commentModel.getTravelArrange());
+        tv_comment_car.setText(commentModel.getCarCondition());
+        tv_comment_book.setText(commentModel.getBuyService());
+
+        RecyclerView mRecyclerView = $(R.id.recycler_view);
+        mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
+        mRecyclerView.setLayoutManager(new GridLayoutManager(
+                mRecyclerView.getContext(), 4));
+
+        List<String> banners = new ArrayList<>();
+        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+        banners.add(bannerImg);
+
+        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, banners);
+        mRecyclerView.setAdapter(enterAdapter);
     }
 
     //banner
@@ -319,9 +301,18 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void showPopService() {
+
+        if (guideDetailModel == null
+                || guideDetailModel.getTravelGuideServiceInfoEntitys() == null
+                || guideDetailModel.getTravelGuideServiceInfoEntitys().size() == 0) {
+            ToastUtil.showShortToast(context, "没有可供选择的服务项");
+            return;
+        }
+
         if (popService == null) {
             popService = new PopService(activity, btn_submit);
         }
+        popService.setDate(guideDetailModel.getTravelGuideServiceInfoEntitys());
         popService.showPopupWindow(btn_submit);
     }
 
@@ -337,6 +328,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void guideFindGuideDetailsSuccess(GuideDetailModel model) {
+        guideDetailModel = model;
         initInfo(model);
     }
 

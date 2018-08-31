@@ -14,28 +14,28 @@
         android:paddingTop="10dp">
 
         <ImageView
-            android:id="@+id/commont_head"
+            android:id="@+id/comment_head"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/head_default" />
+            tools:src="@mipmap/head_default" />
 
         <TextView
             android:id="@+id/commont_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/commont_head"
-            android:text="那就走" />
+            android:layout_toEndOf="@+id/comment_head"
+            tools:text="那就走" />
 
         <TextView
             android:id="@+id/commont_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/commont_head"
+            android:layout_alignBottom="@+id/comment_head"
             android:textSize="12sp"
             android:textColor="@color/color_99"
             android:layout_marginLeft="50dp"
-            android:text="2018-08-08" />
+            tools:text="2018-08-08" />
 
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_marginLeft="50dp"
             android:background="@drawable/oval_green_solid"
             android:padding="8dp"
-            android:text="5.0"
+            tools:text="5.0"
             android:textColor="@color/white" />
     </RelativeLayout>
 
@@ -60,36 +60,48 @@
         android:paddingTop="10dp">
 
         <TextView
+            android:id="@+id/tv_comment_guide"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/ffe8d2_solid_r15_p5"
+            android:layout_margin="3dp"
             android:gravity="center"
-            android:text="导游服务 5.0"
-            android:textSize="12sp" />
+            tools:text="导游服务 5.0"
+            android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/tv_comment_trip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
-            android:text="行程安排 5.0"
-            android:textSize="12sp" />
+            tools:text="行程安排 5.0"
+            android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/tv_comment_car"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="3dp"
             android:layout_weight="1"
+            android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
-            android:text="车辆状态 5.0"
-            android:textSize="12sp" />
+            tools:text="车辆状态 5.0"
+            android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/tv_comment_book"
+            android:layout_margin="3dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
-            android:text="代订服务 5.0"
-            android:textSize="12sp" />
+            tools:text="代订服务 5.0"
+            android:textSize="10sp" />
 
     </LinearLayout>
 

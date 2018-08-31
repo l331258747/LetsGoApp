@@ -31,6 +31,15 @@ public class DateUtil {
         return new Date();
     }
 
+    public static String longToStr(String dateLong){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        long lt = new Long(dateLong);
+        Date date = new Date(lt);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+
 
     //获取当前date
     public static Date getNowDate() {

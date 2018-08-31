@@ -102,7 +102,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         ViewHolder(View itemView) {
             super(itemView);
-            commont_head = itemView.findViewById(R.id.commont_head);
+            commont_head = itemView.findViewById(R.id.comment_head);
             commont_name = itemView.findViewById(R.id.commont_name);
             commont_time = itemView.findViewById(R.id.commont_time);
             commont_score = itemView.findViewById(R.id.commont_score);

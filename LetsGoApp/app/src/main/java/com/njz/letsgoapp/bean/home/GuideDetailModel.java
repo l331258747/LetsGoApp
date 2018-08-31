@@ -68,9 +68,17 @@ public class GuideDetailModel {
     private Object carConditions;
     private Object buyServices;
     private Object travelArranges;
-    private Object guideStory;
+    private String guideStory;
     private CommentModel travelFirstReviewVO;
-    private List<GuideServiceModel> travelGuideServiceEntitys;
+    private List<GuideServiceModel> travelGuideServiceInfoEntitys;
+
+    public List<GuideServiceModel> getTravelGuideServiceInfoEntitys() {
+        return travelGuideServiceInfoEntitys;
+    }
+
+    public void setTravelGuideServiceInfoEntitys(List<GuideServiceModel> travelGuideServiceInfoEntitys) {
+        this.travelGuideServiceInfoEntitys = travelGuideServiceInfoEntitys;
+    }
 
     public int getGuideId() {
         return guideId;
@@ -241,11 +249,11 @@ public class GuideDetailModel {
         this.travelArranges = travelArranges;
     }
 
-    public Object getGuideStory() {
+    public String getGuideStory() {
         return guideStory;
     }
 
-    public void setGuideStory(Object guideStory) {
+    public void setGuideStory(String guideStory) {
         this.guideStory = guideStory;
     }
 
@@ -257,11 +265,4 @@ public class GuideDetailModel {
         this.travelFirstReviewVO = travelFirstReviewVO;
     }
 
-    public List<GuideServiceModel> getTravelGuideServiceEntitys() {
-        return travelGuideServiceEntitys;
-    }
-
-    public void setTravelGuideServiceEntitys(List<GuideServiceModel> travelGuideServiceEntitys) {
-        this.travelGuideServiceEntitys = travelGuideServiceEntitys;
-    }
 }

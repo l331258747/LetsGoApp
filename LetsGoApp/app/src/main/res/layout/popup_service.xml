@@ -20,7 +20,7 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <include layout="@layout/service_personal_info" />
+            <!--<include layout="@layout/service_personal_info" />-->
 
             <include layout="@layout/service_product_info" />
 

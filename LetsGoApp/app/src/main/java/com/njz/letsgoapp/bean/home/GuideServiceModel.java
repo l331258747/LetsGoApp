@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.home;
 
+import java.util.List;
+
 public class GuideServiceModel {
     /**
      * guideId : 4
@@ -30,6 +32,15 @@ public class GuideServiceModel {
     private String title;
     private int status;
     private String location;
+    private List<ServiceItem> serviceItems;
+
+    public List<ServiceItem> getServiceItems() {
+        return serviceItems;
+    }
+
+    public void setServiceItems(List<ServiceItem> serviceItems) {
+        this.serviceItems = serviceItems;
+    }
 
     public int getGuideId() {
         return guideId;

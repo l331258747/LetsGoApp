@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -16,7 +17,9 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textSize="12sp"
-        android:text="游山" />
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="游山" />
 
     <TextView
         android:id="@+id/tv_tabel_2"
@@ -31,7 +34,9 @@
         android:gravity="center"
         android:textSize="12sp"
         android:maxLength="4"
-        android:text="玩水" />
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="玩水" />
 
     <TextView
         android:id="@+id/tv_tabel_3"
@@ -46,6 +51,8 @@
         android:paddingRight="10dp"
         android:gravity="center"
         android:maxLength="4"
-        android:text="幽默" />
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="幽默" />
 
 </LinearLayout>
