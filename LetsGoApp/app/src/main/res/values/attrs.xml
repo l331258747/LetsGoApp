@@ -13,6 +13,13 @@
         <attr name="left_drawable" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="home_my_item2">
+        <attr name="home_my_item2_title" format="string"/>
+        <attr name="home_my_item2_content" format="string"/>
+        <attr name="home_my_item2_left_drawable" format="reference"/>
+        <attr name="home_my_item2_right_drawable" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="login_item">
         <attr name="login_item_title" format="string"/>
         <attr name="login_item_right_text" format="string"/>

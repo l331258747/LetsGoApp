@@ -1,9 +1,11 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -17,7 +19,7 @@ import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.MyCommentActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
 import com.njz.letsgoapp.view.mine.SystemSettingActivity;
-import com.njz.letsgoapp.widget.MineItemView;
+import com.njz.letsgoapp.widget.MineItemView2;
 
 /**
  * Created by LGQ
@@ -27,12 +29,15 @@ import com.njz.letsgoapp.widget.MineItemView;
 
 public class MyFragment extends BaseFragment implements View.OnClickListener {
 
-    MineItemView mine_bind, mine_info, mine_modify, mine_commont, mine_custom, mine_setting;
+    MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting;
 
     ImageView iv_head;
-    TextView tv_name,tv_follow,tv_fans;
+    TextView tv_name,tv_follow,tv_fans,tv_login;
 
     Button btn_loginoff;
+
+    LinearLayout ll_info;
+
 
     @Override
     public int getLayoutId() {
@@ -50,23 +55,39 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         mine_bind = $(R.id.mine_bind);
         mine_info = $(R.id.mine_info);
         mine_modify = $(R.id.mine_modify);
-        mine_commont = $(R.id.mine_commont);
+        mine_comment = $(R.id.mine_comment);
         mine_custom = $(R.id.mine_customer);
         mine_setting = $(R.id.mine_setting);
         tv_fans = $(R.id.tv_fans);
         tv_follow = $(R.id.tv_follow);
+        ll_info = $(R.id.ll_info);
+        tv_login = $(R.id.tv_login);
         btn_loginoff = $(R.id.btn_loginoff);
 
         mine_bind.setOnClickListener(this);
         mine_info.setOnClickListener(this);
         mine_modify.setOnClickListener(this);
-        mine_commont.setOnClickListener(this);
+        mine_comment.setOnClickListener(this);
         mine_setting.setOnClickListener(this);
         mine_custom.setOnClickListener(this);
         tv_fans.setOnClickListener(this);
         tv_follow.setOnClickListener(this);
         iv_head.setOnClickListener(this);
         btn_loginoff.setOnClickListener(this);
+        tv_login.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (MySelfInfo.getInstance().isLogin()) {//登录状态
+            ll_info.setVisibility(View.VISIBLE);
+            tv_login.setVisibility(View.GONE);
+        } else {
+            ll_info.setVisibility(View.GONE);
+            tv_login.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -78,7 +99,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_head:
+            case R.id.tv_login:
                 startActivity(new Intent(context,LoginActivity.class));
                 break;
             case R.id.mine_bind:
@@ -90,7 +111,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             case R.id.mine_modify:
                 startActivity(new Intent(context,ModifyPasswordActivity.class));
                 break;
-            case R.id.mine_commont:
+            case R.id.mine_comment:
                 startActivity(new Intent(context, MyCommentActivity.class));
                 break;
             case R.id.mine_customer:

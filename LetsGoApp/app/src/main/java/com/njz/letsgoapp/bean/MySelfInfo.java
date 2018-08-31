@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean;
 
+import android.text.TextUtils;
+
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.util.SPUtils;
 
@@ -22,6 +24,13 @@ public class MySelfInfo {
 
     public static MySelfInfo getInstance() {
         return HolderClass.INSTANCE;
+    }
+
+    public boolean isLogin(){
+        if(!TextUtils.isEmpty(getUserToken())){
+            return true;
+        }
+        return false;
     }
 
 

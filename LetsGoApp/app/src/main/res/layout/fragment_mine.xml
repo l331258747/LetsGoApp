@@ -1,160 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/parent_background"
-    android:orientation="vertical">
-
-
-    <RelativeLayout
-        android:id="@+id/rl_head"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@mipmap/bg_home_my">
-
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:src="@mipmap/head_default" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/iv_head"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="那就走"
-                android:textColor="@color/white" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_fans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5000粉丝"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="|"
-                    android:textColor="@color/white"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:id="@+id/tv_follow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="330关注"
-                    android:textColor="@color/white"
-                    android:textSize="12dp" />
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:drawablePadding="3dp"
-            android:drawableRight="@mipmap/ic_arrow_right"
-            android:text="个人主页"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rl_head"
-        android:layout_margin="8dp"
+        android:background="@color/parent_background"
         android:orientation="vertical">
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/mine_bind"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@mipmap/bg_home_my"
+                android:src="@mipmap/bg_home_my" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="90dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/iv_head"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/head_default" />
+
+
+                    <TextView
+                        android:id="@+id/tv_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/btn_theme_hollow_r5_p8"
+                        android:layout_marginLeft="40dp"
+                        android:text="点击登录"
+                        android:textColor="@color/color_theme" />
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toEndOf="@+id/iv_head"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="10dp"
+                                android:text="那就走" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_fans"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="10dp"
+                                    android:text="5000粉丝"
+                                    android:textSize="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="|"
+                                    android:textSize="12dp" />
+
+                                <TextView
+                                    android:id="@+id/tv_follow"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="10dp"
+                                    android:text="330关注"
+                                    android:textSize="12dp" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:drawablePadding="10dp"
+                                android:drawableRight="@mipmap/ic_arrow_right"
+                                android:text="个人主页" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="绑定手机" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/mine_info"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rl_head"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
+
+                <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_bind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_mobile"
+                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
+                    app:home_my_item2_title="绑定手机" />
+
+                <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_info"
+                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
+                    app:home_my_item2_title="个人资料" />
+
+                <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_password"
+                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
+                    app:home_my_item2_title="修改密码" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="个人资料" />
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/mine_modify"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="修改密码" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rl_head"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/mine_commont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="我的评论" />
+                <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_comment"
+                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
+                    app:home_my_item2_title="我的评论" />
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/mine_customer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:left_drawable="@mipmap/mine_phone"
-            app:title="联系客服" />
+                <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_customer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_phone"
+                    app:home_my_item2_right_drawable="@mipmap/mine_phone"
+                    app:home_my_item2_title="联系客服" />
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/mine_setting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="设置" />
+                <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_setting"
+                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
+                    app:home_my_item2_title="设置" />
+            </LinearLayout>
 
-    </LinearLayout>
 
-    <Button
+        </android.support.v7.widget.CardView>
+
+
+        <Button
         android:id="@+id/btn_loginoff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
         android:background="@drawable/btn_blue_solid_r5_p8"
         android:text="退出登录"
-        android:textColor="@color/white"
-        android:layout_margin="10dp"
-
-        />
+        android:textColor="@color/white" />
 
 
-</RelativeLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
