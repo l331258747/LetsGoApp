@@ -61,6 +61,7 @@
         android:layout_alignBottom="@+id/iv_img"
         android:background="@drawable/btn_blue_solid_r5_p5"
         android:textColor="@color/white"
+        android:visibility="gone"
         android:text="取消"/>
 
 </RelativeLayout>
