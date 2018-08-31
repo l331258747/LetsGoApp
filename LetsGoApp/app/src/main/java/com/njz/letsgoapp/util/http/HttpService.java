@@ -7,6 +7,8 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.home.ServiceDetailModel;
+import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.bean.order.AliPay;
@@ -109,12 +111,6 @@ public interface HttpService {
 
 
     //首页 start
-    //轮播图 banner/findAll
-    @GET("banner/findByTypeAndGuideId")
-    Observable<BaseResponse<List<BannerModel>>> bannerFindByType(
-            @Query("type") int type,
-            @Query("guideId") int guideId
-    );
 
     //首页获取热门导游
     @GET("orderReviews/sortTop")
@@ -156,12 +152,34 @@ public interface HttpService {
             @Query("guideId") int guideId
     );
 
+    //获取导游服务详情
+    @GET("guide/getGuideService")
+    Observable<BaseResponse<ServiceDetailModel>> getGuideService(
+            @Query("serviceId") int serviceId
+    );
+
+    //获取导游单个服务列表
+    @GET("guide/getServiceList")
+    Observable<BaseResponse<List<ServiceListModel>>> getServiceList(
+            @Query("guideId") int serviceId,
+            @Query("serviceType") String serviceType
+    );
+
     //首页 end
 
 
+    //--------other start---------
     //城市选择 region/findProAndCity
     @GET("region/findProAndCity")
     Observable<BaseResponse<List<ProvinceModel>>> regionFindProAndCity(
     );
+
+    //轮播图 banner/findAll
+    @GET("banner/findByTypeAndGuideId")
+    Observable<BaseResponse<List<BannerModel>>> bannerFindByType(
+            @Query("type") int type,
+            @Query("id") int id
+    );
+    //--------other end---------
 
 }

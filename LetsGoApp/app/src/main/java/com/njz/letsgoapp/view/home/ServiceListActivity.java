@@ -10,7 +10,11 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.adapter.home.ServiceListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
+import com.njz.letsgoapp.bean.home.ServiceListModel;
+import com.njz.letsgoapp.mvp.home.ServiceListContract;
+import com.njz.letsgoapp.mvp.home.ServiceListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +25,25 @@ import java.util.List;
  * Function:
  */
 
-public class ServiceListActivity extends BaseActivity {
+public class ServiceListActivity extends BaseActivity implements ServiceListContract.View{
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
     ServiceListAdapter mAdapter;
 
+    ServiceListPresenter mPresenter;
 
     String title;
-    int serviceType;
+    String serviceType;
     int guideId;
+    List<ServiceListModel> models;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         title = intent.getStringExtra("ServiceDetailActivity_title");
-        serviceType = intent.getIntExtra("serviceType",0);
+        serviceType = intent.getStringExtra("serviceType");
         guideId = intent.getIntExtra("guideId",0);
         if(TextUtils.isEmpty(title)){
             title = "";
@@ -63,7 +69,7 @@ public class ServiceListActivity extends BaseActivity {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new ServiceListAdapter(activity, getData());
+        mAdapter = new ServiceListAdapter(activity, new ArrayList<ServiceListModel>());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -72,6 +78,8 @@ public class ServiceListActivity extends BaseActivity {
             public void onClick(int position) {
                 intent = new Intent(context, ServiceDetailActivity.class);
                 intent.putExtra("ServiceDetailActivity_title",title);
+                intent.putExtra("serviceId",models.get(position).getId());
+
                 startActivity(intent);
             }
         });
@@ -84,7 +92,7 @@ public class ServiceListActivity extends BaseActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setData(getData());
+                mPresenter.getServiceList(guideId,serviceType);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -92,27 +100,19 @@ public class ServiceListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mPresenter = new ServiceListPresenter(context,this);
+        mPresenter.getServiceList(guideId,serviceType);
     }
 
 
-    public List<ServiceItem> getData(){
-        List<ServiceItem> serviceItems = new ArrayList<>();
+    @Override
+    public void getServiceListSuccess(List<ServiceListModel> models) {
+        this.models = models;
+        mAdapter.setData(models);
+    }
 
-        ServiceItem serviceItem = new ServiceItem();
-        serviceItem.setContent("咖喱块手机噶隆盛科技噶历史课按理说大家告诉");
-        serviceItem.setPrice(360);
-        serviceItem.setImg("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg");
-
-        serviceItems.add(serviceItem);
-        serviceItems.add(serviceItem);
-        serviceItems.add(serviceItem);
-        serviceItems.add(serviceItem);
-        serviceItems.add(serviceItem);
-        serviceItems.add(serviceItem);
-        serviceItems.add(serviceItem);
-        serviceItems.add(serviceItem);
-
-        return serviceItems;
+    @Override
+    public void getServiceListFailed(String msg) {
+        showShortToast(msg);
     }
 }

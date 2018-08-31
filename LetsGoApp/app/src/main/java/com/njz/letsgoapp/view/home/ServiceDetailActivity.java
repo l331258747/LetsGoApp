@@ -13,9 +13,14 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.home.BannerModel;
+import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
+import com.njz.letsgoapp.mvp.home.ServiceDetailContract;
+import com.njz.letsgoapp.mvp.home.ServiceDetailPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
@@ -32,16 +37,19 @@ import java.util.List;
  * Function:
  */
 
-public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener {
+public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailContract.View {
 
     ConvenientBanner convenientBanner;
-    TextView tv_title, tv_destination, tv_sell,tv_submit,tv_destination2,tv_phone,tv_back_top;
+    TextView tv_title, tv_destination, tv_sell, tv_submit, tv_destination2, tv_phone, tv_back_top;
     PriceView pv_price;
     LWebView webView;
     NestedScrollView scrollView;
 
     String title;
     int serviceId;
+
+    ServiceDetailPresenter mPresenter;
+    ServiceDetailModel model;
 
     @Override
     public int getLayoutId() {
@@ -52,8 +60,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public void getIntentData() {
         super.getIntentData();
         title = intent.getStringExtra("ServiceDetailActivity_title");
-        serviceId = intent.getIntExtra("serviceId",0);
-        if(TextUtils.isEmpty(title)){
+        serviceId = intent.getIntExtra("serviceId", 0);
+        if (TextUtils.isEmpty(title)) {
             title = "";
         }
     }
@@ -62,7 +70,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public void initView() {
         showLeftAndTitle(title + "详情介绍");
         showRightIv();
-        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.icon_share));
+        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
         getRightIv().setOnClickListener(this);
 
         convenientBanner = $(R.id.convenientBanner);
@@ -99,63 +107,59 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initData() {
+        mPresenter = new ServiceDetailPresenter(context, this);
 
-
-        List<String> banners = new ArrayList<>();
-        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-
-        //开始自动翻页
-        convenientBanner.setPages(new CBViewHolderCreator() {
-            @Override
-            public Object createHolder() {
-                return new LocalImageHolderView(new LocalImageHolderView.BannerListener<String>() {
-
-                    @Override
-                    public void bannerListener(Context context, int position, String data, ImageView view) {
-                        GlideUtil.LoadImage(context, data, view);
-                    }
-                });
-            }
-        }, banners)
-                .setPointViewVisible(true) //设置指示器是否可见
-                .setPageIndicator(new int[]{R.drawable.oval_white_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
-//                    .setOnItemClickListener(this) //设置点击监听事件
-                .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
-
-
-        tv_title.setText("我是导游，选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我选我");
-        tv_destination.setText("张家界");
-        StringUtils.setHtml(tv_destination2,getResources().getString(R.string.destination2));
-
-        tv_sell.setText("已售:" + 11);
-        pv_price.setPrice(300d);
-
-
-//        webView.getSettings().setJavaScriptEnabled(true);//支持js
-//        webView.setWebViewClient(new MyWebViewClient(webView));
-        webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html" , "utf-8", null);
+        mPresenter.getGuideService(serviceId);
+        mPresenter.bannerFindByType(0,serviceId);
 
         final int mDisplayHeight = AppUtils.getDisplayHeight();
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if(scrollY > mDisplayHeight){
+                if (scrollY > mDisplayHeight) {
                     tv_back_top.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     tv_back_top.setVisibility(View.GONE);
                 }
             }
         });
+    }
 
+    public void initDetail(ServiceDetailModel model) {
+        tv_title.setText(model.getTitle());
+        tv_destination.setText(model.getLocation());
+        StringUtils.setHtml(tv_destination2, getResources().getString(R.string.destination2));
+
+        tv_sell.setText("已售:" + 11);
+        pv_price.setPrice(model.getServePrice());
+
+        webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html", "utf-8", null);
+    }
+
+    public void initBanner(List<BannerModel> models) {
+        //开始自动翻页
+        convenientBanner.setPages(new CBViewHolderCreator() {
+            @Override
+            public Object createHolder() {
+                return new LocalImageHolderView(new LocalImageHolderView.BannerListener<BannerModel>() {
+
+                    @Override
+                    public void bannerListener(Context context, int position, BannerModel data, ImageView view) {
+                        GlideUtil.LoadImage(context, data.getImgUrl(), view);
+                    }
+                });
+            }
+        }, models)
+                .setPointViewVisible(true) //设置指示器是否可见
+                .setPageIndicator(new int[]{R.drawable.oval_white_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
+//                    .setOnItemClickListener(this) //设置点击监听事件
+                .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_submit:
                 showShortToast("预订成功");
                 break;
@@ -166,7 +170,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 startActivity(new Intent(context, MapActivity.class));
                 break;
             case R.id.tv_back_top:
-                scrollView.scrollTo(0,0);
+                scrollView.scrollTo(0, 0);
                 break;
             case R.id.right_iv:
                 ShareDialog dialog = new ShareDialog(activity,
@@ -186,5 +190,26 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         webView.loadUrl("about:blank");
         webView.clearCache(false);
         webView.destroy();
+    }
+
+    @Override
+    public void getGuideServiceSuccess(ServiceDetailModel model) {
+        this.model = model;
+        initDetail(model);
+    }
+
+    @Override
+    public void getGuideServiceFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void bannerFindByTypeSuccess(List<BannerModel> models) {
+        initBanner(models);
+    }
+
+    @Override
+    public void bannerFindByTypeFailed(String msg) {
+        showShortToast(msg);
     }
 }

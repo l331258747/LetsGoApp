@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.ServiceItem;
+import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.PriceView;
 
@@ -25,9 +26,9 @@ import java.util.List;
 public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.ViewHolder> {
 
     private Context context;
-    private List<ServiceItem> serviceItems;
+    private List<ServiceListModel> serviceItems;
 
-    public ServiceListAdapter(Context context, List<ServiceItem> serviceItems) {
+    public ServiceListAdapter(Context context, List<ServiceListModel> serviceItems) {
         this.context = context;
         this.serviceItems = serviceItems;
     }
@@ -42,14 +43,14 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
-        final ServiceItem data = serviceItems.get(pos);
+        final ServiceListModel data = serviceItems.get(pos);
         if (data == null) return;
 
-        GlideUtil.LoadImage(context, data.getImg(), ((ViewHolder) holder).iv_img);
+        GlideUtil.LoadImage(context, null, ((ViewHolder) holder).iv_img);
         ((ViewHolder) holder).iv_img_content.setText("代订 | 张家界");
-        ((ViewHolder) holder).tv_title.setText(data.getContent());
+        ((ViewHolder) holder).tv_title.setText(data.getTitle());
         ((ViewHolder) holder).tv_sell.setText("已售" + 112);
-        ((ViewHolder) holder).pv_price.setPrice(625d);
+        ((ViewHolder) holder).pv_price.setPrice(data.getServePrice());
 
 
         if (mOnItemClickListener != null) {
@@ -62,7 +63,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         }
     }
 
-    public void setData(List<ServiceItem> serviceItems){
+    public void setData(List<ServiceListModel> serviceItems){
         this.serviceItems = serviceItems;
         notifyDataSetChanged();
     }

@@ -1,30 +1,29 @@
 package com.njz.letsgoapp.mvp.home;
 
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
-import com.njz.letsgoapp.bean.home.GuideDetailModel;
+import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 
 import java.util.List;
 
 /**
  * Created by LGQ
- * Time: 2018/8/29
+ * Time: 2018/8/31
  * Function:
  */
 
-public interface GuideDetailContract {
+public interface ServiceDetailContract {
 
     interface Presenter {
+        void getGuideService(int serviceId);
         void bannerFindByType(int type, int id);
-        void guideFindGuideDetails(String location, int guideId);
     }
 
     interface View {
+        void getGuideServiceSuccess(ServiceDetailModel models);
+        void getGuideServiceFailed(String msg);
+
         void bannerFindByTypeSuccess(List<BannerModel> models);
         void bannerFindByTypeFailed(String msg);
 
-        void guideFindGuideDetailsSuccess(GuideDetailModel models);
-        void guideFindGuideDetailsFailed(String msg);
     }
-
 }
