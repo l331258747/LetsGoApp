@@ -65,7 +65,7 @@ public class GuideScoreView extends LinearLayout {
     public void setGuideScoreScore(float score) {
         //service_score
 //        guideScoreScore.setText(score + "分");
-        StringUtils.setHtml(guideScoreService,String.format(getResources().getString(R.string.service_score),score));
+        StringUtils.setHtml(guideScoreScore,String.format(getResources().getString(R.string.service_score),(int)score));
     }
 
     public void setGuideScoreComment(int comment) {

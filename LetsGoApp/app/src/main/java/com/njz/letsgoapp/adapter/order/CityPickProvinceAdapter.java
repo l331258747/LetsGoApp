@@ -89,6 +89,7 @@ public class CityPickProvinceAdapter extends RecyclerView.Adapter<CityPickProvin
 
     public void setDatas(List<ProvinceModel> datas){
         this.datas = datas;
+        if(datas == null) return;
 
         isClicks = new ArrayList<>();
         for(int i = 0;i<datas.size();i++){

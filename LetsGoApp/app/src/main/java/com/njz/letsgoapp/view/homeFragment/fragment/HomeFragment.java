@@ -139,6 +139,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.ll_destination:
                 cityPick();
@@ -150,12 +151,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 calendarPick();
                 break;
             case R.id.rl_guide_title:
-                startActivity(new Intent(context, GuideListActivity.class));
+                intent = new Intent(context,GuideListActivity.class);
+                intent.putExtra("location",tv_destination_content.getText().toString());
+                startActivity(intent);
                 break;
             case R.id.btn_trip_setting:
-                Intent intent = new Intent(context,GuideListActivity.class);
+                intent = new Intent(context,GuideListActivity.class);
                 intent.putExtra("startTime",tv_start_time_content.getText().toString());
                 intent.putExtra("endTime",tv_end_time_content.getText().toString());
+                intent.putExtra("location",tv_destination_content.getText().toString());
                 startActivity(intent);
                 break;
         }
@@ -250,10 +254,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     //城市选择
     private void cityPick(){
-
-        startActivity(new Intent(context, MyCityPickActivity.class));
-
-//        mPresenter.regionFindProAndCity();
+        Intent intent = new Intent(context, MyCityPickActivity.class);
+        intent.putExtra("location",tv_destination_content.getText().toString());
+        startActivity(intent);
+        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+            @Override
+            public void accept(CityPickEvent cityPickEvent) throws Exception {
+                tv_destination_content.setText(cityPickEvent.getCity());
+                desDisposable.dispose();
+            }
+        });
     }
 
     //日历选择
@@ -338,33 +348,5 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         showLongToast(msg);
     }
 
-    @Override
-    public void regionFindProAndCitySuccess(List<ProvinceModel> models) {
-        Intent intent = new Intent(context, CityPickActivity.class);
-        List<City> citys = new ArrayList<>();
-        for (int i = 0; i<models.size();i++){
-            List<CityModel> cityModels = models.get(i).getTravelRegionEntitys();
-            for (int j = 0; j<cityModels.size();j++){
-                CityModel cityModel = cityModels.get(j);
-                City city = new City(cityModel.getName(),models.get(i).getProName(),cityModel.getSpell(),"12312");
-                citys.add(city);
-            }
-        }
-        intent.putParcelableArrayListExtra("citys", (ArrayList<City>) citys);
-        startActivity(intent);
-        activity.overridePendingTransition(0, 0);
-        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-            @Override
-            public void accept(CityPickEvent cityPickEvent) throws Exception {
-                tv_destination_content.setText(cityPickEvent.getCity());
-                desDisposable.dispose();
-            }
-        });
-    }
-
-    @Override
-    public void regionFindProAndCityFailed(String msg) {
-        showLongToast(msg);
-    }
 }
 

@@ -14,6 +14,8 @@ import com.njz.letsgoapp.bean.other.CityModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.mvp.other.MyCityPickContract;
 import com.njz.letsgoapp.mvp.other.MyCityPickPresenter;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +40,12 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     List<ProvinceModel> provinces;
     int provinceIndex = -1;
 
+    String location = "";
+
     @Override
     public void getIntentData() {
         super.getIntentData();
-
+        location = intent.getStringExtra("location");
     }
 
     @Override
@@ -54,6 +58,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         hideTitleLayout();
 
         ivLeft = $(R.id.iv_left);
+        tv_location_city = $(R.id.tv_location_city);
         ivLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,9 +73,20 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
 
     @Override
     public void initData() {
+        tv_location_city.setText(location);
+
+
         mPresenter = new MyCityPickPresenter(context, this);
 
         mPresenter.regionFindProAndCity();
+
+        tv_location_city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RxBus2.getInstance().post(new CityPickEvent(tv_location_city.getText().toString()));
+                finish();
+            }
+        });
     }
 
     private void initProvinceRecycler() {
@@ -101,8 +117,10 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             @Override
             public void onClick(int position) {
                 if(provinceIndex != -1){
-                    provinces.get(provinceIndex).getTravelRegionEntitys().get(position).getName();
-                    showShortToast(provinces.get(provinceIndex).getTravelRegionEntitys().get(position).getName());
+                    String cityName = provinces.get(provinceIndex).getTravelRegionEntitys().get(position).getName();
+                    showShortToast(cityName);
+                    RxBus2.getInstance().post(new CityPickEvent(cityName));
+                    finish();
                 }
             }
         });

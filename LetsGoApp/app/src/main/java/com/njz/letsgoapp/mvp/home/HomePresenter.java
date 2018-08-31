@@ -77,20 +77,4 @@ public class HomePresenter implements Presenter {
         };
         MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener));
     }
-
-    @Override
-    public void regionFindProAndCity() {
-        ResponseCallback listener = new ResponseCallback<List<ProvinceModel>>() {
-            @Override
-            public void onSuccess(List<ProvinceModel> data) {
-                iView.regionFindProAndCitySuccess(data);
-            }
-
-            @Override
-            public void onFault(String errorMsg) {
-                iView.regionFindProAndCityFailed(errorMsg);
-            }
-        };
-        MethodApi.regionFindProAndCity(new OnSuccessAndFaultSub(listener));
-    }
 }

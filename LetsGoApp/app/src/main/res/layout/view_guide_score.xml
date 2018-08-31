@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -9,7 +10,7 @@
         android:id="@+id/guide_score_service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5000次服务" />
+        tools:text="5000次服务" />
 
     <TextView
         android:id="@+id/guide_score_line"
@@ -22,12 +23,12 @@
         android:id="@+id/guide_score_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5.0分" />
+        tools:text="5.0分" />
 
     <TextView
         android:id="@+id/guide_score_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="（6000条点评）" />
+        tools:text="（6000条点评）" />
 
 </LinearLayout>

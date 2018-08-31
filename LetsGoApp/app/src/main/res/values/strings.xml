@@ -16,7 +16,7 @@
 
 
     <string name="service_cout"><Data><![CDATA[服务<font color="#5fb1ff">%d</font>次]]></Data></string>
-    <string name="service_score"><Data><![CDATA[<font color="##ff7c00">%f</font>分]]></Data></string>
+    <string name="service_score"><Data><![CDATA[<font color="#ff7c00">%d</font>分]]></Data></string>
 
 
 </resources>

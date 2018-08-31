@@ -20,7 +20,6 @@ public interface HomeContract {
         void bannerFindByType(int type, int guideId);
         void orderReviewsSortTop(String location);
         void friendFriendSterTop(String location,int limit,int page);
-        void regionFindProAndCity();
     }
 
     interface View {
@@ -32,8 +31,5 @@ public interface HomeContract {
 
         void friendFriendSterTopSuccess(DynamicListModel models);
         void friendFriendSterTopFailed(String msg);
-
-        void regionFindProAndCitySuccess(List<ProvinceModel> models);
-        void regionFindProAndCityFailed(String msg);
     }
 }

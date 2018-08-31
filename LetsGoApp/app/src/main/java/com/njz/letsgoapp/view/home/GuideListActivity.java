@@ -22,6 +22,7 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
+import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
 
@@ -65,12 +66,14 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     String startTime;
     String endTime;
+    String location;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         startTime = intent.getStringExtra("startTime");
         endTime = intent.getStringExtra("endTime");
+        location = intent.getStringExtra("location");
     }
 
     @Override
@@ -217,6 +220,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         mPresenter = new GuideListPresenter(context,this);
 
         getGuideSortTop10ByLocation(type);
+
+        tvCityPick.setText(TextUtils.isEmpty(location)?Constant.DEFAULT_CITY:location);
     }
 
 
@@ -227,8 +232,9 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.tv_city_pick:
-                startActivity(new Intent(context, CityPickActivity.class));
-                activity.overridePendingTransition(0, 0);
+                intent = new Intent(context, MyCityPickActivity.class);
+                intent.putExtra("location",tvCityPick.getText().toString());
+                startActivity(intent);
                 desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
                     @Override
                     public void accept(CityPickEvent cityPickEvent) throws Exception {
