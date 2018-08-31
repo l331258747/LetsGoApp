@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
@@ -89,11 +90,15 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             tv_login.setVisibility(View.VISIBLE);
         }
 
+        ll_info.setVisibility(View.VISIBLE);
+        tv_login.setVisibility(View.GONE);
+
     }
 
     @Override
     public void initData() {
-
+        StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),5000));
+        StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),5000));
     }
 
     @Override
