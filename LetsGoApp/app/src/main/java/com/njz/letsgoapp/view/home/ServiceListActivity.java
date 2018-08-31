@@ -30,11 +30,15 @@ public class ServiceListActivity extends BaseActivity {
 
 
     String title;
+    int serviceType;
+    int guideId;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         title = intent.getStringExtra("ServiceDetailActivity_title");
+        serviceType = intent.getIntExtra("serviceType",0);
+        guideId = intent.getIntExtra("guideId",0);
         if(TextUtils.isEmpty(title)){
             title = "";
         }

@@ -14,6 +14,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.home.ServiceInfoGroup;
 import com.njz.letsgoapp.bean.home.ServiceItem;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -39,12 +40,6 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     private static final int SERVICE_TYPE_TITLE = 10;
     private static final int SERVICE_TYPE_DEFAULT = 12;
 
-    public static final String SERVICE_TYPE_GUIDE = "向导陪游服务";
-    public static final String SERVICE_TYPE_CUSTOM = "私人定制服务";
-    public static final String SERVICE_TYPE_CAR = "车导服务";
-    public static final String SERVICE_TYPE_HOTEL = "代订酒店服务";
-    public static final String SERVICE_TYPE_TICKET = "代订景点门票服务";
-
     List<GuideServiceModel> serviceInfo;
     Disposable calDisposable;
 
@@ -60,31 +55,16 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     private void setData(List<GuideServiceModel> serviceInfo) {
         serviceInfoGroups.clear();
         for (GuideServiceModel item : serviceInfo) {
-            switch (item.getServeType()) {
-                case "私人订制":
-                    setData2(item.getServiceItems(), SERVICE_TYPE_CUSTOM);
-                    break;
-                case "代订酒店":
-                    setData2(item.getServiceItems(), SERVICE_TYPE_HOTEL);
-                    break;
-                case "代订门票":
-                    setData2(item.getServiceItems(), SERVICE_TYPE_TICKET);
-                    break;
-                case "车导服务":
-                    setData2(item.getServiceItems(), SERVICE_TYPE_CAR);
-                    break;
-                case "导游陪游":
-                    setData2(item.getServiceItems(), SERVICE_TYPE_GUIDE);
-                    break;
-            }
+            setData2(item.getServiceItems(), item.getServeType(), item.getId());
         }
         notifyDataSetChanged();
     }
 
-    public void setData2(List<ServiceItem> serviceItems, String title) {
+    public void setData2(List<ServiceItem> serviceItems, String title,int id) {
         ServiceInfoGroup serviceInfoGroup = new ServiceInfoGroup();
         serviceInfoGroup.setLabelTab(ServiceInfoGroup.LABEL_TAB_TITLE);
         serviceInfoGroup.setServiceTitle(title);
+        serviceInfoGroup.setId(id);
         serviceInfoGroups.add(serviceInfoGroup);
         if (serviceItems != null && serviceItems.size() > 0) {
             serviceInfoGroup.setServiceTitleColor(true);
@@ -174,14 +154,13 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             if (data.isServiceTitleColor()) {
                 ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_blue_solid_r40));
             } else {
-                ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_99_solid_r15));
+                ((TitleHolder) holder).service_title.setBackground(ContextCompat.getDrawable(AppUtils.getContext(), R.drawable.btn_99_solid_r40));
             }
 
             ((TitleHolder) holder).service_title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String strTitle = (((TitleHolder) holder).service_title).getText().toString();
-                    mOnItemClickListener.onClick(strTitle);
+                    mOnItemClickListener.onClick(data.getServiceTitle(),data.getId());
                 }
             });
 
@@ -238,7 +217,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     OnTitleClickListener mOnItemClickListener;
 
     public interface OnTitleClickListener {
-        void onClick(String titleType);
+        void onClick(String titleType,int id);
     }
 
     public void setOnItemClickListener(OnTitleClickListener onItemClickListener) {

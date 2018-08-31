@@ -21,6 +21,7 @@ public class GuideServiceModel {
 
 
     private int guideId;
+    private int id;
     private Object commentId;
     private String titleImg;
     private int servePrice;
@@ -33,6 +34,14 @@ public class GuideServiceModel {
     private int status;
     private String location;
     private List<ServiceItem> serviceItems;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public List<ServiceItem> getServiceItems() {
         return serviceItems;

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.PopServiceAdapter;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.order.OrderSubmitActivity;
@@ -46,6 +47,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     private Context context;
 
     private List<GuideServiceModel> guideServiceModels;
+    private int guideId;
 
     public PopService(final Activity context, View parentView) {
         super(parentView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
@@ -75,9 +77,9 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
     }
 
-    public void setDate(List<GuideServiceModel> guideServiceModels) {
+    public void setDate(int guideId, List<GuideServiceModel> guideServiceModels) {
         this.guideServiceModels = guideServiceModels;
-
+        this.guideId = guideId;
     }
 
     private void initSubmit() {
@@ -127,20 +129,27 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
             mAdapter.setOnItemClickListener(new PopServiceAdapter.OnTitleClickListener() {
                 @Override
-                public void onClick(String titleType) {
+                public void onClick(String titleType,int id) {
                     Intent intent;
-                    if (TextUtils.equals(titleType, PopServiceAdapter.SERVICE_TYPE_GUIDE)
-                            || TextUtils.equals(titleType, PopServiceAdapter.SERVICE_TYPE_CAR)) {
+                    if (TextUtils.equals(titleType, Constant.SERVICE_TYPE_GUIDE)
+                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_CAR)) {
                         intent = new Intent(mContext, ServiceDetailActivity.class);
                         intent.putExtra("ServiceDetailActivity_title", titleType);
+
+                        intent.putExtra("serviceId", id);
+
                         mContext.startActivity(intent);
                         return;
                     }
-                    if (TextUtils.equals(titleType, PopServiceAdapter.SERVICE_TYPE_CUSTOM)
-                            || TextUtils.equals(titleType, PopServiceAdapter.SERVICE_TYPE_HOTEL)
-                            || TextUtils.equals(titleType, PopServiceAdapter.SERVICE_TYPE_TICKET)){
+                    if (TextUtils.equals(titleType, Constant.SERVICE_TYPE_CUSTOM)
+                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_HOTEL)
+                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_TICKET)){
                         intent = new Intent(mContext, ServiceListActivity.class);
                         intent.putExtra("ServiceDetailActivity_title", titleType);
+
+                        intent.putExtra("serviceType", titleType);
+                        intent.putExtra("guideId", guideId);
+
                         mContext.startActivity(intent);
                         return;
                     }

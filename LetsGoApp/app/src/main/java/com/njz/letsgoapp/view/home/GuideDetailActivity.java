@@ -312,7 +312,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         if (popService == null) {
             popService = new PopService(activity, btn_submit);
         }
-        popService.setDate(guideDetailModel.getTravelGuideServiceInfoEntitys());
+        popService.setDate(guideDetailModel.getGuideId(),guideDetailModel.getTravelGuideServiceInfoEntitys());
         popService.showPopupWindow(btn_submit);
     }
 

@@ -41,6 +41,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     NestedScrollView scrollView;
 
     String title;
+    int serviceId;
 
     @Override
     public int getLayoutId() {
@@ -51,6 +52,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public void getIntentData() {
         super.getIntentData();
         title = intent.getStringExtra("ServiceDetailActivity_title");
+        serviceId = intent.getIntExtra("serviceId",0);
         if(TextUtils.isEmpty(title)){
             title = "";
         }
