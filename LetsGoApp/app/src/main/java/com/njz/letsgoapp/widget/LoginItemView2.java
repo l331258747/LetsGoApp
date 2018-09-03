@@ -59,6 +59,7 @@ public class LoginItemView2 extends LinearLayout {
 
             int leftDrawable = attributes.getResourceId(R.styleable.login_item_login_item_right_drawable, -1);
             if (leftDrawable != -1) {
+                iv_next.setVisibility(VISIBLE);
                 iv_next.setImageDrawable(context.getResources().getDrawable(leftDrawable));
             }
 
@@ -91,6 +92,14 @@ public class LoginItemView2 extends LinearLayout {
 
     public void setOnClickLisener(OnClickListener listener){
         login_item_tv.setOnClickListener(listener);
+    }
+
+    public void setRightImgOnClickLisener(OnClickListener listener){
+        iv_next.setOnClickListener(listener);
+    }
+
+    public ImageView getRightImage(){
+        return iv_next;
     }
 
 }

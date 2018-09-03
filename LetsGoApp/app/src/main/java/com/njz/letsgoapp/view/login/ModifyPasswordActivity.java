@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.login;
 
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
@@ -26,6 +27,10 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
 
     ModifyPasswordPresenter mPresenter;
 
+    boolean isSeeLoginViewPasswordOld;
+    boolean isSeeLoginViewPassword;
+    boolean isSeeLoginViewPasswordAgin;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_modify_password;
@@ -45,7 +50,38 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
         btnSubmit = $(R.id.btn_submit);
         btnSubmit.setOnClickListener(this);
 
+        loginViewPasswordOld.setRightImgOnClickLisener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEtState(loginViewPasswordOld, isSeeLoginViewPasswordOld);
+                isSeeLoginViewPasswordOld = !isSeeLoginViewPasswordOld;
+            }
+        });
+        loginViewPassword.setRightImgOnClickLisener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEtState(loginViewPassword, isSeeLoginViewPassword);
+                isSeeLoginViewPassword = !isSeeLoginViewPassword;
+            }
+        });
+        loginViewPasswordAgin.setRightImgOnClickLisener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEtState(loginViewPasswordAgin, isSeeLoginViewPasswordAgin);
+                isSeeLoginViewPasswordAgin = !isSeeLoginViewPasswordAgin;
+            }
+        });
+    }
 
+    private void setEtState(LoginItemView2 view,boolean isSee){
+        if(isSee){
+            view.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            view.getRightImage().setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_see));
+        }else{
+            view.setEtInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            view.getRightImage().setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_see_un));
+        }
+        view.getEtView().setSelection(view.getEtContent().length());
     }
 
     @Override
