@@ -76,8 +76,12 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return guideDatas.size();
     }
 
-    public void setData(List<GuideModel> guideDatas) {
+    public void addData(List<GuideModel> guideDatas) {
         this.guideDatas.addAll(guideDatas);
+    }
+
+    public void setData(List<GuideModel> guideDatas) {
+        this.guideDatas = guideDatas;
     }
 
     public static class GuideViewHolder extends RecyclerView.ViewHolder {

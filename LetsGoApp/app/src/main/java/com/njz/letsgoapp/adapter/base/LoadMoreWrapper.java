@@ -28,11 +28,11 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // 当前加载状态，默认为加载完成
     private int loadState = 2;
     // 正在加载
-    public final int LOADING = 1;
+    public static final int LOADING = 1;
     // 加载完成
-    public final int LOADING_COMPLETE = 2;
+    public static final int LOADING_COMPLETE = 2;
     // 加载到底
-    public final int LOADING_END = 3;
+    public static final int LOADING_END = 3;
 
     public LoadMoreWrapper(RecyclerView.Adapter adapter) {
         this.adapter = adapter;
@@ -96,10 +96,6 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return adapter.getItemCount() + 1;
     }
 
-    public void setData(){
-        notifyDataSetChanged();
-    }
-
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -138,5 +134,9 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setLoadState(int loadState) {
         this.loadState = loadState;
         notifyDataSetChanged();
+    }
+
+    public int getLoadState(){
+        return this.loadState;
     }
 }
