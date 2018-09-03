@@ -277,23 +277,17 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void guideSortTop10ByLocationSuccess(GuideListModel models) {
         datas = models.getList();
+
         isLoad = false;
-
-        List<GuideModel> datas2 = new ArrayList<>();
-        for (int i =0;i<4;i++){
-            datas2.addAll(datas);
-        }
-        datas = datas2;
-
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
         } else {
             // 显示加载到底的提示
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
+        swipeRefreshLayout.setRefreshing(false);
 
         if (isLoadType == 1) {
-            swipeRefreshLayout.setRefreshing(false);
             mAdapter.setData(datas);
         } else {
             mAdapter.addData(datas);
