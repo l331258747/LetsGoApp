@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,10 +46,10 @@ import io.reactivex.functions.Consumer;
 
 public class MyInfoActivity extends BaseActivity implements View.OnClickListener {
     ImageView iv_head;
-    MineItemView info_sex, info_birthday, info_location, info_country, info_introduce, info_tag;
-    EditText et_name;
+    MineItemView info_sex, info_birthday, info_location, info_country, info_tag;
+    EditText et_name,et_real_name,et_explain;
 
-    String bName, bBirthday, bLocation, bCountry, bSex;
+    String bName, bBirthday, bLocation, bCountry, bSex,bRealName,bExplain;
 
     List<String> sexs;
 
@@ -82,8 +83,9 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         info_birthday = $(R.id.info_birthday);
         info_location = $(R.id.info_lacation);
         info_country = $(R.id.info_country);
+        et_real_name = $(R.id.et_real_name);
+        et_explain = $(R.id.et_explain);
 
-        info_introduce = $(R.id.info_introduce);
         info_tag = $(R.id.info_tag);
 
         et_name.setText("那就走");
@@ -98,6 +100,23 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            isChange();
+        }
+    };
+
     @Override
     public void initData() {
         bName = et_name.getText().toString();
@@ -105,24 +124,25 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         bLocation = info_location.getContent();
         bCountry = info_country.getContent();
         bSex = info_sex.getContent();
+        bExplain = et_explain.getText().toString();
+        bRealName = et_real_name.getText().toString();
         sexs = new ArrayList<>();
         sexs.add("男");
         sexs.add("女");
 
-        et_name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        et_name.addTextChangedListener(textWatcher);
+        et_explain.addTextChangedListener(textWatcher);
+        et_real_name.addTextChangedListener(textWatcher);
 
+        et_explain.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                isChange();
+            public boolean onTouch(View v, MotionEvent event) {
+                // scrollview 与 edittext 滑动冲突
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
             }
         });
+
 
         tackPicUtil = new TackPicturesUtil(this);
         getPicPermission(context);
@@ -221,8 +241,14 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         if (!TextUtils.equals(info_birthday.getContent(), bBirthday)) {
             isChange = true;
         }
+        if (!TextUtils.equals(et_real_name.getText().toString(), bRealName)) {
+            isChange = true;
+        }
+        if (!TextUtils.equals(et_explain.getText().toString(), bExplain)) {
+            isChange = true;
+        }
         if (isChange) {
-            getRightTv().setTextColor(ContextCompat.getColor(context, R.color.blue));
+            getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
             getRightTv().setEnabled(true);
         } else {
             getRightTv().setTextColor(ContextCompat.getColor(context, R.color.black_66));

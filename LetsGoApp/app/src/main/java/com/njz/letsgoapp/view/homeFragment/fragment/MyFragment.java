@@ -89,10 +89,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             ll_info.setVisibility(View.GONE);
             tv_login.setVisibility(View.VISIBLE);
         }
-
-        ll_info.setVisibility(View.VISIBLE);
-        tv_login.setVisibility(View.GONE);
-
     }
 
     @Override

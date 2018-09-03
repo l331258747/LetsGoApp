@@ -132,7 +132,7 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
                     public void onComplete() {
                         //回复原来初始状态
                         tvVerify.setEnabled(true);
-                        tvVerify.setText("发送验证码");
+                        tvVerify.setText("重新发送");
                         tvVerify.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
                     }
                 });

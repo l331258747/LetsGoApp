@@ -47,7 +47,7 @@ public interface HttpService {
     //登录系列   start
     //登录
     @FormUrlEncoded
-    @POST("travel/user/login")
+    @POST("user/login")
     Observable<BaseResponse<LoginModel>> login(
             @Field("mobile") String mobile,
             @Field("password") String password
@@ -55,7 +55,7 @@ public interface HttpService {
 
     //注册
     @FormUrlEncoded
-    @POST("travel/sms/msgCheckRegister")
+    @POST("sms/msgCheckRegister")
     Observable<BaseResponse<EmptyModel>> msgCheckRegister(
             @Field("mobile") String mobile,
             @Field("msg") String msg,
@@ -64,7 +64,7 @@ public interface HttpService {
 
     //找回密码
     @FormUrlEncoded
-    @POST("travel/sms/msgCheckFindBy")
+    @POST("sms/msgCheckFindBy")
     Observable<BaseResponse<EmptyModel>> msgCheckFindBy(
             @Field("mobile") String mobile,
             @Field("msg") String msg,
@@ -73,7 +73,7 @@ public interface HttpService {
 
     //手机验证码登录
     @FormUrlEncoded
-    @POST("travel/sms/msgCheckLogin")
+    @POST("sms/msgCheckLogin")
     Observable<BaseResponse<LoginModel>> msgCheckLogin(
             @Field("mobile") String mobile,
             @Field("msg") String msg
@@ -81,7 +81,7 @@ public interface HttpService {
 
     //短信验证码
     @FormUrlEncoded
-    @POST("travel/sms/userSmsSend")
+    @POST("sms/userSmsSend")
     Observable<BaseResponse<VerifyModel>> userSmsSend(
             @Field("mobile") String mobile,
             @Field("type") String type
@@ -90,7 +90,7 @@ public interface HttpService {
 
     //修改密码
     @FormUrlEncoded
-    @POST("travel/user/changePwd")
+    @POST("user/changePwd")
     Observable<BaseResponse<EmptyModel>> changePwd(
 //            @Field("X-Nideshop-Token") String token,
             @Field("password") String password,
@@ -99,7 +99,7 @@ public interface HttpService {
 
     //修改手机号
     @FormUrlEncoded
-    @POST("travel/sms/updateMobile")
+    @POST("sms/updateMobile")
     Observable<BaseResponse<EmptyModel>> updateMobile(
 //            @Field("X-Nideshop-Token") String token,
             @Field("mobile") String mobile,

@@ -3,6 +3,7 @@ package com.njz.letsgoapp.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -58,12 +59,12 @@ public class MineItemView2 extends LinearLayout {
 
             int rightDrawable = attributes.getResourceId(R.styleable.home_my_item2_home_my_item2_right_drawable, -1);
             if (rightDrawable != -1) {
-                iv_right_img.setImageDrawable(context.getResources().getDrawable(rightDrawable));
+                iv_right_img.setImageDrawable(ContextCompat.getDrawable(context,rightDrawable));
             }
 
             int leftDrawable = attributes.getResourceId(R.styleable.home_my_item2_home_my_item2_left_drawable, -1);
             if (leftDrawable != -1) {
-                iv_left_img.setImageDrawable(context.getResources().getDrawable(leftDrawable));
+                iv_left_img.setImageDrawable(ContextCompat.getDrawable(context,leftDrawable));
             }
             attributes.recycle();
         }

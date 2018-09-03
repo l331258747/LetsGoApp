@@ -1,81 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/parent_background"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_head"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:src="@mipmap/head_default" />
-
-
-    <EditText
-        android:id="@+id/et_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:background="@color/white"
-        android:maxLines="1"
-        android:maxLength="15"
-        android:padding="8dp"
-        android:text="那就走" />
+        android:layout_height="match_parent"
+        android:background="@color/parent_background"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-    <com.njz.letsgoapp.widget.MineItemView
-        android:id="@+id/info_sex"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:content="男"
-        app:left_drawable="@mipmap/ic_arrow_right"
-        app:title="性别" />
+        <RelativeLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp">
 
-    <com.njz.letsgoapp.widget.MineItemView
-        android:id="@+id/info_birthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:content="1990-01-01"
-        app:left_drawable="@mipmap/ic_arrow_right"
-        app:title="生日" />
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/head_default" />
 
-    <com.njz.letsgoapp.widget.MineItemView
-        android:id="@+id/info_lacation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:content="长沙"
-        app:left_drawable="@mipmap/ic_arrow_right"
-        app:title="常住地" />
-
-    <com.njz.letsgoapp.widget.MineItemView
-        android:id="@+id/info_country"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:content="长沙"
-        app:left_drawable="@mipmap/ic_arrow_right"
-        app:title="故乡" />
-
-    <com.njz.letsgoapp.widget.MineItemView
-        android:id="@+id/info_introduce"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:left_drawable="@mipmap/ic_arrow_right"
-        app:title="个人说明" />
-
-    <com.njz.letsgoapp.widget.MineItemView
-        android:id="@+id/info_tag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:left_drawable="@mipmap/ic_arrow_right"
-        app:title="标签" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_camera" />
+        </RelativeLayout>
 
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="昵称" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/tv_name"
+                android:background="@color/white"
+                android:gravity="right"
+                android:hint="请输入"
+                android:maxLength="8"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_real_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="真实姓名" />
+
+            <EditText
+                android:id="@+id/et_real_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/tv_real_name"
+                android:background="@color/white"
+                android:gravity="right"
+                android:hint="请输入"
+                android:maxLength="5"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/info_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:content="男"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="性别" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/info_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:content="1990-01-01"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="生日" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/info_lacation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:content="长沙"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="常住地" />
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/info_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:content="长沙"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="故乡" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人说明" />
+
+            <EditText
+                android:id="@+id/et_explain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_explain"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:gravity="top"
+                android:hint="简单介绍下自己吧！(200字以内)"
+                android:lines="3"
+                android:maxLines="3" />
+
+        </RelativeLayout>
+
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/info_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            app:left_drawable="@mipmap/ic_arrow_right"
+            app:title="标签" />
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
