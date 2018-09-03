@@ -227,6 +227,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void getRefreshData(int type) {
+        swipeRefreshLayout.setRefreshing(true);
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
