@@ -77,8 +77,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void setData(List<GuideModel> guideDatas) {
-        this.guideDatas = guideDatas;
-        notifyDataSetChanged();
+        this.guideDatas.addAll(guideDatas);
     }
 
     public static class GuideViewHolder extends RecyclerView.ViewHolder {

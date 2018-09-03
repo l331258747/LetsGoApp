@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.GuideListModel;
@@ -45,6 +47,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private LoadMoreWrapper loadMoreWrapper;
 
     GuideListAdapter mAdapter;
 
@@ -67,6 +70,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     String startTime;
     String endTime;
     String location;
+    int page;
+    boolean isLoad = false;
 
     @Override
     public void getIntentData() {
@@ -97,19 +102,19 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 switch (position) {
                     case MyGuideTab.MYGUIDETAB_SYNTHESIZE:
                         type = Constant.GUIDE_TYPE_SYNTHESIZE;
-                        getGuideSortTop10ByLocation(type);
+                        getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
                         break;
                     case MyGuideTab.MYGUIDETAB_COUNT:
                         type = Constant.GUIDE_TYPE_COUNT;
-                        getGuideSortTop10ByLocation(type);
+                        getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
                         break;
                     case MyGuideTab.MYGUIDETAB_SCORE:
                         type = Constant.GUIDE_TYPE_SCORE;
-                        getGuideSortTop10ByLocation(type);
+                        getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
                         break;
                     case MyGuideTab.MYGUIDETAB_COMMENT:
                         type = Constant.GUIDE_TYPE_COMMENT;
-                        getGuideSortTop10ByLocation(type);
+                        getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         showShortToast("筛选");
@@ -142,14 +147,14 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 }else{
                     maps = null;
                 }
-                getGuideSortTop10ByLocation(type);
+                getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
             }
 
             @Override
             public void onReset() {
                 myGuideTab.setScreen(false);
                 maps = null;
-                getGuideSortTop10ByLocation(type);
+                getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
             }
         });
 
@@ -180,10 +185,11 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     private void initRecycler() {
         datas = new ArrayList<>();
         recyclerView = $(R.id.recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new GuideListAdapter(activity, datas);
-        recyclerView.setAdapter(mAdapter);
+        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
+        page = Constant.DEFAULT_PAGE;
 
         mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
             @Override
@@ -192,6 +198,23 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 LogUtil.e(datas.get(position).getGuideId() + "");
                 intent.putExtra(GuideDetailActivity.GUIDEID,datas.get(position).getGuideId());
                 startActivity(intent);
+            }
+        });
+
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if(isLoad) return;
+                isLoad = true;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                if (datas.size() >= Constant.DEFAULT_LIMIT) {
+                    page = page + 1;
+                    getGuideSortTop10ByLocation(type,page);
+                    loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+                } else {
+                    // 显示加载到底的提示
+                    loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+                }
             }
         });
 
@@ -204,23 +227,23 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getGuideSortTop10ByLocation(type);
+                if(isLoad) return;
+                isLoad = true;
+                getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
-    private void getGuideSortTop10ByLocation(int type){
-        mPresenter.guideSortTop10ByLocation(Constant.DEFAULT_CITY,type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE,maps);
+    private void getGuideSortTop10ByLocation(int type,int page){
+        mPresenter.guideSortTop10ByLocation(Constant.DEFAULT_CITY,type, Constant.DEFAULT_LIMIT,page,maps);
     }
 
 
     @Override
     public void initData() {
         mPresenter = new GuideListPresenter(context,this);
-
-        getGuideSortTop10ByLocation(type);
-
+        getGuideSortTop10ByLocation(type,Constant.DEFAULT_PAGE);
         tvCityPick.setText(TextUtils.isEmpty(location)?Constant.DEFAULT_CITY:location);
     }
 
@@ -252,11 +275,21 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void guideSortTop10ByLocationSuccess(GuideListModel models) {
         datas = models.getList();
+        List<GuideModel> datas2 = new ArrayList<>();
+        for(int i = 0;i<5;i++){
+            for (int j = 0;j<datas.size();j++){
+                datas2.add(datas.get(j));
+            }
+        }
+        datas = datas2;
         mAdapter.setData(datas);
+        loadMoreWrapper.setData();
+        isLoad = false;
     }
 
     @Override
     public void guideSortTop10ByLocationFailed(String msg) {
         showShortToast(msg);
+        isLoad = false;
     }
 }

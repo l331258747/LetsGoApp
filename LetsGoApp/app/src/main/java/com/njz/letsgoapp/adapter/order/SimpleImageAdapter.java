@@ -1,6 +1,5 @@
-package com.njz.letsgoapp.adapter;
+package com.njz.letsgoapp.adapter.order;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.view.other.BigImageActivity;
 
 import java.util.List;
 

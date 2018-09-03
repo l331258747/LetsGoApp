@@ -72,12 +72,29 @@ public class GsonUtil {
      */
     public static <T> T convertString2Collection(String jsonStr, TypeToken<T> typeToken) {
         try {
+
             Gson gson = new Gson();
-            T t = gson.fromJson(jsonStr, typeToken.getType());
-            return t;
+            if (isJsonArr(jsonStr)) {
+                T t = gson.fromJson(jsonStr, typeToken.getType());
+                return t;
+            } else {
+                return null;
+            }
+
         } catch (Exception e) {
             LogUtil.e("convertString2Collection \r\n  error = \r\n    " + Log.getStackTraceString(e));
             return null;
+        }
+    }
+
+    public static boolean isJsonArr(String json) {
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            jsonArray = null;
+            return true;
+        } catch (JSONException e1) {
+            LogUtil.e("isJsonArr \r\n  error = \r\n    " + Log.getStackTraceString(e1));
+            return false;
         }
     }
 
