@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSuccess(LoginModel loginModel) {
         MySelfInfo.getInstance().setData(loginModel);
-        startActivity(new Intent(context,HomeActivity.class));
+//        startActivity(new Intent(context,HomeActivity.class));
         finish();
     }
 

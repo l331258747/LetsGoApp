@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.glide.GlideCircleTransform;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.photo.TackPicturesUtil;
@@ -74,8 +75,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         getRightTv().setEnabled(false);
 
         iv_head = $(R.id.iv_head);
-        String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
-        GlideUtil.LoadCircleImage(context, photo, iv_head);
+        GlideUtil.LoadCircleImage(context, SPUtils.getInstance().getString(SPUtils.SP_USER_AVATAR), iv_head);
 
 
         et_name = $(R.id.et_name);
@@ -88,7 +88,13 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
         info_tag = $(R.id.info_tag);
 
-        et_name.setText("那就走");
+        et_name.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_NICKNAME));
+        et_real_name.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_NAME));
+        info_sex.setContent(SPUtils.getInstance().getInt(SPUtils.SP_USER_GENDER) == 0?"女":"男");
+        info_birthday.setContent(SPUtils.getInstance().getString(SPUtils.SP_USER_BIRTHDAY));
+        info_location.setContent(SPUtils.getInstance().getString(SPUtils.SP_USER_LOCAL_AREA));
+        info_country.setContent(SPUtils.getInstance().getString(SPUtils.SP_USER_HOME_AREA));
+        et_explain.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT));
 
         info_location.setOnClickListener(this);
         info_country.setOnClickListener(this);
@@ -206,7 +212,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                         new OnOptionsSelectListener() {
                             @Override
                             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                                showShortToast(sexs.get(options1));
+                                info_sex.setContent(sexs.get(options1));
                             }
                         })
                         .build();

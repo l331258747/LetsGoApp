@@ -32,6 +32,11 @@ public class StringUtils {
         return (null == str || "".equals(str)) ? true : false;
     }
 
+    public static String hidePhone(String str){
+        if(TextUtils.isEmpty(str)) return "";
+        return str.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+    }
+
     /**
      * 得到字符串值
      *

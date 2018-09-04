@@ -82,19 +82,29 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        setLoginState();
+    }
+
+    public void setLoginState(){
         if (MySelfInfo.getInstance().isLogin()) {//登录状态
             ll_info.setVisibility(View.VISIBLE);
             tv_login.setVisibility(View.GONE);
+
+            tv_name.setText(MySelfInfo.getInstance().getUserNickname());
+            StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFocus()));
+            StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFans()));
+            mine_bind.setContent(StringUtils.hidePhone(MySelfInfo.getInstance().getUserMoble()));
+
         } else {
             ll_info.setVisibility(View.GONE);
             tv_login.setVisibility(View.VISIBLE);
+            mine_bind.setContent("");
         }
     }
 
     @Override
     public void initData() {
-        StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),5000));
-        StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),5000));
+
     }
 
     @Override
@@ -133,10 +143,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btn_loginoff:
                 MySelfInfo.getInstance().loginOff();
-                Intent intent = new Intent(activity, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                activity.finish();
+                setLoginState();
                 break;
 
         }

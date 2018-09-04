@@ -31,9 +31,6 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void initUserInfo() {
-        if (SPUtils.getInstance().isLogin()) {
-//            MySelfInfo.getInstance().getCache();
-        }
     }
 
     private void toHome() {

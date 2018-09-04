@@ -17,31 +17,21 @@ public class SPUtils {
 
 
     public static final String SP_USER_TOKEN = "sp_user_token";
-
-    public static final String SP_USER_ID = "sp_user_id";
-    public static final String SP_USER_PWD = "sp_user_pwd";
-    public static final String SP_USER_NICK = "sp_user_nick";
-    public static final String SP_USER_AVATAR = "sp_user_avatar";
-    public static final String SP_USER_TELPHONE = "sp_user_telphone";
-    public static final String SP_USER_EMAIL = "sp_user_email";
-    public static final String SP_USER_SEX = "sp_user_sex";
+    public static final String SP_USER_FANS = "sp_user_fans";
+    public static final String SP_USER_FOCUS = "sp_user_focus";
+    public static final String SP_USER_GENDER = "sp_user_gender";
     public static final String SP_USER_BIRTHDAY = "sp_user_birthday";
-    public static final String SP_USER_POINTS = "sp_user_points";
-    public static final String SP_USER_ISORDER = "sp_user_isorder";
-    public static final String SP_USER_ISGROUP = "sp_user_isgroup";
+    public static final String SP_USER_USERLEVEL = "sp_user_userLevel";
+    public static final String SP_USER_NICKNAME = "sp_user_nickname";
+    public static final String SP_USER_NAME = "sp_user_name";
+    public static final String SP_USER_MOBILE = "sp_user_mobile";
+    public static final String SP_USER_AVATAR = "sp_user_avatar";
+    public static final String SP_USER_LOCAL_AREA = "sp_user_localArea";
+    public static final String SP_USER_HOME_AREA = "sp_user_homeArea";
+    public static final String SP_USER_PERSONAL_STATEMENT = "sp_user_personalStatement";
+    public static final String SP_USER_IMG_URL = "sp_user_imgUrl";
 
-    public static final String PREF_COOKIES = "pref_cookies";
-    public static final String SP_SEARCH_HIS = "pref_search_his";
 
-    public static final String SP_USER_DEALER = "sp_user_dealer";
-    public static final String SP_USER_DEALERID = "sp_user_dealerid";
-    public static final String SP_USER_BIND = "sp_user_bind";
-    public static final String SP_USER_SIGN = "sp_user_sign";
-    public static final String SP_USER_COLLECT_NUM = "sp_user_collect_num";
-    public static final String SP_USER_COUNPON_NUM = "sp_user_coupon_num";
-    public static final String SP_CITY_ID = "sp_user_city_id";
-    public static final String SP_CITY_NAME = "sp_user_city_name";
-    public static final String SP_CITY_SHORT_NAME = "sp_user_city_short_name";
 
 
     private static SharedPreferences mSharedPreferences;
@@ -69,15 +59,6 @@ public class SPUtils {
         return mPreferenceUtils;
     }
 
-
-    public boolean isLogin() {
-        if (mSharedPreferences.contains(SP_USER_ID)) {
-            if (getInt(SP_USER_ID) > 0) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public boolean putString(String key, String value) {
         editor.putString(key, value);
