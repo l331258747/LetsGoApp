@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -17,12 +18,13 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.bumptech.glide.Glide;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.mine.MyInfoData;
+import com.njz.letsgoapp.mvp.mine.MyInfoContract;
+import com.njz.letsgoapp.mvp.mine.MyInfoPresenter;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.SPUtils;
-import com.njz.letsgoapp.util.glide.GlideCircleTransform;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -30,11 +32,10 @@ import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.widget.MineItemView;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -45,7 +46,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class MyInfoActivity extends BaseActivity implements View.OnClickListener {
+public class MyInfoActivity extends BaseActivity implements View.OnClickListener,MyInfoContract.View {
     ImageView iv_head;
     MineItemView info_sex, info_birthday, info_location, info_country, info_tag;
     EditText et_name,et_real_name,et_explain;
@@ -58,6 +59,8 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
     private String headpath;// 头像地址
     private String headCompressPath;
+
+    private MyInfoPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -125,6 +128,9 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
+        mPresenter = new MyInfoPresenter(context,this);
+
+
         bName = et_name.getText().toString();
         bBirthday = info_birthday.getContent();
         bLocation = info_location.getContent();
@@ -189,7 +195,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 });
                 break;
             case R.id.right_tv:
-                showShortToast("保存");
+                mPresenter.userChangePersonalData(myInfoData);
                 break;
             case R.id.info_birthday:
                 //时间选择器
@@ -213,6 +219,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                             @Override
                             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                                 info_sex.setContent(sexs.get(options1));
+                                isChange();
                             }
                         })
                         .build();
@@ -229,13 +236,17 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     }
 
 
+    public MyInfoData myInfoData = new MyInfoData();
+
     //返回true为可以保存
     public void isChange() {
         boolean isChange = false;
         if (!TextUtils.equals(et_name.getText().toString(), bName)) {
+            myInfoData.setName(et_name.getText().toString());
             isChange = true;
         }
         if (!TextUtils.equals(info_sex.getContent(), bSex)) {
+            myInfoData.setGendar(TextUtils.equals("女",info_sex.getContent())?0:1);
             isChange = true;
         }
         if (!TextUtils.equals(info_country.getContent(), bCountry)) {
@@ -245,12 +256,15 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             isChange = true;
         }
         if (!TextUtils.equals(info_birthday.getContent(), bBirthday)) {
+            myInfoData.setBirthday(info_birthday.getContent());
             isChange = true;
         }
         if (!TextUtils.equals(et_real_name.getText().toString(), bRealName)) {
+            myInfoData.setName(et_real_name.getText().toString());
             isChange = true;
         }
         if (!TextUtils.equals(et_explain.getText().toString(), bExplain)) {
+            myInfoData.setPersonalStatement(et_explain.getText().toString());
             isChange = true;
         }
         if (isChange) {
@@ -301,7 +315,35 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         GlideUtil.LoadCircleImage(context, path, iv_head);
     }
 
+    @Override
+    public void userChangePersonalDataSuccess(String str) {
+        showShortToast("修改成功");
+        if(!TextUtils.isEmpty(myInfoData.getName())){
+            SPUtils.getInstance().putString(SPUtils.SP_USER_NAME,myInfoData.getName());
+        }
+        if(TextUtils.isEmpty(myInfoData.getNickname())){
+            SPUtils.getInstance().putString(SPUtils.SP_USER_NICKNAME,myInfoData.getNickname());
+        }
+        if(myInfoData.getGendar() != 0){
+            SPUtils.getInstance().putInt(SPUtils.SP_USER_GENDER,TextUtils.equals("女",info_sex.getContent())?0:1);
+        }
+        if(!TextUtils.isEmpty(myInfoData.getBirthday())){
+            SPUtils.getInstance().putString(SPUtils.SP_USER_BIRTHDAY,myInfoData.getBirthday());
+        }
+        if(!TextUtils.isEmpty(myInfoData.getPersonalStatement())){
+            SPUtils.getInstance().putString(SPUtils.SP_USER_PERSONAL_STATEMENT,myInfoData.getPersonalStatement());
+        }
+
+    }
+
+    @Override
+    public void userChangePersonalDataFailed(String msg) {
+        showShortToast(msg);
+    }
+
 
     //----------------end 拍照
+
+
 
 }

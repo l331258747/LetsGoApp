@@ -2,6 +2,7 @@ package com.njz.letsgoapp.util.http;
 
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
@@ -145,6 +146,15 @@ public class MethodApi {
     }
 
     //----------发现 end -------
+
+    //---------我的 start-------
+    public static void userChangePersonalData(MyInfoData data, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userChangePersonalData(data);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //---------我的 end-------
+
 
     //--------城市选择 start
     public static void regionFindProAndCity(DisposableObserver subscriber) {

@@ -19,6 +19,7 @@ import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.MyCommentActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
+import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.mine.SystemSettingActivity;
 import com.njz.letsgoapp.widget.MineItemView2;
 
@@ -33,7 +34,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting;
 
     ImageView iv_head;
-    TextView tv_name,tv_follow,tv_fans,tv_login;
+    TextView tv_name,tv_follow,tv_fans,tv_login,tv_space;
 
     Button btn_loginoff;
 
@@ -64,6 +65,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         ll_info = $(R.id.ll_info);
         tv_login = $(R.id.tv_login);
         btn_loginoff = $(R.id.btn_loginoff);
+        tv_space = $(R.id.tv_space);
 
         mine_bind.setOnClickListener(this);
         mine_info.setOnClickListener(this);
@@ -76,6 +78,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         iv_head.setOnClickListener(this);
         btn_loginoff.setOnClickListener(this);
         tv_login.setOnClickListener(this);
+        tv_space.setOnClickListener(this);
 
     }
 
@@ -114,15 +117,19 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(context,LoginActivity.class));
                 break;
             case R.id.mine_bind:
+                if(!isLogin()) return;
                 startActivity(new Intent(context,ModifyPhoneActivity.class));
                 break;
             case R.id.mine_info:
+                if(!isLogin()) return;
                 startActivity(new Intent(context,MyInfoActivity.class));
                 break;
             case R.id.mine_modify:
+                if(!isLogin()) return;
                 startActivity(new Intent(context,ModifyPasswordActivity.class));
                 break;
             case R.id.mine_comment:
+                if(!isLogin()) return;
                 startActivity(new Intent(context, MyCommentActivity.class));
                 break;
             case R.id.mine_customer:
@@ -132,11 +139,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(context,SystemSettingActivity.class));
                 break;
             case R.id.tv_fans:
+                if(!isLogin()) return;
                 Intent intentFans = new Intent(context,FansListActivity.class);
                 intentFans.putExtra("FansListActivity_title", "我的粉丝");
                 startActivity(intentFans);
                 break;
             case R.id.tv_follow:
+                if(!isLogin()) return;
                 Intent intentFollow = new Intent(context,FansListActivity.class);
                 intentFollow.putExtra("FansListActivity_title", "我的关注");
                 startActivity(intentFollow);
@@ -145,7 +154,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 MySelfInfo.getInstance().loginOff();
                 setLoginState();
                 break;
+            case R.id.tv_space:
+                startActivity(new Intent(context, SpaceActivity.class));
+                break;
 
         }
+    }
+
+    public boolean isLogin(){
+        if (MySelfInfo.getInstance().isLogin()) {//登录状态
+            return true;
+        }
+        startActivity(new Intent(context,LoginActivity.class));
+        return false;
     }
 }

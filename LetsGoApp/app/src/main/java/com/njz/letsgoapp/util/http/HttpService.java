@@ -11,6 +11,7 @@ import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
@@ -19,9 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -177,6 +181,16 @@ public interface HttpService {
 
 
     //-------发现 end---------
+
+    //-------我的 start-------
+    //user/changePersonalData 修改个人资料.
+    @POST("user/changePersonalData")
+    Observable<BaseResponse<EmptyModel>> userChangePersonalData(
+            @Body MyInfoData data
+            );
+
+
+    //-------我的 end-------
 
 
 
