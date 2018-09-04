@@ -135,6 +135,17 @@ public class MethodApi {
 
     //----------首页 end -------
 
+
+    //----------发现 start -------
+
+    //friendFindAll
+    public static void friendFindAll(String location, int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit,page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //----------发现 end -------
+
     //--------城市选择 start
     public static void regionFindProAndCity(DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().regionFindProAndCity();

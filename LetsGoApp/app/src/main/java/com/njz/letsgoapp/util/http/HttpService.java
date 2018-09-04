@@ -165,7 +165,19 @@ public interface HttpService {
             @Query("serviceType") String serviceType
     );
 
-    //首页 end
+    //--------首页 end--------
+
+    //-------发现 start-------
+    @GET("friend/findAll")
+    Observable<BaseResponse<DynamicListModel>> friendFindAll(
+            @Query("location") String location,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+
+    //-------发现 end---------
+
 
 
     //--------other start---------

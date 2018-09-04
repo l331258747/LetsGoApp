@@ -2,7 +2,6 @@ package com.njz.letsgoapp.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.home.HomeAdapter;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;

@@ -122,6 +122,9 @@
         <activity android:name=".view.other.BigImageActivity"
             android:theme="@style/welcomeTheme"/>
 
+        <!--发现-->
+        <activity android:name=".view.find.ReleaseDynamicActivity"/>
+
         <!--我的-->
         <activity android:name=".view.mine.SystemSettingActivity" />
         <activity

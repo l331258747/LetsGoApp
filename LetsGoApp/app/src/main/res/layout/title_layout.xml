@@ -48,7 +48,6 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         android:visibility="gone"
-        tools:background="@drawable/shape_base_title_tv_tools"
         tools:text="登录"
         tools:textColor="@color/black"
         tools:visibility="visible" />

@@ -18,16 +18,13 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.home.GuideListAdapter;
-import com.njz.letsgoapp.adapter.home.HomeAdapter;
+import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
-import com.njz.letsgoapp.bean.other.CityModel;
-import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
@@ -39,11 +36,9 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
-import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
-import com.zaaach.citypicker.model.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +58,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private RecyclerView recyclerView;
     private RecyclerView recycler_view_h;
 
-    HomeAdapter mAdapter;
+    DynamicAdapter mAdapter;
 
     LinearLayoutManager linearLayoutManager;
 
@@ -185,7 +180,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         intRecyclerH();
 
         //item导游事件
-        mAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
 //                showShortToast("点击第" + position);
@@ -210,7 +205,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new HomeAdapter(activity, new ArrayList<DynamicModel>());
+        mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
     }
@@ -341,6 +336,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void friendFriendSterTopSuccess(DynamicListModel models) {
         mAdapter.setData(models.getList());
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

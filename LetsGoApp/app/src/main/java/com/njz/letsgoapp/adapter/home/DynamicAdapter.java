@@ -25,7 +25,7 @@ import java.util.List;
  * Function:
  */
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder> {
+public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseViewHolder> {
 
     public static final int VIEW_TITLE = 1;
 
@@ -33,13 +33,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     Context mContext;
 
-    public HomeAdapter(Context context, List<DynamicModel> dynamis) {
+    public DynamicAdapter(Context context, List<DynamicModel> dynamis) {
         this.dynamis = dynamis;
         this.mContext = context;
     }
 
     @Override
-    public HomeAdapter.BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DynamicAdapter.BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
             case VIEW_TITLE:
@@ -151,7 +151,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
     public void setData(List<DynamicModel> dynamis) {
         this.dynamis = dynamis;
-        notifyDataSetChanged();
+    }
+
+    public void addData(List<DynamicModel> dynamis){
+        this.dynamis.addAll(dynamis);
     }
 
     //---------事件 start---------

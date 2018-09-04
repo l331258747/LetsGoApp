@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.PriceView;
@@ -93,12 +92,12 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         }
     }
 
-    HomeAdapter.OnItemClickListener mOnItemClickListener;
+    DynamicAdapter.OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
         void onClick(int position);
     }
 
-    public void setOnItemClickListener(HomeAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(DynamicAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 }
