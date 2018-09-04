@@ -99,13 +99,13 @@
     <!-- tablayout -->
     <style name="CommonTabLayoutStyle" parent="Widget.Design.TabLayout">
         <item name="android:background">@color/white</item>
-        <item name="tabIndicatorColor">@color/blue</item>
+        <item name="tabIndicatorColor">@color/color_theme</item>
         <item name="tabIndicatorHeight">2dp</item>
         <item name="tabPaddingStart">20dp</item>
         <item name="tabPaddingEnd">20dp</item>
         <item name="tabBackground">@color/transparent</item>
         <!--<item name="tabTextAppearance">@style/MyTabLayoutTextAppearance</item>-->
-        <item name="tabSelectedTextColor">@color/blue</item>
+        <item name="tabSelectedTextColor">@color/color_theme</item>
         <item name="tabTextColor">@color/color_b3</item>
 
     </style>
