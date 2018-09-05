@@ -91,26 +91,15 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         getRightTv().setEnabled(false);
 
         iv_head = $(R.id.iv_head);
-        GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImgUrl(), iv_head);
-
-
         et_name = $(R.id.et_name);
         info_sex = $(R.id.info_sex);
         info_birthday = $(R.id.info_birthday);
         et_real_name = $(R.id.et_real_name);
         et_explain = $(R.id.et_explain);
-
         info_tag = $(R.id.info_tag);
-
-        et_name.setText(MySelfInfo.getInstance().getUserNickname());
-        et_real_name.setText(MySelfInfo.getInstance().getUserName());
-        info_sex.setContent(MySelfInfo.getInstance().getUserGender() == 0?"女":"男");
-        info_birthday.setContent(MySelfInfo.getInstance().getUserBirthday());
-        et_explain.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT));
 
         info_birthday.setOnClickListener(this);
         info_sex.setOnClickListener(this);
-
         info_tag.setOnClickListener(this);
         iv_head.setOnClickListener(this);
 
@@ -137,7 +126,12 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
-        mPresenter = new MyInfoPresenter(context,this);
+        setHeadImg(MySelfInfo.getInstance().getUserImgUrl());
+        et_name.setText(MySelfInfo.getInstance().getUserNickname());
+        et_real_name.setText(MySelfInfo.getInstance().getUserName());
+        info_sex.setContent(MySelfInfo.getInstance().getUserGender() == 0?"女":"男");
+        info_birthday.setContent(MySelfInfo.getInstance().getUserBirthday());
+        et_explain.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT));
 
         bName = et_name.getText().toString();
         bBirthday = info_birthday.getContent();
@@ -148,6 +142,8 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         sexs = new ArrayList<>();
         sexs.add("男");
         sexs.add("女");
+
+        mPresenter = new MyInfoPresenter(context,this);
 
         et_name.addTextChangedListener(textWatcher);
         et_explain.addTextChangedListener(textWatcher);
@@ -167,8 +163,8 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         getPicPermission(context);
     }
 
-    Disposable desDisposable;
-    Disposable desDisposable2;
+//    Disposable desDisposable;
+//    Disposable desDisposable2;
 
     @Override
     public void onClick(View v) {
@@ -315,12 +311,6 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    public void sendHead() {
-        //构建要上传的文件
-        File file = new File(headCompressPath);
-        mPresenter.upUpload(file);
-    }
-
     public void upFile() {
         disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
             @Override
@@ -334,6 +324,12 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         compressImage();
     }
 
+    public void sendHead() {
+        //构建要上传的文件
+        File file = new File(headCompressPath);
+        mPresenter.upUpload(file);
+    }
+
     private void compressImage() {
         MyThreadPool.getInstance().submit(new Runnable() {
             @Override
@@ -342,7 +338,6 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 String savePath = TackPicturesUtil.IMAGE_CACHE_PATH + "crop" + file.getName();
                 ImageUtils.getImage(headpath, savePath);
                 headCompressPath = savePath;
-
                 RxBus2.getInstance().post(new UpLoadPhotos());
             }
         });
