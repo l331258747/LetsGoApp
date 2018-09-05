@@ -9,6 +9,7 @@ import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
+import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
@@ -213,6 +214,33 @@ public interface HttpService {
             @Part MultipartBody.Part file
     );
 
+    //user/findFocus 个人主页
+    @GET("user/viewZone")
+    Observable<BaseResponse<LoginInfoModel>> userViewZone(
+            @Query("userId") int userId
+    );
+
+    //friend/personalFriendSter  个人动态
+    @GET("friend/personalFriendSter")
+    Observable<BaseResponse<DynamicListModel>> friendPersonalFriendSter(
+            @Query("userId") int userId,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    //user/findFans 我的粉丝
+    @GET("user/findFans")
+    Observable<BaseResponse<DynamicListModel>> userFindFans(
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    //user/findFocus 我的关注
+    @GET("user/findFocus")
+    Observable<BaseResponse<DynamicListModel>> userFindFocus(
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
 
     //-------我的 end-------
 

@@ -9,7 +9,11 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.adapter.mine.FansListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.mine.FansBean;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.mine.FansListContract;
+import com.njz.letsgoapp.mvp.mine.FansListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +24,7 @@ import java.util.List;
  * Function:
  */
 
-public class FansListActivity extends BaseActivity {
+public class FansListActivity extends BaseActivity implements FansListContract.View {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -28,6 +32,9 @@ public class FansListActivity extends BaseActivity {
 
     FansListAdapter mAdapter;
     String title = "";
+    int type;
+
+    FansListPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -39,6 +46,7 @@ public class FansListActivity extends BaseActivity {
         super.getIntentData();
 
         title = intent.getStringExtra("FansListActivity_title");
+        type = intent.getIntExtra("type",0);
     }
 
     @Override
@@ -55,7 +63,8 @@ public class FansListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mPresenter = new FansListPresenter(context,this);
+        mPresenter.userFindFans(type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
     }
 
 
@@ -64,7 +73,7 @@ public class FansListActivity extends BaseActivity {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new FansListAdapter(activity, getData());
+        mAdapter = new FansListAdapter(activity,new ArrayList<FansBean>());
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
@@ -104,4 +113,15 @@ public class FansListActivity extends BaseActivity {
 
         return fans;
     }
+
+    @Override
+    public void userFindFansSuccess(EmptyModel data) {
+
+    }
+
+    @Override
+    public void userFindFansFailed(String msg) {
+
+    }
+
 }

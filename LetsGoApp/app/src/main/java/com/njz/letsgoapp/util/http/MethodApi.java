@@ -192,6 +192,30 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //userFindFocus
+    public static void userViewZone(int userId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userViewZone(userId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //friendPersonalFriendSter
+    public static void friendPersonalFriendSter(int userId,int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendPersonalFriendSter(userId,limit,page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //userFindFans
+    public static void userFindFans(int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userFindFans(limit,page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //userFindFocus
+    public static void userFindFocus(int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userFindFocus(limit,page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //---------我的 end-------
 
 

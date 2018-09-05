@@ -142,12 +142,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 if(!isLogin()) return;
                 Intent intentFans = new Intent(context,FansListActivity.class);
                 intentFans.putExtra("FansListActivity_title", "我的粉丝");
+                intentFans.putExtra("type",0);
                 startActivity(intentFans);
                 break;
             case R.id.tv_follow:
                 if(!isLogin()) return;
                 Intent intentFollow = new Intent(context,FansListActivity.class);
                 intentFollow.putExtra("FansListActivity_title", "我的关注");
+                intentFollow.putExtra("type",1);
                 startActivity(intentFollow);
                 break;
             case R.id.btn_loginoff:
