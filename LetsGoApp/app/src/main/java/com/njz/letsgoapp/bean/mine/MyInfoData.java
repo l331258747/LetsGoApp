@@ -7,6 +7,15 @@ public class MyInfoData {
     String birthday;
     String personalStatement;
     String imgUrl;
+    String theLabel;
+
+    public String getTheLabel() {
+        return theLabel;
+    }
+
+    public void setTheLabel(String theLabel) {
+        this.theLabel = theLabel;
+    }
 
     public String getNickname() {
         return nickname;

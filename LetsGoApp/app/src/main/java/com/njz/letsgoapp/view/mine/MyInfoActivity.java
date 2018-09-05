@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -20,18 +21,26 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.mvp.mine.MyInfoContract;
 import com.njz.letsgoapp.mvp.mine.MyInfoPresenter;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.SPUtils;
+import com.njz.letsgoapp.util.accessory.ImageUtils;
+import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
+import com.njz.letsgoapp.util.thread.MyThreadPool;
 import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.widget.MineItemView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,12 +57,14 @@ import io.reactivex.functions.Consumer;
 
 public class MyInfoActivity extends BaseActivity implements View.OnClickListener,MyInfoContract.View {
     ImageView iv_head;
-    MineItemView info_sex, info_birthday, info_location, info_country, info_tag;
+    MineItemView info_sex, info_birthday, info_tag;
     EditText et_name,et_real_name,et_explain;
 
-    String bName, bBirthday, bLocation, bCountry, bSex,bRealName,bExplain;
-
+    String bName, bBirthday, bSex,bRealName,bExplain,bImgUrl;
     List<String> sexs;
+
+
+    private LoadingDialog loadingDialog;
 
     private TackPicturesUtil tackPicUtil;
 
@@ -61,6 +72,8 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     private String headCompressPath;
 
     private MyInfoPresenter mPresenter;
+
+    private Disposable disposable;
 
     @Override
     public int getLayoutId() {
@@ -78,34 +91,30 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         getRightTv().setEnabled(false);
 
         iv_head = $(R.id.iv_head);
-        GlideUtil.LoadCircleImage(context, SPUtils.getInstance().getString(SPUtils.SP_USER_AVATAR), iv_head);
+        GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImgUrl(), iv_head);
 
 
         et_name = $(R.id.et_name);
         info_sex = $(R.id.info_sex);
         info_birthday = $(R.id.info_birthday);
-        info_location = $(R.id.info_lacation);
-        info_country = $(R.id.info_country);
         et_real_name = $(R.id.et_real_name);
         et_explain = $(R.id.et_explain);
 
         info_tag = $(R.id.info_tag);
 
-        et_name.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_NICKNAME));
-        et_real_name.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_NAME));
-        info_sex.setContent(SPUtils.getInstance().getInt(SPUtils.SP_USER_GENDER) == 0?"女":"男");
-        info_birthday.setContent(SPUtils.getInstance().getString(SPUtils.SP_USER_BIRTHDAY));
-        info_location.setContent(SPUtils.getInstance().getString(SPUtils.SP_USER_LOCAL_AREA));
-        info_country.setContent(SPUtils.getInstance().getString(SPUtils.SP_USER_HOME_AREA));
+        et_name.setText(MySelfInfo.getInstance().getUserNickname());
+        et_real_name.setText(MySelfInfo.getInstance().getUserName());
+        info_sex.setContent(MySelfInfo.getInstance().getUserGender() == 0?"女":"男");
+        info_birthday.setContent(MySelfInfo.getInstance().getUserBirthday());
         et_explain.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT));
 
-        info_location.setOnClickListener(this);
-        info_country.setOnClickListener(this);
         info_birthday.setOnClickListener(this);
         info_sex.setOnClickListener(this);
 
         info_tag.setOnClickListener(this);
         iv_head.setOnClickListener(this);
+
+        loadingDialog = new LoadingDialog(context);
 
     }
 
@@ -130,14 +139,12 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     public void initData() {
         mPresenter = new MyInfoPresenter(context,this);
 
-
         bName = et_name.getText().toString();
         bBirthday = info_birthday.getContent();
-        bLocation = info_location.getContent();
-        bCountry = info_country.getContent();
         bSex = info_sex.getContent();
         bExplain = et_explain.getText().toString();
         bRealName = et_real_name.getText().toString();
+        bImgUrl = MySelfInfo.getInstance().getUserImgUrl();
         sexs = new ArrayList<>();
         sexs.add("男");
         sexs.add("女");
@@ -166,34 +173,34 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.info_lacation:
-                Intent intent = new Intent(context, CityPickActivity.class);
-                intent.putExtra(CityPickActivity.CITYPICK_TAG, CityPickActivity.CITYPICK_LOCATION);
-                startActivity(intent);
-                activity.overridePendingTransition(0, 0);
-                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-                    @Override
-                    public void accept(CityPickEvent cityPickEvent) throws Exception {
-                        info_location.setContent(cityPickEvent.getCity());
-                        desDisposable.dispose();
-                        isChange();
-                    }
-                });
-                break;
-            case R.id.info_country:
-                Intent intent2 = new Intent(context, CityPickActivity.class);
-                intent2.putExtra(CityPickActivity.CITYPICK_TAG, CityPickActivity.CITYPICK_COUNTRY);
-                startActivity(intent2);
-                activity.overridePendingTransition(0, 0);
-                desDisposable2 = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-                    @Override
-                    public void accept(CityPickEvent cityPickEvent) throws Exception {
-                        info_country.setContent(cityPickEvent.getCity());
-                        desDisposable2.dispose();
-                        isChange();
-                    }
-                });
-                break;
+//            case R.id.info_lacation:
+//                Intent intent = new Intent(context, CityPickActivity.class);
+//                intent.putExtra(CityPickActivity.CITYPICK_TAG, CityPickActivity.CITYPICK_LOCATION);
+//                startActivity(intent);
+//                activity.overridePendingTransition(0, 0);
+//                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+//                    @Override
+//                    public void accept(CityPickEvent cityPickEvent) throws Exception {
+//                        info_location.setContent(cityPickEvent.getCity());
+//                        desDisposable.dispose();
+//                        isChange();
+//                    }
+//                });
+//                break;
+//            case R.id.info_country:
+//                Intent intent2 = new Intent(context, CityPickActivity.class);
+//                intent2.putExtra(CityPickActivity.CITYPICK_TAG, CityPickActivity.CITYPICK_COUNTRY);
+//                startActivity(intent2);
+//                activity.overridePendingTransition(0, 0);
+//                desDisposable2 = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+//                    @Override
+//                    public void accept(CityPickEvent cityPickEvent) throws Exception {
+//                        info_country.setContent(cityPickEvent.getCity());
+//                        desDisposable2.dispose();
+//                        isChange();
+//                    }
+//                });
+//                break;
             case R.id.right_tv:
                 mPresenter.userChangePersonalData(myInfoData);
                 break;
@@ -241,18 +248,16 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     //返回true为可以保存
     public void isChange() {
         boolean isChange = false;
+        if (!TextUtils.equals(MySelfInfo.getInstance().getUserImgUrl(), bImgUrl)) {
+            myInfoData.setImgUrl(bImgUrl);
+            isChange = true;
+        }
         if (!TextUtils.equals(et_name.getText().toString(), bName)) {
             myInfoData.setName(et_name.getText().toString());
             isChange = true;
         }
         if (!TextUtils.equals(info_sex.getContent(), bSex)) {
             myInfoData.setGendar(TextUtils.equals("女",info_sex.getContent())?0:1);
-            isChange = true;
-        }
-        if (!TextUtils.equals(info_country.getContent(), bCountry)) {
-            isChange = true;
-        }
-        if (!TextUtils.equals(info_location.getContent(), bLocation)) {
             isChange = true;
         }
         if (!TextUtils.equals(info_birthday.getContent(), bBirthday)) {
@@ -303,12 +308,44 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 if (path == null)
                     return;
                 headpath = path;
-                setHeadImg(headpath);
-
+                upFile();
                 break;
             default:
                 break;
         }
+    }
+
+    public void sendHead() {
+        //构建要上传的文件
+        File file = new File(headCompressPath);
+        mPresenter.upUpload(file);
+    }
+
+    public void upFile() {
+        disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
+            @Override
+            public void accept(UpLoadPhotos upLoadPhotos) throws Exception {
+                sendHead();
+                disposable.dispose();
+            }
+        });
+
+        loadingDialog.showDialog("上传头像...");
+        compressImage();
+    }
+
+    private void compressImage() {
+        MyThreadPool.getInstance().submit(new Runnable() {
+            @Override
+            public void run() {
+                File file = new File(headpath);
+                String savePath = TackPicturesUtil.IMAGE_CACHE_PATH + "crop" + file.getName();
+                ImageUtils.getImage(headpath, savePath);
+                headCompressPath = savePath;
+
+                RxBus2.getInstance().post(new UpLoadPhotos());
+            }
+        });
     }
 
     private void setHeadImg(String path) {
@@ -319,21 +356,24 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     public void userChangePersonalDataSuccess(String str) {
         showShortToast("修改成功");
         if(!TextUtils.isEmpty(myInfoData.getName())){
-            SPUtils.getInstance().putString(SPUtils.SP_USER_NAME,myInfoData.getName());
+            MySelfInfo.getInstance().setUserName(myInfoData.getName());
         }
         if(TextUtils.isEmpty(myInfoData.getNickname())){
-            SPUtils.getInstance().putString(SPUtils.SP_USER_NICKNAME,myInfoData.getNickname());
+            MySelfInfo.getInstance().setUserNickname(myInfoData.getNickname());
         }
         if(myInfoData.getGendar() != 0){
-            SPUtils.getInstance().putInt(SPUtils.SP_USER_GENDER,TextUtils.equals("女",info_sex.getContent())?0:1);
+            MySelfInfo.getInstance().setUserGender(TextUtils.equals("女",info_sex.getContent())?0:1);
         }
         if(!TextUtils.isEmpty(myInfoData.getBirthday())){
-            SPUtils.getInstance().putString(SPUtils.SP_USER_BIRTHDAY,myInfoData.getBirthday());
+            MySelfInfo.getInstance().setUserBirthday(myInfoData.getBirthday());
         }
         if(!TextUtils.isEmpty(myInfoData.getPersonalStatement())){
-            SPUtils.getInstance().putString(SPUtils.SP_USER_PERSONAL_STATEMENT,myInfoData.getPersonalStatement());
+            MySelfInfo.getInstance().setUserStatement(myInfoData.getPersonalStatement());
         }
-
+        if(!TextUtils.isEmpty(myInfoData.getImgUrl())){
+            MySelfInfo.getInstance().setUserImgUrl(myInfoData.getImgUrl());
+        }
+        finish();
     }
 
     @Override
@@ -341,9 +381,23 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         showShortToast(msg);
     }
 
+    @Override
+    public void upUploadSuccess(String str) {
+        loadingDialog.dismiss();
+
+        bImgUrl = str;
+
+        showShortToast("头像上传成功");
+        setHeadImg(headpath);
+        isChange();
+    }
+
+    @Override
+    public void upUploadFailed(String msg) {
+        loadingDialog.dismiss();
+        showShortToast(msg);
+    }
 
     //----------------end 拍照
-
-
 
 }

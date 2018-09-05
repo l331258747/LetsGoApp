@@ -11,12 +11,24 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.mvp.find.ReleaseDynamicContract;
+import com.njz.letsgoapp.mvp.find.ReleaseDynamicPresenter;
+import com.njz.letsgoapp.util.accessory.ImageUtils;
 import com.njz.letsgoapp.util.accessory.PhotoAdapter;
 import com.njz.letsgoapp.util.accessory.RecyclerItemClickListener;
+import com.njz.letsgoapp.util.dialog.LoadingDialog;
+import com.njz.letsgoapp.util.photo.TackPicturesUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
+import com.njz.letsgoapp.util.thread.MyThreadPool;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 
@@ -26,7 +38,7 @@ import me.iwf.photopicker.PhotoPreview;
  * Function:
  */
 
-public class ReleaseDynamicActivity extends BaseActivity implements View.OnClickListener {
+public class ReleaseDynamicActivity extends BaseActivity implements View.OnClickListener,ReleaseDynamicContract.View {
 
     EditText etContent;
     TextView tvLocation;
@@ -34,6 +46,11 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     private RecyclerView mPhotoRecyclerView;
     private PhotoAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
+    private ArrayList<String> upLoadPhotos = new ArrayList<>();
+    Disposable disposable;
+
+    ReleaseDynamicPresenter mPresenter;
+    private LoadingDialog loadingDialog;
 
     @Override
     public int getLayoutId() {
@@ -52,11 +69,13 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
         tvLocation = $(R.id.tv_location);
 
         initAddPhoto();
+
+        loadingDialog = new LoadingDialog(this);
     }
 
     @Override
     public void initData() {
-
+        mPresenter = new ReleaseDynamicPresenter(context,this);
     }
 
     //------------附件图片
@@ -109,6 +128,52 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        if(v.getId() == R.id.right_tv){
+            disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
+                @Override
+                public void accept(UpLoadPhotos upLoadPhotos) throws Exception {
+                    submit();
+                    disposable.isDisposed();
+                }
+            });
+            loadingDialog.showDialog("正在上传中...");
+            compressImage();
+        }
+    }
 
+    private void compressImage() {
+        MyThreadPool.getInstance().submit(new Runnable() {
+            @Override
+            public void run() {
+                upLoadPhotos.clear();
+                for (String path : selectedPhotos) {
+                    File file = new File(path);
+                    if(!file.getName().startsWith("crop") || file.length()>1024*100) {
+                        String savePath = TackPicturesUtil.IMAGE_CACHE_PATH + "crop" + file.getName();
+                        ImageUtils.getImage(path, savePath);
+                        upLoadPhotos.add(savePath);
+                    }else{
+                        upLoadPhotos.add(path);
+                    }
+                }
+                RxBus2.getInstance().post(new UpLoadPhotos());
+            }
+        });
+    }
+
+    @Override
+    public void sendSterSuccess(EmptyModel models) {
+        loadingDialog.dismiss();
+        showShortToast("发布成功");
+    }
+
+    @Override
+    public void sendSterFailed(String msg) {
+        loadingDialog.dismiss();
+        showShortToast(msg);
+    }
+
+    public void submit(){
+        mPresenter.sendSter(etContent.getText().toString(),upLoadPhotos);
     }
 }

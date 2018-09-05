@@ -111,22 +111,22 @@
             app:left_drawable="@mipmap/ic_arrow_right"
             app:title="生日" />
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/info_lacation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:content="长沙"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="常住地" />
+        <!--<com.njz.letsgoapp.widget.MineItemView-->
+            <!--android:id="@+id/info_lacation"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--app:content="长沙"-->
+            <!--app:left_drawable="@mipmap/ic_arrow_right"-->
+            <!--app:title="常住地" />-->
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/info_country"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:content="长沙"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="故乡" />
+        <!--<com.njz.letsgoapp.widget.MineItemView-->
+            <!--android:id="@+id/info_country"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:content="长沙"-->
+            <!--app:left_drawable="@mipmap/ic_arrow_right"-->
+            <!--app:title="故乡" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"

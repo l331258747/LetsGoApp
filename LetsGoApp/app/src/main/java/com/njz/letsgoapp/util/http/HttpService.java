@@ -11,6 +11,7 @@ import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
@@ -20,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -27,6 +31,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -179,6 +184,13 @@ public interface HttpService {
             @Query("page") int page
     );
 
+    //sys/oss/sendSter
+    @Multipart
+    @POST("up/sendSter")
+    Observable<BaseResponse<EmptyModel>> sendSter(
+            @Part("content") String content,
+            @Part List<MultipartBody.Part> files
+    );
 
     //-------发现 end---------
 
@@ -188,6 +200,18 @@ public interface HttpService {
     Observable<BaseResponse<EmptyModel>> userChangePersonalData(
             @Body MyInfoData data
             );
+
+    //user/userLabels 标签
+    @GET("user/userLabels")
+    Observable<BaseResponse<List<LabelModel>>> userLabels(
+    );
+
+    //up/upload
+    @Multipart
+    @POST("up/upload")
+    Observable<BaseResponse<String>> upUpload(
+            @Part MultipartBody.Part file
+    );
 
 
     //-------我的 end-------
@@ -207,5 +231,8 @@ public interface HttpService {
             @Query("id") int id
     );
     //--------other end---------
+
+
+
 
 }

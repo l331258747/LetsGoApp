@@ -2,9 +2,14 @@ package com.njz.letsgoapp.bean;
 
 import android.text.TextUtils;
 
+import com.google.gson.reflect.TypeToken;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.bean.mine.LabelItemModel;
+import com.njz.letsgoapp.util.GsonUtil;
 import com.njz.letsgoapp.util.SPUtils;
+
+import java.util.List;
 
 /**
  * Created by LGQ
@@ -27,8 +32,8 @@ public class MySelfInfo {
         return HolderClass.INSTANCE;
     }
 
-    public boolean isLogin(){
-        if(!TextUtils.isEmpty(getUserToken())){
+    public boolean isLogin() {
+        if (!TextUtils.isEmpty(getUserToken())) {
             return true;
         }
         return false;
@@ -52,67 +57,104 @@ public class MySelfInfo {
         SPUtils.getInstance().putString(SPUtils.SP_USER_HOME_AREA, infoModel.getHomeArea());
         SPUtils.getInstance().putString(SPUtils.SP_USER_PERSONAL_STATEMENT, infoModel.getPersonalStatement());
         SPUtils.getInstance().putString(SPUtils.SP_USER_IMG_URL, infoModel.getImgUrl());
+        SPUtils.getInstance().putString(SPUtils.SP_USER_LABELS, infoModel.getTravelMacroEntitys());
 
+    }
+
+
+    public void setLabels(List<LabelItemModel> labels) {
+        SPUtils.getInstance().putString(SPUtils.SP_USER_LABELS, GsonUtil.convertVO2String(labels));
+    }
+
+    public List<LabelItemModel> getLabels() {
+        return GsonUtil.convertString2Collection(SPUtils.getInstance().getString(SPUtils.SP_USER_LABELS), new TypeToken<List<LabelItemModel>>() {
+        });
     }
 
     public String getUserToken() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_TOKEN);
     }
 
-    public int getUserFans(){
+    public int getUserFans() {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_FANS);
     }
 
-    public int getUserFocus(){
+    public int getUserFocus() {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_FOCUS);
     }
 
-    public int getUserGender(){
+    public int getUserGender() {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_GENDER);
     }
 
-    public String getUserBirthday(){
+    public void setUserGender(int gendar) {
+        SPUtils.getInstance().putInt(SPUtils.SP_USER_GENDER, gendar);
+    }
+
+    public String getUserBirthday() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_BIRTHDAY);
     }
 
-    public int getUserLevel(){
+    public void setUserBirthday(String birthday) {
+        SPUtils.getInstance().putString(SPUtils.SP_USER_BIRTHDAY, birthday);
+    }
+
+    public int getUserLevel() {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_USERLEVEL);
     }
 
-    public String getUserNickname(){
+    public String getUserNickname() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_NICKNAME);
     }
 
-    public String getUserName(){
+    public void setUserNickname(String nickname) {
+        SPUtils.getInstance().putString(SPUtils.SP_USER_NICKNAME, nickname);
+    }
+
+    public String getUserName() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_NAME);
     }
-    public String getUserMoble(){
+
+    public void setUserName(String name) {
+        SPUtils.getInstance().putString(SPUtils.SP_USER_NAME,name);
+    }
+
+    public String getUserMoble() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_MOBILE);
     }
-    public String getUserAvatar(){
+
+    public String getUserAvatar() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_AVATAR);
     }
-    public String getUserLocalArea(){
+
+    public String getUserLocalArea() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_LOCAL_AREA);
     }
-    public String getUserHomeArea(){
+
+    public String getUserHomeArea() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_HOME_AREA);
     }
-    public String getUserStatement(){
+
+    public String getUserStatement() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT);
     }
-    public String getUserImgUrl(){
+
+    public void setUserStatement(String statement){
+        SPUtils.getInstance().putString(SPUtils.SP_USER_PERSONAL_STATEMENT,statement);
+    }
+
+    public String getUserImgUrl() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_IMG_URL);
     }
 
-
-
+    public void setUserImgUrl(String str){
+        SPUtils.getInstance().putString(SPUtils.SP_USER_IMG_URL,str);
+    }
 
 
     public void loginOff() {
         SPUtils.getInstance().logoff();
     }
-
 
 
 }

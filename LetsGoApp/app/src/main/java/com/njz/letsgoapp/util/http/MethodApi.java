@@ -6,10 +6,16 @@ import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by LGQ
@@ -140,8 +146,28 @@ public class MethodApi {
     //----------发现 start -------
 
     //friendFindAll
-    public static void friendFindAll(String location, int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit,page);
+    public static void friendFindAll(String location, int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit, page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
+    private static List<MultipartBody.Part> filesToMultipartBodyParts(List<String> files) {
+        List<MultipartBody.Part> parts = new ArrayList<>(files.size());
+        for (String fileStr : files) {
+            File file = new File(fileStr);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("files", file.getName(), requestBody);
+            parts.add(part);
+        }
+        return parts;
+    }
+
+    //sendSter
+    public static void sendSter(String content, List<String> files, DisposableObserver subscriber) {
+        List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
+
+        Observable observable = HttpMethods.getInstance().getHttpService().sendSter(content, partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -150,6 +176,19 @@ public class MethodApi {
     //---------我的 start-------
     public static void userChangePersonalData(MyInfoData data, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().userChangePersonalData(data);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //userLabels
+    public static void userLabels(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userLabels();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void upUpload(File file, DisposableObserver subscriber) {
+        RequestBody fileRequestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+        MultipartBody.Part fileBody = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
+        Observable observable = HttpMethods.getInstance().getHttpService().upUpload(fileBody);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

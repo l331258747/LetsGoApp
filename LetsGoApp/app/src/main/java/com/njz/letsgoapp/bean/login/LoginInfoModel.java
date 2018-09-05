@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.bean.login;
 
-import java.util.ArrayList;
+import com.njz.letsgoapp.bean.mine.LabelItemModel;
+import com.njz.letsgoapp.util.GsonUtil;
+
 import java.util.List;
 
 /**
@@ -46,10 +48,14 @@ public class LoginInfoModel {
     private String avatar;
     private String localArea;
     private String homeArea;
+    private List<LabelItemModel> travelMacroEntitys;
 
     private String personalStatement;
-
     private String imgUrl;
+
+    public String getTravelMacroEntitys() {
+        return GsonUtil.convertVO2String(travelMacroEntitys);
+    }
 
     public int getFocusCount() {
         if(focusCount == null)

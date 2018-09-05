@@ -12,6 +12,7 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.mvp.login.LoginContract;
 import com.njz.letsgoapp.mvp.login.LoginPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
@@ -89,6 +90,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSuccess(LoginModel loginModel) {
         MySelfInfo.getInstance().setData(loginModel);
+        LogUtil.e("....."+loginModel.getTravelZoneVO().getTravelMacroEntitys());
 //        startActivity(new Intent(context,HomeActivity.class));
         finish();
     }
