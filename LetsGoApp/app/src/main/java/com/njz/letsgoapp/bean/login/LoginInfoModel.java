@@ -53,6 +53,19 @@ public class LoginInfoModel {
 
     private String personalStatement;
     private String imgUrl;
+    /**
+     * registerIp :
+     * registerTime : null
+     * focus : true
+     * theTrade :
+     * lastLoginIp :
+     * backImg :
+     * lastLoginTime : null
+     * status : 0
+     */
+
+    private boolean focus;
+    private String backImg;
 
     public String getTravelMacroEntitys() {
         return GsonUtil.convertVO2String(travelMacroEntitys);
@@ -142,4 +155,19 @@ public class LoginInfoModel {
         return imgUrl;
     }
 
+    public boolean isFocus() {
+        return focus;
+    }
+
+    public void setFocus(boolean focus) {
+        this.focus = focus;
+    }
+
+    public String getBackImg() {
+        return backImg;
+    }
+
+    public void setBackImg(String backImg) {
+        this.backImg = backImg;
+    }
 }

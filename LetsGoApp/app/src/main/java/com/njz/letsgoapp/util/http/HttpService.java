@@ -259,6 +259,19 @@ public interface HttpService {
             @Field("friendSterId") int friendSterId
     );
 
+    //user/focusOn 关注
+    @FormUrlEncoded
+    @POST("user/focusOn")
+    Observable<BaseResponse<LoginModel>> userFocusOn(
+            @Field("focusId") int focusId
+    );
+
+    //user/focusOff 取消关注
+    @FormUrlEncoded
+    @POST("user/focusOff")
+    Observable<BaseResponse<LoginModel>> userFocusOff(
+            @Field("focusId") int focusId
+    );
     //-------我的 end-------
 
 

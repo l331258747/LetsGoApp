@@ -8,7 +8,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
  * Function:
  */
 
-public interface DynamicContract {
+public interface DynamicNiceContract {
 
     interface Presenter {
         void friendQueryLikes(boolean isNick, int friendSterId);

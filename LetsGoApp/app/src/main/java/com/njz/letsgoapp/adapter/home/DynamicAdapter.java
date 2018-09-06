@@ -2,6 +2,7 @@ package com.njz.letsgoapp.adapter.home;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,6 +85,12 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
             ((DynamicViewHolder) holder).tv_comment.setText(""+data.getReplyCount());
             ((DynamicViewHolder) holder).tv_nice.setText(""+data.getLikeCount());
 
+            if(data.isLike()){
+                ((DynamicViewHolder) holder).tv_nice.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext,R.mipmap.ic_dynamic_nice),null,null,null);
+            }else{
+                ((DynamicViewHolder) holder).tv_nice.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext,R.mipmap.ic_dynamic_nice_un),null,null,null);
+            }
+
             ((DynamicViewHolder) holder).tv_content.setMaxShowLines(3);
             ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
 
@@ -96,11 +103,11 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
             });
 
 
-            if(mNickClickListener != null){
+            if(mNiceClickListener != null){
                 ((DynamicViewHolder) holder).tv_nice.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mNickClickListener.onClick(pos);
+                        mNiceClickListener.onClick(pos);
                     }
                 });
             }
@@ -185,7 +192,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
-    OnItemClickListener mNickClickListener;
+    OnItemClickListener mNiceClickListener;
     View.OnClickListener onCheckAllListener;
 
 
@@ -201,8 +208,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
         this.onCheckAllListener = onCheckAllListener;
     }
 
-    public void setNickClickListener(OnItemClickListener mNickClickListener){
-        this.mNickClickListener = mNickClickListener;
+    public void setNiceClickListener(OnItemClickListener mNiceClickListener){
+        this.mNiceClickListener = mNiceClickListener;
     }
 
     //---------事件 end---------

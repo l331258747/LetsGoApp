@@ -13,18 +13,18 @@ import com.njz.letsgoapp.util.http.ResponseCallback;
  * Function:
  */
 
-public class DynamicPresenter implements DynamicContract.Presenter {
+public class DynamicNicePresenter implements DynamicNiceContract.Presenter {
 
     Context context;
-    DynamicContract.View iView;
+    DynamicNiceContract.View iView;
 
-    public DynamicPresenter(Context context, DynamicContract.View iView) {
+    public DynamicNicePresenter(Context context, DynamicNiceContract.View iView) {
         this.context = context;
         this.iView = iView;
     }
 
     @Override
-    public void friendQueryLikes(boolean isNick, int friendSterId) {
+    public void friendQueryLikes(boolean isNice, int friendSterId) {
         ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override
             public void onSuccess(EmptyModel data) {
@@ -36,6 +36,6 @@ public class DynamicPresenter implements DynamicContract.Presenter {
                 iView.friendQueryLikesFailed(errorMsg);
             }
         };
-        MethodApi.friendQueryLikes(isNick,friendSterId,new OnSuccessAndFaultSub(listener));
+        MethodApi.friendQueryLikes(isNice,friendSterId,new OnSuccessAndFaultSub(listener));
     }
 }

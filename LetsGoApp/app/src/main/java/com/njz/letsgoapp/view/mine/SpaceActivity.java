@@ -1,6 +1,5 @@
 package com.njz.letsgoapp.view.mine;
 
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,12 +11,17 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
+import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
+import com.njz.letsgoapp.mvp.find.FollowContract;
+import com.njz.letsgoapp.mvp.find.FollowPresenter;
 import com.njz.letsgoapp.mvp.mine.SpaceContract;
 import com.njz.letsgoapp.mvp.mine.SpacePresenter;
 import com.njz.letsgoapp.util.StringUtils;
@@ -35,7 +39,7 @@ import java.util.List;
  * Function:
  */
 
-public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener {
+public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener, FollowContract.View,DynamicNiceContract.View{
 
     private RecyclerView recyclerView;
     private DynamicAdapter mAdapter;
@@ -43,9 +47,12 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private TextView tvFans, tvAge, tvExplain, tvName, tvFollow;
     private TagFlowLayout flowLayout;
     private SpacePresenter mPresenter;
+    private FollowPresenter followPresenter;
+    private DynamicNicePresenter nicePresenter;
 
     private int userId;
     List<DynamicModel> datas;
+    LoginInfoModel data;
 
     @Override
     public void getIntentData() {
@@ -71,9 +78,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         flowLayout = $(R.id.flow_layout);
         tvFollow = $(R.id.tv_follow);
         tvName = $(R.id.tv_name);
-
         tvFollow.setOnClickListener(this);
-
         initRecycler();
 
     }
@@ -82,10 +87,18 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     public void initData() {
         //TODO 个人信息，个人动态
         mPresenter = new SpacePresenter(context, this);
+        followPresenter = new FollowPresenter(context, this);
+        nicePresenter = new DynamicNicePresenter(context, this);
+
         mPresenter.userViewZone(userId);
         mPresenter.friendPersonalFriendSter(userId, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE);
+
+        if(userId == MySelfInfo.getInstance().getUserId()){
+            tvFollow.setVisibility(View.GONE);
+        }
     }
 
+    int nicePosition;
     //初始化recyclerview
     private void initRecycler() {
         recyclerView = $(R.id.recycler_view);
@@ -94,10 +107,19 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
+        mAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                nicePresenter.friendQueryLikes(datas.get(position).isLike(),datas.get(position).getFriendSterId());
+                nicePosition = position;
+            }
+        });
+
     }
 
     @Override
     public void userViewZoneSuccess(LoginInfoModel data) {
+        this.data = data;
         GlideUtil.LoadCircleImage(context, data.getImgUrl(), ivHead);
         tvName.setText(data.getNickname());
         StringUtils.setHtml(tvFans, String.format(getResources().getString(R.string.mine_fans), MySelfInfo.getInstance().getUserFocus()));
@@ -105,6 +127,19 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         tvExplain.setText(data.getPersonalStatement());
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 0 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
         initFlow(data.getTravelMacroEntitysList());
+        setFollow(data.isFocus());
+    }
+
+    public void setFollow(boolean isFollow){
+        if(isFollow){
+            tvFollow.setText("已关注");
+            tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_gray_solid_r5));
+            tvFollow.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.follow_ok),null,null,null);
+        }else{
+            tvFollow.setText("加关注");
+            tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r5));
+            tvFollow.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.follow_un),null,null,null);
+        }
     }
 
     public void initFlow(final List<LabelItemModel> mVals) {
@@ -141,11 +176,30 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_follow:
-                tvFollow.setText("已关注");
-                tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_gray_solid_r5));
-                tvFollow.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.follow_ok),null,null,null);
+                followPresenter.userFocusOff(data.isFocus(),data.getUserId());
                 break;
         }
     }
 
+    @Override
+    public void userFocusOffSuccess(EmptyModel models) {
+        data.setFocus(!data.isFocus());
+        setFollow(data.isFocus());
+    }
+
+    @Override
+    public void userFocusOffFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void friendQueryLikesSuccess(EmptyModel models) {
+        datas.get(nicePosition).setLike(!datas.get(nicePosition).isLike());
+        mAdapter.notifyItemChanged(nicePosition);
+    }
+
+    @Override
+    public void friendQueryLikesFailed(String msg) {
+
+    }
 }

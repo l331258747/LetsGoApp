@@ -22,6 +22,8 @@ public class DynamicModel {
      * userId : 1
      */
 
+
+
     private String imgUrl;
     private String nickname;
     private int userLevel;
@@ -37,6 +39,12 @@ public class DynamicModel {
     private Object travelDiscussEntity;
     private int userId;
     private List<String> imgUrls;
+    /**
+     * like : true
+     * travelDiscussEntity : null
+     */
+
+    private boolean like;
 
     public String getImgUrl() {
         return imgUrl;
@@ -156,5 +164,13 @@ public class DynamicModel {
 
     public void setImgUrls(List<String> imgUrls) {
         this.imgUrls = imgUrls;
+    }
+
+    public boolean isLike() {
+        return like;
+    }
+
+    public void setLike(boolean like) {
+        this.like = like;
     }
 }

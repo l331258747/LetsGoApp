@@ -218,12 +218,23 @@ public class MethodApi {
     }
 
     //friendDoUnLike
-    public static void friendQueryLikes(boolean isFollow, int friendSterId, DisposableObserver subscriber) {
-        if(isFollow){
-            Observable observable = HttpMethods.getInstance().getHttpService().friendQueryLikes(friendSterId);
+    public static void friendQueryLikes(boolean isNice, int friendSterId, DisposableObserver subscriber) {
+        if(isNice){
+            Observable observable = HttpMethods.getInstance().getHttpService().friendDoUnLike(friendSterId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }else{
-            Observable observable = HttpMethods.getInstance().getHttpService().friendDoUnLike(friendSterId);
+            Observable observable = HttpMethods.getInstance().getHttpService().friendQueryLikes(friendSterId);
+            HttpMethods.getInstance().toSubscribe(observable, subscriber);
+        }
+    }
+
+    //userFocusOff
+    public static void userFocusOff(boolean isFollow, int focusId, DisposableObserver subscriber) {
+        if(isFollow){
+            Observable observable = HttpMethods.getInstance().getHttpService().userFocusOff(focusId);
+            HttpMethods.getInstance().toSubscribe(observable, subscriber);
+        }else{
+            Observable observable = HttpMethods.getInstance().getHttpService().userFocusOn(focusId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }
     }
