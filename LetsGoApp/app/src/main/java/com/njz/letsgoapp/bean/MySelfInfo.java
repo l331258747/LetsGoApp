@@ -58,9 +58,14 @@ public class MySelfInfo {
         SPUtils.getInstance().putString(SPUtils.SP_USER_PERSONAL_STATEMENT, infoModel.getPersonalStatement());
         SPUtils.getInstance().putString(SPUtils.SP_USER_IMG_URL, infoModel.getImgUrl());
         SPUtils.getInstance().putString(SPUtils.SP_USER_LABELS, infoModel.getTravelMacroEntitys());
+        SPUtils.getInstance().putInt(SPUtils.SP_USER_ID, infoModel.getUserId());
 
     }
 
+
+    public int getUserId(){
+        return SPUtils.getInstance().getInt(SPUtils.SP_USER_ID);
+    }
 
     public void setLabels(List<LabelItemModel> labels) {
         SPUtils.getInstance().putString(SPUtils.SP_USER_LABELS, GsonUtil.convertVO2String(labels));

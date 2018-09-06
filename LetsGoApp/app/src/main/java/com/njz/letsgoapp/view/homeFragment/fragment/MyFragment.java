@@ -49,9 +49,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initView() {
         iv_head = $(R.id.iv_head);
-        String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
-        GlideUtil.LoadCircleImage(context, photo, iv_head);
-
         tv_name = $(R.id.tv_name);
 
         mine_bind = $(R.id.mine_bind);
@@ -98,10 +95,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFans()));
             mine_bind.setContent(StringUtils.hidePhone(MySelfInfo.getInstance().getUserMoble()));
 
+            GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImgUrl(), iv_head);
+
         } else {
             ll_info.setVisibility(View.GONE);
             tv_login.setVisibility(View.VISIBLE);
+
             mine_bind.setContent("");
+            GlideUtil.LoadCircleImage(context, "", iv_head);
         }
     }
 
@@ -157,7 +158,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 setLoginState();
                 break;
             case R.id.tv_space:
-                startActivity(new Intent(context, SpaceActivity.class));
+                if(!isLogin()) return;
+                Intent intentSpace = new Intent(context, SpaceActivity.class);
+                intentSpace.putExtra("userId",MySelfInfo.getInstance().getUserId());
+                startActivity(intentSpace);
                 break;
 
         }

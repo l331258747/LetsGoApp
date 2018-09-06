@@ -159,6 +159,8 @@ public class TagFlowLayout extends FlowLayout
     }
 
     private void doSelect(TagView child, int position) {
+        if(mSelectedMax == 0) return;
+
         if (!child.isChecked()) {
             //处理max_select=1的情况
             if (mSelectedMax == 1 && mSelectedView.size() == 1) {

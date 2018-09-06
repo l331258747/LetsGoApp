@@ -37,6 +37,7 @@ public class LoginInfoModel {
      * imgUrl : null
      */
 
+    private int userId;
     private Integer focusCount;
     private Integer fansCount;
     private Integer gender;
@@ -55,6 +56,14 @@ public class LoginInfoModel {
 
     public String getTravelMacroEntitys() {
         return GsonUtil.convertVO2String(travelMacroEntitys);
+    }
+
+    public List<LabelItemModel> getTravelMacroEntitysList() {
+        return travelMacroEntitys;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public int getFocusCount() {

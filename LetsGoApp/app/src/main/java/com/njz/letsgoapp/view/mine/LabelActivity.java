@@ -63,11 +63,10 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
 
     }
 
-    TagAdapter adapter1;
     public void initFlow(final TagFlowLayout tagFlowLayout, final List<LabelItemModel> mVals) {
         final LayoutInflater mInflater = LayoutInflater.from(activity);
 
-        adapter1 = new TagAdapter<LabelItemModel>(mVals) {
+        TagAdapter adapter1 = new TagAdapter<LabelItemModel>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, LabelItemModel s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_label, tagFlowLayout, false);

@@ -125,12 +125,12 @@
 
                     </LinearLayout>
 
-                    <com.njz.letsgoapp.widget.ServiceTagView
-                        android:id="@+id/service_tag_view"
-                        android:layout_width="wrap_content"
+                    <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
+                        android:id="@+id/flow_layout"
+                        android:layout_width="match_parent"
+                        app:max_select="0"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        tools:text="向导陪游" />
+                        android:layout_marginTop="10dp"/>
 
                 </LinearLayout>
 

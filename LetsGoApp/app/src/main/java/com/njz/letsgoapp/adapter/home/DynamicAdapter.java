@@ -30,12 +30,18 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     public static final int VIEW_TITLE = 1;
 
     List<DynamicModel> dynamis;
+    int type;//0为首页，1位个人主页
 
     Context mContext;
 
     public DynamicAdapter(Context context, List<DynamicModel> dynamis) {
+        this(context,dynamis,0);
+    }
+
+    public DynamicAdapter(Context context, List<DynamicModel> dynamis,int type) {
         this.dynamis = dynamis;
         this.mContext = context;
+        this.type = type;
     }
 
     @Override
@@ -43,6 +49,10 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
         View view;
         switch (viewType) {
             case VIEW_TITLE:
+                if(type == 1){
+                    view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide_title2, parent, false);
+                    return new GuideTitleViewHolder2(view);
+                }
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_item_guide_title, parent, false);
                 return new GuideTitleViewHolder(view);
             default:
@@ -142,6 +152,12 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
             super(itemView);
             tv_check_all = itemView.findViewById(R.id.tv_check_all);
             tv_check_all.setOnClickListener(onCheckAllListener);
+        }
+    }
+
+    public class GuideTitleViewHolder2 extends BaseViewHolder {
+        GuideTitleViewHolder2(View itemView) {
+            super(itemView);
         }
     }
 

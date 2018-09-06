@@ -31,6 +31,7 @@ public class SPUtils {
     public static final String SP_USER_PERSONAL_STATEMENT = "sp_user_personalStatement";
     public static final String SP_USER_IMG_URL = "sp_user_imgUrl";
     public static final String SP_USER_LABELS = "sp_user_labels";
+    public static final String SP_USER_ID = "sp_user_id";
 
 
 

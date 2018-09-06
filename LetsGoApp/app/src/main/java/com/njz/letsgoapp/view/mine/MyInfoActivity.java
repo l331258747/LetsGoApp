@@ -6,12 +6,10 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -21,7 +19,6 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.mvp.mine.MyInfoContract;
@@ -31,20 +28,16 @@ import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
-import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
 import com.njz.letsgoapp.util.thread.MyThreadPool;
-import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.widget.MineItemView;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -58,9 +51,9 @@ import io.reactivex.functions.Consumer;
 public class MyInfoActivity extends BaseActivity implements View.OnClickListener,MyInfoContract.View {
     ImageView iv_head;
     MineItemView info_sex, info_birthday, info_tag;
-    EditText et_name,et_real_name,et_explain;
+    EditText et_nikename,et_real_name,et_explain;
 
-    String bName, bBirthday, bSex,bRealName,bExplain,bImgUrl;
+    String bNickName, bBirthday, bSex,bRealName,bExplain,bImgUrl;
     List<String> sexs;
 
 
@@ -91,7 +84,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         getRightTv().setEnabled(false);
 
         iv_head = $(R.id.iv_head);
-        et_name = $(R.id.et_name);
+        et_nikename = $(R.id.et_name);
         info_sex = $(R.id.info_sex);
         info_birthday = $(R.id.info_birthday);
         et_real_name = $(R.id.et_real_name);
@@ -127,13 +120,13 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initData() {
         setHeadImg(MySelfInfo.getInstance().getUserImgUrl());
-        et_name.setText(MySelfInfo.getInstance().getUserNickname());
+        et_nikename.setText(MySelfInfo.getInstance().getUserNickname());
         et_real_name.setText(MySelfInfo.getInstance().getUserName());
         info_sex.setContent(MySelfInfo.getInstance().getUserGender() == 0?"女":"男");
         info_birthday.setContent(MySelfInfo.getInstance().getUserBirthday());
         et_explain.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT));
 
-        bName = et_name.getText().toString();
+        bNickName = et_nikename.getText().toString();
         bBirthday = info_birthday.getContent();
         bSex = info_sex.getContent();
         bExplain = et_explain.getText().toString();
@@ -145,7 +138,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
         mPresenter = new MyInfoPresenter(context,this);
 
-        et_name.addTextChangedListener(textWatcher);
+        et_nikename.addTextChangedListener(textWatcher);
         et_explain.addTextChangedListener(textWatcher);
         et_real_name.addTextChangedListener(textWatcher);
 
@@ -248,8 +241,8 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             myInfoData.setImgUrl(bImgUrl);
             isChange = true;
         }
-        if (!TextUtils.equals(et_name.getText().toString(), bName)) {
-            myInfoData.setName(et_name.getText().toString());
+        if (!TextUtils.equals(et_nikename.getText().toString(), bNickName)) {
+            myInfoData.setNickname(et_nikename.getText().toString());
             isChange = true;
         }
         if (!TextUtils.equals(info_sex.getContent(), bSex)) {
@@ -353,7 +346,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         if(!TextUtils.isEmpty(myInfoData.getName())){
             MySelfInfo.getInstance().setUserName(myInfoData.getName());
         }
-        if(TextUtils.isEmpty(myInfoData.getNickname())){
+        if(!TextUtils.isEmpty(myInfoData.getNickname())){
             MySelfInfo.getInstance().setUserNickname(myInfoData.getNickname());
         }
         if(myInfoData.getGendar() != 0){
