@@ -243,6 +243,20 @@ public interface HttpService {
             @Query("page") int page
     );
 
+    //friend/queryLikes 点赞
+    @FormUrlEncoded
+    @POST("friend/queryLikes")
+    Observable<BaseResponse<LoginModel>> friendQueryLikes(
+            @Field("friendSterId") int friendSterId
+    );
+
+    //friend/doUnLike 取消点赞
+    @FormUrlEncoded
+    @POST("friend/doUnLike")
+    Observable<BaseResponse<LoginModel>> friendDoUnLike(
+            @Field("friendSterId") int friendSterId
+    );
+
     //-------我的 end-------
 
 

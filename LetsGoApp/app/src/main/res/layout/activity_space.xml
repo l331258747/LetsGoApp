@@ -23,10 +23,10 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="90dp"
-                android:layout_marginBottom="15dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
 
@@ -53,11 +53,11 @@
 
                             <ImageView
                                 android:id="@+id/iv_sex"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                tools:src="@mipmap/icon_boy"/>
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                tools:src="@mipmap/icon_boy" />
 
                         </RelativeLayout>
 
@@ -77,8 +77,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:padding="10dp"
-                            tools:text="5000粉丝"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"
+                            tools:text="5000粉丝" />
 
                     </LinearLayout>
 
@@ -96,10 +96,22 @@
 
                         <TextView
                             android:id="@+id/tv_age"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             tools:text="28" />
+
+                        <TextView
+                            android:id="@+id/tv_follow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_theme_solid_r5"
+                            android:padding="5dp"
+                            android:drawableLeft="@mipmap/follow_un"
+                            android:text="加关注"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
@@ -128,9 +140,9 @@
                     <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
                         android:id="@+id/flow_layout"
                         android:layout_width="match_parent"
-                        app:max_select="0"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="10dp"
+                        app:max_select="0" />
 
                 </LinearLayout>
 

@@ -70,7 +70,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder holder, final int position) {
         if (holder == null) return;
         if (holder instanceof DynamicViewHolder) {
             final int pos = holder.getAdapterPosition() - 1;
@@ -94,6 +94,16 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
                     BigImageActivity.startActivity((Activity) mContext,position,data.getImgUrls());
                 }
             });
+
+
+            if(mNickClickListener != null){
+                ((DynamicViewHolder) holder).tv_nice.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mNickClickListener.onClick(pos);
+                    }
+                });
+            }
 
             if (mOnItemClickListener != null) {
                 ((DynamicViewHolder) holder).ll_parent.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +185,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
+    OnItemClickListener mNickClickListener;
     View.OnClickListener onCheckAllListener;
 
 
@@ -189,6 +200,11 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     public void setCheckAllListener(View.OnClickListener onCheckAllListener) {
         this.onCheckAllListener = onCheckAllListener;
     }
+
+    public void setNickClickListener(OnItemClickListener mNickClickListener){
+        this.mNickClickListener = mNickClickListener;
+    }
+
     //---------事件 end---------
 
 

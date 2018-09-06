@@ -9,11 +9,12 @@ import com.njz.letsgoapp.bean.login.LoginInfoModel;
  * Function:
  */
 
-public interface SpaceContract {
+public interface SpaceContract{
 
     interface Presenter{
         void userViewZone(int userId);
         void friendPersonalFriendSter(int userId,int limit,int page);
+
     }
 
     interface View{

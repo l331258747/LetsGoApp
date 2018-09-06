@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,16 +35,17 @@ import java.util.List;
  * Function:
  */
 
-public class SpaceActivity extends BaseActivity implements SpaceContract.View {
+public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener {
 
     private RecyclerView recyclerView;
     private DynamicAdapter mAdapter;
     private ImageView ivHead, ivSex;
-    private TextView tvFans, tvAge, tvExplain, tvName;
+    private TextView tvFans, tvAge, tvExplain, tvName, tvFollow;
     private TagFlowLayout flowLayout;
     private SpacePresenter mPresenter;
 
     private int userId;
+    List<DynamicModel> datas;
 
     @Override
     public void getIntentData() {
@@ -67,9 +69,13 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View {
         tvAge = $(R.id.tv_age);
         tvExplain = $(R.id.tv_explain);
         flowLayout = $(R.id.flow_layout);
+        tvFollow = $(R.id.tv_follow);
         tvName = $(R.id.tv_name);
 
+        tvFollow.setOnClickListener(this);
+
         initRecycler();
+
     }
 
     @Override
@@ -121,6 +127,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View {
 
     @Override
     public void friendPersonalFriendSterSuccess(DynamicListModel model) {
+        datas = model.getList();
         mAdapter.setData(model.getList());
         mAdapter.notifyDataSetChanged();
     }
@@ -129,4 +136,16 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View {
     public void friendPersonalFriendSterFailed(String msg) {
         showShortToast(msg);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_follow:
+                tvFollow.setText("已关注");
+                tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_gray_solid_r5));
+                tvFollow.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.follow_ok),null,null,null);
+                break;
+        }
+    }
+
 }

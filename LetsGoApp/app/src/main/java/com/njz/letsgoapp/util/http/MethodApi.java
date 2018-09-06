@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.util.http;
 
 import com.njz.letsgoapp.bean.BaseResponse;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
@@ -214,6 +215,17 @@ public class MethodApi {
     public static void userFindFocus(int limit,int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().userFindFocus(limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //friendDoUnLike
+    public static void friendQueryLikes(boolean isFollow, int friendSterId, DisposableObserver subscriber) {
+        if(isFollow){
+            Observable observable = HttpMethods.getInstance().getHttpService().friendQueryLikes(friendSterId);
+            HttpMethods.getInstance().toSubscribe(observable, subscriber);
+        }else{
+            Observable observable = HttpMethods.getInstance().getHttpService().friendDoUnLike(friendSterId);
+            HttpMethods.getInstance().toSubscribe(observable, subscriber);
+        }
     }
 
     //---------我的 end-------

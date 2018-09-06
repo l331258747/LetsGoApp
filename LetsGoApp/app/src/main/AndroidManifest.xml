@@ -124,6 +124,7 @@
 
         <!--发现-->
         <activity android:name=".view.find.ReleaseDynamicActivity"/>
+        <activity android:name=".view.find.DynamicDetailActivity"/>
 
         <!--我的-->
         <activity android:name=".view.mine.SystemSettingActivity" />

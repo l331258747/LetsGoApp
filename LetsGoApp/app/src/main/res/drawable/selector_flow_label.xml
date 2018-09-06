@@ -7,5 +7,5 @@
 
     </item>
     <item
-          android:drawable="@drawable/btn_gray_solid_r5"></item>
+          android:drawable="@drawable/btn_gray_solid_r5_p8"></item>
 </selector>

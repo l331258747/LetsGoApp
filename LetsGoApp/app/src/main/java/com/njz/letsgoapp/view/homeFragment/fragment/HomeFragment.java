@@ -36,6 +36,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.calendar.CalendarActivity;
+import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
@@ -183,8 +184,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-//                showShortToast("点击第" + position);
-//                startActivity(new Intent(context, GuideDetailActivity.class));
+                startActivity(new Intent(context, DynamicDetailActivity.class));
                 //TODO 进入动态详情
 
             }

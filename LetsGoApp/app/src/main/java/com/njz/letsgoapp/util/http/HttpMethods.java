@@ -61,6 +61,7 @@ public class HttpMethods {
 //                        .addHeader("Accept-Encoding", "gzip")
                         .addHeader("Connection", "keep-alive")
                         .addHeader("Accept", "*/*")
+                        .addHeader("X-Nideshop-Id", MySelfInfo.getInstance().getUserId()+"")
                         .addHeader("X-Nideshop-Token", TextUtils.isEmpty(MySelfInfo.getInstance().getUserToken())?"": MySelfInfo.getInstance().getUserToken())
                         .method(originalRequest.method(), originalRequest.body());
                 Request request = requestBuilder.build();

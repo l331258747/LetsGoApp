@@ -40,7 +40,7 @@ public class MyInfoPresenter implements MyInfoContract.Presenter {
                 iView.userChangePersonalDataFailed(errorMsg);
             }
         };
-        MethodApi.userChangePersonalData(maps, new OnSuccessAndFaultSub(listener, context));
+        MethodApi.userChangePersonalData(maps, new OnSuccessAndFaultSub(listener));
     }
 
     @Override
