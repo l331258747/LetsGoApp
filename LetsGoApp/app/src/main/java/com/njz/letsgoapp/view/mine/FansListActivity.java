@@ -1,22 +1,28 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.adapter.mine.FansListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
-import com.njz.letsgoapp.bean.mine.FansBean;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.mine.FansListModel;
+import com.njz.letsgoapp.bean.mine.FansModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.mine.FansListContract;
 import com.njz.letsgoapp.mvp.mine.FansListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LGQ
@@ -32,9 +38,16 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
 
     FansListAdapter mAdapter;
     String title = "";
-    int type;
+    int type;//0我的粉丝，1我的关注
 
     FansListPresenter mPresenter;
+
+    List<FansModel> datas;
+
+    private LoadMoreWrapper loadMoreWrapper;
+    int page;
+    int isLoadType = 1;//1下拉刷新，2上拉加载
+    boolean isLoad = false;//是否在加载，重复加载问题
 
     @Override
     public int getLayoutId() {
@@ -44,7 +57,6 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
     @Override
     public void getIntentData() {
         super.getIntentData();
-
         title = intent.getStringExtra("FansListActivity_title");
         type = intent.getIntExtra("type",0);
     }
@@ -64,7 +76,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
     @Override
     public void initData() {
         mPresenter = new FansListPresenter(context,this);
-        mPresenter.userFindFans(type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
+        getRefreshData();
     }
 
 
@@ -73,15 +85,29 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new FansListAdapter(activity,new ArrayList<FansBean>());
-        recyclerView.setAdapter(mAdapter);
+        mAdapter = new FansListAdapter(activity,new ArrayList<FansModel>());
+        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
+
+        page = Constant.DEFAULT_PAGE;
 
         mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
+                Intent intentSpace = new Intent(context, SpaceActivity.class);
+                intentSpace.putExtra("userId", datas.get(position).getUserId());
+                startActivity(intentSpace);
             }
         });
 
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                getMoreData();
+            }
+        });
     }
 
     //初始化SwipeLayout
@@ -91,37 +117,56 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setData(getData());
-                swipeRefreshLayout.setRefreshing(false);
+                if (isLoad) return;
+                getRefreshData();
             }
         });
     }
 
-    public List<FansBean> getData(){
-        List<FansBean> fans = new ArrayList<>();
-        FansBean fansBean = new FansBean();
-        fansBean.setHeadImg("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        fansBean.setName("那就走");
-
-        fans.add(fansBean);
-        fans.add(fansBean);
-        fans.add(fansBean);
-        fans.add(fansBean);
-        fans.add(fansBean);
-        fans.add(fansBean);
-        fans.add(fansBean);
-
-        return fans;
+    private void getRefreshData() {
+        swipeRefreshLayout.setRefreshing(true);
+        isLoad = true;
+        page = Constant.DEFAULT_PAGE;
+        isLoadType = 1;
+        mPresenter.userFindFans(type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
     }
 
-    @Override
-    public void userFindFansSuccess(EmptyModel data) {
+    private void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
+        mPresenter.userFindFans(type, Constant.DEFAULT_LIMIT,page);
+    }
 
+
+    @Override
+    public void userFindFansSuccess(FansListModel data) {
+        datas = data.getList();
+
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
+        swipeRefreshLayout.setRefreshing(false);
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
+        loadMoreWrapper.notifyDataSetChanged();
     }
 
     @Override
     public void userFindFansFailed(String msg) {
+        showShortToast(msg);
 
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 
 }

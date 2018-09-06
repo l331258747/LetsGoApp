@@ -60,7 +60,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         tvRegister.setOnClickListener(this);
         tvVerifyLogin.setOnClickListener(this);
 
+        initEt();
+    }
 
+    //TODO
+    public void initEt(){
+        loginViewPhone.getEtView().setText("18826420934");
+        loginViewPassword.getEtView().setText("941740");
     }
 
     @Override

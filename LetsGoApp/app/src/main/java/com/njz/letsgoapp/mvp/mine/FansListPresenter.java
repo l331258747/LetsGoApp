@@ -3,6 +3,7 @@ package com.njz.letsgoapp.mvp.mine;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.mine.FansListModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -26,9 +27,9 @@ public class FansListPresenter implements FansListContract.Presenter {
     @Override
     public void userFindFans(int type, int limit, int page) {
         if(type == 0){
-            ResponseCallback listener = new ResponseCallback<EmptyModel>() {
+            ResponseCallback listener = new ResponseCallback<FansListModel>() {
                 @Override
-                public void onSuccess(EmptyModel data) {
+                public void onSuccess(FansListModel data) {
                     iView.userFindFansSuccess(data);
                 }
 
@@ -39,9 +40,9 @@ public class FansListPresenter implements FansListContract.Presenter {
             };
             MethodApi.userFindFans(limit, page,new OnSuccessAndFaultSub(listener, context));
         }else{
-            ResponseCallback listener = new ResponseCallback<EmptyModel>() {
+            ResponseCallback listener = new ResponseCallback<FansListModel>() {
                 @Override
-                public void onSuccess(EmptyModel data) {
+                public void onSuccess(FansListModel data) {
                     iView.userFindFansSuccess(data);
                 }
 

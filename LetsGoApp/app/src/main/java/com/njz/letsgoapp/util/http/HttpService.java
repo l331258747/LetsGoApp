@@ -12,6 +12,7 @@ import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.bean.mine.FansListModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
@@ -230,14 +231,14 @@ public interface HttpService {
 
     //user/findFans 我的粉丝
     @GET("user/findFans")
-    Observable<BaseResponse<DynamicListModel>> userFindFans(
+    Observable<BaseResponse<FansListModel>> userFindFans(
             @Query("limit") int limit,
             @Query("page") int page
     );
 
     //user/findFocus 我的关注
     @GET("user/findFocus")
-    Observable<BaseResponse<DynamicListModel>> userFindFocus(
+    Observable<BaseResponse<FansListModel>> userFindFocus(
             @Query("limit") int limit,
             @Query("page") int page
     );

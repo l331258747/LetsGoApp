@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.mvp.mine;
 
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.mine.FansListModel;
 
 /**
  * Created by LGQ
@@ -15,7 +16,7 @@ public interface FansListContract {
     }
 
     interface View{
-        void userFindFansSuccess(EmptyModel data);
+        void userFindFansSuccess(FansListModel data);
         void userFindFansFailed(String msg);
     }
 }

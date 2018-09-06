@@ -7,12 +7,29 @@
     android:layout_height="wrap_content">
 
 
-    <ImageView
-        android:id="@+id/iv_head"
+    <RelativeLayout
+        android:id="@+id/rl_head"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:src="@mipmap/head_default" />
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/head_default" />
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_sex"-->
+            <!--android:layout_width="10dp"-->
+            <!--android:layout_height="10dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:src="@mipmap/icon_boy"/>-->
+
+    </RelativeLayout>
+
+
 
 
     <TextView
@@ -21,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/iv_head"
+        android:layout_toEndOf="@+id/rl_head"
         tools:text="那就走" />
 
     <View
@@ -30,7 +47,7 @@
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@id/iv_head"
+        android:layout_toEndOf="@id/rl_head"
         android:background="@color/gray_999_33" />
 
 </RelativeLayout>

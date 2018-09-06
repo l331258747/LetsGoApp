@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.adapter.mine;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
-import com.njz.letsgoapp.bean.mine.FansBean;
+import com.njz.letsgoapp.bean.mine.FansModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -25,9 +26,9 @@ import java.util.List;
 public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHolder> {
 
     Context mContext;
-    List<FansBean> fans;
+    List<FansModel> fans;
 
-    public FansListAdapter(Context mContext, List<FansBean> fans) {
+    public FansListAdapter(Context mContext, List<FansModel> fans) {
         this.mContext = mContext;
         this.fans = fans;
     }
@@ -42,27 +43,27 @@ public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
-            final int pos = holder.getAdapterPosition();
-            final FansBean data = fans.get(pos);
-            if (data == null) return;
+        final int pos = holder.getAdapterPosition();
+        final FansModel data = fans.get(pos);
+        if (data == null) return;
 
-            GlideUtil.LoadCircleImage(mContext, data.getHeadImg(), holder.iv_head);
-            holder.tv_name.setText(data.getName());
+        GlideUtil.LoadCircleImage(mContext, data.getImgUrl(), holder.iv_head);
+        holder.tv_name.setText(data.getNickname());
 
-            if(pos == getItemCount() - 1){
-                holder.view_line.setVisibility(View.GONE);
-            }else{
-                holder.view_line.setVisibility(View.VISIBLE);
-            }
+        if (pos == getItemCount() - 1) {
+            holder.view_line.setVisibility(View.GONE);
+        } else {
+            holder.view_line.setVisibility(View.VISIBLE);
+        }
 
-            if (mOnItemClickListener != null) {
-                holder.rl_parent.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mOnItemClickListener.onClick(pos);
-                    }
-                });
-            }
+        if (mOnItemClickListener != null) {
+            holder.rl_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onClick(pos);
+                }
+            });
+        }
 
     }
 
@@ -71,7 +72,7 @@ public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHo
         return fans.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_head;
         TextView tv_name;
@@ -89,6 +90,7 @@ public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHo
     }
 
     GuideListAdapter.OnItemClickListener mOnItemClickListener;
+
     public interface OnItemClickListener {
         void onClick(int position);
     }
@@ -97,8 +99,11 @@ public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHo
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public void setData(List<FansBean> fans){
+    public void setData(List<FansModel> fans) {
         this.fans = fans;
-        notifyDataSetChanged();
+    }
+
+    public void addData(List<FansModel> fans){
+        this.fans.addAll(fans);
     }
 }
