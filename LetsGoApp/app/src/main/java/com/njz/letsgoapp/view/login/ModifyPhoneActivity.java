@@ -170,6 +170,7 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void updateMobileSuccess(EmptyModel str) {
         showShortToast("修改成功");
+        MySelfInfo.getInstance().setUserMoble(loginViewPhone.getEtContent());
         finish();
     }
 

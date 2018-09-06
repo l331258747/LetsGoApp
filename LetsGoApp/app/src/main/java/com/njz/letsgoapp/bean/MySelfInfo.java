@@ -128,6 +128,10 @@ public class MySelfInfo {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_MOBILE);
     }
 
+    public void setUserMoble(String moble){
+        SPUtils.getInstance().putString(SPUtils.SP_USER_MOBILE,moble);
+    }
+
     public String getUserAvatar() {
         return SPUtils.getInstance().getString(SPUtils.SP_USER_AVATAR);
     }

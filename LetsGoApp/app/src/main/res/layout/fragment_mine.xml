@@ -117,6 +117,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
+                                android:paddingBottom="8dp"
+                                android:paddingTop="8dp"
                                 android:drawablePadding="10dp"
                                 android:drawableRight="@mipmap/ic_arrow_right"
                                 android:text="个人主页" />
