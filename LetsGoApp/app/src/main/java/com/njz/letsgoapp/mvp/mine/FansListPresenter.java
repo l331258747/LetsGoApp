@@ -25,7 +25,7 @@ public class FansListPresenter implements FansListContract.Presenter {
     }
 
     @Override
-    public void userFindFans(int type, int limit, int page) {
+    public void userFindFans(int type, int userId,int limit, int page) {
         if(type == 0){
             ResponseCallback listener = new ResponseCallback<FansListModel>() {
                 @Override
@@ -38,7 +38,7 @@ public class FansListPresenter implements FansListContract.Presenter {
                     iView.userFindFansFailed(errorMsg);
                 }
             };
-            MethodApi.userFindFans(limit, page,new OnSuccessAndFaultSub(listener, context));
+            MethodApi.userFindFans(userId,limit, page,new OnSuccessAndFaultSub(listener, context));
         }else{
             ResponseCallback listener = new ResponseCallback<FansListModel>() {
                 @Override
@@ -51,7 +51,7 @@ public class FansListPresenter implements FansListContract.Presenter {
                     iView.userFindFansFailed(errorMsg);
                 }
             };
-            MethodApi.userFindFocus(limit, page,new OnSuccessAndFaultSub(listener, context));
+            MethodApi.userFindFocus(userId,limit, page,new OnSuccessAndFaultSub(listener, context));
         }
 
 

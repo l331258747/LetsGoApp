@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.njz.letsgoapp.util.SPUtils;
-import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
@@ -47,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(this, DynamicDetailActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
 
 //        Intent intent = new Intent(this, GuideDetailActivity.class);
 //        intent.putExtra(GuideDetailActivity.GUIDEID, 4);

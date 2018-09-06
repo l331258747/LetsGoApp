@@ -232,6 +232,7 @@ public interface HttpService {
     //user/findFans 我的粉丝
     @GET("user/findFans")
     Observable<BaseResponse<FansListModel>> userFindFans(
+            @Query("userId") int userId,
             @Query("limit") int limit,
             @Query("page") int page
     );
@@ -239,6 +240,7 @@ public interface HttpService {
     //user/findFocus 我的关注
     @GET("user/findFocus")
     Observable<BaseResponse<FansListModel>> userFindFocus(
+            @Query("userId") int userId,
             @Query("limit") int limit,
             @Query("page") int page
     );

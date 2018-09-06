@@ -39,8 +39,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     ImageView iv_head;
     TextView tv_name,tv_follow,tv_fans,tv_login,tv_space;
 
-    Button btn_loginoff;
-
     LinearLayout ll_info;
 
 
@@ -64,7 +62,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         tv_follow = $(R.id.tv_follow);
         ll_info = $(R.id.ll_info);
         tv_login = $(R.id.tv_login);
-        btn_loginoff = $(R.id.btn_loginoff);
+
         tv_space = $(R.id.tv_space);
 
         mine_bind.setOnClickListener(this);
@@ -76,7 +74,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         tv_fans.setOnClickListener(this);
         tv_follow.setOnClickListener(this);
         iv_head.setOnClickListener(this);
-        btn_loginoff.setOnClickListener(this);
         tv_login.setOnClickListener(this);
         tv_space.setOnClickListener(this);
 
@@ -159,6 +156,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent intentFans = new Intent(context,FansListActivity.class);
                 intentFans.putExtra("FansListActivity_title", "我的粉丝");
                 intentFans.putExtra("type",0);
+                intentFans.putExtra("userId",MySelfInfo.getInstance().getUserId());
                 startActivity(intentFans);
                 break;
             case R.id.tv_follow:
@@ -166,11 +164,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Intent intentFollow = new Intent(context,FansListActivity.class);
                 intentFollow.putExtra("FansListActivity_title", "我的关注");
                 intentFollow.putExtra("type",1);
+                intentFollow.putExtra("userId",MySelfInfo.getInstance().getUserId());
                 startActivity(intentFollow);
-                break;
-            case R.id.btn_loginoff:
-                MySelfInfo.getInstance().loginOff();
-                setLoginState();
                 break;
             case R.id.tv_space:
                 if(!isLogin()) return;

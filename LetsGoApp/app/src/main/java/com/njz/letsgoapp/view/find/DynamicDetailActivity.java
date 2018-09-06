@@ -42,6 +42,9 @@ public class DynamicDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
+        showLeftAndTitle("动态详情");
+
         ivImg = $(R.id.iv_img);
         tvName = $(R.id.tv_name);
         tvTime = $(R.id.tv_time);

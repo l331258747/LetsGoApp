@@ -314,6 +314,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void bannerFindByTypeSuccess(List<BannerModel> models) {
+        if(models == null ||models.size() == 0){
+            //TODO
+            BannerModel data = new BannerModel();
+            data.setImgUrl("http://img0.imgtn.bdimg.com/it/u=1261371176,2698436398&fm=26&gp=0.jpg");
+            models.add(data);
+        }
         initBanner(models);
     }
 

@@ -206,14 +206,14 @@ public class MethodApi {
     }
 
     //userFindFans
-    public static void userFindFans(int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().userFindFans(limit,page);
+    public static void userFindFans(int userId,int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userFindFans(userId,limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     //userFindFocus
-    public static void userFindFocus(int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().userFindFocus(limit,page);
+    public static void userFindFocus(int userId,int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userFindFocus(userId,limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

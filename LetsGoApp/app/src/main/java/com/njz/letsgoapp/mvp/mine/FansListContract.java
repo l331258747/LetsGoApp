@@ -12,7 +12,7 @@ import com.njz.letsgoapp.bean.mine.FansListModel;
 public interface FansListContract {
 
     interface Presenter{
-        void userFindFans(int type, int limit,int page);
+        void userFindFans(int type, int userId, int limit,int page);
     }
 
     interface View{

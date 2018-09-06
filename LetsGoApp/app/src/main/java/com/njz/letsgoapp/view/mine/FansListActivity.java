@@ -39,6 +39,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
     FansListAdapter mAdapter;
     String title = "";
     int type;//0我的粉丝，1我的关注
+    int userId;
 
     FansListPresenter mPresenter;
 
@@ -59,6 +60,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
         super.getIntentData();
         title = intent.getStringExtra("FansListActivity_title");
         type = intent.getIntExtra("type",0);
+        userId = intent.getIntExtra("userId",0);
     }
 
     @Override
@@ -128,14 +130,14 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.userFindFans(type, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
+        mPresenter.userFindFans(type,userId, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
     }
 
     private void getMoreData() {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
-        mPresenter.userFindFans(type, Constant.DEFAULT_LIMIT,page);
+        mPresenter.userFindFans(type,userId, Constant.DEFAULT_LIMIT,page);
     }
 
 

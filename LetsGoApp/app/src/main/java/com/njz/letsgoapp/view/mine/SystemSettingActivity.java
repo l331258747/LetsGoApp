@@ -2,9 +2,11 @@ package com.njz.letsgoapp.view.mine;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.CacheUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
@@ -28,6 +30,8 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
 
     LoadingDialog loadingDialog;
 
+    Button btn_loginoff;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_system_setting;
@@ -44,6 +48,9 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
 
         system_setting_feedback.setOnClickListener(this);
         system_setting_about.setOnClickListener(this);
+
+        btn_loginoff = $(R.id.btn_loginoff);
+        btn_loginoff.setOnClickListener(this);
 
 
     }
@@ -103,7 +110,10 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             case R.id.system_setting_about:
                 startActivity(new Intent(context, AboutActivity.class));
                 break;
-
+            case R.id.btn_loginoff:
+                MySelfInfo.getInstance().loginOff();
+                finish();
+                break;
         }
     }
 }
