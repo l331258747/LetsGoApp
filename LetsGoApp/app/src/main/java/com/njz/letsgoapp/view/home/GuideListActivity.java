@@ -197,7 +197,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             public void onClick(int position) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
                 LogUtil.e(datas.get(position).getGuideId() + "");
-                intent.putExtra(GuideDetailActivity.GUIDEID, datas.get(position).getGuideId());
+                intent.putExtra(GuideDetailActivity.GUIDEID, datas.get(position).getId());
                 startActivity(intent);
             }
         });

@@ -2,6 +2,7 @@ package com.njz.letsgoapp.util.http;
 
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
@@ -255,30 +256,41 @@ public interface HttpService {
     //friend/queryLikes 点赞
     @FormUrlEncoded
     @POST("friend/doLike")
-    Observable<BaseResponse<LoginModel>> friendDoLike(
+    Observable<BaseResponse<EmptyModel>> friendDoLike(
             @Field("friendSterId") int friendSterId
     );
 
     //friend/doUnLike 取消点赞
     @FormUrlEncoded
     @POST("friend/doUnLike")
-    Observable<BaseResponse<LoginModel>> friendDoUnLike(
+    Observable<BaseResponse<EmptyModel>> friendDoUnLike(
             @Field("friendSterId") int friendSterId
     );
 
     //user/focusOn 关注
     @FormUrlEncoded
     @POST("user/focusOn")
-    Observable<BaseResponse<LoginModel>> userFocusOn(
+    Observable<BaseResponse<EmptyModel>> userFocusOn(
             @Field("focusId") int focusId
     );
 
     //user/focusOff 取消关注
     @FormUrlEncoded
     @POST("user/focusOff")
-    Observable<BaseResponse<LoginModel>> userFocusOff(
+    Observable<BaseResponse<EmptyModel>> userFocusOff(
             @Field("focusId") int focusId
     );
+
+    //friend/discuss 动态评论
+    @FormUrlEncoded
+    @POST("friend/discuss")
+    Observable<BaseResponse<DynamicCommentModel>> friendDiscuss(
+            @Field("friendSterId") int friendSterId,
+            @Field("discussUserId") int discussUserId,
+            @Field("discussContent") String discussContent,
+            @Field("toUserId") int toUserId
+    );
+
     //-------我的 end-------
 
 

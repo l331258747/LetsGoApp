@@ -41,14 +41,14 @@ public class DynamicModel {
     private Object travelDiscussEntity;
     private int userId;
     private List<String> imgUrls;
-    private List<DynamicCommentModel> dynamicComments;
+    private List<DynamicCommentModel> travelDiscussVOS;
 
     public List<DynamicCommentModel> getDynamicComments() {
-        return dynamicComments;
+        return travelDiscussVOS;
     }
 
-    public void setDynamicComments(List<DynamicCommentModel> dynamicComments) {
-        this.dynamicComments = dynamicComments;
+    public void setDynamicComments(List<DynamicCommentModel> travelDiscussVOS) {
+        this.travelDiscussVOS = travelDiscussVOS;
     }
 
     /**

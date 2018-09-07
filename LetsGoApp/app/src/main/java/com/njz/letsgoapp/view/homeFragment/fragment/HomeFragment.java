@@ -62,7 +62,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private RecyclerView recycler_view_h;
-    private DynamicAdapter mAdapter;
+    private DynamicAdapter dynamicAdapter;
+    private HomeGuideAdapter guideAdapter;
     private LinearLayoutManager linearLayoutManager;
 
     private Disposable calDisposable;
@@ -79,7 +80,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     private HomePresenter mPresenter;
 
-    private List<GuideModel> datas;
+    private List<GuideModel> guideDatas;
+    private List<DynamicModel> dynamicDatas;
 
     private LocationUtil locationUtil;
     private String city = Constant.DEFAULT_CITY;
@@ -197,17 +199,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         initSwipeLayout();
         intRecyclerH();
 
-        //item导游事件
-        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId",datas.get(position).getGuideId());
+                intent.putExtra("friendSterId",dynamicDatas.get(position).getFriendSterId());
                 startActivity(intent);
             }
         });
 
-        mAdapter.setCheckAllListener(new View.OnClickListener() {
+        dynamicAdapter.setCheckAllListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                startActivity(new Intent(context,GuideListActivity.class));//TODO 进入动态列表
@@ -232,25 +233,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>());
-        recyclerView.setAdapter(mAdapter);
+        dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>());
+        recyclerView.setAdapter(dynamicAdapter);
         recyclerView.setNestedScrollingEnabled(false);
     }
 
-    HomeGuideAdapter mAdapterh;
     private void intRecyclerH(){
 
-        datas = new ArrayList<>();
+        guideDatas = new ArrayList<>();
         recycler_view_h = $(R.id.recycler_view_h);
         recycler_view_h.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        mAdapterh = new HomeGuideAdapter(activity, datas);
-        recycler_view_h.setAdapter(mAdapterh);
+        guideAdapter = new HomeGuideAdapter(activity, guideDatas);
+        recycler_view_h.setAdapter(guideAdapter);
         recycler_view_h.setNestedScrollingEnabled(false);
-        mAdapterh.setOnItemClickListener(new HomeGuideAdapter.OnItemClickListener() {
+        guideAdapter.setOnItemClickListener(new HomeGuideAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
-                intent.putExtra(GuideDetailActivity.GUIDEID,datas.get(position).getId());
+                intent.putExtra(GuideDetailActivity.GUIDEID,guideDatas.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -388,8 +388,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             swipeRefreshLayout.setRefreshing(false);
             isLoad = false;
         }
-        datas = models.getList();
-        mAdapterh.setData(datas);
+        guideDatas = models.getList();
+        guideAdapter.setData(guideDatas);
     }
 
     @Override
@@ -409,8 +409,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             swipeRefreshLayout.setRefreshing(false);
             isLoad = false;
         }
-        mAdapter.setData(models.getList());
-        mAdapter.notifyDataSetChanged();
+
+        dynamicDatas = models.getList();
+        dynamicAdapter.setData(dynamicDatas);
+        dynamicAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -10,7 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -46,15 +48,16 @@ public class DynamicCommentAdapter extends RecyclerView.Adapter<DynamicCommentAd
         final DynamicCommentModel data = datas.get(pos);
         if (data == null) return;
 
-        GlideUtil.LoadCircleImage(mContext, data.getHeadImg(), holder.iv_head);
-        holder.tv_name.setText(data.getName());
-        holder.tv_time.setText(data.getTime());
-        if(data.getToId() > 0){
+        GlideUtil.LoadCircleImage(mContext, data.getDiscussUserUrl(), holder.iv_head);
+        holder.tv_name.setText(data.getDiscussUserName());
+        holder.tv_time.setText(data.getDiscussTime());
+        if(data.getToUserId() > 0){
             holder.tv_toName.setVisibility(View.VISIBLE);
+            holder.tv_toName.setText("回复 "+ data.getToUserName() + " : ");
         }else{
             holder.tv_toName.setVisibility(View.GONE);
         }
-        holder.tv_content.setText(data.getContent());
+        holder.tv_content.setText(data.getDiscussContent());
 
         if(mOnItemClickListener != null){
             holder.rl_parent.setOnClickListener(new View.OnClickListener() {

@@ -11,21 +11,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.find.DynamicCommentAdapter;
-import com.njz.letsgoapp.adapter.home.CommentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
-import com.njz.letsgoapp.bean.mine.FansModel;
-import com.njz.letsgoapp.bean.mine.MyInfoData;
-import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.find.DynamicDetailContract;
 import com.njz.letsgoapp.mvp.find.DynamicDetailPresenter;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
@@ -44,26 +40,27 @@ import java.util.List;
 
 public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View {
 
-    ImageView ivImg;
-    TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation;
-    DynamicImageView dynamicImageView;
-    DynamicNiceImageView dynamicNiceImgView;
-    RelativeLayout rlNice;
-    RecyclerView recyclerView;
+    private ImageView ivImg;
+    private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation;
+    private DynamicImageView dynamicImageView;
+    private DynamicNiceImageView dynamicNiceImgView;
+    private RelativeLayout rlNice;
+    private RecyclerView recyclerView;
 
-    LinearLayout btnNice, btnComment;
+    private LinearLayout btnNice, btnComment;
 
-    PopComment popComment;
+    private PopComment popComment;
 
-    DynamicDetailPresenter mPresenter;
-    DynamicNicePresenter nicePresenter;
+    private DynamicDetailPresenter mPresenter;
+    private DynamicNicePresenter nicePresenter;
 
-    int friendSterId;
-    DynamicCommentAdapter mAdapter;
+    private int friendSterId;
+    private DynamicCommentAdapter mAdapter;
 
-    DynamicModel model;
+    private DynamicModel model;
+    private List<DynamicCommentModel> comments;
 
-    int toId;
+    private int toId;
 
     @Override
     public void getIntentData() {
@@ -106,7 +103,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 //                MySelfInfo.getInstance().getUserId();//id
 //                model.getFriendSterId();//dynamicId
 //                toId;//toId
-
+                mPresenter.friendDiscuss(model.getFriendSterId(),MySelfInfo.getInstance().getUserId(),content,toId);
 
             }
         });
@@ -155,9 +152,14 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         mAdapter.setOnItemClickListener(new DynamicCommentAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                popComment.setEtHint("回复 " + model.getDynamicComments().get(position).getName());
+//                if (comments.get(position).getDiscussUserId() == MySelfInfo.getInstance().getUserId()){
+//                    ToastUtil.showShortToast(context, "不能回复自己");//TODO
+//                    return;
+//                }
+
+                popComment.setEtHint("回复 " + model.getDynamicComments().get(position).getDiscussUserName());
                 popComment.showPop(btnComment);
-                toId = model.getDynamicComments().get(position).getId();
+                toId = comments.get(position).getDiscussUserId();
             }
         });
     }
@@ -195,37 +197,23 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     @Override
     public void friendPersonalFriendSterSuccess(DynamicModel model) {
         this.model = model;
-        DynamicCommentModel dynamicComment = new DynamicCommentModel();
-        dynamicComment.setId(1);
-        dynamicComment.setName("那就走");
-        dynamicComment.setTime("9.25 8:23");
-        dynamicComment.setHeadImg("https://cdn.duitang.com/uploads/item/201508/30/20150830105732_nZCLV.jpeg");
-        dynamicComment.setContent("你报警阿斯兰的可见光发");
-        dynamicComment.setToId(1);
-        dynamicComment.setToName("按时");
-
-        DynamicCommentModel dynamicComment2 = new DynamicCommentModel();
-        dynamicComment2.setId(1);
-        dynamicComment2.setName("那就走222");
-        dynamicComment2.setTime("9.25 8:23");
-        dynamicComment2.setHeadImg("https://cdn.duitang.com/uploads/item/201508/30/20150830105732_nZCLV.jpeg");
-        dynamicComment2.setContent("你报警阿斯兰的可见光发2222");
-        dynamicComment2.setToId(0);
-
-        List<DynamicCommentModel> dynamicComments = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            if (i % 2 == 0) {
-                dynamicComments.add(dynamicComment);
-            } else {
-                dynamicComments.add(dynamicComment2);
-            }
-        }
-        this.model.setDynamicComments(dynamicComments);
+        this.comments = model.getDynamicComments();
         initViewData();
     }
 
     @Override
     public void friendPersonalFriendSterFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void friendDiscussSuccess(DynamicCommentModel model) {
+        comments.add(model);
+        mAdapter.setData(comments);
+    }
+
+    @Override
+    public void friendDiscussFailed(String msg) {
         showShortToast(msg);
     }
 
@@ -239,4 +227,6 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     public void friendQueryLikesFailed(String msg) {
         showShortToast(msg);
     }
+
+
 }

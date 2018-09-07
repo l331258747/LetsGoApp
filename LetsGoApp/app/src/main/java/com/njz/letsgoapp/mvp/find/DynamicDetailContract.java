@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.mvp.find;
 
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 
 /**
@@ -12,11 +14,17 @@ public interface DynamicDetailContract {
 
     interface Presenter {
         void friendPersonalFriendSter(int friendSterId);
+
+        void friendDiscuss(int friendSterId, int discussUserId, String discussContent, int toUserId);
     }
 
     interface View {
         void friendPersonalFriendSterSuccess(DynamicModel models);
 
         void friendPersonalFriendSterFailed(String msg);
+
+        void friendDiscussSuccess(DynamicCommentModel models);
+
+        void friendDiscussFailed(String msg);
     }
 }

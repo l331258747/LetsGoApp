@@ -113,7 +113,12 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-    //修改tablayout  Indicator 宽度
+
+}
+
+
+
+//修改tablayout  Indicator 宽度
 //    public void reflex(final TabLayout tabLayout){
 //        //了解源码得知 线的宽度是根据 tabView的宽度来设置的
 //        tabLayout.post(new Runnable() {
@@ -163,4 +168,3 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 //        });
 //
 //    }
-}

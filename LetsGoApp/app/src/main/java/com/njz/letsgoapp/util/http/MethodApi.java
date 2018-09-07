@@ -246,6 +246,12 @@ public class MethodApi {
         }
     }
 
+    //friendDiscuss 动态评论
+    public static void friendDiscuss(int friendSterId,int discussUserId,String  discussContent,int toUserId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendDiscuss(friendSterId,discussUserId,discussContent,toUserId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //---------我的 end-------
 
 

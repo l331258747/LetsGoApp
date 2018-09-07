@@ -2,6 +2,8 @@ package com.njz.letsgoapp.mvp.find;
 
 import android.content.Context;
 
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -37,5 +39,21 @@ public class DynamicDetailPresenter implements DynamicDetailContract.Presenter {
             }
         };
         MethodApi.friendPersonalFriendSter(friendSterId,new OnSuccessAndFaultSub(listener));
+    }
+
+    @Override
+    public void friendDiscuss(int friendSterId, int discussUserId, String discussContent, int toUserId) {
+        ResponseCallback listener = new ResponseCallback<DynamicCommentModel>() {
+            @Override
+            public void onSuccess(DynamicCommentModel data) {
+                iView.friendDiscussSuccess(data);
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.friendDiscussFailed(errorMsg);
+            }
+        };
+        MethodApi.friendDiscuss(friendSterId,discussUserId,discussContent,toUserId,new OnSuccessAndFaultSub(listener));
     }
 }
