@@ -200,6 +200,6 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
     @Override
     public void friendQueryLikesFailed(String msg) {
-
+        showShortToast(msg);
     }
 }

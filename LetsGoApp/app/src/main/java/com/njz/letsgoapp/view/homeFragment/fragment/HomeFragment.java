@@ -21,6 +21,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
@@ -28,6 +29,8 @@ import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.map.LocationUtil;
+import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
+import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
 import com.njz.letsgoapp.util.AppUtils;
@@ -57,7 +60,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View {
+public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View,DynamicNiceContract.View{
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -79,6 +82,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private LinearLayout linear_bar2;
 
     private HomePresenter mPresenter;
+    private DynamicNicePresenter nicePresenter;
 
     private List<GuideModel> guideDatas;
     private List<DynamicModel> dynamicDatas;
@@ -89,6 +93,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     private boolean isLoad = false;
     private boolean isBannerLoad,isDynamicLoad,isGuideLoad;
+
+    private int nicePosition;
 
     @Override
     public int getLayoutId() {
@@ -173,6 +179,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initData() {
         mPresenter = new HomePresenter(context,this);
+        nicePresenter = new DynamicNicePresenter(context,this);
 
         loadingDialog = new LoadingDialog(context);
         loadingDialog.showDialog("定位中...");
@@ -236,6 +243,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>());
         recyclerView.setAdapter(dynamicAdapter);
         recyclerView.setNestedScrollingEnabled(false);
+
+        dynamicAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                nicePresenter.friendQueryLikes(dynamicDatas.get(position).isLike(),dynamicDatas.get(position).getFriendSterId());
+                nicePosition = position;
+            }
+        });
     }
 
     private void intRecyclerH(){
@@ -425,5 +440,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         showLongToast(msg);
     }
 
+    @Override
+    public void friendQueryLikesSuccess(EmptyModel models) {
+        dynamicDatas.get(nicePosition).setLike(!dynamicDatas.get(nicePosition).isLike());
+        dynamicAdapter.notifyItemChanged(nicePosition);
+    }
+
+    @Override
+    public void friendQueryLikesFailed(String msg) {
+        showShortToast(msg);
+    }
 }
 
