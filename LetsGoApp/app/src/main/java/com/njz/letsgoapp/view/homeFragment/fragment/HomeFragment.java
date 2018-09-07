@@ -26,12 +26,15 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
+import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
@@ -58,9 +61,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private RecyclerView recycler_view_h;
-
     private DynamicAdapter mAdapter;
-
     private LinearLayoutManager linearLayoutManager;
 
     private Disposable calDisposable;
@@ -70,7 +71,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, btn_trip_setting;
     private RelativeLayout rl_guide_title;
 
-
     private ConvenientBanner convenientBanner;
 
     private NestedScrollView scrollView;
@@ -79,6 +79,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private HomePresenter mPresenter;
 
     private List<GuideModel> datas;
+
+    private LocationUtil locationUtil;
+    private String city = Constant.DEFAULT_CITY;
+    private LoadingDialog loadingDialog;
+
+    private boolean isLoad = false;
+    private boolean isBannerLoad,isDynamicLoad,isGuideLoad;
 
     @Override
     public int getLayoutId() {
@@ -90,7 +97,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
             linear_bar2 = $(R.id.ll_bar2);
             //获取到状态栏的高度
             int statusHeight = AppUtils.getStateBar();
@@ -163,13 +169,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void initData() {
-
-        //TODO
-
         mPresenter = new HomePresenter(context,this);
-        mPresenter.friendFriendSterTop("长沙",5,Constant.DEFAULT_PAGE);
-        mPresenter.orderReviewsSortTop(Constant.DEFAULT_CITY);
-        mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
+
+        loadingDialog = new LoadingDialog(context);
+        loadingDialog.showDialog("定位中...");
+
+        locationUtil = new LocationUtil();
+        locationUtil.startLocation(new LocationUtil.LocationListener() {
+            @Override
+            public void getAdress(int code, String adress) {
+                LogUtil.e("code:" + code + " adress:" + adress);
+                if(code == 0){
+                    city = adress;
+                }
+                loadingDialog.dismiss();
+                LoadData();
+            }
+        });
 
         tv_destination_content.setText(Constant.DEFAULT_CITY);
         tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
@@ -187,8 +203,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
                 intent.putExtra("friendSterId",datas.get(position).getGuideId());
                 startActivity(intent);
-                //TODO 进入动态详情
-
             }
         });
 
@@ -198,8 +212,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 //                startActivity(new Intent(context,GuideListActivity.class));//TODO 进入动态列表
             }
         });
+    }
 
+    private void LoadData(){
+        tv_destination_content.setText(city);
+        isDynamicLoad =false;
+        isBannerLoad = false;
+        isGuideLoad = false;
+        mPresenter.friendFriendSterTop(city,5,Constant.DEFAULT_PAGE);
+        mPresenter.orderReviewsSortTop(city);
+        mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     //初始化recyclerview
@@ -238,12 +262,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if(isLoad) return;
+                isLoad = true;
 
-                mPresenter.friendFriendSterTop("长沙",5,Constant.DEFAULT_PAGE);
-                mPresenter.orderReviewsSortTop(Constant.DEFAULT_CITY);
+                isBannerLoad = false;
+                isDynamicLoad = false;
+                isGuideLoad = false;
+
+                mPresenter.friendFriendSterTop(city,5,Constant.DEFAULT_PAGE);
+                mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
-                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -259,8 +288,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             public void accept(CityPickEvent cityPickEvent) throws Exception {
                 tv_destination_content.setText(cityPickEvent.getCity());
                 desDisposable.dispose();
+                city = cityPickEvent.getCity();
 
+                isDynamicLoad =false;
+                isBannerLoad = true;
+                isGuideLoad = false;
 
+                mPresenter.friendFriendSterTop(city,5,Constant.DEFAULT_PAGE);
+                mPresenter.orderReviewsSortTop(city);
+
+                swipeRefreshLayout.setRefreshing(true);
             }
         });
     }
@@ -318,6 +355,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void bannerFindByTypeSuccess(List<BannerModel> models) {
+        isBannerLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
+
         if(models == null ||models.size() == 0){
             //TODO
             BannerModel data = new BannerModel();
@@ -329,28 +372,53 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void bannerFindByTypeFailed(String msg) {
+        isBannerLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
         showLongToast(msg);
     }
 
     @Override
     public void orderReviewsSortTopSuccess(List<GuideModel> models) {
+        isGuideLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
         datas = models;
         mAdapterh.setData(datas);
     }
 
     @Override
     public void orderReviewsSortTopFailed(String msg) {
+        isGuideLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
         showLongToast(msg);
     }
 
     @Override
     public void friendFriendSterTopSuccess(DynamicListModel models) {
+        isDynamicLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
         mAdapter.setData(models.getList());
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void friendFriendSterTopFailed(String msg) {
+        isDynamicLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
         showLongToast(msg);
     }
 

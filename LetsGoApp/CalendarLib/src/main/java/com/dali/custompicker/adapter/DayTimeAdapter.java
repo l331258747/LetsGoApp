@@ -170,7 +170,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder>{
             if (dayTimeEntity.getMonthPosition()== CalendarData.startDay.getMonthPosition()&& dayTimeEntity.getMonthPosition()== CalendarData.stopDay.getMonthPosition()){
                 //开始和结束是一个月份
                 if (dayTimeEntity.getDay()> CalendarData.startDay.getDay() && dayTimeEntity.getDay() < CalendarData.stopDay.getDay()) {
-                    holder.select_ly_day.setBackgroundResource(R.color.blue);
+                    holder.select_ly_day.setBackgroundResource(R.color.theme1_66);
                 }else{
                     if (dayTimeEntity.getStatus() == 100){
                         holder.select_ly_day.setBackgroundResource(R.drawable.bg_time_gray);
@@ -182,13 +182,13 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder>{
                 // 日期和 开始 不是一个月份
                 if (dayTimeEntity.getMonthPosition()== CalendarData.startDay.getMonthPosition() && dayTimeEntity.getDay()> CalendarData.startDay.getDay()){
                     //和初始相同月  天数往后
-                    holder.select_ly_day.setBackgroundResource(R.color.blue);
+                    holder.select_ly_day.setBackgroundResource(R.color.theme1_66);
                 }else if(dayTimeEntity.getMonthPosition()== CalendarData.stopDay.getMonthPosition() && dayTimeEntity.getDay()< CalendarData.stopDay.getDay()){
                     //和结束相同月   天数往前
-                    holder.select_ly_day.setBackgroundResource(R.color.blue);
+                    holder.select_ly_day.setBackgroundResource(R.color.theme1_66);
                 }else if(dayTimeEntity.getMonthPosition()!= CalendarData.startDay.getMonthPosition() && dayTimeEntity.getMonthPosition()!= CalendarData.stopDay.getMonthPosition()){
                     //和 开始结束都不是同一个月
-                    holder.select_ly_day.setBackgroundResource(R.color.blue);
+                    holder.select_ly_day.setBackgroundResource(R.color.theme1_66);
                 }else{
                     if (dayTimeEntity.getStatus() == 100){
                         holder.select_ly_day.setBackgroundResource(R.drawable.bg_time_gray);

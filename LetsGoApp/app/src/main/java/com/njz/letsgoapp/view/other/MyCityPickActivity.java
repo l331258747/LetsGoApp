@@ -119,7 +119,10 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
                 if(provinceIndex != -1){
                     String cityName = provinces.get(provinceIndex).getTravelRegionEntitys().get(position).getName();
                     showShortToast(cityName);
-                    RxBus2.getInstance().post(new CityPickEvent(cityName));
+                    String city = cityName;
+                    if(city.endsWith("市"))
+                        city = city.substring(0,city.length() - 1);
+                    RxBus2.getInstance().post(new CityPickEvent(city));
                     finish();
                 }
             }

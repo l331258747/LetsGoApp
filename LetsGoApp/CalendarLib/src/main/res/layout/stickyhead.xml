@@ -4,7 +4,7 @@
     android:id="@+id/plan_time_txt_month"
     android:layout_width="match_parent"
     android:layout_height="35dp"
-    android:textColor="@color/blue"
+    android:textColor="@color/theme1"
     android:textSize="16sp"
     android:gravity="center_vertical"
     android:paddingLeft="10dp"

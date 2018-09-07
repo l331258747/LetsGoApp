@@ -56,7 +56,10 @@ public class LocationUtil {
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date date = new Date(aMapLocation.getTime());
                         LogUtil.e("获取定位时间" + df.format(date));
-                        locationListener.getAdress(aMapLocation.getErrorCode(), aMapLocation.getProvince() + aMapLocation.getCity());
+                        String city = aMapLocation.getCity();
+                        if(city.endsWith("市"))
+                            city = city.substring(0,city.length() - 1);
+                        locationListener.getAdress(aMapLocation.getErrorCode(), city);
                     } else {
                         //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                         LogUtil.e("location Error, ErrCode:"

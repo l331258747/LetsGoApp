@@ -12,13 +12,20 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.find.DynamicFragment;
 import com.njz.letsgoapp.view.find.ReleaseDynamicActivity;
+import com.njz.letsgoapp.view.other.MyCityPickActivity;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -35,9 +42,12 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     private ImageView ivRelease;
 
 
+    private Disposable desDisposable;
 
     private List<Fragment> mFragments;
     private String[] titles = {"全部", "关注"};
+
+    private String city = Constant.DEFAULT_CITY;
 
 
     @Override
@@ -75,7 +85,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_city_pick:
-
+                cityPick();
                 break;
             case R.id.tv_search:
 
@@ -85,6 +95,24 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
+
+    //城市选择
+    private void cityPick(){
+        Intent intent = new Intent(context, MyCityPickActivity.class);
+        intent.putExtra("location",tvCityPick.getText().toString());
+        startActivity(intent);
+        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+            @Override
+            public void accept(CityPickEvent cityPickEvent) throws Exception {
+                tvCityPick.setText(cityPickEvent.getCity());
+                desDisposable.dispose();
+                city = cityPickEvent.getCity();
+            }
+        });
+    }
+
+
     //修改tablayout  Indicator 宽度
 //    public void reflex(final TabLayout tabLayout){
 //        //了解源码得知 线的宽度是根据 tabView的宽度来设置的
