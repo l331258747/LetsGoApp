@@ -94,7 +94,7 @@ public class CommentModel {
     }
 
     public String getUserDate() {
-        return DateUtil.longToStr(userDate);
+        return userDate;
     }
 
     public void setUserDate(String userDate) {

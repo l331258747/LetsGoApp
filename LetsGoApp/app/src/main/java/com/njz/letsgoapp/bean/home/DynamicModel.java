@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.home;
 
+import com.njz.letsgoapp.bean.find.DynamicCommentModel;
+
 import java.util.List;
 
 public class DynamicModel {
@@ -39,6 +41,16 @@ public class DynamicModel {
     private Object travelDiscussEntity;
     private int userId;
     private List<String> imgUrls;
+    private List<DynamicCommentModel> dynamicComments;
+
+    public List<DynamicCommentModel> getDynamicComments() {
+        return dynamicComments;
+    }
+
+    public void setDynamicComments(List<DynamicCommentModel> dynamicComments) {
+        this.dynamicComments = dynamicComments;
+    }
+
     /**
      * like : true
      * travelDiscussEntity : null

@@ -4,6 +4,7 @@ import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
+import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
@@ -229,6 +230,12 @@ public interface HttpService {
             @Query("page") int page
     );
 
+    //friend/findByFriendSterId 动态详情
+    @GET("friend/findByFriendSterId")
+    Observable<BaseResponse<DynamicModel>> friendFindByFriendSterId(
+            @Query("friendSterId") int friendSterId
+    );
+
     //user/findFans 我的粉丝
     @GET("user/findFans")
     Observable<BaseResponse<FansListModel>> userFindFans(
@@ -247,8 +254,8 @@ public interface HttpService {
 
     //friend/queryLikes 点赞
     @FormUrlEncoded
-    @POST("friend/queryLikes")
-    Observable<BaseResponse<LoginModel>> friendQueryLikes(
+    @POST("friend/doLike")
+    Observable<BaseResponse<LoginModel>> friendDoLike(
             @Field("friendSterId") int friendSterId
     );
 

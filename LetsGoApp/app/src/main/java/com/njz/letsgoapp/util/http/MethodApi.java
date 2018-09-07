@@ -199,36 +199,42 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //friendPersonalFriendSter
+    //friendPersonalFriendSter 动态列表
     public static void friendPersonalFriendSter(int userId,int limit,int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().friendPersonalFriendSter(userId,limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //userFindFans
+    //friendFindByFriendSterId 动态详情
+    public static void friendPersonalFriendSter(int friendSterId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendFindByFriendSterId(friendSterId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //userFindFans //粉丝列表
     public static void userFindFans(int userId,int limit,int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().userFindFans(userId,limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //userFindFocus
+    //userFindFocus //关注列表
     public static void userFindFocus(int userId,int limit,int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().userFindFocus(userId,limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //friendDoUnLike
+    //friendDoUnLike  点赞
     public static void friendQueryLikes(boolean isNice, int friendSterId, DisposableObserver subscriber) {
         if(isNice){
             Observable observable = HttpMethods.getInstance().getHttpService().friendDoUnLike(friendSterId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }else{
-            Observable observable = HttpMethods.getInstance().getHttpService().friendQueryLikes(friendSterId);
+            Observable observable = HttpMethods.getInstance().getHttpService().friendDoLike(friendSterId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }
     }
 
-    //userFocusOff
+    //userFocusOff  关注他
     public static void userFocusOff(boolean isFollow, int focusId, DisposableObserver subscriber) {
         if(isFollow){
             Observable observable = HttpMethods.getInstance().getHttpService().userFocusOff(focusId);

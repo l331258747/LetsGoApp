@@ -64,6 +64,8 @@ public class PopComment extends PopupWindow {
             public void onClick(View v) {
                 String result = popup_live_comment_edit.getText().toString().trim();
                 if (result.length() != 0) {
+                    if(sendClickLisener != null)
+                        sendClickLisener.send(result);
                     dismiss();
                 }
             }
@@ -77,7 +79,18 @@ public class PopComment extends PopupWindow {
                 popup_live_comment_edit.setText("");
             }
         });
+    }
 
+    OnSendClickLisener  sendClickLisener;
+    public interface OnSendClickLisener{
+        void send(String content);
+    }
+    public void setSendClickLisener(OnSendClickLisener  sendClickLisener){
+        this.sendClickLisener = sendClickLisener;
+    }
+
+    public void setEtHint(String name){
+        popup_live_comment_edit.setHint(name);
     }
 
     public void showPop(View btnComment) {

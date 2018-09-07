@@ -59,26 +59,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private RecyclerView recyclerView;
     private RecyclerView recycler_view_h;
 
-    DynamicAdapter mAdapter;
+    private DynamicAdapter mAdapter;
 
-    LinearLayoutManager linearLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
 
-    Disposable calDisposable;
-    Disposable desDisposable;
+    private Disposable calDisposable;
+    private Disposable desDisposable;
 
-    LinearLayout ll_destination, ll_start_time, ll_end_time;
-    TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, btn_trip_setting;
-    RelativeLayout rl_guide_title;
+    private LinearLayout ll_destination, ll_start_time, ll_end_time;
+    private TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, btn_trip_setting;
+    private RelativeLayout rl_guide_title;
 
 
-    ConvenientBanner convenientBanner;
+    private ConvenientBanner convenientBanner;
 
-    NestedScrollView scrollView;
-    LinearLayout linear_bar2;
+    private NestedScrollView scrollView;
+    private LinearLayout linear_bar2;
 
-    HomePresenter mPresenter;
+    private HomePresenter mPresenter;
 
-    List<GuideModel> datas;
+    private List<GuideModel> datas;
 
     @Override
     public int getLayoutId() {
@@ -184,7 +184,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                startActivity(new Intent(context, DynamicDetailActivity.class));
+                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra("friendSterId",datas.get(position).getGuideId());
+                startActivity(intent);
                 //TODO 进入动态详情
 
             }
@@ -257,6 +259,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             public void accept(CityPickEvent cityPickEvent) throws Exception {
                 tv_destination_content.setText(cityPickEvent.getCity());
                 desDisposable.dispose();
+
+
             }
         });
     }

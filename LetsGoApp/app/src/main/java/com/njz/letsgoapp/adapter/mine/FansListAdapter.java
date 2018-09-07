@@ -89,13 +89,13 @@ public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHo
         }
     }
 
-    GuideListAdapter.OnItemClickListener mOnItemClickListener;
+    OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
         void onClick(int position);
     }
 
-    public void setOnItemClickListener(GuideListAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 

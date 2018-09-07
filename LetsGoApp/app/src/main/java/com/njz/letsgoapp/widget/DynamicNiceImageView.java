@@ -60,21 +60,21 @@ public class DynamicNiceImageView extends LinearLayout {
         switch (datas.size()) {
             case 1:
                 iv_img1.setVisibility(VISIBLE);
-                GlideUtil.LoadImageFitCenter(context, datas.get(0), iv_img1);
+                GlideUtil.LoadCircleImage(context, datas.get(0), iv_img1);
                 break;
             case 2:
                 iv_img1.setVisibility(VISIBLE);
-                GlideUtil.LoadImageFitCenter(context, datas.get(0), iv_img1);
+                GlideUtil.LoadCircleImage(context, datas.get(0), iv_img1);
                 iv_img2.setVisibility(VISIBLE);
-                GlideUtil.LoadImageFitCenter(context, datas.get(1), iv_img2);
+                GlideUtil.LoadCircleImage(context, datas.get(1), iv_img2);
                 break;
             default:
                 iv_img1.setVisibility(VISIBLE);
-                GlideUtil.LoadImageFitCenter(context, datas.get(0), iv_img1);
+                GlideUtil.LoadCircleImage(context, datas.get(0), iv_img1);
                 iv_img2.setVisibility(VISIBLE);
-                GlideUtil.LoadImageFitCenter(context, datas.get(1), iv_img2);
+                GlideUtil.LoadCircleImage(context, datas.get(1), iv_img2);
                 iv_img3.setVisibility(VISIBLE);
-                GlideUtil.LoadImageFitCenter(context, datas.get(2), iv_img3);
+                GlideUtil.LoadCircleImage(context, datas.get(2), iv_img3);
                 break;
         }
     }

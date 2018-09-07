@@ -93,7 +93,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
 
         page = Constant.DEFAULT_PAGE;
 
-        mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new FansListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intentSpace = new Intent(context, SpaceActivity.class);
