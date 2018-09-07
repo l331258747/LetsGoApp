@@ -24,6 +24,7 @@ import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.map.LocationUtil;
@@ -249,7 +250,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
-                intent.putExtra(GuideDetailActivity.GUIDEID,datas.get(position).getGuideId());
+                intent.putExtra(GuideDetailActivity.GUIDEID,datas.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -381,13 +382,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     @Override
-    public void orderReviewsSortTopSuccess(List<GuideModel> models) {
+    public void orderReviewsSortTopSuccess(GuideListModel models) {
         isGuideLoad = true;
         if(isBannerLoad && isDynamicLoad && isGuideLoad){
             swipeRefreshLayout.setRefreshing(false);
             isLoad = false;
         }
-        datas = models;
+        datas = models.getList();
         mAdapterh.setData(datas);
     }
 

@@ -6,6 +6,7 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class MethodApi {
     }
 
     public static void orderReviewsSortTop(String location, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsSortTop(location);
+        Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location, Constant.GUIDE_TYPE_SYNTHESIZE,5,Constant.DEFAULT_PAGE);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

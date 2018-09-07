@@ -25,6 +25,15 @@ public class GuideModel {
     private String introduce;
     private double guideScore;
     private List<GuideServiceModel> travelGuideServiceInfoEntitys;
+    /**
+     * guideScore : 0
+     * lcoation :
+     * travelGuideServiceInfoEntitys : null
+     * id : 1
+     */
+
+    private int id;
+
 
     public int getGuideId() {
         return guideId;
@@ -108,4 +117,11 @@ public class GuideModel {
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

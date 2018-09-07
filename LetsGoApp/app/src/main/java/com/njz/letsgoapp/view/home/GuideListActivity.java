@@ -69,7 +69,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     String startTime;
     String endTime;
-    String location;
+    String location = Constant.DEFAULT_CITY;
     int page;
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
@@ -231,14 +231,14 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.guideSortTop10ByLocation(Constant.DEFAULT_CITY, type, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE, maps);
+        mPresenter.guideSortTop10ByLocation(location, type, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE, maps);
     }
 
     private void getMoreData(int type) {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
-        mPresenter.guideSortTop10ByLocation(Constant.DEFAULT_CITY, type, Constant.DEFAULT_LIMIT, page, maps);
+        mPresenter.guideSortTop10ByLocation(location, type, Constant.DEFAULT_LIMIT, page, maps);
     }
 
 
@@ -246,7 +246,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     public void initData() {
         mPresenter = new GuideListPresenter(context, this);
         getRefreshData(type);
-        tvCityPick.setText(TextUtils.isEmpty(location) ? Constant.DEFAULT_CITY : location);
+        tvCityPick.setText(location);
     }
 
 
@@ -265,6 +265,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                     public void accept(CityPickEvent cityPickEvent) throws Exception {
                         tvCityPick.setText(cityPickEvent.getCity());
                         desDisposable.dispose();
+                        getRefreshData(type);
+
                     }
                 });
                 break;

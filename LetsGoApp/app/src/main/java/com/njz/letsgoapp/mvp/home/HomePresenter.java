@@ -5,6 +5,7 @@ import android.content.Context;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
+import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.mvp.home.HomeContract.Presenter;
@@ -48,9 +49,9 @@ public class HomePresenter implements Presenter {
 
     @Override
     public void orderReviewsSortTop(String location) {
-        ResponseCallback listener = new ResponseCallback<List<GuideModel>>() {
+        ResponseCallback listener = new ResponseCallback<GuideListModel>() {
             @Override
-            public void onSuccess(List<GuideModel> data) {
+            public void onSuccess(GuideListModel data) {
                 iView.orderReviewsSortTopSuccess(data);
             }
 
