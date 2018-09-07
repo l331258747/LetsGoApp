@@ -156,7 +156,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     //初始化SwipeLayout
     private void initSwipeLayout() {
         swipeRefreshLayout = $(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.blue));
+        swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.color_theme));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
