@@ -65,7 +65,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     List<GuideModel> datas;
     Map<String, String> maps;
-    int type = 1;
+    int type = Constant.GUIDE_TYPE_SYNTHESIZE;
 
     String startTime;
     String endTime;
@@ -266,6 +266,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                         desDisposable.dispose();
                         if(TextUtils.isEmpty(cityPickEvent.getCity()))
                             return;
+                        location = cityPickEvent.getCity();
                         tvCityPick.setText(cityPickEvent.getCity());
                         getRefreshData(type);
 
