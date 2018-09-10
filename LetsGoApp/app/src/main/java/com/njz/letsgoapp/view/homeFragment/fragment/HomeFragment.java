@@ -7,6 +7,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -303,8 +304,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
             @Override
             public void accept(CityPickEvent cityPickEvent) throws Exception {
-                tv_destination_content.setText(cityPickEvent.getCity());
                 desDisposable.dispose();
+                if(TextUtils.isEmpty(cityPickEvent.getCity()))
+                    return;
+
+                tv_destination_content.setText(cityPickEvent.getCity());
                 city = cityPickEvent.getCity();
 
                 isDynamicLoad =false;
@@ -328,10 +332,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
             @Override
             public void accept(CalendarEvent calendarEvent) throws Exception {
+                calDisposable.dispose();
+                if(TextUtils.isEmpty(calendarEvent.getStartTime())){
+                    return;
+                }
                 tv_start_time_content.setText(calendarEvent.getStartTime());
                 tv_end_time_content.setText(calendarEvent.getEndTime());
                 tv_day_time.setText(calendarEvent.getDays());
-                calDisposable.dispose();
             }
         });
     }

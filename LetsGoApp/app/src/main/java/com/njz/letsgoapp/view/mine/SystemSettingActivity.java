@@ -11,6 +11,7 @@ import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.CacheUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CleanCacheEvent;
 import com.njz.letsgoapp.widget.MineItemView;
 
 import io.reactivex.disposables.Disposable;
@@ -67,11 +68,11 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
                 loadingDialog.showDialog("清理中...");
-                disCleanCache = RxBus2.getInstance().toObservable(String.class, new Consumer<String>() {
+                disCleanCache = RxBus2.getInstance().toObservable(CleanCacheEvent.class, new Consumer<CleanCacheEvent>() {
                     @Override
-                    public void accept(String s) throws Exception {
+                    public void accept(CleanCacheEvent s) throws Exception {
                         loadingDialog.dismiss();
-                        system_setting_clean.setContent(s);
+                        system_setting_clean.setContent("0k");
                         disCleanCache.dispose();
                     }
                 });
@@ -80,7 +81,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void run() {
                         CacheUtil.clearAllCache(AppUtils.getContext());
-                        RxBus2.getInstance().post("0k");
+                        RxBus2.getInstance().post(new CleanCacheEvent());
                     }
                 }).start();
             }

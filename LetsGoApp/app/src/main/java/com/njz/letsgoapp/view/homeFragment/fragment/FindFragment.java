@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -105,8 +106,10 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
             @Override
             public void accept(CityPickEvent cityPickEvent) throws Exception {
-                tvCityPick.setText(cityPickEvent.getCity());
                 desDisposable.dispose();
+                if(TextUtils.isEmpty(cityPickEvent.getCity()))
+                    return;
+                tvCityPick.setText(cityPickEvent.getCity());
                 city = cityPickEvent.getCity();
             }
         });

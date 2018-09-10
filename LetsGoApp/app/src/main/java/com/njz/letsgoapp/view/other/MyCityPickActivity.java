@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.other;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     int provinceIndex = -1;
 
     String location = "";
+    String city = "";
 
     @Override
     public void getIntentData() {
@@ -117,7 +119,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             public void onClick(int position) {
                 if(provinceIndex != -1){
                     String cityName = provinces.get(provinceIndex).getTravelRegionEntitys().get(position).getName();
-                    String city = cityName;
+                    city = cityName;
                     if(city.endsWith("市"))
                         city = city.substring(0,city.length() - 1);
                     RxBus2.getInstance().post(new CityPickEvent(city));
@@ -137,5 +139,13 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     @Override
     public void regionFindProAndCityFailed(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(TextUtils.isEmpty(city)){
+            RxBus2.getInstance().post(new CityPickEvent(city));
+        }
+        super.onDestroy();
     }
 }

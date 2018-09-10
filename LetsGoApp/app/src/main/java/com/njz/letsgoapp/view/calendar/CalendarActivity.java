@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -39,6 +40,9 @@ public class CalendarActivity extends Activity {
     private RecyclerView reycycler;
     private MonthTimeAdapter adapter;
     private ArrayList<MonthTimeEntity> datas;
+
+    private String startTimeStr = "";
+    private String endTimeStr = "";
 
     private int mSuspensionHeight;
     private int mCurrentPosition = 0;
@@ -98,11 +102,11 @@ public class CalendarActivity extends Activity {
                     ToastUtil.showShortToast(CalendarActivity.this,"请完善开始结束时间");
                     return;
                 }else{
-                    String startTime = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
-                    String endTime = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();
+                    startTimeStr = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
+                    endTimeStr = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();
                     RxBus2.getInstance().post(new CalendarEvent(CalendarData.startDay.getYear() +"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay()
                             ,CalendarData.startDay.getYear() +"-"+CalendarData.stopDay.getMonth() + "-" + CalendarData.stopDay.getDay()
-                            ,getGapCount(startTime,endTime) + "天"));
+                            ,getGapCount(startTimeStr,endTimeStr) + "天"));
                 }
                 finish();
             }
@@ -166,6 +170,9 @@ public class CalendarActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        if(TextUtils.isEmpty(startTimeStr)){
+            RxBus2.getInstance().post(new CalendarEvent("","",""));
+        }
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
@@ -213,4 +220,6 @@ public class CalendarActivity extends Activity {
         date = formatter.parse(strTime);
         return date;
     }
+
+
 }

@@ -263,8 +263,10 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
                     @Override
                     public void accept(CityPickEvent cityPickEvent) throws Exception {
-                        tvCityPick.setText(cityPickEvent.getCity());
                         desDisposable.dispose();
+                        if(TextUtils.isEmpty(cityPickEvent.getCity()))
+                            return;
+                        tvCityPick.setText(cityPickEvent.getCity());
                         getRefreshData(type);
 
                     }

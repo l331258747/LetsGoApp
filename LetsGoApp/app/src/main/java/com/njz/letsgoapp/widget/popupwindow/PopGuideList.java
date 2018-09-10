@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -336,6 +337,11 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
             @Override
             public void accept(CalendarEvent calendarEvent) throws Exception {
+                calDisposable.dispose();
+                if(TextUtils.isEmpty(calendarEvent.getStartTime())){
+                    return;
+                }
+
                 tv_time_start.setText(calendarEvent.getStartTime());
                 tv_time_end.setText(calendarEvent.getEndTime());
 
@@ -349,8 +355,6 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 tv_time_unrestricted.setBackgroundResource(R.drawable.btn_black_hollow_p5);
                 tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
                 tv_time_unrestricted.setSelected(false);
-
-                calDisposable.dispose();
             }
         });
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,8 +126,11 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
                         @Override
                         public void accept(CalendarEvent calendarEvent) throws Exception {
-                            ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getDays());
                             calDisposable.dispose();
+                            if(TextUtils.isEmpty(calendarEvent.getStartTime())){
+                                return;
+                            }
+                            ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getDays());
                         }
                     });
                 }
