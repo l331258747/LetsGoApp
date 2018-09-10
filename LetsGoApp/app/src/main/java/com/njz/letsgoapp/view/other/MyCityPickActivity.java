@@ -101,7 +101,6 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             public void onClick(int position) {
                 mAdapterCity.setDatas(provinces.get(position).getTravelRegionEntitys());
                 provinceIndex = position;
-                showShortToast(provinces.get(position).getProName());
             }
         });
     }
@@ -118,7 +117,6 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             public void onClick(int position) {
                 if(provinceIndex != -1){
                     String cityName = provinces.get(provinceIndex).getTravelRegionEntitys().get(position).getName();
-                    showShortToast(cityName);
                     String city = cityName;
                     if(city.endsWith("市"))
                         city = city.substring(0,city.length() - 1);

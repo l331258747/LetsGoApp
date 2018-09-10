@@ -40,6 +40,6 @@ public class MyCityPickPresenter implements Presenter {
                 iView.regionFindProAndCityFailed(errorMsg);
             }
         };
-        MethodApi.regionFindProAndCity(new OnSuccessAndFaultSub(listener));
+        MethodApi.regionFindProAndCity(new OnSuccessAndFaultSub(listener,context));
     }
 }

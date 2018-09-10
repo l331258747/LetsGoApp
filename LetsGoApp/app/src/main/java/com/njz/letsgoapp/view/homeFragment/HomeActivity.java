@@ -122,6 +122,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         onTabItemClick(tabItems.get(0));
     }
 
+    public void setTabIndex(int i){
+        onTabItemClick(tabItems.get(i));
+    }
+
     //防止fragment混淆
     @Override
     protected void onSaveInstanceState(Bundle outState) {

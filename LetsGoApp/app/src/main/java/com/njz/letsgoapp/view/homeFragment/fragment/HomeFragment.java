@@ -46,6 +46,7 @@ import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 
 import java.util.ArrayList;
@@ -218,7 +219,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         dynamicAdapter.setCheckAllListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(context,GuideListActivity.class));//TODO 进入动态列表
+                ((HomeActivity)activity).setTabIndex(1);
             }
         });
     }
