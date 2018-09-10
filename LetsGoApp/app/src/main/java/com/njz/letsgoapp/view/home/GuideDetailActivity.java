@@ -286,8 +286,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.right_iv:
                 ShareDialog dialog = new ShareDialog(activity,
-                        "那就走 标题",
-                        "那就走 内容",
+                        guideDetailModel.getGuideName(),
+                        guideDetailModel.getIntroduce(),
                         "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
                         "https://www.ifanr.com/1084256");
                 dialog.show();

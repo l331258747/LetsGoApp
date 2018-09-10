@@ -7,6 +7,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -214,7 +215,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         isDynamicLoad =false;
         isBannerLoad = false;
         isGuideLoad = false;
-        mPresenter.friendFriendSterTop(city,5,Constant.DEFAULT_PAGE);
+        mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
         mPresenter.orderReviewsSortTop(city);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
@@ -229,6 +230,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>());
         recyclerView.setAdapter(dynamicAdapter);
         recyclerView.setNestedScrollingEnabled(false);
+        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
         dynamicAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
@@ -287,7 +289,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isDynamicLoad = false;
                 isGuideLoad = false;
 
-                mPresenter.friendFriendSterTop(city,5,Constant.DEFAULT_PAGE);
+                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
 
@@ -315,7 +317,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isBannerLoad = true;
                 isGuideLoad = false;
 
-                mPresenter.friendFriendSterTop(city,5,Constant.DEFAULT_PAGE);
+                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
                 mPresenter.orderReviewsSortTop(city);
 
                 swipeRefreshLayout.setRefreshing(true);
@@ -456,7 +458,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         }else{
             dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() - 1);
         }
-        dynamicAdapter.notifyItemChanged(nicePosition);
+        dynamicAdapter.setItemData(nicePosition);
     }
 
     @Override

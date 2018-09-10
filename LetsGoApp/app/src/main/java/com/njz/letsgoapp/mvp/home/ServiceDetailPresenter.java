@@ -40,7 +40,7 @@ public class ServiceDetailPresenter implements ServiceDetailContract.Presenter {
                 iView.getGuideServiceFailed(errorMsg);
             }
         };
-        MethodApi.getGuideService(serviceId, new OnSuccessAndFaultSub(listener));
+        MethodApi.getGuideService(serviceId, new OnSuccessAndFaultSub(listener,context));
     }
 
     @Override

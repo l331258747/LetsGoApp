@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,12 +18,16 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
+import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.mvp.find.FindContract;
 import com.njz.letsgoapp.mvp.find.FindPresenter;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -32,7 +39,7 @@ import java.util.List;
  * Function:
  */
 
-public class DynamicFragment extends BaseFragment implements FindContract.View, View.OnClickListener {
+public class DynamicFragment extends BaseFragment implements FindContract.View, View.OnClickListener,DynamicNiceContract.View {
 
     TextView tvLogin;
 
@@ -43,14 +50,17 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     public static final int DYNAMIC_ALL = 0;
     public static final int DYNAMIC_FOLLOW = 1;
-    int dynamicTYpe;
+    private int dynamicTYpe;
 
-    List<DynamicModel> datas;
+    private List<DynamicModel> datas;
+    private int nicePosition;
 
-    FindPresenter mPresenter;
+    private FindPresenter mPresenter;
+    private DynamicNicePresenter nicePresenter;
     int page;
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
+    private String city = Constant.DEFAULT_CITY;
 
     public static Fragment newInstance(int type) {
         DynamicFragment fragment = new DynamicFragment();
@@ -81,16 +91,22 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
         initRecycler();
         initSwipeLayout();
-        setLogin();
 
     }
 
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if(swipeRefreshLayout != null && tvLogin != null)
-//            setLogin();
-//    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);//比oncreate先执行
+        if(isVisibleToUser && dynamicTYpe == 1){
+            setLogin();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setLogin();
+    }
 
     public void setLogin(){
         if (dynamicTYpe == DYNAMIC_FOLLOW && !MySelfInfo.getInstance().isLogin()) {
@@ -105,23 +121,35 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     @Override
     public void initData() {
         mPresenter = new FindPresenter(context, this);
-
-        mPresenter.friendFindAll(Constant.DEFAULT_CITY, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE);
+        nicePresenter = new DynamicNicePresenter(context,this);
+        getRefreshData();
     }
 
     //初始化recyclerview
     private void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>());
+        mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>() , 2);
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
+        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
+
         page = Constant.DEFAULT_PAGE;
+
+        mAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                nicePresenter.friendQueryLikes(datas.get(position).isLike(),datas.get(position).getFriendSterId());
+                nicePosition = position;
+            }
+        });
 
         mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-
+                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra("friendSterId",datas.get(position).getFriendSterId());
+                startActivity(intent);
             }
         });
 
@@ -133,6 +161,13 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
                 getMoreData();
             }
         });
+
+
+    }
+
+    public void setCityChange(String city) {
+        this.city = city;
+        getRefreshData();
     }
 
 
@@ -141,14 +176,14 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.friendFindAll(Constant.DEFAULT_CITY, Constant.DEFAULT_LIMIT, page);
+        mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
     }
 
     private void getMoreData() {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
-        mPresenter.friendFindAll(Constant.DEFAULT_CITY, Constant.DEFAULT_LIMIT, page);
+        mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
     }
 
 
@@ -200,5 +235,22 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         if (v.getId() == R.id.tv_login) {
             startActivity(new Intent(context, LoginActivity.class));
         }
+    }
+
+    @Override
+    public void friendQueryLikesSuccess(EmptyModel models) {
+        datas.get(nicePosition).setLike(!datas.get(nicePosition).isLike());
+        if(datas.get(nicePosition).isLike()){
+            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() + 1);
+        }else{
+            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() - 1);
+        }
+        loadMoreWrapper.notifyItemChanged(nicePosition);
+
+    }
+
+    @Override
+    public void friendQueryLikesFailed(String msg) {
+        showShortToast(msg);
     }
 }

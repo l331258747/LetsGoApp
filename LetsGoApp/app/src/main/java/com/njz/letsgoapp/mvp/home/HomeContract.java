@@ -20,7 +20,7 @@ public interface HomeContract {
     interface Presenter {
         void bannerFindByType(int type, int guideId);
         void orderReviewsSortTop(String location);
-        void friendFriendSterTop(String location,int limit,int page);
+        void friendFindAll(String location, int limit, int page);
     }
 
     interface View {

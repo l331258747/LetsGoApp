@@ -111,11 +111,6 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void friendFriendSterTop(String location, int limit, int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().regionGetSterByLocation(location, limit, page);
-        HttpMethods.getInstance().toSubscribe(observable, subscriber);
-    }
-
     public static void guideSortTop10ByLocation(String location, int type, int limit, int page, Map<String, String> maps, DisposableObserver subscriber) {
         Observable observable;
         if (maps == null) {

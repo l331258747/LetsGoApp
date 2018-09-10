@@ -64,7 +64,7 @@ public class HomePresenter implements Presenter {
     }
 
     @Override
-    public void friendFriendSterTop(String location,int limit,int page) {
+    public void friendFindAll(String location, int limit, int page) {
         ResponseCallback listener = new ResponseCallback<DynamicListModel>() {
             @Override
             public void onSuccess(DynamicListModel data) {
@@ -76,6 +76,6 @@ public class HomePresenter implements Presenter {
                 iView.friendFriendSterTopFailed(errorMsg);
             }
         };
-        MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener));
+        MethodApi.friendFindAll(location,limit,page, new OnSuccessAndFaultSub(listener));
     }
 }

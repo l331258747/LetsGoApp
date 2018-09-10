@@ -181,12 +181,16 @@ public interface HttpService {
     //--------首页 end--------
 
     //-------发现 start-------
+    //全部动态列表
     @GET("friend/findAll")
     Observable<BaseResponse<DynamicListModel>> friendFindAll(
             @Query("location") String location,
             @Query("limit") int limit,
             @Query("page") int page
     );
+
+    //friend/friendSter 我关注的动态列表
+
 
     //sys/oss/sendSter
     @Multipart

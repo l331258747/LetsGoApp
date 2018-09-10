@@ -50,6 +50,10 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     @Override
     public DynamicAdapter.BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
+        if(type == 2){
+            view = LayoutInflater.from(mContext).inflate(R.layout.home_item_dynamic, parent, false);
+            return new DynamicViewHolder(view);
+        }
         switch (viewType) {
             case VIEW_TITLE:
                 if(type == 1){
@@ -112,7 +116,6 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
                     BigImageActivity.startActivity((Activity) mContext,position,data.getImgUrls());
                 }
             });
-
 
             if(mNiceClickListener != null){
                 ((DynamicViewHolder) holder).tv_nice.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +204,6 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     }
 
     public void setItemData(int position){
-        LogUtil.e("boolean :" + dynamis.get(position).isLike());
         if(type == 2){
             notifyItemChanged(position);
         }else{

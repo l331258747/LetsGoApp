@@ -50,6 +50,9 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     private String city = Constant.DEFAULT_CITY;
 
+    DynamicFragment dynamicAll;
+    DynamicFragment dynamicFollow;
+
 
     @Override
     public int getLayoutId() {
@@ -72,14 +75,15 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initData() {
         mFragments = new ArrayList<>();
-        mFragments.add(DynamicFragment.newInstance(DynamicFragment.DYNAMIC_ALL));
-        mFragments.add(DynamicFragment.newInstance(DynamicFragment.DYNAMIC_FOLLOW));
+        dynamicAll = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_ALL);
+        dynamicFollow = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_FOLLOW);
+        mFragments.add(dynamicAll);
+        mFragments.add(dynamicFollow);
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(1);
         mTabLayout.setupWithViewPager(mViewPager);
-
     }
 
     @Override
@@ -111,12 +115,15 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
                     return;
                 tvCityPick.setText(cityPickEvent.getCity());
                 city = cityPickEvent.getCity();
+                setCityChange();
+
             }
         });
     }
 
-
-
+    public void setCityChange(){
+        dynamicAll.setCityChange(city);
+    }
 }
 
 
