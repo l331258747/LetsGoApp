@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
 import com.njz.letsgoapp.widget.myTextView.ShowAllTextView;
@@ -31,7 +33,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     public static final int VIEW_TITLE = 1;
 
     List<DynamicModel> dynamis;
-    int type;//0为首页，1位个人主页
+    int type;//0为首页，1位个人主页,2无标题
 
     Context mContext;
 
@@ -64,6 +66,9 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     @Override
     public int getItemViewType(int position) {
+        if(type == 2){
+            return super.getItemViewType(position);
+        }
         if (position == 0) {
             return VIEW_TITLE;
         }
@@ -74,7 +79,13 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     public void onBindViewHolder(BaseViewHolder holder, final int position) {
         if (holder == null) return;
         if (holder instanceof DynamicViewHolder) {
-            final int pos = holder.getAdapterPosition() - 1;
+            final int pos;
+            if(type == 2){
+                pos = holder.getAdapterPosition();
+            }else{
+                pos = holder.getAdapterPosition() - 1;
+            }
+
             final DynamicModel data = dynamis.get(pos);
             if (data == null) return;
 
@@ -128,6 +139,9 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
         if (dynamis == null || dynamis.size() == 0) {
             return 0;
         } else {
+            if(type == 2){
+                return dynamis.size();
+            }
             return 1 + dynamis.size();
         }
     }
@@ -184,6 +198,15 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     public void setData(List<DynamicModel> dynamis) {
         this.dynamis = dynamis;
+    }
+
+    public void setItemData(int position){
+        LogUtil.e("boolean :" + dynamis.get(position).isLike());
+        if(type == 2){
+            notifyItemChanged(position);
+        }else{
+            notifyItemChanged(position + 1);
+        }
     }
 
     public void addData(List<DynamicModel> dynamis){

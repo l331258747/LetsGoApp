@@ -1,8 +1,10 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +28,7 @@ import com.njz.letsgoapp.mvp.mine.SpaceContract;
 import com.njz.letsgoapp.mvp.mine.SpacePresenter;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
@@ -106,6 +109,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),1);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
+        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
         mAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
@@ -115,6 +119,21 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             }
         });
 
+        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra("friendSterId",datas.get(position).getFriendSterId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -195,7 +214,12 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     @Override
     public void friendQueryLikesSuccess(EmptyModel models) {
         datas.get(nicePosition).setLike(!datas.get(nicePosition).isLike());
-        mAdapter.notifyItemChanged(nicePosition);
+        if(datas.get(nicePosition).isLike()){
+            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() + 1);
+        }else{
+            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() - 1);
+        }
+        mAdapter.setItemData(nicePosition);
     }
 
     @Override

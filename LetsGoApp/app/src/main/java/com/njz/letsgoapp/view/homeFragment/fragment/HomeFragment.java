@@ -207,22 +207,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         initRecycler();
         initSwipeLayout();
         intRecyclerH();
-
-        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId",dynamicDatas.get(position).getFriendSterId());
-                startActivity(intent);
-            }
-        });
-
-        dynamicAdapter.setCheckAllListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((HomeActivity)activity).setTabIndex(1);
-            }
-        });
     }
 
     private void LoadData(){
@@ -251,6 +235,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             public void onClick(int position) {
                 nicePresenter.friendQueryLikes(dynamicDatas.get(position).isLike(),dynamicDatas.get(position).getFriendSterId());
                 nicePosition = position;
+            }
+        });
+
+        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra("friendSterId",dynamicDatas.get(position).getFriendSterId());
+                startActivity(intent);
+            }
+        });
+
+        dynamicAdapter.setCheckAllListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity)activity).setTabIndex(1);
             }
         });
     }
@@ -451,6 +451,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void friendQueryLikesSuccess(EmptyModel models) {
         dynamicDatas.get(nicePosition).setLike(!dynamicDatas.get(nicePosition).isLike());
+        if(dynamicDatas.get(nicePosition).isLike()){
+            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() + 1);
+        }else{
+            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() - 1);
+        }
         dynamicAdapter.notifyItemChanged(nicePosition);
     }
 

@@ -3,7 +3,7 @@ package com.njz.letsgoapp.bean.mine;
 public class MyInfoData {
     String nickname;
     String name;
-    int gendar ;
+    String gendar ;
     String birthday;
     String personalStatement;
     String imgUrl;
@@ -33,11 +33,11 @@ public class MyInfoData {
         this.name = name;
     }
 
-    public int getGendar() {
+    public String getGendar() {
         return gendar;
     }
 
-    public void setGendar(int gendar) {
+    public void setGendar(String gendar) {
         this.gendar = gendar;
     }
 

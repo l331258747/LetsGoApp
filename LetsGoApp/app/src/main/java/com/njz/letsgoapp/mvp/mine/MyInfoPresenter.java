@@ -40,7 +40,7 @@ public class MyInfoPresenter implements MyInfoContract.Presenter {
                 iView.userChangePersonalDataFailed(errorMsg);
             }
         };
-        MethodApi.userChangePersonalData(maps, new OnSuccessAndFaultSub(listener));
+        MethodApi.userChangePersonalData(maps, new OnSuccessAndFaultSub(listener,context));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class MyInfoPresenter implements MyInfoContract.Presenter {
                 iView.upUploadFailed(errorMsg);
             }
         };
-        MethodApi.upUpload(file, new OnSuccessAndFaultSub(listener, context));
+        MethodApi.upUpload(file, new OnSuccessAndFaultSub(listener));
     }
 }

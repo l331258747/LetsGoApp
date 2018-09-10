@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.adapter.home.ServiceListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
@@ -71,7 +70,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
-        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new ServiceListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 intent = new Intent(context, ServiceDetailActivity.class);

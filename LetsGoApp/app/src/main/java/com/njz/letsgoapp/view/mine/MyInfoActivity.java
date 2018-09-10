@@ -122,7 +122,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         setHeadImg(MySelfInfo.getInstance().getUserImgUrl());
         et_nikename.setText(MySelfInfo.getInstance().getUserNickname());
         et_real_name.setText(MySelfInfo.getInstance().getUserName());
-        info_sex.setContent(MySelfInfo.getInstance().getUserGender() == 0?"女":"男");
+        info_sex.setContent(MySelfInfo.getInstance().getUserGender());
         info_birthday.setContent(MySelfInfo.getInstance().getUserBirthday());
         et_explain.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT));
 
@@ -246,7 +246,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             isChange = true;
         }
         if (!TextUtils.equals(info_sex.getContent(), bSex)) {
-            myInfoData.setGendar(TextUtils.equals("女",info_sex.getContent())?0:1);
+            myInfoData.setGendar(info_sex.getContent());
             isChange = true;
         }
         if (!TextUtils.equals(info_birthday.getContent(), bBirthday)) {
@@ -349,8 +349,8 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         if(!TextUtils.isEmpty(myInfoData.getNickname())){
             MySelfInfo.getInstance().setUserNickname(myInfoData.getNickname());
         }
-        if(myInfoData.getGendar() != 0){
-            MySelfInfo.getInstance().setUserGender(TextUtils.equals("女",info_sex.getContent())?0:1);
+        if(myInfoData.getGendar() != MySelfInfo.getInstance().getUserGender()){
+            MySelfInfo.getInstance().setUserGender(info_sex.getContent());
         }
         if(!TextUtils.isEmpty(myInfoData.getBirthday())){
             MySelfInfo.getInstance().setUserBirthday(myInfoData.getBirthday());

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.v4.widget.NestedScrollView
+
         android:layout_width="match_parent"
         android:layout_marginBottom="50dp"
         android:layout_height="wrap_content">
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/ic_dynamic_location"
                     android:drawablePadding="10dp"
-                    android:text="长沙"
+                    tools:text="长沙"
                     android:textSize="10sp" />
 
             </LinearLayout>
@@ -126,15 +126,15 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/iv_nice"
-                    android:text="4人点赞" />
+                    tools:text="4人点赞" />
 
-                <com.njz.letsgoapp.widget.DynamicNiceImageView
-                    android:id="@+id/dynamic_nice_img_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_toStartOf="@+id/iv_next" />
+                <!--<com.njz.letsgoapp.widget.DynamicNiceImageView-->
+                    <!--android:id="@+id/dynamic_nice_img_view"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_toStartOf="@+id/iv_next" />-->
 
                 <ImageView
                     android:id="@+id/iv_next"
@@ -180,7 +180,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toEndOf="@+id/iv_comment"
-                        android:text="4条评论" />
+                        tools:text="4条评论" />
 
                 </LinearLayout>
 

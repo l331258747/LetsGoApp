@@ -38,7 +38,7 @@ public class DynamicDetailPresenter implements DynamicDetailContract.Presenter {
                 iView.friendPersonalFriendSterFailed(errorMsg);
             }
         };
-        MethodApi.friendPersonalFriendSter(friendSterId,new OnSuccessAndFaultSub(listener));
+        MethodApi.friendPersonalFriendSter(friendSterId,new OnSuccessAndFaultSub(listener,context));
     }
 
     @Override

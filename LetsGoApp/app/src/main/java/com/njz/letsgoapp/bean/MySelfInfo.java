@@ -88,12 +88,12 @@ public class MySelfInfo {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_FOCUS);
     }
 
-    public int getUserGender() {
-        return SPUtils.getInstance().getInt(SPUtils.SP_USER_GENDER);
+    public String getUserGender() {
+        return SPUtils.getInstance().getInt(SPUtils.SP_USER_GENDER) == 0?"女":"男";
     }
 
-    public void setUserGender(int gendar) {
-        SPUtils.getInstance().putInt(SPUtils.SP_USER_GENDER, gendar);
+    public void setUserGender(String gendar) {
+        SPUtils.getInstance().putInt(SPUtils.SP_USER_GENDER, TextUtils.equals("女",gendar)?0:1);
     }
 
     public String getUserBirthday() {

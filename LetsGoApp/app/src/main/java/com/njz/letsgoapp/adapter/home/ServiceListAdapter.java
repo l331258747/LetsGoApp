@@ -92,12 +92,12 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         }
     }
 
-    DynamicAdapter.OnItemClickListener mOnItemClickListener;
+    OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
         void onClick(int position);
     }
 
-    public void setOnItemClickListener(DynamicAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 }

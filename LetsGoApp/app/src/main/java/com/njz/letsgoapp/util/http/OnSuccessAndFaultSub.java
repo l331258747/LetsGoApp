@@ -57,6 +57,7 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
         this.context = context;
         showProgress = true;
         progressDialog = new LoadingDialog(context);
+        progressDialog.setCancelable(false);
     }
 
     private void showProgressDialog() {
