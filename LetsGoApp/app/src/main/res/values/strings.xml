@@ -20,5 +20,6 @@
 
     <string name="mine_fans"><Data><![CDATA[粉丝<font color="#ff7c00">%d</font>]]></Data></string>
     <string name="mine_follow"><Data><![CDATA[关注<font color="#ff7c00">%d</font>]]></Data></string>
+    <string name="report_add_msg"><Data><![CDATA[补充说明<font color="#999999">（选填）</font>]]></Data></string>
 
 </resources>

@@ -63,6 +63,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.reply_content.setText(data.getReply());
 
         holder.rl_reply.setVisibility(View.VISIBLE);
+        holder.tv_click.setVisibility(View.VISIBLE);
 
         holder.mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
         holder.mRecyclerView.setLayoutManager(new GridLayoutManager(
@@ -112,7 +113,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             reply_content = itemView.findViewById(R.id.reply_content);
             rl_reply = itemView.findViewById(R.id.rl_reply);
             mRecyclerView = itemView.findViewById(R.id.recycler_view);
-
             tv_click = itemView.findViewById(R.id.tv_click);
             tv_click.setOnClickListener(this);
 

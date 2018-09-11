@@ -198,6 +198,13 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     //--------------View Holder end----------------
 
+    public DynamicModel getItem(int position){
+        return this.dynamis.get(position);
+    }
+
+    public List<DynamicModel> getDatas(){
+        return this.dynamis;
+    }
 
     public void setData(List<DynamicModel> dynamis) {
         this.dynamis = dynamis;

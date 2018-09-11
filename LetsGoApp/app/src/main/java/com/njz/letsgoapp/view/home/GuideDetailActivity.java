@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * Created by LGQ
  * Time: 2018/8/9
- * Function:
+ * Function: 导游详情
  */
 
 public class GuideDetailActivity extends BaseActivity implements View.OnClickListener, GuideDetailContract.View {
@@ -163,7 +163,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     //initInfo
     public void initInfo(final GuideDetailModel model) {
         //个人信息
-        GlideUtil.LoadCircleImage(context, model.getGuideImg(), iv_head);
+        GlideUtil.LoadCircleImage(context, model.getImage(), iv_head);
         tv_name.setText(model.getGuideName());
         my_rating_bar.setRating((int) model.getGuideScore());
         tv_service_num.setText(model.getServiceCounts());
@@ -275,7 +275,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 showPopService();
                 break;
             case R.id.ll_comment_title:
-                startActivity(new Intent(context, CommentDetailActivity.class));
+                startActivity(new Intent(context, CommentListActivity.class));
                 break;
             case R.id.btn_call:
                 if (defaultDialog == null) return;

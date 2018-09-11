@@ -31,7 +31,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
 
     LoadingDialog loadingDialog;
 
-    Button btn_loginoff;
+    Button btnLoginoff;
 
     @Override
     public int getLayoutId() {
@@ -50,10 +50,20 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         system_setting_feedback.setOnClickListener(this);
         system_setting_about.setOnClickListener(this);
 
-        btn_loginoff = $(R.id.btn_loginoff);
-        btn_loginoff.setOnClickListener(this);
+        btnLoginoff = $(R.id.btn_loginoff);
+        btnLoginoff.setOnClickListener(this);
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(MySelfInfo.getInstance().isLogin()){
+            btnLoginoff.setVisibility(View.VISIBLE);
+        }else{
+            btnLoginoff.setVisibility(View.GONE);
+        }
     }
 
     public void initCLean() {

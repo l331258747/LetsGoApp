@@ -7,21 +7,20 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.find.DynamicFragment;
 import com.njz.letsgoapp.view.find.ReleaseDynamicActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +73,8 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initData() {
+        tvCityPick.setText(city);
+
         mFragments = new ArrayList<>();
         dynamicAll = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_ALL);
         dynamicFollow = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_FOLLOW);
@@ -96,6 +97,10 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.iv_release:
+                if (!MySelfInfo.getInstance().isLogin()) {//登录状态
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return;
+                }
                 startActivity(new Intent(context, ReleaseDynamicActivity.class));
                 break;
         }

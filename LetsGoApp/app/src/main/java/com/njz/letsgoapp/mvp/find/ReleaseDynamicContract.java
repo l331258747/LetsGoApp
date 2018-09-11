@@ -14,7 +14,7 @@ public interface ReleaseDynamicContract {
 
     //sendSter
     interface Presenter {
-        void sendSter(String content, List<String> files);
+        void sendSter(String location,double lon,double lat ,String content, List<String> files);
     }
 
     interface View {

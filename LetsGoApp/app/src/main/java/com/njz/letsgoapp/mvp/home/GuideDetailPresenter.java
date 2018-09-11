@@ -56,7 +56,7 @@ public class GuideDetailPresenter implements GuideDetailContract.Presenter {
                 iView.guideFindGuideDetailsFailed(errorMsg);
             }
         };
-        MethodApi.guideFindGuideDetails(location, guideId, new OnSuccessAndFaultSub(listener));
+        MethodApi.guideFindGuideDetails(location, guideId, new OnSuccessAndFaultSub(listener,context));
     }
 
 }

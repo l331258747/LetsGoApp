@@ -164,6 +164,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void userSmsSendSuccess(VerifyModel str) {
+        if(str == null || str.getMsgCode() == null) return;
         showLongToast("验证码："+ str.getMsgCode());
     }
 

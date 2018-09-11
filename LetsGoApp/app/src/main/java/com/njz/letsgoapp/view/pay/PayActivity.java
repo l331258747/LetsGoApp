@@ -118,13 +118,13 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
         switch (view.getId()) {
             case R.id.rl_sel_weixin:
                 payIndex = 1;
-                ivWX.setImageResource(R.mipmap.ic_pay_select);
+                ivWX.setImageResource(R.mipmap.ic_select);
                 ivZhifubao.setImageResource(R.drawable.oval_unselect);
                 break;
 
             case R.id.rl_sel_zhifubao:
                 payIndex = 2;
-                ivZhifubao.setImageResource(R.mipmap.ic_pay_select);
+                ivZhifubao.setImageResource(R.mipmap.ic_select);
                 ivWX.setImageResource(R.drawable.oval_unselect);
                 break;
 

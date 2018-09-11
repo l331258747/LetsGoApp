@@ -29,6 +29,7 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.other.LocationModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
@@ -190,10 +191,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         locationUtil = new LocationUtil();
         locationUtil.startLocation(new LocationUtil.LocationListener() {
             @Override
-            public void getAdress(int code, String adress) {
+            public void getAdress(int code, LocationModel adress) {
                 LogUtil.e("code:" + code + " adress:" + adress);
                 if(code == 0){
-                    city = adress;
+                    city = adress.getCity();
                 }
                 loadingDialog.dismiss();
                 LoadData();
@@ -387,12 +388,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             isLoad = false;
         }
 
-        if(models == null ||models.size() == 0){
-            //TODO
-            BannerModel data = new BannerModel();
-            data.setImgUrl("http://img0.imgtn.bdimg.com/it/u=1261371176,2698436398&fm=26&gp=0.jpg");
-            models.add(data);
-        }
         initBanner(models);
     }
 
@@ -413,6 +408,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             swipeRefreshLayout.setRefreshing(false);
             isLoad = false;
         }
+
         guideDatas = models.getList();
         guideAdapter.setData(guideDatas);
     }
@@ -464,6 +460,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void friendQueryLikesFailed(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(locationUtil != null)
+            locationUtil.stopLocation();
     }
 }
 

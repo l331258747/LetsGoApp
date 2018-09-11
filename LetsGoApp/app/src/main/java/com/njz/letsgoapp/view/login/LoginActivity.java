@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.login;
 
 import android.content.Intent;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.login.LoginContract;
 import com.njz.letsgoapp.mvp.login.LoginPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
@@ -65,6 +67,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     //TODO
     public void initEt(){
+        if(TextUtils.equals(Constant.BASE_PATH,"http://192.168.100.156:8090/travel-framework/api/"))
+            return;
         loginViewPhone.getEtView().setText("18826420934");
         loginViewPassword.getEtView().setText("941740");
     }

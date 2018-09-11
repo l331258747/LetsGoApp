@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -52,7 +50,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public static final int DYNAMIC_FOLLOW = 1;
     private int dynamicTYpe;
 
-    private List<DynamicModel> datas;
     private int nicePosition;
 
     private FindPresenter mPresenter;
@@ -139,7 +136,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         mAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                nicePresenter.friendQueryLikes(datas.get(position).isLike(),datas.get(position).getFriendSterId());
+                nicePresenter.friendQueryLikes(mAdapter.getItem(position).isLike(), mAdapter.getItem(position).getFriendSterId());
                 nicePosition = position;
             }
         });
@@ -148,7 +145,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId",datas.get(position).getFriendSterId());
+                intent.putExtra("friendSterId", mAdapter.getItem(position).getFriendSterId());
                 startActivity(intent);
             }
         });
@@ -176,16 +173,23 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
+        if(dynamicTYpe == DYNAMIC_FOLLOW){
+            mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
+        }else{
+            mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
+        }
     }
 
     private void getMoreData() {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
-        mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
+        if(dynamicTYpe == DYNAMIC_FOLLOW){
+            mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
+        }else{
+            mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
+        }
     }
-
 
 
     //初始化SwipeLayout
@@ -203,7 +207,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     @Override
     public void friendFindAllSuccess(DynamicListModel models) {
-        datas = models.getList();
+        List<DynamicModel> datas = models.getList();
 
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
@@ -231,6 +235,35 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     }
 
     @Override
+    public void friendFriendSterSuccess(List<DynamicModel> models) {
+        List<DynamicModel> datas = models;
+
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
+        swipeRefreshLayout.setRefreshing(false);
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
+        loadMoreWrapper.notifyDataSetChanged();
+    }
+
+    @Override
+    public void friendFriendSterFailed(String msg) {
+        LogUtil.e(msg);
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_login) {
             startActivity(new Intent(context, LoginActivity.class));
@@ -239,11 +272,12 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     @Override
     public void friendQueryLikesSuccess(EmptyModel models) {
-        datas.get(nicePosition).setLike(!datas.get(nicePosition).isLike());
-        if(datas.get(nicePosition).isLike()){
-            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() + 1);
+
+        mAdapter.getItem(nicePosition).setLike(!mAdapter.getItem(nicePosition).isLike());
+        if(mAdapter.getItem(nicePosition).isLike()){
+            mAdapter.getItem(nicePosition).setLikeCount(mAdapter.getItem(nicePosition).getLikeCount() + 1);
         }else{
-            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() - 1);
+            mAdapter.getItem(nicePosition).setLikeCount(mAdapter.getItem(nicePosition).getLikeCount() - 1);
         }
         loadMoreWrapper.notifyItemChanged(nicePosition);
 

@@ -12,12 +12,15 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.other.LocationModel;
+import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.find.ReleaseDynamicContract;
 import com.njz.letsgoapp.mvp.find.ReleaseDynamicPresenter;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
 import com.njz.letsgoapp.util.accessory.PhotoAdapter;
 import com.njz.letsgoapp.util.accessory.RecyclerItemClickListener;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
@@ -40,17 +43,21 @@ import me.iwf.photopicker.PhotoPreview;
 
 public class ReleaseDynamicActivity extends BaseActivity implements View.OnClickListener,ReleaseDynamicContract.View {
 
-    EditText etContent;
-    TextView tvLocation;
+    private EditText etContent;
+    private TextView tvLocation;
 
     private RecyclerView mPhotoRecyclerView;
     private PhotoAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
     private ArrayList<String> upLoadPhotos = new ArrayList<>();
-    Disposable disposable;
+    private Disposable disposable;
 
-    ReleaseDynamicPresenter mPresenter;
+    private ReleaseDynamicPresenter mPresenter;
     private LoadingDialog loadingDialog;
+    private LocationUtil locationUtil;
+    private double longitude = 0;
+    private double latitude = 0;
+    private String city = "";
 
     @Override
     public int getLayoutId() {
@@ -76,6 +83,21 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     @Override
     public void initData() {
         mPresenter = new ReleaseDynamicPresenter(context,this);
+
+        locationUtil = new LocationUtil();
+        locationUtil.startLocation(new LocationUtil.LocationListener() {
+            @Override
+            public void getAdress(int code, LocationModel adress) {
+                LogUtil.e("code:" + code + " adress:" + adress);
+                if(code == 0){
+                    tvLocation.setText(adress.getCity()+adress.getCityChild());
+                    longitude = adress.getLongitude();
+                    latitude = adress.getLatitude();
+                    city = adress.getCity()+adress.getCityChild();
+                }
+                loadingDialog.dismiss();
+            }
+        });
     }
 
     //------------附件图片
@@ -165,6 +187,7 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     public void sendSterSuccess(EmptyModel models) {
         loadingDialog.dismiss();
         showShortToast("发布成功");
+        finish();
     }
 
     @Override
@@ -174,6 +197,6 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     }
 
     public void submit(){
-        mPresenter.sendSter(etContent.getText().toString(),upLoadPhotos);
+        mPresenter.sendSter(city,longitude,latitude,etContent.getText().toString(),upLoadPhotos);
     }
 }

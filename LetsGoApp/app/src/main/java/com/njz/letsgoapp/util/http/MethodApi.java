@@ -148,6 +148,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //friendFriendSter
+    public static void friendFriendSter(int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendFriendSter(limit, page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
 
     private static List<MultipartBody.Part> filesToMultipartBodyParts(List<String> files) {
         List<MultipartBody.Part> parts = new ArrayList<>(files.size());
@@ -161,10 +167,10 @@ public class MethodApi {
     }
 
     //sendSter
-    public static void sendSter(String content, List<String> files, DisposableObserver subscriber) {
+    public static void sendSter(String location,double lon,double lat ,String content, List<String> files, DisposableObserver subscriber) {
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
 
-        Observable observable = HttpMethods.getInstance().getHttpService().sendSter(content, partList);
+        Observable observable = HttpMethods.getInstance().getHttpService().sendSter(location,lon,lat,content, partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

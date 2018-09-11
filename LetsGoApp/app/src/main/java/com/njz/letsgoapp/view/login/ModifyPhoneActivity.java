@@ -181,6 +181,7 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void userSmsSendSuccess(VerifyModel str) {
+        if(str == null || str.getMsgCode() == null) return;
         showLongToast("验证码：" + str.getMsgCode());
     }
 

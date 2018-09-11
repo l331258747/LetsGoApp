@@ -3,8 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@drawable/btn_black_hollow_p5"
+    android:background="@drawable/btn_white_solid_r5"
     android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="请选择举报原因" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/color_d9" />
 
     <LinearLayout
         android:id="@+id/ll_sexy"
@@ -30,7 +44,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_999" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/color_d9" />
 
     <LinearLayout
         android:id="@+id/ll_rumor"
@@ -56,7 +72,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_999" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/color_d9" />
 
     <LinearLayout
         android:id="@+id/ll_sensitive"
@@ -82,7 +100,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_999" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/color_d9" />
 
     <LinearLayout
         android:id="@+id/ll_copy"
@@ -108,7 +128,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_999" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/color_d9" />
 
     <LinearLayout
         android:id="@+id/ll_advertisement"
@@ -134,7 +156,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_999" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/color_d9" />
 
     <LinearLayout
         android:id="@+id/ll_harass"

@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.home;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -23,17 +24,17 @@ import java.util.List;
 /**
  * Created by LGQ
  * Time: 2018/8/16
- * Function:
+ * Function: 评论列表
  */
 
-public class CommentDetailActivity extends BaseActivity {
+public class CommentListActivity extends BaseActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
     TagFlowLayout mFlowLayout;
     private String[] mVals = new String[]
-            {"全部(100)", "向导陪游(100)", "私人定制(100)", "车导服务(100)", "代订酒店(100)", "景点门票(100)"};
+            {"全部", "向导陪游", "私人定制", "车导服务", "代订酒店", "景点门票"};
 
     CommentAdapter mAdapter;
 
@@ -50,8 +51,6 @@ public class CommentDetailActivity extends BaseActivity {
 
         initRecycler();
         initSwipeLayout();
-
-
     }
 
     @Override
@@ -66,6 +65,7 @@ public class CommentDetailActivity extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new CommentAdapter(activity, getData());
         recyclerView.setAdapter(mAdapter);
+        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
     }
 
@@ -91,6 +91,13 @@ public class CommentDetailActivity extends BaseActivity {
                 tv.setText(s);
                 return tv;
             }
+
+            @Override
+            public boolean setSelected(int position, String s) {
+                if(position == 0)
+                    return true;
+                return super.setSelected(position,s);
+            }
         });
 
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
@@ -101,6 +108,8 @@ public class CommentDetailActivity extends BaseActivity {
                 return true;
             }
         });
+
+
     }
 
     public List<CommentData> getData(){

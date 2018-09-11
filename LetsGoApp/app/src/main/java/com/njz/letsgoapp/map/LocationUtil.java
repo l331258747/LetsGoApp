@@ -4,8 +4,10 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.njz.letsgoapp.bean.other.LocationModel;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.zaaach.citypicker.model.City;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,16 +61,19 @@ public class LocationUtil {
                         String city = aMapLocation.getCity();
                         if(city.endsWith("市"))
                             city = city.substring(0,city.length() - 1);
-                        locationListener.getAdress(aMapLocation.getErrorCode(), city);
+                        locationListener.getAdress(aMapLocation.getErrorCode(), new LocationModel(city
+                                ,aMapLocation.getDistrict()
+                                ,aMapLocation.getLongitude()
+                                ,aMapLocation.getLatitude()));
                     } else {
                         //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                         LogUtil.e("location Error, ErrCode:"
                                 + aMapLocation.getErrorCode() + ", errInfo:"
                                 + aMapLocation.getErrorInfo());
-                        locationListener.getAdress(aMapLocation.getErrorCode(), aMapLocation.getErrorInfo());
+                        locationListener.getAdress(aMapLocation.getErrorCode(), new LocationModel(aMapLocation.getErrorInfo()));
                     }
                 }else{
-                    locationListener.getAdress(-1, "aMapLocation null");
+                    locationListener.getAdress(-1, new LocationModel("aMapLocation null"));
                 }
             }
         });
@@ -101,6 +106,7 @@ public class LocationUtil {
     }
 
     public void stopLocation() {
+        if(mLocationClient == null) return;
         mLocationClient.stopLocation();
         mLocationClient.onDestroy();
         mLocationClient = null;
@@ -108,6 +114,6 @@ public class LocationUtil {
     }
 
     public interface LocationListener {
-        void getAdress(int code, String adress);
+        void getAdress(int code, LocationModel adress);
     }
 }

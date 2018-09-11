@@ -190,14 +190,23 @@ public interface HttpService {
     );
 
     //friend/friendSter 我关注的动态列表
+    @GET("friend/friendSter")
+    Observable<BaseResponse<List<DynamicModel>>> friendFriendSter(
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
 
 
     //sys/oss/sendSter
     @Multipart
     @POST("up/sendSter")
     Observable<BaseResponse<EmptyModel>> sendSter(
+            @Part("location") String location,
+            @Part("lon") double lon,
+            @Part("lat") double lat,
             @Part("content") String content,
             @Part List<MultipartBody.Part> files
+
     );
 
     //-------发现 end---------

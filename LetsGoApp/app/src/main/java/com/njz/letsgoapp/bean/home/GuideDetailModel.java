@@ -1,16 +1,5 @@
 package com.njz.letsgoapp.bean.home;
 
-import android.text.TextUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
-import com.njz.letsgoapp.util.GsonUtil;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,28 +37,48 @@ public class GuideDetailModel {
      * travelFirstReviewVO : {"name":null,"guideService":null,"carCondition":null,"buyService":null,"travelArrange":null,"score":null,"userDate":null,"userContent":null,"img":null,"level":null}
      */
 
+    /**
+     * buyServices : 0
+     * guideScore : 0
+     * image :
+     * carConditions : 0
+     * driveViable : 1
+     * guideAge : 90后
+     * guideServices : 0
+     * guideViable : 1
+     * travelFirstReviewVO : null
+     * travelArranges : 0
+     * authViable : 0
+     * travelGuideServiceInfoEntitys : []
+     * id : 4
+     * serviceAge : 1年
+     */
+
+
     private int guideId;
     private String mobile;
-    private Object guideAge;
     private String guideName;
-    private Object serviceAge;
     private List<String> language;
     private List<String> sign;
-    private Object authViable;
-    private Object guideViable;
-    private Object driveViable;
     private String guideImg;
     private int guideGender;
     private int serviceCounts;
     private int count;
     private String introduce;
-    private double guideScore;
-    private Object guideServices;
-    private Object carConditions;
-    private Object buyServices;
-    private Object travelArranges;
     private String guideStory;
+    private int buyServices;
+    private double guideScore;
+    private String image;
+    private int carConditions;
+    private int driveViable;
+    private String guideAge;
+    private double guideServices;
+    private int guideViable;
     private CommentModel travelFirstReviewVO;
+    private int travelArranges;
+    private int authViable;
+    private int id;
+    private String serviceAge;
     private List<GuideServiceModel> travelGuideServiceInfoEntitys;
 
     public List<GuideServiceModel> getTravelGuideServiceInfoEntitys() {
@@ -96,13 +105,6 @@ public class GuideDetailModel {
         this.mobile = mobile;
     }
 
-    public Object getGuideAge() {
-        return guideAge;
-    }
-
-    public void setGuideAge(Object guideAge) {
-        this.guideAge = guideAge;
-    }
 
     public String getGuideName() {
         return guideName;
@@ -112,13 +114,6 @@ public class GuideDetailModel {
         this.guideName = guideName;
     }
 
-    public Object getServiceAge() {
-        return serviceAge;
-    }
-
-    public void setServiceAge(Object serviceAge) {
-        this.serviceAge = serviceAge;
-    }
 
     public List<String> getLanguage() {
         return language;
@@ -136,29 +131,6 @@ public class GuideDetailModel {
         this.sign = sign;
     }
 
-    public Object getAuthViable() {
-        return authViable;
-    }
-
-    public void setAuthViable(Object authViable) {
-        this.authViable = authViable;
-    }
-
-    public Object getGuideViable() {
-        return guideViable;
-    }
-
-    public void setGuideViable(Object guideViable) {
-        this.guideViable = guideViable;
-    }
-
-    public Object getDriveViable() {
-        return driveViable;
-    }
-
-    public void setDriveViable(Object driveViable) {
-        this.driveViable = driveViable;
-    }
 
     public String getGuideImg() {
         return guideImg;
@@ -200,45 +172,7 @@ public class GuideDetailModel {
         this.introduce = introduce;
     }
 
-    public double getGuideScore() {
-        return guideScore;
-    }
 
-    public void setGuideScore(double guideScore) {
-        this.guideScore = guideScore;
-    }
-
-    public Object getGuideServices() {
-        return guideServices;
-    }
-
-    public void setGuideServices(Object guideServices) {
-        this.guideServices = guideServices;
-    }
-
-    public Object getCarConditions() {
-        return carConditions;
-    }
-
-    public void setCarConditions(Object carConditions) {
-        this.carConditions = carConditions;
-    }
-
-    public Object getBuyServices() {
-        return buyServices;
-    }
-
-    public void setBuyServices(Object buyServices) {
-        this.buyServices = buyServices;
-    }
-
-    public Object getTravelArranges() {
-        return travelArranges;
-    }
-
-    public void setTravelArranges(Object travelArranges) {
-        this.travelArranges = travelArranges;
-    }
 
     public String getGuideStory() {
         return guideStory;
@@ -256,4 +190,103 @@ public class GuideDetailModel {
         this.travelFirstReviewVO = travelFirstReviewVO;
     }
 
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getBuyServices() {
+        return buyServices;
+    }
+
+    public void setBuyServices(int buyServices) {
+        this.buyServices = buyServices;
+    }
+
+
+    public double getGuideScore() {
+        return guideScore;
+    }
+
+    public void setGuideScore(double guideScore) {
+        this.guideScore = guideScore;
+    }
+
+    public int getCarConditions() {
+        return carConditions;
+    }
+
+    public void setCarConditions(int carConditions) {
+        this.carConditions = carConditions;
+    }
+
+    public int getDriveViable() {
+        return driveViable;
+    }
+
+    public void setDriveViable(int driveViable) {
+        this.driveViable = driveViable;
+    }
+
+    public String getGuideAge() {
+        return guideAge;
+    }
+
+    public void setGuideAge(String guideAge) {
+        this.guideAge = guideAge;
+    }
+
+
+    public double getGuideServices() {
+        return guideServices;
+    }
+
+    public void setGuideServices(double guideServices) {
+        this.guideServices = guideServices;
+    }
+
+    public int getGuideViable() {
+        return guideViable;
+    }
+
+    public void setGuideViable(int guideViable) {
+        this.guideViable = guideViable;
+    }
+
+    public int getTravelArranges() {
+        return travelArranges;
+    }
+
+    public void setTravelArranges(int travelArranges) {
+        this.travelArranges = travelArranges;
+    }
+
+    public int getAuthViable() {
+        return authViable;
+    }
+
+    public void setAuthViable(int authViable) {
+        this.authViable = authViable;
+    }
+
+    public String getServiceAge() {
+        return serviceAge;
+    }
+
+    public void setServiceAge(String serviceAge) {
+        this.serviceAge = serviceAge;
+    }
 }

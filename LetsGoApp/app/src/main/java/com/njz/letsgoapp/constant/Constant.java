@@ -58,7 +58,7 @@ public class Constant {
     public static final int GUIDE_TYPE_SCORE = 3;
     public static final int GUIDE_TYPE_COMMENT = 4;
 
-    public static final String DEFAULT_CITY = "张家界";
+    public static final String DEFAULT_CITY = "长沙";
 
     public static final String SERVICE_TYPE_CUSTOM = "私人订制";
     public static final String SERVICE_TYPE_HOTEL = "代订酒店";

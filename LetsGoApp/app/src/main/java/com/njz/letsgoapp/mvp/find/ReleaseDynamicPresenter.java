@@ -27,7 +27,7 @@ public class ReleaseDynamicPresenter implements ReleaseDynamicContract.Presenter
     }
 
     @Override
-    public void sendSter(String content, List<String> files) {
+    public void sendSter(String location,double lon,double lat ,String content, List<String> files) {
         ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override
             public void onSuccess(EmptyModel data) {
@@ -39,6 +39,6 @@ public class ReleaseDynamicPresenter implements ReleaseDynamicContract.Presenter
                 iView.sendSterFailed(errorMsg);
             }
         };
-        MethodApi.sendSter(content, files, new OnSuccessAndFaultSub(listener));
+        MethodApi.sendSter(location,lon,lat,content, files, new OnSuccessAndFaultSub(listener));
     }
 }
