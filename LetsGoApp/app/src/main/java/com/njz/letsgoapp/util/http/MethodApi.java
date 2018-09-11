@@ -255,6 +255,33 @@ public class MethodApi {
 
     //---------我的 end-------
 
+    //--------订单 start---------
+    //sendSter 订单评价
+    public static void upUserReview(String orderId,
+                                    int guideId,
+                                    int guideService,
+                                    int carCondition,
+                                    int buyService,
+                                    int travelArrange,
+                                    String userContent,
+                                    List<String> files,
+                                    DisposableObserver subscriber) {
+
+        List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
+
+        Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(orderId,
+                guideId,
+                guideService,
+                carCondition,
+                buyService,
+                travelArrange,
+                userContent,
+                partList);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //--------订单 end---------
+
 
     //--------城市选择 start
     public static void regionFindProAndCity(DisposableObserver subscriber) {

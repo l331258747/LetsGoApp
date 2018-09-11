@@ -211,6 +211,24 @@ public interface HttpService {
 
     //-------发现 end---------
 
+
+    //-------订单 start---------
+    //up/userReview 订单评价
+    @POST("up/userReview")
+    Observable<BaseResponse<EmptyModel>> upUserReview(
+            @Part("orderId") String orderId,
+            @Part("guideId") int guideId,
+            @Part("guideService") int guideService,
+            @Part("carCondition") int carCondition,
+            @Part("buyService") int buyService,
+            @Part("travelArrange") int travelArrange,
+            @Part("userContent") String userContent,
+            @Part List<MultipartBody.Part> files
+    );
+
+
+    //-------订单 end---------
+
     //-------我的 start-------
     //user/changePersonalData 修改个人资料.
     @POST("user/changePersonalData")
