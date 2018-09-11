@@ -126,9 +126,21 @@ public class MyRatingBar extends LinearLayout implements View.OnClickListener {
                 setRating(5);
                 break;
         }
+        if(onRatingLisenterClick!= null){
+            onRatingLisenterClick.onRating(starNum);
+        }
     }
 
     public int getRating() {
         return starNum;
+    }
+
+    public OnRatingLisenterClick onRatingLisenterClick;
+    public void setOnRatingLisenterClick(OnRatingLisenterClick onRatingLisenterClick){
+        this.onRatingLisenterClick = onRatingLisenterClick;
+    }
+
+    public interface OnRatingLisenterClick{
+        void onRating(int rating);
     }
 }

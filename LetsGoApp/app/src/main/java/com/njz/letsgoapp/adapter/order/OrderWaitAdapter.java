@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.adapter.order;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.njz.letsgoapp.bean.order.OrderBean;
 import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.Suborders;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.order.OrderEvaluateActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,6 +150,13 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             ((FootHolder) holder).btn_1.setText("联系导游");
             ((FootHolder) holder).btn_2.setText("取消订单");
             ((FootHolder) holder).btn_3.setText("付款");
+            ((FootHolder) holder).btn_4.setText("点评");
+            ((FootHolder) holder).btn_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext,OrderEvaluateActivity.class));
+                }
+            });
         }
     }
 
@@ -200,7 +209,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
 
     public class FootHolder extends OrderWaitAdapter.BaseViewHolder {
         TextView tv_start_time,tv_end_time,tv_price;
-        TextView btn_1,btn_2,btn_3;
+        TextView btn_1,btn_2,btn_3,btn_4;
 
         FootHolder(View itemView) {
             super(itemView);
@@ -210,6 +219,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             btn_1 = itemView.findViewById(R.id.btn_1);
             btn_2 = itemView.findViewById(R.id.btn_2);
             btn_3 = itemView.findViewById(R.id.btn_3);
+            btn_4 = itemView.findViewById(R.id.btn_4);
         }
     }
 

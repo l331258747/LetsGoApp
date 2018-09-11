@@ -34,6 +34,9 @@
         <attr name="guide_score_text_size" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="order_evaluate">
+        <attr name="order_evaluate_title" format="string"/>
+    </declare-styleable>
 
     <declare-styleable name="TagFlowLayout">
         <attr name="max_select" format="integer"></attr>

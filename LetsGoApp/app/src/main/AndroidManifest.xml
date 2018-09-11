@@ -103,9 +103,7 @@
         <activity
             android:name=".view.home.GuideDetailActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".view.order.OrderSubmitActivity"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".view.home.GuideListActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -124,6 +122,14 @@
         <!--发现-->
         <activity android:name=".view.find.ReleaseDynamicActivity"/>
         <activity android:name=".view.find.DynamicDetailActivity"/>
+
+        <!-- 订单-->
+        <activity
+            android:name=".view.order.OrderSubmitActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.order.OrderEvaluateActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <!--我的-->
         <activity android:name=".view.mine.SystemSettingActivity" />
