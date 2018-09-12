@@ -199,4 +199,10 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     public void submit(){
         mPresenter.sendSter(city,longitude,latitude,etContent.getText().toString(),upLoadPhotos);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        locationUtil.stopLocation();
+    }
 }

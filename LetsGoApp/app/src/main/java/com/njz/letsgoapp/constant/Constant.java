@@ -64,6 +64,6 @@ public class Constant {
     public static final String SERVICE_TYPE_HOTEL = "代订酒店";
     public static final String SERVICE_TYPE_TICKET = "代订门票";
     public static final String SERVICE_TYPE_CAR = "车导服务";
-    public static final String SERVICE_TYPE_GUIDE = "导游陪游";
+    public static final String SERVICE_TYPE_GUIDE = "向导陪游";
 
 }
