@@ -170,11 +170,12 @@
 
 #-----------处理实体类---------------
 # 在开发的时候我们可以将所有的实体类放在一个包内，这样我们写一次混淆就行了。
--keep public class com.njz.letsgoapp.bean.** {
-    public void set*(***);
-    public *** get*();
-    public *** is*();
-}
+#-keep public class com.njz.letsgoapp.bean.** {
+#    public void set*(***);
+#    public *** get*();
+#    public *** is*();
+#}
+-keep public class com.njz.letsgoapp.bean.** { *; }
 
 
 
@@ -235,10 +236,17 @@
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *;}
+-keep interface com.squareup.okhttp3.** { *; }
 
+# okio
+-dontwarn okio.**
 -keep class okio.** { *; }
 -keep interface okio.** { *; }
--dontwarn okio.**
+-dontwarn com.squareup.okio.**
+-keep class com.squareup.okio.** { *;}
+-keep interface com.squareup.okio.** { *; }
 
 # retrofit2
 -keep class retrofit2.** { *; }
@@ -257,6 +265,12 @@
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
+
+#Gson
+# 反射
+-keepattributes EnclosingMethod
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.** { *;}
 
 # 高德地图
 # 定位

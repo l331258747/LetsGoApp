@@ -1,11 +1,9 @@
 package com.njz.letsgoapp.util.http;
 
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.constant.URLConstant;
-import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.StringUtils;
 
