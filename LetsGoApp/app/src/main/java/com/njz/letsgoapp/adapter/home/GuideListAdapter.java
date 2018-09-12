@@ -84,6 +84,10 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.guideDatas = guideDatas;
     }
 
+    public List<GuideModel> getDatas(){
+        return this.guideDatas;
+    }
+
     public static class GuideViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageView iv_head,iv_sex;

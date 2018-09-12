@@ -63,7 +63,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     GuideListPresenter mPresenter;
 
-    List<GuideModel> datas;
     Map<String, String> maps;
     int type = Constant.GUIDE_TYPE_SYNTHESIZE;
 
@@ -184,10 +183,9 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     //初始化recyclerview
     private void initRecycler() {
-        datas = new ArrayList<>();
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new GuideListAdapter(activity, datas);
+        mAdapter = new GuideListAdapter(activity, new ArrayList<GuideModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         page = Constant.DEFAULT_PAGE;
@@ -196,8 +194,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
-                LogUtil.e(datas.get(position).getGuideId() + "");
-                intent.putExtra(GuideDetailActivity.GUIDEID, datas.get(position).getId());
+                LogUtil.e(mAdapter.getDatas().get(position).getGuideId() + "");
+                intent.putExtra(GuideDetailActivity.GUIDEID, mAdapter.getDatas().get(position).getId());
                 startActivity(intent);
             }
         });
@@ -281,7 +279,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void guideSortTop10ByLocationSuccess(GuideListModel models) {
-        datas = models.getList();
+        List<GuideModel> datas = models.getList();
 
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {

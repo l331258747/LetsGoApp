@@ -106,4 +106,8 @@ public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHo
     public void addData(List<FansModel> fans){
         this.fans.addAll(fans);
     }
+
+    public List<FansModel> getDatas(){
+        return this.fans;
+    }
 }

@@ -43,8 +43,6 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
 
     FansListPresenter mPresenter;
 
-    List<FansModel> datas;
-
     private LoadMoreWrapper loadMoreWrapper;
     private int page;
     private int isLoadType = 1;//1下拉刷新，2上拉加载
@@ -97,7 +95,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
             @Override
             public void onClick(int position) {
                 Intent intentSpace = new Intent(context, SpaceActivity.class);
-                intentSpace.putExtra("userId", datas.get(position).getUserId());
+                intentSpace.putExtra("userId", mAdapter.getDatas().get(position).getUserId());
                 startActivity(intentSpace);
             }
         });
@@ -143,7 +141,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
 
     @Override
     public void userFindFansSuccess(FansListModel data) {
-        datas = data.getList();
+        List<FansModel> datas = data.getList();
 
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
