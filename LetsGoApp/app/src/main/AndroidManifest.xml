@@ -111,7 +111,7 @@
 
         <activity android:name=".view.home.ServiceDetailActivity" />
         <activity android:name=".view.home.ServiceListActivity" />
-        <activity android:name=".view.home.CommentListActivity" />
+        <activity android:name=".view.home.EvaluateListActivity" />
 
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />

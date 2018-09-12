@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
 import com.njz.letsgoapp.bean.home.CommentData;
+import com.njz.letsgoapp.bean.home.EvaluateModel;
+import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.ArrayList;
@@ -26,16 +28,16 @@ import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     Context mContext;
-    List<CommentData> commentDatas;
+    List<EvaluateModel> datas;
 
     /**
      * 标记展开的item
      */
     private int opened = -1;
 
-    public CommentAdapter(Context mContext, List<CommentData> commentDatas) {
+    public CommentAdapter(Context mContext, List<EvaluateModel> datas) {
         this.mContext = mContext;
-        this.commentDatas = commentDatas;
+        this.datas = datas;
     }
 
     @Override
@@ -49,18 +51,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
-        final CommentData data = commentDatas.get(pos);
+        final EvaluateModel data = datas.get(pos);
         if (data == null) return;
 
-        GlideUtil.LoadCircleImage(mContext, data.getImg_head(), holder.commont_head);
+        GlideUtil.LoadCircleImage(mContext, data.getImg(), holder.commont_head);
 
         holder.commont_name.setText(data.getName());
-        holder.commont_time.setText(data.getTime());
-        holder.commont_score.setText(data.getScore()+".0");
-        holder.tv_comment_content.setText(data.getContent());
-        holder.tv_order.setText(data.getOrderInfo());
-        holder.reply_time.setText(data.getReplyTime());
-        holder.reply_content.setText(data.getReply());
+        holder.commont_time.setText(data.getUserDate());
+        holder.commont_score.setText(data.getScore());
+        holder.tv_comment_content.setText(data.getUserContent());
+        holder.tv_order.setText("天门山一日游\n包车旅行\n导游陪游景点翻游\n天门山假日酒店");
+        holder.reply_time.setText("回复回复回复回复回复回复回复回复回复回复回复回复回复回复回复回复");
+        holder.reply_content.setText("2018-09-14");
 
         holder.rl_reply.setVisibility(View.VISIBLE);
         holder.tv_click.setVisibility(View.VISIBLE);
@@ -69,14 +71,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.mRecyclerView.setLayoutManager(new GridLayoutManager(
                 holder.mRecyclerView.getContext(), 4));
 
-        List<String> banners = new ArrayList<>();
-        String bannerImg = "http://s9.rr.itc.cn/r/wapChange/20164_30_21/a2tklm523975660855.jpg";
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        banners.add(bannerImg);
-        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(mContext, banners);
+        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(mContext, data.getImageUrls());
         holder.mRecyclerView.setAdapter(enterAdapter);
 
         holder.bindView(pos);
@@ -85,11 +80,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return commentDatas.size();
+        return datas.size();
     }
 
-    public void setData(List<CommentData> commentDatas) {
-        this.commentDatas = commentDatas;
+    public void setData(List<EvaluateModel> datas) {
+        this.datas = datas;
+        notifyDataSetChanged();
+    }
+
+    public List<EvaluateModel> getDatas(){
+        return this.datas;
+    }
+
+    public void addData(List<EvaluateModel> datas){
+        this.datas.addAll(datas);
         notifyDataSetChanged();
     }
 

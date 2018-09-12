@@ -107,7 +107,7 @@ public class MethodApi {
     }
 
     public static void orderReviewsSortTop(String location, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location, Constant.GUIDE_TYPE_SYNTHESIZE,5,Constant.DEFAULT_PAGE);
+        Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location, Constant.GUIDE_TYPE_SYNTHESIZE, 5, Constant.DEFAULT_PAGE);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -167,10 +167,10 @@ public class MethodApi {
     }
 
     //sendSter
-    public static void sendSter(String location,double lon,double lat ,String content, List<String> files, DisposableObserver subscriber) {
+    public static void sendSter(String location, double lon, double lat, String content, List<String> files, DisposableObserver subscriber) {
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
 
-        Observable observable = HttpMethods.getInstance().getHttpService().sendSter(location,lon,lat,content, partList);
+        Observable observable = HttpMethods.getInstance().getHttpService().sendSter(location, lon, lat, content, partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -202,8 +202,8 @@ public class MethodApi {
     }
 
     //friendPersonalFriendSter 动态列表
-    public static void friendPersonalFriendSter(int userId,int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().friendPersonalFriendSter(userId,limit,page);
+    public static void friendPersonalFriendSter(int userId, int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendPersonalFriendSter(userId, limit, page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -214,23 +214,23 @@ public class MethodApi {
     }
 
     //userFindFans //粉丝列表
-    public static void userFindFans(int userId,int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().userFindFans(userId,limit,page);
+    public static void userFindFans(int userId, int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userFindFans(userId, limit, page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     //userFindFocus //关注列表
-    public static void userFindFocus(int userId,int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().userFindFocus(userId,limit,page);
+    public static void userFindFocus(int userId, int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userFindFocus(userId, limit, page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     //friendDoUnLike  点赞
     public static void friendQueryLikes(boolean isNice, int friendSterId, DisposableObserver subscriber) {
-        if(isNice){
+        if (isNice) {
             Observable observable = HttpMethods.getInstance().getHttpService().friendDoUnLike(friendSterId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
-        }else{
+        } else {
             Observable observable = HttpMethods.getInstance().getHttpService().friendDoLike(friendSterId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }
@@ -238,18 +238,18 @@ public class MethodApi {
 
     //userFocusOff  关注他
     public static void userFocusOff(boolean isFollow, int focusId, DisposableObserver subscriber) {
-        if(isFollow){
+        if (isFollow) {
             Observable observable = HttpMethods.getInstance().getHttpService().userFocusOff(focusId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
-        }else{
+        } else {
             Observable observable = HttpMethods.getInstance().getHttpService().userFocusOn(focusId);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }
     }
 
     //friendDiscuss 动态评论
-    public static void friendDiscuss(int friendSterId,int discussUserId,String  discussContent,int toUserId, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().friendDiscuss(friendSterId,discussUserId,discussContent,toUserId);
+    public static void friendDiscuss(int friendSterId, int discussUserId, String discussContent, int toUserId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendDiscuss(friendSterId, discussUserId, discussContent, toUserId);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -257,26 +257,20 @@ public class MethodApi {
 
     //--------订单 start---------
     //sendSter 订单评价
-    public static void upUserReview(String orderId,
-                                    int guideId,
-                                    int guideService,
-                                    int carCondition,
-                                    int buyService,
-                                    int travelArrange,
-                                    String userContent,
-                                    List<String> files,
+    public static void upUserReview(String orderId, int guideId, int guideService, int carCondition,
+                                    int buyService, int travelArrange, String userContent, List<String> files,
                                     DisposableObserver subscriber) {
 
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
 
-        Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(orderId,
-                guideId,
-                guideService,
-                carCondition,
-                buyService,
-                travelArrange,
-                userContent,
-                partList);
+        Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(orderId, guideId, guideService,
+                carCondition, buyService, travelArrange, userContent, partList);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderReviewsFindGuideReviews 导游评价列表
+    public static void orderReviewsFindGuideReviews(int guideId, int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsFindGuideReviews(guideId, limit, page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

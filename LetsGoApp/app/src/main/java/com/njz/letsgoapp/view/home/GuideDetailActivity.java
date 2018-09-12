@@ -19,7 +19,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.BannerModel;
-import com.njz.letsgoapp.bean.home.CommentModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DefaultDialog;
@@ -200,8 +200,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 .setNegativeButton("呼叫");
     }
 
-    public void initCommont(CommentModel commentModel) {
-        if (commentModel == null) {
+    public void initCommont(EvaluateModel evaluateModel) {
+        if (evaluateModel == null) {
             LinearLayout ll_comment = $(R.id.ll_comment);
             ll_comment.setVisibility(View.GONE);
             return;
@@ -217,22 +217,22 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         TextView tv_comment_car = $(R.id.tv_comment_car);
         TextView tv_comment_book = $(R.id.tv_comment_book);
 
-        GlideUtil.LoadCircleImage(context, commentModel.getImg(), comment_head);
-        commont_name.setText(commentModel.getName());
-        commont_time.setText(commentModel.getUserDate());
-        commont_score.setText("" + commentModel.getScore());
-        tv_comment_content.setText(commentModel.getUserContent());
-        tv_comment_guide.setText(commentModel.getGuideService());
-        tv_comment_trip.setText(commentModel.getTravelArrange());
-        tv_comment_car.setText(commentModel.getCarCondition());
-        tv_comment_book.setText(commentModel.getBuyService());
+        GlideUtil.LoadCircleImage(context, evaluateModel.getImg(), comment_head);
+        commont_name.setText(evaluateModel.getName());
+        commont_time.setText(evaluateModel.getUserDate());
+        commont_score.setText("" + evaluateModel.getScore());
+        tv_comment_content.setText(evaluateModel.getUserContent());
+        tv_comment_guide.setText(evaluateModel.getGuideService());
+        tv_comment_trip.setText(evaluateModel.getTravelArrange());
+        tv_comment_car.setText(evaluateModel.getCarCondition());
+        tv_comment_book.setText(evaluateModel.getBuyService());
 
         RecyclerView mRecyclerView = $(R.id.recycler_view);
         mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
         mRecyclerView.setLayoutManager(new GridLayoutManager(
                 mRecyclerView.getContext(), 4));
 
-        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, commentModel.getImageUrls());
+        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, evaluateModel.getImageUrls());
         mRecyclerView.setAdapter(enterAdapter);
     }
 
@@ -275,7 +275,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 showPopService();
                 break;
             case R.id.ll_comment_title:
-                startActivity(new Intent(context, CommentListActivity.class));
+                startActivity(new Intent(context, EvaluateListActivity.class));
                 break;
             case R.id.btn_call:
                 if (defaultDialog == null) return;

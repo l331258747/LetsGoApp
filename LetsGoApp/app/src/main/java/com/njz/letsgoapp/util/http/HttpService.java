@@ -1,11 +1,13 @@
 package com.njz.letsgoapp.util.http;
 
+import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
@@ -214,6 +216,7 @@ public interface HttpService {
 
     //-------订单 start---------
     //up/userReview 订单评价
+    @Multipart
     @POST("up/userReview")
     Observable<BaseResponse<EmptyModel>> upUserReview(
             @Part("orderId") String orderId,
@@ -225,6 +228,15 @@ public interface HttpService {
             @Part("userContent") String userContent,
             @Part List<MultipartBody.Part> files
     );
+
+    //orderReviews/findGuideReviews 导游评价列表
+    @GET("orderReviews/findGuideReviews")
+    Observable<BaseResponse<BasePageModel<EvaluateModel>>> orderReviewsFindGuideReviews(
+            @Query("guideId") int guideId,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
 
 
     //-------订单 end---------

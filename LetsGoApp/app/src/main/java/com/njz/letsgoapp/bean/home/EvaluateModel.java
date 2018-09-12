@@ -10,7 +10,7 @@ import java.util.List;
  * Function:
  */
 
-public class CommentModel {
+public class EvaluateModel {
 
     /**
      * name : null

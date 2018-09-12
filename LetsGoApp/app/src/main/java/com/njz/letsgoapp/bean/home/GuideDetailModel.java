@@ -74,7 +74,7 @@ public class GuideDetailModel {
     private String guideAge;
     private double guideServices;
     private int guideViable;
-    private CommentModel travelFirstReviewVO;
+    private EvaluateModel travelFirstReviewVO;
     private int travelArranges;
     private int authViable;
     private int id;
@@ -182,11 +182,11 @@ public class GuideDetailModel {
         this.guideStory = guideStory;
     }
 
-    public CommentModel getTravelFirstReviewVO() {
+    public EvaluateModel getTravelFirstReviewVO() {
         return travelFirstReviewVO;
     }
 
-    public void setTravelFirstReviewVO(CommentModel travelFirstReviewVO) {
+    public void setTravelFirstReviewVO(EvaluateModel travelFirstReviewVO) {
         this.travelFirstReviewVO = travelFirstReviewVO;
     }
 

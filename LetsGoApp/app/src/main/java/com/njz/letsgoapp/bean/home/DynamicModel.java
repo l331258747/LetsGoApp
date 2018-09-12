@@ -31,8 +31,8 @@ public class DynamicModel {
     private int userLevel;
     private String content;
     private String startTime;
-    private int lon;
-    private int lat;
+    private double lon;
+    private double lat;
     private String location;
     private int friendSterId;
     private int replyCount;
@@ -98,21 +98,6 @@ public class DynamicModel {
         this.startTime = startTime;
     }
 
-    public int getLon() {
-        return lon;
-    }
-
-    public void setLon(int lon) {
-        this.lon = lon;
-    }
-
-    public int getLat() {
-        return lat;
-    }
-
-    public void setLat(int lat) {
-        this.lat = lat;
-    }
 
     public String getLocation() {
         return location;
@@ -184,5 +169,21 @@ public class DynamicModel {
 
     public void setLike(boolean like) {
         this.like = like;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 }

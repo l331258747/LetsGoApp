@@ -3,7 +3,6 @@ package com.njz.letsgoapp.mvp.order;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.EmptyModel;
-import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;

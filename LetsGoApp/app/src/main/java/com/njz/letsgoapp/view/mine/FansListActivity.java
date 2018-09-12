@@ -46,9 +46,9 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
     List<FansModel> datas;
 
     private LoadMoreWrapper loadMoreWrapper;
-    int page;
-    int isLoadType = 1;//1下拉刷新，2上拉加载
-    boolean isLoad = false;//是否在加载，重复加载问题
+    private int page;
+    private int isLoadType = 1;//1下拉刷新，2上拉加载
+    private boolean isLoad = false;//是否在加载，重复加载问题
 
     @Override
     public int getLayoutId() {
