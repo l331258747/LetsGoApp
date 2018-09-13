@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -117,20 +118,23 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
                 }
             });
 
-            if(mNiceClickListener != null){
+            if(mOnItemClickListener != null){
                 ((DynamicViewHolder) holder).tv_nice.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mNiceClickListener.onClick(pos);
+                        mOnItemClickListener.onNiceClick(pos);
                     }
                 });
-            }
-
-            if (mOnItemClickListener != null) {
                 ((DynamicViewHolder) holder).ll_parent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOnItemClickListener.onClick(pos);
+                        mOnItemClickListener.onItemClick(pos);
+                    }
+                });
+                ((DynamicViewHolder) holder).iv_img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onHeadClick(pos);
                     }
                 });
             }
@@ -162,6 +166,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
         TextView tv_name,tv_time,tv_location,tv_comment,tv_nice;
         DynamicImageView dynamic_image_view;
         ShowAllTextView  tv_content;
+        RelativeLayout rl_head;
 
         DynamicViewHolder(View itemView) {
             super(itemView);
@@ -174,6 +179,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
             tv_comment = itemView.findViewById(R.id.tv_count);
             tv_nice = itemView.findViewById(R.id.tv_nice);
             dynamic_image_view = itemView.findViewById(R.id.dynamic_image_view);
+            rl_head = itemView.findViewById(R.id.rl_head);
         }
 
     }
@@ -226,12 +232,13 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
-    OnItemClickListener mNiceClickListener;
     View.OnClickListener onCheckAllListener;
 
 
     public interface OnItemClickListener {
-        void onClick(int position);
+        void onItemClick(int position);
+        void onNiceClick(int position);
+        void onHeadClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -240,10 +247,6 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     public void setCheckAllListener(View.OnClickListener onCheckAllListener) {
         this.onCheckAllListener = onCheckAllListener;
-    }
-
-    public void setNiceClickListener(OnItemClickListener mNiceClickListener){
-        this.mNiceClickListener = mNiceClickListener;
     }
 
     //---------事件 end---------

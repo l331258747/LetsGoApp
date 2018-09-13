@@ -50,6 +50,7 @@ import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 
 import java.util.ArrayList;
@@ -233,19 +234,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView.setNestedScrollingEnabled(false);
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
-        dynamicAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
+        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
+            public void onItemClick(int position) {
+                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra("friendSterId",dynamicDatas.get(position).getFriendSterId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNiceClick(int position) {
                 nicePresenter.friendQueryLikes(dynamicDatas.get(position).isLike(),dynamicDatas.get(position).getFriendSterId());
                 nicePosition = position;
             }
-        });
 
-        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId",dynamicDatas.get(position).getFriendSterId());
+            public void onHeadClick(int position) {
+                Intent intent = new Intent(context, SpaceActivity.class);
+                intent.putExtra("userId", dynamicAdapter.getItem(position).getUserId());
                 startActivity(intent);
             }
         });

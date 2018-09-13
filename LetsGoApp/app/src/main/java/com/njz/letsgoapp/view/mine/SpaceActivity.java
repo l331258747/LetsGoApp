@@ -111,26 +111,24 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         recyclerView.setNestedScrollingEnabled(false);
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
-        mAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
+            public void onItemClick(int position) {
+                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra("friendSterId",datas.get(position).getFriendSterId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNiceClick(int position) {
                 nicePresenter.friendQueryLikes(datas.get(position).isLike(),datas.get(position).getFriendSterId());
                 nicePosition = position;
             }
-        });
 
-        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
-
-            }
-        });
-
-        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId",datas.get(position).getFriendSterId());
+            public void onHeadClick(int position) {
+                Intent intent = new Intent(context, SpaceActivity.class);
+                intent.putExtra("userId", mAdapter.getItem(position).getUserId());
                 startActivity(intent);
             }
         });

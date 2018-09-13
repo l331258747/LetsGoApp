@@ -27,6 +27,7 @@ import com.njz.letsgoapp.mvp.find.FindContract;
 import com.njz.letsgoapp.mvp.find.FindPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
+import com.njz.letsgoapp.view.mine.SpaceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,19 +134,24 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
         page = Constant.DEFAULT_PAGE;
 
-        mAdapter.setNiceClickListener(new DynamicAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
+            public void onItemClick(int position) {
+                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra("friendSterId", mAdapter.getItem(position).getFriendSterId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNiceClick(int position) {
                 nicePresenter.friendQueryLikes(mAdapter.getItem(position).isLike(), mAdapter.getItem(position).getFriendSterId());
                 nicePosition = position;
             }
-        });
 
-        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId", mAdapter.getItem(position).getFriendSterId());
+            public void onHeadClick(int position) {
+                Intent intent = new Intent(context, SpaceActivity.class);
+                intent.putExtra("userId", mAdapter.getItem(position).getUserId());
                 startActivity(intent);
             }
         });
