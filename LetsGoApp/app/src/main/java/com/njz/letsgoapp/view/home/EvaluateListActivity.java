@@ -42,6 +42,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
     private RecyclerView recyclerView;
 
     private TagFlowLayout mFlowLayout;
+    private TagAdapter<String> mFlowAdapter;
     private String[] mVals = new String[]
             {"全部", "向导陪游", "私人定制", "车导服务", "代订酒店", "景点门票"};
 
@@ -68,7 +69,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
 
     @Override
     public void initView() {
-        showLeftAndTitle("全部评论");
+        showLeftAndTitle("全部评价");
 
         mFlowLayout = $(R.id.id_flowlayout);
 
@@ -119,19 +120,12 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
 
     public void initFlow() {
         final LayoutInflater mInflater = LayoutInflater.from(activity);
-        mFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
+        mFlowLayout.setAdapter(mFlowAdapter = new TagAdapter<String>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_comment, mFlowLayout, false);
                 tv.setText(s);
                 return tv;
-            }
-
-            @Override
-            public boolean setSelected(int position, String s) {
-                if (position == 0)
-                    return true;
-                return super.setSelected(position, s);
             }
         });
 
@@ -143,6 +137,8 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
                 return true;
             }
         });
+
+        mFlowAdapter.setSelectedList(0);
     }
 
     private void getRefreshData() {

@@ -55,7 +55,6 @@ public class GuideDetailModel {
      */
 
 
-    private int guideId;
     private String mobile;
     private String guideName;
     private List<String> language;
@@ -87,14 +86,6 @@ public class GuideDetailModel {
 
     public void setTravelGuideServiceInfoEntitys(List<GuideServiceModel> travelGuideServiceInfoEntitys) {
         this.travelGuideServiceInfoEntitys = travelGuideServiceInfoEntitys;
-    }
-
-    public int getGuideId() {
-        return guideId;
-    }
-
-    public void setGuideId(int guideId) {
-        this.guideId = guideId;
     }
 
     public String getMobile() {

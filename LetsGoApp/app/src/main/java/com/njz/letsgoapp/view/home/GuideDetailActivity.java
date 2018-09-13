@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -125,7 +126,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         ll_select_service.setOnClickListener(this);
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
-
     }
 
     @Override
@@ -160,6 +160,22 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         });
     }
 
+    //认证
+    public List<Integer> getViable(GuideDetailModel model){
+        List<Integer> authentications = new ArrayList<>();
+
+        if(model.getDriveViable() == 2){
+            authentications.add(GuideAuthenticationView.AUTHENT_CAR);
+        }
+        if(model.getGuideViable() == 2){
+            authentications.add(GuideAuthenticationView.AUTHENT_GUIDE);
+        }
+        if(model.getAuthViable() == 2){
+            authentications.add(GuideAuthenticationView.AUTHENT_IDENTITY);
+        }
+        return authentications;
+    }
+
     //initInfo
     public void initInfo(final GuideDetailModel model) {
         //个人信息
@@ -169,19 +185,15 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         tv_service_num.setText(model.getServiceCounts());
         guideLabel.setTabel(model.getSign());
         stv_tag.setServiceTag(model.getLanguage());
-
-        List<Integer> authentications = new ArrayList<>();
-        authentications.add(GuideAuthenticationView.AUTHENT_IDENTITY);
-        authentications.add(GuideAuthenticationView.AUTHENT_CAR);
-        guide_authentication.setAuthentication(authentications);
+        guide_authentication.setAuthentication(getViable(model));
         tv_content.setText(model.getIntroduce());
-
 
         tv_comment_title_score.setText("" + model.getGuideScore());
         tv_comment_title_count.setText("(" + model.getCount() + "条评论)");
-        initCommont(model.getTravelFirstReviewVO());
+        initEvaluate(model.getTravelFirstReviewVO());
 
-        webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html", "utf-8", null);
+        if(!TextUtils.isEmpty(model.getGuideStory()))
+        webView.loadDataWithBaseURL(null, model.getGuideStory(), "text/html", "utf-8", null);
 
         defaultDialog = new DefaultDialog(context, model.getMobile(),
                 new DefaultDialog.OnCloseListener() {
@@ -200,7 +212,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 .setNegativeButton("呼叫");
     }
 
-    public void initCommont(EvaluateModel evaluateModel) {
+    //评价
+    public void initEvaluate(EvaluateModel evaluateModel) {
         if (evaluateModel == null) {
             LinearLayout ll_comment = $(R.id.ll_comment);
             ll_comment.setVisibility(View.GONE);
@@ -229,9 +242,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         RecyclerView mRecyclerView = $(R.id.recycler_view);
         mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
-        mRecyclerView.setLayoutManager(new GridLayoutManager(
-                mRecyclerView.getContext(), 4));
-
+        mRecyclerView.setLayoutManager(new GridLayoutManager( mRecyclerView.getContext(), 4));
         SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, evaluateModel.getImageUrls());
         mRecyclerView.setAdapter(enterAdapter);
     }
@@ -275,7 +286,9 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 showPopService();
                 break;
             case R.id.ll_comment_title:
-                startActivity(new Intent(context, EvaluateListActivity.class));
+                Intent intent = new Intent(context, EvaluateListActivity.class);
+                intent.putExtra("guideId",guideDetailModel.getId());
+                startActivity(intent);
                 break;
             case R.id.btn_call:
                 if (defaultDialog == null) return;
@@ -311,7 +324,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         if (popService == null) {
             popService = new PopService(activity, btn_submit);
         }
-        popService.setDate(guideDetailModel.getGuideId(), guideDetailModel.getTravelGuideServiceInfoEntitys());
+        popService.setDate(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoEntitys());
         popService.showPopupWindow(btn_submit);
     }
 
