@@ -152,12 +152,16 @@
 
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_view_h"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:layout_below="@+id/ll_view_h">
+
+            <include layout="@layout/base_recycler_view_layout"/>
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

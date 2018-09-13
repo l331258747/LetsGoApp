@@ -7,10 +7,17 @@
     <!--标题栏-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:layout_height="50dp"
         android:padding="6dp">
 
+
+        <ImageView
+            android:id="@+id/left_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/calendar_back"/>
 
         <!--标题-->
         <TextView
@@ -142,6 +149,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/plan_time_calender"
             android:layout_width="match_parent"
+            android:overScrollMode="never"
             android:layout_height="match_parent"
             android:background="@android:color/white">
 

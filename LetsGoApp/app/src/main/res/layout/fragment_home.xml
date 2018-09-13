@@ -86,6 +86,7 @@
                         android:id="@+id/recycler_view_h"
                         android:layout_below="@+id/ll_trip"
                         android:layout_width="match_parent"
+                        android:overScrollMode="never"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_height="wrap_content"
@@ -94,13 +95,16 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_below="@+id/ll_view_h"
-                    android:layout_marginTop="10dp"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"/>
+                    android:layout_below="@+id/ll_view_h"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white">
+
+                    <include layout="@layout/base_recycler_view_layout"/>
+
+                </LinearLayout>
 
             </RelativeLayout>
 

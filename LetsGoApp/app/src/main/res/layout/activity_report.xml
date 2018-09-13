@@ -48,11 +48,13 @@
             android:padding="10dp"
             android:text="图片举证（选填，最多四张）" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp">
+
+            <include layout="@layout/base_recycler_view_layout"/>
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
