@@ -78,10 +78,12 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void addData(List<GuideModel> guideDatas) {
         this.guideDatas.addAll(guideDatas);
+        notifyDataSetChanged();
     }
 
     public void setData(List<GuideModel> guideDatas) {
         this.guideDatas = guideDatas;
+        notifyDataSetChanged();
     }
 
     public List<GuideModel> getDatas(){

@@ -101,10 +101,12 @@ public class FansListAdapter extends RecyclerView.Adapter<FansListAdapter.ViewHo
 
     public void setData(List<FansModel> fans) {
         this.fans = fans;
+        notifyDataSetChanged();
     }
 
     public void addData(List<FansModel> fans){
         this.fans.addAll(fans);
+        notifyDataSetChanged();
     }
 
     public List<FansModel> getDatas(){

@@ -208,6 +208,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     public void setData(List<DynamicModel> dynamis) {
         this.dynamis = dynamis;
+        notifyDataSetChanged();
     }
 
     public void setItemData(int position){
@@ -220,6 +221,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
 
     public void addData(List<DynamicModel> dynamis){
         this.dynamis.addAll(dynamis);
+        notifyDataSetChanged();
     }
 
     //---------事件 start---------
