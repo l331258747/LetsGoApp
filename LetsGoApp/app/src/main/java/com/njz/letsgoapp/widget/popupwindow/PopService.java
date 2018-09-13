@@ -119,6 +119,8 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 //        tv_service_num.setText("服务" + 6000 + "次");
 //    }
 
+
+
     public void showPopupWindow(View parent) {
 
         if (!this.isShowing()) {

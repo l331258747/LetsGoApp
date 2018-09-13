@@ -45,18 +45,25 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         final ServiceListModel data = serviceItems.get(pos);
         if (data == null) return;
 
-        GlideUtil.LoadImage(context, null, ((ViewHolder) holder).iv_img);
-        ((ViewHolder) holder).iv_img_content.setText("代订 | 张家界");
-        ((ViewHolder) holder).tv_title.setText(data.getTitle());
-        ((ViewHolder) holder).tv_sell.setText("已售" + 112);
-        ((ViewHolder) holder).pv_price.setPrice(data.getServePrice());
+        GlideUtil.LoadImage(context, null, holder.iv_img);
+        holder.iv_img_content.setText(data.getServeType());
+        holder.tv_title.setText(data.getTitle());
+        holder.tv_sell.setText(data.getCount());
+        holder.pv_price.setPrice(data.getServePrice());
+
 
 
         if (mOnItemClickListener != null) {
-            ((ViewHolder) holder).rl_parent.setOnClickListener(new View.OnClickListener() {
+            holder.rl_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onClick(pos);
+                    mOnItemClickListener.onItemClick(pos);
+                }
+            });
+            holder.btn_event.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onBtnClick(pos);
                 }
             });
         }
@@ -94,7 +101,8 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
 
     OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
-        void onClick(int position);
+        void onItemClick(int position);
+        void onBtnClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

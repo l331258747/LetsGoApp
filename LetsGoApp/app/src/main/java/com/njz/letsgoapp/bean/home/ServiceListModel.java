@@ -18,11 +18,11 @@ public class ServiceListModel {
      */
 
     private int id;
-    private int servePrice;
+    private float servePrice;
     private String serveType;
     private String title;
     private String location;
-    private Object count;
+    private String count;
 
     public int getId() {
         return id;
@@ -32,7 +32,7 @@ public class ServiceListModel {
         this.id = id;
     }
 
-    public int getServePrice() {
+    public float getServePrice() {
         return servePrice;
     }
 
@@ -64,11 +64,11 @@ public class ServiceListModel {
         this.location = location;
     }
 
-    public Object getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(Object count) {
+    public void setCount(String count) {
         this.count = count;
     }
 }

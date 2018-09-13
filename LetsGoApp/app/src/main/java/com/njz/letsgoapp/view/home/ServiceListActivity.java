@@ -72,12 +72,16 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
 
         mAdapter.setOnItemClickListener(new ServiceListAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
+            public void onItemClick(int position) {
                 intent = new Intent(context, ServiceDetailActivity.class);
                 intent.putExtra("ServiceDetailActivity_title",title);
                 intent.putExtra("serviceId",models.get(position).getId());
-
                 startActivity(intent);
+            }
+
+            @Override
+            public void onBtnClick(int position) {
+
             }
         });
     }

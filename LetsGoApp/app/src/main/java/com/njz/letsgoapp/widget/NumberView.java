@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,8 @@ import com.njz.letsgoapp.R;
 
 public class NumberView extends LinearLayout implements View.OnClickListener {
 
-    TextView tv_minus, tv_num, tv_plus;
+    TextView tv_num;
+    ImageView tv_minus,tv_plus;
     int num;
 
     public NumberView(Context context) {

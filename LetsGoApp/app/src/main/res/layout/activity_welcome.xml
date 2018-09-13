@@ -45,7 +45,6 @@
             android:id="@+id/iv_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
             android:src="@drawable/shape_point2" />
 
     </RelativeLayout>
