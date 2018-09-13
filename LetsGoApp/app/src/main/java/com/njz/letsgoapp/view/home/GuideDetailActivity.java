@@ -230,15 +230,33 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         TextView tv_comment_car = $(R.id.tv_comment_car);
         TextView tv_comment_book = $(R.id.tv_comment_book);
 
-        GlideUtil.LoadCircleImage(context, evaluateModel.getImg(), comment_head);
-        commont_name.setText(evaluateModel.getName());
+        GlideUtil.LoadCircleImage(context, evaluateModel.getImgUrl(), comment_head);
+        commont_name.setText(evaluateModel.getNickname());
         commont_time.setText(evaluateModel.getUserDate());
         commont_score.setText("" + evaluateModel.getScore());
         tv_comment_content.setText(evaluateModel.getUserContent());
-        tv_comment_guide.setText(evaluateModel.getGuideService());
-        tv_comment_trip.setText(evaluateModel.getTravelArrange());
-        tv_comment_car.setText(evaluateModel.getCarCondition());
-        tv_comment_book.setText(evaluateModel.getBuyService());
+
+        tv_comment_guide.setVisibility(View.GONE);
+        tv_comment_trip.setVisibility(View.GONE);
+        tv_comment_car.setVisibility(View.GONE);
+        tv_comment_book.setVisibility(View.GONE);
+
+        if(evaluateModel.getGuideService() > 0 ){
+            tv_comment_guide.setVisibility(View.VISIBLE);
+            tv_comment_guide.setText(evaluateModel.getGuideServiceStr());
+        }
+        if(evaluateModel.getTravelArrange() > 0 ){
+            tv_comment_trip.setVisibility(View.VISIBLE);
+            tv_comment_trip.setText(evaluateModel.getTravelArrangeStr());
+        }
+        if(evaluateModel.getCarCondition() > 0){
+            tv_comment_car.setVisibility(View.VISIBLE);
+            tv_comment_car.setText(evaluateModel.getCarConditionStr());
+        }
+        if(evaluateModel.getBuyService() > 0){
+            tv_comment_book.setVisibility(View.VISIBLE);
+            tv_comment_book.setText(evaluateModel.getBuyServiceStr());
+        }
 
         RecyclerView mRecyclerView = $(R.id.recycler_view);
         mRecyclerView.setNestedScrollingEnabled(false);//滑动取消

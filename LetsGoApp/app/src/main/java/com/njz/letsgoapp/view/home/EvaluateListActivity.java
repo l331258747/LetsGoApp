@@ -12,17 +12,13 @@ import android.widget.Toast;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
-import com.njz.letsgoapp.adapter.home.CommentAdapter;
+import com.njz.letsgoapp.adapter.home.EvaluateAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.BasePageModel;
-import com.njz.letsgoapp.bean.home.CommentData;
-import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
-import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.GuideEvaluateListContract;
 import com.njz.letsgoapp.mvp.home.GuideEvaluateListPresenter;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
@@ -46,7 +42,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
     private String[] mVals = new String[]
             {"全部", "向导陪游", "私人定制", "车导服务", "代订酒店", "景点门票"};
 
-    private CommentAdapter mAdapter;
+    private EvaluateAdapter mAdapter;
 
     private GuideEvaluateListPresenter mPresenter;
     private int guideId;
@@ -89,7 +85,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new CommentAdapter(activity, new ArrayList<EvaluateModel>());
+        mAdapter = new EvaluateAdapter(activity, new ArrayList<EvaluateModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
@@ -100,6 +96,15 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
                 if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
                 loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
                 getMoreData();
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new EvaluateAdapter.OnItemClickListener() {
+            @Override
+            public void onReplyClick(int... positions) {
+                for (int position:positions){
+                    loadMoreWrapper.notifyItemChanged(position);
+                }
             }
         });
 
@@ -133,7 +138,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 Toast.makeText(activity, mVals[position], Toast.LENGTH_SHORT).show();
-                LogUtil.e("onTagClick:" + mVals[position]);
+                getRefreshData();
                 return true;
             }
         });

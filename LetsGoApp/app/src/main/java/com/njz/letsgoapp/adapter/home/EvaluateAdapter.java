@@ -12,12 +12,9 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
-import com.njz.letsgoapp.bean.home.CommentData;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
-import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +23,7 @@ import java.util.List;
  * Function:
  */
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
+public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHolder> {
     Context mContext;
     List<EvaluateModel> datas;
 
@@ -35,7 +32,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
      */
     private int opened = -1;
 
-    public CommentAdapter(Context mContext, List<EvaluateModel> datas) {
+    public EvaluateAdapter(Context mContext, List<EvaluateModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -54,9 +51,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final EvaluateModel data = datas.get(pos);
         if (data == null) return;
 
-        GlideUtil.LoadCircleImage(mContext, data.getImg(), holder.commont_head);
+        GlideUtil.LoadCircleImage(mContext, data.getImgUrl(), holder.commont_head);
 
-        holder.commont_name.setText(data.getName());
+        holder.commont_name.setText(data.getNickname());
         holder.commont_time.setText(data.getUserDate());
         holder.commont_score.setText(data.getScore());
         holder.tv_comment_content.setText(data.getUserContent());
@@ -66,6 +63,27 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         holder.rl_reply.setVisibility(View.VISIBLE);
         holder.tv_click.setVisibility(View.VISIBLE);
+
+        holder.tv_comment_guide.setVisibility(View.GONE);
+        holder.tv_comment_trip.setVisibility(View.GONE);
+        holder.tv_comment_car.setVisibility(View.GONE);
+        holder.tv_comment_book.setVisibility(View.GONE);
+        if(data.getGuideService() > 0 ){
+            holder.tv_comment_guide.setVisibility(View.VISIBLE);
+            holder.tv_comment_guide.setText(data.getGuideServiceStr());
+        }
+        if(data.getTravelArrange() > 0 ){
+            holder.tv_comment_trip.setVisibility(View.VISIBLE);
+            holder.tv_comment_trip.setText(data.getTravelArrangeStr());
+        }
+        if(data.getCarCondition() > 0){
+            holder.tv_comment_car.setVisibility(View.VISIBLE);
+            holder.tv_comment_car.setText(data.getCarConditionStr());
+        }
+        if(data.getBuyService() > 0){
+            holder.tv_comment_book.setVisibility(View.VISIBLE);
+            holder.tv_comment_book.setText(data.getBuyServiceStr());
+        }
 
         holder.mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
         holder.mRecyclerView.setLayoutManager(new GridLayoutManager(
@@ -102,6 +120,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         TextView commont_name, commont_time, commont_score, tv_comment_content, tv_order, reply_time, reply_content;
         RelativeLayout rl_reply;
         RecyclerView mRecyclerView;
+        TextView tv_comment_guide,tv_comment_trip,tv_comment_car,tv_comment_book;
 
         TextView tv_click;
 
@@ -117,6 +136,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             reply_content = itemView.findViewById(R.id.reply_content);
             rl_reply = itemView.findViewById(R.id.rl_reply);
             mRecyclerView = itemView.findViewById(R.id.recycler_view);
+            tv_comment_guide = itemView.findViewById(R.id.tv_comment_guide);
+            tv_comment_trip = itemView.findViewById(R.id.tv_comment_trip);
+            tv_comment_car = itemView.findViewById(R.id.tv_comment_car);
+            tv_comment_book = itemView.findViewById(R.id.tv_comment_book);
             tv_click = itemView.findViewById(R.id.tv_click);
             tv_click.setOnClickListener(this);
 
@@ -132,16 +155,29 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
+            if(mOnItemClickListener == null) return;
+
             if (opened == getAdapterPosition()) {
                 //当点击的item已经被展开了, 就关闭.
                 opened = -1;
                 notifyItemChanged(getAdapterPosition());
+                mOnItemClickListener.onReplyClick(getAdapterPosition());
             } else {
                 int oldOpened = opened;
                 opened = getAdapterPosition();
                 notifyItemChanged(oldOpened);
                 notifyItemChanged(opened);
+                mOnItemClickListener.onReplyClick(oldOpened,opened);
             }
         }
+    }
+
+    OnItemClickListener mOnItemClickListener;
+    public interface OnItemClickListener {
+        void onReplyClick(int... position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 }

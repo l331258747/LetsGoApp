@@ -234,7 +234,6 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
     OnItemClickListener mOnItemClickListener;
     View.OnClickListener onCheckAllListener;
 
-
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onNiceClick(int position);

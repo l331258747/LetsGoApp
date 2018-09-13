@@ -1,7 +1,5 @@
 package com.njz.letsgoapp.bean.home;
 
-import com.njz.letsgoapp.util.DateUtil;
-
 import java.util.List;
 
 /**
@@ -25,15 +23,35 @@ public class EvaluateModel {
      * level : null
      */
 
-    private String name;
-    private String guideService;
-    private String carCondition;
-    private String buyService;
-    private String travelArrange;
-    private String score;
+    /*
+    {
+            "imgUrl":"http://pc03h8bbw.bkt.clouddn.com/1/20180912/100134155fc738.jpg",
+            "buyService":5,
+            "score":4.8,
+            "userLevel":44,
+            "guideService":4,
+            "imageUrls":[
+                "A",
+                "B",
+                "C"
+            ],
+            "userContent":"还不错，价格实惠",
+            "nickname":"挺有用沫",
+            "carCondition":5,
+            "travelArrange":5,
+            "userDate":"2018-08-15 11:18:44"
+        }
+     */
+
+    private String nickname;
+    private float guideService;
+    private float carCondition;
+    private float buyService;
+    private float travelArrange;
+    private float score;
     private String userDate;
     private String userContent;
-    private String img;
+    private String imgUrl;
     private String level;
     private List<String> imageUrls;
 
@@ -45,51 +63,60 @@ public class EvaluateModel {
         this.imageUrls = imageUrls;
     }
 
-    public String getName() {
-        return name;
+
+
+    //导游服务,车辆状况,代订服务,行程安排
+
+
+    public float getGuideService() {
+        return guideService;
+    }
+    public String getGuideServiceStr(){
+        return "导游服务" + guideService;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGuideService() {
-        return "导游服务"+guideService;
-    }
-
-    public void setGuideService(String guideService) {
+    public void setGuideService(int guideService) {
         this.guideService = guideService;
     }
 
-    public String getCarCondition() {
-        return "车辆状况"+carCondition;
+    public float getCarCondition() {
+        return carCondition;
+    }
+    public String getCarConditionStr() {
+        return "车辆状况" + carCondition;
     }
 
-    public void setCarCondition(String carCondition) {
+    public void setCarCondition(int carCondition) {
         this.carCondition = carCondition;
     }
 
-    public String getBuyService() {
-        return "代订服务"+buyService;
+    public float getBuyService() {
+        return buyService;
+    }
+    public String getBuyServiceStr() {
+        return "代订服务" + buyService;
     }
 
-    public void setBuyService(String buyService) {
+    public void setBuyService(int buyService) {
         this.buyService = buyService;
     }
 
-    public String getTravelArrange() {
-        return "行程安排"+travelArrange;
+    public float getTravelArrange() {
+        return travelArrange;
+    }
+    public String getTravelArrangeStr() {
+        return "行程安排" + travelArrange;
     }
 
-    public void setTravelArrange(String travelArrange) {
+    public void setTravelArrange(int travelArrange) {
         this.travelArrange = travelArrange;
     }
 
     public String getScore() {
-        return score;
+        return ""+score;
     }
 
-    public void setScore(String score) {
+    public void setScore(float score) {
         this.score = score;
     }
 
@@ -109,13 +136,6 @@ public class EvaluateModel {
         this.userContent = userContent;
     }
 
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
 
     public String getLevel() {
         return level;
@@ -123,5 +143,21 @@ public class EvaluateModel {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

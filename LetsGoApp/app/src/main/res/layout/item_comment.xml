@@ -61,9 +61,8 @@
 
         <TextView
             android:id="@+id/tv_comment_guide"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/ffe8d2_solid_r15_p5"
             android:layout_margin="3dp"
             android:gravity="center"
@@ -72,9 +71,8 @@
 
         <TextView
             android:id="@+id/tv_comment_trip"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="3dp"
             android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
@@ -83,10 +81,9 @@
 
         <TextView
             android:id="@+id/tv_comment_car"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:layout_weight="1"
             android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
             tools:text="车辆状态 5.0"
@@ -95,9 +92,8 @@
         <TextView
             android:id="@+id/tv_comment_book"
             android:layout_margin="3dp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
             tools:text="代订服务 5.0"
