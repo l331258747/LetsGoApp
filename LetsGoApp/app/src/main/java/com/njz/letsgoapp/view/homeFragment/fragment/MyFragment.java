@@ -154,23 +154,23 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_fans:
                 if(!isLogin()) return;
                 Intent intentFans = new Intent(context,FansListActivity.class);
-                intentFans.putExtra("FansListActivity_title", "我的粉丝");
-                intentFans.putExtra("type",0);
-                intentFans.putExtra("userId",MySelfInfo.getInstance().getUserId());
+                intentFans.putExtra(FansListActivity.TITLE, "我的粉丝");
+                intentFans.putExtra(FansListActivity.TYPE,0);
+                intentFans.putExtra(FansListActivity.USER_ID,MySelfInfo.getInstance().getUserId());
                 startActivity(intentFans);
                 break;
             case R.id.tv_follow:
                 if(!isLogin()) return;
                 Intent intentFollow = new Intent(context,FansListActivity.class);
-                intentFollow.putExtra("FansListActivity_title", "我的关注");
-                intentFollow.putExtra("type",1);
-                intentFollow.putExtra("userId",MySelfInfo.getInstance().getUserId());
+                intentFollow.putExtra(FansListActivity.TITLE, "我的关注");
+                intentFollow.putExtra(FansListActivity.TYPE,1);
+                intentFollow.putExtra(FansListActivity.USER_ID,MySelfInfo.getInstance().getUserId());
                 startActivity(intentFollow);
                 break;
             case R.id.tv_space:
                 if(!isLogin()) return;
                 Intent intentSpace = new Intent(context, SpaceActivity.class);
-                intentSpace.putExtra("userId",MySelfInfo.getInstance().getUserId());
+                intentSpace.putExtra(SpaceActivity.USER_ID,MySelfInfo.getInstance().getUserId());
                 startActivity(intentSpace);
                 break;
 

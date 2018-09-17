@@ -168,14 +168,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 break;
             case R.id.rl_guide_title:
                 intent = new Intent(context,GuideListActivity.class);
-                intent.putExtra("location",tv_destination_content.getText().toString());
+                intent.putExtra(GuideListActivity.LOCATION,tv_destination_content.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.btn_trip_setting:
                 intent = new Intent(context,GuideListActivity.class);
-                intent.putExtra("startTime",tv_start_time_content.getText().toString());
-                intent.putExtra("endTime",tv_end_time_content.getText().toString());
-                intent.putExtra("location",tv_destination_content.getText().toString());
+                intent.putExtra(GuideListActivity.START_TIME,tv_start_time_content.getText().toString());
+                intent.putExtra(GuideListActivity.END_TIME,tv_end_time_content.getText().toString());
+                intent.putExtra(GuideListActivity.LOCATION,tv_destination_content.getText().toString());
                 startActivity(intent);
                 break;
         }
@@ -238,7 +238,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId",dynamicDatas.get(position).getFriendSterId());
+                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,dynamicDatas.get(position).getFriendSterId());
                 startActivity(intent);
             }
 
@@ -251,7 +251,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onHeadClick(int position) {
                 Intent intent = new Intent(context, SpaceActivity.class);
-                intent.putExtra("userId", dynamicAdapter.getItem(position).getUserId());
+                intent.putExtra(SpaceActivity.USER_ID, dynamicAdapter.getItem(position).getUserId());
                 startActivity(intent);
             }
         });
@@ -308,7 +308,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     //城市选择
     private void cityPick(){
         Intent intent = new Intent(context, MyCityPickActivity.class);
-        intent.putExtra("location",tv_destination_content.getText().toString());
+        intent.putExtra(MyCityPickActivity.LOCATION,tv_destination_content.getText().toString());
         startActivity(intent);
         desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
             @Override
@@ -335,7 +335,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     //日历选择
     private void calendarPick() {
         Intent intent = new Intent(context, CalendarActivity.class);
-        intent.putExtra("CalendarTag", 1);
+        intent.putExtra(CalendarActivity.CALENDAR_ID, 1);
         startActivity(intent);
 
         calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {

@@ -38,6 +38,8 @@ import java.util.List;
 
 public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View {
 
+    public static final String FRIENDSTERID ="FRIENDSTERID";
+
     private ImageView ivImg;
     private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation;
     private DynamicImageView dynamicImageView;
@@ -63,7 +65,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     @Override
     public void getIntentData() {
         super.getIntentData();
-        friendSterId = intent.getIntExtra("friendSterId", 0);
+        friendSterId = intent.getIntExtra(FRIENDSTERID, 0);
     }
 
     @Override
@@ -126,9 +128,9 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
             @Override
             public void onClick(View v) {
                 Intent intentFans = new Intent(context, FansListActivity.class);
-                intentFans.putExtra("FansListActivity_title", "我的粉丝");
-                intentFans.putExtra("type", 0);
-                intentFans.putExtra("userId", model.getUserId());
+                intentFans.putExtra(FansListActivity.TITLE, "我的粉丝");
+                intentFans.putExtra(FansListActivity.TYPE, 0);
+                intentFans.putExtra(FansListActivity.USER_ID, model.getUserId());
                 startActivity(intentFans);
             }
         });

@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +21,15 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.PopServiceAdapter;
+import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
+import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServicePriceEvent;
 import com.njz.letsgoapp.view.order.OrderSubmitActivity;
 import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 import com.njz.letsgoapp.view.home.ServiceListActivity;
@@ -31,6 +39,9 @@ import com.njz.letsgoapp.widget.ServiceTagView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -46,12 +57,16 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     private PopServiceAdapter mAdapter;
     private Context context;
 
-    private List<GuideServiceModel> guideServiceModels;
+    private List<GuideServiceModel> ServiceModels;
     private int guideId;
+    private GuideDetailModel guideDetailModel;
+    private Disposable servicePriceDisposable;
+    private Disposable serviceItemDisposable;
 
-    public PopService(final Activity context, View parentView) {
+    public PopService(final Activity context, View parentView, GuideDetailModel guideDetailModel) {
         super(parentView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         mContext = context;
+        this.guideDetailModel = guideDetailModel;
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.popup_service, null);
@@ -74,87 +89,127 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         this.setFocusable(true);
 
         initSubmit();
+        initInfo();
 
     }
 
-    public void setDate(int guideId, List<GuideServiceModel> guideServiceModels) {
-        this.guideServiceModels = guideServiceModels;
+    public void initData(int guideId, List<GuideServiceModel> guideServiceModels) {
+        this.ServiceModels = guideServiceModels;
         this.guideId = guideId;
+        for (GuideServiceModel model : ServiceModels) {
+            model.setServiceItems(new ArrayList<ServiceItem>());
+        }
+
+        serviceItemDisposable = RxBus2.getInstance().toObservable(ServiceItem.class, new Consumer<ServiceItem>() {
+            @Override
+            public void accept(ServiceItem serviceItem) throws Exception {
+                for (GuideServiceModel model : ServiceModels) {
+                    if (TextUtils.equals(model.getServeType(), serviceItem.getServiceType())) {
+                        model.addServiceItem(serviceItem);
+                        mAdapter.setData(ServiceModels);
+                    }
+                }
+            }
+        });
     }
+
 
     private void initSubmit() {
-        TextView tv_submit = contentView.findViewById(R.id.tv_submit);
+        final TextView tv_submit = contentView.findViewById(R.id.tv_submit);
         tv_submit.setOnClickListener(this);
+
+        servicePriceDisposable = RxBus2.getInstance().toObservable(ServicePriceEvent.class, new Consumer<ServicePriceEvent>() {
+            @Override
+            public void accept(ServicePriceEvent servicePriceEvent) throws Exception {
+                float price = 0;
+                for (GuideServiceModel model : ServiceModels) {
+                    for (ServiceItem item : model.getServiceItems()){
+                        price  = item.getPrice() * item.getNumber() * item.getTimeDay() + price;
+                    }
+                }
+                tv_submit.setText("立即预定（￥" + price +"）");
+            }
+        });
     }
 
 
-//    ImageView iv_head;
-//    MyRatingBar my_rating_bar;
-//    TextView tv_service_num;
-//    GuideLabelView guideLabel;
-//    ServiceTagView stv_tag;
-//    private void initInfo() {
-//        iv_head = contentView.findViewById(R.id.iv_head);
-//        my_rating_bar = contentView.findViewById(R.id.my_rating_bar);
-//        tv_service_num = contentView.findViewById(R.id.tv_service_num);
-//        guideLabel = contentView.findViewById(R.id.guide_label);
-//        stv_tag = contentView.findViewById(R.id.stv_tag);
-//
-//        String photo = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg";
-//        GlideUtil.LoadCircleImage(mContext, photo, iv_head);
-//
-//        my_rating_bar.setRating(4);
-//        List<String> services = new ArrayList<>();
-//        services.add("4年");
-//        services.add("英语");
-//        services.add("中文");
-//        services.add("泰语");
-//        services.add("葡萄牙语");
-//        stv_tag.setServiceTag(services);
-//        List<String> tabels = new ArrayList<>();
-//        tabels.add("幽默达人");
-//        tabels.add("风趣性感");
-//        tabels.add("旅游玩家高手");
-//        guideLabel.setTabel(tabels);
-//        tv_service_num.setText("服务" + 6000 + "次");
-//    }
+    ImageView iv_head;
+    MyRatingBar my_rating_bar;
+    TextView tv_service_num;
+    GuideLabelView guideLabel;
+    ServiceTagView stv_tag;
+    TextView tv_name;
 
+    private void initInfo() {
+        iv_head = contentView.findViewById(R.id.iv_head);
+        my_rating_bar = contentView.findViewById(R.id.my_rating_bar);
+        tv_service_num = contentView.findViewById(R.id.tv_service_num);
+        guideLabel = contentView.findViewById(R.id.guide_label);
+        stv_tag = contentView.findViewById(R.id.stv_tag);
+        tv_name = contentView.findViewById(R.id.tv_name);
 
+        GlideUtil.LoadCircleImage(mContext, guideDetailModel.getImage(), iv_head);
+        tv_name.setText(guideDetailModel.getGuideName());
+        my_rating_bar.setRating((int) guideDetailModel.getGuideScore());
+        stv_tag.setServiceTag(guideDetailModel.getLanguage());
+        tv_service_num.setText(guideDetailModel.getServiceCounts());
+        guideLabel.setTabel(guideDetailModel.getSign());
+    }
 
     public void showPopupWindow(View parent) {
 
         if (!this.isShowing()) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
-            mAdapter = new PopServiceAdapter(mContext, guideServiceModels);
+            mAdapter = new PopServiceAdapter(mContext, ServiceModels);
             recyclerView.setAdapter(mAdapter);
 
             mAdapter.setOnItemClickListener(new PopServiceAdapter.OnTitleClickListener() {
                 @Override
-                public void onClick(String titleType,int id) {
+                public void onTitleClick(String titleType, int id) {
                     Intent intent;
                     if (TextUtils.equals(titleType, Constant.SERVICE_TYPE_GUIDE)
                             || TextUtils.equals(titleType, Constant.SERVICE_TYPE_CAR)) {
+
+                        if(serviceNoJoin(titleType)) return;
+
                         intent = new Intent(mContext, ServiceDetailActivity.class);
-                        intent.putExtra("ServiceDetailActivity_title", titleType);
-
-                        intent.putExtra("serviceId", id);
-
+                        intent.putExtra(ServiceDetailActivity.TITLE, titleType);
+                        intent.putExtra(ServiceDetailActivity.SERVICEID, id);
+                        intent.putParcelableArrayListExtra(ServiceDetailActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(titleType));
                         mContext.startActivity(intent);
                         return;
                     }
                     if (TextUtils.equals(titleType, Constant.SERVICE_TYPE_CUSTOM)
                             || TextUtils.equals(titleType, Constant.SERVICE_TYPE_HOTEL)
-                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_TICKET)){
-                        intent = new Intent(mContext, ServiceListActivity.class);
-                        intent.putExtra("ServiceDetailActivity_title", titleType);
+                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_TICKET)) {
 
-                        intent.putExtra("serviceType", titleType);
-                        intent.putExtra("guideId", guideId);
+                        if(serviceNoJoin(titleType)) return;
+
+                        intent = new Intent(mContext, ServiceListActivity.class);
+                        intent.putExtra(ServiceListActivity.TITLE, titleType);
+                        intent.putExtra(ServiceListActivity.SERVICE_TYPE, titleType);
+                        intent.putExtra(ServiceListActivity.GUIDE_ID, guideId);
+                        intent.putParcelableArrayListExtra(ServiceListActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(titleType));
 
                         mContext.startActivity(intent);
                         return;
                     }
+                }
+
+                @Override
+                public void onCancelClick(String titleType, int id) {
+                    for (GuideServiceModel model : ServiceModels) {
+                        if (TextUtils.equals(model.getServeType(), titleType)) {
+                            for (ServiceItem item : model.getServiceItems()) {
+                                if (item.getId() == id) {
+                                    model.getServiceItems().remove(item);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    mAdapter.setData(ServiceModels);
                 }
             });
 
@@ -181,7 +236,77 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 mContext.startActivity(new Intent(mContext, OrderSubmitActivity.class));
                 dismissPopupWindow();
                 break;
-
         }
+    }
+
+    public List<ServiceItem> getServiceItems(String serviceType){
+        List<ServiceItem> serviceItems = new ArrayList<>();
+        for (GuideServiceModel model : ServiceModels) {
+            if(TextUtils.equals(model.getServeType(),serviceType)){
+                serviceItems = model.getServiceItems();
+            }
+        }
+        return serviceItems;
+    }
+
+
+    //判断服务项是否可进入
+    public boolean serviceNoJoin(String serviceType){
+        switch (serviceType){
+            case Constant.SERVICE_TYPE_CUSTOM:
+                for (GuideServiceModel model : ServiceModels){
+                    if(!TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
+                        return true;
+                    }
+                }
+                return false;
+            case Constant.SERVICE_TYPE_GUIDE:
+                for (GuideServiceModel model : ServiceModels){
+                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
+                        return true;
+                    }
+                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CAR) && model.getServiceItems().size() > 0){
+                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
+                        return true;
+                    }
+                }
+                return false;
+            case Constant.SERVICE_TYPE_CAR:
+                for (GuideServiceModel model : ServiceModels){
+                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
+                        return true;
+                    }
+                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_GUIDE) && model.getServiceItems().size() > 0){
+                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
+                        return true;
+                    }
+                }
+                return false;
+            case Constant.SERVICE_TYPE_HOTEL:
+                for (GuideServiceModel model : ServiceModels){
+                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
+                        return true;
+                    }
+                }
+                return false;
+            case Constant.SERVICE_TYPE_TICKET:
+                for (GuideServiceModel model : ServiceModels){
+                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
+                        return true;
+                    }
+                }
+                return false;
+        }
+        return false;
+    }
+
+    public void onDestroty(){
+        servicePriceDisposable.dispose();
+        serviceItemDisposable.dispose();
     }
 }

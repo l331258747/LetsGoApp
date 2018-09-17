@@ -138,7 +138,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId", mAdapter.getItem(position).getFriendSterId());
+                intent.putExtra(DynamicDetailActivity.FRIENDSTERID, mAdapter.getItem(position).getFriendSterId());
                 startActivity(intent);
             }
 
@@ -151,7 +151,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             @Override
             public void onHeadClick(int position) {
                 Intent intent = new Intent(context, SpaceActivity.class);
-                intent.putExtra("userId", mAdapter.getItem(position).getUserId());
+                intent.putExtra(SpaceActivity.USER_ID, mAdapter.getItem(position).getUserId());
                 startActivity(intent);
             }
         });

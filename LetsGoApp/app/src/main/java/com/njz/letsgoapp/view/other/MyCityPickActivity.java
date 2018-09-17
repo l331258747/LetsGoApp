@@ -29,6 +29,8 @@ import java.util.List;
 
 public class MyCityPickActivity extends BaseActivity implements MyCityPickContract.View {
 
+    public static final String LOCATION = "LOCATION";
+
     TextView tv_search, tv_location_city;
     ImageView ivLeft;
     RecyclerView recycler_view_province, recycler_view_city;
@@ -47,7 +49,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     @Override
     public void getIntentData() {
         super.getIntentData();
-        location = intent.getStringExtra("location");
+        location = intent.getStringExtra(LOCATION);
     }
 
     @Override

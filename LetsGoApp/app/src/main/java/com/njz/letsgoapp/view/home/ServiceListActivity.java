@@ -9,12 +9,19 @@ import android.text.TextUtils;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.ServiceListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.mvp.home.ServiceListContract;
 import com.njz.letsgoapp.mvp.home.ServiceListPresenter;
+import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -23,6 +30,11 @@ import java.util.List;
  */
 
 public class ServiceListActivity extends BaseActivity implements ServiceListContract.View{
+
+    public static final String TITLE = "TITLE";
+    public static final String SERVICE_TYPE = "SERVICE_TYPE";
+    public static final String GUIDE_ID = "GUIDE_ID";
+    public static final String SERVICEITEMS = "SERVICEITEMS";
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -34,14 +46,24 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
     String title;
     String serviceType;
     int guideId;
+    List<ServiceItem> serviceItems;
+
     List<ServiceListModel> models;
+    Disposable disposable;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
-        title = intent.getStringExtra("ServiceDetailActivity_title");
-        serviceType = intent.getStringExtra("serviceType");
-        guideId = intent.getIntExtra("guideId",0);
+        title = intent.getStringExtra(TITLE);
+        serviceType = intent.getStringExtra(SERVICE_TYPE);
+        guideId = intent.getIntExtra(GUIDE_ID,0);
+        serviceItems = intent.getParcelableArrayListExtra(SERVICEITEMS);
+
+        LogUtil.e("title:" + title);
+        LogUtil.e("serviceType:" + serviceType);
+        LogUtil.e("guideId:" + guideId);
+        LogUtil.e("serviceItems:" + serviceItems);
+
         if(TextUtils.isEmpty(title)){
             title = "";
         }
@@ -54,9 +76,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
 
     @Override
     public void initView() {
-
         showLeftAndTitle(title + "列表");
-
         initRecycler();
         initSwipeLayout();
     }
@@ -66,7 +86,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new ServiceListAdapter(activity, new ArrayList<ServiceListModel>());
+        mAdapter = new ServiceListAdapter(activity, new ArrayList<ServiceListModel>(),serviceItems);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -74,14 +94,21 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
             @Override
             public void onItemClick(int position) {
                 intent = new Intent(context, ServiceDetailActivity.class);
-                intent.putExtra("ServiceDetailActivity_title",title);
-                intent.putExtra("serviceId",models.get(position).getId());
+                intent.putExtra(ServiceDetailActivity.TITLE,title);
+                intent.putExtra(ServiceDetailActivity.SERVICEID,models.get(position).getId());
+                intent.putParcelableArrayListExtra(ServiceDetailActivity.SERVICEITEMS, (ArrayList<ServiceItem>) serviceItems);
                 startActivity(intent);
             }
 
             @Override
             public void onBtnClick(int position) {
-
+                ServiceItem data = new ServiceItem();
+                data.setServiceType(models.get(position).getServeType());
+                data.setId(models.get(position).getId());
+                data.setTitile(models.get(position).getTitle());
+                data.setPrice(models.get(position).getServePrice());
+                RxBus2.getInstance().post(data);
+                finish();
             }
         });
     }
@@ -103,6 +130,13 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
     public void initData() {
         mPresenter = new ServiceListPresenter(context,this);
         mPresenter.getServiceList(guideId,serviceType);
+
+        disposable = RxBus2.getInstance().toObservable(ServiceDetailCloseEvent.class, new Consumer<ServiceDetailCloseEvent>() {
+            @Override
+            public void accept(ServiceDetailCloseEvent serviceDetailCloseEvent) throws Exception {
+                finish();
+            }
+        });
     }
 
 
@@ -115,5 +149,11 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
     @Override
     public void getServiceListFailed(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.dispose();
     }
 }

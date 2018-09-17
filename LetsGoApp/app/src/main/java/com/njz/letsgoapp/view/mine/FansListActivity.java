@@ -32,6 +32,11 @@ import java.util.Map;
 
 public class FansListActivity extends BaseActivity implements FansListContract.View {
 
+    public static final String TITLE = "TITLE";
+    public static final String TYPE = "TYPE";
+    public static final String USER_ID = "USER_ID";
+
+
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private LinearLayout layout_parent;
@@ -56,9 +61,9 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
     @Override
     public void getIntentData() {
         super.getIntentData();
-        title = intent.getStringExtra("FansListActivity_title");
-        type = intent.getIntExtra("type",0);
-        userId = intent.getIntExtra("userId",0);
+        title = intent.getStringExtra(TITLE);
+        type = intent.getIntExtra(TYPE,0);
+        userId = intent.getIntExtra(USER_ID,0);
     }
 
     @Override
@@ -95,7 +100,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
             @Override
             public void onClick(int position) {
                 Intent intentSpace = new Intent(context, SpaceActivity.class);
-                intentSpace.putExtra("userId", mAdapter.getDatas().get(position).getUserId());
+                intentSpace.putExtra(SpaceActivity.USER_ID, mAdapter.getDatas().get(position).getUserId());
                 startActivity(intentSpace);
             }
         });

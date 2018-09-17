@@ -208,8 +208,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                         dialog.dismiss();
                     }
                 })
-                .setTitle("提示")
-                .setNegativeButton("呼叫");
+                .setTitle("提示");
     }
 
     //评价
@@ -295,6 +294,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         webView.loadUrl("about:blank");
         webView.clearCache(false);
         webView.destroy();
+
+        if(popService != null){
+            popService.onDestroty();
+        }
     }
 
     @Override
@@ -305,7 +308,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.ll_comment_title:
                 Intent intent = new Intent(context, EvaluateListActivity.class);
-                intent.putExtra("guideId",guideDetailModel.getId());
+                intent.putExtra(EvaluateListActivity.GUIDEID,guideDetailModel.getId());
                 startActivity(intent);
                 break;
             case R.id.btn_call:
@@ -340,9 +343,9 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         if (popService == null) {
-            popService = new PopService(activity, btn_submit);
+            popService = new PopService(activity, btn_submit,guideDetailModel);
+            popService.initData(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoEntitys());
         }
-        popService.setDate(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoEntitys());
         popService.showPopupWindow(btn_submit);
     }
 

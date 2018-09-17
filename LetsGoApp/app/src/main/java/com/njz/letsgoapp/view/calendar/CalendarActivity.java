@@ -32,6 +32,8 @@ import java.util.Date;
 
 public class CalendarActivity extends Activity {
 
+    public static final String CALENDAR_ID = "CALENDAR_ID";
+
     private TextView tvRight;
 
     private TextView startTime;          //开始时间
@@ -62,7 +64,7 @@ public class CalendarActivity extends Activity {
     }
 
     private void initIntent(){
-        intentTag = getIntent().getIntExtra("CalendarTag",1);
+        intentTag = getIntent().getIntExtra(CALENDAR_ID,1);
     }
 
     private void initData() {

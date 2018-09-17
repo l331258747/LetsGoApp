@@ -28,4 +28,5 @@ public class CalendarEvent {
     public String getDays() {
         return days;
     }
+
 }

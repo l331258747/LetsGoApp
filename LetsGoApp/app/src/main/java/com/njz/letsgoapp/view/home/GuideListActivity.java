@@ -45,6 +45,10 @@ import io.reactivex.functions.Consumer;
 
 public class GuideListActivity extends BaseActivity implements View.OnClickListener, GuideListContract.View {
 
+    public static final String START_TIME ="START_TIME";
+    public static final String END_TIME ="END_TIME";
+    public static final String LOCATION ="LOCATION";
+
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private LoadMoreWrapper loadMoreWrapper;
@@ -76,9 +80,9 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void getIntentData() {
         super.getIntentData();
-        startTime = intent.getStringExtra("startTime");
-        endTime = intent.getStringExtra("endTime");
-        location = intent.getStringExtra("location");
+        startTime = intent.getStringExtra(START_TIME);
+        endTime = intent.getStringExtra(END_TIME);
+        location = intent.getStringExtra(LOCATION);
     }
 
     @Override
@@ -256,7 +260,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.tv_city_pick:
                 intent = new Intent(context, MyCityPickActivity.class);
-                intent.putExtra("location", tvCityPick.getText().toString());
+                intent.putExtra(MyCityPickActivity.LOCATION, tvCityPick.getText().toString());
                 startActivity(intent);
                 desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
                     @Override

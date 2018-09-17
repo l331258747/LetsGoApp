@@ -53,6 +53,10 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
         onItemClickListener.onClick(num);
     }
 
+    public int getNum(){
+        return this.num;
+    }
+
 
     @Override
     public void onClick(View v) {

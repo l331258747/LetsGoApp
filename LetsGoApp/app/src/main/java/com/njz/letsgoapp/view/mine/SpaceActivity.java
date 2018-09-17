@@ -44,6 +44,8 @@ import java.util.List;
 
 public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener, FollowContract.View,DynamicNiceContract.View{
 
+    public static final String USER_ID = "USER_ID";
+
     private RecyclerView recyclerView;
     private DynamicAdapter mAdapter;
     private ImageView ivHead, ivSex;
@@ -60,7 +62,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     @Override
     public void getIntentData() {
         super.getIntentData();
-        userId = intent.getIntExtra("userId",0);
+        userId = intent.getIntExtra(USER_ID,0);
     }
 
     @Override
@@ -115,7 +117,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra("friendSterId",datas.get(position).getFriendSterId());
+                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,datas.get(position).getFriendSterId());
                 startActivity(intent);
             }
 
@@ -128,7 +130,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             @Override
             public void onHeadClick(int position) {
                 Intent intent = new Intent(context, SpaceActivity.class);
-                intent.putExtra("userId", mAdapter.getItem(position).getUserId());
+                intent.putExtra(SpaceActivity.USER_ID, mAdapter.getItem(position).getUserId());
                 startActivity(intent);
             }
         });

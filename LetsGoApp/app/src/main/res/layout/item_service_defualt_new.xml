@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="4天" />
+            tools:text="4天" />
 
     </LinearLayout>
 
@@ -134,14 +134,14 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textColor="@color/color_99"
-            android:text="4天 x ￥270" />
+            tools:text="￥270" />
 
         <TextView
             android:id="@+id/tv_price_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="￥1270"
+            tools:text="￥1270"
             android:textColor="@color/color_theme" />
 
     </RelativeLayout>

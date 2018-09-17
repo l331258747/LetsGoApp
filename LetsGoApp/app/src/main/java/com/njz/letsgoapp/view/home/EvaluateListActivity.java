@@ -34,6 +34,7 @@ import java.util.List;
 
 public class EvaluateListActivity extends BaseActivity implements GuideEvaluateListContract.View {
 
+    public static final String GUIDEID = "GUIDE_ID";
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
@@ -55,7 +56,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
     @Override
     public void getIntentData() {
         super.getIntentData();
-        guideId = intent.getIntExtra("guideId", 0);
+        guideId = intent.getIntExtra(GUIDEID, 0);
     }
 
     @Override

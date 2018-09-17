@@ -110,7 +110,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     //城市选择
     private void cityPick(){
         Intent intent = new Intent(context, MyCityPickActivity.class);
-        intent.putExtra("location",tvCityPick.getText().toString());
+        intent.putExtra(MyCityPickActivity.LOCATION,tvCityPick.getText().toString());
         startActivity(intent);
         desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
             @Override

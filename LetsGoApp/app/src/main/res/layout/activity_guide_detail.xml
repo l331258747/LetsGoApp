@@ -249,7 +249,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_theme_solid_r5_p8"
                 android:gravity="center"
-                android:text="预订(￥550)"
+                android:text="预订"
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>

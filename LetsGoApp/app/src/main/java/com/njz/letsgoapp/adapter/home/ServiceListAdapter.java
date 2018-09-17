@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.PriceView;
@@ -25,10 +27,12 @@ import java.util.List;
 public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.ViewHolder> {
 
     private Context context;
-    private List<ServiceListModel> serviceItems;
+    private List<ServiceListModel> serviceListModels;
+    private List<ServiceItem> serviceItems;
 
-    public ServiceListAdapter(Context context, List<ServiceListModel> serviceItems) {
+    public ServiceListAdapter(Context context, List<ServiceListModel> serviceListModels,List<ServiceItem> serviceItems) {
         this.context = context;
+        this.serviceListModels = serviceListModels;
         this.serviceItems = serviceItems;
     }
 
@@ -42,7 +46,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
-        final ServiceListModel data = serviceItems.get(pos);
+        final ServiceListModel data = serviceListModels.get(pos);
         if (data == null) return;
 
         GlideUtil.LoadImage(context, null, holder.iv_img);
@@ -50,8 +54,6 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         holder.tv_title.setText(data.getTitle());
         holder.tv_sell.setText(data.getCount());
         holder.pv_price.setPrice(data.getServePrice());
-
-
 
         if (mOnItemClickListener != null) {
             holder.rl_parent.setOnClickListener(new View.OnClickListener() {
@@ -67,16 +69,36 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
                 }
             });
         }
+
+        if(isServiceSelected(data)){
+            holder.btn_event.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_cc_solid_r5));
+            holder.btn_event.setTextColor(ContextCompat.getColor(context,R.color.color_text));
+            holder.btn_event.setEnabled(false);
+        }else{
+            holder.btn_event.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r5));
+            holder.btn_event.setTextColor(ContextCompat.getColor(context,R.color.white));
+            holder.btn_event.setEnabled(true);
+        }
     }
 
-    public void setData(List<ServiceListModel> serviceItems){
-        this.serviceItems = serviceItems;
+    public void setData(List<ServiceListModel> serviceListModels){
+        this.serviceListModels = serviceListModels;
         notifyDataSetChanged();
+    }
+
+    public boolean isServiceSelected(ServiceListModel serviceListModel){
+        if(serviceItems == null) return false;
+        for (ServiceItem item : serviceItems){
+            if(item.getId() == serviceListModel.getId()){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public int getItemCount() {
-        return serviceItems.size();
+        return serviceListModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

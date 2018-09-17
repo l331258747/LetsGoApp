@@ -29,6 +29,8 @@ import org.json.JSONObject;
 
 public class PayActivity extends BaseActivity implements View.OnClickListener,PayContract.View{
 
+    public static final String ORDER_ID = "ORDER_ID";
+
     private static final int SDK_PAY_FLAG = 1;
 
     private TextView tvPrice;
@@ -47,7 +49,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     public static void startActivity(Activity activity, int orderId) {
         Intent intent = new Intent(activity, PayActivity.class);
-        intent.putExtra("orderId", orderId);
+        intent.putExtra(ORDER_ID, orderId);
         activity.startActivity(intent);
     }
 
@@ -89,7 +91,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     @Override
     public void initView() {
         showLeftAndTitle("支付");
-        orderId = getIntent().getIntExtra("orderId", 0);
+        orderId = getIntent().getIntExtra(ORDER_ID, 0);
 
         tvPrice = $(R.id.tv_price_all);
         ivWX = $(R.id.iv_sel_weixin);

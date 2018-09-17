@@ -16,6 +16,7 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.ServiceDetailModel;
+import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
@@ -25,6 +26,8 @@ import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
 import com.njz.letsgoapp.util.webview.LWebView;
 import com.njz.letsgoapp.widget.PriceView;
 
@@ -39,6 +42,10 @@ import java.util.List;
 
 public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailContract.View {
 
+    public static final String TITLE = "TITLE";
+    public static final String SERVICEID = "SERVICEID";
+    public static final String SERVICEITEMS = "SERVICEITEMS";
+
     ConvenientBanner convenientBanner;
     TextView tv_title, tv_destination, tv_sell, tv_submit, tv_destination2, tv_phone, tv_back_top;
     PriceView pv_price;
@@ -47,6 +54,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     String title;
     int serviceId;
+    List<ServiceItem> serviceItems;
 
     ServiceDetailPresenter mPresenter;
     ServiceDetailModel model;
@@ -59,8 +67,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void getIntentData() {
         super.getIntentData();
-        title = intent.getStringExtra("ServiceDetailActivity_title");
-        serviceId = intent.getIntExtra("serviceId", 0);
+        title = intent.getStringExtra(TITLE);
+        serviceId = intent.getIntExtra(SERVICEID, 0);
+        serviceItems = intent.getParcelableArrayListExtra(SERVICEITEMS);
         if (TextUtils.isEmpty(title)) {
             title = "";
         }
@@ -130,10 +139,23 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_destination.setText(model.getLocation());
         StringUtils.setHtml(tv_destination2, getResources().getString(R.string.destination2));
 
-        tv_sell.setText("已售:" + 11);
+        tv_sell.setText("已售:" + model.getCount());
         pv_price.setPrice(model.getServePrice());
 
         webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html", "utf-8", null);
+
+        setServiceSelected();
+    }
+
+    public void setServiceSelected(){
+        if(serviceItems == null) return;
+        for (ServiceItem item : serviceItems){
+            if(item.getId() == model.getId()){
+                tv_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_cc_solid_r5_p8));
+                tv_submit.setTextColor(ContextCompat.getColor(context,R.color.color_text));
+                tv_submit.setEnabled(false);
+            }
+        }
     }
 
     public void initBanner(List<BannerModel> models) {
@@ -161,7 +183,14 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
-                showShortToast("预订成功");
+                ServiceItem data = new ServiceItem();
+                data.setServiceType(model.getServeType());
+                data.setId(model.getId());
+                data.setTitile(model.getTitle());
+                data.setPrice(model.getServePrice());
+                RxBus2.getInstance().post(data);
+                RxBus2.getInstance().post(new ServiceDetailCloseEvent());
+                finish();
                 break;
             case R.id.tv_phone:
                 showShortToast("联系导游");
