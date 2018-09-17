@@ -3,13 +3,11 @@ package com.njz.letsgoapp.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,28 +20,28 @@ import com.njz.letsgoapp.R;
  * Function:
  */
 
-public class LoginItemView extends LinearLayout {
+public class FixedItemTextView extends LinearLayout {
 
     TextView tv_name;
-    EditText et_input;
+    TextView login_item_content;
     ImageView iv_next;
 
 
-    public LoginItemView(Context context) {
+    public FixedItemTextView(Context context) {
         this(context, null);
     }
 
-    public LoginItemView(Context context, @Nullable AttributeSet attrs) {
+    public FixedItemTextView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LoginItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public FixedItemTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.view_login_item, this, true);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_fixed_item_text, this, true);
 
         tv_name = findViewById(R.id.login_item_name);
-        et_input = findViewById(R.id.login_item_et);
+        login_item_content = findViewById(R.id.login_item_content);
         iv_next = findViewById(R.id.login_item_iv);
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.login_item);
@@ -53,20 +51,16 @@ public class LoginItemView extends LinearLayout {
                 tv_name.setText(titleText);
             }
 
-            int nameViewWidth = attributes.getDimensionPixelSize(R.styleable.login_item_login_item_title_width,0);
-            if(nameViewWidth != 0){
+            int nameViewWidth = attributes.getDimensionPixelSize(R.styleable.login_item_login_item_title_width, 0);
+            if (nameViewWidth != 0) {
                 tv_name.setWidth(nameViewWidth);
             }
 
-            int etViewlength = attributes.getInteger(R.styleable.login_item_login_item_max_length,20);
-            if(etViewlength != 0){
-                et_input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(etViewlength)});
+            int contentSize = attributes.getInteger(R.styleable.login_item_login_item_content_size, 0);
+            if (contentSize != 0) {
+                login_item_content.setTextSize(TypedValue.COMPLEX_UNIT_SP,contentSize);
             }
 
-            String hint = attributes.getString(R.styleable.login_item_login_item_hint);
-            if (!TextUtils.isEmpty(hint)) {
-                et_input.setHint(hint);
-            }
 
             int leftDrawable = attributes.getResourceId(R.styleable.login_item_login_item_right_drawable, -1);
             if (leftDrawable != -1) {
@@ -76,16 +70,9 @@ public class LoginItemView extends LinearLayout {
         }
     }
 
-    public void setEtInputType(int type){
-        et_input.setInputType(type);
+    public void setContent(String str) {
+        login_item_content.setText(str);
     }
 
-    public String getEtContent(){
-        return et_input.getText().toString();
-    }
-
-    public EditText getEtView(){
-        return et_input;
-    }
 
 }

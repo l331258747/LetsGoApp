@@ -233,8 +233,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     timeDay = timeDay.substring(0, timeDay.length() - 1);
                     timeDay2 = Integer.valueOf(timeDay);
                 }
-                priceCount.setText(timeDay2 + "天 x " +num + "人 x " + "￥" + data.getServiceItem().getPrice());
-                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
+                priceCount.setText(timeDay2 + "天 x " + "￥" + data.getServiceItem().getPrice());
+                priceTotal.setText("￥" + (timeDay2 * data.getServiceItem().getPrice()));
                 break;
             case Constant.SERVICE_TYPE_HOTEL:
                 if(TextUtils.equals(timeDay,"0")){

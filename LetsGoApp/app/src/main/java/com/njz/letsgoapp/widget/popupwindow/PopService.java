@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +25,11 @@ import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServicePriceEvent;
-import com.njz.letsgoapp.view.order.OrderSubmitActivity;
 import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 import com.njz.letsgoapp.view.home.ServiceListActivity;
+import com.njz.letsgoapp.view.order.OrderSubmitActivity;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
@@ -124,7 +121,12 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 float price = 0;
                 for (GuideServiceModel model : ServiceModels) {
                     for (ServiceItem item : model.getServiceItems()){
-                        price  = item.getPrice() * item.getNumber() * item.getTimeDay() + price;
+                        if(TextUtils.equals(item.getServiceType(),Constant.SERVICE_TYPE_GUIDE)
+                                || TextUtils.equals(item.getServiceType(),Constant.SERVICE_TYPE_CAR)){
+                            price  = item.getPrice() * item.getTimeDay() + price;
+                        }else{
+                            price  = item.getPrice() * item.getNumber() * item.getTimeDay() + price;
+                        }
                     }
                 }
                 tv_submit.setText("立即预定（￥" + price +"）");
@@ -233,7 +235,18 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
-                mContext.startActivity(new Intent(mContext, OrderSubmitActivity.class));
+                for (GuideServiceModel model : ServiceModels){
+                    for (ServiceItem item : model.getServiceItems()){
+                        if(item.getNumber() < 1 || item.getTimeDay() < 1){
+                            ToastUtil.showLongToast(mContext,"请完善 " + item.getServiceType() + " 信息");
+                            return;
+                        }
+                    }
+                }
+
+                Intent intent = new Intent(mContext, OrderSubmitActivity.class);
+                intent.putParcelableArrayListExtra(OrderSubmitActivity.SERVICEMODEL, (ArrayList<GuideServiceModel>) ServiceModels);
+                mContext.startActivity(intent);
                 dismissPopupWindow();
                 break;
         }

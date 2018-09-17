@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -22,28 +21,28 @@ import com.njz.letsgoapp.R;
  * Function:
  */
 
-public class FixedItemView extends LinearLayout {
+public class FixedItemEditView extends LinearLayout {
 
     TextView tv_name;
-    TextView login_item_content;
+    EditText et_input;
     ImageView iv_next;
 
 
-    public FixedItemView(Context context) {
+    public FixedItemEditView(Context context) {
         this(context, null);
     }
 
-    public FixedItemView(Context context, @Nullable AttributeSet attrs) {
+    public FixedItemEditView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public FixedItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public FixedItemEditView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.view_fixed_item, this, true);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_fixed_item_edit, this, true);
 
         tv_name = findViewById(R.id.login_item_name);
-        login_item_content = findViewById(R.id.login_item_content);
+        et_input = findViewById(R.id.login_item_et);
         iv_next = findViewById(R.id.login_item_iv);
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.login_item);
@@ -53,16 +52,20 @@ public class FixedItemView extends LinearLayout {
                 tv_name.setText(titleText);
             }
 
-            int nameViewWidth = attributes.getDimensionPixelSize(R.styleable.login_item_login_item_title_width, 0);
-            if (nameViewWidth != 0) {
+            int nameViewWidth = attributes.getDimensionPixelSize(R.styleable.login_item_login_item_title_width,0);
+            if(nameViewWidth != 0){
                 tv_name.setWidth(nameViewWidth);
             }
 
-            int contentSize = attributes.getInteger(R.styleable.login_item_login_item_content_size, 0);
-            if (contentSize != 0) {
-                login_item_content.setTextSize(TypedValue.COMPLEX_UNIT_SP,contentSize);
+            int etViewlength = attributes.getInteger(R.styleable.login_item_login_item_max_length,20);
+            if(etViewlength != 0){
+                et_input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(etViewlength)});
             }
 
+            String hint = attributes.getString(R.styleable.login_item_login_item_hint);
+            if (!TextUtils.isEmpty(hint)) {
+                et_input.setHint(hint);
+            }
 
             int leftDrawable = attributes.getResourceId(R.styleable.login_item_login_item_right_drawable, -1);
             if (leftDrawable != -1) {
@@ -72,9 +75,16 @@ public class FixedItemView extends LinearLayout {
         }
     }
 
-    public void setContent(String str) {
-        login_item_content.setText(str);
+    public void setEtInputType(int type){
+        et_input.setInputType(type);
     }
 
+    public String getEtContent(){
+        return et_input.getText().toString();
+    }
+
+    public EditText getEtView(){
+        return et_input;
+    }
 
 }

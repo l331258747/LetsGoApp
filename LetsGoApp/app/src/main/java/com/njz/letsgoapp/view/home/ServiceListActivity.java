@@ -59,11 +59,6 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
         guideId = intent.getIntExtra(GUIDE_ID,0);
         serviceItems = intent.getParcelableArrayListExtra(SERVICEITEMS);
 
-        LogUtil.e("title:" + title);
-        LogUtil.e("serviceType:" + serviceType);
-        LogUtil.e("guideId:" + guideId);
-        LogUtil.e("serviceItems:" + serviceItems);
-
         if(TextUtils.isEmpty(title)){
             title = "";
         }

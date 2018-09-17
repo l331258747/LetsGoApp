@@ -30,7 +30,7 @@ public class ServiceDetailModel {
     private int guideId;
     private Object commentId;
     private String titleImg;
-    private int servePrice;
+    private float servePrice;
     private String serveFeature;
     private String serveType;
     private int renegePriceThree;
@@ -73,11 +73,11 @@ public class ServiceDetailModel {
         this.titleImg = titleImg;
     }
 
-    public int getServePrice() {
+    public float getServePrice() {
         return servePrice;
     }
 
-    public void setServePrice(int servePrice) {
+    public void setServePrice(float servePrice) {
         this.servePrice = servePrice;
     }
 

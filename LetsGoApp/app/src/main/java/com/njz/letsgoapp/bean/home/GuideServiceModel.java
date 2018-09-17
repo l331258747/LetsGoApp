@@ -1,8 +1,11 @@
 package com.njz.letsgoapp.bean.home;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class GuideServiceModel {
+public class GuideServiceModel implements Parcelable {
     /**
      * guideId : 4
      * commentId : null
@@ -21,6 +24,9 @@ public class GuideServiceModel {
     private int id;
     private String serveType;
     private List<ServiceItem> serviceItems;
+
+    public GuideServiceModel() {
+    }
 
     public int getId() {
         return id;
@@ -50,4 +56,34 @@ public class GuideServiceModel {
         this.serveType = serveType;
     }
 
+
+    protected GuideServiceModel(Parcel in) {
+        id = in.readInt();
+        serveType = in.readString();
+        serviceItems = in.createTypedArrayList(ServiceItem.CREATOR);
+    }
+
+    public static final Creator<GuideServiceModel> CREATOR = new Creator<GuideServiceModel>() {
+        @Override
+        public GuideServiceModel createFromParcel(Parcel in) {
+            return new GuideServiceModel(in);
+        }
+
+        @Override
+        public GuideServiceModel[] newArray(int size) {
+            return new GuideServiceModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(serveType);
+        dest.writeTypedList(serviceItems);
+    }
 }
