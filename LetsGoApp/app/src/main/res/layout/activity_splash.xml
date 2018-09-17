@@ -5,39 +5,10 @@
     android:background="@color/white">
 
     <ImageView
-        android:id="@+id/iv_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/background" />
-
-    <FrameLayout
-        android:id="@+id/layout_ads"
+        android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/iv_bottom"
-        android:layout_alignParentTop="true"
-        android:visibility="gone">
+        android:scaleType="centerCrop"
+        android:src="@mipmap/splash" />
 
-        <ImageView
-            android:id="@+id/iv_ad"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/welcome" />
-
-        <TextView
-            android:id="@+id/tv_jump"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_gray_solid_r5_p8"
-            android:padding="10dp"
-            android:text="跳过3"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-    </FrameLayout>
 </RelativeLayout>

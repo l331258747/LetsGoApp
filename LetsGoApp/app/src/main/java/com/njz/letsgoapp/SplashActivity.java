@@ -31,6 +31,9 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_splash);
+
         initUserInfo();
 
     }
@@ -174,8 +177,8 @@ public class SplashActivity extends AppCompatActivity {
     private void showAccreditDialog() {
         new AlertDialog.Builder(this)
                 .setMessage("温馨提示\n" +
-                        "您需要同意潮尚玩使用【储存】权限才能正常使用潮尚玩，" +
-                        "由于您选择了【禁止（不再提示）】，将导致无法使用潮尚玩，" +
+                        "您需要同意潮尚玩使用【储存】权限才能正常使用那就走旅游，" +
+                        "由于您选择了【禁止（不再提示）】，将导致无法使用那就走旅游，" +
                         "需要到设置页面手动授权开启【存储】权限，才能继续使用。")
                 .setPositiveButton("去授权", new DialogInterface.OnClickListener() {
                     @Override
