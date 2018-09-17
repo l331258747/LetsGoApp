@@ -305,4 +305,10 @@ public class StringUtils {
         }
     }
 
+    public static int getMarkerDaysInt(String times){
+        if(TextUtils.isEmpty(times)) return 0;
+        String[] times2 = times.split(",");
+        return times2.length;
+    }
+
 }

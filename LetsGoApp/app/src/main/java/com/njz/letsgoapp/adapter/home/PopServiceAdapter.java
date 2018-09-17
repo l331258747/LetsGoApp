@@ -43,6 +43,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     List<GuideServiceModel> serviceInfo;
     Disposable calDisposable;
+    int calendarType;
 
     private List<ServiceInfoGroup> serviceInfoGroups = new ArrayList<>();
 
@@ -128,18 +129,36 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             ((DefaultHolder) holder).ll_time.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext, CalendarActivity.class));
+                    calendarType = 2;
+                    if(data.getServiceItem().getServiceType() == Constant.SERVICE_TYPE_CUSTOM
+                            || data.getServiceItem().getServiceType() == Constant.SERVICE_TYPE_TICKET){
+                        calendarType = 3;
+                    }
+
+                    Intent intent = new Intent(mContext, CalendarActivity.class);
+                    intent.putExtra(CalendarActivity.CALENDAR_ID,calendarType);
+                    //TODO 传入数据
+
+                    mContext.startActivity(intent);
                     calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
                         @Override
                         public void accept(CalendarEvent calendarEvent) throws Exception {
                             calDisposable.dispose();
-                            if(TextUtils.isEmpty(calendarEvent.getStartTime())){
-                                return;
+                            if(calendarType == 3){
+                                if(TextUtils.isEmpty(calendarEvent.getOneTime())){
+                                    return;
+                                }
+                                ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getOneTime());
+                            }else{
+                                if(calendarEvent.getMarkerDays().size() < 1){
+                                    return;
+                                }
+                                ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getMarkerDays().size() + "天");
                             }
-                            ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getDays());
 
                             setItemContent(data,((DefaultHolder) holder).tv_time_content,((DefaultHolder) holder).nv_count_content.getNum()
                                     ,((DefaultHolder) holder).tv_price_count,((DefaultHolder) holder).tv_price_total);
+
                         }
                     });
                 }
@@ -247,7 +266,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
                 break;
             case Constant.SERVICE_TYPE_TICKET:
-                if(TextUtils.equals(timeDay,"0天")){
+                if(TextUtils.equals(timeDay,"0")){
                     timeDay2 = 0;
                     priceCount.setText(timeDay2 + " x " + num + "张 x " + "￥" + data.getServiceItem().getPrice());
                 } else{

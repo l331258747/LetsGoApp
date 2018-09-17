@@ -73,7 +73,10 @@ public class MonthTimeAdapter extends RecyclerView.Adapter<MonthTimeViewHolder>{
 
         }
 
-        if(intentTag == 2){
+        if(intentTag == 3){
+            DayTimeAdapter3 adapter = new DayTimeAdapter3(days,context);
+            holder.plan_time_recycler_content.setAdapter(adapter);
+        }else if (intentTag == 2){
             DayTimeAdapter2 adapter = new DayTimeAdapter2(days,context);
             holder.plan_time_recycler_content.setAdapter(adapter);
         }else{

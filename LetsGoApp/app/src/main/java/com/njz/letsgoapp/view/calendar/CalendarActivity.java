@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class CalendarActivity extends Activity {
@@ -45,6 +46,7 @@ public class CalendarActivity extends Activity {
 
     private String startTimeStr = "";
     private String endTimeStr = "";
+    private String oneTimeStr = "";
 
     private int mSuspensionHeight;
     private int mCurrentPosition = 0;
@@ -70,6 +72,7 @@ public class CalendarActivity extends Activity {
     private void initData() {
         CalendarData.startDay = new DayTimeEntity(0,0,0,0);
         CalendarData.stopDay = new DayTimeEntity(-1,-1,-1,-1);
+        CalendarData.oneDay = new DayTimeEntity(-1,-1,-1,-1);
         CalendarData.markerDays = new ArrayList<>();
         datas = new ArrayList<>();
 
@@ -100,15 +103,32 @@ public class CalendarActivity extends Activity {
         tvRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CalendarData.stopDay.getDay() < 1 || CalendarData.startDay.getDay() < 1){
-                    ToastUtil.showShortToast(CalendarActivity.this,"请完善开始结束时间");
-                    return;
-                }else{
-                    startTimeStr = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
-                    endTimeStr = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();
-                    RxBus2.getInstance().post(new CalendarEvent(CalendarData.startDay.getYear() +"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay()
-                            ,CalendarData.startDay.getYear() +"-"+CalendarData.stopDay.getMonth() + "-" + CalendarData.stopDay.getDay()
-                            ,getGapCount(startTimeStr,endTimeStr) + "天"));
+                if(intentTag == 1){
+                    if(CalendarData.stopDay.getDay() < 1 || CalendarData.startDay.getDay() < 1){
+                        ToastUtil.showShortToast(CalendarActivity.this,"请完善开始结束时间");
+                        return;
+                    }else{
+                        startTimeStr = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
+                        endTimeStr = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();
+                        RxBus2.getInstance().post(new CalendarEvent(CalendarData.startDay.getYear() +"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay()
+                                ,CalendarData.startDay.getYear() +"-"+CalendarData.stopDay.getMonth() + "-" + CalendarData.stopDay.getDay()
+                                ,getGapCount(startTimeStr,endTimeStr) + "天"));
+                    }
+                }else if(intentTag == 2){
+                    if(CalendarData.markerDays.size() < 1){
+                        ToastUtil.showShortToast(CalendarActivity.this,"请选择时间");
+                        return;
+                    }else{
+                        RxBus2.getInstance().post(new CalendarEvent(getMarkerDaysStr(CalendarData.markerDays)));
+                    }
+                }else if(intentTag == 3){
+                    if(CalendarData.oneDay.getDay() < 1){
+                        ToastUtil.showShortToast(CalendarActivity.this,"请选择时间");
+                        return;
+                    }else{
+                        oneTimeStr = CalendarData.oneDay.getYear()+"-"+CalendarData.oneDay.getMonth()+"-"+CalendarData.oneDay.getDay();
+                        RxBus2.getInstance().post(new CalendarEvent(oneTimeStr));
+                    }
                 }
                 finish();
             }
@@ -149,32 +169,44 @@ public class CalendarActivity extends Activity {
                 }
             }
         });
+    }
 
-        startTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMarkerDays();
-            }
-        });
-
+    public List<String> getMarkerDaysStr(List<DayTimeEntity> dayTimeEntities) {
+        List<String> days = new ArrayList<>();
+        if(dayTimeEntities == null || dayTimeEntities.size() == 0)
+            return days;
+        for (DayTimeEntity dayTimeEntity : dayTimeEntities){
+            days.add(dayTimeEntity.getYear() + "-" + dayTimeEntity.getMonth() + "-" + dayTimeEntity.getDay() + ",");
+        }
+        return days;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(UpdataCalendar event) {
         adapter.notifyDataSetChanged();
-        startTime.setText("入住:" + CalendarData.startDay.getMonth()+"月"+CalendarData.startDay.getDay()+"日"+"\n");
-        if (CalendarData.stopDay.getDay() == -1) {
-            stopTime.setText("结束"+"\n"+"时间");
-        }else{
-            stopTime.setText("离店:" + CalendarData.stopDay.getMonth() + "月" + CalendarData.stopDay.getDay() + "日" + "\n");
-        }
+        if(intentTag == 3) return;
+//        startTime.setText("入住:" + CalendarData.startDay.getMonth()+"月"+CalendarData.startDay.getDay()+"日"+"\n");
+//        if (CalendarData.stopDay.getDay() == -1) {
+//            stopTime.setText("结束"+"\n"+"时间");
+//        }else{
+//            stopTime.setText("离店:" + CalendarData.stopDay.getMonth() + "月" + CalendarData.stopDay.getDay() + "日" + "\n");
+//        }
     }
 
     @Override
     protected void onDestroy() {
-        if(TextUtils.isEmpty(startTimeStr)){
-            RxBus2.getInstance().post(new CalendarEvent("","",""));
+        if(intentTag == 1){
+            if(TextUtils.isEmpty(startTimeStr)){
+                RxBus2.getInstance().post(new CalendarEvent("","",""));
+            }
+        }else if(intentTag == 2){
+            RxBus2.getInstance().post(new CalendarEvent(getMarkerDaysStr(CalendarData.markerDays)));
+        }else if(intentTag == 3){
+            if(TextUtils.isEmpty(oneTimeStr)){
+                RxBus2.getInstance().post(new CalendarEvent(""));
+            }
         }
+
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }

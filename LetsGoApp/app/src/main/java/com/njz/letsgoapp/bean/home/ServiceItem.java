@@ -3,6 +3,9 @@ package com.njz.letsgoapp.bean.home;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ServiceItem implements Parcelable{
 
     int id;
@@ -15,6 +18,7 @@ public class ServiceItem implements Parcelable{
     int number;
     String serviceType;
     int timeDay;
+    List<String> days;
 
     public ServiceItem() {
     }
@@ -98,6 +102,13 @@ public class ServiceItem implements Parcelable{
         this.timeDay = timeDay;
     }
 
+    public List<String> getDays() {
+        return days;
+    }
+
+    public void setDays(List<String> days) {
+        this.days = days;
+    }
 
     public ServiceItem(Parcel in) {
         id = in.readInt();
@@ -110,6 +121,11 @@ public class ServiceItem implements Parcelable{
         number = in.readInt();
         serviceType = in.readString();
         timeDay = in.readInt();
+        if(days == null){
+            days = new ArrayList<String>();
+        }
+        in.readStringList(days);
+
     }
 
     public static final Creator<ServiceItem> CREATOR = new Creator<ServiceItem>() {
@@ -141,5 +157,6 @@ public class ServiceItem implements Parcelable{
         dest.writeInt(number);
         dest.writeString(serviceType);
         dest.writeInt(timeDay);
+        dest.writeList(days);
     }
 }

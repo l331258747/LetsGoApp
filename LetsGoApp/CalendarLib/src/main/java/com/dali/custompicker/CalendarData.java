@@ -18,6 +18,8 @@ public class CalendarData {
     public static DayTimeEntity stopDay;
     public static List<DayTimeEntity> markerDays;
 
+    public static DayTimeEntity oneDay;
+
 
 
 }
