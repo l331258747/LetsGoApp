@@ -338,15 +338,15 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     private void showPopService() {
 
         if (guideDetailModel == null
-                || guideDetailModel.getTravelGuideServiceInfoEntitys() == null
-                || guideDetailModel.getTravelGuideServiceInfoEntitys().size() == 0) {
+                || guideDetailModel.getTravelGuideServiceInfoVOs() == null
+                || guideDetailModel.getTravelGuideServiceInfoVOs().size() == 0) {
             ToastUtil.showShortToast(context, "没有可供选择的服务项");
             return;
         }
 
         if (popService == null) {
             popService = new PopService(activity, btn_submit,guideDetailModel);
-            popService.initData(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoEntitys());
+            popService.initData(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoVOs());
         }
         popService.showPopupWindow(btn_submit);
     }

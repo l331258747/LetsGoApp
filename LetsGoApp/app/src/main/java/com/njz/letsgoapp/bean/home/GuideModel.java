@@ -24,7 +24,7 @@ public class GuideModel {
     private int count;
     private String introduce;
     private double guideScore;
-    private List<GuideServiceModel> travelGuideServiceInfoEntitys;
+    private List<GuideServiceModel> travelGuideServiceInfoVOs;
     /**
      * guideScore : 0
      * lcoation :
@@ -99,19 +99,19 @@ public class GuideModel {
         this.guideScore = guideScore;
     }
 
-    public List<GuideServiceModel> getTravelGuideServiceInfoEntitys() {
-        return travelGuideServiceInfoEntitys;
+    public List<GuideServiceModel> getTravelGuideServiceInfoVOs() {
+        return travelGuideServiceInfoVOs;
     }
 
-    public void setTravelGuideServiceInfoEntitys(List<GuideServiceModel> travelGuideServiceInfoEntitys) {
-        this.travelGuideServiceInfoEntitys = travelGuideServiceInfoEntitys;
+    public void setTravelGuideServiceInfoEntitys(List<GuideServiceModel> travelGuideServiceInfoVOs) {
+        this.travelGuideServiceInfoVOs = travelGuideServiceInfoVOs;
     }
 
     public List<String> getServiceTags(){
         List<String> serviceTags= new ArrayList<>();
-        if(travelGuideServiceInfoEntitys == null) return serviceTags;
-        for (int i = 0;i<travelGuideServiceInfoEntitys.size();i++){
-            serviceTags.add(travelGuideServiceInfoEntitys.get(i).getServeType());
+        if(travelGuideServiceInfoVOs == null) return serviceTags;
+        for (int i = 0;i<travelGuideServiceInfoVOs.size();i++){
+            serviceTags.add(travelGuideServiceInfoVOs.get(i).getServeType());
         }
         return serviceTags;
     }

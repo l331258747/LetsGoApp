@@ -149,14 +149,17 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 public void onClick(View v) {
                     //私人定制和代订门票 进入 单选 日期
                     //代订酒店，向导陪游，车导服务 进入 多选 日期
-                    calendarType = 2;
+                    Intent intent = new Intent(mContext, CalendarActivity.class);
                     if(TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
                             || TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_TICKET)){
                         calendarType = 3;
+                        intent.putExtra(CalendarActivity.CALENDAR_ONE_DAY,data.getServiceItem().getOneTime());
+                    }else{
+                        calendarType = 2;
+                        intent.putStringArrayListExtra(CalendarActivity.CALENDAR_DAYS, (ArrayList<String>) data.getServiceItem().getDays());
                     }
-
-                    Intent intent = new Intent(mContext, CalendarActivity.class);
                     intent.putExtra(CalendarActivity.CALENDAR_ID,calendarType);
+
                     //TODO 传入数据
 
                     mContext.startActivity(intent);

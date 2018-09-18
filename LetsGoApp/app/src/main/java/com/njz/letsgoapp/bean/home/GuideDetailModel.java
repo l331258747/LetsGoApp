@@ -78,14 +78,14 @@ public class GuideDetailModel {
     private int authViable;
     private int id;
     private String serviceAge;
-    private List<GuideServiceModel> travelGuideServiceInfoEntitys;
+    private List<GuideServiceModel> travelGuideServiceInfoVOs;
 
-    public List<GuideServiceModel> getTravelGuideServiceInfoEntitys() {
-        return travelGuideServiceInfoEntitys;
+    public List<GuideServiceModel> getTravelGuideServiceInfoVOs() {
+        return travelGuideServiceInfoVOs;
     }
 
-    public void setTravelGuideServiceInfoEntitys(List<GuideServiceModel> travelGuideServiceInfoEntitys) {
-        this.travelGuideServiceInfoEntitys = travelGuideServiceInfoEntitys;
+    public void setTravelGuideServiceInfoEntitys(List<GuideServiceModel> travelGuideServiceInfoVOs) {
+        this.travelGuideServiceInfoVOs = travelGuideServiceInfoVOs;
     }
 
     public String getMobile() {

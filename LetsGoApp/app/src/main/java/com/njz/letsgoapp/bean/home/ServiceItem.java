@@ -107,6 +107,7 @@ public class ServiceItem implements Parcelable{
         return days;
     }
 
+    //用来展示数据有换行
     public String getDaysStr(){
         if(days == null) return "";
         StringBuffer sb = new StringBuffer();
@@ -119,6 +120,21 @@ public class ServiceItem implements Parcelable{
         if(result.endsWith("\n")){
             result = sb.substring(0,result.length() - 1);
         }
+        if(result.endsWith(",")){
+            result = sb.substring(0,result.length() - 1);
+        }
+        return result;
+    }
+
+    //用来传递给服务器的数据
+    public String getDaysStr2(){
+        if(days == null) return "";
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0;i<days.size();i++){
+            sb.append(days.get(i));
+            sb.append(",");
+        }
+        String result = sb.toString();
         if(result.endsWith(",")){
             result = sb.substring(0,result.length() - 1);
         }

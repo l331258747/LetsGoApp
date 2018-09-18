@@ -15,7 +15,9 @@ import com.dali.custompicker.adapter.MonthTimeAdapter;
 import com.dali.custompicker.bean.DayTimeEntity;
 import com.dali.custompicker.bean.MonthTimeEntity;
 import com.dali.custompicker.bean.UpdataCalendar;
+import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 
@@ -34,6 +36,8 @@ import java.util.List;
 public class CalendarActivity extends Activity {
 
     public static final String CALENDAR_ID = "CALENDAR_ID";
+    public static final String CALENDAR_ONE_DAY = "CALENDAR_ONE_DAY";
+    public static final String CALENDAR_DAYS = "CALENDAR_DAYS";
 
     private TextView tvRight;
 
@@ -52,6 +56,8 @@ public class CalendarActivity extends Activity {
     private int mCurrentPosition = 0;
 
     private int intentTag;
+    private String oneDay;
+    private List<String> days;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ public class CalendarActivity extends Activity {
 
     private void initIntent(){
         intentTag = getIntent().getIntExtra(CALENDAR_ID,1);
+        oneDay = getIntent().getStringExtra(CALENDAR_ONE_DAY);
+        days = getIntent().getStringArrayListExtra(CALENDAR_DAYS);
     }
 
     private void initData() {
@@ -74,6 +82,24 @@ public class CalendarActivity extends Activity {
         CalendarData.stopDay = new DayTimeEntity(-1,-1,-1,-1);
         CalendarData.oneDay = new DayTimeEntity(-1,-1,-1,-1);
         CalendarData.markerDays = new ArrayList<>();
+
+        if(!TextUtils.isEmpty(oneDay)){
+            Calendar cd = DateUtil.getSelectedDate(oneDay);
+            CalendarData.oneDay = new DayTimeEntity(cd.get(Calendar.DAY_OF_MONTH),cd.get(Calendar.MONTH),cd.get(Calendar.YEAR),0);
+        }
+
+        if(days != null && days.size() > 0){
+            for (String str: days){
+                Calendar cd = DateUtil.getSelectedDate(str);
+                DayTimeEntity day = new DayTimeEntity(cd.get(Calendar.DAY_OF_MONTH),cd.get(Calendar.MONTH),cd.get(Calendar.YEAR),0);
+                LogUtil.e("cd.get(Calendar.DAY_OF_MONTH):" + cd.get(Calendar.DAY_OF_MONTH));
+                LogUtil.e("cd.get(Calendar.MONTH):" + cd.get(Calendar.MONTH));
+                LogUtil.e("cd.get(Calendar.YEAR):" + cd.get(Calendar.YEAR));
+                day.setSelect(true);
+                CalendarData.markerDays.add(day);
+            }
+        }
+
         datas = new ArrayList<>();
 
         Calendar c = Calendar.getInstance();

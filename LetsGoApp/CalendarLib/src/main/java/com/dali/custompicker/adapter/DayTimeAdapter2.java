@@ -3,6 +3,7 @@ package com.dali.custompicker.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.dali.custompicker.bean.DayTimeEntity;
 import com.dali.custompicker.holder.DayTimeViewHolder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by xqx on 2017/1/17.
@@ -73,11 +75,26 @@ public class DayTimeAdapter2 extends RecyclerView.Adapter<DayTimeViewHolder>{
             }
         });
 
-
         if (dayTimeEntity.getStatus() == 100){
             holder.select_ly_day.setBackgroundResource(R.drawable.bg_time_gray);
         }else {
             holder.select_ly_day.setBackgroundResource(R.color.white);
+
+            for (DayTimeEntity dayTimeEntity1 : CalendarData.markerDays){
+
+                Log.e("calendar","dayTimeEntity1:" + dayTimeEntity1.getYear());
+                Log.e("calendar","dayTimeEntity1:" + dayTimeEntity1.getMonth());
+                Log.e("calendar","dayTimeEntity1:" + dayTimeEntity1.getDay());
+
+                Log.e("calendar","dayTimeEntity:" + dayTimeEntity.getYear());
+                Log.e("calendar","dayTimeEntity:" + dayTimeEntity.getMonth());
+                Log.e("calendar","dayTimeEntity:" + dayTimeEntity.getDay());
+
+
+                if(dayTimeEntity1.getYear() == dayTimeEntity.getYear() && dayTimeEntity1.getMonth() == dayTimeEntity.getMonth() && dayTimeEntity1.getDay() == dayTimeEntity.getDay()){
+                    holder.select_ly_day.setBackgroundResource(R.drawable.bg_time_startstop);
+                }
+            }
         }
 
     }
