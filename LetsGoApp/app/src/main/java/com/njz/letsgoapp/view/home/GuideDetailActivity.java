@@ -307,6 +307,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 showPopService();
                 break;
             case R.id.ll_comment_title:
+                if(guideDetailModel == null) return;
                 Intent intent = new Intent(context, EvaluateListActivity.class);
                 intent.putExtra(EvaluateListActivity.GUIDEID,guideDetailModel.getId());
                 startActivity(intent);
@@ -319,6 +320,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 showPopService();
                 break;
             case R.id.right_iv:
+                if(guideDetailModel == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
                         guideDetailModel.getGuideName(),
                         guideDetailModel.getIntroduce(),
