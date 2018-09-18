@@ -20,14 +20,43 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.njz.letsgoapp.widget.FixedItemEditView
-                android:id="@+id/view_reason"
+            <LinearLayout
+                android:id="@+id/ll_reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:login_item_hint="请选择取消原因"
-                app:login_item_right_drawable="@mipmap/ic_arrow_down"
-                app:login_item_title="取消原因"
-                app:login_item_title_width="60dp" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_gray_bottom_line_p8"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="取消原因" />
+
+                <TextView
+                    android:id="@+id/tv_reason"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:hint="请选择取消原因" />
+
+                <ImageView
+                    android:id="@+id/login_item_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_arrow_down"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
