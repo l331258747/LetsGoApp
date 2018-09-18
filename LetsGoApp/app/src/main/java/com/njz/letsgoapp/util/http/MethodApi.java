@@ -6,6 +6,7 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
@@ -271,6 +272,12 @@ public class MethodApi {
     //orderReviewsFindGuideReviews 导游评价列表
     public static void orderReviewsFindGuideReviews(int guideId, int limit, int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsFindGuideReviews(guideId, limit, page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderCreateOrder
+    public static void orderCreateOrder(SendOrderModel data, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderCreateOrder(data);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

@@ -189,6 +189,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.tv_submit:
                 ServiceItem data = new ServiceItem();
                 data.setServiceType(model.getServeType());
+                data.setServiceType(Constant.SERVICE_TYPE_GUIDE); //TODO
                 data.setId(model.getId());
                 data.setTitile(model.getTitle());
                 data.setPrice(model.getServePrice());

@@ -254,6 +254,8 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
                 Intent intent = new Intent(mContext, OrderSubmitActivity.class);
                 intent.putParcelableArrayListExtra(OrderSubmitActivity.SERVICEMODEL, (ArrayList<GuideServiceModel>) ServiceModels);
+                intent.putExtra(OrderSubmitActivity.GUIDE_ID, guideId);
+                intent.putExtra(OrderSubmitActivity.LOCATION, Constant.DEFAULT_CITY);
                 mContext.startActivity(intent);
                 dismissPopupWindow();
                 break;

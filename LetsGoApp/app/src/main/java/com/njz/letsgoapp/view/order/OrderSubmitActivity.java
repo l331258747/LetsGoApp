@@ -12,11 +12,14 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderSubmitAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.send.SendChildOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.order.OrderCreateContract;
+import com.njz.letsgoapp.mvp.order.OrderCreatePresenter;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
@@ -32,7 +35,7 @@ import java.util.List;
  * Function: 确认订单
  */
 
-public class OrderSubmitActivity extends BaseActivity implements View.OnClickListener {
+public class OrderSubmitActivity extends BaseActivity implements View.OnClickListener,OrderCreateContract.View{
 
     public static final String SERVICEMODEL = "SERVICEMODEL";
     public static final String GUIDE_ID = "GUIDE_ID";
@@ -43,6 +46,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     RecyclerView recyclerView;
     TextView tv_contract, tv_submit;
     EditText et_special;
+
+    OrderCreatePresenter mPresenter;
 
     List<GuideServiceModel> serviceModels;
     int guideId;
@@ -102,6 +107,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     public void initData() {
         fixed_view_city.setContent(location);
         getTotalPrice();
+
+        mPresenter = new OrderCreatePresenter(context,this);
     }
 
 
@@ -120,8 +127,9 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                 startActivity(new Intent(context, GuideContractActivity.class));
                 break;
             case R.id.tv_submit:
-                getOrderData();
-                PayActivity.startActivity(activity, 12314341);//TODO 订单上传成功，返回单号
+
+
+                mPresenter.orderCreateOrder(getOrderData());
                 break;
         }
     }
@@ -141,7 +149,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         tv_submit.setText("立即预定（￥" + totalPrice + "）");
     }
 
-    public void getOrderData() {
+    public SendOrderModel getOrderData() {
         List<ServiceItem> sis = getData();
         SendOrderModel sendOrderModel = new SendOrderModel();
         sendOrderModel.setMobile(login_view_phone.getEtContent());
@@ -170,5 +178,17 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
             sendChildOrders.add(sendChildOrder);
         }
         sendOrderModel.setChildOrders(sendChildOrders);
+
+        return sendOrderModel;
+    }
+
+    @Override
+    public void orderCreateOrderSuccess(EmptyModel str) {
+        PayActivity.startActivity(activity, 12314341);//TODO 订单上传成功，返回单号
+    }
+
+    @Override
+    public void orderCreateOrderFailed(String msg) {
+
     }
 }

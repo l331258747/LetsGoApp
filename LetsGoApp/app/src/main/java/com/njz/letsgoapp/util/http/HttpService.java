@@ -22,6 +22,7 @@ import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
+import com.njz.letsgoapp.bean.send.SendOrderModel;
 
 import java.util.List;
 import java.util.Map;
@@ -237,6 +238,11 @@ public interface HttpService {
             @Query("page") int page
     );
 
+    //order/createOrder 创建订单
+    @POST("order/createOrder")
+    Observable<BaseResponse<EmptyModel>> orderCreateOrder(
+            @Body SendOrderModel data
+    );
 
 
     //-------订单 end---------
