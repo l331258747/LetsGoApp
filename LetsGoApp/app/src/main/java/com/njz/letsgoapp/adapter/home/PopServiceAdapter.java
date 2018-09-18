@@ -120,18 +120,38 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 }
             });
 
-            ((DefaultHolder) holder).tv_time_content.setText(data.getServiceItem().getTimeDay() == 0 ?"0":data.getServiceItem().getTimeDay()+"天");
+            //--------start 设置时间，数量------
+            //私人定制和代订门票显示日期。
+            //代订酒店，向导陪游，车导服务显示天数
+            String initOneDay = null;
+            List<String> initDays = null;
+            if(TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
+                    || TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_TICKET)){
+                initOneDay = data.getServiceItem().getOneTime();
+                ((DefaultHolder) holder).tv_time_content.setText(TextUtils.isEmpty(data.getServiceItem().getOneTime()) ?"0":data.getServiceItem().getOneTime());
+            }else{
+                initDays = data.getServiceItem().getDays();
+                if(data.getServiceItem().getDays() == null || data.getServiceItem().getDays().size() == 0){
+                    ((DefaultHolder) holder).tv_time_content.setText("0");
+                }else{
+                    ((DefaultHolder) holder).tv_time_content.setText(data.getServiceItem().getDays().size() + "天");
+                }
+            }
             ((DefaultHolder) holder).nv_count_content.setNum(data.getServiceItem().getNumber());
-
             setItemContent(data,((DefaultHolder) holder).tv_time_content,data.getServiceItem().getNumber()
-                    ,((DefaultHolder) holder).tv_price_count,((DefaultHolder) holder).tv_price_total);
+                    ,((DefaultHolder) holder).tv_price_count,((DefaultHolder) holder).tv_price_total,initDays,initOneDay);
+            //--------end 设置时间，数量------
 
+
+            //日期选择事件
             ((DefaultHolder) holder).ll_time.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //私人定制和代订门票 进入 单选 日期
+                    //代订酒店，向导陪游，车导服务 进入 多选 日期
                     calendarType = 2;
-                    if(data.getServiceItem().getServiceType() == Constant.SERVICE_TYPE_CUSTOM
-                            || data.getServiceItem().getServiceType() == Constant.SERVICE_TYPE_TICKET){
+                    if(TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
+                            || TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_TICKET)){
                         calendarType = 3;
                     }
 
@@ -144,31 +164,49 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                         @Override
                         public void accept(CalendarEvent calendarEvent) throws Exception {
                             calDisposable.dispose();
+
+                            String calendarOneDay = null;
+                            List<String> calendarDays = null;
+
                             if(calendarType == 3){
                                 if(TextUtils.isEmpty(calendarEvent.getOneTime())){
                                     return;
                                 }
+                                calendarOneDay = calendarEvent.getOneTime();
                                 ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getOneTime());
                             }else{
                                 if(calendarEvent.getMarkerDays().size() < 1){
                                     return;
                                 }
+                                calendarDays = calendarEvent.getMarkerDays();
                                 ((DefaultHolder) holder).tv_time_content.setText(calendarEvent.getMarkerDays().size() + "天");
                             }
 
                             setItemContent(data,((DefaultHolder) holder).tv_time_content,((DefaultHolder) holder).nv_count_content.getNum()
-                                    ,((DefaultHolder) holder).tv_price_count,((DefaultHolder) holder).tv_price_total);
+                                    ,((DefaultHolder) holder).tv_price_count,((DefaultHolder) holder).tv_price_total,calendarDays,calendarOneDay);
 
                         }
                     });
                 }
             });
 
+            //加减数量事件
             ((DefaultHolder) holder).nv_count_content.setCallback(new NumberView.OnItemClickListener() {
                 @Override
                 public void onClick(int num) {
+                    //私人定制和代订门票显示日期。
+                    //代订酒店，向导陪游，车导服务显示天数
+                    String initOneDay = null;
+                    List<String> initDays = null;
+                    if(TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
+                            || TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_TICKET)){
+                        initOneDay = data.getServiceItem().getOneTime();
+                    }else{
+                        initDays = data.getServiceItem().getDays();
+                    }
+
                     setItemContent(data,((DefaultHolder) holder).tv_time_content,num
-                            ,((DefaultHolder) holder).tv_price_count,((DefaultHolder) holder).tv_price_total);
+                            ,((DefaultHolder) holder).tv_price_count,((DefaultHolder) holder).tv_price_total,initDays,initOneDay);
                 }
             });
 
@@ -229,59 +267,6 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
         }
     }
 
-    public void setItemContent(ServiceInfoGroup data, TextView timeContent,int num,TextView priceCount,TextView priceTotal){
-        String timeDay = timeContent.getText().toString();
-        int timeDay2 = 0;
-        switch (data.getServiceItem().getServiceType()){
-            case Constant.SERVICE_TYPE_CUSTOM:
-                if(TextUtils.equals(timeDay,"0")){
-                    timeDay2 = 0;
-                    priceCount.setText(timeDay2 + " x " + num + "人 x " + "￥" + data.getServiceItem().getPrice());
-                }
-                else{
-                    timeDay2 = 1;
-                    priceCount.setText(num + "人 x " + "￥" + data.getServiceItem().getPrice());
-                }
-                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
-                break;
-            case Constant.SERVICE_TYPE_CAR:
-            case Constant.SERVICE_TYPE_GUIDE:
-                if(TextUtils.equals(timeDay,"0")){
-                    timeDay2 = 0;
-                }else{
-                    timeDay = timeDay.substring(0, timeDay.length() - 1);
-                    timeDay2 = Integer.valueOf(timeDay);
-                }
-                priceCount.setText(timeDay2 + "天 x " + "￥" + data.getServiceItem().getPrice());
-                priceTotal.setText("￥" + (timeDay2 * data.getServiceItem().getPrice()));
-                break;
-            case Constant.SERVICE_TYPE_HOTEL:
-                if(TextUtils.equals(timeDay,"0")){
-                    timeDay2 = 0;
-                }else{
-                    timeDay = timeDay.substring(0, timeDay.length() - 1);
-                    timeDay2 = Integer.valueOf(timeDay);
-                }
-                priceCount.setText(timeDay2 + "天 x " +num + "间 x " + "￥" + data.getServiceItem().getPrice());
-                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
-                break;
-            case Constant.SERVICE_TYPE_TICKET:
-                if(TextUtils.equals(timeDay,"0")){
-                    timeDay2 = 0;
-                    priceCount.setText(timeDay2 + " x " + num + "张 x " + "￥" + data.getServiceItem().getPrice());
-                } else{
-                    timeDay2 = 1;
-                    priceCount.setText(num + "张 x " + "￥" + data.getServiceItem().getPrice());
-                }
-                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
-                break;
-        }
-        data.getServiceItem().setNumber(num);
-        data.getServiceItem().setTimeDay(timeDay2);
-        RxBus2.getInstance().post(new ServicePriceEvent());
-    }
-
-
     //--------------View Holder start----------------
     static class BaseViewHolder extends RecyclerView.ViewHolder {
         BaseViewHolder(View itemView) {
@@ -335,4 +320,63 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
         this.mOnItemClickListener = onItemClickListener;
     }
     //-----end 事件
+
+
+    public void setItemContent(ServiceInfoGroup data, TextView timeContent,int num,TextView priceCount,TextView priceTotal,List<String> days,String oneDay){
+        String timeDay = timeContent.getText().toString();
+        int timeDay2 = 0;
+        switch (data.getServiceItem().getServiceType()){
+            case Constant.SERVICE_TYPE_CUSTOM:
+                if(TextUtils.equals(timeDay,"0")){
+                    timeDay2 = 0;
+                    priceCount.setText(timeDay2 + " x " + num + "人 x " + "￥" + data.getServiceItem().getPrice());
+                }
+                else{
+                    timeDay2 = 1;
+                    priceCount.setText(num + "人 x " + "￥" + data.getServiceItem().getPrice());
+                }
+                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
+                break;
+            case Constant.SERVICE_TYPE_CAR:
+            case Constant.SERVICE_TYPE_GUIDE:
+                if(TextUtils.equals(timeDay,"0")){
+                    timeDay2 = 0;
+                }else{
+                    timeDay = timeDay.substring(0, timeDay.length() - 1);
+                    timeDay2 = Integer.valueOf(timeDay);
+                }
+                priceCount.setText(timeDay2 + "天 x " + "￥" + data.getServiceItem().getPrice());
+                priceTotal.setText("￥" + (timeDay2 * data.getServiceItem().getPrice()));
+                break;
+            case Constant.SERVICE_TYPE_HOTEL:
+                if(TextUtils.equals(timeDay,"0")){
+                    timeDay2 = 0;
+                }else{
+                    timeDay = timeDay.substring(0, timeDay.length() - 1);
+                    timeDay2 = Integer.valueOf(timeDay);
+                }
+                priceCount.setText(timeDay2 + "天 x " +num + "间 x " + "￥" + data.getServiceItem().getPrice());
+                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
+                break;
+            case Constant.SERVICE_TYPE_TICKET:
+                if(TextUtils.equals(timeDay,"0")){
+                    timeDay2 = 0;
+                    priceCount.setText(timeDay2 + " x " + num + "张 x " + "￥" + data.getServiceItem().getPrice());
+                } else{
+                    timeDay2 = 1;
+                    priceCount.setText(num + "张 x " + "￥" + data.getServiceItem().getPrice());
+                }
+                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
+                break;
+        }
+        data.getServiceItem().setNumber(num);
+        if(days!=null){
+            data.getServiceItem().setDays(days);
+        }
+        if(oneDay != null){
+            data.getServiceItem().setOneTime(oneDay);
+        }
+        data.getServiceItem().setTimeDay(timeDay2);
+        RxBus2.getInstance().post(new ServicePriceEvent());
+    }
 }

@@ -2,6 +2,7 @@ package com.njz.letsgoapp.adapter.order;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,8 +92,13 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
                     ((ViewHolder) holder).tv_time_title.setText("日期");
                     break;
             }
-            ((ViewHolder) holder).tv_time_content.setText(data.getTimeDay() + "天");
 
+            if(TextUtils.equals(data.getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
+                    || TextUtils.equals(data.getServiceType(),Constant.SERVICE_TYPE_TICKET)){
+                ((ViewHolder) holder).tv_time_content.setText(data.getOneTime());
+            }else {
+                ((ViewHolder) holder).tv_time_content.setText(data.getDaysStr());
+            }
         }
     }
 

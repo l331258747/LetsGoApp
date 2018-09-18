@@ -60,6 +60,7 @@
                 android:background="@color/white"
                 android:gravity="right"
                 android:hint="请输入"
+                android:inputType="text"
                 android:maxLength="8"
                 android:maxLines="1" />
 
@@ -90,6 +91,7 @@
                 android:background="@color/white"
                 android:gravity="right"
                 android:hint="请输入"
+                android:inputType="text"
                 android:maxLength="5"
                 android:maxLines="1" />
 

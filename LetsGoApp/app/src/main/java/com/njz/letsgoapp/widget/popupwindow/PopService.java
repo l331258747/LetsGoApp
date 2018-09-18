@@ -206,6 +206,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                             for (ServiceItem item : model.getServiceItems()) {
                                 if (item.getId() == id) {
                                     model.getServiceItems().remove(item);
+                                    RxBus2.getInstance().post(new ServicePriceEvent());
                                     break;
                                 }
                             }
@@ -235,13 +236,20 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
+                boolean isServiceItem = false;
+
                 for (GuideServiceModel model : ServiceModels){
                     for (ServiceItem item : model.getServiceItems()){
+                        isServiceItem = true;
                         if(item.getNumber() < 1 || item.getTimeDay() < 1){
                             ToastUtil.showLongToast(mContext,"请完善 " + item.getServiceType() + " 信息");
                             return;
                         }
                     }
+                }
+                if(!isServiceItem){
+                    ToastUtil.showLongToast(mContext,"请选择服务项");
+                    return;
                 }
 
                 Intent intent = new Intent(mContext, OrderSubmitActivity.class);

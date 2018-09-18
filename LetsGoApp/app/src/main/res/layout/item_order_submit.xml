@@ -140,7 +140,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@+id/tv_time_title"
-                    tools:text="aeageagwegaegaegaegaegaegaehahgeagarhafd" />
+                    tools:text="aeageagwegaadgaweggaegaegaegaegaegaege" />
 
 
             </RelativeLayout>

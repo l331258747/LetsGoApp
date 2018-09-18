@@ -25,6 +25,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:maxLines="1"
+        android:inputType="number"
         android:layout_weight="1"
         android:background="@color/transparent"
         android:hint="请输入手机号" />

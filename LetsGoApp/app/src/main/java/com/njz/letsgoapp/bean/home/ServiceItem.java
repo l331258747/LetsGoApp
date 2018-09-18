@@ -19,6 +19,7 @@ public class ServiceItem implements Parcelable{
     String serviceType;
     int timeDay;
     List<String> days;
+    String oneTime;
 
     public ServiceItem() {
     }
@@ -106,11 +107,38 @@ public class ServiceItem implements Parcelable{
         return days;
     }
 
+    public String getDaysStr(){
+        if(days == null) return "";
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0;i<days.size();i++){
+            sb.append(days.get(i));
+            sb.append(",");
+            if((i+1)%3 == 0) sb.append("\n");
+        }
+        String result = sb.toString();
+        if(result.endsWith("\n")){
+            result = sb.substring(0,result.length() - 1);
+        }
+        if(result.endsWith(",")){
+            result = sb.substring(0,result.length() - 1);
+        }
+        return result;
+    }
+
     public void setDays(List<String> days) {
         this.days = days;
     }
 
-    public ServiceItem(Parcel in) {
+    public String getOneTime() {
+        return oneTime;
+    }
+
+    public void setOneTime(String oneTime) {
+        this.oneTime = oneTime;
+    }
+
+
+    protected ServiceItem(Parcel in) {
         id = in.readInt();
         titile = in.readString();
         img = in.readString();
@@ -121,11 +149,8 @@ public class ServiceItem implements Parcelable{
         number = in.readInt();
         serviceType = in.readString();
         timeDay = in.readInt();
-        if(days == null){
-            days = new ArrayList<String>();
-        }
-        in.readStringList(days);
-
+        days = in.createStringArrayList();
+        oneTime = in.readString();
     }
 
     public static final Creator<ServiceItem> CREATOR = new Creator<ServiceItem>() {
@@ -157,6 +182,7 @@ public class ServiceItem implements Parcelable{
         dest.writeInt(number);
         dest.writeString(serviceType);
         dest.writeInt(timeDay);
-        dest.writeList(days);
+        dest.writeStringList(days);
+        dest.writeString(oneTime);
     }
 }

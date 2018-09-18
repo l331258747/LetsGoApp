@@ -176,7 +176,7 @@ public class CalendarActivity extends Activity {
         if(dayTimeEntities == null || dayTimeEntities.size() == 0)
             return days;
         for (DayTimeEntity dayTimeEntity : dayTimeEntities){
-            days.add(dayTimeEntity.getYear() + "-" + dayTimeEntity.getMonth() + "-" + dayTimeEntity.getDay() + ",");
+            days.add(dayTimeEntity.getYear() + "-" + dayTimeEntity.getMonth() + "-" + dayTimeEntity.getDay());
         }
         return days;
     }

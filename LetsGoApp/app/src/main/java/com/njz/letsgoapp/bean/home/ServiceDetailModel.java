@@ -28,18 +28,18 @@ public class ServiceDetailModel {
 
     private int id;
     private int guideId;
-    private Object commentId;
+    private int commentId;
     private String titleImg;
     private float servePrice;
     private String serveFeature;
     private String serveType;
-    private int renegePriceThree;
-    private int renegePriceFive;
+    private String renegePriceThree;
+    private String renegePriceFive;
     private String costExplain;
     private String title;
     private int status;
     private String location;
-    private Object count;
+    private int count;
 
     public int getId() {
         return id;
@@ -57,11 +57,11 @@ public class ServiceDetailModel {
         this.guideId = guideId;
     }
 
-    public Object getCommentId() {
+    public int getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Object commentId) {
+    public void setCommentId(int commentId) {
         this.commentId = commentId;
     }
 
@@ -97,19 +97,19 @@ public class ServiceDetailModel {
         this.serveType = serveType;
     }
 
-    public int getRenegePriceThree() {
+    public String getRenegePriceThree() {
         return renegePriceThree;
     }
 
-    public void setRenegePriceThree(int renegePriceThree) {
+    public void setRenegePriceThree(String renegePriceThree) {
         this.renegePriceThree = renegePriceThree;
     }
 
-    public int getRenegePriceFive() {
+    public String getRenegePriceFive() {
         return renegePriceFive;
     }
 
-    public void setRenegePriceFive(int renegePriceFive) {
+    public void setRenegePriceFive(String renegePriceFive) {
         this.renegePriceFive = renegePriceFive;
     }
 
@@ -145,11 +145,11 @@ public class ServiceDetailModel {
         this.location = location;
     }
 
-    public Object getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Object count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }

@@ -142,7 +142,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_sell.setText("已售:" + model.getCount());
         pv_price.setPrice(model.getServePrice());
 
-        webView.loadDataWithBaseURL(null, Constant.HTML_TEST, "text/html", "utf-8", null);
+        if(!TextUtils.isEmpty(model.getServeFeature()))
+        webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
 
         //预订(￥0)
         tv_submit.setText("预订(￥" + model.getServePrice() +")");
