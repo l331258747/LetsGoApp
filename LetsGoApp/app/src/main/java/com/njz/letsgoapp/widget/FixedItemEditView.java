@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -71,6 +72,7 @@ public class FixedItemEditView extends LinearLayout {
             if (leftDrawable != -1) {
                 iv_next.setImageDrawable(context.getResources().getDrawable(leftDrawable));
             }
+
             attributes.recycle();
         }
     }

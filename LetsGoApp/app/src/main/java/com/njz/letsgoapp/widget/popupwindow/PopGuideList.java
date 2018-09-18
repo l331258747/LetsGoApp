@@ -78,10 +78,10 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         tv_time_start.setText(startTime);
         tv_time_end.setText(endTime);
 
-        tv_time_start.setBackgroundResource(R.drawable.btn_green_solid);
+        tv_time_start.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
         tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
         tv_time_start.setSelected(true);
-        tv_time_end.setBackgroundResource(R.drawable.btn_green_solid);
+        tv_time_end.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
         tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
         tv_time_end.setSelected(true);
     }
@@ -148,7 +148,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
             tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
             tv.setSelected(false);
         } else {
-            tv.setBackgroundResource(R.drawable.btn_green_solid);
+            tv.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
             tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
             tv.setSelected(true);
         }
@@ -324,7 +324,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 tv_time_start.setText("开始时间");
                 tv_time_end.setText("结束时间");
 
-                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_green_solid);
+                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
                 tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
                 tv_time_unrestricted.setSelected(true);
                 break;
@@ -345,10 +345,10 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 tv_time_start.setText(calendarEvent.getStartTime());
                 tv_time_end.setText(calendarEvent.getEndTime());
 
-                tv_time_start.setBackgroundResource(R.drawable.btn_green_solid);
+                tv_time_start.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
                 tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
                 tv_time_start.setSelected(true);
-                tv_time_end.setBackgroundResource(R.drawable.btn_green_solid);
+                tv_time_end.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
                 tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
                 tv_time_end.setSelected(true);
 
