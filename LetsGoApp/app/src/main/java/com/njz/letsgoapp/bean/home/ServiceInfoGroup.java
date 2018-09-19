@@ -19,6 +19,15 @@ public class ServiceInfoGroup {
     private String serviceTitle;
     private String serviceFoot;
     private int id;
+    private int serviceTypeId;
+
+    public int getServiceTypeId() {
+        return serviceTypeId;
+    }
+
+    public void setServiceTypeId(int serviceTypeId) {
+        this.serviceTypeId = serviceTypeId;
+    }
 
     public int getId() {
         return id;

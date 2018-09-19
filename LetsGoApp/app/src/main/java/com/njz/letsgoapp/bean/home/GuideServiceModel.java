@@ -22,7 +22,8 @@ public class GuideServiceModel implements Parcelable {
      */
 
     private int id;
-    private String serveType;
+    private int serveType;
+    private String serviceType;
     private List<ServiceItem> serviceItems;
 
     public GuideServiceModel() {
@@ -48,18 +49,27 @@ public class GuideServiceModel implements Parcelable {
         this.serviceItems.add(serviceItem);
     }
 
-    public String getServeType() {
+
+    public int getServeType() {
         return serveType;
     }
 
-    public void setServeType(String serveType) {
+    public void setServeType(int serveType) {
         this.serveType = serveType;
     }
 
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
 
     protected GuideServiceModel(Parcel in) {
         id = in.readInt();
-        serveType = in.readString();
+        serveType = in.readInt();
+        serviceType = in.readString();
         serviceItems = in.createTypedArrayList(ServiceItem.CREATOR);
     }
 
@@ -83,7 +93,8 @@ public class GuideServiceModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(serveType);
+        dest.writeInt(serveType);
+        dest.writeString(serviceType);
         dest.writeTypedList(serviceItems);
     }
 }

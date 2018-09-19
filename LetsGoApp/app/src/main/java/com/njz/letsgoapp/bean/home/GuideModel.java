@@ -111,7 +111,7 @@ public class GuideModel {
         List<String> serviceTags= new ArrayList<>();
         if(travelGuideServiceInfoVOs == null) return serviceTags;
         for (int i = 0;i<travelGuideServiceInfoVOs.size();i++){
-            serviceTags.add(travelGuideServiceInfoVOs.get(i).getServeType());
+            serviceTags.add(travelGuideServiceInfoVOs.get(i).getServiceType());
         }
         return serviceTags;
     }

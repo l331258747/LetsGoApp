@@ -58,20 +58,21 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
         this.serviceInfo = serviceInfo;
         serviceInfoGroups.clear();
         for (GuideServiceModel item : serviceInfo) {
-            setData2(item.getServiceItems(), item.getServeType(), item.getId());
+            setData2(item);
         }
         notifyDataSetChanged();
     }
 
-    public void setData2(List<ServiceItem> serviceItems, String title,int id) {
+    public void setData2(GuideServiceModel item) {
         ServiceInfoGroup serviceInfoGroup = new ServiceInfoGroup();
         serviceInfoGroup.setLabelTab(ServiceInfoGroup.LABEL_TAB_TITLE);
-        serviceInfoGroup.setServiceTitle(title);
-        serviceInfoGroup.setId(id);
+        serviceInfoGroup.setServiceTitle(item.getServiceType());
+        serviceInfoGroup.setId(item.getId());
+        serviceInfoGroup.setServiceTypeId(item.getServeType());
         serviceInfoGroups.add(serviceInfoGroup);
-        if (serviceItems != null && serviceItems.size() > 0) {
+        if (item.getServiceItems() != null && item.getServiceItems().size() > 0) {
             serviceInfoGroup.setServiceTitleColor(true);
-            for (ServiceItem si : serviceItems) {
+            for (ServiceItem si : item.getServiceItems()) {
                 ServiceInfoGroup serviceInfoGroup2 = new ServiceInfoGroup();
                 serviceInfoGroup2.setLabelTab(ServiceInfoGroup.LABEL_TAB_DEFAULT);
                 serviceInfoGroup2.setServiceItem(si);
@@ -116,7 +117,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             ((DefaultHolder) holder).btn_content_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onCancelClick(data.getServiceItem().getServiceType(),data.getServiceItem().getId());
+                    mOnItemClickListener.onCancelClick(data.getServiceItem().getServeType(),data.getServiceItem().getId());
                 }
             });
 
@@ -125,8 +126,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             //代订酒店，向导陪游，车导服务显示天数
             String initOneDay = null;
             List<String> initDays = null;
-            if(TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
-                    || TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_TICKET)){
+            if(data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_CUSTOM
+                    || data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_TICKET){
                 initOneDay = data.getServiceItem().getOneTime();
                 ((DefaultHolder) holder).tv_time_content.setText(TextUtils.isEmpty(data.getServiceItem().getOneTime()) ?"0":data.getServiceItem().getOneTime());
             }else{
@@ -150,8 +151,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     //私人定制和代订门票 进入 单选 日期
                     //代订酒店，向导陪游，车导服务 进入 多选 日期
                     Intent intent = new Intent(mContext, CalendarActivity.class);
-                    if(TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
-                            || TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_TICKET)){
+                    if(data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_CUSTOM
+                            || data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_TICKET){
                         calendarType = 3;
                         intent.putExtra(CalendarActivity.CALENDAR_ONE_DAY,data.getServiceItem().getOneTime());
                     }else{
@@ -201,8 +202,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     //代订酒店，向导陪游，车导服务显示天数
                     String initOneDay = null;
                     List<String> initDays = null;
-                    if(TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
-                            || TextUtils.equals(data.getServiceItem().getServiceType(),Constant.SERVICE_TYPE_TICKET)){
+                    if(data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_CUSTOM
+                            || data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_TICKET){
                         initOneDay = data.getServiceItem().getOneTime();
                     }else{
                         initDays = data.getServiceItem().getDays();
@@ -233,7 +234,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             ((TitleHolder) holder).service_title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onTitleClick(data.getServiceTitle(),data.getId());
+                    mOnItemClickListener.onTitleClick(data.getServiceTitle(),data.getServiceTypeId(),data.getId());
                 }
             });
 
@@ -249,7 +250,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     //设置time，count标题文字
     public void setItemTitle(ServiceInfoGroup data, TextView timeTitle, TextView countTitle){
-        switch (data.getServiceItem().getServiceType()){
+        switch (data.getServiceItem().getServeType()){
             case Constant.SERVICE_TYPE_CUSTOM:
                 timeTitle.setText("出发日期");
                 countTitle.setText("出行人数");
@@ -315,8 +316,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     OnTitleClickListener mOnItemClickListener;
 
     public interface OnTitleClickListener {
-        void onTitleClick(String titleType, int id);
-        void onCancelClick(String titleType, int id);
+        void onTitleClick(String serviceTypeName ,int serviceTypeId, int id);
+        void onCancelClick(int serviceTypeId, int id);
     }
 
     public void setOnItemClickListener(OnTitleClickListener onItemClickListener) {
@@ -328,7 +329,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     public void setItemContent(ServiceInfoGroup data, TextView timeContent,int num,TextView priceCount,TextView priceTotal,List<String> days,String oneDay){
         String timeDay = timeContent.getText().toString();
         int timeDay2 = 0;
-        switch (data.getServiceItem().getServiceType()){
+        switch (data.getServiceItem().getServeType()){
             case Constant.SERVICE_TYPE_CUSTOM:
                 if(TextUtils.equals(timeDay,"0")){
                     timeDay2 = 0;

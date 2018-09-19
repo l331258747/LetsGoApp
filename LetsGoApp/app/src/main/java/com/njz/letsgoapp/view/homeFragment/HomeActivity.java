@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.LinearLayout;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
@@ -89,6 +92,8 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         float density = metric.density;  // 屏幕密度（0.75 / 1.0 / 1.5）
         int densityDpi = metric.densityDpi;
         LogUtil.e("density=" + density + ",densityDpi=" + densityDpi);
+
+        MySelfInfo.getInstance().setDefaultCity(TextUtils.isEmpty(MySelfInfo.getInstance().getDefaultCity())?Constant.DEFAULT_CITY : MySelfInfo.getInstance().getDefaultCity());
 
 
         // 初始化页面

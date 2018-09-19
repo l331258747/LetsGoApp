@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,7 +99,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
             @Override
             public void accept(ServiceItem serviceItem) throws Exception {
                 for (GuideServiceModel model : ServiceModels) {
-                    if (TextUtils.equals(model.getServeType(), serviceItem.getServiceType())) {
+                    if (model.getServeType() == serviceItem.getServeType()) {
                         model.addServiceItem(serviceItem);
                         mAdapter.setData(ServiceModels);
                     }
@@ -121,8 +119,8 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 float price = 0;
                 for (GuideServiceModel model : ServiceModels) {
                     for (ServiceItem item : model.getServiceItems()){
-                        if(TextUtils.equals(item.getServiceType(),Constant.SERVICE_TYPE_GUIDE)
-                                || TextUtils.equals(item.getServiceType(),Constant.SERVICE_TYPE_CAR)){
+                        if(item.getServeType() == Constant.SERVICE_TYPE_GUIDE
+                                || item.getServeType() == Constant.SERVICE_TYPE_CAR){
                             price  = item.getPrice() * item.getTimeDay() + price;
                         }else{
                             price  = item.getPrice() * item.getNumber() * item.getTimeDay() + price;
@@ -168,31 +166,31 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
             mAdapter.setOnItemClickListener(new PopServiceAdapter.OnTitleClickListener() {
                 @Override
-                public void onTitleClick(String titleType, int id) {
+                public void onTitleClick(String serviceTypeName ,int serviceTypeId, int id) {
                     Intent intent;
-                    if (TextUtils.equals(titleType, Constant.SERVICE_TYPE_GUIDE)
-                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_CAR)) {
+                    if (serviceTypeId == Constant.SERVICE_TYPE_GUIDE
+                            || serviceTypeId == Constant.SERVICE_TYPE_CAR) {
 
-                        if(serviceNoJoin(titleType)) return;
+                        if(serviceNoJoin(serviceTypeId)) return;
 
                         intent = new Intent(mContext, ServiceDetailActivity.class);
-                        intent.putExtra(ServiceDetailActivity.TITLE, titleType);
+                        intent.putExtra(ServiceDetailActivity.TITLE, serviceTypeName);
                         intent.putExtra(ServiceDetailActivity.SERVICEID, id);
-                        intent.putParcelableArrayListExtra(ServiceDetailActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(titleType));
+                        intent.putParcelableArrayListExtra(ServiceDetailActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(serviceTypeId));
                         mContext.startActivity(intent);
                         return;
                     }
-                    if (TextUtils.equals(titleType, Constant.SERVICE_TYPE_CUSTOM)
-                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_HOTEL)
-                            || TextUtils.equals(titleType, Constant.SERVICE_TYPE_TICKET)) {
+                    if (serviceTypeId == Constant.SERVICE_TYPE_CUSTOM
+                            || serviceTypeId == Constant.SERVICE_TYPE_HOTEL
+                            || serviceTypeId == Constant.SERVICE_TYPE_TICKET) {
 
-                        if(serviceNoJoin(titleType)) return;
+                        if(serviceNoJoin(serviceTypeId)) return;
 
                         intent = new Intent(mContext, ServiceListActivity.class);
-                        intent.putExtra(ServiceListActivity.TITLE, titleType);
-                        intent.putExtra(ServiceListActivity.SERVICE_TYPE, titleType);
+                        intent.putExtra(ServiceListActivity.TITLE, serviceTypeName);
+                        intent.putExtra(ServiceListActivity.SERVICE_TYPE, serviceTypeId);
                         intent.putExtra(ServiceListActivity.GUIDE_ID, guideId);
-                        intent.putParcelableArrayListExtra(ServiceListActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(titleType));
+                        intent.putParcelableArrayListExtra(ServiceListActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(serviceTypeId));
 
                         mContext.startActivity(intent);
                         return;
@@ -200,9 +198,9 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 }
 
                 @Override
-                public void onCancelClick(String titleType, int id) {
+                public void onCancelClick(int serviceTypeId, int id) {
                     for (GuideServiceModel model : ServiceModels) {
-                        if (TextUtils.equals(model.getServeType(), titleType)) {
+                        if (model.getServeType() ==  serviceTypeId) {
                             for (ServiceItem item : model.getServiceItems()) {
                                 if (item.getId() == id) {
                                     model.getServiceItems().remove(item);
@@ -262,10 +260,10 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         }
     }
 
-    public List<ServiceItem> getServiceItems(String serviceType){
+    public List<ServiceItem> getServiceItems(int serviceTypeId){
         List<ServiceItem> serviceItems = new ArrayList<>();
         for (GuideServiceModel model : ServiceModels) {
-            if(TextUtils.equals(model.getServeType(),serviceType)){
+            if(model.getServeType() == serviceTypeId){
                 serviceItems = model.getServiceItems();
             }
         }
@@ -274,11 +272,11 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
 
 
     //判断服务项是否可进入
-    public boolean serviceNoJoin(String serviceType){
-        switch (serviceType){
+    public boolean serviceNoJoin(int serviceTypeId){
+        switch (serviceTypeId){
             case Constant.SERVICE_TYPE_CUSTOM:
                 for (GuideServiceModel model : ServiceModels){
-                    if(!TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                    if(model.getServeType() != Constant.SERVICE_TYPE_CUSTOM && model.getServiceItems().size() > 0){
                         ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
                         return true;
                     }
@@ -286,11 +284,11 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 return false;
             case Constant.SERVICE_TYPE_GUIDE:
                 for (GuideServiceModel model : ServiceModels){
-                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                    if(model.getServeType() == Constant.SERVICE_TYPE_CUSTOM && model.getServiceItems().size() > 0){
                         ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
                         return true;
                     }
-                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CAR) && model.getServiceItems().size() > 0){
+                    if(model.getServeType() == Constant.SERVICE_TYPE_CAR && model.getServiceItems().size() > 0){
                         ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
                         return true;
                     }
@@ -298,11 +296,11 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 return false;
             case Constant.SERVICE_TYPE_CAR:
                 for (GuideServiceModel model : ServiceModels){
-                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                    if(model.getServeType() == Constant.SERVICE_TYPE_CUSTOM && model.getServiceItems().size() > 0){
                         ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
                         return true;
                     }
-                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_GUIDE) && model.getServiceItems().size() > 0){
+                    if(model.getServeType() == Constant.SERVICE_TYPE_GUIDE && model.getServiceItems().size() > 0){
                         ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
                         return true;
                     }
@@ -310,7 +308,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 return false;
             case Constant.SERVICE_TYPE_HOTEL:
                 for (GuideServiceModel model : ServiceModels){
-                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                    if(model.getServeType() == Constant.SERVICE_TYPE_CUSTOM && model.getServiceItems().size() > 0){
                         ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
                         return true;
                     }
@@ -318,7 +316,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 return false;
             case Constant.SERVICE_TYPE_TICKET:
                 for (GuideServiceModel model : ServiceModels){
-                    if(TextUtils.equals(model.getServeType(),Constant.SERVICE_TYPE_CUSTOM) && model.getServiceItems().size() > 0){
+                    if(model.getServeType() == Constant.SERVICE_TYPE_CUSTOM && model.getServiceItems().size() > 0){
                         ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServeType());
                         return true;
                     }

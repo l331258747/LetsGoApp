@@ -35,10 +35,17 @@ public class Constant {
 
     public static final String DEFAULT_CITY = "长沙";
 
-    public static final String SERVICE_TYPE_CUSTOM = "私人定制";
-    public static final String SERVICE_TYPE_HOTEL = "代订酒店";
-    public static final String SERVICE_TYPE_TICKET = "代订门票";
-    public static final String SERVICE_TYPE_CAR = "车导服务";
-    public static final String SERVICE_TYPE_GUIDE = "向导陪游";
+//    public static final String SERVICE_TYPE_CUSTOM = "私人定制";
+//    public static final String SERVICE_TYPE_HOTEL = "代订酒店";
+//    public static final String SERVICE_TYPE_TICKET = "代订门票";
+//    public static final String SERVICE_TYPE_CAR = "车导服务";
+//    public static final String SERVICE_TYPE_GUIDE = "向导陪游";
+
+    //服务类型(23：向导陪游，24：车导服务，25：私人订制，26：代订酒店，30，景点门票)
+    public static final int SERVICE_TYPE_CUSTOM = 25;
+    public static final int SERVICE_TYPE_HOTEL = 26;
+    public static final int SERVICE_TYPE_TICKET = 30;
+    public static final int SERVICE_TYPE_CAR = 24;
+    public static final int SERVICE_TYPE_GUIDE = 23;
 
 }

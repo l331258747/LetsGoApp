@@ -62,6 +62,13 @@ public class MySelfInfo {
 
     }
 
+    public String getDefaultCity(){
+        return SPUtils.getInstance().getString(SPUtils.SP_DEFAULT_CITY);
+    }
+
+    public void setDefaultCity(String defaultCity){
+        SPUtils.getInstance().putString(SPUtils.SP_DEFAULT_CITY, defaultCity);
+    }
 
     public int getUserId(){
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_ID);

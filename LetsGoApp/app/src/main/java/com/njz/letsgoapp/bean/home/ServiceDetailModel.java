@@ -32,7 +32,8 @@ public class ServiceDetailModel {
     private String titleImg;
     private float servePrice;
     private String serveFeature;
-    private String serveType;
+    private int serveType;
+    private String serviceType;
     private String renegePriceThree;
     private String renegePriceFive;
     private String costExplain;
@@ -89,12 +90,20 @@ public class ServiceDetailModel {
         this.serveFeature = serveFeature;
     }
 
-    public String getServeType() {
+    public int getServeType() {
         return serveType;
     }
 
-    public void setServeType(String serveType) {
+    public void setServeType(int serveType) {
         this.serveType = serveType;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
     public String getRenegePriceThree() {

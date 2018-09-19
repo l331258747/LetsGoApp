@@ -74,5 +74,9 @@ public class FixedItemTextView extends LinearLayout {
         login_item_content.setText(str);
     }
 
+    public String getContent(){
+        return login_item_content.getText().toString();
+    }
+
 
 }

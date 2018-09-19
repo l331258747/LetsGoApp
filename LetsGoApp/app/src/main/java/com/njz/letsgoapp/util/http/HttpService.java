@@ -177,8 +177,8 @@ public interface HttpService {
     //获取导游单个服务列表
     @GET("guide/getServiceList")
     Observable<BaseResponse<List<ServiceListModel>>> getServiceList(
-            @Query("guideId") int serviceId,
-            @Query("serviceType") String serviceType
+            @Query("guideId") int guideId,
+            @Query("serveType") int serveType
     );
 
     //--------首页 end--------

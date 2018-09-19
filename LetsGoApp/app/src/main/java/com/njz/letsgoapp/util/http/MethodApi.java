@@ -133,8 +133,8 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    public static void getServiceList(int guideId, String serviceType, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().getServiceList(guideId, serviceType);
+    public static void getServiceList(int guideId, int serveType, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().getServiceList(guideId, serveType);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

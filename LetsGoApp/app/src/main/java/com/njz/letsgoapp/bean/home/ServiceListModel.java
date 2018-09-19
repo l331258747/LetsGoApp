@@ -19,7 +19,8 @@ public class ServiceListModel {
 
     private int id;
     private float servePrice;
-    private String serveType;
+    private int serveType;
+    private String serviceType;
     private String title;
     private String location;
     private String count;
@@ -40,12 +41,25 @@ public class ServiceListModel {
         this.servePrice = servePrice;
     }
 
-    public String getServeType() {
+
+    public void setServePrice(float servePrice) {
+        this.servePrice = servePrice;
+    }
+
+    public int getServeType() {
         return serveType;
     }
 
-    public void setServeType(String serveType) {
+    public void setServeType(int serveType) {
         this.serveType = serveType;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
     public String getTitle() {

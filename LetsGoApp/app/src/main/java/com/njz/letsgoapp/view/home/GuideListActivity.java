@@ -15,6 +15,7 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -47,7 +48,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     public static final String START_TIME ="START_TIME";
     public static final String END_TIME ="END_TIME";
-    public static final String LOCATION ="LOCATION";
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -72,7 +72,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     String startTime;
     String endTime;
-    String location = Constant.DEFAULT_CITY;
+    String location;
     int page;
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
@@ -82,7 +82,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         super.getIntentData();
         startTime = intent.getStringExtra(START_TIME);
         endTime = intent.getStringExtra(END_TIME);
-        location = intent.getStringExtra(LOCATION);
     }
 
     @Override
@@ -121,7 +120,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                         getRefreshData(type);
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
-                        showShortToast("筛选");
                         popGuideList.showPopupWindow(myGuideTab);
                         break;
                 }
@@ -246,6 +244,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void initData() {
+        location = MySelfInfo.getInstance().getDefaultCity();
+
         mPresenter = new GuideListPresenter(context, this);
         getRefreshData(type);
         tvCityPick.setText(location);
@@ -268,6 +268,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                         desDisposable.dispose();
                         if(TextUtils.isEmpty(cityPickEvent.getCity()))
                             return;
+                        MySelfInfo.getInstance().setDefaultCity(cityPickEvent.getCity());
                         location = cityPickEvent.getCity();
                         tvCityPick.setText(cityPickEvent.getCity());
                         getRefreshData(type);

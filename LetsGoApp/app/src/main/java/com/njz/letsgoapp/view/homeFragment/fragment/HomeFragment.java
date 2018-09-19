@@ -24,6 +24,7 @@ import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
@@ -38,6 +39,7 @@ import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.glide.GlideUtil;
@@ -93,7 +95,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private List<DynamicModel> dynamicDatas;
 
     private LocationUtil locationUtil;
-    private String city = Constant.DEFAULT_CITY;
+    private String city;
     private LoadingDialog loadingDialog;
 
     private boolean isLoad = false;
@@ -168,14 +170,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 break;
             case R.id.rl_guide_title:
                 intent = new Intent(context,GuideListActivity.class);
-                intent.putExtra(GuideListActivity.LOCATION,tv_destination_content.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.btn_trip_setting:
                 intent = new Intent(context,GuideListActivity.class);
                 intent.putExtra(GuideListActivity.START_TIME,tv_start_time_content.getText().toString());
                 intent.putExtra(GuideListActivity.END_TIME,tv_end_time_content.getText().toString());
-                intent.putExtra(GuideListActivity.LOCATION,tv_destination_content.getText().toString());
                 startActivity(intent);
                 break;
         }
@@ -183,6 +183,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     @Override
     public void initData() {
+        city = MySelfInfo.getInstance().getDefaultCity();
+
         mPresenter = new HomePresenter(context,this);
         nicePresenter = new DynamicNicePresenter(context,this);
 
@@ -318,6 +320,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                     return;
 
                 tv_destination_content.setText(cityPickEvent.getCity());
+                MySelfInfo.getInstance().setDefaultCity(cityPickEvent.getCity());
                 city = cityPickEvent.getCity();
 
                 isDynamicLoad =false;

@@ -14,7 +14,7 @@ import java.util.List;
 public interface ServiceListContract {
 
     interface Presenter {
-        void getServiceList(int guideId,String serviceType);
+        void getServiceList(int guideId,int serveType);
     }
 
     interface View {

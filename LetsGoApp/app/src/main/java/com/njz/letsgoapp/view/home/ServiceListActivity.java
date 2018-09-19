@@ -44,7 +44,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
     ServiceListPresenter mPresenter;
 
     String title;
-    String serviceType;
+    int serveType;
     int guideId;
     List<ServiceItem> serviceItems;
 
@@ -55,7 +55,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
     public void getIntentData() {
         super.getIntentData();
         title = intent.getStringExtra(TITLE);
-        serviceType = intent.getStringExtra(SERVICE_TYPE);
+        serveType = intent.getIntExtra(SERVICE_TYPE,0);
         guideId = intent.getIntExtra(GUIDE_ID,0);
         serviceItems = intent.getParcelableArrayListExtra(SERVICEITEMS);
 
@@ -98,7 +98,8 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
             @Override
             public void onBtnClick(int position) {
                 ServiceItem data = new ServiceItem();
-                data.setServiceType(models.get(position).getServeType());
+                data.setServiceType(models.get(position).getServiceType());
+                data.setServeType(models.get(position).getServeType());
                 data.setId(models.get(position).getId());
                 data.setTitile(models.get(position).getTitle());
                 data.setPrice(models.get(position).getServePrice());
@@ -115,7 +116,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getServiceList(guideId,serviceType);
+                mPresenter.getServiceList(guideId,serveType);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -124,7 +125,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
     @Override
     public void initData() {
         mPresenter = new ServiceListPresenter(context,this);
-        mPresenter.getServiceList(guideId,serviceType);
+        mPresenter.getServiceList(guideId,serveType);
 
         disposable = RxBus2.getInstance().toObservable(ServiceDetailCloseEvent.class, new Consumer<ServiceDetailCloseEvent>() {
             @Override

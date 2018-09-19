@@ -55,7 +55,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             ((ViewHolder) holder).tv_title.setText(data.getTitile());
             ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
 
-            switch (data.getServiceType()) {
+            switch (data.getServeType()) {
                 case Constant.SERVICE_TYPE_CUSTOM:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getNumber() + "人");
                     ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getNumber());
@@ -93,8 +93,8 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
                     break;
             }
 
-            if(TextUtils.equals(data.getServiceType(),Constant.SERVICE_TYPE_CUSTOM)
-                    || TextUtils.equals(data.getServiceType(),Constant.SERVICE_TYPE_TICKET)){
+            if(data.getServeType() == Constant.SERVICE_TYPE_CUSTOM
+                    || data.getServeType() == Constant.SERVICE_TYPE_TICKET){
                 ((ViewHolder) holder).tv_time_content.setText(data.getOneTime());
             }else {
                 ((ViewHolder) holder).tv_time_content.setText(data.getDaysStr());

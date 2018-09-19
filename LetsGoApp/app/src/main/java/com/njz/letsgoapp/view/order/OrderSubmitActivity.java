@@ -13,6 +13,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderSubmitAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.send.SendChildOrderModel;
@@ -51,7 +52,6 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
     List<GuideServiceModel> serviceModels;
     int guideId;
-    String location = Constant.DEFAULT_CITY;
     float totalPrice;
 
     @Override
@@ -59,7 +59,6 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         super.getIntentData();
         serviceModels = intent.getParcelableArrayListExtra(SERVICEMODEL);
         guideId = intent.getIntExtra(GUIDE_ID, 0);
-        location = intent.getStringExtra(LOCATION);
     }
 
     @Override
@@ -105,7 +104,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initData() {
-        fixed_view_city.setContent(location);
+        fixed_view_city.setContent(MySelfInfo.getInstance().getDefaultCity());
         getTotalPrice();
 
         mPresenter = new OrderCreatePresenter(context,this);
@@ -138,8 +137,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         totalPrice = 0;
         for (GuideServiceModel model : serviceModels) {
             for (ServiceItem item : model.getServiceItems()) {
-                if (TextUtils.equals(item.getServiceType(), Constant.SERVICE_TYPE_GUIDE)
-                        || TextUtils.equals(item.getServiceType(), Constant.SERVICE_TYPE_CAR)) {
+                if (item.getServeType()==Constant.SERVICE_TYPE_GUIDE
+                        || item.getServeType() == Constant.SERVICE_TYPE_CAR) {
                     totalPrice = item.getPrice() * item.getTimeDay() + totalPrice;
                 } else {
                     totalPrice = item.getPrice() * item.getNumber() * item.getTimeDay() + totalPrice;
@@ -154,7 +153,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         SendOrderModel sendOrderModel = new SendOrderModel();
         sendOrderModel.setMobile(login_view_phone.getEtContent());
         sendOrderModel.setGuideId(guideId);
-        sendOrderModel.setLocation(location);
+        sendOrderModel.setLocation(fixed_view_city.getContent());
         sendOrderModel.setSpecialReauire(et_special.getText().toString());
         sendOrderModel.setEarlyOrderPrice(totalPrice);
 
@@ -167,8 +166,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
             sendChildOrder.setDayNum(si.getTimeDay());
             sendChildOrder.setRoomNum(si.getNumber());
             float childTotalPrice;
-            if (TextUtils.equals(si.getServiceType(), Constant.SERVICE_TYPE_GUIDE)
-                    || TextUtils.equals(si.getServiceType(), Constant.SERVICE_TYPE_CAR)) {
+            if (si.getServeType() == Constant.SERVICE_TYPE_GUIDE
+                    || si.getServeType() == Constant.SERVICE_TYPE_CAR) {
                 childTotalPrice = si.getPrice() * si.getTimeDay();
             } else {
                 childTotalPrice = si.getPrice() * si.getNumber() * si.getTimeDay();

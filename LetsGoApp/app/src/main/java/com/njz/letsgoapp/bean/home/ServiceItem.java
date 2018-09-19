@@ -19,11 +19,20 @@ public class ServiceItem implements Parcelable{
     String endTime;
     int number;
     String serviceType;
+    int serveType;
     int timeDay;
     List<String> days;
     String oneTime;
 
     public ServiceItem() {
+    }
+
+    public int getServeType() {
+        return serveType;
+    }
+
+    public void setServeType(int serveType) {
+        this.serveType = serveType;
     }
 
     public String getTitile() {
@@ -182,6 +191,7 @@ public class ServiceItem implements Parcelable{
         endTime = in.readString();
         number = in.readInt();
         serviceType = in.readString();
+        serveType = in.readInt();
         timeDay = in.readInt();
         days = in.createStringArrayList();
         oneTime = in.readString();
@@ -215,6 +225,7 @@ public class ServiceItem implements Parcelable{
         dest.writeString(endTime);
         dest.writeInt(number);
         dest.writeString(serviceType);
+        dest.writeInt(serveType);
         dest.writeInt(timeDay);
         dest.writeStringList(days);
         dest.writeString(oneTime);
