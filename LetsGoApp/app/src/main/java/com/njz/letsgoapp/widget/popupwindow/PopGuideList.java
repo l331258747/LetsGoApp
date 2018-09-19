@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
@@ -183,15 +184,15 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         StringBuffer services = new StringBuffer("");
         //tv_type_private,tv_type_scenic,tv_type_hotel,tv_type_car,tv_type_guide
         if(tv_type_private.isSelected())
-            services.append("私人订制,");
+            services.append(Constant.SERVICE_TYPE_CUSTOM + ",");
         if(tv_type_scenic.isSelected())
-            services.append("代订门票,");
+            services.append(Constant.SERVICE_TYPE_TICKET + ",");
         if(tv_type_hotel.isSelected())
-            services.append("代订酒店,");
+            services.append(Constant.SERVICE_TYPE_HOTEL + ",");
         if(tv_type_car.isSelected())
-            services.append("包车服务,");
+            services.append(Constant.SERVICE_TYPE_CAR + ",");
         if(tv_type_guide.isSelected())
-            services.append("向导陪游,");
+            services.append(Constant.SERVICE_TYPE_GUIDE + ",");
         if(services.toString().length() > 0)
             return services.toString().substring(0,services.toString().length() - 1);
         return services.toString();

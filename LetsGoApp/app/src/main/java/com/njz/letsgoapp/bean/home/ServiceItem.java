@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ServiceItem implements Parcelable{
@@ -143,6 +145,22 @@ public class ServiceItem implements Parcelable{
 
     public void setDays(List<String> days) {
         this.days = days;
+
+        if(days == null || days.size() < 1)
+            return;
+        Collections.sort(days, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                String[] str1= o1.split("-");
+                String[] str2= o2.split("-");
+                if (Integer.valueOf(str1[0] + str1[1] + str1[2]) > Integer.valueOf(str2[0] + str2[1] + str2[2])){
+                    return 1;
+                }else if(Integer.valueOf(str1[0] + str1[1] + str1[2]) == Integer.valueOf(str2[0] + str2[1] + str2[2])){
+                    return 0;
+                }
+                return -1;
+            }
+        });
     }
 
     public String getOneTime() {
