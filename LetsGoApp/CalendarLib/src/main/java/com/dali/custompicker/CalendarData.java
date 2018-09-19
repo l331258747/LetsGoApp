@@ -20,6 +20,14 @@ public class CalendarData {
 
     public static DayTimeEntity oneDay;
 
-
+    public static DayTimeEntity isHas(DayTimeEntity dayTime){
+        DayTimeEntity ishas = null;
+        for (DayTimeEntity item : markerDays){
+            if(item.getYear() == dayTime.getYear() && item.getMonth() == dayTime.getMonth() && item.getDay() == dayTime.getDay()){
+                ishas = item;
+            }
+        }
+        return ishas;
+    }
 
 }

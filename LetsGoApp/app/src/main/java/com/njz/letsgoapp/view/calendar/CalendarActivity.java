@@ -83,22 +83,21 @@ public class CalendarActivity extends Activity {
         CalendarData.oneDay = new DayTimeEntity(-1,-1,-1,-1);
         CalendarData.markerDays = new ArrayList<>();
 
-        if(!TextUtils.isEmpty(oneDay)){
-            Calendar cd = DateUtil.getSelectedDate(oneDay);
-            CalendarData.oneDay = new DayTimeEntity(cd.get(Calendar.DAY_OF_MONTH),cd.get(Calendar.MONTH),cd.get(Calendar.YEAR),0);
-        }
-
-        if(days != null && days.size() > 0){
-            for (String str: days){
-                Calendar cd = DateUtil.getSelectedDate(str);
-                DayTimeEntity day = new DayTimeEntity(cd.get(Calendar.DAY_OF_MONTH),cd.get(Calendar.MONTH),cd.get(Calendar.YEAR),0);
-                LogUtil.e("cd.get(Calendar.DAY_OF_MONTH):" + cd.get(Calendar.DAY_OF_MONTH));
-                LogUtil.e("cd.get(Calendar.MONTH):" + cd.get(Calendar.MONTH));
-                LogUtil.e("cd.get(Calendar.YEAR):" + cd.get(Calendar.YEAR));
-                day.setSelect(true);
-                CalendarData.markerDays.add(day);
-            }
-        }
+        //用来保留选择的日期
+//        if(!TextUtils.isEmpty(oneDay)){
+//            Calendar cd = DateUtil.getSelectedDate(oneDay);
+//            cd.add(Calendar.MONTH,1);
+//            CalendarData.oneDay = new DayTimeEntity(cd.get(Calendar.DAY_OF_MONTH),cd.get(Calendar.MONTH),cd.get(Calendar.YEAR),0);
+//        }
+//
+//        if(days != null && days.size() > 0){
+//            for (String str: days){
+//                Calendar cd = DateUtil.getSelectedDate(str);
+//                cd.add(Calendar.MONTH,1);
+//                DayTimeEntity day = new DayTimeEntity(cd.get(Calendar.DAY_OF_MONTH),cd.get(Calendar.MONTH),cd.get(Calendar.YEAR),0);
+//                CalendarData.markerDays.add(day);
+//            }
+//        }
 
         datas = new ArrayList<>();
 

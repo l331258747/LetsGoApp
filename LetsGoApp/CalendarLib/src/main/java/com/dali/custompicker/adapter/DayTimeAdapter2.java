@@ -19,7 +19,7 @@ import java.util.Calendar;
 /**
  * Created by xqx on 2017/1/17.
  */
-public class DayTimeAdapter2 extends RecyclerView.Adapter<DayTimeViewHolder>{
+public class DayTimeAdapter2 extends RecyclerView.Adapter<DayTimeViewHolder> {
 
     private ArrayList<DayTimeEntity> days;
     private Context context;
@@ -45,19 +45,19 @@ public class DayTimeAdapter2 extends RecyclerView.Adapter<DayTimeViewHolder>{
     public void onBindViewHolder(final DayTimeViewHolder holder, final int position) {
         final DayTimeEntity dayTimeEntity = days.get(position);
         //显示日期
-        if (dayTimeEntity.getDay()!=0) {
-            if (dayTimeEntity.getStatus() == 100){
+        if (dayTimeEntity.getDay() != 0) {
+            if (dayTimeEntity.getStatus() == 100) {
                 holder.select_txt_day.setText(dayTimeEntity.getDay() + "");
                 holder.select_ly_day.setEnabled(false);
                 holder.select_txt_day.setTextColor(Color.parseColor("#FFFFFF"));
-            }else if (dayTimeEntity.getStatus() == 101){
+            } else if (dayTimeEntity.getStatus() == 101) {
                 holder.select_txt_day.setText("今天");
                 holder.select_ly_day.setEnabled(true);
-            }else {
+            } else {
                 holder.select_txt_day.setText(dayTimeEntity.getDay() + "");
                 holder.select_ly_day.setEnabled(true);
             }
-        }else{
+        } else {
             holder.select_ly_day.setEnabled(false);
         }
         holder.select_ly_day.setOnClickListener(new View.OnClickListener() {
@@ -65,33 +65,32 @@ public class DayTimeAdapter2 extends RecyclerView.Adapter<DayTimeViewHolder>{
             public void onClick(View v) {
 
                 dayTimeEntity.setSelect(!dayTimeEntity.isSelect());
-                    if(dayTimeEntity.isSelect()){
+                if (dayTimeEntity.isSelect()) {
+
+                    if(CalendarData.isHas(dayTimeEntity) == null){
                         CalendarData.markerDays.add(dayTimeEntity);
+                    }
                     holder.select_ly_day.setBackgroundResource(R.drawable.bg_time_startstop);
-                }else{
+
+                } else {
+                    if(CalendarData.isHas(dayTimeEntity) != null){
+                        CalendarData.markerDays.remove(CalendarData.isHas(dayTimeEntity));
+                    }
+
                     CalendarData.markerDays.remove(dayTimeEntity);
                     holder.select_ly_day.setBackgroundResource(R.color.white);
                 }
             }
         });
 
-        if (dayTimeEntity.getStatus() == 100){
+        if (dayTimeEntity.getStatus() == 100) {
             holder.select_ly_day.setBackgroundResource(R.drawable.bg_time_gray);
-        }else {
+        } else {
             holder.select_ly_day.setBackgroundResource(R.color.white);
 
-            for (DayTimeEntity dayTimeEntity1 : CalendarData.markerDays){
-
-                Log.e("calendar","dayTimeEntity1:" + dayTimeEntity1.getYear());
-                Log.e("calendar","dayTimeEntity1:" + dayTimeEntity1.getMonth());
-                Log.e("calendar","dayTimeEntity1:" + dayTimeEntity1.getDay());
-
-                Log.e("calendar","dayTimeEntity:" + dayTimeEntity.getYear());
-                Log.e("calendar","dayTimeEntity:" + dayTimeEntity.getMonth());
-                Log.e("calendar","dayTimeEntity:" + dayTimeEntity.getDay());
-
-
-                if(dayTimeEntity1.getYear() == dayTimeEntity.getYear() && dayTimeEntity1.getMonth() == dayTimeEntity.getMonth() && dayTimeEntity1.getDay() == dayTimeEntity.getDay()){
+            for (DayTimeEntity dayTimeEntity1 : CalendarData.markerDays) {
+                if (dayTimeEntity1.getYear() == dayTimeEntity.getYear() && dayTimeEntity1.getMonth() == dayTimeEntity.getMonth() && dayTimeEntity1.getDay() == dayTimeEntity.getDay()) {
+                    dayTimeEntity.setSelect(true);
                     holder.select_ly_day.setBackgroundResource(R.drawable.bg_time_startstop);
                 }
             }
@@ -102,7 +101,7 @@ public class DayTimeAdapter2 extends RecyclerView.Adapter<DayTimeViewHolder>{
     @Override
     public int getItemCount() {
         int ret = 0;
-        if (days!=null){
+        if (days != null) {
             ret = days.size();
         }
         return ret;

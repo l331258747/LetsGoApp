@@ -131,6 +131,7 @@
                     android:id="@+id/tv_time_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="出行日期" />
 
                 <TextView
@@ -138,10 +139,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@+id/tv_time_title"
                     android:textSize="12sp"
-                    tools:text="aeageagwegaadgaweggaegaegaegaegaegaege" />
+                    tools:text="aeageagwegaadgawegaege" />
 
 
             </RelativeLayout>
