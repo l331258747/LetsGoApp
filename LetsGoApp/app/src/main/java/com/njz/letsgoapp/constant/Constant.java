@@ -26,11 +26,6 @@ public class Constant {
     //banner type 1，首页banner 2，导游详情banner(存放导游照片) 3，向导陪游banner 4，私人订制banner 5，车导服务 6，代订酒店 7，代订景点门票
     public static final int BANNER_HOME = 1;
     public static final int BANNER_GUIDE = 2;
-    public static final int BANNER_SERVICE_GUIDE = 3;
-    public static final int BANNER_SERVICE_CUSTOM = 4;
-    public static final int BANNER_SERVICE_CAR = 5;
-    public static final int BANNER_SERVICE_HOTEL = 6;
-    public static final int BANNER_SERVICE_TICKET = 7;
 
     //导游列表 type1 综合 2 销量 3得分 4评论次数
     public static final int GUIDE_TYPE_SYNTHESIZE = 1;
