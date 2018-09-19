@@ -348,7 +348,7 @@
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/btn_black_hollow_p5"
                 android:gravity="center"
-                android:text="包车服务" />
+                android:text="车导服务" />
 
             <TextView
                 android:id="@+id/tv_type_hotel"
