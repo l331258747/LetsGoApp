@@ -30,6 +30,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -198,14 +199,14 @@ public interface HttpService {
     );
 
 
-    //sys/oss/sendSter
+    //sys/oss/sendSter 发布动态
     @Multipart
     @POST("up/sendSter")
     Observable<BaseResponse<EmptyModel>> sendSter(
-            @Part("location") String location,
+            @Part("location") RequestBody location,
             @Part("lon") double lon,
             @Part("lat") double lat,
-            @Part("content") String content,
+            @Part("content") RequestBody content,
             @Part List<MultipartBody.Part> files
 
     );
@@ -218,13 +219,13 @@ public interface HttpService {
     @Multipart
     @POST("up/userReview")
     Observable<BaseResponse<EmptyModel>> upUserReview(
-            @Part("orderId") String orderId,
+            @Part("orderId") RequestBody orderId,
             @Part("guideId") int guideId,
             @Part("guideService") int guideService,
             @Part("carCondition") int carCondition,
             @Part("buyService") int buyService,
             @Part("travelArrange") int travelArrange,
-            @Part("userContent") String userContent,
+            @Part("userContent") RequestBody userContent,
             @Part List<MultipartBody.Part> files
     );
 
@@ -242,14 +243,11 @@ public interface HttpService {
             @Body SendOrderModel data
     );
 
-    //orderPay/aliPay
-    @Multipart
+    //orderPay/aliPay 阿里支付
+    @FormUrlEncoded
     @POST("orderPay/aliPay")
     Observable<BaseResponse<String>> orderPayAliPay(
-            @Part("body") String body,
-            @Part("subject") String subject,
-            @Part("toutTradeNo") String toutTradeNo,
-            @Part("totalAmount") String totalAmount
+            @Field("outTradeNo") String toutTradeNo
     );
 
 

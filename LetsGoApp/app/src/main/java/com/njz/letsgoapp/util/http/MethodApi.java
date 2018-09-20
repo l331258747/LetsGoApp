@@ -167,11 +167,16 @@ public class MethodApi {
         return parts;
     }
 
+    private static RequestBody getStringPart(String str){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), str);
+        return requestBody;
+    }
+
     //sendSter
     public static void sendSter(String location, double lon, double lat, String content, List<String> files, DisposableObserver subscriber) {
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
 
-        Observable observable = HttpMethods.getInstance().getHttpService().sendSter(location, lon, lat, content, partList);
+        Observable observable = HttpMethods.getInstance().getHttpService().sendSter(getStringPart(location), lon, lat, getStringPart(content), partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -264,8 +269,8 @@ public class MethodApi {
 
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
 
-        Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(orderId, guideId, guideService,
-                carCondition, buyService, travelArrange, userContent, partList);
+        Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(getStringPart(orderId), guideId, guideService,
+                carCondition, buyService, travelArrange, getStringPart(userContent), partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -282,8 +287,8 @@ public class MethodApi {
     }
 
     //orderPayAliPay
-    public static void orderPayAliPay(String body, String subject,String toutTradeNo, String totalAmount, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAliPay(body,subject,toutTradeNo,totalAmount);
+    public static void orderPayAliPay(String outTradeNo, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAliPay(outTradeNo);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

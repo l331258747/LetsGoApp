@@ -82,6 +82,10 @@
             app:tabLineOffset="10dp"
             style="@style/CommonTabLayoutStyle" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/color_window_background"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
