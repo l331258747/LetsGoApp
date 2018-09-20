@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.pay.PayContract;
 import com.njz.letsgoapp.mvp.pay.PayPresenter;
@@ -33,21 +34,21 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     private static final int SDK_PAY_FLAG = 1;
 
-    private TextView tvPrice;
+    private TextView tvPrice,tvTitle,tvTime;
     private ImageView ivWX;
     private ImageView ivZhifubao;
     private Button btnPay;
     private RelativeLayout rl_sel_zhifubao,rl_sel_weixin;
 
     private double price;
-    private String orderId;
+    private PayModel payModel;
     private int payIndex = 1;
 
     private IWXAPI api;
 
     PayContract.Presenter mPresenter;
 
-    public static void startActivity(Activity activity, String orderId) {
+    public static void startActivity(Activity activity, PayModel orderId) {
         Intent intent = new Intent(activity, PayActivity.class);
         intent.putExtra(ORDER_ID, orderId);
         activity.startActivity(intent);
@@ -91,7 +92,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     @Override
     public void initView() {
         showLeftAndTitle("支付");
-        orderId = getIntent().getStringExtra(ORDER_ID);
+        payModel = getIntent().getParcelableExtra(ORDER_ID);
 
         tvPrice = $(R.id.tv_price_all);
         ivWX = $(R.id.iv_sel_weixin);
@@ -99,6 +100,8 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
         btnPay = $(R.id.btn_pay);
         rl_sel_zhifubao = $(R.id.rl_sel_zhifubao);
         rl_sel_weixin = $(R.id.rl_sel_weixin);
+        tvTitle = $(R.id.tv_title);
+        tvTime = $(R.id.tv_time);
 
         btnPay.setOnClickListener(this);
         rl_sel_zhifubao.setOnClickListener(this);
@@ -113,6 +116,11 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     public void initData() {
         mPresenter = new PayPresenter(this,activity);
         mPresenter.registDisposable();
+
+        tvPrice.setText(payModel.getTotalAmount());
+        tvTitle.setText(payModel.getSubject());
+        tvTime.setText(String.format(getResources().getString(R.string.order_pay_time),payModel.getLastPayTime()));
+
     }
 
     @Override
@@ -134,7 +142,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
                 if (payIndex == 1) {
                     mPresenter.getWxOrderInfo();
                 } else {
-                    mPresenter.getAliOrderInfo(orderId);
+                    mPresenter.getAliOrderInfo(payModel.getOutTradeNo());
                 }
                 break;
         }

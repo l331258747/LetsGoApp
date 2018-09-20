@@ -52,6 +52,7 @@
             android:background="@color/color_d9"/>
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
@@ -59,13 +60,14 @@
             android:text="张家界土家妹特色导游为您服务"/>
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/color_e2"
             android:layout_marginTop="10dp"
             android:textSize="12sp"
             android:gravity="center"
-            android:text="请在2018-07-12 12：12前完成支付，否则订单将会自动取消"/>
+            android:text="@string/order_pay_time"/>
 
     </LinearLayout>
 

@@ -1,12 +1,15 @@
 package com.njz.letsgoapp.bean.order;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by LGQ
  * Time: 2018/9/20
  * Function:
  */
 
-public class PayModel {
+public class PayModel implements Parcelable{
 
 
     /**
@@ -18,10 +21,13 @@ public class PayModel {
      */
 
     private String lastPayTime;
-    private float totalAmount;
+    private String totalAmount;
     private String subject;
     private String outTradeNo;
     private String body;
+
+    public PayModel() {
+    }
 
     public String getLastPayTime() {
         return lastPayTime;
@@ -31,11 +37,11 @@ public class PayModel {
         this.lastPayTime = lastPayTime;
     }
 
-    public float getTotalAmount() {
+    public String getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(float totalAmount) {
+    public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -61,5 +67,39 @@ public class PayModel {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    protected PayModel(Parcel in) {
+        lastPayTime = in.readString();
+        totalAmount = in.readString();
+        subject = in.readString();
+        outTradeNo = in.readString();
+        body = in.readString();
+    }
+
+    public static final Creator<PayModel> CREATOR = new Creator<PayModel>() {
+        @Override
+        public PayModel createFromParcel(Parcel in) {
+            return new PayModel(in);
+        }
+
+        @Override
+        public PayModel[] newArray(int size) {
+            return new PayModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(lastPayTime);
+        dest.writeString(totalAmount);
+        dest.writeString(subject);
+        dest.writeString(outTradeNo);
+        dest.writeString(body);
     }
 }

@@ -184,7 +184,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void orderCreateOrderSuccess(PayModel str) {
-        PayActivity.startActivity(activity, str.getOutTradeNo());//TODO 订单上传成功，返回单号
+        PayActivity.startActivity(activity, str);//TODO 订单上传成功，返回单号
     }
 
     @Override
