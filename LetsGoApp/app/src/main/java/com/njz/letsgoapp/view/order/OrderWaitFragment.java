@@ -53,7 +53,7 @@ public class OrderWaitFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new OrderWaitAdapter.OnItemClickListener() {
             @Override
             public void onClick(String orderNo) {
-                startActivity(new Intent(context, OrderSubmitActivity.class));
+                startActivity(new Intent(context, OrderDetailActivity.class));
             }
         });
 

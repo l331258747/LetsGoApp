@@ -133,6 +133,9 @@
         <activity
             android:name=".view.order.OrderCancelActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.order.OrderDetailActivity"
+            android:windowSoftInputMode="adjustPan" />
 
 
 
@@ -374,6 +377,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".view.order.OrderDetailActivity" />
 
         <provider
             android:name=".util.BuglyFileProvider"
