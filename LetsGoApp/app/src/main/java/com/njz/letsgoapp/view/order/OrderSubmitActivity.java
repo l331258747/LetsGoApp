@@ -16,6 +16,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.send.SendChildOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -182,8 +183,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void orderCreateOrderSuccess(EmptyModel str) {
-        PayActivity.startActivity(activity, 12314341);//TODO 订单上传成功，返回单号
+    public void orderCreateOrderSuccess(PayModel str) {
+        PayActivity.startActivity(activity, str.getOutTradeNo());//TODO 订单上传成功，返回单号
     }
 
     @Override

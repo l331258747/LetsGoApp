@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.mvp.order;
 
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 
 /**
@@ -16,7 +17,7 @@ public interface OrderCreateContract {
     }
 
     interface View{
-        void orderCreateOrderSuccess(EmptyModel str);
+        void orderCreateOrderSuccess(PayModel str);
         void orderCreateOrderFailed(String msg);
     }
 }

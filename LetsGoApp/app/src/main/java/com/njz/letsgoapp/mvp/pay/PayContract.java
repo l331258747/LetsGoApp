@@ -13,7 +13,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 public interface PayContract {
 
     interface Presenter {
-        void getAliOrderInfo();
+        void getAliOrderInfo(String orderId);
 
         void getWxOrderInfo();
 

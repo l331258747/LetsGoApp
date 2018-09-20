@@ -21,6 +21,7 @@ import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 
@@ -29,11 +30,8 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -240,8 +238,18 @@ public interface HttpService {
 
     //order/createOrder 创建订单
     @POST("order/createOrder")
-    Observable<BaseResponse<EmptyModel>> orderCreateOrder(
+    Observable<BaseResponse<PayModel>> orderCreateOrder(
             @Body SendOrderModel data
+    );
+
+    //orderPay/aliPay
+    @Multipart
+    @POST("orderPay/aliPay")
+    Observable<BaseResponse<String>> orderPayAliPay(
+            @Part("body") String body,
+            @Part("subject") String subject,
+            @Part("toutTradeNo") String toutTradeNo,
+            @Part("totalAmount") String totalAmount
     );
 
 

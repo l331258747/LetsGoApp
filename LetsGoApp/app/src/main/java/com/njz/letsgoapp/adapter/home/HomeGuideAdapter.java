@@ -44,7 +44,7 @@ public class HomeGuideAdapter extends RecyclerView.Adapter<HomeGuideAdapter.View
         final GuideModel data = datas.get(position);
         if (data == null) return;
 
-        GlideUtil.LoadRoundImage(context, data.getGuideImg(), holder.iv_img);
+        GlideUtil.LoadImage(context, data.getGuideImg(), holder.iv_img);
         holder.tv_name.setText(data.getGuideName());
         holder.iv_sex.setImageDrawable(data.getGuideGender() == 0?ContextCompat.getDrawable(context,R.mipmap.icon_girl):ContextCompat.getDrawable(context,R.mipmap.icon_boy));
         holder.tv_service_num.setText(data.getCount()+"次服务");

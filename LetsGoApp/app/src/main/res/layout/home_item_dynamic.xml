@@ -95,6 +95,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="90dp"
             android:drawableLeft="@mipmap/ic_dynamic_nice_un"
+            android:paddingLeft="30dp"
             android:drawablePadding="10dp"
             android:text="1000" />
 

@@ -3,47 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:background="@drawable/btn_white_r5_bottom"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_black_hollow_p5"
-        android:layout_marginTop="10dp"
-        android:padding="8dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="行程时间" />
-
-            <TextView
-                android:id="@+id/tv_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                tools:text="2018-12-16" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="至" />
-
-            <TextView
-                android:id="@+id/tv_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                tools:text="2018-12-20" />
-
-        </LinearLayout>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,6 +22,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_order_price_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="总额：" />
@@ -63,7 +34,7 @@
                 android:textColor="@color/color_red" />
 
             <TextView
-                android:id="@+id/tv_comment"
+                android:id="@+id/tv_order_price_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2600"
@@ -73,57 +44,95 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
+        android:overScrollMode="never"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/btn_1"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:gravity="center"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_blue_solid_r5_p8"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/white"
-            android:text="联系导游"/>
+            android:layout_gravity="right"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/btn_2"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_blue_solid_r5_p8"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/white"
-            android:text="取消点单"/>
+            <TextView
+                android:id="@+id/btn_call_guide"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_2585e7_hollow_r3_p5"
+                android:gravity="center"
+                android:text="联系导游"
+                android:textColor="@color/color_2585e7" />
 
-        <TextView
-            android:id="@+id/btn_3"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_blue_solid_r5_p8"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/white"
-            android:text="付款"/>
-        <TextView
-            android:id="@+id/btn_4"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_blue_solid_r5_p8"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/white"
-            android:text="点评"/>
+            <TextView
+                android:id="@+id/btn_cancel_order"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_99_hollow_r3_p5"
+                android:gravity="center"
+                android:text="取消订单" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/btn_pay"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_theme_solid_r3_p5"
+                android:gravity="center"
+                android:text="付款"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/btn_evaluate"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_theme_hollow_r3_p5"
+                android:gravity="center"
+                android:text="评价"
+
+                android:textColor="@color/color_theme" />
+
+            <TextView
+                android:id="@+id/btn_delete"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_99_hollow_r3_p5"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="@color/color_99" />
+
+            <TextView
+                android:id="@+id/btn_call_customer"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_theme_hollow_r3_p5"
+                android:gravity="center"
+                android:text="联系客服"
+                android:textColor="@color/color_theme" />
+
+            <TextView
+                android:id="@+id/btn_refund"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_99_hollow_r3_p5"
+                android:gravity="center"
+                android:text="退款" />
+
+        </LinearLayout>
+
+
+    </HorizontalScrollView>
 
 
 </LinearLayout>

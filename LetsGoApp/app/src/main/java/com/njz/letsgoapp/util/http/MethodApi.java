@@ -281,6 +281,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //orderPayAliPay
+    public static void orderPayAliPay(String body, String subject,String toutTradeNo, String totalAmount, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAliPay(body,subject,toutTradeNo,totalAmount);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------订单 end---------
 
 

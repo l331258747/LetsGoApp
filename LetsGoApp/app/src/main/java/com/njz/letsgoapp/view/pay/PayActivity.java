@@ -40,14 +40,14 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     private RelativeLayout rl_sel_zhifubao,rl_sel_weixin;
 
     private double price;
-    private int orderId;
+    private String orderId;
     private int payIndex = 1;
 
     private IWXAPI api;
 
     PayContract.Presenter mPresenter;
 
-    public static void startActivity(Activity activity, int orderId) {
+    public static void startActivity(Activity activity, String orderId) {
         Intent intent = new Intent(activity, PayActivity.class);
         intent.putExtra(ORDER_ID, orderId);
         activity.startActivity(intent);
@@ -91,7 +91,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     @Override
     public void initView() {
         showLeftAndTitle("支付");
-        orderId = getIntent().getIntExtra(ORDER_ID, 0);
+        orderId = getIntent().getStringExtra(ORDER_ID);
 
         tvPrice = $(R.id.tv_price_all);
         ivWX = $(R.id.iv_sel_weixin);
@@ -134,7 +134,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
                 if (payIndex == 1) {
                     mPresenter.getWxOrderInfo();
                 } else {
-                    mPresenter.getAliOrderInfo();
+                    mPresenter.getAliOrderInfo(orderId);
                 }
                 break;
         }

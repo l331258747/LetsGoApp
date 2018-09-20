@@ -48,4 +48,10 @@ public class Constant {
     public static final int SERVICE_TYPE_CAR = 24;
     public static final int SERVICE_TYPE_GUIDE = 23;
 
+    public static final String SERVICE_TYPE_SHORT_CUSTOM = "srdz";
+    public static final String SERVICE_TYPE_SHORT_HOTEL = "ddjd";
+    public static final String SERVICE_TYPE_SHORT_TICKET = "ddjdmp";
+    public static final String SERVICE_TYPE_SHORT_CAR = "cdfw";
+    public static final String SERVICE_TYPE_SHORT_GUIDE = "xdpy";
+
 }

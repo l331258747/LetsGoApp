@@ -12,7 +12,7 @@
 
     <color name="blue">#6cb7fe</color>
 
-    <color name="color_red">#dd0000</color>
+    <color name="color_red">#ff0707</color>
 
     <color name="white">#ffffff</color>
     <color name="transparent">#00000000</color>
@@ -47,6 +47,8 @@
     <color name="color_ffe8d2">#ffe8d2</color>
     <color name="color_ffd400">#ffd400</color>
     <color name="color_cc">#cccccc</color>
+    <color name="color_ffe6d5">#ffe6d5</color>
+    <color name="color_2585e7">#2585e7</color>
 
 
 </resources>

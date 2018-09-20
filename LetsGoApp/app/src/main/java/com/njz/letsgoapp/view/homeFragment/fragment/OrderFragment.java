@@ -1,6 +1,5 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -8,6 +7,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.view.order.OrderWaitFragment;
+import com.njz.letsgoapp.widget.myTabLayout.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +28,13 @@ public class OrderFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_common_tablayout;
+        return R.layout.fragment_order;
     }
 
     @Override
     public void initView() {
 
-        mTabLayout = $(R.id.tabs);
+        mTabLayout = $(R.id.tab_layout);
         mViewPager = $(R.id.viewpager);
 
     }
@@ -52,4 +52,6 @@ public class OrderFragment extends BaseFragment {
         mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mViewPager);
     }
+
+
 }

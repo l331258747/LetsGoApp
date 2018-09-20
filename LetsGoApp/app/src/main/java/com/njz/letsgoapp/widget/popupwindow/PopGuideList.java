@@ -79,11 +79,11 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         tv_time_start.setText(startTime);
         tv_time_end.setText(endTime);
 
-        tv_time_start.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
-        tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+        tv_time_start.setBackgroundResource(R.drawable.btn_ffe6d5_solid_r2_p5);
+        tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
         tv_time_start.setSelected(true);
-        tv_time_end.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
-        tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+        tv_time_end.setBackgroundResource(R.drawable.btn_ffe6d5_solid_r2_p5);
+        tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
         tv_time_end.setSelected(true);
     }
 
@@ -136,8 +136,8 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
     //取消选中状态
     private void setResetAllView(TextView... tvs) {
         for (TextView tv : tvs) {
-            tv.setBackgroundResource(R.drawable.btn_black_hollow_p5);
-            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+            tv.setBackgroundResource(R.drawable.btn_99_hollow_r2_p5);
+            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_text));
             tv.setSelected(false);
         }
     }
@@ -145,12 +145,12 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
     //被选中
     private void setViewSelect(TextView tv) {
         if (tv.isSelected()) {
-            tv.setBackgroundResource(R.drawable.btn_black_hollow_p5);
-            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+            tv.setBackgroundResource(R.drawable.btn_99_hollow_r2_p5);
+            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_text));
             tv.setSelected(false);
         } else {
-            tv.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
-            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+            tv.setBackgroundResource(R.drawable.btn_ffe6d5_solid_r2_p5);
+            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
             tv.setSelected(true);
         }
     }
@@ -184,15 +184,15 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
         StringBuffer services = new StringBuffer("");
         //tv_type_private,tv_type_scenic,tv_type_hotel,tv_type_car,tv_type_guide
         if(tv_type_private.isSelected())
-            services.append(Constant.SERVICE_TYPE_CUSTOM + ",");
+            services.append(Constant.SERVICE_TYPE_SHORT_CUSTOM + ",");
         if(tv_type_scenic.isSelected())
-            services.append(Constant.SERVICE_TYPE_TICKET + ",");
+            services.append(Constant.SERVICE_TYPE_SHORT_TICKET + ",");
         if(tv_type_hotel.isSelected())
-            services.append(Constant.SERVICE_TYPE_HOTEL + ",");
+            services.append(Constant.SERVICE_TYPE_SHORT_HOTEL + ",");
         if(tv_type_car.isSelected())
-            services.append(Constant.SERVICE_TYPE_CAR + ",");
+            services.append(Constant.SERVICE_TYPE_SHORT_CAR + ",");
         if(tv_type_guide.isSelected())
-            services.append(Constant.SERVICE_TYPE_GUIDE + ",");
+            services.append(Constant.SERVICE_TYPE_SHORT_GUIDE + ",");
         if(services.toString().length() > 0)
             return services.toString().substring(0,services.toString().length() - 1);
         return services.toString();
@@ -316,17 +316,17 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 setTime();
                 break;
             case R.id.tv_time_unrestricted:
-                tv_time_start.setBackgroundResource(R.drawable.btn_black_hollow_p5);
-                tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+                tv_time_start.setBackgroundResource(R.drawable.btn_99_hollow_r2_p5);
+                tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_text));
                 tv_time_start.setSelected(false);
-                tv_time_end.setBackgroundResource(R.drawable.btn_black_hollow_p5);
-                tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+                tv_time_end.setBackgroundResource(R.drawable.btn_99_hollow_r2_p5);
+                tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_text));
                 tv_time_end.setSelected(false);
                 tv_time_start.setText("开始时间");
                 tv_time_end.setText("结束时间");
 
-                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
-                tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_ffe6d5_solid_r2_p5);
+                tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
                 tv_time_unrestricted.setSelected(true);
                 break;
         }
@@ -346,15 +346,15 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 tv_time_start.setText(calendarEvent.getStartTime());
                 tv_time_end.setText(calendarEvent.getEndTime());
 
-                tv_time_start.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
-                tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+                tv_time_start.setBackgroundResource(R.drawable.btn_ffe6d5_solid_r2_p5);
+                tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
                 tv_time_start.setSelected(true);
-                tv_time_end.setBackgroundResource(R.drawable.btn_theme66_solid_p5);
-                tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
+                tv_time_end.setBackgroundResource(R.drawable.btn_ffe6d5_solid_r2_p5);
+                tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
                 tv_time_end.setSelected(true);
 
-                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_black_hollow_p5);
-                tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.black));
+                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_99_hollow_r2_p5);
+                tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_text));
                 tv_time_unrestricted.setSelected(false);
             }
         });

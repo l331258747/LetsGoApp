@@ -14,6 +14,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.order.OrderBean;
 import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.Suborders;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.order.OrderCancelActivity;
 import com.njz.letsgoapp.view.order.OrderEvaluateActivity;
@@ -112,7 +113,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             final Suborders data = orderBeanGroups.get(pos).getSuborders();
             if (data == null) return;
 
-            GlideUtil.LoadImage(mContext,data.getImgUrl(),((DefaultHolder) holder).iv_img);
+            GlideUtil.LoadRoundImage(mContext,data.getImgUrl(),((DefaultHolder) holder).iv_img,5);
 
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
             ((DefaultHolder) holder).btn_cancel.setText("取消");
@@ -127,7 +128,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             final OrderBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((TitleHolder) holder).tv_title.setText(data.getOrderNo());
+            ((TitleHolder) holder).tv_order.setText(data.getOrderNo());
             ((TitleHolder) holder).tv_status.setText(data.getOrderStatus());
 
             if(mOnItemClickListener != null){
@@ -145,25 +146,60 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             final OrderBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((FootHolder) holder).tv_start_time.setText(data.getOrderStartTime());
-            ((FootHolder) holder).tv_end_time.setText(data.getOrderEndTime());
-            ((FootHolder) holder).tv_price.setText("" + data.getOrderTotalPrice());
-            ((FootHolder) holder).btn_1.setText("联系导游");
-            ((FootHolder) holder).btn_2.setText("取消订单");
-            ((FootHolder) holder).btn_2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext,OrderCancelActivity.class));
-                }
-            });
-            ((FootHolder) holder).btn_3.setText("付款");
-            ((FootHolder) holder).btn_4.setText("点评");
-            ((FootHolder) holder).btn_4.setOnClickListener(new View.OnClickListener() {
+            ((FootHolder) holder).tv_order_price_title.setText("总额");
+            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderTotalPrice());
+
+            ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mContext.startActivity(new Intent(mContext,OrderEvaluateActivity.class));
                 }
             });
+            ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortToast(mContext,"联系导游");
+                }
+            });
+            ((FootHolder) holder).btn_cancel_order.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortToast(mContext,"取消订单");
+                    mContext.startActivity(new Intent(mContext,OrderCancelActivity.class));
+                }
+            });
+            ((FootHolder) holder).btn_pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortToast(mContext,"付款");
+                }
+            });
+            ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortToast(mContext,"评价");
+                    mContext.startActivity(new Intent(mContext,OrderEvaluateActivity.class));
+                }
+            });
+            ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortToast(mContext,"删除");
+                }
+            });
+            ((FootHolder) holder).btn_call_customer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortToast(mContext,"联系客服");
+                }
+            });
+            ((FootHolder) holder).btn_refund.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortToast(mContext,"退款");
+                }
+            });
+
         }
     }
 
@@ -180,12 +216,13 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
     }
 
     public class TitleHolder extends OrderWaitAdapter.BaseViewHolder implements View.OnClickListener {
-        TextView tv_title,tv_status;
+        TextView tv_order,tv_status,tv_name;
         RelativeLayout rl_status;
 
         TitleHolder(View itemView) {
             super(itemView);
-            tv_title = itemView.findViewById(R.id.tv_title);
+            tv_order = itemView.findViewById(R.id.tv_order);
+            tv_name = itemView.findViewById(R.id.tv_name);
             tv_status = itemView.findViewById(R.id.tv_status);
             rl_status = itemView.findViewById(R.id.rl_status);
 
@@ -215,18 +252,21 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
 
 
     public class FootHolder extends OrderWaitAdapter.BaseViewHolder {
-        TextView tv_start_time,tv_end_time,tv_price;
-        TextView btn_1,btn_2,btn_3,btn_4;
+        TextView tv_order_price_content,tv_order_price_title;
+        TextView btn_call_guide,btn_cancel_order,btn_pay,btn_evaluate,btn_delete,btn_call_customer,btn_refund;
 
         FootHolder(View itemView) {
             super(itemView);
-            tv_start_time = itemView.findViewById(R.id.tv_start_time);
-            tv_end_time = itemView.findViewById(R.id.tv_end_time);
-            tv_price = itemView.findViewById(R.id.tv_comment);
-            btn_1 = itemView.findViewById(R.id.btn_1);
-            btn_2 = itemView.findViewById(R.id.btn_2);
-            btn_3 = itemView.findViewById(R.id.btn_3);
-            btn_4 = itemView.findViewById(R.id.btn_4);
+            tv_order_price_content = itemView.findViewById(R.id.tv_order_price_content);
+            tv_order_price_title = itemView.findViewById(R.id.tv_order_price_title);
+
+            btn_call_guide = itemView.findViewById(R.id.btn_call_guide);
+            btn_cancel_order = itemView.findViewById(R.id.btn_cancel_order);
+            btn_pay = itemView.findViewById(R.id.btn_pay);
+            btn_evaluate = itemView.findViewById(R.id.btn_evaluate);
+            btn_delete = itemView.findViewById(R.id.btn_delete);
+            btn_call_customer = itemView.findViewById(R.id.btn_call_customer);
+            btn_refund = itemView.findViewById(R.id.btn_refund);
         }
     }
 

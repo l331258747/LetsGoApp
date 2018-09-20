@@ -177,7 +177,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
                 setMystatusViewShow(true);
                 break;
             case 2:
-                setTitleSingle(true, getResString(R.string.home_order));
+                setTitleSingle(false, getResString(R.string.home_order));
                 setMystatusViewShow(true);
                 break;
             case 3:

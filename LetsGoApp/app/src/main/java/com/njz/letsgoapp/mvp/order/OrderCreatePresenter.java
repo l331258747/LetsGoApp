@@ -3,6 +3,7 @@ package com.njz.letsgoapp.mvp.order;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -26,9 +27,9 @@ public class OrderCreatePresenter implements OrderCreateContract.Presenter {
 
     @Override
     public void orderCreateOrder(SendOrderModel data) {
-        ResponseCallback listener = new ResponseCallback<EmptyModel>() {
+        ResponseCallback listener = new ResponseCallback<PayModel>() {
             @Override
-            public void onSuccess(EmptyModel data) {
+            public void onSuccess(PayModel data) {
                 iView.orderCreateOrderSuccess(data);
             }
 

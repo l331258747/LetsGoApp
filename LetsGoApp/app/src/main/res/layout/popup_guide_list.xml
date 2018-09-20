@@ -26,7 +26,7 @@
                 android:id="@+id/tv_sex_unrestricted"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="不限" />
 
@@ -35,7 +35,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="男" />
 
@@ -44,7 +44,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="女" />
 
@@ -67,7 +67,7 @@
                 android:id="@+id/tv_age_unrestricted"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="不限" />
 
@@ -76,7 +76,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="18-25" />
 
@@ -85,7 +85,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="26-30" />
 
@@ -102,7 +102,7 @@
                 android:id="@+id/tv_age_31"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="31-40" />
 
@@ -111,7 +111,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="41-50" />
 
@@ -120,7 +120,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="50以上" />
 
@@ -143,7 +143,7 @@
                 android:id="@+id/tv_year_1"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="1-3年" />
 
@@ -152,7 +152,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="3-5年" />
 
@@ -161,7 +161,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="5年以上" />
 
@@ -186,7 +186,7 @@
                 android:id="@+id/tv_time_unrestricted"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="不限" />
 
@@ -199,7 +199,7 @@
                     android:id="@+id/tv_time_start"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_black_hollow_p5"
+                    android:background="@drawable/btn_99_hollow_r2_p5"
                     android:gravity="center"
                     android:text="开始时间" />
 
@@ -209,13 +209,13 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@color/black" />
+                    android:background="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_time_end"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_black_hollow_p5"
+                    android:background="@drawable/btn_99_hollow_r2_p5"
                     android:gravity="center"
                     android:text="结束时间" />
 
@@ -337,7 +337,7 @@
                 android:id="@+id/tv_type_guide"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="向导陪游" />
 
@@ -346,7 +346,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="车导服务" />
 
@@ -355,7 +355,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="代订酒店" />
 
@@ -370,7 +370,7 @@
                 android:id="@+id/tv_type_scenic"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="代订门票" />
 
@@ -379,7 +379,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/btn_black_hollow_p5"
+                android:background="@drawable/btn_99_hollow_r2_p5"
                 android:gravity="center"
                 android:text="私人定制" />
 
@@ -401,7 +401,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_black_hollow_p5"
+            android:background="@drawable/btn_99_hollow_p5"
             android:text="重置" />
 
         <Button

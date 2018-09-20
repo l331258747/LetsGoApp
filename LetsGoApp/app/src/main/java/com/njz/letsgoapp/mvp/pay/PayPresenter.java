@@ -40,24 +40,21 @@ public class PayPresenter implements PayContract.Presenter {
     }
 
     @Override
-    public void getAliOrderInfo() {
-        ResponseCallback getTopListener = new ResponseCallback<AliPay>() {
+    public void getAliOrderInfo(String orderId) {
+        ResponseCallback getTopListener = new ResponseCallback<String>() {
             @Override
-            public void onSuccess(AliPay t) {
-                LogUtil.e("onSuccess");
-                String orderinfo = t.getData();
-                LogUtil.e("orderinfo:"+orderinfo);
-                iView.getAliOrderInfoSuccess(t.getData());
+            public void onSuccess(String t) {
+                LogUtil.e("orderinfo:"+t);
+                iView.getAliOrderInfoSuccess(t);
 //                payAli(orderinfo);
             }
 
             @Override
             public void onFault(String errorMsg) {
-                LogUtil.e("onFault" + errorMsg);
                 iView.getAliOrderInfoFailed(errorMsg);
             }
         };
-//        MethodApi.appPay(new OnSuccessAndFaultSub(getTopListener,activity));
+        MethodApi.orderPayAliPay("","标题",orderId,"1",new OnSuccessAndFaultSub(getTopListener,activity));
     }
 
     @Override

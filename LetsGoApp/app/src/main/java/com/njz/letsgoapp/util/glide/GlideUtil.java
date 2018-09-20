@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.njz.letsgoapp.R;
 
 /**
@@ -74,10 +75,10 @@ public class GlideUtil {
 
     //加载圆角图片
     public static void LoadRoundImage(Context mContext, String path,
-                                       ImageView imageview) {
+                                       ImageView imageview,int radius) {
         if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.head_default)
-                .transform(new GlideRoundTransform(mContext, 10))
+        Glide.with(mContext).load(path).placeholder(R.mipmap.head_default)
+                .transform(new CenterCrop(mContext),new GlideRoundTransform(mContext, radius))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
 
     }
