@@ -90,9 +90,10 @@ public class LocationUtil {
         mLocationOption.setLocationCacheEnable(false);
         //获取最近3s内精度最高的一次定位结果：如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
         mLocationOption.setOnceLocation(true);
-        mLocationOption.setOnceLocationLatest(true);
+//        mLocationOption.setOnceLocationLatest(true);
         //设置是否返回地址信息（默认返回地址信息）网络定位有结果
         mLocationOption.setNeedAddress(true);
+        mLocationOption.setHttpTimeOut(3000);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
     }

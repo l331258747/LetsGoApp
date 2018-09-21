@@ -21,6 +21,7 @@ import com.njz.letsgoapp.mvp.find.DynamicDetailContract;
 import com.njz.letsgoapp.mvp.find.DynamicDetailPresenter;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
@@ -213,11 +214,13 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         model.setReplyCount(model.getReplyCount() + 1);
         tvComment.setText(model.getReplyCount() + "条评论");
         recyclerView.scrollToPosition(comments.size()-1);
+        AppUtils.HideKeyboard(tvComment);
     }
 
     @Override
     public void friendDiscussFailed(String msg) {
         showShortToast(msg);
+        AppUtils.HideKeyboard(tvComment);
     }
 
     @Override
