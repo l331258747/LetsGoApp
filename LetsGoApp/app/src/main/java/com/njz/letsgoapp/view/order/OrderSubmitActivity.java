@@ -138,8 +138,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         totalPrice = 0;
         for (GuideServiceModel model : serviceModels) {
             for (ServiceItem item : model.getServiceItems()) {
-                if (item.getServeType()==Constant.SERVICE_TYPE_GUIDE
-                        || item.getServeType() == Constant.SERVICE_TYPE_CAR) {
+                if (TextUtils.equals(item.getValue(),Constant.SERVICE_TYPE_SHORT_GUIDE)
+                        || TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)) {
                     totalPrice = item.getPrice() * item.getTimeDay() + totalPrice;
                 } else {
                     totalPrice = item.getPrice() * item.getNumber() * item.getTimeDay() + totalPrice;
@@ -167,8 +167,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
             sendChildOrder.setDayNum(si.getTimeDay());
             sendChildOrder.setRoomNum(si.getNumber());
             float childTotalPrice;
-            if (si.getServeType() == Constant.SERVICE_TYPE_GUIDE
-                    || si.getServeType() == Constant.SERVICE_TYPE_CAR) {
+            if (TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE)
+                    || TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)) {
                 childTotalPrice = si.getPrice() * si.getTimeDay();
             } else {
                 childTotalPrice = si.getPrice() * si.getNumber() * si.getTimeDay();

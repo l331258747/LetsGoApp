@@ -69,6 +69,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
         serviceInfoGroup.setServiceTitle(item.getServiceType());
         serviceInfoGroup.setId(item.getId());
         serviceInfoGroup.setServiceTypeId(item.getServeType());
+        serviceInfoGroup.setServiceTypeShort(item.getValue());
         serviceInfoGroups.add(serviceInfoGroup);
         if (item.getServiceItems() != null && item.getServiceItems().size() > 0) {
             serviceInfoGroup.setServiceTitleColor(true);
@@ -126,8 +127,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             //代订酒店，向导陪游，车导服务显示天数
             String initOneDay = null;
             List<String> initDays = null;
-            if(data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_CUSTOM
-                    || data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_TICKET){
+            if(TextUtils.equals(data.getServiceItem().getValue(),Constant.SERVICE_TYPE_SHORT_CUSTOM)
+                    || TextUtils.equals(data.getServiceItem().getValue(),Constant.SERVICE_TYPE_SHORT_TICKET)){
                 initOneDay = data.getServiceItem().getOneTime();
                 ((DefaultHolder) holder).tv_time_content.setText(TextUtils.isEmpty(data.getServiceItem().getOneTime()) ?"0":data.getServiceItem().getOneTime());
             }else{
@@ -151,8 +152,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     //私人定制和代订门票 进入 单选 日期
                     //代订酒店，向导陪游，车导服务 进入 多选 日期
                     Intent intent = new Intent(mContext, CalendarActivity.class);
-                    if(data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_CUSTOM
-                            || data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_TICKET){
+                    if(TextUtils.equals(data.getServiceItem().getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)
+                            || TextUtils.equals(data.getServiceItem().getValue() , Constant.SERVICE_TYPE_SHORT_TICKET)){
                         calendarType = 3;
                         intent.putExtra(CalendarActivity.CALENDAR_ONE_DAY,data.getServiceItem().getOneTime());
                     }else{
@@ -202,8 +203,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     //代订酒店，向导陪游，车导服务显示天数
                     String initOneDay = null;
                     List<String> initDays = null;
-                    if(data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_CUSTOM
-                            || data.getServiceItem().getServeType() == Constant.SERVICE_TYPE_TICKET){
+                    if(TextUtils.equals(data.getServiceItem().getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)
+                            || TextUtils.equals(data.getServiceItem().getValue() , Constant.SERVICE_TYPE_SHORT_TICKET)){
                         initOneDay = data.getServiceItem().getOneTime();
                     }else{
                         initDays = data.getServiceItem().getDays();
@@ -234,7 +235,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             ((TitleHolder) holder).service_title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onTitleClick(data.getServiceTitle(),data.getServiceTypeId(),data.getId());
+                    mOnItemClickListener.onTitleClick(data.getServiceTitle(),data.getServiceTypeShort(),data.getServiceTypeId(),data.getId());
                 }
             });
 
@@ -250,21 +251,21 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     //设置time，count标题文字
     public void setItemTitle(ServiceInfoGroup data, TextView timeTitle, TextView countTitle){
-        switch (data.getServiceItem().getServeType()){
-            case Constant.SERVICE_TYPE_CUSTOM:
+        switch (data.getServiceItem().getValue()){
+            case Constant.SERVICE_TYPE_SHORT_CUSTOM:
                 timeTitle.setText("出发日期");
                 countTitle.setText("出行人数");
                 break;
-            case Constant.SERVICE_TYPE_CAR:
-            case Constant.SERVICE_TYPE_GUIDE:
+            case Constant.SERVICE_TYPE_SHORT_CAR:
+            case Constant.SERVICE_TYPE_SHORT_GUIDE:
                 timeTitle.setText("出行日期");
                 countTitle.setText("出行人数");
                 break;
-            case Constant.SERVICE_TYPE_HOTEL:
+            case Constant.SERVICE_TYPE_SHORT_HOTEL:
                 timeTitle.setText("入住时间");
                 countTitle.setText("预订间数");
                 break;
-            case Constant.SERVICE_TYPE_TICKET:
+            case Constant.SERVICE_TYPE_SHORT_TICKET:
                 timeTitle.setText("日期");
                 countTitle.setText("数量");
                 break;
@@ -316,7 +317,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     OnTitleClickListener mOnItemClickListener;
 
     public interface OnTitleClickListener {
-        void onTitleClick(String serviceTypeName ,int serviceTypeId, int id);
+        void onTitleClick(String serviceTypeName ,String serviceTypeShort, int serviceTypeId, int id);
         void onCancelClick(int serviceTypeId, int id);
     }
 
@@ -329,8 +330,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
     public void setItemContent(ServiceInfoGroup data, TextView timeContent,int num,TextView priceCount,TextView priceTotal,List<String> days,String oneDay){
         String timeDay = timeContent.getText().toString();
         int timeDay2 = 0;
-        switch (data.getServiceItem().getServeType()){
-            case Constant.SERVICE_TYPE_CUSTOM:
+        switch (data.getServiceItem().getValue()){
+            case Constant.SERVICE_TYPE_SHORT_CUSTOM:
                 if(TextUtils.equals(timeDay,"0")){
                     timeDay2 = 0;
                     priceCount.setText(timeDay2 + " x " + num + "人 x " + "￥" + data.getServiceItem().getPrice());
@@ -341,8 +342,8 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 }
                 priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
                 break;
-            case Constant.SERVICE_TYPE_CAR:
-            case Constant.SERVICE_TYPE_GUIDE:
+            case Constant.SERVICE_TYPE_SHORT_CAR:
+            case Constant.SERVICE_TYPE_SHORT_GUIDE:
                 if(TextUtils.equals(timeDay,"0")){
                     timeDay2 = 0;
                 }else{
@@ -352,7 +353,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 priceCount.setText(timeDay2 + "天 x " + "￥" + data.getServiceItem().getPrice());
                 priceTotal.setText("￥" + (timeDay2 * data.getServiceItem().getPrice()));
                 break;
-            case Constant.SERVICE_TYPE_HOTEL:
+            case Constant.SERVICE_TYPE_SHORT_HOTEL:
                 if(TextUtils.equals(timeDay,"0")){
                     timeDay2 = 0;
                 }else{
@@ -362,7 +363,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 priceCount.setText(timeDay2 + "天 x " +num + "间 x " + "￥" + data.getServiceItem().getPrice());
                 priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
                 break;
-            case Constant.SERVICE_TYPE_TICKET:
+            case Constant.SERVICE_TYPE_SHORT_TICKET:
                 if(TextUtils.equals(timeDay,"0")){
                     timeDay2 = 0;
                     priceCount.setText(timeDay2 + " x " + num + "张 x " + "￥" + data.getServiceItem().getPrice());

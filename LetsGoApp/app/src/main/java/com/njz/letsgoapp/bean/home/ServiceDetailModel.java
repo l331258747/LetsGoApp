@@ -34,6 +34,7 @@ public class ServiceDetailModel {
     private String serveFeature;
     private int serveType;
     private String serviceType;
+    private String value;
     private String renegePriceThree;
     private String renegePriceFive;
     private String costExplain;
@@ -41,6 +42,14 @@ public class ServiceDetailModel {
     private int status;
     private String location;
     private int count;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public int getId() {
         return id;

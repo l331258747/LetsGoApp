@@ -55,8 +55,8 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             ((ViewHolder) holder).tv_title.setText(data.getTitile());
             ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
 
-            switch (data.getServeType()) {
-                case Constant.SERVICE_TYPE_CUSTOM:
+            switch (data.getValue()) {
+                case Constant.SERVICE_TYPE_SHORT_CUSTOM:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getNumber() + "人");
                     ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getNumber());
 
@@ -64,8 +64,8 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
 
                     ((ViewHolder) holder).tv_time_title.setText("行程时间");
                     break;
-                case Constant.SERVICE_TYPE_CAR:
-                case Constant.SERVICE_TYPE_GUIDE:
+                case Constant.SERVICE_TYPE_SHORT_CAR:
+                case Constant.SERVICE_TYPE_SHORT_GUIDE:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getTimeDay() + "天");
                     ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getTimeDay());
 
@@ -75,7 +75,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
 
                     ((ViewHolder) holder).tv_time_title.setText("出行日期");
                     break;
-                case Constant.SERVICE_TYPE_HOTEL:
+                case Constant.SERVICE_TYPE_SHORT_HOTEL:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getNumber() + "间" + "x" +  data.getTimeDay() + "天");
                     ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getNumber() * data.getTimeDay());
 
@@ -83,7 +83,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
 
                     ((ViewHolder) holder).tv_time_title.setText("入住时间");
                     break;
-                case Constant.SERVICE_TYPE_TICKET:
+                case Constant.SERVICE_TYPE_SHORT_TICKET:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getNumber() + "张");
                     ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getNumber());
 
@@ -93,8 +93,8 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
                     break;
             }
 
-            if(data.getServeType() == Constant.SERVICE_TYPE_CUSTOM
-                    || data.getServeType() == Constant.SERVICE_TYPE_TICKET){
+            if(TextUtils.equals(data.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)
+                    || TextUtils.equals(data.getValue() , Constant.SERVICE_TYPE_SHORT_TICKET)){
                 ((ViewHolder) holder).tv_time_content.setText(data.getOneTime());
             }else {
                 ((ViewHolder) holder).tv_time_content.setText(data.getDaysStr());

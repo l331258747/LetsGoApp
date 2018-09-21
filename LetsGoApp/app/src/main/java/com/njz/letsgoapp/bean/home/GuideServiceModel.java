@@ -24,9 +24,18 @@ public class GuideServiceModel implements Parcelable {
     private int id;
     private int serveType;
     private String serviceType;
+    private String value;
     private List<ServiceItem> serviceItems;
 
     public GuideServiceModel() {
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public int getId() {
@@ -70,6 +79,7 @@ public class GuideServiceModel implements Parcelable {
         id = in.readInt();
         serveType = in.readInt();
         serviceType = in.readString();
+        value = in.readString();
         serviceItems = in.createTypedArrayList(ServiceItem.CREATOR);
     }
 
@@ -95,6 +105,7 @@ public class GuideServiceModel implements Parcelable {
         dest.writeInt(id);
         dest.writeInt(serveType);
         dest.writeString(serviceType);
+        dest.writeString(value);
         dest.writeTypedList(serviceItems);
     }
 }

@@ -20,6 +20,15 @@ public class ServiceInfoGroup {
     private String serviceFoot;
     private int id;
     private int serviceTypeId;
+    private String serviceTypeShort;
+
+    public String getServiceTypeShort() {
+        return serviceTypeShort;
+    }
+
+    public void setServiceTypeShort(String serviceTypeShort) {
+        this.serviceTypeShort = serviceTypeShort;
+    }
 
     public int getServiceTypeId() {
         return serviceTypeId;

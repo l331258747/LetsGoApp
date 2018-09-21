@@ -100,6 +100,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
                 ServiceItem data = new ServiceItem();
                 data.setServiceType(models.get(position).getServiceType());
                 data.setServeType(models.get(position).getServeType());
+                data.setValue(models.get(position).getValue());
                 data.setId(models.get(position).getId());
                 data.setTitile(models.get(position).getTitle());
                 data.setPrice(models.get(position).getServePrice());

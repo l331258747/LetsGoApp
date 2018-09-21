@@ -21,9 +21,18 @@ public class ServiceListModel {
     private float servePrice;
     private int serveType;
     private String serviceType;
+    private String value;
     private String title;
     private String location;
     private String count;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public int getId() {
         return id;
