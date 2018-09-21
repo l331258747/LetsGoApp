@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.order;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderCreateContract;
 import com.njz.letsgoapp.mvp.order.OrderCreatePresenter;
+import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
@@ -73,7 +75,9 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         showLeftAndTitle("确认订单");
 
         login_view_name = $(R.id.login_view_name);
+        login_view_name.setEtInputType(InputType.TYPE_CLASS_TEXT);
         login_view_phone = $(R.id.login_view_phone);
+        login_view_phone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         fixed_view_city = $(R.id.fixed_view_city);
         recyclerView = $(R.id.recycler_view);
         tv_contract = $(R.id.tv_contract);
@@ -127,8 +131,10 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                 startActivity(new Intent(context, GuideContractActivity.class));
                 break;
             case R.id.tv_submit:
-
-
+                if(!LoginUtil.verifyName(login_view_name.getEtContent()))
+                    return;
+                if(!LoginUtil.verifyPhone(login_view_phone.getEtContent()))
+                    return;
                 mPresenter.orderCreateOrder(getOrderData());
                 break;
         }

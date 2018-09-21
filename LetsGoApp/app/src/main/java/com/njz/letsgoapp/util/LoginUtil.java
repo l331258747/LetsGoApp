@@ -51,4 +51,15 @@ public class LoginUtil {
         }
         return false;
     }
+
+    public static boolean verifyName(String name) {
+        if (name.equals("")) {
+            ToastUtil.showShortToast(AppUtils.getContext(), "请输入联系人");
+        } else if (name.length() < 2) {
+            ToastUtil.showShortToast(AppUtils.getContext(), "请输入正确的联系人");
+        } else {
+            return true;
+        }
+        return false;
+    }
 }
