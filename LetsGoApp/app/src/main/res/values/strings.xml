@@ -21,7 +21,7 @@
     <string name="mine_fans"><Data><![CDATA[粉丝&#160;&#160;&#160;<font color="#ff7c00">%d</font>]]></Data></string>
     <string name="mine_follow"><Data><![CDATA[关注&#160;&#160;&#160;<font color="#ff7c00">%d</font>]]></Data></string>
     <string name="report_add_msg"><Data><![CDATA[补充说明<font color="#999999">（选填）</font>]]></Data></string>
-    <string name="service_note">私人订制选择后其他项目均不可选择\n向导陪游，车导服务只可选择一项\n代订门票，代订酒店可多选</string>
+    <string name="service_note">私人订制选择后其他项目均不可选择，向导陪游，车导服务只可选择一项，代订门票，代订酒店可多选</string>
     <string name="order_pay_time">请在%s前完成支付，否则订单将会自动取消</string>
 
 </resources>

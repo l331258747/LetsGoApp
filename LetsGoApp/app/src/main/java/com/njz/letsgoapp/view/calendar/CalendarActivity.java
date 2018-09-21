@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,7 +41,7 @@ public class CalendarActivity extends Activity {
     public static final String CALENDAR_DAYS = "CALENDAR_DAYS";
 
     private TextView tvRight;
-    private TextView ivLeft;
+    private ImageView ivLeft;
 
     private TextView startTime;          //开始时间
     private TextView stopTime;           //结束时间

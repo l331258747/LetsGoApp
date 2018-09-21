@@ -99,7 +99,8 @@
         <activity
             android:name=".view.cityPick.CityPickActivity"
             android:theme="@style/DefaultCityPickerTheme" />
-        <activity android:name=".view.calendar.CalendarActivity" />
+        <activity android:name=".view.calendar.CalendarActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.home.GuideDetailActivity"
             android:windowSoftInputMode="adjustPan" />
