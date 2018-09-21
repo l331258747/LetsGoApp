@@ -65,7 +65,6 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
             public void onClick(View v) {
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
-                verifyEvent();
                 mPresenter.userSmsSend(loginViewPhone.getEtContent(),"update");
             }
         });
@@ -181,6 +180,7 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void userSmsSendSuccess(VerifyModel str) {
+        verifyEvent();
         if(str == null || str.getMsgCode() == null) return;
         showLongToast("验证码：" + str.getMsgCode());
     }

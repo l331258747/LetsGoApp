@@ -68,7 +68,6 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
             public void onClick(View v) {
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
-                verifyEvent();
                 mPresenter.userSmsSend(loginViewPhone.getEtContent(),"findBy");
             }
         });
@@ -164,6 +163,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void userSmsSendSuccess(VerifyModel str) {
+        verifyEvent();
         if(str == null || str.getMsgCode() == null) return;
         showLongToast("验证码："+ str.getMsgCode());
     }

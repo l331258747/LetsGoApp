@@ -29,9 +29,9 @@
         android:id="@+id/login_view_verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:login_item_hint="请输验证码"
+        app:login_item_hint="请输动态码"
         app:login_item_max_length="6"
-        app:login_item_right_text="发送验证码" />
+        app:login_item_right_text="发送动态码" />
 
 
     <TextView
@@ -44,7 +44,7 @@
         android:background="@drawable/btn_theme_solid_r40"
         android:gravity="center"
         android:padding="8dp"
-        android:text="动态码登陆"
+        android:text="登陆"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

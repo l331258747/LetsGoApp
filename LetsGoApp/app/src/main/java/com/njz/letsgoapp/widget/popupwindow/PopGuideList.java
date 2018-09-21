@@ -166,7 +166,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
                 : tv_age_41.isSelected() ? "41,50"
                 : tv_age_50.isSelected() ? "51,100"
                 : "");
-        result.put("workYears", tv_year_1.isSelected() ? "1,3"
+        result.put("workYears", tv_year_1.isSelected() ? "0,3"
                 : tv_year_3.isSelected() ? "3,5"
                 : tv_year_5.isSelected() ? "6,100"
                 : "");

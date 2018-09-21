@@ -40,6 +40,7 @@ public class CalendarActivity extends Activity {
     public static final String CALENDAR_DAYS = "CALENDAR_DAYS";
 
     private TextView tvRight;
+    private TextView ivLeft;
 
     private TextView startTime;          //开始时间
     private TextView stopTime;           //结束时间
@@ -124,6 +125,14 @@ public class CalendarActivity extends Activity {
     }
 
     private void initView() {
+        ivLeft = findViewById(com.dali.custompicker.R.id.left_iv);
+        ivLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         tvRight = (TextView) findViewById(com.dali.custompicker.R.id.tv_right);
         tvRight.setOnClickListener(new View.OnClickListener() {
             @Override

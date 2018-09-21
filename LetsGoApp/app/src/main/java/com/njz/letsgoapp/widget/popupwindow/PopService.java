@@ -152,7 +152,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         GlideUtil.LoadCircleImage(mContext, guideDetailModel.getImage(), iv_head);
         tv_name.setText(guideDetailModel.getGuideName());
         my_rating_bar.setRating((int) guideDetailModel.getGuideScore());
-        stv_tag.setServiceTag(guideDetailModel.getLanguage());
+        stv_tag.setServiceTag(guideDetailModel.getServiceTag());
         tv_service_num.setText(guideDetailModel.getServiceCounts());
         guideLabel.setTabel(guideDetailModel.getSign());
     }

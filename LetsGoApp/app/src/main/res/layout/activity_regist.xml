@@ -36,14 +36,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:login_item_hint="请输入密码"
-        app:login_item_max_length="11" />
+        app:login_item_max_length="16" />
 
     <com.njz.letsgoapp.widget.LoginItemView2
         android:id="@+id/login_view_password_agin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:login_item_hint="再次输入密码"
-        app:login_item_max_length="11" />
+        app:login_item_max_length="16" />
 
     <TextView
         android:id="@+id/btn_regist"

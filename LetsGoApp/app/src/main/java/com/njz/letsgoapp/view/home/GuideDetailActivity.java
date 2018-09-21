@@ -179,12 +179,12 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     //initInfo
     public void initInfo(final GuideDetailModel model) {
         //个人信息
-        GlideUtil.LoadCircleImage(context, model.getImage(), iv_head);
+        GlideUtil.LoadCircleImage(context, model.getGuideImg(), iv_head);
         tv_name.setText(model.getGuideName());
         my_rating_bar.setRating((int) model.getGuideScore());
         tv_service_num.setText(model.getServiceCounts());
         guideLabel.setTabel(model.getSign());
-        stv_tag.setServiceTag(model.getLanguage());
+        stv_tag.setServiceTag(model.getServiceTag());
         guide_authentication.setAuthentication(getViable(model));
         tv_content.setText(model.getIntroduce());
 

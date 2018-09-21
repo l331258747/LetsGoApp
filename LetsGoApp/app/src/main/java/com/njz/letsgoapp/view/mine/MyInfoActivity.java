@@ -23,6 +23,7 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.mvp.mine.MyInfoContract;
 import com.njz.letsgoapp.mvp.mine.MyInfoPresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
@@ -194,6 +195,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 mPresenter.userChangePersonalData(myInfoData);
                 break;
             case R.id.info_birthday:
+                AppUtils.HideKeyboard(info_birthday);
                 //时间选择器
                 TimePickerView pvTime = new TimePickerBuilder(context,
                         new OnTimeSelectListener() {
@@ -209,6 +211,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                 pvTime.show();
                 break;
             case R.id.info_sex:
+                AppUtils.HideKeyboard(info_sex);
                 //条件选择器
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(context,
                         new OnOptionsSelectListener() {

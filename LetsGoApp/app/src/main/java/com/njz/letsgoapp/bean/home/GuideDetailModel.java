@@ -1,5 +1,8 @@
 package com.njz.letsgoapp.bean.home;
 
+import android.text.TextUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -108,6 +111,15 @@ public class GuideDetailModel {
 
     public List<String> getLanguage() {
         return language;
+    }
+
+    public List<String> getServiceTag(){
+        List<String> list = new ArrayList<>();
+        if(!TextUtils.isEmpty(guideAge))
+            list.add(guideAge);
+        if(language != null || language.size() > 0)
+            list.addAll(language);
+        return list;
     }
 
     public void setLanguage(List<String> language) {

@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.njz.letsgoapp.mvp.find.FollowContract;
 import com.njz.letsgoapp.mvp.find.FollowPresenter;
 import com.njz.letsgoapp.mvp.mine.SpaceContract;
 import com.njz.letsgoapp.mvp.mine.SpacePresenter;
+import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
@@ -101,6 +103,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         if(userId == MySelfInfo.getInstance().getUserId()){
             tvFollow.setVisibility(View.GONE);
         }
+
     }
 
     int nicePosition;
@@ -141,8 +144,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         this.data = data;
         GlideUtil.LoadCircleImage(context, data.getImgUrl(), ivHead);
         tvName.setText(data.getNickname());
+        tvAge.setText(TextUtils.isEmpty(data.getBirthday())?"保密":""+DateUtil.getAgeFromBirthTime(data.getBirthday()));
         StringUtils.setHtml(tvFans, String.format(getResources().getString(R.string.mine_fans), MySelfInfo.getInstance().getUserFocus()));
-        tvAge.setText(data.getBirthday());
         tvExplain.setText(data.getPersonalStatement());
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 0 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
         initFlow(data.getTravelMacroEntitysList());
