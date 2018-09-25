@@ -12,15 +12,10 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
-import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.order.OrderWaitAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.home.DynamicModel;
-import com.njz.letsgoapp.bean.order.OrderBean;
 import com.njz.letsgoapp.bean.order.OrderModel;
-import com.njz.letsgoapp.bean.order.Suborders;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderListContract;
 import com.njz.letsgoapp.mvp.order.OrderListPresenter;
@@ -35,7 +30,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderWaitFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener {
+public class OrderListFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener {
 
     //付款状态
 //    public static final int ORDER_WAIT = 0;//待付款
@@ -67,10 +62,8 @@ public class OrderWaitFragment extends BaseFragment implements OrderListContract
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
 
-
-
     public static Fragment newInstance(int payStatus) {
-        OrderWaitFragment fragment = new OrderWaitFragment();
+        OrderListFragment fragment = new OrderListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("PAY_STATUS", payStatus);
         fragment.setArguments(bundle);

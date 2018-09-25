@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.view.order.OrderWaitFragment;
+import com.njz.letsgoapp.view.order.OrderListFragment;
 import com.njz.letsgoapp.widget.myTabLayout.TabLayout;
 
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ public class OrderFragment extends BaseFragment {
     @Override
     public void initData() {
         mFragments = new ArrayList<>();
-        mFragments.add(OrderWaitFragment.newInstance(payStatus[0]));
-        mFragments.add(OrderWaitFragment.newInstance(payStatus[1]));
-        mFragments.add(OrderWaitFragment.newInstance(payStatus[2]));
-        mFragments.add(OrderWaitFragment.newInstance(payStatus[3]));
+        mFragments.add(OrderListFragment.newInstance(payStatus[0]));
+        mFragments.add(OrderListFragment.newInstance(payStatus[1]));
+        mFragments.add(OrderListFragment.newInstance(payStatus[2]));
+        mFragments.add(OrderListFragment.newInstance(payStatus[3]));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
