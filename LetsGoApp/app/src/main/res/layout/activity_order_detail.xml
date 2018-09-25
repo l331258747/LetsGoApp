@@ -1,9 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_white_solid_r5"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:padding="15dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="那就走" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="待付款"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/color_red" />
+
+
+                </RelativeLayout>
+
+                <com.njz.letsgoapp.widget.FixedItemTextView
+                    android:id="@+id/fixed_view_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:login_item_title="目的地"
+                    app:login_item_title_width="80dp" />
+
+                <com.njz.letsgoapp.widget.FixedItemEditView
+                    android:id="@+id/login_view_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:login_item_hint="请输入联系人"
+                    app:login_item_max_length="5"
+                    app:login_item_title="联系人"
+                    app:login_item_title_width="80dp" />
+
+                <com.njz.letsgoapp.widget.FixedItemEditView
+                    android:id="@+id/login_view_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:login_item_hint="请输入联系方式"
+                    app:login_item_max_length="11"
+                    app:login_item_title="联系方式"
+                    app:login_item_title_width="80dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="特殊要求" />
+
+                    <EditText
+                        android:id="@+id/et_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:gravity="top"
+                        android:hint="请输入其他需求。（选填）"
+                        android:maxLength="100"
+                        android:maxLines="3"
+                        android:minLines="3"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <include layout="@layout/base_recycler_view_layout" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/color_theme"
+        android:gravity="center"
+        android:text="立即预定（￥0）"
+        android:textColor="@color/white" />
+
+</FrameLayout>
 
 
 
-</LinearLayout>

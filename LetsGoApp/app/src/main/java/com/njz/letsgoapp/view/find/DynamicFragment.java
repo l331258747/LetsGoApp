@@ -59,6 +59,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
     private String city = Constant.DEFAULT_CITY;
+    private boolean isViewCreated;
 
     public static Fragment newInstance(int type) {
         DynamicFragment fragment = new DynamicFragment();
@@ -75,6 +76,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         if (bundle != null) {
             dynamicTYpe = bundle.getInt("DYNAMIC_TYPE");
         }
+        isViewCreated = true;
     }
 
     @Override
@@ -95,32 +97,59 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);//比oncreate先执行
-        if(isVisibleToUser && dynamicTYpe == 1){
-            setLogin();
+        if (isVisibleToUser && isViewCreated && !isLoad) {
+            if(dynamicTYpe == DYNAMIC_FOLLOW) {
+                if(setLogin()){
+                    getRefreshData();
+                }
+            }else{
+                getRefreshData();
+            }
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        setLogin();
+        if(getUserVisibleHint()){
+            if(dynamicTYpe == DYNAMIC_FOLLOW) {
+                if(setLogin()){
+                    getRefreshData();
+                }
+            }
+        }
+
+
     }
 
-    public void setLogin(){
+    public boolean setLogin(){
+        boolean isLogin;
         if (dynamicTYpe == DYNAMIC_FOLLOW && !MySelfInfo.getInstance().isLogin()) {
             swipeRefreshLayout.setVisibility(View.GONE);
             tvLogin.setVisibility(View.VISIBLE);
+            isLogin = false;
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.GONE);
+            isLogin = true;
         }
+        return isLogin;
     }
 
     @Override
     public void initData() {
         mPresenter = new FindPresenter(context, this);
         nicePresenter = new DynamicNicePresenter(context,this);
-        getRefreshData();
+        if(getUserVisibleHint()){
+            if(dynamicTYpe == DYNAMIC_FOLLOW) {
+                if(setLogin()){
+                    getRefreshData();
+                }
+            }else{
+                getRefreshData();
+            }
+        }
+
     }
 
     //初始化recyclerview
@@ -170,7 +199,9 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     public void setCityChange(String city) {
         this.city = city;
-        getRefreshData();
+        if(dynamicTYpe == DYNAMIC_ALL && getUserVisibleHint()) {
+            getRefreshData();
+        }
     }
 
 
