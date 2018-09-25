@@ -280,15 +280,21 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //orderCreateOrder
+    //orderCreateOrder 订单创建
     public static void orderCreateOrder(SendOrderModel data, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderCreateOrder(data);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //orderPayAliPay
+    //orderPayAliPay 阿里支付
     public static void orderPayAliPay(String outTradeNo, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderPayAliPay(outTradeNo);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderQueryOrderList 订单列表
+    public static void orderQueryOrderList(int payStatus, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderQueryOrderList(payStatus);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

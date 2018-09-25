@@ -3,6 +3,7 @@ package com.njz.letsgoapp.adapter.order;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.maps2d.model.Text;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.order.OrderBean;
 import com.njz.letsgoapp.bean.order.OrderBeanGroup;
+import com.njz.letsgoapp.bean.order.OrderChildModel;
+import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.Suborders;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.order.OrderCancelActivity;
@@ -35,45 +40,59 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
     private static final int ORDER_TYPE_FOOT = 12;
 
     Context mContext;
-    List<OrderBean> datas;
+    List<OrderModel> datas;
 
     private List<OrderBeanGroup> orderBeanGroups = new ArrayList<>();
 
-    public OrderWaitAdapter(Context mContext, List<OrderBean> datas) {
+    public OrderWaitAdapter(Context mContext, List<OrderModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
 
         setData(datas);
     }
 
-    public void setData(List<OrderBean> datas) {
+    public void setData(List<OrderModel> datas) {
         orderBeanGroups.clear();
+        this.datas = datas;
         setData2(datas);
         notifyDataSetChanged();
     }
 
-    public void setData2(List<OrderBean> datas) {
+    public void addData(List<OrderModel> datas){
+        this.datas.addAll(datas);
+        notifyDataSetChanged();
+    }
+
+    public List<OrderModel> getData(){
+        return datas;
+    }
+
+    public OrderModel getItem(int position){
+        return this.datas.get(position);
+    }
+
+    public void setData2(List<OrderModel> datas) {
         if (datas != null) {
             for (int i = 0;i<datas.size();i++){
                 OrderBeanGroup serviceInfoGroup = new OrderBeanGroup();
-                OrderBean orderBean = datas.get(i);
+                OrderModel orderModel = datas.get(i);
 
                 serviceInfoGroup.setLabelTab(OrderBeanGroup.LABEL_TAB_TITLE);
-                serviceInfoGroup.setOrderNo(orderBean.getOrderNo());
-                serviceInfoGroup.setOrderStatus(orderBean.getOrderStatus());
+                serviceInfoGroup.setOrderNo(orderModel.getOrderNo());
+                serviceInfoGroup.setGuideName(orderModel.getGuideName());
+                serviceInfoGroup.setPayStatus(orderModel.getPayStatus());
                 orderBeanGroups.add(serviceInfoGroup);
-                for (int j = 0; j<orderBean.getSuborderses().size();j++){
+                for (int j = 0; j<orderModel.getNjzChildOrderListVOS().size();j++){
                     OrderBeanGroup serviceInfoGroup2 = new OrderBeanGroup();
-                    Suborders suborders = orderBean.getSuborderses().get(j);
+                    OrderChildModel orderChildModel = orderModel.getNjzChildOrderListVOS().get(j);
                     serviceInfoGroup2.setLabelTab(OrderBeanGroup.LABEL_TAB_DEFAULT);
-                    serviceInfoGroup2.setSuborders(suborders);
+                    serviceInfoGroup2.setOrderChildModel(orderChildModel);
                     orderBeanGroups.add(serviceInfoGroup2);
                 }
                 OrderBeanGroup serviceInfoGroup3 = new OrderBeanGroup();
                 serviceInfoGroup3.setLabelTab(OrderBeanGroup.LABEL_TAB_FOOT);
-                serviceInfoGroup3.setOrderStartTime(orderBean.getOrderStartTime());
-                serviceInfoGroup3.setOrderEndTime(orderBean.getOrderEndTime());
-                serviceInfoGroup3.setOrderTotalPrice(orderBean.getOrderTotalPrice());
+                serviceInfoGroup3.setPayStatus(orderModel.getPayStatus());
+                serviceInfoGroup3.setOrderPrice(orderModel.getOrderPrice());
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -110,17 +129,17 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
         if (holder == null) return;
         if (holder instanceof DefaultHolder) {
             final int pos = holder.getAdapterPosition();
-            final Suborders data = orderBeanGroups.get(pos).getSuborders();
+            final OrderChildModel data = orderBeanGroups.get(pos).getOrderChildModel();
             if (data == null) return;
 
-            GlideUtil.LoadRoundImage(mContext,data.getImgUrl(),((DefaultHolder) holder).iv_img,5);
+            GlideUtil.LoadRoundImage(mContext,data.getTitleImg(),((DefaultHolder) holder).iv_img,5);
 
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
             ((DefaultHolder) holder).btn_cancel.setText("取消");
             ((DefaultHolder) holder).tv_price.setText("￥" + data.getPrice());
-            ((DefaultHolder) holder).tv_num.setText("x"+data.getNum()+"天");
-            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getTotalPrice());
 
+            setNum(data,((DefaultHolder) holder).tv_num);
+            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
         }
 
         if (holder instanceof TitleHolder) {
@@ -129,7 +148,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             if (data == null) return;
 
             ((TitleHolder) holder).tv_order.setText(data.getOrderNo());
-            ((TitleHolder) holder).tv_status.setText(data.getOrderStatus());
+            ((TitleHolder) holder).tv_status.setText(data.getPayStatusStr());
 
             if(mOnItemClickListener != null){
                 ((TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +166,16 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             if (data == null) return;
 
             ((FootHolder) holder).tv_order_price_title.setText("总额");
-            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderTotalPrice());
+            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
+
+            ((FootHolder) holder).setbtn();
+            switch (data.getPayStatus()){
+                case 0:
+                    ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
+                    ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
+                    ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                    break;
+            }
 
             ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -200,6 +228,25 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                 }
             });
 
+        }
+    }
+
+    //设置数量计算方式
+    public void setNum(OrderChildModel data, TextView tv){
+        switch (data.getValue()){
+            case Constant.SERVICE_TYPE_SHORT_CUSTOM:
+                tv.setText("x"+data.getPersonNum()+"人");
+                break;
+            case Constant.SERVICE_TYPE_SHORT_GUIDE:
+            case Constant.SERVICE_TYPE_SHORT_CAR:
+                tv.setText("x"+data.getDayNum()+"天");
+                break;
+            case Constant.SERVICE_TYPE_SHORT_HOTEL:
+                tv.setText("x"+data.getDayNum()+"天x" + data.getRoomNum()+"间");
+                break;
+            case Constant.SERVICE_TYPE_SHORT_TICKET:
+                tv.setText("x"+data.getTicketNum()+"张");
+                break;
         }
     }
 
@@ -267,6 +314,16 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             btn_delete = itemView.findViewById(R.id.btn_delete);
             btn_call_customer = itemView.findViewById(R.id.btn_call_customer);
             btn_refund = itemView.findViewById(R.id.btn_refund);
+        }
+
+        public void setbtn(){
+            btn_call_guide.setVisibility(View.GONE);
+            btn_cancel_order.setVisibility(View.GONE);
+            btn_pay.setVisibility(View.GONE);
+            btn_evaluate.setVisibility(View.GONE);
+            btn_delete.setVisibility(View.GONE);
+            btn_call_customer.setVisibility(View.GONE);
+            btn_refund.setVisibility(View.GONE);
         }
     }
 

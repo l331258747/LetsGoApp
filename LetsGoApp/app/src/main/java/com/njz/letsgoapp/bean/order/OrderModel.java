@@ -1,22 +1,26 @@
 package com.njz.letsgoapp.bean.order;
 
-import com.njz.letsgoapp.bean.home.ServiceItem;
-import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.widget.PriceView;
+import java.util.List;
 
 /**
  * Created by LGQ
- * Time: 2018/8/13
+ * Time: 2018/9/25
  * Function:
  */
 
-public class OrderBeanGroup {
+public class OrderModel {
 
-    public static final int LABEL_TAB_TITLE = 1;
-    public static final int LABEL_TAB_DEFAULT = 2;
-    public static final int LABEL_TAB_FOOT = 3;
 
-    private int labelTab;
+    /**
+     * orderNo : ZJJ201809251113023327
+     * payPrice : 0
+     * location : 张家界
+     * orderPrice : 1767.0
+     * id : 86
+     * payStatus : 0
+     * guideName : sj
+     * njzChildOrderListVOS : [{"roomNum":2,"payPrice":0,"price":128,"ticketNum":0,"dayNum":2,"orderPrice":512,"id":159,"personNum":0,"title":"张家界峡谷大酒店"},{"roomNum":2,"payPrice":0,"price":128,"ticketNum":0,"dayNum":1,"orderPrice":256,"id":160,"personNum":0,"title":"张家界天门山大酒店"},{"roomNum":0,"payPrice":0,"price":333,"ticketNum":0,"dayNum":3,"orderPrice":999,"id":161,"personNum":2,"title":"奔驰大队带你飞"}]
+     */
 
     private String orderNo;
     private float payPrice;
@@ -26,7 +30,7 @@ public class OrderBeanGroup {
     private int id;
     private int payStatus;
     private String guideName;
-    private OrderChildModel orderChildModel;
+    private List<OrderChildModel> njzChildOrderListVOS;
 
     public int getOrderStatus() {
         return orderStatus;
@@ -34,14 +38,6 @@ public class OrderBeanGroup {
 
     public void setOrderStatus(int orderStatus) {
         this.orderStatus = orderStatus;
-    }
-
-    public int getLabelTab() {
-        return labelTab;
-    }
-
-    public void setLabelTab(int labelTab) {
-        this.labelTab = labelTab;
     }
 
     public String getOrderNo() {
@@ -90,22 +86,13 @@ public class OrderBeanGroup {
 
     public String getPayStatusStr(){
         switch (payStatus){
-            case Constant.ORDER_PAY_WAIT:
+            case 0:
                 return "待付款";
-            case Constant.ORDER_PAY_ALREADY:
-                switch (orderStatus){
-                    case Constant.ORDER_TRAVEL_WAIT:
-                        return "导游待确认";
-                    case Constant.ORDER_TRAVEL_NO_GO:
-                        return "未出行";
-                    case Constant.ORDER_TRAVEL_GOING:
-                        return "行程中";
-                    case Constant.ORDER_TRAVEL_FINISH:
-                        return "行程结束";
-                }
-            case Constant.ORDER_PAY_FINISH:
+            case 1:
+                return "已付款";
+            case 2:
                 return "已完成";
-            case Constant.ORDER_PAY_REFUND:
+            case 3:
                 return "退款";
         }
         return "";
@@ -123,11 +110,12 @@ public class OrderBeanGroup {
         this.guideName = guideName;
     }
 
-    public OrderChildModel getOrderChildModel() {
-        return orderChildModel;
+    public List<OrderChildModel> getNjzChildOrderListVOS() {
+        return njzChildOrderListVOS;
     }
 
-    public void setOrderChildModel(OrderChildModel orderChildModel) {
-        this.orderChildModel = orderChildModel;
+    public void setNjzChildOrderListVOS(List<OrderChildModel> njzChildOrderListVOS) {
+        this.njzChildOrderListVOS = njzChildOrderListVOS;
     }
+
 }

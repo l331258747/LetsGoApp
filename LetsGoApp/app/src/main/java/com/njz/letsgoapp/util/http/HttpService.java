@@ -21,6 +21,7 @@ import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
@@ -248,6 +249,12 @@ public interface HttpService {
     @POST("orderPay/aliPay")
     Observable<BaseResponse<String>> orderPayAliPay(
             @Field("outTradeNo") String toutTradeNo
+    );
+
+    //order/queryOrderList 订单列表
+    @GET("order/queryOrderList")
+    Observable<BaseResponse<List<OrderModel>>> orderQueryOrderList(
+            @Query("payStatus") int payStatus
     );
 
 

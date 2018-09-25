@@ -40,6 +40,9 @@ import java.util.List;
 
 public class DynamicFragment extends BaseFragment implements FindContract.View, View.OnClickListener,DynamicNiceContract.View {
 
+    public static final int DYNAMIC_ALL = 0;
+    public static final int DYNAMIC_FOLLOW = 1;
+
     TextView tvLogin;
 
     private RecyclerView recyclerView;
@@ -47,10 +50,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     private DynamicAdapter mAdapter;
     private LoadMoreWrapper loadMoreWrapper;
 
-    public static final int DYNAMIC_ALL = 0;
-    public static final int DYNAMIC_FOLLOW = 1;
     private int dynamicTYpe;
-
     private int nicePosition;
 
     private FindPresenter mPresenter;
@@ -116,10 +116,10 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
                 if(setLogin()){
                     getRefreshData();
                 }
+            }else{
+                getRefreshData();
             }
         }
-
-
     }
 
     public boolean setLogin(){
@@ -140,16 +140,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public void initData() {
         mPresenter = new FindPresenter(context, this);
         nicePresenter = new DynamicNicePresenter(context,this);
-        if(getUserVisibleHint()){
-            if(dynamicTYpe == DYNAMIC_FOLLOW) {
-                if(setLogin()){
-                    getRefreshData();
-                }
-            }else{
-                getRefreshData();
-            }
-        }
-
     }
 
     //初始化recyclerview
@@ -294,7 +284,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     @Override
     public void friendFriendSterFailed(String msg) {
-        LogUtil.e(msg);
+        showShortToast(msg);
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);

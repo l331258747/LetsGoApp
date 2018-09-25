@@ -1,16 +1,30 @@
 package com.njz.letsgoapp.view.order;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.order.OrderWaitAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.order.OrderBean;
+import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.Suborders;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.order.OrderListContract;
+import com.njz.letsgoapp.mvp.order.OrderListPresenter;
+import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,26 +35,109 @@ import java.util.List;
  * Function:
  */
 
-public class OrderWaitFragment extends BaseFragment {
+public class OrderWaitFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener {
+
+    //付款状态
+//    public static final int ORDER_WAIT = 0;//待付款
+//    public static final int ORDER_ALREADY = 1;//已支付
+//    public static final int ORDER_FINISH = 2;//已完成
+//    public static final int ORDER_REFUND = 3;//退款单
+//    //付款后订单状态
+//    public static final int ORDER_GUIDE_WAIT = 0;//导游待确认
+//    public static final int ORDER_WAIT = 1;//未出行
+//    public static final int ORDER_WAIT = 2;//行程中
+//    public static final int ORDER_WAIT = 3;//行程结束
+//    //行程结束后状态
+//    public static final int ORDER_WAIT = 0;//未点评
+//    public static final int ORDER_WAIT = 1;//已点评
+
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private OrderWaitAdapter mAdapter;
+//    private LoadMoreWrapper loadMoreWrapper;
 
-    public static Fragment newInstance() {
+    private int payStatus;
+    private boolean isViewCreated;
+    TextView tvLogin;
+
+    private OrderListPresenter mPresenter;
+
+    int page;
+    int isLoadType = 1;//1下拉刷新，2上拉加载
+    boolean isLoad = false;//是否在加载，重复加载问题
+
+
+
+    public static Fragment newInstance(int payStatus) {
         OrderWaitFragment fragment = new OrderWaitFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("PAY_STATUS", payStatus);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            payStatus = bundle.getInt("PAY_STATUS");
+        }
+        isViewCreated = true;
+    }
+
+    @Override
     public int getLayoutId() {
-        return R.layout.common_swiperefresh_layout;
+        return R.layout.fragment_order_list;
     }
 
     @Override
     public void initView() {
+        tvLogin = $(R.id.tv_login);
+        tvLogin.setOnClickListener(this);
+
         initRecycler();
         initSwipeLayout();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);//比oncreate先执行
+        if (isVisibleToUser && isViewCreated && !isLoad) {
+            if(setLogin()){
+                getRefreshData();
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getUserVisibleHint()){
+            if(setLogin()){
+                getRefreshData();
+            }
+        }
+    }
+
+    public boolean setLogin(){
+        boolean isLogin;
+        if (!MySelfInfo.getInstance().isLogin()) {
+            swipeRefreshLayout.setVisibility(View.GONE);
+            tvLogin.setVisibility(View.VISIBLE);
+            isLogin = false;
+        } else {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            tvLogin.setVisibility(View.GONE);
+            isLogin = true;
+        }
+        return isLogin;
+    }
+
+    @Override
+    public void initData() {
+        mPresenter = new OrderListPresenter(context,this);
     }
 
 
@@ -49,7 +146,12 @@ public class OrderWaitFragment extends BaseFragment {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new OrderWaitAdapter(activity, getData());
+        mAdapter = new OrderWaitAdapter(activity, new ArrayList<OrderModel>());
+//        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(mAdapter);
+
+        page = Constant.DEFAULT_PAGE;
+
         mAdapter.setOnItemClickListener(new OrderWaitAdapter.OnItemClickListener() {
             @Override
             public void onClick(String orderNo) {
@@ -57,7 +159,14 @@ public class OrderWaitFragment extends BaseFragment {
             }
         });
 
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+//                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+//                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                getMoreData();
+            }
+        });
     }
 
     //初始化SwipeLayout
@@ -67,50 +176,61 @@ public class OrderWaitFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setData(getData());
-                swipeRefreshLayout.setRefreshing(false);
+                if (isLoad) return;
+                getRefreshData();
             }
         });
     }
 
-    @Override
-    public void initData() {
+    private void getRefreshData() {
+        swipeRefreshLayout.setRefreshing(true);
+        isLoad = true;
+        page = Constant.DEFAULT_PAGE;
+        isLoadType = 1;
+        mPresenter.orderQueryOrderList(payStatus);
+    }
 
+    private void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
+        mPresenter.orderQueryOrderList(payStatus);
     }
 
 
-    public List<OrderBean> getData() {
-        List<OrderBean> datas = new ArrayList<>();
-        OrderBean orderBean = new OrderBean();
-        orderBean.setOrderNo("1111111asd");
-        orderBean.setOrderEndTime("2018-08-19");
-        orderBean.setOrderStartTime("2018-08-23");
-        orderBean.setOrderStatus("待付款");
-        orderBean.setOrderTotalPrice(1089);
+    @Override
+    public void orderQueryOrderListSuccess(List<OrderModel> models) {
+        List<OrderModel> datas = models;
 
-        List<Suborders> suborderses = new ArrayList<>();
-        Suborders suborders = new Suborders();
-        suborders.setDay(3);
-        suborders.setImgUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg");
-        suborders.setNum(2);
-        suborders.setPrice(109);
-        suborders.setTitle("那就走订单那就走订单那就走订单");
-        suborders.setTotalPrice(3620);
-        suborders.setStatus("待付款");
-        suborderses.add(suborders);
-        suborderses.add(suborders);
-        suborderses.add(suborders);
-        suborderses.add(suborders);
-        suborderses.add(suborders);
-        suborderses.add(suborders);
+        isLoad = false;
+//        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+//            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+//        } else {
+//            // 显示加载到底的提示
+//            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+//        }
+        swipeRefreshLayout.setRefreshing(false);
 
-        orderBean.setSuborderses(suborderses);
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
+//        loadMoreWrapper.notifyDataSetChanged();
+    }
 
-        datas.add(orderBean);
-        datas.add(orderBean);
-        datas.add(orderBean);
-        datas.add(orderBean);
+    @Override
+    public void orderQueryOrderListFailed(String msg) {
+        showShortToast(msg);
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+//        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+    }
 
-        return datas;
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.tv_login) {
+            startActivity(new Intent(context, LoginActivity.class));
+        }
     }
 }

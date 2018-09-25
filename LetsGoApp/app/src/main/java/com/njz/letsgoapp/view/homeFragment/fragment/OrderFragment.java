@@ -24,7 +24,8 @@ public class OrderFragment extends BaseFragment {
     private ViewPager mViewPager;
 
     private List<Fragment> mFragments;
-    private String[] titles = {"待付款", "已付款", "待点评", "已退款"};
+    private String[] titles = {"待付款", "已付款", "已完成", "退款单"};
+    private int[] payStatus = {0,1,2,3};
 
     @Override
     public int getLayoutId() {
@@ -42,10 +43,10 @@ public class OrderFragment extends BaseFragment {
     @Override
     public void initData() {
         mFragments = new ArrayList<>();
-        mFragments.add(OrderWaitFragment.newInstance());
-        mFragments.add(OrderWaitFragment.newInstance());
-        mFragments.add(OrderWaitFragment.newInstance());
-        mFragments.add(OrderWaitFragment.newInstance());
+        mFragments.add(OrderWaitFragment.newInstance(payStatus[0]));
+        mFragments.add(OrderWaitFragment.newInstance(payStatus[1]));
+        mFragments.add(OrderWaitFragment.newInstance(payStatus[2]));
+        mFragments.add(OrderWaitFragment.newInstance(payStatus[3]));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
