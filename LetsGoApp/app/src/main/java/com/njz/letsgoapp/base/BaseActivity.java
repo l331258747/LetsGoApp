@@ -23,6 +23,8 @@ import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by LGQ
  * Time: 2018/7/19
@@ -73,6 +75,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
         /////////////////
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
     }
 
     /**

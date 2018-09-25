@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
@@ -48,12 +49,11 @@ public class MyReceiver extends BroadcastReceiver {
 			} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 				Logger.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
-//				//打开自定义的Activity
-//				Intent i = new Intent(context, TestActivity.class);
+				//打开自定义的Activity
+//				Intent i = new Intent(context, HomeActivity.class);
 //				i.putExtras(bundle);
-//				//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-//				context.startActivity(i);  //TODO
+//				context.startActivity(i);
 
 			} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 				Logger.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));

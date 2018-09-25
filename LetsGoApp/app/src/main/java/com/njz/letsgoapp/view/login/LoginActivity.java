@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.login;
 import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,9 +15,16 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.login.LoginContract;
 import com.njz.letsgoapp.mvp.login.LoginPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
+import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by LGQ
@@ -99,8 +107,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void loginSuccess(LoginModel loginModel) {
+        JpushAliasUtil.setTagAndAlias();
+
         MySelfInfo.getInstance().setData(loginModel);
         LogUtil.e("....."+loginModel.getTravelZoneVO().getTravelMacroEntitys());
+        LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
 //        startActivity(new Intent(context,HomeActivity.class));
         finish();
     }
@@ -109,4 +120,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void loginFailed(String msg) {
         showShortToast(msg);
     }
+
+
+
 }

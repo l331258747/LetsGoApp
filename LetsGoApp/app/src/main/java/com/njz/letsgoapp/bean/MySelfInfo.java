@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.bean;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -8,8 +9,13 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.util.GsonUtil;
 import com.njz.letsgoapp.util.SPUtils;
+import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by LGQ
@@ -170,7 +176,6 @@ public class MySelfInfo {
 
     public void loginOff() {
         SPUtils.getInstance().logoff();
+        JpushAliasUtil.cancleTagAndAlias();
     }
-
-
 }
