@@ -1,11 +1,9 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +11,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.dialog.DefaultDialog;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
@@ -134,16 +132,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(context, MyCommentActivity.class));
                 break;
             case R.id.mine_customer:
-                new DefaultDialog(context, "13211111111", new DefaultDialog.OnCloseListener() {
+                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
                     @Override
-                    public void onClick(Dialog dialog, boolean confirm) {
-                        if(!confirm) {
-                            dialog.dismiss();
-                            return;
-                        }
+                    public void exectEvent(DialogInterface alterDialog) {
                         Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
                         startActivity(dialIntent);
-                        dialog.dismiss();
+                        alterDialog.dismiss();
                     }
                 }).show();
 

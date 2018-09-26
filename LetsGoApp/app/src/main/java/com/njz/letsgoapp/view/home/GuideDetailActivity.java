@@ -1,11 +1,12 @@
 package com.njz.letsgoapp.view.home;
 
-import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -23,7 +24,7 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.dialog.DefaultDialog;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.home.GuideDetailContract;
 import com.njz.letsgoapp.mvp.home.GuideDetailPresenter;
@@ -68,7 +69,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     LWebView webView;
 
     GuideDetailPresenter mPresenter;
-    DefaultDialog defaultDialog;
+    AlertDialog defaultDialog;
 
     GuideDetailModel guideDetailModel;
 
@@ -195,20 +196,15 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         if(!TextUtils.isEmpty(model.getGuideStory()))
         webView.loadDataWithBaseURL(null, model.getGuideStory(), "text/html", "utf-8", null);
 
-        defaultDialog = new DefaultDialog(context, model.getMobile(),
-                new DefaultDialog.OnCloseListener() {
-                    @Override
-                    public void onClick(Dialog dialog, boolean confirm) {
-                        if (!confirm) {
-                            dialog.dismiss();
-                            return;
-                        }
-                        Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + model.getMobile()));
-                        startActivity(dialIntent);
-                        dialog.dismiss();
-                    }
-                })
-                .setTitle("提示");
+
+        defaultDialog = DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
+            @Override
+            public void exectEvent(DialogInterface alterDialog) {
+                Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + model.getMobile()));
+                startActivity(dialIntent);
+                alterDialog.dismiss();
+            }
+        });
     }
 
     //评价

@@ -32,21 +32,6 @@ import java.util.List;
 
 public class OrderListFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener {
 
-    //付款状态
-//    public static final int ORDER_WAIT = 0;//待付款
-//    public static final int ORDER_ALREADY = 1;//已支付
-//    public static final int ORDER_FINISH = 2;//已完成
-//    public static final int ORDER_REFUND = 3;//退款单
-//    //付款后订单状态
-//    public static final int ORDER_GUIDE_WAIT = 0;//导游待确认
-//    public static final int ORDER_WAIT = 1;//未出行
-//    public static final int ORDER_WAIT = 2;//行程中
-//    public static final int ORDER_WAIT = 3;//行程结束
-//    //行程结束后状态
-//    public static final int ORDER_WAIT = 0;//未点评
-//    public static final int ORDER_WAIT = 1;//已点评
-
-
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private OrderWaitAdapter mAdapter;
