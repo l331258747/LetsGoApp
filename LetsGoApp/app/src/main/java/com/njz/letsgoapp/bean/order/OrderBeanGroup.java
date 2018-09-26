@@ -23,10 +23,19 @@ public class OrderBeanGroup {
     private int orderStatus;
     private String location;
     private float orderPrice;
+    private int reviewStatus;
     private int id;
     private int payStatus;
     private String guideName;
     private OrderChildModel orderChildModel;
+
+    public int getReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(int reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
 
     public int getOrderStatus() {
         return orderStatus;

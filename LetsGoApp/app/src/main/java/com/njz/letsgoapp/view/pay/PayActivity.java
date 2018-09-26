@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.pay;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     PayContract.Presenter mPresenter;
 
-    public static void startActivity(Activity activity, PayModel orderId) {
+    public static void startActivity(Context activity, PayModel orderId) {
         Intent intent = new Intent(activity, PayActivity.class);
         intent.putExtra(ORDER_ID, orderId);
         activity.startActivity(intent);

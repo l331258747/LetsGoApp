@@ -109,5 +109,13 @@ public class DateUtil {
         }
         return 0;
     }
+
+    public static String getDatePlus0(int date){
+        if(date < 10){
+            return "0" + date;
+        }
+        return date+"";
+    }
+
 }
 

@@ -1,7 +1,10 @@
 package com.njz.letsgoapp.adapter.order;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,12 +20,16 @@ import com.njz.letsgoapp.bean.order.OrderBean;
 import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.OrderChildModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.order.Suborders;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.order.OrderCancelActivity;
 import com.njz.letsgoapp.view.order.OrderEvaluateActivity;
+import com.njz.letsgoapp.view.order.OrderRefundActivity;
+import com.njz.letsgoapp.view.pay.PayActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +88,8 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                 serviceInfoGroup.setOrderNo(orderModel.getOrderNo());
                 serviceInfoGroup.setGuideName(orderModel.getGuideName());
                 serviceInfoGroup.setPayStatus(orderModel.getPayStatus());
+                serviceInfoGroup.setOrderStatus(orderModel.getOrderStatus());
+                serviceInfoGroup.setReviewStatus(orderModel.getReviewStatus());
                 orderBeanGroups.add(serviceInfoGroup);
                 for (int j = 0; j<orderModel.getNjzChildOrderListVOS().size();j++){
                     OrderBeanGroup serviceInfoGroup2 = new OrderBeanGroup();
@@ -93,6 +102,9 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                 serviceInfoGroup3.setLabelTab(OrderBeanGroup.LABEL_TAB_FOOT);
                 serviceInfoGroup3.setPayStatus(orderModel.getPayStatus());
                 serviceInfoGroup3.setOrderPrice(orderModel.getOrderPrice());
+                serviceInfoGroup3.setOrderStatus(orderModel.getOrderStatus());
+                serviceInfoGroup3.setReviewStatus(orderModel.getReviewStatus());
+                serviceInfoGroup3.setGuideName(orderModel.getGuideName());
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -135,7 +147,32 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             GlideUtil.LoadRoundImage(mContext,data.getTitleImg(),((DefaultHolder) holder).iv_img,5);
 
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
-            ((DefaultHolder) holder).btn_cancel.setText("取消");
+
+
+            switch (data.getPayStatus()){
+                case Constant.ORDER_PAY_WAIT:
+                    ((DefaultHolder) holder).btn_cancel.setText("取消");
+                    ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mContext.startActivity(new Intent(mContext,OrderCancelActivity.class));
+                        }
+                    });
+                    break;
+                case Constant.ORDER_PAY_ALREADY:
+                    ((DefaultHolder) holder).btn_cancel.setText("退款");
+                    ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mContext.startActivity(new Intent(mContext,OrderRefundActivity.class));
+                        }
+                    });
+                    break;
+                default:
+                    ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
+                    break;
+            }
+
             ((DefaultHolder) holder).tv_price.setText("￥" + data.getPrice());
 
             setNum(data,((DefaultHolder) holder).tv_num);
@@ -149,6 +186,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
 
             ((TitleHolder) holder).tv_order.setText(data.getOrderNo());
             ((TitleHolder) holder).tv_status.setText(data.getPayStatusStr());
+            ((TitleHolder) holder).tv_name.setText(data.getGuideName());
 
             if(mOnItemClickListener != null){
                 ((TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
@@ -165,15 +203,46 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             final OrderBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((FootHolder) holder).tv_order_price_title.setText("总额");
             ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
 
             ((FootHolder) holder).setbtn();
             switch (data.getPayStatus()){
-                case 0:
+                case Constant.ORDER_PAY_WAIT:
+                    ((FootHolder) holder).tv_order_price_title.setText("合计");
                     ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
                     ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                     ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                    break;
+                case Constant.ORDER_PAY_ALREADY:
+                    ((FootHolder) holder).tv_order_price_title.setText("已付款");
+                    switch (data.getOrderStatus()){
+                        case Constant.ORDER_TRAVEL_WAIT:
+                        case Constant.ORDER_TRAVEL_NO_GO:
+                            ((FootHolder) holder).btn_call_customer.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).btn_refund.setVisibility(View.VISIBLE);
+                            break;
+                        case Constant.ORDER_TRAVEL_GOING:
+                            ((FootHolder) holder).btn_call_customer.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
+                            break;
+                    }
+                    break;
+                case Constant.ORDER_PAY_FINISH:
+                    ((FootHolder) holder).tv_order_price_title.setText("已付金额");
+                    switch (data.getReviewStatus()){
+                        case Constant.ORDER_EVALUATE_NO:
+                            ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).btn_evaluate.setVisibility(View.VISIBLE);
+                            break;
+                        case Constant.ORDER_EVALUATE_YES:
+                            ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
+                            break;
+                    }
+                    break;
+                case Constant.ORDER_PAY_REFUND:
+
                     break;
             }
 
@@ -186,20 +255,31 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"联系导游");
+                    DialogUtil.getInstance().getDefaultDialog(mContext, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
+                        @Override
+                        public void exectEvent(DialogInterface alterDialog) {
+                            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
+                            mContext.startActivity(dialIntent);
+                            alterDialog.dismiss();
+                        }
+                    }).show();
                 }
             });
             ((FootHolder) holder).btn_cancel_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"取消订单");
                     mContext.startActivity(new Intent(mContext,OrderCancelActivity.class));
                 }
             });
             ((FootHolder) holder).btn_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"付款");
+                    PayModel payModel = new PayModel();
+                    payModel.setTotalAmount(data.getOrderPrice()+"");
+                    payModel.setSubject(data.getGuideName());
+                    payModel.setOutTradeNo(data.getOrderNo());
+                    payModel.setLastPayTime("2018-01-01 12:00");
+                    PayActivity.startActivity(mContext, payModel);//TODO 订单上传成功，返回单号
                 }
             });
             ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
@@ -218,13 +298,20 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             ((FootHolder) holder).btn_call_customer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"联系客服");
+                    DialogUtil.getInstance().getDefaultDialog(mContext, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
+                        @Override
+                        public void exectEvent(DialogInterface alterDialog) {
+                            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
+                            mContext.startActivity(dialIntent);
+                            alterDialog.dismiss();
+                        }
+                    }).show();
                 }
             });
             ((FootHolder) holder).btn_refund.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"退款");
+                    mContext.startActivity(new Intent(mContext,OrderRefundActivity.class));
                 }
             });
 

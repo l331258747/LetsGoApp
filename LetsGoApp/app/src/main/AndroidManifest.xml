@@ -137,6 +137,9 @@
         <activity
             android:name=".view.order.OrderDetailActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.order.OrderRefundActivity"
+            android:windowSoftInputMode="adjustPan" />
 
 
 

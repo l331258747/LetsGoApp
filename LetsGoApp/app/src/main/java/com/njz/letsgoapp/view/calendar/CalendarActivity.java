@@ -145,8 +145,13 @@ public class CalendarActivity extends Activity {
                     }else{
                         startTimeStr = CalendarData.startDay.getYear()+"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay();
                         endTimeStr = CalendarData.stopDay.getYear()+"-"+CalendarData.stopDay.getMonth()+"-"+CalendarData.stopDay.getDay();
-                        RxBus2.getInstance().post(new CalendarEvent(CalendarData.startDay.getYear() +"-"+CalendarData.startDay.getMonth()+"-"+CalendarData.startDay.getDay()
-                                ,CalendarData.startDay.getYear() +"-"+CalendarData.stopDay.getMonth() + "-" + CalendarData.stopDay.getDay()
+                        RxBus2.getInstance().post(new CalendarEvent(
+                                CalendarData.startDay.getYear() +"-"+
+                                        DateUtil.getDatePlus0(CalendarData.startDay.getMonth())+"-"+
+                                        DateUtil.getDatePlus0(CalendarData.startDay.getDay())
+                                ,CalendarData.startDay.getYear() +"-"+
+                                DateUtil.getDatePlus0(CalendarData.stopDay.getMonth()) + "-" +
+                                DateUtil.getDatePlus0(CalendarData.stopDay.getDay())
                                 ,getGapCount(startTimeStr,endTimeStr) + "天"));
                     }
                 }else if(intentTag == 2){
@@ -161,7 +166,9 @@ public class CalendarActivity extends Activity {
                         ToastUtil.showShortToast(CalendarActivity.this,"请选择时间");
                         return;
                     }else{
-                        oneTimeStr = CalendarData.oneDay.getYear()+"-"+CalendarData.oneDay.getMonth()+"-"+CalendarData.oneDay.getDay();
+                        oneTimeStr = CalendarData.oneDay.getYear()+"-"+
+                                DateUtil.getDatePlus0(CalendarData.oneDay.getMonth())+"-"+
+                                DateUtil.getDatePlus0(CalendarData.oneDay.getDay());
                         RxBus2.getInstance().post(new CalendarEvent(oneTimeStr));
                     }
                 }
@@ -211,7 +218,9 @@ public class CalendarActivity extends Activity {
         if(dayTimeEntities == null || dayTimeEntities.size() == 0)
             return days;
         for (DayTimeEntity dayTimeEntity : dayTimeEntities){
-            days.add(dayTimeEntity.getYear() + "-" + dayTimeEntity.getMonth() + "-" + dayTimeEntity.getDay());
+            days.add(dayTimeEntity.getYear() + "-" +
+                    DateUtil.getDatePlus0(dayTimeEntity.getMonth()) + "-" +
+                    DateUtil.getDatePlus0(dayTimeEntity.getDay()));
         }
         return days;
     }
@@ -246,14 +255,7 @@ public class CalendarActivity extends Activity {
         EventBus.getDefault().unregister(this);
     }
 
-    public void getMarkerDays(){
-        for (DayTimeEntity dayTimeEntity : CalendarData.markerDays){
-            Log.e("---------","tear:"+ dayTimeEntity.getYear() + ",month:" + dayTimeEntity.getMonth() + ",day:" + dayTimeEntity.getDay());
-        }
-    }
-
     public static int getGapCount(String startStr, String endStr) {
-
 
         Date startDate = null;
         Date endDate = null;

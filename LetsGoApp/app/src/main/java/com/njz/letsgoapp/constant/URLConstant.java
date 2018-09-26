@@ -11,7 +11,7 @@ public class URLConstant {
 //
 //    public static final String BASE_URL = "http://192.168.100.156:8090/travel-framework/api/";//测试地址
 //    public static final String BASE_URL = "http://118.89.49.117:8080/travel-framework/api/";//外网地址
-    public static final String BASE_URL = "http://192.168.100.111:8080/api/";//本地
+    public static final String BASE_URL = "http://192.168.100.110:8080/api/";//本地
 //    public static final String BASE_URL = "http://najiuzou.vicp.cc:19091/api/";
 
 

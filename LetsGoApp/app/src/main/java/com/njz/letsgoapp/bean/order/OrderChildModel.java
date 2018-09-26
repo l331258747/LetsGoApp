@@ -25,7 +25,24 @@ public class OrderChildModel {
     private String title;
     private int serveType;
     private String value;
+    private int payStatus;
+    private int childOrderStatus;
 
+    public int getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(int payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public int getChildOrderStatus() {
+        return childOrderStatus;
+    }
+
+    public void setChildOrderStatus(int childOrderStatus) {
+        this.childOrderStatus = childOrderStatus;
+    }
 
     public float getPayPrice() {
         return payPrice;

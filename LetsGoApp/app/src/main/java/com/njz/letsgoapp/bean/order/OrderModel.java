@@ -25,12 +25,21 @@ public class OrderModel {
     private String orderNo;
     private float payPrice;
     private int orderStatus;
+    private int reviewStatus;
     private String location;
     private float orderPrice;
     private int id;
     private int payStatus;
     private String guideName;
     private List<OrderChildModel> njzChildOrderListVOS;
+
+    public int getReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(int reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
 
     public int getOrderStatus() {
         return orderStatus;

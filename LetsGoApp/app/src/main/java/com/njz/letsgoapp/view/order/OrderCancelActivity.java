@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.order;
 
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
+import com.njz.letsgoapp.widget.FixedItemEditViewNoLine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
 
     LinearLayout ll_reason;
     TextView tv_reason;
-    FixedItemEditView view_name,view_phone;
+    FixedItemEditViewNoLine view_name,view_phone;
     EditText et_special;
     List<String> reasons;
 
@@ -45,6 +47,8 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
         view_name = $(R.id.view_name);
         view_phone = $(R.id.view_phone);
         et_special = $(R.id.et_special);
+
+        view_phone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
 
         ll_reason.setOnClickListener(this);
 
