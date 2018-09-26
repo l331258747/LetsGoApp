@@ -13,6 +13,7 @@ import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.find.DynamicFragment;
@@ -129,4 +130,14 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     public void setCityChange(){
         dynamicAll.setCityChange(city);
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        dynamicAll.setHidden(hidden);
+        dynamicFollow.setHidden(hidden);
+    }
+
+
+
 }

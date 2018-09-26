@@ -39,6 +39,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     private int payStatus;
     private boolean isViewCreated;
+    private boolean hidden;
     TextView tvLogin;
 
     private OrderListPresenter mPresenter;
@@ -92,11 +93,16 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     @Override
     public void onResume() {
         super.onResume();
+        if(hidden) return;
         if(getUserVisibleHint()){
             if(setLogin()){
                 getRefreshData();
             }
         }
+    }
+
+    public void setHidden(boolean hidden){
+        this.hidden = hidden;
     }
 
     public boolean setLogin(){

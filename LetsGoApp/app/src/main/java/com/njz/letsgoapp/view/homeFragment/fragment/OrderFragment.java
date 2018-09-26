@@ -27,6 +27,12 @@ public class OrderFragment extends BaseFragment {
     private String[] titles = {"待付款", "已付款", "已完成", "退款单"};
     private int[] payStatus = {0,1,2,3};
 
+    private OrderListFragment orderListFragment0;
+    private OrderListFragment orderListFragment1;
+    private OrderListFragment orderListFragment2;
+    private OrderListFragment orderListFragment3;
+
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_order;
@@ -43,10 +49,10 @@ public class OrderFragment extends BaseFragment {
     @Override
     public void initData() {
         mFragments = new ArrayList<>();
-        mFragments.add(OrderListFragment.newInstance(payStatus[0]));
-        mFragments.add(OrderListFragment.newInstance(payStatus[1]));
-        mFragments.add(OrderListFragment.newInstance(payStatus[2]));
-        mFragments.add(OrderListFragment.newInstance(payStatus[3]));
+        mFragments.add(orderListFragment0 = (OrderListFragment) OrderListFragment.newInstance(payStatus[0]));
+        mFragments.add(orderListFragment1 = (OrderListFragment) OrderListFragment.newInstance(payStatus[1]));
+        mFragments.add(orderListFragment2 = (OrderListFragment) OrderListFragment.newInstance(payStatus[2]));
+        mFragments.add(orderListFragment3 = (OrderListFragment) OrderListFragment.newInstance(payStatus[3]));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
@@ -54,5 +60,13 @@ public class OrderFragment extends BaseFragment {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        orderListFragment0.setHidden(hidden);
+        orderListFragment1.setHidden(hidden);
+        orderListFragment2.setHidden(hidden);
+        orderListFragment3.setHidden(hidden);
+    }
 
 }

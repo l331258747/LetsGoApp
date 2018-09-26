@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -60,6 +61,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     boolean isLoad = false;//是否在加载，重复加载问题
     private String city = Constant.DEFAULT_CITY;
     private boolean isViewCreated;
+    private boolean hidden;
 
     public static Fragment newInstance(int type) {
         DynamicFragment fragment = new DynamicFragment();
@@ -111,6 +113,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     @Override
     public void onResume() {
         super.onResume();
+        if(hidden) return;
         if(getUserVisibleHint()){
             if(dynamicTYpe == DYNAMIC_FOLLOW) {
                 if(setLogin()){
@@ -192,6 +195,10 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         if(dynamicTYpe == DYNAMIC_ALL && getUserVisibleHint()) {
             getRefreshData();
         }
+    }
+
+    public void setHidden(boolean hidden){
+        this.hidden = hidden;
     }
 
 
