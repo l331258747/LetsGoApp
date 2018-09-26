@@ -1,12 +1,10 @@
 package com.njz.letsgoapp.adapter.order;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +12,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.amap.api.maps2d.model.Text;
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.order.OrderBean;
 import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.OrderChildModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.PayModel;
-import com.njz.letsgoapp.bean.order.Suborders;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.ToastUtil;
@@ -156,6 +151,8 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                         @Override
                         public void onClick(View v) {
                             mContext.startActivity(new Intent(mContext,OrderCancelActivity.class));
+
+
                         }
                     });
                     break;
