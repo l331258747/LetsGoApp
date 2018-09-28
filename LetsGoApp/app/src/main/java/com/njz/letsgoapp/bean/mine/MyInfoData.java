@@ -1,9 +1,11 @@
 package com.njz.letsgoapp.bean.mine;
 
+import android.text.TextUtils;
+
 public class MyInfoData {
     String nickname;
     String name;
-    String gendar ;
+    int gendar ;
     String birthday;
     String personalStatement;
     String imgUrl;
@@ -34,11 +36,11 @@ public class MyInfoData {
     }
 
     public String getGendar() {
-        return gendar;
+        return gendar == 0?"女":"男";
     }
 
     public void setGendar(String gendar) {
-        this.gendar = gendar;
+        this.gendar = TextUtils.equals(gendar,"女")?0:1;
     }
 
     public String getBirthday() {

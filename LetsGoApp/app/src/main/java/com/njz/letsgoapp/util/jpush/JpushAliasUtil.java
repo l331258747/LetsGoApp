@@ -43,13 +43,13 @@ public class JpushAliasUtil {
         Set<String> tags = new HashSet<String>();
         //这里可以设置你要推送的人，一般是用户uid 不为空在设置进去 可同时添加多个
         if (!MySelfInfo.getInstance().isLogin()){
-            tags.add(MySelfInfo.getInstance().getUserId()+"");//设置tag
+            tags.add("U"+MySelfInfo.getInstance().getUserId());//设置tag
         }
         //上下文、别名【Sting行】、标签【Set型】、回调
-        JPushInterface.setAliasAndTags(AppUtils.getContext(), MySelfInfo.getInstance().getUserId()+"", tags,
+        JPushInterface.setAliasAndTags(AppUtils.getContext(), "U"+MySelfInfo.getInstance().getUserId(), tags,
                 mAliasCallback);
         // }
-        LogUtil.e("setAliasAndTags:"+ MySelfInfo.getInstance().getUserId());
+        LogUtil.e("setAliasAndTags:"+ "U"+MySelfInfo.getInstance().getUserId());
     }
 
     /**

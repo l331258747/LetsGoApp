@@ -3,12 +3,17 @@ package com.njz.letsgoapp.util.jpush;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 
 import com.njz.letsgoapp.util.log.LogUtil;
-import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
@@ -48,6 +53,9 @@ public class MyReceiver extends BroadcastReceiver {
                 int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
                 Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
+//                initWindowManager(context);
+//                createFloatView(context, "s");
+
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
@@ -68,6 +76,109 @@ public class MyReceiver extends BroadcastReceiver {
         }
 
     }
+    private void openMsg(Context context, Bundle bundle) {
+        String s = bundle.getString(JPushInterface.EXTRA_EXTRA);
+        String id = "";
+        String url = "";
+        try {
+            JSONObject obj = new JSONObject(s);
+            String other = obj.getString("other");
+            obj = new JSONObject(other);
+            id = obj.getString("id");
+            url = obj.getString("url");
+        } catch (JSONException e) {
+            LogUtil.e("JSONException:" + e);
+//            return;
+        }
+
+        LogUtil.e("id:" + id);
+        LogUtil.e("url:" + url);
+
+//        Intent i = new Intent(context, HomeActivity.class);
+//        Bundle bundle2 = new Bundle();
+//        bundle2.putString("id", id);
+//        bundle2.putString("url", url);
+//        i.putExtras(bundle2);
+//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        context.startActivity(i);
+
+    }
+
+
+    private WindowManager wm;
+    private WindowManager.LayoutParams params;
+    private Button btn_floatView;
+    private boolean wmTag;
+
+    private void initWindowManager(Context context) {
+        if(wm !=null) return;
+
+        wm = (WindowManager) context.getApplicationContext().getSystemService(
+                Context.WINDOW_SERVICE);
+        params = new WindowManager.LayoutParams();
+        // 设置window type
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//6.0+
+            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        }
+        params.format = PixelFormat.RGBA_8888; // 设置图片格式，效果为背景透明
+
+        // 设置Window flag
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
+
+        // 设置悬浮窗的长得宽
+        params.width = wm.getDefaultDisplay().getWidth();
+        params.height = 200;
+        params.gravity = Gravity.LEFT | Gravity.TOP;
+    }
+
+
+    private void createFloatView(Context context, String str) {
+        if(btn_floatView!=null){
+            wm.removeViewImmediate(btn_floatView);
+            btn_floatView = null;
+        }
+
+        if (btn_floatView == null) {
+            btn_floatView = new Button(context.getApplicationContext());
+            wmTag = true;
+        }
+        btn_floatView.setText(str);
+        LogUtil.e("createFloatView: " + str);
+
+        if (wmTag) {
+            wm.addView(btn_floatView, params);
+            wmTag = false;
+        } else {
+            wm.updateViewLayout(btn_floatView, params);
+        }
+
+        // 设置悬浮窗的Touch监听
+        btn_floatView.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        wm.removeViewImmediate(btn_floatView);
+                        btn_floatView = null;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+
+
+
 
     // 打印所有的 intent extra 数据
     private static String printBundle(Bundle bundle) {
@@ -101,55 +212,5 @@ public class MyReceiver extends BroadcastReceiver {
             }
         }
         return sb.toString();
-    }
-
-    //send msg to MainActivity
-//	private void processCustomMessage(Context context, Bundle bundle) {
-//		if (MainActivity.isForeground) {
-//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-//			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-//			Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-//			msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-//			if (!ExampleUtil.isEmpty(extras)) {
-//				try {
-//					JSONObject extraJson = new JSONObject(extras);
-//					if (extraJson.length() > 0) {
-//						msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-//					}
-//				} catch (JSONException e) {
-//
-//				}
-//
-//			}
-//			LocalBroadcastManager.getInstance(context).sendBroadcast(msgIntent);
-//		}
-//	}
-
-    private void openMsg(Context context, Bundle bundle) {
-        String s = bundle.getString(JPushInterface.EXTRA_EXTRA);
-        String id="";
-        String url="";
-        try {
-            JSONObject obj = new JSONObject(s);
-            String other = obj.getString("other");
-            obj = new JSONObject(other);
-            id = obj.getString("id");
-            url = obj.getString("url");
-        } catch (JSONException e) {
-            LogUtil.e("JSONException:" + e);
-//            return;
-        }
-
-        LogUtil.e("id:"+ id);
-        LogUtil.e("url:"+ url);
-
-//        Intent i = new Intent(context, HomeActivity.class);
-//        Bundle bundle2 = new Bundle();
-//        bundle2.putString("id", id);
-//        bundle2.putString("url", url);
-//        i.putExtras(bundle2);
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        context.startActivity(i);
-
     }
 }

@@ -352,7 +352,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         if(!TextUtils.isEmpty(myInfoData.getNickname())){
             MySelfInfo.getInstance().setUserNickname(myInfoData.getNickname());
         }
-        if(myInfoData.getGendar() != MySelfInfo.getInstance().getUserGender()){
+        if(!TextUtils.equals(myInfoData.getGendar(),MySelfInfo.getInstance().getUserGender())){
             MySelfInfo.getInstance().setUserGender(info_sex.getContent());
         }
         if(!TextUtils.isEmpty(myInfoData.getBirthday())){
