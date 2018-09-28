@@ -222,7 +222,7 @@ public interface HttpService {
     @Multipart
     @POST("up/userReview")
     Observable<BaseResponse<EmptyModel>> upUserReview(
-            @Part("orderId") RequestBody orderId,
+            @Part("orderId") int orderId,
             @Part("guideId") int guideId,
             @Part("guideService") int guideService,
             @Part("carCondition") int carCondition,
@@ -258,6 +258,13 @@ public interface HttpService {
     Observable<BaseResponse<List<OrderModel>>> orderQueryOrderList(
             @Query("payStatus") int payStatus
     );
+
+    //退款单列表 orderRefund/queryOrderRefundList
+    @GET("orderRefund/queryOrderRefundDetails")
+    Observable<BaseResponse<List<OrderModel>>> orderRefundQueryOrderRefundList(
+    );
+
+    //退款单详情
 
     //取消订单order/travelDeleteOrder
     @GET("order/travelDeleteOrder")

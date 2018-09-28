@@ -246,7 +246,10 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext,OrderEvaluateActivity.class));
+                    Intent intent = new Intent(mContext,OrderEvaluateActivity.class);
+                    intent.putExtra("ORDER_ID",data.getId());
+                    intent.putExtra("GUIDE_ID",data.getId());
+                    mContext.startActivity(intent);
                 }
             });
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
@@ -279,13 +282,6 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                     payModel.setOutTradeNo(data.getOrderNo());
                     payModel.setLastPayTime("2018-01-01 12:00");
                     PayActivity.startActivity(mContext, payModel);//TODO 订单上传成功，返回单号
-                }
-            });
-            ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"评价");
-                    mContext.startActivity(new Intent(mContext,OrderEvaluateActivity.class));
                 }
             });
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {

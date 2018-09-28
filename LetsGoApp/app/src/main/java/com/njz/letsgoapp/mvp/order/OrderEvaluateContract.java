@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface OrderEvaluateContract {
     interface Presenter {
-        void upUserReview(String orderId,
+        void upUserReview(int orderId,
                           int guideId,
                           int guideService,
                           int carCondition,

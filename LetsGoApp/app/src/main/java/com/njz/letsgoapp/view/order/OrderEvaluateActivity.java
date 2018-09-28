@@ -6,9 +6,13 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.EditText;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.mvp.order.OrderEvaluateContract;
+import com.njz.letsgoapp.mvp.order.OrderEvaluatePresenter;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
 import com.njz.letsgoapp.util.accessory.PhotoAdapter;
 import com.njz.letsgoapp.util.accessory.RecyclerItemClickListener;
@@ -17,6 +21,7 @@ import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
 import com.njz.letsgoapp.util.thread.MyThreadPool;
+import com.njz.letsgoapp.widget.EvaluateView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +38,7 @@ import me.iwf.photopicker.PhotoPreview;
  * Function:
  */
 
-public class OrderEvaluateActivity extends BaseActivity implements View.OnClickListener {
+public class OrderEvaluateActivity extends BaseActivity implements View.OnClickListener, OrderEvaluateContract.View {
 
 
     private RecyclerView mPhotoRecyclerView;
@@ -42,6 +47,21 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
     private ArrayList<String> upLoadPhotos = new ArrayList<>();
     private Disposable disposable;
     private LoadingDialog loadingDialog;
+
+    private EvaluateView ev_guide, ev_car, ev_substituting, ev_trip;
+    private EditText et_special;
+
+    private OrderEvaluatePresenter mPresenter;
+
+    private int orderId;
+    private int guideId;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        orderId = intent.getIntExtra("ORDER_ID", 0);
+        guideId = intent.getIntExtra("GUIDE_ID", 0);
+    }
 
     @Override
     public int getLayoutId() {
@@ -57,6 +77,12 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
         getRightTv().setOnClickListener(this);
         getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
 
+        ev_guide = $(R.id.ev_guide);
+        ev_car = $(R.id.ev_car);
+        ev_substituting = $(R.id.ev_substituting);
+        ev_trip = $(R.id.ev_trip);
+        et_special = $(R.id.et_special);
+
         initAddPhoto();
     }
 
@@ -67,7 +93,7 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
 
 
     //------------附件图片
-    private void initAddPhoto(){
+    private void initAddPhoto() {
         //------------附件
         mPhotoRecyclerView = $(R.id.recycler_view);
         photoAdapter = new PhotoAdapter(context, selectedPhotos);
@@ -116,17 +142,25 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.right_tv){
+        if (v.getId() == R.id.right_tv) {
             disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
                 @Override
                 public void accept(UpLoadPhotos upLoadPhotos) throws Exception {
-                    loadingDialog.dismiss();
+                    submit();
                     disposable.isDisposed();
                 }
             });
             loadingDialog.showDialog("正在上传中...");
             compressImage();
+
         }
+    }
+
+    private void submit() {
+        mPresenter.upUserReview(orderId, guideId, ev_guide.getRating(),
+                ev_car.getRating(), ev_substituting.getRating(),
+                ev_trip.getRating(), et_special.getText().toString(),
+                upLoadPhotos);
     }
 
     private void compressImage() {
@@ -136,16 +170,29 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
                 upLoadPhotos.clear();
                 for (String path : selectedPhotos) {
                     File file = new File(path);
-                    if(!file.getName().startsWith("crop") || file.length()>1024*100) {
+                    if (!file.getName().startsWith("crop") || file.length() > 1024 * 100) {
                         String savePath = TackPicturesUtil.IMAGE_CACHE_PATH + "crop" + file.getName();
                         ImageUtils.getImage(path, savePath);
                         upLoadPhotos.add(savePath);
-                    }else{
+                    } else {
                         upLoadPhotos.add(path);
                     }
                 }
                 RxBus2.getInstance().post(new UpLoadPhotos());
             }
         });
+    }
+
+    @Override
+    public void upUserReviewSuccess(EmptyModel str) {
+        loadingDialog.dismiss();
+        showShortToast("评价成功");
+        finish();
+    }
+
+    @Override
+    public void upUserReviewFailed(String msg) {
+        loadingDialog.dismiss();
+        showShortToast(msg);
     }
 }

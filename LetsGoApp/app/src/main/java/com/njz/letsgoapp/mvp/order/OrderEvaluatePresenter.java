@@ -26,7 +26,7 @@ public class OrderEvaluatePresenter implements OrderEvaluateContract.Presenter {
     }
 
     @Override
-    public void upUserReview(String orderId, int guideId, int guideService, int carCondition,
+    public void upUserReview(int orderId, int guideId, int guideService, int carCondition,
                              int buyService, int travelArrange, String userContent, List<String> files) {
         ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override

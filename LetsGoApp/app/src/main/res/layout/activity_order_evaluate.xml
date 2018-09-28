@@ -12,24 +12,28 @@
         android:orientation="vertical">
 
         <com.njz.letsgoapp.widget.EvaluateView
+            android:id="@+id/ev_guide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:order_evaluate_title="导游服务" />
 
         <com.njz.letsgoapp.widget.EvaluateView
+            android:id="@+id/ev_car"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:order_evaluate_title="车辆状况" />
 
         <com.njz.letsgoapp.widget.EvaluateView
+            android:id="@+id/ev_substituting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:order_evaluate_title="代订服务" />
 
         <com.njz.letsgoapp.widget.EvaluateView
+            android:id="@+id/ev_trip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

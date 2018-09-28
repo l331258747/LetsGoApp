@@ -83,4 +83,8 @@ public class EvaluateView extends LinearLayout {
         }
     }
 
+    public int getRating(){
+        return my_rating_bar.getRating();
+    }
+
 }

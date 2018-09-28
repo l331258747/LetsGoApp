@@ -270,13 +270,13 @@ public class MethodApi {
 
     //--------订单 start---------
     //sendSter 订单评价
-    public static void upUserReview(String orderId, int guideId, int guideService, int carCondition,
+    public static void upUserReview(int orderId, int guideId, int guideService, int carCondition,
                                     int buyService, int travelArrange, String userContent, List<String> files,
                                     DisposableObserver subscriber) {
 
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
 
-        Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(getStringPart(orderId), guideId, guideService,
+        Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(orderId, guideId, guideService,
                 carCondition, buyService, travelArrange, getStringPart(userContent), partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
