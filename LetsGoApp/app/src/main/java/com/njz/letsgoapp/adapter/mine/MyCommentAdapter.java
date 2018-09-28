@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.adapter.mine;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 
 import java.util.List;
 
@@ -56,6 +59,16 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
         }
         holder.tv_time.setText(data.getDiscussTime());
         holder.tv_content.setText(data.getDiscussContent());
+        holder.cv_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DynamicDetailActivity.class);
+                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,data.getFriendSterId());
+                mContext.startActivity(intent);
+            }
+        });
+
+
     }
 
     public void setData(List<MyCommentModel> datas) {
@@ -71,6 +84,7 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_head;
         TextView tv_mine, tv_name, tv_mine2, tv_time,tv_content;
+        CardView cv_parent;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -81,6 +95,7 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_mine2 = itemView.findViewById(R.id.tv_mine2);
             tv_time = itemView.findViewById(R.id.tv_time);
+            cv_parent = itemView.findViewById(R.id.cv_parent);
         }
     }
 }
