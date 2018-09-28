@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.mine.MyCommentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.mine.MyCommentBean;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.mine.MyCommentModel;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.mine.MyCommentContract;
+import com.njz.letsgoapp.mvp.mine.MyCommentPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +25,49 @@ import java.util.List;
  * Function:
  */
 
-public class MyCommentFragment extends BaseFragment {
+public class MyCommentFragment extends BaseFragment implements MyCommentContract.View {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MyCommentAdapter mAdapter;
 
-    public static Fragment newInstance() {
+    private int type = 1;
+
+    MyCommentPresenter mPresenter;
+    private boolean isViewCreated;
+    boolean isLoad = false;
+
+
+    public static Fragment newInstance(int type) {
         MyCommentFragment fragment = new MyCommentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("TYPE", type);
+        fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            type = bundle.getInt("TYPE");
+        }
+        isViewCreated = true;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);//比oncreate先执行
+        if (isVisibleToUser && isViewCreated && !isLoad) {
+            getRefreshData();
+        }
+    }
+
+    public void getRefreshData() {
+        swipeRefreshLayout.setRefreshing(true);
+        isLoad = true;
+        mPresenter.friendMyDiscuss(type);
     }
 
     @Override
@@ -37,8 +77,6 @@ public class MyCommentFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
-
         initRecycler();
         initSwipeLayout();
     }
@@ -48,7 +86,7 @@ public class MyCommentFragment extends BaseFragment {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new MyCommentAdapter(activity, getData());
+        mAdapter = new MyCommentAdapter(activity, new ArrayList<MyCommentModel>(), type);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -59,35 +97,33 @@ public class MyCommentFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.setData(getData());
-                swipeRefreshLayout.setRefreshing(false);
+                if (isLoad) return;
+                getRefreshData();
             }
         });
     }
 
     @Override
     public void initData() {
-
+        mPresenter = new MyCommentPresenter(context, this);
+        if(getUserVisibleHint()){
+            getRefreshData();
+        }
     }
 
-    public List<MyCommentBean> getData() {
-        List<MyCommentBean> datas = new ArrayList<>();
-        MyCommentBean data = new MyCommentBean();
-        data.setHeadUrl("http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg");
-        data.setBodyUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532339453709&di=c506e751bd24c08cb2221d51ac3300c7&imgtype=0&src=http%3A%2F%2Fimg.80tian.com%2Fblog%2F201403%2F20140323170732_1145.jpg");
-        data.setName("那就走");
-        data.setTime("5小时前");
-        data.setContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        data.setBodyContent("那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走");
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        return datas;
+
+    @Override
+    public void friendMyDiscussSuccess(List<MyCommentModel> data) {
+        List<MyCommentModel> datas = data;
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+        mAdapter.setData(datas);
+    }
+
+    @Override
+    public void friendMyDiscussFailed(String msg) {
+        showShortToast(msg);
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

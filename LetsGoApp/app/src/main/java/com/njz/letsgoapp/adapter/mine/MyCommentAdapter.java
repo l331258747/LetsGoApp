@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.mine.MyCommentBean;
+import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -23,11 +23,13 @@ import java.util.List;
 public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.ViewHolder> {
 
     Context mContext;
-    List<MyCommentBean> datas;
+    List<MyCommentModel> datas;
+    int type = 1;
 
-    public MyCommentAdapter(Context mContext, List<MyCommentBean> datas) {
+    public MyCommentAdapter(Context mContext, List<MyCommentModel> datas,int type) {
         this.mContext = mContext;
         this.datas = datas;
+        this.type = type;
     }
 
     @Override
@@ -40,19 +42,23 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
-        final MyCommentBean data = datas.get(position);
+        final MyCommentModel data = datas.get(position);
         if (data == null) return;
 
-        GlideUtil.LoadCircleImage(mContext, data.getHeadUrl(), holder.iv_head);
-        GlideUtil.LoadImage(mContext, data.getBodyUrl(), holder.iv_body_img);
-        holder.tv_name.setText(data.getName());
-        holder.tv_content.setText(data.getContent());
-        holder.tv_time.setText(data.getTime());
-        holder.tv_body_content.setText(data.getBodyContent());
-
+        GlideUtil.LoadCircleImage(mContext, data.getImgUrl(), holder.iv_head);
+        holder.tv_name.setText(data.getNickname());
+        if(type == 1){
+            holder.tv_mine.setVisibility(View.GONE);
+            holder.tv_mine2.setVisibility(View.VISIBLE);
+        }else{
+            holder.tv_mine.setVisibility(View.VISIBLE);
+            holder.tv_mine2.setVisibility(View.GONE);
+        }
+        holder.tv_time.setText(data.getDiscussTime());
+        holder.tv_content.setText(data.getDiscussContent());
     }
 
-    public void setData(List<MyCommentBean> datas) {
+    public void setData(List<MyCommentModel> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
@@ -63,20 +69,18 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_head, iv_body_img;
-        TextView tv_name, tv_content, tv_time, tv_body_content;
-        View view_line;
+        ImageView iv_head;
+        TextView tv_mine, tv_name, tv_mine2, tv_time,tv_content;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             iv_head = itemView.findViewById(R.id.iv_head);
-            tv_name = itemView.findViewById(R.id.tv_name);
+            tv_mine = itemView.findViewById(R.id.tv_mine);
             tv_content = itemView.findViewById(R.id.tv_content);
+            tv_name = itemView.findViewById(R.id.tv_name);
+            tv_mine2 = itemView.findViewById(R.id.tv_mine2);
             tv_time = itemView.findViewById(R.id.tv_time);
-            tv_body_content = itemView.findViewById(R.id.tv_body_content);
-            iv_body_img = itemView.findViewById(R.id.iv_body_img);
-            view_line = itemView.findViewById(R.id.view_line);
         }
     }
 }

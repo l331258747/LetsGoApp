@@ -18,6 +18,7 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
 import com.njz.letsgoapp.bean.mine.FansListModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
+import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
@@ -364,6 +365,12 @@ public interface HttpService {
             @Field("discussUserId") int discussUserId,
             @Field("discussContent") String discussContent,
             @Field("toUserId") int toUserId
+    );
+
+    //我的评论 friend/myDiscuss
+    @GET("friend/myDiscuss")
+    Observable<BaseResponse<List<MyCommentModel>>> friendMyDiscuss(
+            @Query("type") int type
     );
 
     //-------我的 end-------

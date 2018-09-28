@@ -259,6 +259,13 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //我的评论列表 friendMyDiscuss
+    public static void friendMyDiscuss(int type, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendMyDiscuss(type);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
     //---------我的 end-------
 
     //--------订单 start---------
