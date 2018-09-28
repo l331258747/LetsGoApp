@@ -3,7 +3,6 @@ package com.njz.letsgoapp.view.login;
 import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,14 +16,9 @@ import com.njz.letsgoapp.mvp.login.LoginPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
-import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by LGQ

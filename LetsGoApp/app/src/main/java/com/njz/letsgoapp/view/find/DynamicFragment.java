@@ -125,6 +125,21 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         }
     }
 
+    public void setHidden(boolean hidden){
+        this.hidden = hidden;
+        if(!hidden){
+            if(getUserVisibleHint()){
+                if(dynamicTYpe == DYNAMIC_FOLLOW) {
+                    if(setLogin()){
+                        getRefreshData();
+                    }
+                }else{
+                    getRefreshData();
+                }
+            }
+        }
+    }
+
     public boolean setLogin(){
         boolean isLogin;
         if (dynamicTYpe == DYNAMIC_FOLLOW && !MySelfInfo.getInstance().isLogin()) {
@@ -196,11 +211,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             getRefreshData();
         }
     }
-
-    public void setHidden(boolean hidden){
-        this.hidden = hidden;
-    }
-
 
     private void getRefreshData() {
         swipeRefreshLayout.setRefreshing(true);

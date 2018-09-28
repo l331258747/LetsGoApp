@@ -90,6 +90,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         }
     }
 
+    //本页面登录后刷新，第一次进入刷新，
     @Override
     public void onResume() {
         super.onResume();
@@ -101,8 +102,16 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         }
     }
 
+    //切换底部标签的时候回调用，解决从其他页面登录后（个人中心），数据刷新不了。
     public void setHidden(boolean hidden){
         this.hidden = hidden;
+        if(!hidden){
+            if(getUserVisibleHint()){
+                if(setLogin()){
+                    getRefreshData();
+                }
+            }
+        }
     }
 
     public boolean setLogin(){
