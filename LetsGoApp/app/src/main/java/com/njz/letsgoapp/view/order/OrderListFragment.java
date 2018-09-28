@@ -147,8 +147,10 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
         mAdapter.setOnItemClickListener(new OrderWaitAdapter.OnItemClickListener() {
             @Override
-            public void onClick(String orderNo) {
-                startActivity(new Intent(context, OrderDetailActivity.class));
+            public void onClick(int orderId) {
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("ORDER_ID",orderId);
+                startActivity(intent);
             }
         });
 

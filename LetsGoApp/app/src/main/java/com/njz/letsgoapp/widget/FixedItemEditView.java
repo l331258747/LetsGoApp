@@ -89,4 +89,8 @@ public class FixedItemEditView extends LinearLayout {
         return et_input;
     }
 
+    public void setContent(String str){
+        et_input.setText(str);
+    }
+
 }

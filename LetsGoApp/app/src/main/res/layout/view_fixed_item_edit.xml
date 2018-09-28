@@ -27,6 +27,7 @@
         android:maxLines="1"
         android:layout_weight="1"
         android:background="@color/transparent"
+        android:textColor="@drawable/text_color_fixed_item_edit"
         android:hint="请输入手机号" />
 
     <ImageView

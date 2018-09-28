@@ -76,13 +76,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_order_pay_method"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/ll_order_pay_method"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="付款方式&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"

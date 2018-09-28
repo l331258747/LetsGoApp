@@ -23,17 +23,32 @@
 
             <ImageView
                 android:id="@+id/iv_img"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 tools:src="@mipmap/head_default" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/iv_img"
-                tools:text="我是标题" />
+                android:layout_toStartOf="@+id/btn_cancel"
+                android:layout_marginTop="5dp"
+                android:maxLines="2"
+                android:layout_marginRight="10dp"
+                tools:text="那就走标题那就标题标题那就走标题那就标题标题" />
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_99_hollow_r2_p3"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text="取消"/>
 
 
             <RelativeLayout
@@ -50,6 +65,7 @@
                     android:layout_height="wrap_content"
                     tools:text="￥270"
                     android:textColor="@color/color_price" />
+
 
 
                 <TextView

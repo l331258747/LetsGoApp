@@ -298,6 +298,18 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //取消订单orderTravelDeleteOrder
+    public static void orderTravelDeleteOrder(int orderId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderTravelDeleteOrder(orderId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //订单详情 orderQueryOrder
+    public static void orderQueryOrder(int orderId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderQueryOrder(orderId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------订单 end---------
 
 

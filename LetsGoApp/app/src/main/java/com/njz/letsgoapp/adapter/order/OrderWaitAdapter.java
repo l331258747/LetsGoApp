@@ -81,6 +81,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
 
                 serviceInfoGroup.setLabelTab(OrderBeanGroup.LABEL_TAB_TITLE);
                 serviceInfoGroup.setOrderNo(orderModel.getOrderNo());
+                serviceInfoGroup.setId(orderModel.getId());
                 serviceInfoGroup.setGuideName(orderModel.getGuideName());
                 serviceInfoGroup.setPayStatus(orderModel.getPayStatus());
                 serviceInfoGroup.setOrderStatus(orderModel.getOrderStatus());
@@ -100,6 +101,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                 serviceInfoGroup3.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup3.setReviewStatus(orderModel.getReviewStatus());
                 serviceInfoGroup3.setGuideName(orderModel.getGuideName());
+                serviceInfoGroup3.setId(orderModel.getId());
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -150,9 +152,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                     ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mContext.startActivity(new Intent(mContext,OrderCancelActivity.class));
-
-
+                            ToastUtil.showShortToast(mContext,"暂不支持子单取消");
                         }
                     });
                     break;
@@ -189,7 +189,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                 ((TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOnItemClickListener.onClick(data.getOrderNo());
+                        mOnItemClickListener.onClick(data.getId());
                     }
                 });
             }
@@ -265,7 +265,9 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
             ((FootHolder) holder).btn_cancel_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext,OrderCancelActivity.class));
+                    Intent intent = new Intent(mContext,OrderCancelActivity.class);
+                    intent.putExtra("ORDER_ID",data.getId());
+                    mContext.startActivity(intent);
                 }
             });
             ((FootHolder) holder).btn_pay.setOnClickListener(new View.OnClickListener() {
@@ -415,7 +417,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
     OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onClick(String orderNo);
+        void onClick(int orderId);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
