@@ -183,12 +183,9 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             final OrderRefundBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
-
             ((FootHolder) holder).setbtn();
             switch (data.getPayStatus()){
                 case Constant.ORDER_PAY_REFUND:
-                    ((FootHolder) holder).tv_order_price_title.setText("金额");
                     switch (data.getRefundStatus()){
                         case Constant.ORDER_REFUND_WAIT:
                         case Constant.ORDER_REFUND_PROCESS:
@@ -197,6 +194,9 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                             break;
                         case Constant.ORDER_REFUND_FINISH:
                             ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).rl_price.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).tv_order_price_title.setText("金额");
+                            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
                             break;
                     }
                     break;
@@ -306,6 +306,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
     public class FootHolder extends OrderRefundListAdapter.BaseViewHolder {
         TextView tv_order_price_content,tv_order_price_title;
         TextView btn_call_guide,btn_cancel_order,btn_pay,btn_evaluate,btn_delete,btn_call_customer,btn_refund;
+        RelativeLayout rl_price;
 
         FootHolder(View itemView) {
             super(itemView);
@@ -319,6 +320,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             btn_delete = itemView.findViewById(R.id.btn_delete);
             btn_call_customer = itemView.findViewById(R.id.btn_call_customer);
             btn_refund = itemView.findViewById(R.id.btn_refund);
+            rl_price = itemView.findViewById(R.id.rl_price);
         }
 
         public void setbtn(){
@@ -329,6 +331,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             btn_delete.setVisibility(View.GONE);
             btn_call_customer.setVisibility(View.GONE);
             btn_refund.setVisibility(View.GONE);
+            rl_price.setVisibility(View.GONE);
         }
     }
 
