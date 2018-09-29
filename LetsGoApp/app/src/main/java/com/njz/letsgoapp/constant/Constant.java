@@ -58,6 +58,9 @@ public class Constant {
     public static final int ORDER_TRAVEL_FINISH = 3;//行程结束
     public static final int ORDER_EVALUATE_NO = 0;//未点评
     public static final int ORDER_EVALUATE_YES = 1;//已点评
+    public static final int ORDER_REFUND_WAIT = 0;//导游待审核
+    public static final int ORDER_REFUND_PROCESS = 1;//退款中
+    public static final int ORDER_REFUND_FINISH = 2;//已退款
 
 
 

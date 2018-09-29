@@ -4,11 +4,11 @@ import com.njz.letsgoapp.constant.Constant;
 
 /**
  * Created by LGQ
- * Time: 2018/8/13
+ * Time: 2018/9/29
  * Function:
  */
 
-public class OrderBeanGroup {
+public class OrderRefundBeanGroup {
 
     public static final int LABEL_TAB_TITLE = 1;
     public static final int LABEL_TAB_DEFAULT = 2;
@@ -22,10 +22,19 @@ public class OrderBeanGroup {
     private String location;
     private float orderPrice;
     private int reviewStatus;
+    private int refundStatus;
     private int id;
     private int payStatus;
     private String guideName;
-    private OrderChildModel orderChildModel;
+    private OrderRefundChildModel orderChildModel;
+
+    public int getRefundStatus() {
+        return refundStatus;
+    }
+
+    public void setRefundStatus(int refundStatus) {
+        this.refundStatus = refundStatus;
+    }
 
     public int getReviewStatus() {
         return reviewStatus;
@@ -113,6 +122,14 @@ public class OrderBeanGroup {
             case Constant.ORDER_PAY_FINISH:
                 return "已完成";
             case Constant.ORDER_PAY_REFUND:
+                switch (refundStatus){
+                    case Constant.ORDER_REFUND_WAIT:
+                        return "导游待确认";
+                    case Constant.ORDER_REFUND_PROCESS:
+                        return "退款中";
+                    case Constant.ORDER_REFUND_FINISH:
+                        return "已退款";
+                }
                 return "退款";
         }
         return "";
@@ -130,11 +147,11 @@ public class OrderBeanGroup {
         this.guideName = guideName;
     }
 
-    public OrderChildModel getOrderChildModel() {
+    public OrderRefundChildModel getOrderChildModel() {
         return orderChildModel;
     }
 
-    public void setOrderChildModel(OrderChildModel orderChildModel) {
+    public void setOrderChildModel(OrderRefundChildModel orderChildModel) {
         this.orderChildModel = orderChildModel;
     }
 }

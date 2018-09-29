@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
-import com.njz.letsgoapp.adapter.order.OrderWaitAdapter;
+import com.njz.letsgoapp.adapter.order.OrderListAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderModel;
@@ -32,13 +32,13 @@ import java.util.List;
 
 public class OrderListFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener {
 
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private OrderWaitAdapter mAdapter;
+    public RecyclerView recyclerView;
+    public SwipeRefreshLayout swipeRefreshLayout;
+    private OrderListAdapter mAdapter;
 //    private LoadMoreWrapper loadMoreWrapper;
 
-    private int payStatus;
-    private boolean isViewCreated;
+    public int payStatus;
+    public boolean isViewCreated;
     private boolean hidden;
     TextView tvLogin;
 
@@ -135,17 +135,17 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
 
     //初始化recyclerview
-    private void initRecycler() {
+    public void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new OrderWaitAdapter(activity, new ArrayList<OrderModel>());
+        mAdapter = new OrderListAdapter(activity, new ArrayList<OrderModel>());
 //        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(mAdapter);
 
         page = Constant.DEFAULT_PAGE;
 
-        mAdapter.setOnItemClickListener(new OrderWaitAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int orderId) {
                 Intent intent = new Intent(context, OrderDetailActivity.class);
@@ -165,7 +165,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     }
 
     //初始化SwipeLayout
-    private void initSwipeLayout() {
+    public void initSwipeLayout() {
         swipeRefreshLayout = $(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.color_theme));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -182,13 +182,17 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.orderQueryOrderList(payStatus);
+        getList();
     }
 
-    private void getMoreData() {
+    public void getMoreData() {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
+        getList();
+    }
+
+    public void getList(){
         mPresenter.orderQueryOrderList(payStatus);
     }
 

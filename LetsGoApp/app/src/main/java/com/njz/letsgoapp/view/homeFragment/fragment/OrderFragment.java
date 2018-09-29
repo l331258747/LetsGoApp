@@ -7,6 +7,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.view.order.OrderListFragment;
+import com.njz.letsgoapp.view.order.OrderRefundListFragment;
 import com.njz.letsgoapp.widget.myTabLayout.TabLayout;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class OrderFragment extends BaseFragment {
     private OrderListFragment orderListFragment0;
     private OrderListFragment orderListFragment1;
     private OrderListFragment orderListFragment2;
-    private OrderListFragment orderListFragment3;
+    private OrderRefundListFragment orderListFragment3;
 
 
     @Override
@@ -52,7 +53,7 @@ public class OrderFragment extends BaseFragment {
         mFragments.add(orderListFragment0 = (OrderListFragment) OrderListFragment.newInstance(payStatus[0]));
         mFragments.add(orderListFragment1 = (OrderListFragment) OrderListFragment.newInstance(payStatus[1]));
         mFragments.add(orderListFragment2 = (OrderListFragment) OrderListFragment.newInstance(payStatus[2]));
-        mFragments.add(orderListFragment3 = (OrderListFragment) OrderListFragment.newInstance(payStatus[3]));
+        mFragments.add(orderListFragment3 = (OrderRefundListFragment) OrderRefundListFragment.newInstance());
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);

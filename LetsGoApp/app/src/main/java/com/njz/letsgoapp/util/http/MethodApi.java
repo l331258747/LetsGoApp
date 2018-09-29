@@ -305,6 +305,19 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //orderRefundQueryOrderRefundList 退款单列表
+    public static void orderRefundQueryOrderRefundList(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundQueryOrderRefundList();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderRefundQueryOrderRefundDetails 退款单详情
+    public static void orderRefundQueryOrderRefundDetails(int refundId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundQueryOrderRefundDetails(refundId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
     //取消订单orderTravelDeleteOrder
     public static void orderTravelDeleteOrder(int orderId, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderTravelDeleteOrder(orderId);

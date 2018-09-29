@@ -22,8 +22,11 @@ import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
+import com.njz.letsgoapp.bean.order.OrderRefundDetailModel;
+import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
@@ -259,25 +262,28 @@ public interface HttpService {
             @Query("payStatus") int payStatus
     );
 
-    //退款单列表 orderRefund/queryOrderRefundList
-    @GET("orderRefund/queryOrderRefundDetails")
-    Observable<BaseResponse<List<OrderModel>>> orderRefundQueryOrderRefundList(
-    );
-
-    //退款单详情
-
-    //取消订单order/travelDeleteOrder
-    @GET("order/travelDeleteOrder")
-    Observable<BaseResponse<EmptyModel>> orderTravelDeleteOrder(
-            @Query("orderId") int orderId
-    );
-
     //订单详情order/queryOrder
     @GET("order/queryOrder")
     Observable<BaseResponse<OrderDetailModel>> orderQueryOrder(
             @Query("orderId") int orderId
     );
 
+    //退款单列表 orderRefund/queryOrderRefundList
+    @GET("orderRefund/queryOrderRefundList")
+    Observable<BaseResponse<List<OrderRefundModel>>> orderRefundQueryOrderRefundList(
+    );
+
+    //退款单详情orderRefund/queryOrderRefundDetails
+    @GET("orderRefund/queryOrderRefundDetails")
+    Observable<BaseResponse<OrderRefundDetailModel>> orderRefundQueryOrderRefundDetails(
+            @Query("refundId") int refundId
+    );
+
+    //取消订单order/travelDeleteOrder
+    @GET("order/travelDeleteOrder")
+    Observable<BaseResponse<EmptyModel>> orderTravelDeleteOrder(
+            @Query("orderId") int orderId
+    );
 
     //-------订单 end---------
 
