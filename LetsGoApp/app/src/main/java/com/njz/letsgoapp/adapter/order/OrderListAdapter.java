@@ -35,7 +35,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.BaseViewHolder> {
+public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.BaseViewHolder> {
 
 
     private static final int ORDER_TYPE_TITLE = 10;
@@ -46,7 +46,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
 
     private List<OrderBeanGroup> orderBeanGroups = new ArrayList<>();
 
-    public OrderWaitAdapter(Context mContext, List<OrderModel> datas) {
+    public OrderListAdapter(Context mContext, List<OrderModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
 
@@ -102,6 +102,8 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                 serviceInfoGroup3.setReviewStatus(orderModel.getReviewStatus());
                 serviceInfoGroup3.setGuideName(orderModel.getGuideName());
                 serviceInfoGroup3.setId(orderModel.getId());
+                serviceInfoGroup3.setOrderNo(orderModel.getOrderNo());
+                serviceInfoGroup3.setLocation(orderModel.getLocation());
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -278,7 +280,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
                 public void onClick(View v) {
                     PayModel payModel = new PayModel();
                     payModel.setTotalAmount(data.getOrderPrice()+"");
-                    payModel.setSubject(data.getGuideName());
+                    payModel.setSubject(data.getLocation() + data.getGuideName()+"导游为您服务！");
                     payModel.setOutTradeNo(data.getOrderNo());
                     payModel.setLastPayTime("2018-01-01 12:00");
                     PayActivity.startActivity(mContext, payModel);//TODO 订单上传成功，返回单号
@@ -344,7 +346,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
         }
     }
 
-    public class TitleHolder extends OrderWaitAdapter.BaseViewHolder implements View.OnClickListener {
+    public class TitleHolder extends OrderListAdapter.BaseViewHolder implements View.OnClickListener {
         TextView tv_order,tv_status,tv_name;
         RelativeLayout rl_status;
 
@@ -364,7 +366,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
         }
     }
 
-    public class DefaultHolder extends OrderWaitAdapter.BaseViewHolder {
+    public class DefaultHolder extends OrderListAdapter.BaseViewHolder {
         ImageView iv_img;
         TextView tv_title,btn_cancel,tv_price,tv_num,tv_total_price;
 
@@ -380,7 +382,7 @@ public class OrderWaitAdapter extends RecyclerView.Adapter<OrderWaitAdapter.Base
     }
 
 
-    public class FootHolder extends OrderWaitAdapter.BaseViewHolder {
+    public class FootHolder extends OrderListAdapter.BaseViewHolder {
         TextView tv_order_price_content,tv_order_price_title;
         TextView btn_call_guide,btn_cancel_order,btn_pay,btn_evaluate,btn_delete,btn_call_customer,btn_refund;
 

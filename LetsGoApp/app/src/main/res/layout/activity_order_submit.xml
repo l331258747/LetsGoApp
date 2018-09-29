@@ -75,7 +75,7 @@
                         android:hint="请输入其他需求。（选填）"
                         android:maxLength="100"
                         android:maxLines="3"
-                        android:minLines="3"
+                        android:minLines="1"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp" />
 
