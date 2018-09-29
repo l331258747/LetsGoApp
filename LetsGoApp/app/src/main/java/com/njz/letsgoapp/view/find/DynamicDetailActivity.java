@@ -24,6 +24,7 @@ import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.mine.FansListActivity;
+import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
 import com.njz.letsgoapp.widget.popupwindow.PopComment;
@@ -140,6 +141,15 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
             @Override
             public void onClick(View v) {
                 nicePresenter.friendQueryLikes(model.isLike(), model.getFriendSterId());
+            }
+        });
+
+        ivImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SpaceActivity.class);
+                intent.putExtra(SpaceActivity.USER_ID, model.getUserId());
+                startActivity(intent);
             }
         });
     }

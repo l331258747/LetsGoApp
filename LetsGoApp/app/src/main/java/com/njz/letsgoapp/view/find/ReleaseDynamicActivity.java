@@ -155,7 +155,7 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
                 @Override
                 public void accept(UpLoadPhotos upLoadPhotos) throws Exception {
                     submit();
-                    disposable.isDisposed();
+                    disposable.dispose();
                 }
             });
             loadingDialog.showDialog("正在上传中...");

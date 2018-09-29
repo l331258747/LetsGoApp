@@ -62,7 +62,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     @Override
     public void getAliOrderInfoFailed(String msg) {
-        LogUtil.e(msg);
+        showShortToast(msg);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     @Override
     public void getWxOrderInfoFailed(String msg) {
-        LogUtil.e(msg);
+        showShortToast(msg);
     }
 
     @Override

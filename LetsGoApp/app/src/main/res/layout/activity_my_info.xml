@@ -46,21 +46,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="昵称" />
+                android:text="昵称&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
 
             <EditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toEndOf="@+id/tv_name"
                 android:background="@color/white"
-                android:gravity="right"
                 android:hint="请输入"
                 android:inputType="text"
-                android:maxLength="8"
+                android:maxLength="20"
                 android:maxLines="1" />
 
         </RelativeLayout>
@@ -82,13 +81,12 @@
             <EditText
                 android:id="@+id/et_real_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_toEndOf="@+id/tv_real_name"
                 android:background="@color/white"
-                android:gravity="right"
                 android:hint="请输入"
                 android:inputType="text"
                 android:maxLength="5"

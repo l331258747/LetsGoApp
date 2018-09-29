@@ -147,7 +147,7 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
                 @Override
                 public void accept(UpLoadPhotos upLoadPhotos) throws Exception {
                     submit();
-                    disposable.isDisposed();
+                    disposable.dispose();
                 }
             });
             loadingDialog.showDialog("正在上传中...");
