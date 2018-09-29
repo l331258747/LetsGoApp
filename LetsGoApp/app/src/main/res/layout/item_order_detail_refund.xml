@@ -180,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="违约金&#160;&#160;&#160;&#160;" />
+                    android:text="违约金&#8195;" />
 
                 <TextView
                     android:id="@+id/tv_penalty_content"

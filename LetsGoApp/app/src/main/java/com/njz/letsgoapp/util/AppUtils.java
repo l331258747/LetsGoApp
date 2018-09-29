@@ -50,6 +50,11 @@ public class AppUtils {
         return String.valueOf(getPackageInfo().versionCode);
     }
 
+    public static int getVersionCodeInt(){
+        if (getPackageInfo() == null) return 0;
+        return getPackageInfo().versionCode;
+    }
+
     /**
      * 得到版本name
      */

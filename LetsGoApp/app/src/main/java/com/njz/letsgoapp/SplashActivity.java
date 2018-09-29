@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
@@ -55,9 +56,12 @@ public class SplashActivity extends AppCompatActivity {
 
         // 判断是否是第一次开启应用
         boolean isFirstOpened = SPUtils.getInstance().getBoolean(SPUtils.FIRST_OPENED, false);
+        int appVersion = SPUtils.getInstance().getInt(SPUtils.SP_APP_VERSION,0);
+
         // 如果是第一次启动，则先进入功能引导页
-        if (!isFirstOpened) {
+        if (!isFirstOpened || appVersion < AppUtils.getVersionCodeInt()) {
             SPUtils.getInstance().putBoolean(SPUtils.FIRST_OPENED, true);
+            SPUtils.getInstance().putInt(SPUtils.SP_APP_VERSION,AppUtils.getVersionCodeInt());
 
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();

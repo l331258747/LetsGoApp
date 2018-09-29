@@ -56,6 +56,7 @@ public class GlideUtil {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
 
+
     //加载本地图片
     public static void LoadImageWithLocation(Context mContext, Integer path,
                                              ImageView imageview) {

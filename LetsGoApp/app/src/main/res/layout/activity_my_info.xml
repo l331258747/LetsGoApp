@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="昵称&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+                android:text="昵称&#8195;&#8195;" />
 
             <EditText
                 android:id="@+id/et_name"

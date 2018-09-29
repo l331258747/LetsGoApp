@@ -34,6 +34,8 @@ public class SPUtils {
     public static final String SP_USER_ID = "sp_user_id";
     public static final String SP_DEFAULT_CITY = "sp_default_city";
 
+    public static final String SP_APP_VERSION = "sp_app_version";
+
 
 
 
@@ -84,11 +86,11 @@ public class SPUtils {
 
 
     public int getInt(String key) {
-        return mSharedPreferences.getInt(key, -1);
+        return getInt(key, -1);
     }
 
     public int getInt(String key, int defaultValue) {
-        return getInt(key, defaultValue);
+        return mSharedPreferences.getInt(key, defaultValue);
     }
 
     public boolean putLong(String key, long value) {

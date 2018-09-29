@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="订单编号&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+            android:text="订单编号&#8195;&#8195;"
             android:textColor="@color/color_99" />
 
         <TextView
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="创建时间&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+            android:text="创建时间&#8195;&#8195;"
             android:textColor="@color/color_99" />
 
         <TextView
@@ -62,7 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="付款时间&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+            android:text="付款时间&#8195;&#8195;"
             android:textColor="@color/color_99" />
 
         <TextView
@@ -85,7 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="付款方式&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+            android:text="付款方式&#8195;&#8195;"
             android:textColor="@color/color_99" />
 
         <TextView
@@ -176,7 +176,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="退款时间&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"
+            android:text="退款时间&#8195;&#8195;"
             android:textColor="@color/color_99" />
 
         <TextView
