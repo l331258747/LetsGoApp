@@ -342,6 +342,14 @@ public interface HttpService {
             @Query("page") int page
     );
 
+    //friend/queryLikes
+    @GET("friend/queryLikes")
+    Observable<BaseResponse<FansListModel>> friendQueryLikes(
+            @Query("friendSterId") int friendSterId,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
     //friend/queryLikes 点赞
     @FormUrlEncoded
     @POST("friend/doLike")

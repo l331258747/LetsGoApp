@@ -39,7 +39,7 @@ public class FansListPresenter implements FansListContract.Presenter {
                 }
             };
             MethodApi.userFindFans(userId,limit, page,new OnSuccessAndFaultSub(listener));
-        }else{
+        }else if(type == 1){
             ResponseCallback listener = new ResponseCallback<FansListModel>() {
                 @Override
                 public void onSuccess(FansListModel data) {
@@ -52,6 +52,19 @@ public class FansListPresenter implements FansListContract.Presenter {
                 }
             };
             MethodApi.userFindFocus(userId,limit, page,new OnSuccessAndFaultSub(listener));
+        }else if(type == 2){
+            ResponseCallback listener = new ResponseCallback<FansListModel>() {
+                @Override
+                public void onSuccess(FansListModel data) {
+                    iView.userFindFansSuccess(data);
+                }
+
+                @Override
+                public void onFault(String errorMsg) {
+                    iView.userFindFansFailed(errorMsg);
+                }
+            };
+            MethodApi.travelFriendQueryLikes(userId,limit, page,new OnSuccessAndFaultSub(listener));
         }
 
 

@@ -43,7 +43,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
 
     FansListAdapter mAdapter;
     String title = "";
-    int type;//0我的粉丝，1我的关注
+    int type;//0我的粉丝，1我的关注,点赞列表
     int userId;
 
     FansListPresenter mPresenter;

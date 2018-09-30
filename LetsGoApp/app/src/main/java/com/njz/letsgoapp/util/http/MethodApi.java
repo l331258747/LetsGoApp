@@ -231,6 +231,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //travelFriendQueryLikes 朋友圈点赞列表
+    public static void travelFriendQueryLikes(int userId, int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendQueryLikes(userId, limit, page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //friendDoUnLike  点赞
     public static void friendQueryLikes(boolean isNice, int friendSterId, DisposableObserver subscriber) {
         if (isNice) {

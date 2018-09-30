@@ -37,7 +37,11 @@ public class DialogUtil {
                 .setPositiveButton(positiveName, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        callBack.exectEvent(dialog);
+                        if(callBack == null){
+                            dialog.cancel();
+                        }else{
+                            callBack.exectEvent(dialog);
+                        }
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -48,6 +52,10 @@ public class DialogUtil {
                 }).create();
 
         return alterDialog;
+    }
+
+    public AlertDialog getDefaultDialog(Context context, String content) {
+        return this.getDefaultDialog(context,"提示",content,"确定",null);
     }
 
     public interface DialogCallBack {

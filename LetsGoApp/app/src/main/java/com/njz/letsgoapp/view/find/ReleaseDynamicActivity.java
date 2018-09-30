@@ -1,10 +1,15 @@
 package com.njz.letsgoapp.view.find;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,9 +18,11 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.other.LocationModel;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.find.ReleaseDynamicContract;
 import com.njz.letsgoapp.mvp.find.ReleaseDynamicPresenter;
+import com.njz.letsgoapp.util.PermissionUtil;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
 import com.njz.letsgoapp.util.accessory.PhotoAdapter;
 import com.njz.letsgoapp.util.accessory.RecyclerItemClickListener;
@@ -83,17 +90,36 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     @Override
     public void initData() {
         mPresenter = new ReleaseDynamicPresenter(context,this);
-
         locationUtil = new LocationUtil();
+
+        getLocation();
+
+        tvLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!PermissionUtil.getInstance().isGpsAvailable(context)) return;
+                if(!PermissionUtil.getInstance().getPremission(context,PermissionUtil.PERMISSION_LOCATION,PermissionUtil.PERMISSION_LOCATION_CODE)) return;
+                getLocation();
+            }
+        });
+    }
+
+    public void getLocation(){
+        tvLocation.setText("定位中...");
+        tvLocation.setEnabled(false);
         locationUtil.startLocation(new LocationUtil.LocationListener() {
             @Override
             public void getAdress(int code, LocationModel adress) {
                 LogUtil.e("code:" + code + " adress:" + adress);
                 if(code == 0){
                     tvLocation.setText(adress.getCity()+adress.getCityChild());
+                    tvLocation.setEnabled(false);
                     longitude = adress.getLongitude();
                     latitude = adress.getLatitude();
                     city = adress.getCity()+adress.getCityChild();
+                }else{
+                    tvLocation.setText("重新定位");
+                    tvLocation.setEnabled(true);
                 }
                 loadingDialog.dismiss();
             }
@@ -151,6 +177,15 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.right_tv){
+            if(TextUtils.isEmpty(city)){
+                DialogUtil.getInstance().getDefaultDialog(context,"定位之后才能发布动态！").show();
+                return;
+            }
+            if(TextUtils.isEmpty(etContent.getText().toString()) && selectedPhotos.size() == 0){
+                DialogUtil.getInstance().getDefaultDialog(context,"请填写动态内容或添加图片才可进行动态发布！").show();
+                return;
+            }
+
             disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
                 @Override
                 public void accept(UpLoadPhotos upLoadPhotos) throws Exception {
@@ -204,5 +239,21 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     protected void onDestroy() {
         super.onDestroy();
         locationUtil.stopLocation();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PermissionUtil.PERMISSION_LOCATION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {//选择了不再提示按钮
+                PermissionUtil.getInstance().showAccreditDialog(context, "温馨提示\n" +
+                        "您需要同意那就走使用【定位】权限才能正常发布动态，" +
+                        "由于您选择了【禁止（不再提示）】，将导致无法定位，" +
+                        "需要到设置页面手动授权开启【定位】权限，才能发布动态。");
+                return;
+            }
+        }
     }
 }

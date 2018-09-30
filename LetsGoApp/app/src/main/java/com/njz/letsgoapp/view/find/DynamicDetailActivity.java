@@ -130,8 +130,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
             @Override
             public void onClick(View v) {
                 Intent intentFans = new Intent(context, FansListActivity.class);
-                intentFans.putExtra(FansListActivity.TITLE, "我的粉丝");
-                intentFans.putExtra(FansListActivity.TYPE, 0);
+                intentFans.putExtra(FansListActivity.TITLE, "点赞列表");
+                intentFans.putExtra(FansListActivity.TYPE, 2);
                 intentFans.putExtra(FansListActivity.USER_ID, model.getUserId());
                 startActivity(intentFans);
             }
