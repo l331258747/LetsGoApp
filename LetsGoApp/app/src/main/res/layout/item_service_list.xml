@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:layout_marginTop="10dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="3dp">
@@ -15,19 +15,18 @@
     <RelativeLayout
         android:id="@+id/rl_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_img"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
             tools:src="@mipmap/background" />
 
         <TextView
             android:id="@+id/iv_img_content"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_img"
             android:background="@color/color_theme"
@@ -42,7 +41,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="8dp"
             android:layout_toEndOf="@+id/iv_img"
             android:maxLines="2"
             tools:text="我是标题，选我我是标题，选我我是标题选我我是标题选我我是标题，选我" />
@@ -52,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_img"
-            android:layout_marginLeft="5dp"
+            android:layout_margin="8dp"
             android:layout_toEndOf="@+id/iv_img">
 
 
