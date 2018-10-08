@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:padding="10dp"
-        android:src="@mipmap/calendar_back"
+        android:src="@mipmap/icon_back"
         android:visibility="gone" />
 
     <TextView

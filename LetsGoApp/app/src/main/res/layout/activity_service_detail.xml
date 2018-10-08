@@ -69,6 +69,7 @@
                     android:layout_alignBottom="@+id/tv_destination"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="5dp"
+                    android:textSize="12sp"
                     android:text="已售: 11"
                     android:textColor="@color/color_99" />
 
