@@ -42,11 +42,6 @@ public class PriceView extends LinearLayout {
     public void setPrice(float price) {
         if (price < 0) price = 0;
         String strPrice = String.valueOf(price);
-//        if (isDouble(strPrice)) {
-//            tvPrice.setText(doubleToString(strPrice));
-//        } else {
-//            tvPrice.setText(strPrice);
-//        }
         tvPrice.setText(strPrice);
     }
 

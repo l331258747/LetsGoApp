@@ -70,6 +70,8 @@ public class DynamicImageView extends LinearLayout {
         iv_bottom1.setVisibility(GONE);
         iv_bottom2.setVisibility(GONE);
         iv_bottom3.setVisibility(GONE);
+
+        iv_left1.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
 

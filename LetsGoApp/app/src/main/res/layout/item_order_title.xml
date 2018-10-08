@@ -17,7 +17,12 @@
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
+            android:drawableLeft="@mipmap/ic_order_title"
             android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:gravity="center"
             android:text="姓名"/>
 
         <TextView
@@ -25,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-
+            android:layout_centerVertical="true"
             android:layout_marginLeft="90dp"
             android:textColor="@color/color_99"
             tools:text="asdjhfkj234234" />
@@ -34,7 +39,9 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:textStyle="bold"
             android:textColor="@color/color_red"
             tools:text="待付款" />
 
