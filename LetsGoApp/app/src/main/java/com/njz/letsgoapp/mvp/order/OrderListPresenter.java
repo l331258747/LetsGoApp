@@ -26,7 +26,7 @@ public class OrderListPresenter implements OrderListContract.Presenter {
     }
 
     @Override
-    public void orderQueryOrderList(int payStatus) {
+    public void orderQueryOrderList(int payStatus,int limit,int page) {
         ResponseCallback listener = new ResponseCallback<List<OrderModel>>() {
             @Override
             public void onSuccess(List<OrderModel> data) {
@@ -38,6 +38,6 @@ public class OrderListPresenter implements OrderListContract.Presenter {
                 iView.orderQueryOrderListFailed(errorMsg);
             }
         };
-        MethodApi.orderQueryOrderList(payStatus, new OnSuccessAndFaultSub(listener));
+        MethodApi.orderQueryOrderList(payStatus,limit,page ,new OnSuccessAndFaultSub(listener));
     }
 }

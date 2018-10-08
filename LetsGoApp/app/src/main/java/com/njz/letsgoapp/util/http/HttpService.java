@@ -259,7 +259,9 @@ public interface HttpService {
     //order/queryOrderList 订单列表
     @GET("order/queryOrderList")
     Observable<BaseResponse<List<OrderModel>>> orderQueryOrderList(
-            @Query("payStatus") int payStatus
+            @Query("payStatus") int payStatus,
+            @Query("limit") int limit,
+            @Query("page") int page
     );
 
     //订单详情order/queryOrder

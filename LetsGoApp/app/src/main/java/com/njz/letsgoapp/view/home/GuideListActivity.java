@@ -286,6 +286,11 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     public void guideSortTop10ByLocationSuccess(GuideListModel models) {
         List<GuideModel> datas = models.getList();
 
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
@@ -294,13 +299,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
-
-        if (isLoadType == 1) {
-            mAdapter.setData(datas);
-        } else {
-            mAdapter.addData(datas);
-        }
-        loadMoreWrapper.notifyDataSetChanged();
     }
 
     @Override

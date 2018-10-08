@@ -14,7 +14,7 @@ import java.util.List;
 public interface OrderListContract {
 
     interface Presenter {
-        void orderQueryOrderList(int payStatus);
+        void orderQueryOrderList(int payStatus,int limit,int page);
     }
 
     interface View{

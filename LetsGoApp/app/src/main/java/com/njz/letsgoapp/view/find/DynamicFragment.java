@@ -253,6 +253,13 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public void friendFindAllSuccess(DynamicListModel models) {
         List<DynamicModel> datas = models.getList();
 
+
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
@@ -261,13 +268,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
-
-        if (isLoadType == 1) {
-            mAdapter.setData(datas);
-        } else {
-            mAdapter.addData(datas);
-        }
-        loadMoreWrapper.notifyDataSetChanged();
     }
 
     @Override
@@ -282,6 +282,13 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public void friendFriendSterSuccess(List<DynamicModel> models) {
         List<DynamicModel> datas = models;
 
+
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
@@ -290,13 +297,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
-
-        if (isLoadType == 1) {
-            mAdapter.setData(datas);
-        } else {
-            mAdapter.addData(datas);
-        }
-        loadMoreWrapper.notifyDataSetChanged();
     }
 
     @Override

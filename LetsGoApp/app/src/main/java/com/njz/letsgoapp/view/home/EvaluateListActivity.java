@@ -167,6 +167,13 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
     public void orderReviewsFindGuideReviewsSuccess(BasePageModel<EvaluateModel> model) {
         List<EvaluateModel> datas = model.getList();
 
+
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
@@ -175,13 +182,6 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
-
-        if (isLoadType == 1) {
-            mAdapter.setData(datas);
-        } else {
-            mAdapter.addData(datas);
-        }
-        loadMoreWrapper.notifyDataSetChanged();
     }
 
     @Override

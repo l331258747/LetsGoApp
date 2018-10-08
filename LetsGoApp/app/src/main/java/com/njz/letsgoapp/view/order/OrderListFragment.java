@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.order.OrderListAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -35,7 +36,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public RecyclerView recyclerView;
     public SwipeRefreshLayout swipeRefreshLayout;
     private OrderListAdapter mAdapter;
-//    private LoadMoreWrapper loadMoreWrapper;
+    private LoadMoreWrapper loadMoreWrapper;
 
     public int payStatus;
     public boolean isViewCreated;
@@ -140,8 +141,8 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new OrderListAdapter(activity, new ArrayList<OrderModel>());
-//        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
-        recyclerView.setAdapter(mAdapter);
+        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
 
         page = Constant.DEFAULT_PAGE;
 
@@ -157,8 +158,8 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {
-//                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
-//                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
                 getMoreData();
             }
         });
@@ -193,7 +194,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     }
 
     public void getList(){
-        mPresenter.orderQueryOrderList(payStatus);
+        mPresenter.orderQueryOrderList(payStatus,Constant.DEFAULT_LIMIT, page);
     }
 
 
@@ -201,21 +202,20 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public void orderQueryOrderListSuccess(List<OrderModel> models) {
         List<OrderModel> datas = models;
 
-        isLoad = false;
-//        if (datas.size() >= Constant.DEFAULT_LIMIT) {
-//            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
-//        } else {
-//            // 显示加载到底的提示
-//            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
-//        }
-        swipeRefreshLayout.setRefreshing(false);
-
         if (isLoadType == 1) {
             mAdapter.setData(datas);
         } else {
             mAdapter.addData(datas);
         }
-//        loadMoreWrapper.notifyDataSetChanged();
+
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -223,7 +223,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         showShortToast(msg);
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
-//        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 
     @Override

@@ -306,8 +306,8 @@ public class MethodApi {
     }
 
     //orderQueryOrderList 订单列表
-    public static void orderQueryOrderList(int payStatus, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderQueryOrderList(payStatus);
+    public static void orderQueryOrderList(int payStatus,int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderQueryOrderList(payStatus,limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

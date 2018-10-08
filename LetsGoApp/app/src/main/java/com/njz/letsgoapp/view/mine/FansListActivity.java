@@ -148,6 +148,13 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
     public void userFindFansSuccess(FansListModel data) {
         List<FansModel> datas = data.getList();
 
+
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
@@ -156,13 +163,6 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
-
-        if (isLoadType == 1) {
-            mAdapter.setData(datas);
-        } else {
-            mAdapter.addData(datas);
-        }
-        loadMoreWrapper.notifyDataSetChanged();
     }
 
     @Override
