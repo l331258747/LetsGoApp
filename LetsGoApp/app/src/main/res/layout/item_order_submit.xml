@@ -63,6 +63,8 @@
                     android:id="@+id/tv_price_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:textStyle="bold"
                     tools:text="￥270"
                     android:textColor="@color/color_price" />
 
@@ -72,6 +74,9 @@
                     android:id="@+id/tv_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/color_99"
                     android:layout_centerHorizontal="true"
                     tools:text="4天" />
 
@@ -81,6 +86,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:textStyle="bold"
                     tools:text="￥1080"
                     android:textColor="@color/color_price" />
 

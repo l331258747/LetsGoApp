@@ -55,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:textStyle="bold"
                     android:textColor="@color/color_theme"
                     tools:text="￥260" />
 
@@ -76,6 +77,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:textStyle="bold"
                     android:textColor="@color/color_theme"
                     tools:text="￥1260" />
 
@@ -219,6 +221,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:textStyle="bold"
                 android:text="￥266"
                 android:textColor="@color/color_red" />
 
@@ -248,6 +251,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:textStyle="bold"
                 android:text="￥266"
                 android:textColor="@color/color_theme" />
 
