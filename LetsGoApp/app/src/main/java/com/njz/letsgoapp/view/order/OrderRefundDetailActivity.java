@@ -5,18 +5,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderRefundDetailAdapter;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderRefundDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderRefundDetailPresenter;
+import com.njz.letsgoapp.util.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -78,27 +81,13 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_call_guide:
-                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                    @Override
-                    public void exectEvent(DialogInterface alterDialog) {
-                        Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                        context.startActivity(dialIntent);
-                        alterDialog.dismiss();
-                    }
-                }).show();
+                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile());
                 break;
             case R.id.btn_delete:
                 showShortToast("删除");
                 break;
             case R.id.btn_call_custom:
-                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                    @Override
-                    public void exectEvent(DialogInterface alterDialog) {
-                        Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                        context.startActivity(dialIntent);
-                        alterDialog.dismiss();
-                    }
-                }).show();
+                DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
         }
 

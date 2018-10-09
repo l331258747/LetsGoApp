@@ -53,6 +53,7 @@ public class LoginInfoModel {
 
     private String personalStatement;
     private String imgUrl;
+    private String customerMobile;
     /**
      * registerIp :
      * registerTime : null
@@ -169,5 +170,11 @@ public class LoginInfoModel {
 
     public void setBackImg(String backImg) {
         this.backImg = backImg;
+    }
+
+    public String getCustomerMobile() {
+        if(customerMobile == null)
+            return "";
+        return customerMobile;
     }
 }

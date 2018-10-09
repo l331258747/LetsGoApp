@@ -155,6 +155,23 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             }
         });
 
+        mAdapter.setOnCancelClickListener(new OrderListAdapter.OnCancelClickListener() {
+            @Override
+            public void onClick(int orderId,int index) {
+                Intent intent = new Intent(context,OrderCancelActivity.class);
+                if(mAdapter.getData().get(index).getNjzChildOrderListVOS().size() == 1){
+                    intent.putExtra("ORDER_ID",mAdapter.getItem(index).getId());
+                    intent.putExtra("IS_MAINLY",1);
+                }else{
+                    intent.putExtra("ORDER_ID",orderId);
+                    intent.putExtra("IS_MAINLY",0);
+                }
+                intent.putExtra("name",mAdapter.getItem(index).getName());
+                intent.putExtra("phone",mAdapter.getItem(index).getMobile());
+                context.startActivity(intent);
+            }
+        });
+
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {

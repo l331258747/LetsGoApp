@@ -56,6 +56,7 @@ public class HttpMethods {
                 Request originalRequest = chain.request();
                 Request.Builder requestBuilder = originalRequest.newBuilder()
                         .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+//                        .addHeader("Content-Type", "application/json; charset=UTF-8")
 //                        .addHeader("Accept-Encoding", "gzip")
                         .addHeader("Connection", "keep-alive")
                         .addHeader("Accept", "*/*")

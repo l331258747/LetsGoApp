@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.order;
 
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +14,13 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderCancelContract;
 import com.njz.letsgoapp.mvp.order.OrderCancelPresenter;
+import com.njz.letsgoapp.util.LoginUtil;
+import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.widget.FixedItemEditViewNoLine;
 
 import java.util.ArrayList;
@@ -38,11 +44,17 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
     OrderCancelPresenter mPresenter;
 
     int orderId;
+    int isMainly;//1为主订单 0位子订单
+    String phone;
+    String name;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         orderId = intent.getIntExtra("ORDER_ID",0);
+        phone = intent.getStringExtra("phone");
+        name = intent.getStringExtra("name");
+        isMainly = intent.getIntExtra("IS_MAINLY",1);
     }
 
     @Override
@@ -57,7 +69,9 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
         tv_reason = $(R.id.tv_reason);
         ll_reason = $(R.id.ll_reason);
         view_name = $(R.id.view_name);
+        view_name.getEtView().setEnabled(false);
         view_phone = $(R.id.view_phone);
+        view_phone.getEtView().setEnabled(false);
         et_special = $(R.id.et_special);
         btn_submit = $(R.id.btn_submit);
 
@@ -75,6 +89,9 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
         reasons.add("原因2");
         reasons.add("原因3");
         reasons.add("原因4");
+
+        view_name.setEtContent(name);
+        view_phone.setEtContent(phone);
 
         mPresenter = new OrderCancelPresenter(context,this);
     }
@@ -96,7 +113,12 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
                 pvOptions.show();
                 break;
             case R.id.btn_submit:
-                mPresenter.orderTravelDeleteOrder(orderId);
+                if(TextUtils.isEmpty(tv_reason.getText().toString())){
+                    showShortToast("请选择取消原因");
+                    return;
+                }
+
+                mPresenter.orderTravelDeleteOrder(orderId,isMainly,tv_reason.getText().toString(),et_special.getText().toString());
                 break;
         }
     }
@@ -104,6 +126,8 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void orderTravelDeleteOrderSuccess(EmptyModel str) {
         showShortToast("取消成功");
+
+        RxBus2.getInstance().post(new OrderCancelEvent(isMainly));
         finish();
     }
 

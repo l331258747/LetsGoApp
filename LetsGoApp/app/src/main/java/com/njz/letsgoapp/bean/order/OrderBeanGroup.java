@@ -25,7 +25,43 @@ public class OrderBeanGroup {
     private int id;
     private int payStatus;
     private String guideName;
+    private String userName;
+    private String userMobile;
+    private String guideMobile;
+    private int index;
     private OrderChildModel orderChildModel;
+
+    public String getGuideMobile() {
+        return guideMobile;
+    }
+
+    public void setGuideMobile(String guideMobile) {
+        this.guideMobile = guideMobile;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserMobile() {
+        return userMobile;
+    }
+
+    public void setUserMobile(String userMobile) {
+        this.userMobile = userMobile;
+    }
 
     public int getReviewStatus() {
         return reviewStatus;

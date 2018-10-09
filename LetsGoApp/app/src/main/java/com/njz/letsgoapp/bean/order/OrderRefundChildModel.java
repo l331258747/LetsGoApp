@@ -45,8 +45,17 @@ public class OrderRefundChildModel {
     private int childOrderId;
     private int dayNum;
     private float useMoney;
+    private float orderPrice;
     private String value;
     private int useDay;
+
+    public float getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(float orderPrice) {
+        this.orderPrice = orderPrice;
+    }
 
     public float getDefaultMoney() {
         return defaultMoney;

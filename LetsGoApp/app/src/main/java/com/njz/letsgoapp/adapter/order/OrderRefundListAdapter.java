@@ -13,19 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.OrderRefundBeanGroup;
 import com.njz.letsgoapp.bean.order.OrderRefundChildModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
-import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.view.order.OrderCancelActivity;
-import com.njz.letsgoapp.view.order.OrderEvaluateActivity;
-import com.njz.letsgoapp.view.order.OrderRefundActivity;
-import com.njz.letsgoapp.view.pay.PayActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +150,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             ((DefaultHolder) holder).tv_price.setText("￥" + data.getPrice());
 
             setNum(data,((DefaultHolder) holder).tv_num);
-            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getDefaultMoney());
+            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
         }
 
         if (holder instanceof TitleHolder) {
@@ -204,14 +198,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().getDefaultDialog(mContext, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                        @Override
-                        public void exectEvent(DialogInterface alterDialog) {
-                            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                            mContext.startActivity(dialIntent);
-                            alterDialog.dismiss();
-                        }
-                    }).show();
+                    DialogUtil.getInstance().showGuideMobileDialog(mContext,"123456");
                 }
             });
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -223,14 +210,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             ((FootHolder) holder).btn_call_customer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().getDefaultDialog(mContext, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                        @Override
-                        public void exectEvent(DialogInterface alterDialog) {
-                            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                            mContext.startActivity(dialIntent);
-                            alterDialog.dismiss();
-                        }
-                    }).show();
+                    DialogUtil.getInstance().showCustomerMobileDialog(mContext);
                 }
             });
         }

@@ -55,7 +55,16 @@ public class OrderDetailModel {
     private int id;
     private int payStatus;
     private String guideName;
+    private String guideMobile;
     private List<OrderDetailChildModel> njzChildOrderVOS;
+
+    public String getGuideMobile() {
+        return guideMobile;
+    }
+
+    public void setGuideMobile(String guideMobile) {
+        this.guideMobile = guideMobile;
+    }
 
     public String getGuideSureTime() {
         return guideSureTime;

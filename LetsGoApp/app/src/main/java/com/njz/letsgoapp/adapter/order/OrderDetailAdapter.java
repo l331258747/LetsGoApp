@@ -63,7 +63,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             switch (data.getValue()) {
                 case Constant.SERVICE_TYPE_SHORT_CUSTOM:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getPersonNum() + "人");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getPersonNum());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -72,7 +72,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                 case Constant.SERVICE_TYPE_SHORT_CAR:
                 case Constant.SERVICE_TYPE_SHORT_GUIDE:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getDayNum() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getDayNum());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).tv_count_title.setText("出行人数");
@@ -82,7 +82,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                     break;
                 case Constant.SERVICE_TYPE_SHORT_HOTEL:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getRoomNum() + "间" + "x" +  data.getDayNum() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getPersonNum() * data.getDayNum());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -90,7 +90,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                     break;
                 case Constant.SERVICE_TYPE_SHORT_TICKET:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getTicketNum() + "张");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getPersonNum());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -105,6 +105,15 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                 case Constant.ORDER_PAY_WAIT:
                     ((ViewHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).btn_cancel.setText("取消");
+                    ((ViewHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(mOnCancelClickListener != null){
+                                mOnCancelClickListener.onClick(data.getId());
+                            }
+                        }
+                    });
+
                     break;
                 case Constant.ORDER_PAY_ALREADY:
                     ((ViewHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
@@ -151,7 +160,17 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             tv_count_title = itemView.findViewById(R.id.tv_count_title);
             btn_cancel = itemView.findViewById(R.id.btn_cancel);
 
-
         }
+    }
+
+    OnCancelClickListener mOnCancelClickListener;
+
+    public interface OnCancelClickListener{
+        void onClick(int orderId);
+    }
+
+    public void setOnCancelClickListener(OnCancelClickListener onCancelClickListener){
+        this.mOnCancelClickListener = onCancelClickListener;
+
     }
 }

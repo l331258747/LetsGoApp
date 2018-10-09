@@ -31,7 +31,34 @@ public class OrderModel {
     private int id;
     private int payStatus;
     private String guideName;
+    private String mobile;
+    private String name;
+    private String guideMobile;
     private List<OrderChildModel> njzChildOrderListVOS;
+
+    public String getGuideMobile() {
+        return guideMobile;
+    }
+
+    public void setGuideMobile(String guideMobile) {
+        this.guideMobile = guideMobile;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getReviewStatus() {
         return reviewStatus;

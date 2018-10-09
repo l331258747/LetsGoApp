@@ -69,7 +69,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     LWebView webView;
 
     GuideDetailPresenter mPresenter;
-    AlertDialog defaultDialog;
 
     GuideDetailModel guideDetailModel;
 
@@ -196,15 +195,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         if(!TextUtils.isEmpty(model.getGuideStory()))
         webView.loadDataWithBaseURL(null, model.getGuideStory(), "text/html", "utf-8", null);
 
-
-        defaultDialog = DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-            @Override
-            public void exectEvent(DialogInterface alterDialog) {
-                Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + model.getMobile()));
-                startActivity(dialIntent);
-                alterDialog.dismiss();
-            }
-        });
     }
 
     //评价
@@ -309,8 +299,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.btn_call:
-                if (defaultDialog == null) return;
-                defaultDialog.show();
+                DialogUtil.getInstance().showGuideMobileDialog(context,"123456");
                 break;
             case R.id.btn_submit:
                 showPopService();

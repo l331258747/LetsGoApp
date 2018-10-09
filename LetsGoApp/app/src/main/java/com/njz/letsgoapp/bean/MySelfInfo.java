@@ -65,7 +65,13 @@ public class MySelfInfo {
         SPUtils.getInstance().putString(SPUtils.SP_USER_IMG_URL, infoModel.getImgUrl());
         SPUtils.getInstance().putString(SPUtils.SP_USER_LABELS, infoModel.getTravelMacroEntitys());
         SPUtils.getInstance().putInt(SPUtils.SP_USER_ID, infoModel.getUserId());
+        SPUtils.getInstance().putString(SPUtils.SP_CUSTOMER_MOBILE, infoModel.getCustomerMobile());
 
+
+    }
+
+    public String getCustomerMobile(){
+        return SPUtils.getInstance().getString(SPUtils.SP_CUSTOMER_MOBILE);
     }
 
     public String getDefaultCity(){

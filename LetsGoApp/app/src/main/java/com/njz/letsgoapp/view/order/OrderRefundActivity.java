@@ -43,7 +43,6 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
 
     private OrderRefundAdapter mAdapter;
 
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_order_refund;
@@ -111,24 +110,10 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
                 pvOptions.show();
                 break;
             case R.id.ll_call_custom:
-                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                    @Override
-                    public void exectEvent(DialogInterface alterDialog) {
-                        Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                        context.startActivity(dialIntent);
-                        alterDialog.dismiss();
-                    }
-                }).show();
+                DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
             case R.id.ll_call_guide:
-                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                    @Override
-                    public void exectEvent(DialogInterface alterDialog) {
-                        Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                        context.startActivity(dialIntent);
-                        alterDialog.dismiss();
-                    }
-                }).show();
+                DialogUtil.getInstance().showGuideMobileDialog(context,"123456");
                 break;
         }
     }

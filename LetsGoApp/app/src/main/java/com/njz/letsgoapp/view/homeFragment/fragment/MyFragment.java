@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
@@ -132,15 +134,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(context, MyCommentActivity.class));
                 break;
             case R.id.mine_customer:
-                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                    @Override
-                    public void exectEvent(DialogInterface alterDialog) {
-                        Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                        startActivity(dialIntent);
-                        alterDialog.dismiss();
-                    }
-                }).show();
-
+                DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
             case R.id.mine_setting:
                 startActivity(new Intent(context,SystemSettingActivity.class));

@@ -11,7 +11,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
 public interface OrderCancelContract {
 
     interface Presenter {
-        void orderTravelDeleteOrder(int orderId);
+        void orderTravelDeleteOrder(int orderId,int isMainly,String cancelReason,String cancelExplain);
     }
 
     interface View{

@@ -12,10 +12,19 @@ public class SendOrderModel {
 
     int guideId;
     String mobile;
-    String specialReauire;
+    String name;
+    String specialRequire;
     String location;
     List<SendChildOrderModel> childOrders;
     float earlyOrderPrice;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getGuideId() {
         return guideId;
@@ -33,12 +42,13 @@ public class SendOrderModel {
         this.mobile = mobile;
     }
 
-    public String getSpecialReauire() {
-        return specialReauire;
+
+    public String getSpecialRequire() {
+        return specialRequire;
     }
 
-    public void setSpecialReauire(String specialReauire) {
-        this.specialReauire = specialReauire;
+    public void setSpecialRequire(String specialRequire) {
+        this.specialRequire = specialRequire;
     }
 
     public String getLocation() {

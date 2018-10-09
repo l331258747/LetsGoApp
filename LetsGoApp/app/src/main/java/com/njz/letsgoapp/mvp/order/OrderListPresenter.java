@@ -2,6 +2,7 @@ package com.njz.letsgoapp.mvp.order;
 
 import android.content.Context;
 
+import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -27,10 +28,10 @@ public class OrderListPresenter implements OrderListContract.Presenter {
 
     @Override
     public void orderQueryOrderList(int payStatus,int limit,int page) {
-        ResponseCallback listener = new ResponseCallback<List<OrderModel>>() {
+        ResponseCallback listener = new ResponseCallback<BasePageModel<OrderModel>>() {
             @Override
-            public void onSuccess(List<OrderModel> data) {
-                iView.orderQueryOrderListSuccess(data);
+            public void onSuccess(BasePageModel<OrderModel> data) {
+                iView.orderQueryOrderListSuccess(data.getList());
             }
 
             @Override

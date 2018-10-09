@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderDetailAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.PayModel;
@@ -21,11 +23,16 @@ import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderDetailPresenter;
 import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -56,6 +63,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public OrderDetailAdapter mAdapter;
 
     OrderDetailModel model;
+
+    Disposable disposable;
 
     @Override
     public void getIntentData() {
@@ -139,7 +148,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ll_order_refund_time.setVisibility(View.GONE);
 
         initRecycler();
-
     }
 
     @Override
@@ -147,6 +155,24 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         mPresenter = new OrderDetailPresenter(context, this);
         mPresenter.orderQueryOrder(orderId);
 
+        disposable = RxBus2.getInstance().toObservable(OrderCancelEvent.class, new Consumer<OrderCancelEvent>() {
+            @Override
+            public void accept(OrderCancelEvent orderCancelEvent) throws Exception {
+                if(orderCancelEvent.getIsMainly() == 0){
+                    mPresenter.orderQueryOrder(orderId);
+                }else if(orderCancelEvent.getIsMainly() == 1){
+                    finish();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(disposable.isDisposed()){
+            disposable.dispose();
+        }
     }
 
     //初始化recyclerview
@@ -157,6 +183,23 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         mAdapter = new OrderDetailAdapter(activity, new ArrayList<OrderDetailChildModel>());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setNestedScrollingEnabled(false);
+
+        mAdapter.setOnCancelClickListener(new OrderDetailAdapter.OnCancelClickListener() {
+            @Override
+            public void onClick(int orderId) {
+                Intent intent = new Intent(context,OrderCancelActivity.class);
+                if(mAdapter.getItemCount() == 1){
+                    intent.putExtra("ORDER_ID",model.getId());
+                    intent.putExtra("IS_MAINLY",1);
+                }else {
+                    intent.putExtra("ORDER_ID",orderId);
+                    intent.putExtra("IS_MAINLY",1);
+                }
+                intent.putExtra("name",model.getName());
+                intent.putExtra("phone",model.getMobile());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -166,24 +209,19 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.btn_cancel_order:
                 intent = new Intent(context,OrderCancelActivity.class);
                 intent.putExtra("ORDER_ID",model.getId());
+                intent.putExtra("name",model.getName());
+                intent.putExtra("phone",model.getMobile());
                 context.startActivity(intent);
                 break;
             case R.id.btn_call_guide:
-                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                    @Override
-                    public void exectEvent(DialogInterface alterDialog) {
-                        Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                        context.startActivity(dialIntent);
-                        alterDialog.dismiss();
-                    }
-                }).show();
+                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile());
                 break;
             case R.id.btn_pay:
                 PayModel payModel = new PayModel();
                 payModel.setTotalAmount(model.getOrderPrice()+"");
                 payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
                 payModel.setOutTradeNo(model.getOrderNo());
-                payModel.setLastPayTime("2018-01-01 12:00");
+                payModel.setLastPayTime(model.getLastPayTime());
                 PayActivity.startActivity(context, payModel);
                 break;
             case R.id.btn_refund:
@@ -193,14 +231,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 showShortToast("删除");
                 break;
             case R.id.btn_call_custom:
-                DialogUtil.getInstance().getDefaultDialog(context, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                    @Override
-                    public void exectEvent(DialogInterface alterDialog) {
-                        Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                        context.startActivity(dialIntent);
-                        alterDialog.dismiss();
-                    }
-                }).show();
+                DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
             case R.id.btn_evaluate:
                 intent = new Intent(context,OrderEvaluateActivity.class);

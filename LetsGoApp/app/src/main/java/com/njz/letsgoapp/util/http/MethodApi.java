@@ -6,6 +6,7 @@ import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.constant.Constant;
 
@@ -324,9 +325,9 @@ public class MethodApi {
     }
 
 
-    //取消订单orderTravelDeleteOrder
-    public static void orderTravelDeleteOrder(int orderId, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderTravelDeleteOrder(orderId);
+    //orderCancelOrder 取消订单
+    public static void orderCancelOrder(SendOrderCancelModel data, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderCancelOrder(data);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

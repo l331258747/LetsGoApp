@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.order.OrderDetailAdapter;
 import com.njz.letsgoapp.adapter.order.OrderSubmitAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -159,27 +158,28 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         List<ServiceItem> sis = getData();
         SendOrderModel sendOrderModel = new SendOrderModel();
         sendOrderModel.setMobile(login_view_phone.getEtContent());
+        sendOrderModel.setName(login_view_name.getEtContent());
         sendOrderModel.setGuideId(guideId);
         sendOrderModel.setLocation(fixed_view_city.getContent());
-        sendOrderModel.setSpecialReauire(et_special.getText().toString());
+        sendOrderModel.setSpecialRequire(et_special.getText().toString());
         sendOrderModel.setEarlyOrderPrice(totalPrice);
 
         List<SendChildOrderModel> sendChildOrders = new ArrayList<>();
         for (ServiceItem si : sis) {
             SendChildOrderModel sendChildOrder = new SendChildOrderModel();
             sendChildOrder.setServeId(si.getId());
-            sendChildOrder.setTitle(si.getTitile());
             sendChildOrder.setPrice(si.getPrice());
             sendChildOrder.setDayNum(si.getTimeDay());
-            sendChildOrder.setRoomNum(si.getNumber());
-            float childTotalPrice;
+
             if (TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE)
-                    || TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)) {
-                childTotalPrice = si.getPrice() * si.getTimeDay();
-            } else {
-                childTotalPrice = si.getPrice() * si.getNumber() * si.getTimeDay();
+                    || TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)
+                    || TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)) {
+                sendChildOrder.setPersonNum(si.getNumber());
+            } else if(TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_HOTEL)){
+                sendChildOrder.setRoomNum(si.getNumber());
+            } else if(TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_TICKET)){
+                sendChildOrder.setTicketNum(si.getNumber());
             }
-            sendChildOrder.setEarlyOrderPrice(childTotalPrice);
             sendChildOrder.setTravelDate(si.getDaysStr2());
             sendChildOrders.add(sendChildOrder);
         }

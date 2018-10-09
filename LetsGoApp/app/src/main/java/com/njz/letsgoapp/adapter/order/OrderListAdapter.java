@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,12 +87,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup.setPayStatus(orderModel.getPayStatus());
                 serviceInfoGroup.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup.setReviewStatus(orderModel.getReviewStatus());
+                serviceInfoGroup.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup);
                 for (int j = 0; j<orderModel.getNjzChildOrderListVOS().size();j++){
                     OrderBeanGroup serviceInfoGroup2 = new OrderBeanGroup();
                     OrderChildModel orderChildModel = orderModel.getNjzChildOrderListVOS().get(j);
                     serviceInfoGroup2.setLabelTab(OrderBeanGroup.LABEL_TAB_DEFAULT);
                     serviceInfoGroup2.setOrderChildModel(orderChildModel);
+                    serviceInfoGroup2.setIndex(i);
                     orderBeanGroups.add(serviceInfoGroup2);
                 }
                 OrderBeanGroup serviceInfoGroup3 = new OrderBeanGroup();
@@ -104,6 +107,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setId(orderModel.getId());
                 serviceInfoGroup3.setOrderNo(orderModel.getOrderNo());
                 serviceInfoGroup3.setLocation(orderModel.getLocation());
+                serviceInfoGroup3.setUserName(orderModel.getName());
+                serviceInfoGroup3.setUserMobile(orderModel.getMobile());
+                serviceInfoGroup3.setGuideMobile(orderModel.getGuideMobile());
+                serviceInfoGroup3.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -148,13 +155,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
 
 
+            ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
             switch (data.getPayStatus()){
                 case Constant.ORDER_PAY_WAIT:
                     ((DefaultHolder) holder).btn_cancel.setText("取消");
                     ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ToastUtil.showShortToast(mContext,"暂不支持子单取消");
+                            if(mOnCancelClickListener != null){
+                                mOnCancelClickListener.onClick(data.getId(),orderBeanGroups.get(pos).getIndex());
+                            }
                         }
                     });
                     break;
@@ -257,14 +267,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().getDefaultDialog(mContext, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                        @Override
-                        public void exectEvent(DialogInterface alterDialog) {
-                            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                            mContext.startActivity(dialIntent);
-                            alterDialog.dismiss();
-                        }
-                    }).show();
+                    DialogUtil.getInstance().showGuideMobileDialog(mContext,data.getGuideMobile());
                 }
             });
             ((FootHolder) holder).btn_cancel_order.setOnClickListener(new View.OnClickListener() {
@@ -272,6 +275,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext,OrderCancelActivity.class);
                     intent.putExtra("ORDER_ID",data.getId());
+                    intent.putExtra("name",data.getUserName());
+                    intent.putExtra("phone",data.getUserMobile());
                     mContext.startActivity(intent);
                 }
             });
@@ -295,14 +300,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_call_customer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().getDefaultDialog(mContext, "提示", "13211111111", "呼叫", new DialogUtil.DialogCallBack() {
-                        @Override
-                        public void exectEvent(DialogInterface alterDialog) {
-                            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "13211111111"));
-                            mContext.startActivity(dialIntent);
-                            alterDialog.dismiss();
-                        }
-                    }).show();
+                    DialogUtil.getInstance().showCustomerMobileDialog(mContext);
                 }
             });
             ((FootHolder) holder).btn_refund.setOnClickListener(new View.OnClickListener() {
@@ -413,13 +411,23 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
+    OnCancelClickListener mOnCancelClickListener;
 
     public interface OnItemClickListener {
         void onClick(int orderId);
     }
 
+    public interface OnCancelClickListener{
+        void onClick(int orderId,int index);
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+    }
+
+    public void setOnCancelClickListener(OnCancelClickListener onCancelClickListener){
+        this.mOnCancelClickListener = onCancelClickListener;
+
     }
 
     //---------事件 end---------

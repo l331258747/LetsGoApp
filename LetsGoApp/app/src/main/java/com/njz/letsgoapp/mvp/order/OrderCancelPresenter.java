@@ -3,6 +3,7 @@ package com.njz.letsgoapp.mvp.order;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -24,7 +25,7 @@ public class OrderCancelPresenter implements OrderCancelContract.Presenter {
     }
 
     @Override
-    public void orderTravelDeleteOrder(int orderId) {
+    public void orderTravelDeleteOrder(int orderId,int isMainly,String cancelReason,String cancelExplain) {
         ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override
             public void onSuccess(EmptyModel data) {
@@ -36,6 +37,12 @@ public class OrderCancelPresenter implements OrderCancelContract.Presenter {
                 iView.orderTravelDeleteOrderFailed(errorMsg);
             }
         };
-        MethodApi.orderTravelDeleteOrder(orderId, new OnSuccessAndFaultSub(listener, context));
+
+        SendOrderCancelModel model = new SendOrderCancelModel();
+        model.setId(orderId);
+        model.setIsMainly(isMainly);
+        model.setCancelReason(cancelReason);
+        model.setCancelExplain(cancelExplain);
+        MethodApi.orderCancelOrder(model,new OnSuccessAndFaultSub(listener, context));
     }
 }

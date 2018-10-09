@@ -9,13 +9,28 @@ package com.njz.letsgoapp.bean.send;
 public class SendChildOrderModel {
 
     int serveId;
-    String title;
     float price;
     int roomNum;
     int dayNum;
-    float earlyOrderPrice;
+    int personNum;
+    int ticketNum;
     String travelDate;
 
+    public int getTicketNum() {
+        return ticketNum;
+    }
+
+    public void setTicketNum(int ticketNum) {
+        this.ticketNum = ticketNum;
+    }
+
+    public int getPersonNum() {
+        return personNum;
+    }
+
+    public void setPersonNum(int personNum) {
+        this.personNum = personNum;
+    }
 
     public int getServeId() {
         return serveId;
@@ -23,14 +38,6 @@ public class SendChildOrderModel {
 
     public void setServeId(int serveId) {
         this.serveId = serveId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public float getPrice() {
@@ -55,14 +62,6 @@ public class SendChildOrderModel {
 
     public void setDayNum(int dayNum) {
         this.dayNum = dayNum;
-    }
-
-    public float getEarlyOrderPrice() {
-        return earlyOrderPrice;
-    }
-
-    public void setEarlyOrderPrice(float earlyOrderPrice) {
-        this.earlyOrderPrice = earlyOrderPrice;
     }
 
     public String getTravelDate() {
