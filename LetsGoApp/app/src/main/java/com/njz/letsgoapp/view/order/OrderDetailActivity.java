@@ -51,8 +51,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public RecyclerView recyclerView;
     public TextView tv_order_price;
 
-    public LinearLayout ll_order_no, ll_order_create_time, ll_order_pay_time, ll_order_pay_method, ll_order_guide_time, ll_order_refund_apply, ll_order_refund_verify, ll_order_refund_time;
-    public TextView tv_order_no, tv_order_create_time, tv_order_pay_time, tv_order_pay_method, tv_order_guide_time, tv_order_refund_apply, tv_order_refund_verify, tv_order_refund_time;
+    public LinearLayout ll_order_no, ll_order_create_time, ll_order_pay_time, ll_order_pay_method, ll_order_guide_time,
+            ll_order_refund_apply, ll_order_refund_verify, ll_order_refund_time,ll_order_travel_start,ll_order_travel_end;
+    public TextView tv_order_no, tv_order_create_time, tv_order_pay_time, tv_order_pay_method, tv_order_guide_time, tv_order_refund_apply,
+            tv_order_refund_verify, tv_order_refund_time,tv_order_travel_start,tv_order_travel_end;
 
     public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate;
 
@@ -101,6 +103,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ll_order_refund_apply = $(R.id.ll_order_refund_apply);
         ll_order_refund_verify = $(R.id.ll_order_refund_verify);
         ll_order_refund_time = $(R.id.ll_order_refund_time);
+        ll_order_travel_start = $(R.id.ll_order_travel_start);
+        ll_order_travel_end = $(R.id.ll_order_travel_end);
         tv_order_no = $(R.id.tv_order_no);
         tv_order_create_time = $(R.id.tv_order_create_time);
         tv_order_pay_time = $(R.id.tv_order_pay_time);
@@ -109,6 +113,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tv_order_refund_apply = $(R.id.tv_order_refund_apply);
         tv_order_refund_verify = $(R.id.tv_order_refund_verify);
         tv_order_refund_time = $(R.id.tv_order_refund_time);
+        tv_order_travel_start = $(R.id.tv_order_travel_start);
+        tv_order_travel_end = $(R.id.tv_order_travel_end);
 
         btn_cancel_order = $(R.id.btn_cancel_order);
         btn_call_guide = $(R.id.btn_call_guide);
@@ -146,6 +152,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ll_order_refund_apply.setVisibility(View.GONE);
         ll_order_refund_verify.setVisibility(View.GONE);
         ll_order_refund_time.setVisibility(View.GONE);
+        ll_order_travel_start.setVisibility(View.GONE);
+        ll_order_travel_end.setVisibility(View.GONE);
 
         initRecycler();
     }
@@ -262,11 +270,24 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 ll_order_no.setVisibility(View.VISIBLE);
                 ll_order_create_time.setVisibility(View.VISIBLE);
                 ll_order_pay_time.setVisibility(View.VISIBLE);
+                ll_order_pay_method.setVisibility(View.VISIBLE);
                 tv_order_no.setText(str.getOrderNo());
                 tv_order_create_time.setText(str.getCreateTime());
                 tv_order_pay_time.setText(str.getPayTime());
-                ll_order_pay_method.setVisibility(View.VISIBLE);
                 tv_order_pay_method.setText(str.getPayType());
+
+                switch (str.getOrderStatus()){
+                    case Constant.ORDER_TRAVEL_NO_GO:
+                        ll_order_guide_time.setVisibility(View.VISIBLE);
+                        tv_order_guide_time.setText(str.getGuideSureTime());
+                        break;
+                    case Constant.ORDER_TRAVEL_GOING:
+                        ll_order_guide_time.setVisibility(View.VISIBLE);
+                        tv_order_guide_time.setText(str.getGuideSureTime());
+                        ll_order_travel_start.setVisibility(View.VISIBLE);
+                        tv_order_travel_start.setText(str.getCreateTime());
+                        break;
+                }
 
                 if (str.getOrderStatus() != Constant.ORDER_TRAVEL_GOING) {
                     btn_call_custom.setVisibility(View.VISIBLE);
@@ -275,11 +296,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     btn_call_custom.setVisibility(View.VISIBLE);
                     btn_call_guide.setVisibility(View.VISIBLE);
-                }
-
-                if (str.getOrderStatus() != Constant.ORDER_TRAVEL_WAIT) {
-                    ll_order_guide_time.setVisibility(View.VISIBLE);
-                    tv_order_guide_time.setText(str.getGuideSureTime());
                 }
 
                 break;
@@ -294,6 +310,12 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 tv_order_pay_method.setText(str.getPayType());
                 ll_order_guide_time.setVisibility(View.VISIBLE);
                 tv_order_guide_time.setText(str.getGuideSureTime());
+                ll_order_guide_time.setVisibility(View.VISIBLE);
+                tv_order_guide_time.setText(str.getGuideSureTime());
+                ll_order_travel_start.setVisibility(View.VISIBLE);
+                tv_order_travel_start.setText(str.getCreateTime());
+                ll_order_travel_end.setVisibility(View.VISIBLE);
+                tv_order_travel_end.setText(str.getCreateTime());
 
                 switch (str.getReviewStatus()) {
                     case Constant.ORDER_EVALUATE_NO:

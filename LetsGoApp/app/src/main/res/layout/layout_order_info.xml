@@ -122,6 +122,52 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_order_travel_start"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="行程开始时间"
+            android:textColor="@color/color_99" />
+
+        <TextView
+            android:id="@+id/tv_order_travel_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="sdgag3q3q3"
+            android:textColor="@color/color_99" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_order_travel_end"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="行程结束时间"
+            android:textColor="@color/color_99" />
+
+        <TextView
+            android:id="@+id/tv_order_travel_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="sdgag3q3q3"
+            android:textColor="@color/color_99" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll_order_refund_apply"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
