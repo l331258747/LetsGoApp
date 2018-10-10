@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:visibility="gone"
+            tools:visibility="visible"
             android:paddingRight="10dp"
             android:paddingTop="10dp">
 
@@ -131,6 +132,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:visibility="gone"
+            tools:visibility="visible"
             android:paddingRight="10dp"
             android:paddingTop="10dp">
 
@@ -162,6 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            tools:visibility="visible"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="10dp">
@@ -192,7 +195,6 @@
             android:id="@+id/rl_not_travel_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="10dp">

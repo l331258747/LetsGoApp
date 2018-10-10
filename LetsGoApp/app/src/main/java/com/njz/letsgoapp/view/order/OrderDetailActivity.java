@@ -30,6 +30,7 @@ import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -178,7 +179,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(disposable.isDisposed()){
+        if(disposable != null && disposable.isDisposed()){
             disposable.dispose();
         }
     }
@@ -201,13 +202,27 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     intent.putExtra("IS_MAINLY",1);
                 }else {
                     intent.putExtra("ORDER_ID",orderId);
-                    intent.putExtra("IS_MAINLY",1);
+                    intent.putExtra("IS_MAINLY",0);
                 }
                 intent.putExtra("name",model.getName());
                 intent.putExtra("phone",model.getMobile());
                 context.startActivity(intent);
             }
         });
+
+        mAdapter.setOnRefundClickListener(new OrderDetailAdapter.OnRefundClickListener() {
+            @Override
+            public void onClick(int id, List<Integer> childIds, int status, int index) {
+                Intent intent = new Intent(context,OrderRefundActivity.class);
+                intent.putExtra("id",id);
+                intent.putIntegerArrayListExtra("childIds", (ArrayList<Integer>) childIds);
+                intent.putExtra("name",model.getName());
+                intent.putExtra("phone",model.getMobile());
+                intent.putExtra("status",status);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -233,7 +248,17 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 PayActivity.startActivity(context, payModel);
                 break;
             case R.id.btn_refund:
-                startActivity(new Intent(context,OrderRefundActivity.class));
+                intent = new Intent(context,OrderRefundActivity.class);
+                intent.putExtra("id",model.getId());
+                List<Integer> childIds = new ArrayList<Integer>();
+                for (int i = 0; i < model.getNjzChildOrderVOS().size(); i++) {
+                    childIds.add(model.getNjzChildOrderVOS().get(i).getId());
+                }
+                intent.putIntegerArrayListExtra("childIds", (ArrayList<Integer>) childIds);
+                intent.putExtra("name",model.getName());
+                intent.putExtra("phone",model.getMobile());
+                intent.putExtra("status",model.getOrderStatus());
+                context.startActivity(intent);
                 break;
             case R.id.btn_delete:
                 showShortToast("删除");
@@ -285,7 +310,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                         ll_order_guide_time.setVisibility(View.VISIBLE);
                         tv_order_guide_time.setText(str.getGuideSureTime());
                         ll_order_travel_start.setVisibility(View.VISIBLE);
-                        tv_order_travel_start.setText(str.getCreateTime());
+                        tv_order_travel_start.setText(str.getStartData());
                         break;
                 }
 
@@ -310,12 +335,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 tv_order_pay_method.setText(str.getPayType());
                 ll_order_guide_time.setVisibility(View.VISIBLE);
                 tv_order_guide_time.setText(str.getGuideSureTime());
-                ll_order_guide_time.setVisibility(View.VISIBLE);
-                tv_order_guide_time.setText(str.getGuideSureTime());
                 ll_order_travel_start.setVisibility(View.VISIBLE);
-                tv_order_travel_start.setText(str.getCreateTime());
+                tv_order_travel_start.setText(str.getStartData());
                 ll_order_travel_end.setVisibility(View.VISIBLE);
-                tv_order_travel_end.setText(str.getCreateTime());
+                tv_order_travel_end.setText(str.getEndData());
 
                 switch (str.getReviewStatus()) {
                     case Constant.ORDER_EVALUATE_NO:
@@ -329,18 +352,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 }
 
             break;
-            case Constant.ORDER_PAY_REFUND:
-                ll_order_no.setVisibility(View.VISIBLE);
-                ll_order_create_time.setVisibility(View.VISIBLE);
-                ll_order_pay_time.setVisibility(View.VISIBLE);
-                tv_order_no.setText(str.getOrderNo());
-                tv_order_create_time.setText(str.getCreateTime());
-                tv_order_pay_time.setText(str.getPayType());
-                ll_order_pay_method.setVisibility(View.VISIBLE);
-                tv_order_pay_method.setText(str.getPayType());
-                ll_order_guide_time.setVisibility(View.VISIBLE);
-                tv_order_guide_time.setText(str.getGuideSureTime());
-                break;
         }
 
         tv_order_price.setText(str.getOrderPrice() + "");

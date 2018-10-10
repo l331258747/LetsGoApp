@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.IntegerRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -61,22 +62,22 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
         notifyDataSetChanged();
     }
 
-    public void addData(List<OrderModel> datas){
+    public void addData(List<OrderModel> datas) {
         this.datas.addAll(datas);
-        notifyDataSetChanged();
+        setData(this.datas);
     }
 
-    public List<OrderModel> getData(){
+    public List<OrderModel> getData() {
         return datas;
     }
 
-    public OrderModel getItem(int position){
+    public OrderModel getItem(int position) {
         return this.datas.get(position);
     }
 
     public void setData2(List<OrderModel> datas) {
         if (datas != null) {
-            for (int i = 0;i<datas.size();i++){
+            for (int i = 0; i < datas.size(); i++) {
                 OrderBeanGroup serviceInfoGroup = new OrderBeanGroup();
                 OrderModel orderModel = datas.get(i);
 
@@ -89,7 +90,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup.setReviewStatus(orderModel.getReviewStatus());
                 serviceInfoGroup.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup);
-                for (int j = 0; j<orderModel.getNjzChildOrderListVOS().size();j++){
+                for (int j = 0; j < orderModel.getNjzChildOrderListVOS().size(); j++) {
                     OrderBeanGroup serviceInfoGroup2 = new OrderBeanGroup();
                     OrderChildModel orderChildModel = orderModel.getNjzChildOrderListVOS().get(j);
                     serviceInfoGroup2.setLabelTab(OrderBeanGroup.LABEL_TAB_DEFAULT);
@@ -150,20 +151,20 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             final OrderChildModel data = orderBeanGroups.get(pos).getOrderChildModel();
             if (data == null) return;
 
-            GlideUtil.LoadRoundImage(mContext,data.getTitleImg(),((DefaultHolder) holder).iv_img,5);
+            GlideUtil.LoadRoundImage(mContext, data.getTitleImg(), ((DefaultHolder) holder).iv_img, 5);
 
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
 
 
             ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
-            switch (data.getPayStatus()){
+            switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
                     ((DefaultHolder) holder).btn_cancel.setText("取消");
                     ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(mOnCancelClickListener != null){
-                                mOnCancelClickListener.onClick(data.getId(),orderBeanGroups.get(pos).getIndex());
+                            if (mOnCancelClickListener != null) {
+                                mOnCancelClickListener.onClick(data.getId(), orderBeanGroups.get(pos).getIndex());
                             }
                         }
                     });
@@ -173,7 +174,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mContext.startActivity(new Intent(mContext,OrderRefundActivity.class));
+                            if (mOnRefundClickListenter != null) {
+                                List<Integer> childIds = new ArrayList<Integer>();
+                                childIds.add(data.getId());
+                                mOnRefundClickListenter.onClick(0, childIds, data.getChildOrderStatus(), orderBeanGroups.get(pos).getIndex());
+                            }
                         }
                     });
                     break;
@@ -184,7 +189,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
             ((DefaultHolder) holder).tv_price.setText("￥" + data.getPrice());
 
-            setNum(data,((DefaultHolder) holder).tv_num);
+            setNum(data, ((DefaultHolder) holder).tv_num);
             ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
         }
 
@@ -197,7 +202,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((TitleHolder) holder).tv_status.setText(data.getPayStatusStr());
             ((TitleHolder) holder).tv_name.setText(data.getGuideName());
 
-            if(mOnItemClickListener != null){
+            if (mOnItemClickListener != null) {
                 ((TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -215,7 +220,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
 
             ((FootHolder) holder).setbtn();
-            switch (data.getPayStatus()){
+            switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
                     ((FootHolder) holder).tv_order_price_title.setText("合计");
                     ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
@@ -224,7 +229,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     break;
                 case Constant.ORDER_PAY_ALREADY:
                     ((FootHolder) holder).tv_order_price_title.setText("已付款");
-                    switch (data.getOrderStatus()){
+                    switch (data.getOrderStatus()) {
                         case Constant.ORDER_TRAVEL_WAIT:
                         case Constant.ORDER_TRAVEL_NO_GO:
                             ((FootHolder) holder).btn_call_customer.setVisibility(View.VISIBLE);
@@ -239,7 +244,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     break;
                 case Constant.ORDER_PAY_FINISH:
                     ((FootHolder) holder).tv_order_price_title.setText("已付金额");
-                    switch (data.getReviewStatus()){
+                    switch (data.getReviewStatus()) {
                         case Constant.ORDER_EVALUATE_NO:
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_evaluate.setVisibility(View.VISIBLE);
@@ -258,25 +263,25 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext,OrderEvaluateActivity.class);
-                    intent.putExtra("ORDER_ID",data.getId());
-                    intent.putExtra("GUIDE_ID",data.getId());
+                    Intent intent = new Intent(mContext, OrderEvaluateActivity.class);
+                    intent.putExtra("ORDER_ID", data.getId());
+                    intent.putExtra("GUIDE_ID", data.getId());
                     mContext.startActivity(intent);
                 }
             });
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().showGuideMobileDialog(mContext,data.getGuideMobile());
+                    DialogUtil.getInstance().showGuideMobileDialog(mContext, data.getGuideMobile());
                 }
             });
             ((FootHolder) holder).btn_cancel_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext,OrderCancelActivity.class);
-                    intent.putExtra("ORDER_ID",data.getId());
-                    intent.putExtra("name",data.getUserName());
-                    intent.putExtra("phone",data.getUserMobile());
+                    Intent intent = new Intent(mContext, OrderCancelActivity.class);
+                    intent.putExtra("ORDER_ID", data.getId());
+                    intent.putExtra("name", data.getUserName());
+                    intent.putExtra("phone", data.getUserMobile());
                     mContext.startActivity(intent);
                 }
             });
@@ -284,8 +289,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 @Override
                 public void onClick(View v) {
                     PayModel payModel = new PayModel();
-                    payModel.setTotalAmount(data.getOrderPrice()+"");
-                    payModel.setSubject(data.getLocation() + data.getGuideName()+"导游为您服务！");
+                    payModel.setTotalAmount(data.getOrderPrice() + "");
+                    payModel.setSubject(data.getLocation() + data.getGuideName() + "导游为您服务！");
                     payModel.setOutTradeNo(data.getOrderNo());
                     payModel.setLastPayTime("2018-01-01 12:00");
                     PayActivity.startActivity(mContext, payModel);//TODO 订单上传成功，返回单号
@@ -294,7 +299,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"删除");
+                    ToastUtil.showShortToast(mContext, "删除");
                 }
             });
             ((FootHolder) holder).btn_call_customer.setOnClickListener(new View.OnClickListener() {
@@ -306,7 +311,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_refund.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext,OrderRefundActivity.class));
+                    Intent intent = new Intent(mContext, OrderRefundActivity.class);
+                    intent.putExtra("id", data.getId());
+                    List<Integer> childIds = new ArrayList<Integer>();
+                    for (int i = 0; i < datas.get(data.getIndex()).getNjzChildOrderListVOS().size(); i++) {
+                        childIds.add(datas.get(data.getIndex()).getNjzChildOrderListVOS().get(i).getId());
+                    }
+                    intent.putIntegerArrayListExtra("childIds", (ArrayList<Integer>) childIds);
+                    intent.putExtra("name", data.getUserName());
+                    intent.putExtra("phone", data.getUserMobile());
+                    intent.putExtra("status", data.getOrderStatus());
+                    mContext.startActivity(intent);
                 }
             });
 
@@ -314,20 +329,20 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     }
 
     //设置数量计算方式
-    public void setNum(OrderChildModel data, TextView tv){
-        switch (data.getValue()){
+    public void setNum(OrderChildModel data, TextView tv) {
+        switch (data.getValue()) {
             case Constant.SERVICE_TYPE_SHORT_CUSTOM:
-                tv.setText("x"+data.getPersonNum()+"人");
+                tv.setText("x" + data.getPersonNum() + "人");
                 break;
             case Constant.SERVICE_TYPE_SHORT_GUIDE:
             case Constant.SERVICE_TYPE_SHORT_CAR:
-                tv.setText("x"+data.getDayNum()+"天");
+                tv.setText("x" + data.getDayNum() + "天");
                 break;
             case Constant.SERVICE_TYPE_SHORT_HOTEL:
-                tv.setText("x"+data.getDayNum()+"天x" + data.getRoomNum()+"间");
+                tv.setText("x" + data.getDayNum() + "天x" + data.getRoomNum() + "间");
                 break;
             case Constant.SERVICE_TYPE_SHORT_TICKET:
-                tv.setText("x"+data.getTicketNum()+"张");
+                tv.setText("x" + data.getTicketNum() + "张");
                 break;
         }
     }
@@ -337,7 +352,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
         return orderBeanGroups.size();
     }
 
-    public class BaseViewHolder extends RecyclerView.ViewHolder{
+    public class BaseViewHolder extends RecyclerView.ViewHolder {
 
         public BaseViewHolder(View itemView) {
             super(itemView);
@@ -345,7 +360,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     }
 
     public class TitleHolder extends OrderListAdapter.BaseViewHolder implements View.OnClickListener {
-        TextView tv_order,tv_status,tv_name;
+        TextView tv_order, tv_status, tv_name;
         RelativeLayout rl_status;
 
         TitleHolder(View itemView) {
@@ -366,7 +381,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
     public class DefaultHolder extends OrderListAdapter.BaseViewHolder {
         ImageView iv_img;
-        TextView tv_title,btn_cancel,tv_price,tv_num,tv_total_price;
+        TextView tv_title, btn_cancel, tv_price, tv_num, tv_total_price;
 
         DefaultHolder(View itemView) {
             super(itemView);
@@ -381,8 +396,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
 
     public class FootHolder extends OrderListAdapter.BaseViewHolder {
-        TextView tv_order_price_content,tv_order_price_title;
-        TextView btn_call_guide,btn_cancel_order,btn_pay,btn_evaluate,btn_delete,btn_call_customer,btn_refund;
+        TextView tv_order_price_content, tv_order_price_title;
+        TextView btn_call_guide, btn_cancel_order, btn_pay, btn_evaluate, btn_delete, btn_call_customer, btn_refund;
 
         FootHolder(View itemView) {
             super(itemView);
@@ -398,7 +413,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             btn_refund = itemView.findViewById(R.id.btn_refund);
         }
 
-        public void setbtn(){
+        public void setbtn() {
             btn_call_guide.setVisibility(View.GONE);
             btn_cancel_order.setVisibility(View.GONE);
             btn_pay.setVisibility(View.GONE);
@@ -412,22 +427,30 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
     OnCancelClickListener mOnCancelClickListener;
+    OnRefundClickListenter mOnRefundClickListenter;
 
     public interface OnItemClickListener {
         void onClick(int orderId);
     }
 
-    public interface OnCancelClickListener{
-        void onClick(int orderId,int index);
+    public interface OnCancelClickListener {
+        void onClick(int orderId, int index);
+    }
+
+    public interface OnRefundClickListenter {
+        void onClick(int id, List<Integer> childIds, int status, int index);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public void setOnCancelClickListener(OnCancelClickListener onCancelClickListener){
+    public void setOnCancelClickListener(OnCancelClickListener onCancelClickListener) {
         this.mOnCancelClickListener = onCancelClickListener;
+    }
 
+    public void setOnRefundClickListener(OnRefundClickListenter onRefundClickListener) {
+        this.mOnRefundClickListenter = onRefundClickListener;
     }
 
     //---------事件 end---------

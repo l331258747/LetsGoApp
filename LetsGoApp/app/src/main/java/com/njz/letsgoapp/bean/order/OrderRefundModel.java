@@ -35,7 +35,7 @@ public class OrderRefundModel {
 
 
 
-    private int defaultMoney;
+    private float defaultMoney;
     private String orderNo;
     private String specialRequire;
     private int orderId;
@@ -64,7 +64,7 @@ public class OrderRefundModel {
         this.id = id;
     }
 
-    public int getDefaultMoney() {
+    public float getDefaultMoney() {
         return defaultMoney;
     }
 

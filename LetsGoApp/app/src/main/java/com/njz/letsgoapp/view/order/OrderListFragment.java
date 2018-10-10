@@ -36,7 +36,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public RecyclerView recyclerView;
     public SwipeRefreshLayout swipeRefreshLayout;
     private OrderListAdapter mAdapter;
-    private LoadMoreWrapper loadMoreWrapper;
+    public LoadMoreWrapper loadMoreWrapper;
 
     public int payStatus;
     public boolean isViewCreated;
@@ -168,6 +168,19 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 }
                 intent.putExtra("name",mAdapter.getItem(index).getName());
                 intent.putExtra("phone",mAdapter.getItem(index).getMobile());
+                context.startActivity(intent);
+            }
+        });
+
+        mAdapter.setOnRefundClickListener(new OrderListAdapter.OnRefundClickListenter() {
+            @Override
+            public void onClick(int id,List<Integer> childIds,int status,int index) {
+                Intent intent = new Intent(context,OrderRefundActivity.class);
+                intent.putExtra("id",id);
+                intent.putIntegerArrayListExtra("childIds", (ArrayList<Integer>) childIds);
+                intent.putExtra("name",mAdapter.getItem(index).getName());
+                intent.putExtra("phone",mAdapter.getItem(index).getMobile());
+                intent.putExtra("status",status);
                 context.startActivity(intent);
             }
         });

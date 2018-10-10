@@ -36,6 +36,7 @@ public class OrderRefundDetailModel {
      * guideName : sj
      */
 
+    private String orderNo;
     private float defaultMoney;
     private String specialRequire;
     private int coupon;
@@ -56,6 +57,14 @@ public class OrderRefundDetailModel {
     private String applyTime;
     private String guideName;
     private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public float getDefaultMoney() {
         return defaultMoney;

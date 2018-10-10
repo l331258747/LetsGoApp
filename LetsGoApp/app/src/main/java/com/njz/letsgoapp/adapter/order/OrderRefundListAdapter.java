@@ -57,7 +57,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
     public void addData(List<OrderRefundModel> datas){
         this.datas.addAll(datas);
-        notifyDataSetChanged();
+        setData(this.datas);
     }
 
     public List<OrderRefundModel> getData(){

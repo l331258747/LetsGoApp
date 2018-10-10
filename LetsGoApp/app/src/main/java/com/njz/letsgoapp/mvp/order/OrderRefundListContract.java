@@ -13,7 +13,7 @@ import java.util.List;
 public interface OrderRefundListContract {
 
     interface Presenter {
-        void orderRefundQueryOrderRefundList();
+        void orderRefundQueryOrderRefundList(int limit,int page);
     }
 
     interface View{

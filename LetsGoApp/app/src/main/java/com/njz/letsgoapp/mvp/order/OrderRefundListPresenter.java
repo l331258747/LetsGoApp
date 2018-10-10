@@ -2,6 +2,7 @@ package com.njz.letsgoapp.mvp.order;
 
 import android.content.Context;
 
+import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.util.http.MethodApi;
@@ -27,11 +28,11 @@ public class OrderRefundListPresenter implements OrderRefundListContract.Present
     }
 
     @Override
-    public void orderRefundQueryOrderRefundList() {
-        ResponseCallback listener = new ResponseCallback<List<OrderRefundModel>>() {
+    public void orderRefundQueryOrderRefundList(int limit,int page) {
+        ResponseCallback listener = new ResponseCallback<BasePageModel<OrderRefundModel>>() {
             @Override
-            public void onSuccess(List<OrderRefundModel> data) {
-                iView.orderRefundQueryOrderRefundListSuccess(data);
+            public void onSuccess(BasePageModel<OrderRefundModel> data) {
+                iView.orderRefundQueryOrderRefundListSuccess(data.getList());
             }
 
             @Override
@@ -39,6 +40,6 @@ public class OrderRefundListPresenter implements OrderRefundListContract.Present
                 iView.orderRefundQueryOrderRefundListFailed(errorMsg);
             }
         };
-        MethodApi.orderRefundQueryOrderRefundList(new OnSuccessAndFaultSub(listener));
+        MethodApi.orderRefundQueryOrderRefundList(limit,page,new OnSuccessAndFaultSub(listener));
     }
 }

@@ -97,12 +97,23 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
     public void orderRefundQueryOrderRefundDetailsSuccess(OrderRefundDetailModel str) {
         refundModel = str;
 
+        ll_order_no.setVisibility(View.VISIBLE);
+        tv_order_no.setText(str.getOrderNo());
         ll_order_refund_apply.setVisibility(View.VISIBLE);
         tv_order_refund_apply.setText(str.getApplyTime());
-        ll_order_refund_verify.setVisibility(View.VISIBLE);
-        tv_order_refund_verify.setText(str.getGuideCheckTime());
-        ll_order_refund_time.setVisibility(View.VISIBLE);
-        tv_order_refund_time.setText(str.getRefundTime());
+
+        switch (str.getRefundStatus()){
+            case Constant.ORDER_REFUND_PROCESS:
+                ll_order_refund_verify.setVisibility(View.VISIBLE);
+                tv_order_refund_verify.setText(str.getGuideCheckTime());
+                break;
+            case Constant.ORDER_REFUND_FINISH:
+                ll_order_refund_verify.setVisibility(View.VISIBLE);
+                tv_order_refund_verify.setText(str.getGuideCheckTime());
+                ll_order_refund_time.setVisibility(View.VISIBLE);
+                tv_order_refund_time.setText(str.getRefundTime());
+                break;
+        }
 
         switch (str.getRefundStatus()){
             case Constant.ORDER_REFUND_WAIT:
@@ -123,8 +134,8 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         login_view_phone.setContent(str.getMobile());
         et_special.setText(str.getSpecialRequire());
 
-        tv_refund_penalty.setText(str.getUseMoney() + "");
-        tv_refund_price.setText(str.getRefundMoney() + "");
+        tv_refund_penalty.setText(str.getRefundMoney() + "");
+        tv_refund_price.setText(str.getDefaultMoney() + "");
 
         tv_refund_reason.setText(str.getRefundReason());
         tv_refund_explain.setText(str.getRefundContent());

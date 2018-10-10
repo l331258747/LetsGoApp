@@ -156,7 +156,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:login_item_hint="请输入手机号码"
-                        app:login_item_max_length="5"
+                        app:login_item_max_length="11"
                         app:login_item_title="手机号码"
                         app:login_item_title_width="60dp" />
 

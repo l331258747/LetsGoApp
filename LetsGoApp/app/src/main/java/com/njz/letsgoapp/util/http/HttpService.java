@@ -31,6 +31,7 @@ import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
+import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 
 import java.util.List;
 import java.util.Map;
@@ -273,7 +274,9 @@ public interface HttpService {
 
     //退款单列表 orderRefund/queryOrderRefundList
     @GET("orderRefund/queryOrderRefundList")
-    Observable<BaseResponse<List<OrderRefundModel>>> orderRefundQueryOrderRefundList(
+    Observable<BaseResponse<BasePageModel<OrderRefundModel>>> orderRefundQueryOrderRefundList(
+            @Query("limit") int limit,
+            @Query("page") int page
     );
 
     //退款单详情orderRefund/queryOrderRefundDetails
@@ -286,6 +289,18 @@ public interface HttpService {
     @POST("order/cancelOrder")
     Observable<BaseResponse<EmptyModel>> orderCancelOrder(
             @Body SendOrderCancelModel data
+    );
+
+    //orderRefund/aliRefund 申请退款
+    @POST("orderRefund/aliRefund")
+    Observable<BaseResponse<EmptyModel>> orderRefundAliRefund(
+            @Body SendOrderRefundModel data
+    );
+
+    //orderRefund/refundAnalysis 退款分析
+    @POST("orderRefund/refundAnalysis")
+    Observable<BaseResponse<OrderRefundModel>> orderRefundRefundAnalysis(
+            @Body SendOrderRefundModel data
     );
 
     //-------订单 end---------

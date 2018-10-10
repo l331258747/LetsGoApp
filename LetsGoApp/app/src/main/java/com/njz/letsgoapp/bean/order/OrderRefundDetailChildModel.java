@@ -43,7 +43,7 @@ public class OrderRefundDetailChildModel {
     private String title;
     private int roomNum;
     private String travelDate;
-    private int payPrice;
+    private float payPrice;
     private float price;
     private int ticketNum;
     private int dayNum;
@@ -142,11 +142,11 @@ public class OrderRefundDetailChildModel {
         this.travelDate = travelDate;
     }
 
-    public int getPayPrice() {
+    public float getPayPrice() {
         return payPrice;
     }
 
-    public void setPayPrice(int payPrice) {
+    public void setPayPrice(float payPrice) {
         this.payPrice = payPrice;
     }
 

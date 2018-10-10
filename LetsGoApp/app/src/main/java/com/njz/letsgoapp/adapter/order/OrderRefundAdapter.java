@@ -10,6 +10,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.order.OrderChildModel;
+import com.njz.letsgoapp.bean.order.OrderRefundChildModel;
+import com.njz.letsgoapp.bean.order.OrderRefundModel;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.util.glide.GlideUtil;
+
+import java.util.List;
 
 /**
  * Created by LGQ
@@ -20,9 +28,16 @@ import com.njz.letsgoapp.R;
 public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.ViewHolder> {
 
     Context context;
+    List<OrderRefundChildModel> datas;
 
-    public OrderRefundAdapter(Context context) {
+    public OrderRefundAdapter(Context context,List<OrderRefundChildModel> datas) {
         this.context = context;
+        this.datas = datas;
+    }
+
+    public void setData(List<OrderRefundChildModel> datas){
+        this.datas = datas;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -35,14 +50,45 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
+        OrderRefundChildModel data = datas.get(pos);
 
+        GlideUtil.LoadRoundImage(context, data.getTitleImg(), holder.iv_img, 5);
+        holder.tv_title.setText(data.getTitle());
+        holder.tv_one_price.setText("￥" + data.getPrice());
+        holder.setNum(data,holder.tv_num);
+        holder.tv_total_price.setText("￥" + data.getOrderPrice());
 
+        holder.tv_not_travel_price.setText("￥" + data.getDefaultMoney());
+        holder.tv_refund_rule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShortToast(context,"退款规则");
+            }
+        });
+        holder.tv_refund_price.setText("￥" + data.getRefundMoney());
+
+        holder.rl_travel_day.setVisibility(View.GONE);
+        holder.rl_travel_price.setVisibility(View.GONE);
+        holder.rl_not_travel_day.setVisibility(View.GONE);
+
+        if(data.getOrderStatus() == Constant.ORDER_TRAVEL_GOING){
+            holder.rl_travel_day.setVisibility(View.VISIBLE);
+            holder.rl_travel_price.setVisibility(View.VISIBLE);
+            holder.rl_not_travel_day.setVisibility(View.VISIBLE);
+
+            holder.tv_travel_day.setText(data.getUseDay() + "天");
+            holder.tv_travel_price.setText("￥" + data.getUseMoney());
+            holder.tv_not_travel_day.setText(data.getUnUseDay() + "天");
+
+        }
 
     }
 
+
+
     @Override
     public int getItemCount() {
-        return 0;
+        return datas.size();
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder{
@@ -59,19 +105,38 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             tv_one_price = itemView.findViewById(R.id.tv_one_price);
             tv_num = itemView.findViewById(R.id.tv_num);
             tv_total_price = itemView.findViewById(R.id.tv_total_price);
-            tv_travel_day = itemView.findViewById(R.id.tv_travel_day);
-            tv_travel_price = itemView.findViewById(R.id.tv_travel_price);
-            tv_not_travel_day = itemView.findViewById(R.id.tv_not_travel_day);
-            tv_not_travel_price = itemView.findViewById(R.id.tv_not_travel_price);
-            tv_refund_rule = itemView.findViewById(R.id.tv_refund_rule);
-            tv_refund_price = itemView.findViewById(R.id.tv_refund_price);
-            rl_travel_day = itemView.findViewById(R.id.rl_travel_day);
 
+            tv_travel_day = itemView.findViewById(R.id.tv_travel_day);//出行天数
+            tv_travel_price = itemView.findViewById(R.id.tv_travel_price);//价格
+            tv_not_travel_day = itemView.findViewById(R.id.tv_not_travel_day);//未出行天数
+            tv_not_travel_price = itemView.findViewById(R.id.tv_not_travel_price);//违约金
+            tv_refund_rule = itemView.findViewById(R.id.tv_refund_rule);//规则
+            tv_refund_price = itemView.findViewById(R.id.tv_refund_price);//退款金额
+
+            rl_travel_day = itemView.findViewById(R.id.rl_travel_day);
             rl_travel_price = itemView.findViewById(R.id.rl_travel_price);
             rl_not_travel_day = itemView.findViewById(R.id.rl_not_travel_day);
             rl_not_travel_price = itemView.findViewById(R.id.rl_not_travel_price);
             rl_refund_price = itemView.findViewById(R.id.rl_refund_price);
+        }
 
+        //设置数量计算方式
+        public void setNum(OrderRefundChildModel data, TextView tv){
+            switch (data.getValue()){
+                case Constant.SERVICE_TYPE_SHORT_CUSTOM:
+                    tv.setText("x"+data.getPersonNum()+"人");
+                    break;
+                case Constant.SERVICE_TYPE_SHORT_GUIDE:
+                case Constant.SERVICE_TYPE_SHORT_CAR:
+                    tv.setText("x"+data.getDayNum()+"天");
+                    break;
+                case Constant.SERVICE_TYPE_SHORT_HOTEL:
+                    tv.setText("x"+data.getDayNum()+"天x" + data.getRoomNum()+"间");
+                    break;
+                case Constant.SERVICE_TYPE_SHORT_TICKET:
+                    tv.setText("x"+data.getTicketNum()+"张");
+                    break;
+            }
         }
     }
 }

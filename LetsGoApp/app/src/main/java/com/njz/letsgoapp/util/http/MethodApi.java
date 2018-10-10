@@ -8,6 +8,7 @@ import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.MovieSubject;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
+import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
@@ -313,8 +314,8 @@ public class MethodApi {
     }
 
     //orderRefundQueryOrderRefundList 退款单列表
-    public static void orderRefundQueryOrderRefundList(DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundQueryOrderRefundList();
+    public static void orderRefundQueryOrderRefundList(int limit, int page,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundQueryOrderRefundList(limit,page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -328,6 +329,18 @@ public class MethodApi {
     //orderCancelOrder 取消订单
     public static void orderCancelOrder(SendOrderCancelModel data, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderCancelOrder(data);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderRefundAliRefund 退款申请
+    public static void orderRefundAliRefund(SendOrderRefundModel data, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundAliRefund(data);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderRefundRefundAnalysis 退款分析
+    public static void orderRefundRefundAnalysis(SendOrderRefundModel data, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundRefundAnalysis(data);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

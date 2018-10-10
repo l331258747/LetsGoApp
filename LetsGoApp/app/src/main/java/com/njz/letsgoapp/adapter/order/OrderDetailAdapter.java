@@ -16,6 +16,7 @@ import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -118,6 +119,16 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                 case Constant.ORDER_PAY_ALREADY:
                     ((ViewHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).btn_cancel.setText("退款");
+                    ((ViewHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(mOnRefundClickListener != null){
+                                List<Integer> childIds = new ArrayList<Integer>();
+                                childIds.add(data.getId());
+                                mOnRefundClickListener.onClick(0, childIds, data.getChildOrderStatus(), pos);
+                            }
+                        }
+                    });
                     break;
             }
         }
@@ -164,13 +175,21 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     }
 
     OnCancelClickListener mOnCancelClickListener;
+    OnRefundClickListener mOnRefundClickListener;
 
     public interface OnCancelClickListener{
         void onClick(int orderId);
     }
 
+    public interface OnRefundClickListener{
+        void onClick(int id, List<Integer> childIds, int status, int index);
+    }
+
     public void setOnCancelClickListener(OnCancelClickListener onCancelClickListener){
         this.mOnCancelClickListener = onCancelClickListener;
+    }
 
+    public void setOnRefundClickListener(OnRefundClickListener onRefundClickListener){
+        this.mOnRefundClickListener = onRefundClickListener;
     }
 }

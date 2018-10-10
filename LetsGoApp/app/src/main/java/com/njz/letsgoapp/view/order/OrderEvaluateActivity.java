@@ -89,6 +89,8 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initData() {
         loadingDialog = new LoadingDialog(this);
+
+        mPresenter = new OrderEvaluatePresenter(context,this);
     }
 
 

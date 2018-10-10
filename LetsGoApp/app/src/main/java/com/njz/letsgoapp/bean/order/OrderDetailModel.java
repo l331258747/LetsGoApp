@@ -56,7 +56,25 @@ public class OrderDetailModel {
     private int payStatus;
     private String guideName;
     private String guideMobile;
+    private String startData;
+    private String endData;
     private List<OrderDetailChildModel> njzChildOrderVOS;
+
+    public String getStartData() {
+        return startData;
+    }
+
+    public void setStartData(String startData) {
+        this.startData = startData;
+    }
+
+    public String getEndData() {
+        return endData;
+    }
+
+    public void setEndData(String endData) {
+        this.endData = endData;
+    }
 
     public String getGuideMobile() {
         return guideMobile;

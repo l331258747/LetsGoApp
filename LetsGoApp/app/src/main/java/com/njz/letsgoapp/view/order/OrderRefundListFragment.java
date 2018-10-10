@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.order.OrderRefundListAdapter;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -50,7 +51,8 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new OrderRefundListAdapter(activity, new ArrayList<OrderRefundModel>());
-        recyclerView.setAdapter(mAdapter);
+        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
 
         page = Constant.DEFAULT_PAGE;
 
@@ -66,13 +68,15 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
                 getMoreData();
             }
         });
     }
 
     public void getList(){
-        refundPresenter.orderRefundQueryOrderRefundList();
+        refundPresenter.orderRefundQueryOrderRefundList(Constant.DEFAULT_LIMIT, page);
     }
 
 
@@ -80,13 +84,20 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
     @Override
     public void orderRefundQueryOrderRefundListSuccess(List<OrderRefundModel> data) {
         List<OrderRefundModel> datas = data;
-        isLoad = false;
-        swipeRefreshLayout.setRefreshing(false);
         if (isLoadType == 1) {
             mAdapter.setData(datas);
         } else {
             mAdapter.addData(datas);
         }
+
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -94,5 +105,6 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
         showShortToast(msg);
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 }

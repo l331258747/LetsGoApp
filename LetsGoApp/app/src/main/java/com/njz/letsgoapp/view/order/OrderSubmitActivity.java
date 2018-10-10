@@ -180,7 +180,14 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
             } else if(TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_TICKET)){
                 sendChildOrder.setTicketNum(si.getNumber());
             }
-            sendChildOrder.setTravelDate(si.getDaysStr2());
+
+            if(TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)
+                    || TextUtils.equals(si.getValue() ,Constant.SERVICE_TYPE_SHORT_TICKET)){
+                sendChildOrder.setTravelDate(si.getOneTime());
+            }else{
+                sendChildOrder.setTravelDate(si.getDaysStr2());
+            }
+
             sendChildOrders.add(sendChildOrder);
         }
         sendOrderModel.setChildOrders(sendChildOrders);

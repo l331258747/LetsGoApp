@@ -58,11 +58,11 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             GlideUtil.LoadImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img);
             ((ViewHolder) holder).tv_title.setText(data.getTitle());
             ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
+            ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
             switch (data.getValue()) {
                 case Constant.SERVICE_TYPE_SHORT_CUSTOM:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getPersonNum() + "人");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getPersonNum());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -71,7 +71,6 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
                 case Constant.SERVICE_TYPE_SHORT_CAR:
                 case Constant.SERVICE_TYPE_SHORT_GUIDE:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getDayNum() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getDayNum());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).tv_count_title.setText("出行人数");
@@ -81,7 +80,6 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
                     break;
                 case Constant.SERVICE_TYPE_SHORT_HOTEL:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getRoomNum() + "间" + "x" +  data.getDayNum() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getPersonNum() * data.getDayNum());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -89,7 +87,6 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
                     break;
                 case Constant.SERVICE_TYPE_SHORT_TICKET:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getTicketNum() + "张");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getPersonNum());
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -98,6 +95,9 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             }
 
             ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
+            ((ViewHolder) holder).tv_penalty_content.setText("￥"+data.getRefundMoney());
+            ((ViewHolder) holder).tv_refund_price_content.setText("￥"+data.getDefaultMoney());
+
         }
     }
 

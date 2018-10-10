@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,7 +19,13 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderRefundAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.order.OrderRefundChildModel;
+import com.njz.letsgoapp.bean.order.OrderRefundModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
+import com.njz.letsgoapp.mvp.order.OrderRefundContract;
+import com.njz.letsgoapp.mvp.order.OrderRefundPresenter;
 import com.njz.letsgoapp.widget.FixedItemEditViewNoLine;
 
 import java.util.ArrayList;
@@ -30,7 +37,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderRefundActivity extends BaseActivity implements View.OnClickListener {
+public class OrderRefundActivity extends BaseActivity implements View.OnClickListener,OrderRefundContract.View{
 
     private RecyclerView recyclerView;
     private TextView tv_tips, tv_reason, tv_submit, tv_submit2, tv_minus_price, tv_last_price;
@@ -43,6 +50,26 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
 
     private OrderRefundAdapter mAdapter;
 
+    private OrderRefundPresenter mPresenter;
+
+    int id;
+    List<Integer> childIds;
+    String phone;
+    String name;
+    int status;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        id = intent.getIntExtra("id",0);
+        childIds = intent.getIntegerArrayListExtra("childIds");
+        if(childIds == null)
+            childIds = new ArrayList<>();
+        phone = intent.getStringExtra("phone");
+        name = intent.getStringExtra("name");
+        status = intent.getIntExtra("status",0);
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_order_refund;
@@ -50,6 +77,8 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initView() {
+        showLeftAndTitle("申请退款");
+
         tv_tips = $(R.id.tv_tips);
         tv_reason = $(R.id.tv_reason);
         ll_reason = $(R.id.ll_reason);
@@ -69,6 +98,11 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         ll_call_custom.setOnClickListener(this);
         ll_call_guide.setOnClickListener(this);
 
+        tv_submit.setOnClickListener(this);
+        tv_submit2.setOnClickListener(this);
+
+        initRecycler();
+
     }
 
     @Override
@@ -79,6 +113,26 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         reasons.add("原因3");
         reasons.add("原因4");
 
+        view_name.setEtContent(name);
+        view_phone.setEtContent(phone);
+
+        mPresenter = new OrderRefundPresenter(context,this);
+
+        if(status == Constant.ORDER_TRAVEL_WAIT){
+            tv_tips.setVisibility(View.GONE);
+            tv_submit.setVisibility(View.VISIBLE);
+            rl_price.setVisibility(View.GONE);
+
+        }else{
+            //TODO 退款分析
+            tv_tips.setVisibility(View.VISIBLE);
+            tv_submit.setVisibility(View.GONE);
+            rl_price.setVisibility(View.VISIBLE);
+
+            mPresenter.orderRefundRefundAnalysis(id,childIds);
+
+        }
+
     }
 
     //初始化recyclerview
@@ -86,7 +140,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new OrderRefundAdapter(activity);
+        mAdapter = new OrderRefundAdapter(activity,new ArrayList<OrderRefundChildModel>());
         recyclerView.setAdapter(mAdapter);
 
         recyclerView.setNestedScrollingEnabled(false);
@@ -115,6 +169,43 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
             case R.id.ll_call_guide:
                 DialogUtil.getInstance().showGuideMobileDialog(context,"123456");
                 break;
+            case R.id.tv_submit:
+            case R.id.tv_submit2:
+                if(TextUtils.isEmpty(tv_reason.getText().toString())){
+                    showShortToast("请选择取消原因");
+                    return;
+                }
+
+                mPresenter.orderRefundAliRefund(id,childIds,tv_reason.getText().toString(),et_special.getText().toString());
+                break;
+
         }
+    }
+
+    @Override
+    public void orderRefundAliRefundSuccess(EmptyModel str) {
+        showShortToast("操作成功");
+
+        finish();
+    }
+
+    @Override
+    public void orderRefundAliRefundFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void orderRefundRefundAnalysisSuccess(OrderRefundModel str) {
+        mAdapter.setData(str.getNjzChildOrderToRefundVOS());
+
+        if(str.getOrderStatus() != Constant.ORDER_TRAVEL_WAIT){
+            tv_minus_price.setText("" + str.getDefaultMoney());
+            tv_last_price.setText("" + str.getRefundMoney());
+        }
+    }
+
+    @Override
+    public void orderRefundRefundAnalysisFailed(String msg) {
+        showShortToast(msg);
     }
 }
