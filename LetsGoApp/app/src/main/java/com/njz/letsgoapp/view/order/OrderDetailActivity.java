@@ -1,11 +1,8 @@
 package com.njz.letsgoapp.view.order;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -14,7 +11,6 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderDetailAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.PayModel;
@@ -22,7 +18,6 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderDetailPresenter;
-import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.pay.PayActivity;

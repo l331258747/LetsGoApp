@@ -36,8 +36,8 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
 
     OrderRefundDetailModel refundModel;
 
-    RelativeLayout rl_refund_penalty,rl_refund_price,rl_order_price;
-    TextView tv_refund_penalty,tv_refund_price;
+    RelativeLayout rl_refund_penalty,rl_refund_price,rl_order_price,rl_refund_used_price;
+    TextView tv_refund_penalty,tv_refund_price,tv_refund_used_price;
     CardView cv_refund_reason;
     TextView tv_refund_reason,tv_refund_explain;
 
@@ -53,6 +53,8 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         rl_refund_penalty = $(R.id.rl_refund_penalty);
         rl_refund_price = $(R.id.rl_refund_price);
         rl_order_price = $(R.id.rl_order_price);
+        rl_refund_used_price = $(R.id.rl_refund_used_price);
+        tv_refund_used_price = $(R.id.tv_refund_used_price);
         tv_refund_penalty = $(R.id.tv_refund_penalty);
         tv_refund_price = $(R.id.tv_refund_price);
         cv_refund_reason = $(R.id.cv_refund_reason);
@@ -60,6 +62,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         tv_refund_explain = $(R.id.tv_refund_explain);
 
         rl_order_price.setVisibility(View.GONE);
+        rl_refund_used_price.setVisibility(View.GONE);
         rl_refund_price.setVisibility(View.VISIBLE);
         rl_refund_penalty.setVisibility(View.VISIBLE);
         cv_refund_reason.setVisibility(View.VISIBLE);
@@ -137,9 +140,21 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         tv_refund_penalty.setText(str.getRefundMoney() + "");
         tv_refund_price.setText(str.getDefaultMoney() + "");
 
+        boolean isTravelGoing = false;
+        for(int i = 0;i<str.getNjzRefundDetailsChildVOS().size();i++){
+            if(str.getNjzRefundDetailsChildVOS().get(i).getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
+                isTravelGoing = true;
+            }
+        }
+        if(isTravelGoing){
+            rl_refund_used_price.setVisibility(View.VISIBLE);
+            tv_refund_used_price.setText(str.getUseMoney()+"");
+        }else{
+            rl_refund_used_price.setVisibility(View.GONE);
+        }
+
         tv_refund_reason.setText(str.getRefundReason());
         tv_refund_explain.setText(str.getRefundContent());
-
 
         refundAdapter.setData(str.getNjzRefundDetailsChildVOS());
     }

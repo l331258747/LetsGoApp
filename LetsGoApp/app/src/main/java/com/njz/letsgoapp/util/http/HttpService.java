@@ -225,7 +225,7 @@ public interface HttpService {
     //-------订单 start---------
     //up/userReview 订单评价
     @Multipart
-    @POST("up/userReview")
+    @POST("order/userReview")
     Observable<BaseResponse<EmptyModel>> upUserReview(
             @Part("orderId") int orderId,
             @Part("guideId") int guideId,

@@ -32,23 +32,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/iv_img"
                 android:layout_toStartOf="@+id/btn_cancel"
-                android:layout_marginTop="5dp"
                 android:maxLines="2"
-                android:layout_marginRight="10dp"
                 tools:text="那就走标题那就标题标题那就走标题那就标题标题" />
 
             <TextView
                 android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_99_hollow_r2_p3"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="5dp"
+                android:background="@drawable/btn_99_hollow_r2_p3"
+                android:text="取消"
                 android:textSize="12sp"
-                android:visibility="gone"
-                android:text="取消"/>
+                android:visibility="gone" />
 
 
             <RelativeLayout
@@ -63,10 +63,9 @@
                     android:id="@+id/tv_price_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/color_price"
                     android:textStyle="bold"
-                    tools:text="￥270"
-                    android:textColor="@color/color_price" />
-
+                    tools:text="￥270" />
 
 
                 <TextView
@@ -83,10 +82,10 @@
                     android:id="@+id/tv_price_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_alignParentRight="true"
-                    tools:text="￥1080"
-                    android:textColor="@color/color_price" />
+                    android:textColor="@color/color_price"
+                    android:textStyle="bold"
+                    tools:text="￥1080" />
 
             </RelativeLayout>
 
@@ -152,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="出行日期" />
+                    android:text="出行日期&#8195;" />
 
                 <TextView
                     android:id="@+id/tv_time_content"
@@ -165,9 +164,124 @@
                     android:textSize="12sp"
                     tools:text="aeageagwegaadgawegaege" />
 
-
             </RelativeLayout>
 
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_travel_going"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_d9" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_travel_day_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="已出行天数" />
+
+            <TextView
+                android:id="@+id/tv_travel_day_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/tv_travel_day_title"
+                android:gravity="right"
+                android:textSize="12sp"
+                tools:text="aeageagwegaadgawegaege" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_d9" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_used_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="已消费金额" />
+
+            <TextView
+                android:id="@+id/tv_used_price_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/tv_used_price_title"
+                android:gravity="right"
+                android:textColor="@color/color_theme"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="aeageagwegaadgawegaege" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_d9" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_not_travel_day_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="未出行天数" />
+
+            <TextView
+                android:id="@+id/tv_not_travel_day_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/tv_not_travel_day_title"
+                android:gravity="right"
+                android:textSize="12sp"
+                tools:text="aeageagwegaadgawegaege" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
@@ -191,13 +305,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textStyle="bold"
-                    android:gravity="right"
-                    android:textColor="@color/color_price"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@+id/tv_penalty_title"
+                    android:gravity="right"
+                    android:textColor="@color/color_price"
                     android:textSize="12sp"
+                    android:textStyle="bold"
                     tools:text="aeageagwegaadgawegaege" />
 
 
@@ -225,13 +339,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textStyle="bold"
-                    android:gravity="right"
-                    android:textColor="@color/color_theme"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@+id/tv_refund_price_title"
+                    android:gravity="right"
+                    android:textColor="@color/color_theme"
                     android:textSize="12sp"
+                    android:textStyle="bold"
                     tools:text="aeageagwegaadgawegaege" />
 
 

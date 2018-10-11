@@ -40,7 +40,7 @@ public class OrderEvaluatePresenter implements OrderEvaluateContract.Presenter {
             }
         };
         MethodApi.upUserReview(orderId, guideId, guideService, carCondition,
-                buyService, travelArrange, userContent, files, new OnSuccessAndFaultSub(listener, context));
+                buyService, travelArrange, userContent, files, new OnSuccessAndFaultSub(listener));
 
     }
 }

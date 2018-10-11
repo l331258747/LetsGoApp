@@ -247,6 +247,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
@@ -337,7 +338,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="应付金额" />
+                            android:text="合计" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -365,12 +366,53 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl_refund_used_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="已消费金额" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="￥"
+                                android:textColor="@color/color_theme" />
+
+                            <TextView
+                                android:id="@+id/tv_refund_used_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="11234.9"
+                                android:textColor="@color/color_theme" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/rl_refund_penalty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:visibility="gone"
+                        tools:visibility="visible"
                         android:padding="10dp">
 
                         <TextView
@@ -409,6 +451,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:visibility="gone"
+                        tools:visibility="visible"
                         android:gravity="center_vertical"
                         android:padding="10dp">
 

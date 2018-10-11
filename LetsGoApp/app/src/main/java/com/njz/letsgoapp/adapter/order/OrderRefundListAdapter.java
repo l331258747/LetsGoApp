@@ -189,7 +189,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                         case Constant.ORDER_REFUND_FINISH:
                             ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).rl_price.setVisibility(View.VISIBLE);
-                            ((FootHolder) holder).tv_order_price_title.setText("金额");
+                            ((FootHolder) holder).tv_order_price_title.setText("合计");
                             ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
                             break;
                     }

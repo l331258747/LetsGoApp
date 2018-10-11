@@ -228,7 +228,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
                     break;
                 case Constant.ORDER_PAY_ALREADY:
-                    ((FootHolder) holder).tv_order_price_title.setText("已付款");
+                    ((FootHolder) holder).tv_order_price_title.setText("合计");
                     switch (data.getOrderStatus()) {
                         case Constant.ORDER_TRAVEL_WAIT:
                         case Constant.ORDER_TRAVEL_NO_GO:
@@ -243,7 +243,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     }
                     break;
                 case Constant.ORDER_PAY_FINISH:
-                    ((FootHolder) holder).tv_order_price_title.setText("已付金额");
+                    ((FootHolder) holder).tv_order_price_title.setText("合计");
                     switch (data.getReviewStatus()) {
                         case Constant.ORDER_EVALUATE_NO:
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
