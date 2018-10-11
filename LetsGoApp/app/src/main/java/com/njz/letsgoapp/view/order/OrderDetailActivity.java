@@ -11,11 +11,15 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderDetailAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
+import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
+import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderDetailPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -36,7 +40,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class OrderDetailActivity extends BaseActivity implements View.OnClickListener, OrderDetailContract.View {
+public class OrderDetailActivity extends BaseActivity implements View.OnClickListener, OrderDetailContract.View ,OrderDeleteContract.View{
 
     public TextView tv_guide_name, tv_order_status;
 
@@ -55,6 +59,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate;
 
     public OrderDetailPresenter mPresenter;
+    public OrderDeletePresenter deletePresenter;
 
     public int orderId;
 
@@ -158,6 +163,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public void initData() {
         mPresenter = new OrderDetailPresenter(context, this);
         mPresenter.orderQueryOrder(orderId);
+        deletePresenter = new OrderDeletePresenter(context,this);
 
         disposable = RxBus2.getInstance().toObservable(OrderCancelEvent.class, new Consumer<OrderCancelEvent>() {
             @Override
@@ -256,7 +262,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 context.startActivity(intent);
                 break;
             case R.id.btn_delete:
-                showShortToast("删除");
+                deletePresenter.orderDeleteOrder(model.getId(),0);
                 break;
             case R.id.btn_call_custom:
                 DialogUtil.getInstance().showCustomerMobileDialog(context);
@@ -362,11 +368,21 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         mAdapter.setData(str.getNjzChildOrderVOS());
 
-
     }
 
     @Override
     public void orderQueryOrderFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void orderDeleteOrderSuccess(EmptyModel str) {
+        showShortToast("删除成功");
+        finish();
+    }
+
+    @Override
+    public void orderDeleteOrderFailed(String msg) {
         showShortToast(msg);
     }
 }

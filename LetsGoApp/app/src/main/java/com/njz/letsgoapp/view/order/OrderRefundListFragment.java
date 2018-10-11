@@ -10,8 +10,10 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.order.OrderRefundListAdapter;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderRefundListContract;
 import com.njz.letsgoapp.mvp.order.OrderRefundListPresenter;
 
@@ -43,6 +45,8 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
     @Override
     public void initData() {
         refundPresenter = new OrderRefundListPresenter(context,this);
+
+        deletePresenter = new OrderDeletePresenter(context,this);
     }
 
     //初始化recyclerview
@@ -73,12 +77,18 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
                 getMoreData();
             }
         });
+
+        mAdapter.setOnDeleteClickListener(new OrderRefundListAdapter.OnDeleteClickListener() {
+            @Override
+            public void onClick(int id) {
+                deletePresenter.orderDeleteOrder(id,1);
+            }
+        });
     }
 
     public void getList(){
         refundPresenter.orderRefundQueryOrderRefundList(Constant.DEFAULT_LIMIT, page);
     }
-
 
 
     @Override
@@ -107,4 +117,5 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
+
 }

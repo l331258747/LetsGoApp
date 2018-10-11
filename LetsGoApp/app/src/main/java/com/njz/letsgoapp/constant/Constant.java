@@ -67,5 +67,21 @@ public class Constant {
     public static final int ORDER_REFUND_FINISH = 2;//已退款
 
 
+    //------消息 start-------
+
+    public static final String NOTIFY_TYPE_SYSTEM_MSG = "xtxx";//系统消息
+    public static final String NOTIFY_TYPE_INTERACTION = "lyhd";//驴友互动
+    public static final String NOTIFY_TYPE_DISCOUNT = "yhhd";//优惠活动Discount
+    public static final String NOTIFY_TYPE_COMMON_MSG = "xxtx";//消息提醒
+    public static final String NOTIFY_TYPE_ORDER_MSG = "ddxx";//订单消息
+    public static final String NOTIFY_TYPE_VERIFY_MSG = "shxx";//审核消息
+    public static final String NOTIFY_TYPE_REFUND_MSG = "ttxx";//退款消息
+    public static final String NOTIFY_TYPE_REPORT_MSG = "jbxx";//举报消息
+    public static final String NOTIFY_TYPE_OPINION_MSG = "yjxx";//意见消息Opinion
+
+
+    //------消息 end-------
+
+
 
 }

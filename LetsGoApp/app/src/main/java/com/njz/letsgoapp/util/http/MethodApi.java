@@ -13,6 +13,7 @@ import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -350,7 +351,23 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //orderDeleteOrder 订单删除
+    public static void orderDeleteOrder(int id,int status, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderDeleteOrder(id,status);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------订单 end---------
+
+    //--------消息 start ----------
+    //msgPushGetSendMsgList 获取主页消息
+    public static void msgPushGetSendMsgList(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().msgPushGetSendMsgList();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //--------消息 end ----------
+
 
 
     //--------城市选择 start

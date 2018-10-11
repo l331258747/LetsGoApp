@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/home_iv"
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/btn_theme_hollow_r5_p8"
+        android:text="查看关注信息请先登录"
+        android:textColor="@color/color_theme"
+        android:visibility="gone" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="home" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <com.njz.letsgoapp.widget.NotifyItemView
+                android:id="@+id/view_notify_interaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:notify_item_title="旅友互动"
+                app:notify_item_line = "true"
+                app:notify_item_img="@mipmap/notify_interaction"/>
+
+            <com.njz.letsgoapp.widget.NotifyItemView
+                android:id="@+id/view_notify_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:notify_item_title="消息提醒"
+                app:notify_item_line = "false"
+                app:notify_item_img="@mipmap/notify_message"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
 
 </RelativeLayout>

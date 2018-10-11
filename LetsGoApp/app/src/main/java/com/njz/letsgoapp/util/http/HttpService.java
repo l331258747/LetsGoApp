@@ -33,6 +33,7 @@ import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +41,12 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -303,7 +307,23 @@ public interface HttpService {
             @Body SendOrderRefundModel data
     );
 
+    //order/deleteOrder 订单删除
+    @FormUrlEncoded
+    @POST("order/deleteOrder")
+    Observable<BaseResponse<EmptyModel>> orderDeleteOrder(
+            @Field("id") int id,
+            @Field("status") int status
+    );
+
     //-------订单 end---------
+
+    //---------消息 start---------
+    //msgPush/getSendMsgList 消息列表（主）
+    @GET("msgPush/getSendMsgList")
+    Observable<BaseResponse<List<EmptyModel>>> msgPushGetSendMsgList(
+    );
+
+    //---------消息 end---------
 
     //-------我的 start-------
     //user/changePersonalData 修改个人资料.

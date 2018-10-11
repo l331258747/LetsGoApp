@@ -204,7 +204,9 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showShortToast(mContext,"删除");
+                    if (mOnDeleteClickListener != null) {
+                        mOnDeleteClickListener.onClick(data.getId());
+                    }
                 }
             });
             ((FootHolder) holder).btn_call_customer.setOnClickListener(new View.OnClickListener() {
@@ -317,6 +319,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
     //---------事件 start---------
     OnItemClickListener mOnItemClickListener;
+    OnDeleteClickListener mOnDeleteClickListener;
+
+    public interface OnDeleteClickListener{
+        void onClick(int id);
+    }
 
     public interface OnItemClickListener {
         void onClick(int orderId);
@@ -324,6 +331,10 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+    }
+
+    public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener){
+        this.mOnDeleteClickListener = onDeleteClickListener;
     }
 
     //---------事件 end---------

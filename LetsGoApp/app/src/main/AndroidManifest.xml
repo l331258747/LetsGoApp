@@ -146,6 +146,10 @@
             android:windowSoftInputMode="adjustPan" />
 
 
+        <!-- 消息 -->
+        <activity android:name=".view.notify.SystemMsgActivity"/>
+        <activity android:name=".view.notify.InteractionMsgActivity"/>
+
 
         <!--我的-->
         <activity android:name=".view.mine.SystemSettingActivity" />

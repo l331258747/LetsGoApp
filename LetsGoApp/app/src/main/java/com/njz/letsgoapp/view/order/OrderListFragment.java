@@ -15,9 +15,12 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.order.OrderListAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
+import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderListContract;
 import com.njz.letsgoapp.mvp.order.OrderListPresenter;
 import com.njz.letsgoapp.view.login.LoginActivity;
@@ -31,7 +34,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderListFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener {
+public class OrderListFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener,OrderDeleteContract.View {
 
     public RecyclerView recyclerView;
     public SwipeRefreshLayout swipeRefreshLayout;
@@ -44,6 +47,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     TextView tvLogin;
 
     private OrderListPresenter mPresenter;
+    public OrderDeletePresenter deletePresenter;
 
     int page;
     int isLoadType = 1;//1下拉刷新，2上拉加载
@@ -132,6 +136,8 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     @Override
     public void initData() {
         mPresenter = new OrderListPresenter(context,this);
+
+        deletePresenter = new OrderDeletePresenter(context,this);
     }
 
 
@@ -185,6 +191,13 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             }
         });
 
+        mAdapter.setOnDeleteClickListener(new OrderListAdapter.OnDeleteClickListener() {
+            @Override
+            public void onClick(int id) {
+                deletePresenter.orderDeleteOrder(id,0);
+            }
+        });
+
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {
@@ -208,7 +221,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         });
     }
 
-    private void getRefreshData() {
+    public void getRefreshData() {
         swipeRefreshLayout.setRefreshing(true);
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
@@ -261,5 +274,16 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         if (v.getId() == R.id.tv_login) {
             startActivity(new Intent(context, LoginActivity.class));
         }
+    }
+
+    @Override
+    public void orderDeleteOrderSuccess(EmptyModel str) {
+        showShortToast("删除成功");
+        getRefreshData();
+    }
+
+    @Override
+    public void orderDeleteOrderFailed(String msg) {
+        showShortToast(msg);
     }
 }

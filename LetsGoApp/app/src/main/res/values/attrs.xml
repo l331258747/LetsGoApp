@@ -13,6 +13,12 @@
         <attr name="left_drawable" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="notify_item">
+        <attr name="notify_item_title" format="string"/>
+        <attr name="notify_item_img" format="reference"/>
+        <attr name="notify_item_line" format="boolean"/>
+    </declare-styleable>
+
     <declare-styleable name="home_my_item2">
         <attr name="home_my_item2_title" format="string"/>
         <attr name="home_my_item2_content" format="string"/>
