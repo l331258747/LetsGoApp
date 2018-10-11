@@ -184,6 +184,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initData() {
         city = MySelfInfo.getInstance().getDefaultCity();
+        tv_destination_content.setText(city);
 
         mPresenter = new HomePresenter(context,this);
         nicePresenter = new DynamicNicePresenter(context,this);
@@ -204,7 +205,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             }
         });
 
-        tv_destination_content.setText(Constant.DEFAULT_CITY);
         tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
         tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
         tv_day_time.setText("2天");

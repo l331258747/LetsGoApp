@@ -49,7 +49,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     private List<Fragment> mFragments;
     private String[] titles = {"全部", "关注"};
 
-    private String city = Constant.DEFAULT_CITY;
+    private String city = MySelfInfo.getInstance().getDefaultCity();
 
     DynamicFragment dynamicAll;
     DynamicFragment dynamicFollow;

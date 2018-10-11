@@ -59,7 +59,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     int page;
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
-    private String city = Constant.DEFAULT_CITY;
+    private String city = MySelfInfo.getInstance().getDefaultCity();
     private boolean isViewCreated;
     private boolean hidden;
 
