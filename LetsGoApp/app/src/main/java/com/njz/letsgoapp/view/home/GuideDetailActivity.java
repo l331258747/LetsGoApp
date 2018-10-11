@@ -20,6 +20,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
@@ -144,7 +145,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public void initData() {
 
         mPresenter = new GuideDetailPresenter(context, this);
-        mPresenter.guideFindGuideDetails(Constant.DEFAULT_CITY, guideId);
+        mPresenter.guideFindGuideDetails(MySelfInfo.getInstance().getDefaultCity(), guideId);
         mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
         final int mDisplayHeight = AppUtils.getDisplayHeight();

@@ -39,7 +39,8 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private TextView tvCityPick, tvSearch;
+//    private TextView tvCityPick;
+    private TextView tvSearch;
     private ImageView ivRelease;
 
 
@@ -63,18 +64,18 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     public void initView() {
         mTabLayout = $(R.id.tabs);
         mViewPager = $(R.id.viewpager);
-        tvCityPick = $(R.id.tv_city_pick);
+//        tvCityPick = $(R.id.tv_city_pick);
         tvSearch = $(R.id.tv_search);
         ivRelease = $(R.id.iv_release);
 
-        tvCityPick.setOnClickListener(this);
+//        tvCityPick.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
         ivRelease.setOnClickListener(this);
     }
 
     @Override
     public void initData() {
-        tvCityPick.setText(city);
+//        tvCityPick.setText(city);
 
         mFragments = new ArrayList<>();
         dynamicAll = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_ALL);
@@ -91,9 +92,9 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_city_pick:
-                cityPick();
-                break;
+//            case R.id.tv_city_pick:
+//                cityPick();
+//                break;
             case R.id.tv_search:
 
                 break;
@@ -109,23 +110,23 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
 
     //城市选择
-    private void cityPick(){
-        Intent intent = new Intent(context, MyCityPickActivity.class);
-        intent.putExtra(MyCityPickActivity.LOCATION,tvCityPick.getText().toString());
-        startActivity(intent);
-        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-            @Override
-            public void accept(CityPickEvent cityPickEvent) throws Exception {
-                desDisposable.dispose();
-                if(TextUtils.isEmpty(cityPickEvent.getCity()))
-                    return;
-                tvCityPick.setText(cityPickEvent.getCity());
-                city = cityPickEvent.getCity();
-                setCityChange();
-
-            }
-        });
-    }
+//    private void cityPick(){
+//        Intent intent = new Intent(context, MyCityPickActivity.class);
+//        intent.putExtra(MyCityPickActivity.LOCATION,tvCityPick.getText().toString());
+//        startActivity(intent);
+//        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+//            @Override
+//            public void accept(CityPickEvent cityPickEvent) throws Exception {
+//                desDisposable.dispose();
+//                if(TextUtils.isEmpty(cityPickEvent.getCity()))
+//                    return;
+//                tvCityPick.setText(cityPickEvent.getCity());
+//                city = cityPickEvent.getCity();
+//                setCityChange();
+//
+//            }
+//        });
+//    }
 
     public void setCityChange(){
         dynamicAll.setCityChange(city);

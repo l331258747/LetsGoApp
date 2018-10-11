@@ -327,10 +327,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             case Constant.ORDER_PAY_FINISH:
                 ll_order_no.setVisibility(View.VISIBLE);
                 ll_order_create_time.setVisibility(View.VISIBLE);
-                ll_order_pay_time.setVisibility(View.VISIBLE);
                 tv_order_no.setText(str.getOrderNo());
                 tv_order_create_time.setText(str.getCreateTime());
-                tv_order_pay_time.setText(str.getPayType());
+                ll_order_pay_time.setVisibility(View.VISIBLE);
+                tv_order_pay_time.setText(str.getPayTime());
                 ll_order_pay_method.setVisibility(View.VISIBLE);
                 tv_order_pay_method.setText(str.getPayType());
                 ll_order_guide_time.setVisibility(View.VISIBLE);
