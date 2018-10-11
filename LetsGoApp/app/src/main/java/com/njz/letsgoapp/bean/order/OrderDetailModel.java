@@ -242,6 +242,10 @@ public class OrderDetailModel {
                         return "行程中";
                     case Constant.ORDER_TRAVEL_FINISH:
                         return "行程结束";
+                    case Constant.ORDER_TRAVEL_REFUSE:
+                        return "导游拒绝";
+                    default:
+                        return "";
                 }
             case Constant.ORDER_PAY_FINISH:
                 return "已完成";

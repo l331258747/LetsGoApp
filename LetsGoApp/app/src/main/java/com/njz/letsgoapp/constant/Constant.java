@@ -57,6 +57,7 @@ public class Constant {
     public static final int ORDER_TRAVEL_NO_GO = 1;//未出行
     public static final int ORDER_TRAVEL_GOING = 2;//行程中
     public static final int ORDER_TRAVEL_FINISH = 3;//行程结束
+    public static final int ORDER_TRAVEL_REFUSE = 4;//导游拒绝接单
 
     public static final int ORDER_EVALUATE_NO = 0;//未点评
     public static final int ORDER_EVALUATE_YES = 1;//已点评
