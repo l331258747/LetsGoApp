@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -17,18 +18,19 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="正在加载..."
-        android:textColor="@color/color_theme"
-        android:textSize="16sp" />
+        android:textColor="@color/color_theme" />
 
     <LinearLayout
         android:id="@+id/ll_end"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
 
         <View
             android:layout_width="0dp"
@@ -44,8 +46,7 @@
             android:gravity="center"
             android:padding="15dp"
             android:text="我是有底线的"
-            android:textColor="@color/color_theme"
-            android:textSize="16sp" />
+            android:textColor="@color/color_theme" />
 
         <View
             android:layout_width="0dp"
