@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.other;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -72,6 +73,14 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
 
         initProvinceRecycler();
         initCityRecycler();
+
+        tv_search = $(R.id.tv_search);
+        tv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(new Intent(context,SearchActivity.class));
+            }
+        });
 
     }
 

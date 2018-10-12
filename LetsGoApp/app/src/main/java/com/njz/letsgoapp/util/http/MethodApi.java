@@ -379,6 +379,13 @@ public class MethodApi {
         Observable observable = HttpMethods.getInstance().getHttpService().regionFindProAndCity();
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
+
+    //regionFuzzyBySpell 搜索
+    public static void regionFuzzyBySpell(String spell, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().regionFuzzyBySpell(spell);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------城市选择 end
 
 }

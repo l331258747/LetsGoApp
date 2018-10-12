@@ -78,4 +78,5 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
             tv_content = itemView.findViewById(R.id.tv_content);
         }
     }
+
 }

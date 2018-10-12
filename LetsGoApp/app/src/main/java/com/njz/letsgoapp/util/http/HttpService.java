@@ -28,6 +28,7 @@ import com.njz.letsgoapp.bean.order.OrderRefundDetailModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
+import com.njz.letsgoapp.bean.other.SearchCityModel;
 import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
@@ -446,6 +447,13 @@ public interface HttpService {
             @Query("type") int type,
             @Query("id") int id
     );
+
+    //搜索 /region/fuzzyBySpell
+    @GET("region/fuzzyBySpell")
+    Observable<BaseResponse<List<SearchCityModel>>> regionFuzzyBySpell(
+            @Query("spell") String spell
+    );
+
     //--------other end---------
 
 
