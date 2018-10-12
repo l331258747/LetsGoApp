@@ -33,7 +33,7 @@ public class DateUtil {
         return new Date();
     }
 
-    public static String longToStr(String dateLong) {
+    public static String longToStr(long dateLong) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         long lt = new Long(dateLong);

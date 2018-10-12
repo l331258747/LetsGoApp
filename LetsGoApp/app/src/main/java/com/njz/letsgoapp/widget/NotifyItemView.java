@@ -80,4 +80,8 @@ public class NotifyItemView extends LinearLayout{
     public void setNum(int num){
         tv_num.setText("" + num);
     }
+
+    public TextView getViewNum(){
+        return tv_num;
+    }
 }

@@ -68,20 +68,22 @@ public class GuideDetailModel {
     private int count;
     private String introduce;
     private String guideStory;
-    private int buyServices;
-    private double guideScore;
     private String image;
-    private int carConditions;
-    private int driveViable;
     private String guideAge;
-    private double guideServices;
-    private int guideViable;
     private EvaluateModel travelFirstReviewVO;
-    private int travelArranges;
-    private int authViable;
     private int id;
     private String serviceAge;
     private List<GuideServiceModel> travelGuideServiceInfoVOs;
+
+    private int driveViable;
+    private int guideViable;
+    private int authViable;
+
+    private float guideScore;
+    private float travelArranges;
+    private float buyServices;
+    private float carConditions;
+    private float guideServices;
 
     public List<GuideServiceModel> getTravelGuideServiceInfoVOs() {
         return travelGuideServiceInfoVOs;
@@ -211,28 +213,28 @@ public class GuideDetailModel {
         this.id = id;
     }
 
-    public int getBuyServices() {
+    public float getBuyServices() {
         return buyServices;
     }
 
-    public void setBuyServices(int buyServices) {
+    public void setBuyServices(float buyServices) {
         this.buyServices = buyServices;
     }
 
 
-    public double getGuideScore() {
+    public float getGuideScore() {
         return guideScore;
     }
 
-    public void setGuideScore(double guideScore) {
+    public void setGuideScore(float guideScore) {
         this.guideScore = guideScore;
     }
 
-    public int getCarConditions() {
+    public float getCarConditions() {
         return carConditions;
     }
 
-    public void setCarConditions(int carConditions) {
+    public void setCarConditions(float carConditions) {
         this.carConditions = carConditions;
     }
 
@@ -253,11 +255,11 @@ public class GuideDetailModel {
     }
 
 
-    public double getGuideServices() {
+    public float getGuideServices() {
         return guideServices;
     }
 
-    public void setGuideServices(double guideServices) {
+    public void setGuideServices(float guideServices) {
         this.guideServices = guideServices;
     }
 
@@ -269,11 +271,11 @@ public class GuideDetailModel {
         this.guideViable = guideViable;
     }
 
-    public int getTravelArranges() {
+    public float getTravelArranges() {
         return travelArranges;
     }
 
-    public void setTravelArranges(int travelArranges) {
+    public void setTravelArranges(float travelArranges) {
         this.travelArranges = travelArranges;
     }
 

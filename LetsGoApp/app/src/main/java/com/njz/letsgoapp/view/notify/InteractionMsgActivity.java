@@ -9,8 +9,11 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.notify.InteractionMsgAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.notify.NotifyListContract;
+import com.njz.letsgoapp.mvp.notify.NotifyListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +24,18 @@ import java.util.List;
  * Function: 旅友互动
  */
 
-public class InteractionMsgActivity extends BaseActivity {
+public class InteractionMsgActivity extends BaseActivity implements NotifyListContract.View {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private InteractionMsgAdapter mAdapter;
 
     public LoadMoreWrapper loadMoreWrapper;
-    int page;
+    int page = Constant.DEFAULT_PAGE;
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
+
+    NotifyListPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -47,6 +52,8 @@ public class InteractionMsgActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        mPresenter = new NotifyListPresenter(context,this);
+
         getRefreshData();
     }
 
@@ -55,11 +62,9 @@ public class InteractionMsgActivity extends BaseActivity {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new InteractionMsgAdapter(activity, new ArrayList<MyCommentModel>());
+        mAdapter = new InteractionMsgAdapter(activity, new ArrayList<NotifyMainModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
-
-        page = Constant.DEFAULT_PAGE;
 
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
@@ -101,17 +106,12 @@ public class InteractionMsgActivity extends BaseActivity {
     }
 
     public void getList(){
-        List<MyCommentModel> datas = new ArrayList<>();
-        MyCommentModel data = new MyCommentModel();
-        data.setDiscussContent("ssssssss");
-        data.setDiscussTime("10312");
-        data.setImgUrl("111");
-        data.setNickname("asd");
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
+        mPresenter.msgPushGetReceiveMsgList(Constant.NOTIFY_TYPE_INTERACTION,Constant.DEFAULT_LIMIT,page);
+    }
+
+    @Override
+    public void msgPushGetReceiveMsgListSuccess(List<NotifyMainModel> data) {
+        List<NotifyMainModel> datas = data;
 
         if (isLoadType == 1) {
             mAdapter.setData(datas);
@@ -127,5 +127,13 @@ public class InteractionMsgActivity extends BaseActivity {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void msgPushGetReceiveMsgListFailed(String msg) {
+        showShortToast(msg);
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 }

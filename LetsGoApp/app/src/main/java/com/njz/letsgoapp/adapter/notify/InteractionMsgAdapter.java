@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.mine.MyCommentAdapter;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 
@@ -26,9 +28,9 @@ import java.util.List;
 public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAdapter.ViewHolder> {
 
     Context mContext;
-    List<MyCommentModel> datas;
+    List<NotifyMainModel> datas;
 
-    public InteractionMsgAdapter(Context mContext, List<MyCommentModel> datas) {
+    public InteractionMsgAdapter(Context mContext, List<NotifyMainModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -44,20 +46,22 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         if (holder == null) return;
-        final MyCommentModel data = datas.get(position);
+        final NotifyMainModel data = datas.get(position);
         if (data == null) return;
 
-        GlideUtil.LoadCircleImage(mContext, data.getImgUrl(), holder.iv_head);
-        holder.tv_name.setText(data.getNickname());
-        holder.tv_time.setText(data.getDiscussTime());
+        GlideUtil.LoadCircleImage(mContext, data.getContent().getOther().getImg(), holder.iv_head);
+        holder.tv_name.setText(data.getContent().getOther().getName());
+        holder.tv_time.setText(data.getCreateDate());
+
+        holder.tv_mine2.setText(data.getContent().getOther().getType());
     }
 
-    public void setData(List<MyCommentModel> datas) {
+    public void setData(List<NotifyMainModel> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
 
-    public void addData(List<MyCommentModel> datas){
+    public void addData(List<NotifyMainModel> datas){
         this.datas.addAll(datas);
         notifyDataSetChanged();
     }
@@ -70,7 +74,7 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView iv_head;
-        TextView tv_name,tv_time;
+        TextView tv_name,tv_time,tv_mine2;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -78,6 +82,7 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
             iv_head = itemView.findViewById(R.id.iv_head);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_time = itemView.findViewById(R.id.tv_time);
+            tv_mine2 = itemView.findViewById(R.id.tv_mine2);
         }
     }
 }

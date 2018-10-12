@@ -1,11 +1,8 @@
 package com.njz.letsgoapp.util.http;
 
-import com.njz.letsgoapp.bean.BaseResponse;
-import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
-import com.njz.letsgoapp.bean.MovieSubject;
+import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
@@ -13,7 +10,6 @@ import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,10 +43,6 @@ public class MethodApi {
 //                channel); //在HttpServer中
 //        HttpMethods.getInstance().toSubscribe(observable, subscriber);
 //    }
-    public static void getTop250(DisposableObserver<MovieSubject> subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().getTop250(0, 2); //在HttpServer中
-        HttpMethods.getInstance().toSubscribe(observable, subscriber);
-    }
 
     public static void appPay(DisposableObserver<AliPay> subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().appPay(); //在HttpServer中
@@ -361,8 +353,20 @@ public class MethodApi {
 
     //--------消息 start ----------
     //msgPushGetSendMsgList 获取主页消息
-    public static void msgPushGetSendMsgList(DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().msgPushGetSendMsgList();
+    public static void msgPushReceiveKindList(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().msgPushReceiveKindList();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //msgPushGetReceiveMsgList 子消息列表
+    public static void msgPushGetReceiveMsgList(String type,int limit,int page, DisposableObserver subscriber) {
+        SendNotifyMainModel mainModel = new SendNotifyMainModel();
+        mainModel.setMsgBroad(type);
+        mainModel.setLimit(limit);
+        mainModel.setPage(page);
+        mainModel.setOrder("");
+        mainModel.setSidx("");
+        Observable observable = HttpMethods.getInstance().getHttpService().msgPushGetReceiveMsgList(mainModel);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

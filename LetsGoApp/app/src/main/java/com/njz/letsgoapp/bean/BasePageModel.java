@@ -15,6 +15,15 @@ public class BasePageModel<T> {
     private int totalPage;
     private int currPage;
     private List<T> list;
+    private List<T> data;
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
 
     public int getTotalCount() {
         return totalCount;

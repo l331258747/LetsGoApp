@@ -3,6 +3,7 @@ package com.njz.letsgoapp.util.http;
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
@@ -21,19 +22,17 @@ import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
-import com.njz.letsgoapp.bean.MovieSubject;
-import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
+import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,12 +40,9 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -60,10 +56,6 @@ import retrofit2.http.QueryMap;
  */
 
 public interface HttpService {
-
-    //获取豆瓣Top250 榜单
-    @GET("top250")
-    Observable<MovieSubject> getTop250(@Query("start") int start, @Query("count")int count);
 
     @GET("alipay/appPay")
     Observable<AliPay> appPay();
@@ -318,9 +310,15 @@ public interface HttpService {
     //-------订单 end---------
 
     //---------消息 start---------
-    //msgPush/getSendMsgList 消息列表（主）
-    @GET("msgPush/getSendMsgList")
-    Observable<BaseResponse<List<EmptyModel>>> msgPushGetSendMsgList(
+    //msgPush/receiveKindList 消息列表（主）
+    @GET("msgPush/receiveKindList")
+    Observable<BaseResponse<List<NotifyMainModel>>> msgPushReceiveKindList(
+    );
+
+    //msgPush/getReceiveMsgList 子消息列表
+    @POST("msgPush/getReceiveMsgList")
+    Observable<BaseResponse<BasePageModel<NotifyMainModel>>> msgPushGetReceiveMsgList(
+            @Body SendNotifyMainModel mainModel
     );
 
     //---------消息 end---------

@@ -15,4 +15,7 @@ public class URLConstant {
 //    public static final String BASE_URL = "http://najiuzou.vicp.cc:19091/api/";
 
 
+    //消息本地
+//    public static final String BASE_URL = "http://192.168.100.137:9090/api/";//18867402897  123456
+
 }

@@ -73,6 +73,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         if(TextUtils.equals(URLConstant.BASE_URL,"http://192.168.100.156:8090/travel-framework/api/") ||
                 TextUtils.equals(URLConstant.BASE_URL,"http://www.njzou.net/travel-framework/api/"))
             return;
+
+        if(TextUtils.equals(URLConstant.BASE_URL,"http://192.168.100.137:9090/api/")){
+            loginViewPhone.getEtView().setText("18867402897");
+            loginViewPassword.getEtView().setText("123456");
+            return;
+        }
+
         loginViewPhone.getEtView().setText("18826420934");
         loginViewPassword.getEtView().setText("941740");
     }

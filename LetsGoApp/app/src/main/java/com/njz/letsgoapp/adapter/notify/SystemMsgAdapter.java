@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -23,9 +24,9 @@ import java.util.List;
 public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.ViewHolder> {
 
     Context mContext;
-    List<MyCommentModel> datas;
+    List<NotifyMainModel> datas;
 
-    public SystemMsgAdapter(Context mContext, List<MyCommentModel> datas) {
+    public SystemMsgAdapter(Context mContext, List<NotifyMainModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -41,21 +42,21 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         if (holder == null) return;
-        final MyCommentModel data = datas.get(position);
+        final NotifyMainModel data = datas.get(position);
         if (data == null) return;
 
-        holder.tv_name.setText(data.getNickname());
-        holder.tv_time.setText(data.getDiscussTime());
-        holder.tv_content.setText(data.getDiscussContent());
+        holder.tv_name.setText(data.getTitle());
+        holder.tv_time.setText(data.getCreateDate());
+        holder.tv_content.setText(data.getContent().getAlert());
 
     }
 
-    public void setData(List<MyCommentModel> datas) {
+    public void setData(List<NotifyMainModel> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
 
-    public void addData(List<MyCommentModel> datas){
+    public void addData(List<NotifyMainModel> datas){
         this.datas.addAll(datas);
         notifyDataSetChanged();
     }

@@ -2,13 +2,15 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.notify.NotifyMainContract;
 import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.view.login.LoginActivity;
@@ -131,9 +133,51 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void msgPushGetSendMsgListSuccess(List<EmptyModel> data) {
+    public void msgPushGetSendMsgListSuccess(List<NotifyMainModel> data) {
         swipeRefreshLayout.setRefreshing(false);
         isLoad = false;
+
+        boolean hasItem = false;
+        for (NotifyMainModel model : data){
+            if(TextUtils.equals(model.getMsgBroad(),Constant.NOTIFY_TYPE_SYSTEM_MSG)){
+                setNofityItem(view_notify_message,model);
+                hasItem = true;
+            }
+        }
+        if(!hasItem){
+            setNotifyItemEmpty(view_notify_message);
+        }
+
+        hasItem = false;
+        for (NotifyMainModel model : data){
+            if(TextUtils.equals(model.getMsgBroad(),Constant.NOTIFY_TYPE_INTERACTION)){
+                setNofityItem(view_notify_interaction,model);
+                hasItem = true;
+
+            }
+        }
+        if(!hasItem){
+            setNotifyItemEmpty(view_notify_interaction);
+        }
+    }
+
+    public void setNotifyItemEmpty(NotifyItemView item){
+        item.setContent("暂无新消息");
+        item.getViewNum().setVisibility(View.GONE);
+        item.setTime("");
+    }
+
+    public void setNofityItem(NotifyItemView item,NotifyMainModel model){
+        if(model.getContent() != null){
+            item.setContent(model.getContent().getAlert());
+        }
+        item.setTime(model.getCreateDate());
+        if(model.getUnReadNum() < 1){
+            item.getViewNum().setVisibility(View.GONE);
+        }else{
+            item.getViewNum().setVisibility(View.VISIBLE);
+            item.setNum(model.getUnReadNum());
+        }
     }
 
     @Override

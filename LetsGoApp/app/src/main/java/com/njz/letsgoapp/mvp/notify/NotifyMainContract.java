@@ -1,6 +1,6 @@
 package com.njz.letsgoapp.mvp.notify;
 
-import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface NotifyMainContract {
     }
 
     interface View{
-        void msgPushGetSendMsgListSuccess(List<EmptyModel> data);
+        void msgPushGetSendMsgListSuccess(List<NotifyMainModel> data);
         void msgPushGetSendMsgListFailed(String msg);
     }
 

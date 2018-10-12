@@ -2,12 +2,14 @@ package com.njz.letsgoapp.mvp.notify;
 
 import android.content.Context;
 
-import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.BasePageModel;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 
 import java.util.List;
+
 
 /**
  * Created by LGQ
@@ -27,9 +29,9 @@ public class NotifyMainPresenter implements NotifyMainContract.Presenter {
 
     @Override
     public void msgPushGetSendMsgList() {
-        ResponseCallback listener = new ResponseCallback<List<EmptyModel>>() {
+        ResponseCallback listener = new ResponseCallback<List<NotifyMainModel>>() {
             @Override
-            public void onSuccess(List<EmptyModel> data) {
+            public void onSuccess(List<NotifyMainModel> data) {
                 iView.msgPushGetSendMsgListSuccess(data);
             }
 
@@ -38,6 +40,6 @@ public class NotifyMainPresenter implements NotifyMainContract.Presenter {
                 iView.msgPushGetSendMsgListFailed(errorMsg);
             }
         };
-        MethodApi.msgPushGetSendMsgList(new OnSuccessAndFaultSub(listener));
+        MethodApi.msgPushReceiveKindList(new OnSuccessAndFaultSub(listener));
     }
 }
