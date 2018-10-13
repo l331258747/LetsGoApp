@@ -62,6 +62,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     private String city = MySelfInfo.getInstance().getDefaultCity();
     private boolean isViewCreated;
     private boolean hidden;
+    private String search;
 
     public static Fragment newInstance(int type) {
         DynamicFragment fragment = new DynamicFragment();
@@ -212,6 +213,15 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         }
     }
 
+    public void setSearch(String str){
+        if(dynamicTYpe == DYNAMIC_ALL && getUserVisibleHint()) {
+            search = str;
+            getRefreshData();
+        }else {
+            showShortToast("请在全部进行搜索!");
+        }
+    }
+
     private void getRefreshData() {
         swipeRefreshLayout.setRefreshing(true);
         isLoad = true;
@@ -220,7 +230,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         if(dynamicTYpe == DYNAMIC_FOLLOW){
             mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
         }else{
-            mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
+            mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page,search);
         }
     }
 
@@ -231,7 +241,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         if(dynamicTYpe == DYNAMIC_FOLLOW){
             mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
         }else{
-            mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page);
+            mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page,search);
         }
     }
 

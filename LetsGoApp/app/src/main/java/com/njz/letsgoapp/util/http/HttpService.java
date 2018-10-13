@@ -193,7 +193,9 @@ public interface HttpService {
     Observable<BaseResponse<DynamicListModel>> friendFindAll(
             @Query("location") String location,
             @Query("limit") int limit,
-            @Query("page") int page
+            @Query("page") int page,
+            @Query("search") String search
+
     );
 
     //friend/friendSter 我关注的动态列表

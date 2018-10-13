@@ -140,7 +140,13 @@ public class MethodApi {
 
     //friendFindAll
     public static void friendFindAll(String location, int limit, int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit, page);
+        Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit, page,null);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //friendFindAll
+    public static void friendFindAll(String location, int limit, int page,String search, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit, page,search);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

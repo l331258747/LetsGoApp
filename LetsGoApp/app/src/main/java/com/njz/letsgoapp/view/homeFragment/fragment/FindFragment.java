@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -13,6 +16,7 @@ import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
@@ -39,7 +43,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-//    private TextView tvCityPick;
+    //    private TextView tvCityPick;
     private TextView tvSearch;
     private ImageView ivRelease;
 
@@ -64,13 +68,22 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     public void initView() {
         mTabLayout = $(R.id.tabs);
         mViewPager = $(R.id.viewpager);
-//        tvCityPick = $(R.id.tv_city_pick);
         tvSearch = $(R.id.tv_search);
         ivRelease = $(R.id.iv_release);
 
-//        tvCityPick.setOnClickListener(this);
-        tvSearch.setOnClickListener(this);
         ivRelease.setOnClickListener(this);
+        tvSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    setSearch(v.getText().toString());
+                    AppUtils.HideKeyboard(tvSearch);
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -91,16 +104,13 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 //            case R.id.tv_city_pick:
 //                cityPick();
 //                break;
-            case R.id.tv_search:
-
-                break;
             case R.id.iv_release:
                 if (!MySelfInfo.getInstance().isLogin()) {//登录状态
-                    startActivity(new Intent(context,LoginActivity.class));
+                    startActivity(new Intent(context, LoginActivity.class));
                     return;
                 }
                 startActivity(new Intent(context, ReleaseDynamicActivity.class));
@@ -128,8 +138,12 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 //        });
 //    }
 
-    public void setCityChange(){
+    public void setCityChange() {
         dynamicAll.setCityChange(city);
+    }
+
+    public void setSearch(String str) {
+        dynamicAll.setSearch(str);
     }
 
     @Override
@@ -138,7 +152,6 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         dynamicAll.setHidden(hidden);
         dynamicFollow.setHidden(hidden);
     }
-
 
 
 }

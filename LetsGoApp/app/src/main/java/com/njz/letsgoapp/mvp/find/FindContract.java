@@ -14,7 +14,7 @@ import java.util.List;
 public interface FindContract {
 
     interface Presenter {
-        void friendFindAll(String location,int limit,int page);
+        void friendFindAll(String location,int limit,int page,String str);
         void friendFriendSter(int limit,int page);
     }
 

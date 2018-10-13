@@ -57,7 +57,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     ImageView ivLeft;
     TextView tvCityPick;
-    TextView tvSearch;
 
     MyGuideTab myGuideTab;
 
@@ -96,7 +95,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
         ivLeft = $(R.id.iv_left);
         tvCityPick = $(R.id.tv_city_pick);
-        tvSearch = $(R.id.tv_search);
 
         myGuideTab = $(R.id.my_guide_tab);
         myGuideTab.setCallback(new MyGuideTab.OnItemClickListener() {
@@ -167,7 +165,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             }
         });
         tvCityPick.setOnClickListener(this);
-        tvSearch.setOnClickListener(this);
 
 
         initRecycler();
@@ -275,9 +272,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
                     }
                 });
-                break;
-            case R.id.tv_search:
-
                 break;
         }
     }

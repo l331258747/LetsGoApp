@@ -28,7 +28,7 @@ public class FindPresenter implements FindContract.Presenter {
     }
 
     @Override
-    public void friendFindAll(String location, int limit, int page) {
+    public void friendFindAll(String location, int limit, int page,String str) {
         ResponseCallback listener = new ResponseCallback<DynamicListModel>() {
             @Override
             public void onSuccess(DynamicListModel data) {
@@ -40,7 +40,7 @@ public class FindPresenter implements FindContract.Presenter {
                 iView.friendFindAllFailed(errorMsg);
             }
         };
-        MethodApi.friendFindAll(location,limit,page, new OnSuccessAndFaultSub(listener));
+        MethodApi.friendFindAll(location,limit,page,str, new OnSuccessAndFaultSub(listener));
     }
 
     @Override

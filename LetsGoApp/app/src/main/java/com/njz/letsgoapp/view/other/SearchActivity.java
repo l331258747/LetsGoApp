@@ -13,6 +13,8 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
 import com.njz.letsgoapp.mvp.other.CitySearchContract;
 import com.njz.letsgoapp.mvp.other.CitySearchPresenter;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +73,8 @@ public class SearchActivity extends BaseActivity implements CitySearchContract.V
         mAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                showShortToast(mAdapter.getItem(position).getName());
+                RxBus2.getInstance().post(new CityPickEvent(mAdapter.getItem(position).getName()));
+                finish();
             }
         });
 

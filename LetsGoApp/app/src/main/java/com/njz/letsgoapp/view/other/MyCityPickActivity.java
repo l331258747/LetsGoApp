@@ -4,16 +4,23 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.CityPickCityAdapter;
 import com.njz.letsgoapp.adapter.order.CityPickProvinceAdapter;
+import com.njz.letsgoapp.adapter.other.SearchAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.other.CityModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
+import com.njz.letsgoapp.bean.other.SearchCityModel;
+import com.njz.letsgoapp.mvp.other.CitySearchContract;
+import com.njz.letsgoapp.mvp.other.CitySearchPresenter;
 import com.njz.letsgoapp.mvp.other.MyCityPickContract;
 import com.njz.letsgoapp.mvp.other.MyCityPickPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -28,13 +35,13 @@ import java.util.List;
  * Function:
  */
 
-public class MyCityPickActivity extends BaseActivity implements MyCityPickContract.View {
+public class MyCityPickActivity extends BaseActivity implements MyCityPickContract.View,CitySearchContract.View {
 
     public static final String LOCATION = "LOCATION";
 
     TextView tv_search, tv_location_city;
     ImageView ivLeft;
-    RecyclerView recycler_view_province, recycler_view_city;
+    RecyclerView recycler_view_province, recycler_view_city,searchRecyclerView;
 
     MyCityPickPresenter mPresenter;
 
@@ -46,6 +53,10 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
 
     String location = "";
     String city = "";
+
+    LinearLayout ll_search;
+    CitySearchPresenter searchPresenter;
+    SearchAdapter searchAdapter;
 
     @Override
     public void getIntentData() {
@@ -64,6 +75,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
 
         ivLeft = $(R.id.iv_left);
         tv_location_city = $(R.id.tv_location_city);
+        ll_search = $(R.id.ll_search);
         ivLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,22 +85,48 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
 
         initProvinceRecycler();
         initCityRecycler();
+        initRecycler();
 
         tv_search = $(R.id.tv_search);
-        tv_search.setOnClickListener(new View.OnClickListener() {
+
+        ll_search.setVisibility(View.GONE);
+        tv_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-//                startActivity(new Intent(context,SearchActivity.class));
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    if(!TextUtils.isEmpty(v.getText().toString())){
+                        searchPresenter.regionFuzzyBySpell(v.getText().toString());
+                        ll_search.setVisibility(View.VISIBLE);
+                    }
+                    return true;
+                }
+                return false;
             }
         });
+    }
 
+    //初始化recyclerview
+    private void initRecycler() {
+        searchRecyclerView = $(R.id.recycler_view);
+        searchRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+        searchAdapter = new SearchAdapter(activity, new ArrayList<SearchCityModel>());
+        searchRecyclerView.setAdapter(searchAdapter);
+
+        searchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                city = searchAdapter.getItem(position).getName();
+                RxBus2.getInstance().post(new CityPickEvent(city));
+                finish();
+            }
+        });
     }
 
     @Override
     public void initData() {
         tv_location_city.setText(location);
 
-
+        searchPresenter = new CitySearchPresenter(context,this);
         mPresenter = new MyCityPickPresenter(context, this);
 
         mPresenter.regionFindProAndCity();
@@ -96,7 +134,8 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         tv_location_city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RxBus2.getInstance().post(new CityPickEvent(tv_location_city.getText().toString()));
+                city = tv_location_city.getText().toString();
+                RxBus2.getInstance().post(new CityPickEvent(city));
                 finish();
             }
         });
@@ -140,6 +179,16 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (ll_search != null && ll_search.getVisibility() == View.VISIBLE) {
+            ll_search.setVisibility(View.GONE);
+            tv_search.setText("");
+            return;
+        }
+        super.onBackPressed();
+    }
+
 
     @Override
     public void regionFindProAndCitySuccess(List<ProvinceModel> models) {
@@ -158,5 +207,15 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             RxBus2.getInstance().post(new CityPickEvent(city));
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void regionFuzzyBySpellSuccess(List<SearchCityModel> models) {
+        searchAdapter.setData(models);
+    }
+
+    @Override
+    public void regionFuzzyBySpellFailed(String msg) {
+        showShortToast(msg);
     }
 }
