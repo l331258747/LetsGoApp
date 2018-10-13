@@ -26,6 +26,7 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderRefundContract;
 import com.njz.letsgoapp.mvp.order.OrderRefundPresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.widget.FixedItemEditViewNoLine;
 
 import java.util.ArrayList;
@@ -150,6 +151,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_reason:
+                AppUtils.HideKeyboard(ll_reason);
                 //条件选择器
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(context,
                         new OnOptionsSelectListener() {

@@ -38,7 +38,7 @@
                 android:background="@color/transparent"
                 android:hint="搜索目的地"
                 android:textColor="@color/gray_999"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:maxLength="15"
                 android:imeOptions="actionSearch"

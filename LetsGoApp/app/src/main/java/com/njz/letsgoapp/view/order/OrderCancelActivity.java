@@ -17,6 +17,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderCancelContract;
 import com.njz.letsgoapp.mvp.order.OrderCancelPresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -99,6 +100,7 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ll_reason:
+                AppUtils.HideKeyboard(ll_reason);
                 //条件选择器
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(context,
                         new OnOptionsSelectListener() {
