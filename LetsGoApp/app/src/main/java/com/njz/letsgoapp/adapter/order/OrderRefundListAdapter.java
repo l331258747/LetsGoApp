@@ -93,7 +93,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 OrderRefundBeanGroup serviceInfoGroup3 = new OrderRefundBeanGroup();
                 serviceInfoGroup3.setLabelTab(OrderRefundBeanGroup.LABEL_TAB_FOOT);
                 serviceInfoGroup3.setPayStatus(Constant.ORDER_PAY_REFUND);
-                serviceInfoGroup3.setOrderPrice(orderModel.getDefaultMoney());
+                serviceInfoGroup3.setOrderPrice(orderModel.getRefundMoney());
                 serviceInfoGroup3.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup3.setReviewStatus(Constant.ORDER_EVALUATE_NO);
                 serviceInfoGroup3.setGuideName(orderModel.getGuideName());
@@ -101,6 +101,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 serviceInfoGroup3.setRefundStatus(orderModel.getRefundStatus());
                 serviceInfoGroup3.setOrderNo(orderModel.getOrderNo());
                 serviceInfoGroup3.setLocation(orderModel.getLocation());
+                serviceInfoGroup3.setRefundMoney(orderModel.getRefundMoney());
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -188,13 +189,13 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                             break;
                         case Constant.ORDER_REFUND_FINISH:
                             ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
-                            ((FootHolder) holder).rl_price.setVisibility(View.VISIBLE);
-                            ((FootHolder) holder).tv_order_price_title.setText("合计");
-                            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
                             break;
                     }
                     break;
             }
+            ((FootHolder) holder).tv_order_price_title.setText("合计");
+            ((FootHolder) holder).tv_order_price_content.setText("" + data.getRefundMoney());
+
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -313,7 +314,6 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             btn_delete.setVisibility(View.GONE);
             btn_call_customer.setVisibility(View.GONE);
             btn_refund.setVisibility(View.GONE);
-            rl_price.setVisibility(View.GONE);
         }
     }
 

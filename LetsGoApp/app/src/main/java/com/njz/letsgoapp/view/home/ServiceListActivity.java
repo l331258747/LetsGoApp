@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.ServiceListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.mvp.home.ServiceListContract;
@@ -117,7 +118,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getServiceList(guideId,serveType);
+                mPresenter.getServiceList(guideId,serveType,MySelfInfo.getInstance().getDefaultCity());
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -126,7 +127,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
     @Override
     public void initData() {
         mPresenter = new ServiceListPresenter(context,this);
-        mPresenter.getServiceList(guideId,serveType);
+        mPresenter.getServiceList(guideId,serveType, MySelfInfo.getInstance().getDefaultCity());
 
         disposable = RxBus2.getInstance().toObservable(ServiceDetailCloseEvent.class, new Consumer<ServiceDetailCloseEvent>() {
             @Override

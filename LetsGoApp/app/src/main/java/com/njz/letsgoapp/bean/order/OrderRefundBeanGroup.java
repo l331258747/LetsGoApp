@@ -21,12 +21,21 @@ public class OrderRefundBeanGroup {
     private int orderStatus;
     private String location;
     private float orderPrice;
+    private float refundMoney;
     private int reviewStatus;
     private int refundStatus;
     private int id;
     private int payStatus;
     private String guideName;
     private OrderRefundChildModel orderChildModel;
+
+    public float getRefundMoney() {
+        return refundMoney;
+    }
+
+    public void setRefundMoney(float refundMoney) {
+        this.refundMoney = refundMoney;
+    }
 
     public int getRefundStatus() {
         return refundStatus;

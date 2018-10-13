@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.order.EvaluateTypeModel;
 import com.njz.letsgoapp.mvp.order.OrderEvaluateContract;
 import com.njz.letsgoapp.mvp.order.OrderEvaluatePresenter;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
@@ -40,7 +41,6 @@ import me.iwf.photopicker.PhotoPreview;
 
 public class OrderEvaluateActivity extends BaseActivity implements View.OnClickListener, OrderEvaluateContract.View {
 
-
     private RecyclerView mPhotoRecyclerView;
     private PhotoAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
@@ -55,12 +55,14 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
 
     private int orderId;
     private int guideId;
+    private EvaluateTypeModel evaluateTypeModel;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         orderId = intent.getIntExtra("ORDER_ID", 0);
         guideId = intent.getIntExtra("GUIDE_ID", 0);
+        evaluateTypeModel = intent.getParcelableExtra("evaluateType");
     }
 
     @Override
@@ -84,6 +86,24 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
         et_special = $(R.id.et_special);
 
         initAddPhoto();
+
+        if(!evaluateTypeModel.isCar()){
+            ev_car.setVisibility(View.GONE);
+            ev_car.getRatingBar().setRating(0);
+        }
+        if(!evaluateTypeModel.isGuide()){
+            ev_guide.setVisibility(View.GONE);
+            ev_guide.getRatingBar().setRating(0);
+        }
+        if(!evaluateTypeModel.isTravel()){
+            ev_substituting.setVisibility(View.GONE);
+            ev_substituting.getRatingBar().setRating(0);
+        }
+        if(!evaluateTypeModel.isTrip()){
+            ev_trip.setVisibility(View.GONE);
+            ev_trip.getRatingBar().setRating(0);
+        }
+
     }
 
     @Override

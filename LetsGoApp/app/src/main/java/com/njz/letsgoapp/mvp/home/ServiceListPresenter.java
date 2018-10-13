@@ -28,7 +28,7 @@ public class ServiceListPresenter implements ServiceListContract.Presenter {
 
 
     @Override
-    public void getServiceList(int guideId, int serveType) {
+    public void getServiceList(int guideId, int serveType,String location) {
         ResponseCallback listener = new ResponseCallback<List<ServiceListModel>>() {
             @Override
             public void onSuccess(List<ServiceListModel> data) {
@@ -40,6 +40,6 @@ public class ServiceListPresenter implements ServiceListContract.Presenter {
                 iView.getServiceListFailed(errorMsg);
             }
         };
-        MethodApi.getServiceList(guideId, serveType, new OnSuccessAndFaultSub(listener));
+        MethodApi.getServiceList(guideId, serveType,location, new OnSuccessAndFaultSub(listener));
     }
 }

@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.order;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -270,7 +271,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.btn_evaluate:
                 intent = new Intent(context,OrderEvaluateActivity.class);
                 intent.putExtra("ORDER_ID",model.getId());
-                intent.putExtra("GUIDE_ID",model.getId());
+                intent.putExtra("GUIDE_ID",model.getGuideId());
+                intent.putExtra("evaluateType",model.getEvaluateType());
                 startActivity(intent);
                 break;
         }

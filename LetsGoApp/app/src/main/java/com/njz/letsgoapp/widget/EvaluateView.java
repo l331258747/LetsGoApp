@@ -63,6 +63,10 @@ public class EvaluateView extends LinearLayout {
         });
     }
 
+    public MyRatingBar getRatingBar(){
+        return my_rating_bar;
+    }
+
     private void setContent(int rating) {
         switch (rating){
             case 1:

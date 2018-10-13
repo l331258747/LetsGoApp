@@ -95,8 +95,8 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             }
 
             ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
-            ((ViewHolder) holder).tv_penalty_content.setText("￥"+data.getRefundMoney());
-            ((ViewHolder) holder).tv_refund_price_content.setText("￥"+data.getDefaultMoney());
+            ((ViewHolder) holder).tv_penalty_content.setText("￥"+data.getDefaultMoney());
+            ((ViewHolder) holder).tv_refund_price_content.setText("￥"+data.getRefundMoney());
 
 
             ((ViewHolder) holder).ll_travel_going.setVisibility(View.GONE);

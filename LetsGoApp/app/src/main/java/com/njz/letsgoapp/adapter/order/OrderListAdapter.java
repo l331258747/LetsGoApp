@@ -24,7 +24,6 @@ import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.order.OrderCancelActivity;
-import com.njz.letsgoapp.view.order.OrderEvaluateActivity;
 import com.njz.letsgoapp.view.order.OrderRefundActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 
@@ -263,10 +262,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, OrderEvaluateActivity.class);
-                    intent.putExtra("ORDER_ID", data.getId());
-                    intent.putExtra("GUIDE_ID", data.getId());
-                    mContext.startActivity(intent);
+                    if(mOnEvaluateClickListener != null){
+                        mOnEvaluateClickListener.onClick(data.getIndex());
+                    }
                 }
             });
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
@@ -431,6 +429,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     OnCancelClickListener mOnCancelClickListener;
     OnRefundClickListenter mOnRefundClickListenter;
     OnDeleteClickListener mOnDeleteClickListener;
+    OnEvaluateClickListener mOnEvaluateClickListener;
+
+    public interface OnEvaluateClickListener {
+        void onClick(int index);
+    }
+
+    public void setOnEvaluateClickListener(OnEvaluateClickListener onEvaluateClickListener) {
+        this.mOnEvaluateClickListener = onEvaluateClickListener;
+    }
 
     public interface OnItemClickListener {
         void onClick(int orderId);

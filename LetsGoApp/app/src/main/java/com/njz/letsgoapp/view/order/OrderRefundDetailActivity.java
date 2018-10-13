@@ -134,8 +134,8 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         login_view_phone.setContent(str.getMobile());
         et_special.setText(str.getSpecialRequire());
 
-        tv_refund_penalty.setText(str.getRefundMoney() + "");
-        tv_refund_price.setText(str.getDefaultMoney() + "");
+        tv_refund_penalty.setText(str.getDefaultMoney() + "");
+        tv_refund_price.setText(str.getRefundMoney() + "");
 
         boolean isTravelGoing = false;
         for(int i = 0;i<str.getNjzRefundDetailsChildVOS().size();i++){

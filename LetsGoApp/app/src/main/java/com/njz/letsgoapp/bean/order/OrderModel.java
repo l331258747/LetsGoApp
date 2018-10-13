@@ -1,5 +1,9 @@
 package com.njz.letsgoapp.bean.order;
 
+import android.text.TextUtils;
+
+import com.njz.letsgoapp.constant.Constant;
+
 import java.util.List;
 
 /**
@@ -22,6 +26,7 @@ public class OrderModel {
      * njzChildOrderListVOS : [{"roomNum":2,"payPrice":0,"price":128,"ticketNum":0,"dayNum":2,"orderPrice":512,"id":159,"personNum":0,"title":"张家界峡谷大酒店"},{"roomNum":2,"payPrice":0,"price":128,"ticketNum":0,"dayNum":1,"orderPrice":256,"id":160,"personNum":0,"title":"张家界天门山大酒店"},{"roomNum":0,"payPrice":0,"price":333,"ticketNum":0,"dayNum":3,"orderPrice":999,"id":161,"personNum":2,"title":"奔驰大队带你飞"}]
      */
 
+    private int guideId;
     private String orderNo;
     private float payPrice;
     private int orderStatus;
@@ -35,6 +40,14 @@ public class OrderModel {
     private String name;
     private String guideMobile;
     private List<OrderChildModel> njzChildOrderListVOS;
+
+    public int getGuideId() {
+        return guideId;
+    }
+
+    public void setGuideId(int guideId) {
+        this.guideId = guideId;
+    }
 
     public String getGuideMobile() {
         return guideMobile;
@@ -152,6 +165,31 @@ public class OrderModel {
 
     public void setNjzChildOrderListVOS(List<OrderChildModel> njzChildOrderListVOS) {
         this.njzChildOrderListVOS = njzChildOrderListVOS;
+    }
+
+    public EvaluateTypeModel getEvaluateType() {
+        EvaluateTypeModel evaluateTypeModel = new EvaluateTypeModel();
+        for (int i = 0; i < njzChildOrderListVOS.size(); i++) {
+            OrderChildModel childModel = njzChildOrderListVOS.get(i);
+            if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_CUSTOM)) {
+                evaluateTypeModel.setGuide(true);
+                evaluateTypeModel.setCar(true);
+                evaluateTypeModel.setTravel(true);
+                evaluateTypeModel.setTrip(true);
+                break;
+            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_GUIDE)) {
+                evaluateTypeModel.setGuide(true);
+                evaluateTypeModel.setTravel(true);
+            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_CAR)) {
+                evaluateTypeModel.setGuide(true);
+                evaluateTypeModel.setTravel(true);
+                evaluateTypeModel.setCar(true);
+            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_TICKET)
+                    || TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_HOTEL)) {
+                evaluateTypeModel.setTrip(true);
+            }
+        }
+        return evaluateTypeModel;
     }
 
 }

@@ -182,7 +182,9 @@ public interface HttpService {
     @GET("guide/getServiceList")
     Observable<BaseResponse<List<ServiceListModel>>> getServiceList(
             @Query("guideId") int guideId,
-            @Query("serveType") int serveType
+            @Query("serveType") int serveType,
+            @Query("location") String location
+
     );
 
     //--------首页 end--------
