@@ -62,8 +62,8 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         holder.reply_time.setText("回复回复回复回复回复回复回复回复回复回复回复回复回复回复回复回复");
         holder.reply_content.setText("2018-09-14");
 
-        holder.rl_reply.setVisibility(View.VISIBLE);
-        holder.tv_click.setVisibility(View.VISIBLE);
+//        holder.rl_reply.setVisibility(View.VISIBLE);
+//        holder.tv_click.setVisibility(View.VISIBLE);
 
         holder.tv_comment_guide.setVisibility(View.GONE);
         holder.tv_comment_trip.setVisibility(View.GONE);

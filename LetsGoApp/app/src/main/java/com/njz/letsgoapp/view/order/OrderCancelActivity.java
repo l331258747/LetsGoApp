@@ -85,10 +85,9 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initData() {
         reasons = new ArrayList<>();
-        reasons.add("原因1");
-        reasons.add("原因2");
-        reasons.add("原因3");
-        reasons.add("原因4");
+        reasons.add("行程有变");
+        reasons.add("服务地点特殊情况");
+        reasons.add("行程安排不满意");
 
         view_name.setEtContent(name);
         view_phone.setEtContent(phone);
