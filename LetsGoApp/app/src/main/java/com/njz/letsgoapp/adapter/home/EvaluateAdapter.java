@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -25,14 +26,14 @@ import java.util.List;
 
 public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHolder> {
     Context mContext;
-    List<EvaluateModel> datas;
+    List<EvaluateModel2> datas;
 
     /**
      * 标记展开的item
      */
     private int opened = -1;
 
-    public EvaluateAdapter(Context mContext, List<EvaluateModel> datas) {
+    public EvaluateAdapter(Context mContext, List<EvaluateModel2> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -48,7 +49,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
-        final EvaluateModel data = datas.get(pos);
+        final EvaluateModel2 data = datas.get(pos);
         if (data == null) return;
 
         GlideUtil.LoadCircleImage(mContext, data.getImgUrl(), holder.commont_head);
@@ -101,16 +102,16 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         return datas.size();
     }
 
-    public void setData(List<EvaluateModel> datas) {
+    public void setData(List<EvaluateModel2> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
 
-    public List<EvaluateModel> getDatas(){
+    public List<EvaluateModel2> getDatas(){
         return this.datas;
     }
 
-    public void addData(List<EvaluateModel> datas){
+    public void addData(List<EvaluateModel2> datas){
         this.datas.addAll(datas);
         notifyDataSetChanged();
     }

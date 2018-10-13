@@ -3,6 +3,7 @@ package com.njz.letsgoapp.mvp.home;
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 
 /**
@@ -18,7 +19,7 @@ public interface GuideEvaluateListContract {
     }
 
     interface View {
-        void orderReviewsFindGuideReviewsSuccess(BasePageModel<EvaluateModel> models);
+        void orderReviewsFindGuideReviewsSuccess(BasePageModel<EvaluateModel2> models);
         void orderReviewsFindGuideReviewsFailed(String msg);
 
     }

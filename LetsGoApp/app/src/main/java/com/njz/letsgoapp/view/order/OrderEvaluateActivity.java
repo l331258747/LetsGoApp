@@ -180,8 +180,8 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
 
     private void submit() {
         mPresenter.upUserReview(orderId, guideId, ev_guide.getRating(),
-                ev_car.getRating(), ev_substituting.getRating(),
-                ev_trip.getRating(), et_special.getText().toString(),
+                ev_car.getRating(), ev_trip.getRating(),
+                ev_substituting.getRating(), et_special.getText().toString(),
                 upLoadPhotos);
     }
 

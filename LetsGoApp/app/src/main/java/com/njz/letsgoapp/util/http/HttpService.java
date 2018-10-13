@@ -3,6 +3,7 @@ package com.njz.letsgoapp.util.http;
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
@@ -240,7 +241,7 @@ public interface HttpService {
 
     //orderReviews/findGuideReviews 导游评价列表
     @GET("orderReviews/findGuideReviews")
-    Observable<BaseResponse<BasePageModel<EvaluateModel>>> orderReviewsFindGuideReviews(
+    Observable<BaseResponse<BasePageModel<EvaluateModel2>>> orderReviewsFindGuideReviews(
             @Query("guideId") int guideId,
             @Query("limit") int limit,
             @Query("page") int page

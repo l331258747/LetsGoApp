@@ -16,6 +16,7 @@ import com.njz.letsgoapp.adapter.home.EvaluateAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.GuideEvaluateListContract;
 import com.njz.letsgoapp.mvp.home.GuideEvaluateListPresenter;
@@ -86,7 +87,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new EvaluateAdapter(activity, new ArrayList<EvaluateModel>());
+        mAdapter = new EvaluateAdapter(activity, new ArrayList<EvaluateModel2>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
@@ -164,8 +165,8 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
 
 
     @Override
-    public void orderReviewsFindGuideReviewsSuccess(BasePageModel<EvaluateModel> model) {
-        List<EvaluateModel> datas = model.getList();
+    public void orderReviewsFindGuideReviewsSuccess(BasePageModel<EvaluateModel2> model) {
+        List<EvaluateModel2> datas = model.getList();
 
 
 

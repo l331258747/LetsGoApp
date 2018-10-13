@@ -6,6 +6,7 @@ import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -31,9 +32,9 @@ public class GuideEvaluateListPresenter implements GuideEvaluateListContract.Pre
 
     @Override
     public void orderReviewsFindGuideReviews(int guideId, int limit, int page) {
-        ResponseCallback listener = new ResponseCallback<BasePageModel<EvaluateModel>>() {
+        ResponseCallback listener = new ResponseCallback<BasePageModel<EvaluateModel2>>() {
             @Override
-            public void onSuccess(BasePageModel<EvaluateModel> data) {
+            public void onSuccess(BasePageModel<EvaluateModel2> data) {
                 iView.orderReviewsFindGuideReviewsSuccess(data);
             }
 

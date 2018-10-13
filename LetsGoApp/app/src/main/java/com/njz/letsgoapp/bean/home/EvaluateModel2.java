@@ -1,5 +1,11 @@
 package com.njz.letsgoapp.bean.home;
 
+import android.text.TextUtils;
+
+import com.njz.letsgoapp.util.GsonUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -8,7 +14,7 @@ import java.util.List;
  * Function:
  */
 
-public class EvaluateModel {
+public class EvaluateModel2 {
 
     /**
      * name : null
@@ -53,15 +59,17 @@ public class EvaluateModel {
     private String userContent;
     private String imgUrl;
     private String level;
-    private List<String> imageUrls;
+    private String imageUrls;
 
     public List<String> getImageUrls() {
-        return imageUrls;
+        if(TextUtils.isEmpty(imageUrls)){
+            return new ArrayList<>();
+        }
+
+        String[] strs = imageUrls.split(",");
+        return Arrays.asList(strs);
     }
 
-    public void setImageUrls(List<String> imageUrls) {
-        this.imageUrls = imageUrls;
-    }
 
     //导游服务,车辆状况,代订服务,行程安排
 
