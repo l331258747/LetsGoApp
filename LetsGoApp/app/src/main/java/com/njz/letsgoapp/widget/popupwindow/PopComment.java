@@ -2,6 +2,7 @@ package com.njz.letsgoapp.widget.popupwindow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -14,7 +15,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -94,6 +97,12 @@ public class PopComment extends PopupWindow {
     }
 
     public void showPop(View btnComment) {
+
+        if (!MySelfInfo.getInstance().isLogin()) {
+            mContext.startActivity(new Intent(mContext,LoginActivity.class));
+            return;
+        }
+
         showAtLocation(btnComment, Gravity.BOTTOM, 0, 0);
 
         //显示软键盘

@@ -155,7 +155,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
             case R.id.btn_pay:
                 if (payIndex == 1) {
-                    mPresenter.getWxOrderInfo();
+                    mPresenter.getWxOrderInfo(payModel.getOutTradeNo());
                 } else {
                     mPresenter.getAliOrderInfo(payModel.getOutTradeNo());
                 }

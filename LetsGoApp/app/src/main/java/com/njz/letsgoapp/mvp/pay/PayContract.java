@@ -15,7 +15,7 @@ public interface PayContract {
     interface Presenter {
         void getAliOrderInfo(String orderId);
 
-        void getWxOrderInfo();
+        void getWxOrderInfo(String orderId);
 
         void getAliPay(String orderInfo);
 

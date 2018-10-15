@@ -302,7 +302,13 @@ public class MethodApi {
 
     //orderPayAliPay 阿里支付
     public static void orderPayAliPay(String outTradeNo, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAliPay(outTradeNo);
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAppPay(outTradeNo,"AliPay");
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderPayAliPay 微信支付
+    public static void orderPayWxPay(String outTradeNo, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAppPay(outTradeNo,"WxPay");
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

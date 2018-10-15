@@ -59,7 +59,7 @@ public class PayPresenter implements PayContract.Presenter {
     }
 
     @Override
-    public void getWxOrderInfo() {
+    public void getWxOrderInfo(String orderId) {
         ResponseCallback getTopListener = new ResponseCallback<AliPay>() {
             @Override
             public void onSuccess(AliPay t) {
@@ -76,7 +76,7 @@ public class PayPresenter implements PayContract.Presenter {
                 iView.getWxOrderInfoFailed(errorMsg);
             }
         };
-//        MethodApi.appPayWX(new OnSuccessAndFaultSub(getTopListener,activity));
+        MethodApi.orderPayWxPay(orderId,new OnSuccessAndFaultSub(getTopListener,activity));
     }
 
 

@@ -261,6 +261,14 @@ public interface HttpService {
             @Field("outTradeNo") String toutTradeNo
     );
 
+    @FormUrlEncoded
+    @POST("orderPay/appPay")
+    Observable<BaseResponse<String>> orderPayAppPay(
+            @Field("outTradeNo") String toutTradeNo,
+            @Field("type") String type
+
+    );
+
     //order/queryOrderList 订单列表
     @GET("order/queryOrderList")
     Observable<BaseResponse<BasePageModel<OrderModel>>> orderQueryOrderList(

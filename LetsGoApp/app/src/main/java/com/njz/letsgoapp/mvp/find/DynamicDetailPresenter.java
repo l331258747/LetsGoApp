@@ -46,12 +46,6 @@ public class DynamicDetailPresenter implements DynamicDetailContract.Presenter {
 
     @Override
     public void friendDiscuss(int friendSterId, int discussUserId, String discussContent, int toUserId) {
-
-        if (!MySelfInfo.getInstance().isLogin()) {
-            context.startActivity(new Intent(context,LoginActivity.class));
-            return;
-        }
-
         ResponseCallback listener = new ResponseCallback<DynamicCommentModel>() {
             @Override
             public void onSuccess(DynamicCommentModel data) {
