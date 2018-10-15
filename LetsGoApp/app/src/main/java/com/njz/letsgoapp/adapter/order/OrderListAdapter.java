@@ -87,11 +87,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup.setPayStatus(orderModel.getPayStatus());
                 serviceInfoGroup.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup.setReviewStatus(orderModel.getReviewStatus());
+                serviceInfoGroup.setPayingStatus(orderModel.getPayingStatus());
                 serviceInfoGroup.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup);
                 for (int j = 0; j < orderModel.getNjzChildOrderListVOS().size(); j++) {
                     OrderBeanGroup serviceInfoGroup2 = new OrderBeanGroup();
                     OrderChildModel orderChildModel = orderModel.getNjzChildOrderListVOS().get(j);
+                    orderChildModel.setPayingStatus(orderModel.getPayingStatus());
                     serviceInfoGroup2.setLabelTab(OrderBeanGroup.LABEL_TAB_DEFAULT);
                     serviceInfoGroup2.setOrderChildModel(orderChildModel);
                     serviceInfoGroup2.setIndex(i);
@@ -110,6 +112,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setUserName(orderModel.getName());
                 serviceInfoGroup3.setUserMobile(orderModel.getMobile());
                 serviceInfoGroup3.setGuideMobile(orderModel.getGuideMobile());
+                serviceInfoGroup3.setPayingStatus(orderModel.getPayingStatus());
                 serviceInfoGroup3.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup3);
             }
@@ -158,15 +161,22 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
-                    ((DefaultHolder) holder).btn_cancel.setText("取消");
-                    ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (mOnCancelClickListener != null) {
-                                mOnCancelClickListener.onClick(data.getId(), orderBeanGroups.get(pos).getIndex());
+
+                    if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
+                        ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
+                    }else {
+                        ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
+                        ((DefaultHolder) holder).btn_cancel.setText("取消");
+                        ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (mOnCancelClickListener != null) {
+                                    mOnCancelClickListener.onClick(data.getId(), orderBeanGroups.get(pos).getIndex());
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+
                     break;
                 case Constant.ORDER_PAY_ALREADY:
                     ((DefaultHolder) holder).btn_cancel.setText("退款");
@@ -224,7 +234,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     ((FootHolder) holder).tv_order_price_title.setText("合计");
                     ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
                     ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
-                    ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                    if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
+                        ((FootHolder) holder).btn_pay.setVisibility(View.GONE);
+                    }else{
+                        ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                    }
                     break;
                 case Constant.ORDER_PAY_ALREADY:
                     ((FootHolder) holder).tv_order_price_title.setText("合计");

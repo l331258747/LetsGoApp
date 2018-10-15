@@ -39,6 +39,8 @@ public interface PayContract {
         void getAliPaySuccess();
 
         void getAliPayFailed();
+
+        void getWxPaySuccess();
     }
 
 }

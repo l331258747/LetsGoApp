@@ -6,12 +6,14 @@ import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
+import com.njz.letsgoapp.bean.home.EvaluateServicesModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.WxPayEvent;
 import com.njz.letsgoapp.view.pay.PayResult;
 import com.njz.letsgoapp.view.pay.PayResultModel;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -33,6 +35,8 @@ public class PayPresenter implements PayContract.Presenter {
     Activity activity;
     PayContract.View iView;
     Disposable disposable;
+    Disposable disposableWx;
+
 
     public PayPresenter(PayContract.View view,Activity activity) {
         this.iView = view;
@@ -60,13 +64,11 @@ public class PayPresenter implements PayContract.Presenter {
 
     @Override
     public void getWxOrderInfo(String orderId) {
-        ResponseCallback getTopListener = new ResponseCallback<AliPay>() {
+        ResponseCallback getTopListener = new ResponseCallback<String>() {
             @Override
-            public void onSuccess(AliPay t) {
+            public void onSuccess(String t) {
                 LogUtil.e("onSuccess");
-                String orderinfo = t.getData();
-                LogUtil.e("orderinfo:"+orderinfo);
-                iView.getWxOrderInfoSuccess(t.getData());
+                iView.getWxOrderInfoSuccess(t);
 //                payAli(orderinfo);
             }
 
@@ -140,11 +142,21 @@ public class PayPresenter implements PayContract.Presenter {
                 }
             }
         });
+
+        disposableWx = RxBus2.getInstance().toObservable(WxPayEvent.class, new Consumer<WxPayEvent>() {
+            @Override
+            public void accept(WxPayEvent wxPayEvent) throws Exception {
+                iView.getWxPaySuccess();
+            }
+        });
     }
 
     @Override
     public void closeDisposable() {
-        disposable.dispose();
+        if(disposable!=null && !disposable.isDisposed())
+            disposable.dispose();
+        if(disposableWx !=null && !disposableWx.isDisposed())
+            disposableWx.dispose();
     }
 
 }

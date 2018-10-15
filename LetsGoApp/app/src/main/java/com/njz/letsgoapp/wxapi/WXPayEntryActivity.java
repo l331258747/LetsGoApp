@@ -13,6 +13,9 @@ import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.WxPayEvent;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -106,6 +109,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         if (errCode == 0) {
             layoutSuccess.setVisibility(View.VISIBLE);
             layoutFailed.setVisibility(View.GONE);
+            RxBus2.getInstance().post(new WxPayEvent());
         } else {
 
             if (type == ConstantsAPI.COMMAND_PAY_BY_WX) {
@@ -131,8 +135,10 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_detail:
-//                ActivityCollect.getAppCollect().finishAllNotHome();
-//                startActivity(new Intent(WXPayEntryActivity.this, MyOrderActivity.class));
+                HomeActivity activity = (HomeActivity) ActivityCollect.getAppCollect().findActivity(HomeActivity.class);
+                if(activity!=null){
+                    activity.setTabIndex(2);
+                }
                 break;
 
             case R.id.btn_go:

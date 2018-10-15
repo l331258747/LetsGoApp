@@ -33,6 +33,7 @@ public class OrderModel {
     private int reviewStatus;
     private String location;
     private float orderPrice;
+    private int payingStatus;
     private int id;
     private int payStatus;
     private String guideName;
@@ -40,6 +41,14 @@ public class OrderModel {
     private String name;
     private String guideMobile;
     private List<OrderChildModel> njzChildOrderListVOS;
+
+    public int getPayingStatus() {
+        return payingStatus;
+    }
+
+    public void setPayingStatus(int payingStatus) {
+        this.payingStatus = payingStatus;
+    }
 
     public int getGuideId() {
         return guideId;

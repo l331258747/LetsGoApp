@@ -53,6 +53,9 @@ public class Constant {
     public static final int ORDER_PAY_FINISH = 2;//已完成
     public static final int ORDER_PAY_REFUND = 3;//退款单
 
+    public static final int ORDER_WAIT_PAY = 0;//待付款
+    public static final int ORDER_WAIT_PAYING = 1;//付款中
+
     public static final int ORDER_TRAVEL_WAIT = 0;//导游待确认
     public static final int ORDER_TRAVEL_NO_GO = 1;//未出行
     public static final int ORDER_TRAVEL_GOING = 2;//行程中

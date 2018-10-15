@@ -62,6 +62,15 @@ public class OrderDetailModel {
     private String startData;
     private String endData;
     private List<OrderDetailChildModel> njzChildOrderVOS;
+    private int payingStatus;
+
+    public int getPayingStatus() {
+        return payingStatus;
+    }
+
+    public void setPayingStatus(int payingStatus) {
+        this.payingStatus = payingStatus;
+    }
 
     public int getGuideId() {
         return guideId;

@@ -27,6 +27,15 @@ public class OrderChildModel {
     private String value;
     private int payStatus;
     private int childOrderStatus;
+    private int payingStatus;
+
+    public int getPayingStatus() {
+        return payingStatus;
+    }
+
+    public void setPayingStatus(int payingStatus) {
+        this.payingStatus = payingStatus;
+    }
 
     public int getPayStatus() {
         return payStatus;

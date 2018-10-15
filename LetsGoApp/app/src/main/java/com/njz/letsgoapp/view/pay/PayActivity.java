@@ -90,6 +90,12 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     }
 
     @Override
+    public void getWxPaySuccess() {
+        finish();
+    }
+
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_pay;
     }

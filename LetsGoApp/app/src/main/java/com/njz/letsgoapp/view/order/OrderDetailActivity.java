@@ -291,8 +291,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
                 btn_cancel_order.setVisibility(View.VISIBLE);
                 btn_call_guide.setVisibility(View.VISIBLE);
-                btn_pay.setVisibility(View.VISIBLE);
-
+                if(str.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
+                    btn_pay.setVisibility(View.GONE);
+                }else {
+                    btn_pay.setVisibility(View.VISIBLE);
+                }
                 break;
             case Constant.ORDER_PAY_ALREADY:
                 ll_order_no.setVisibility(View.VISIBLE);
@@ -367,7 +370,9 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         login_view_phone.setContent(str.getMobile());
         et_special.setText(str.getSpecialRequire());
 
-
+        for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
+            model.setPayingStatus(str.getPayingStatus());
+        }
         mAdapter.setData(str.getNjzChildOrderVOS());
 
     }

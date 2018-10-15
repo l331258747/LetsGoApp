@@ -51,6 +51,15 @@ public class OrderDetailChildModel {
     private int payStatus;
     private String value;
     private int useDay;
+    private int payingStatus;
+
+    public int getPayingStatus() {
+        return payingStatus;
+    }
+
+    public void setPayingStatus(int payingStatus) {
+        this.payingStatus = payingStatus;
+    }
 
     public int getDefaultMoney() {
         return defaultMoney;
