@@ -63,6 +63,10 @@ public class DialogUtil {
         return this.getDefaultDialog(context,"提示",content,"确定",null);
     }
 
+    public AlertDialog getDefaultDialog(Context context, String content,final DialogUtil.DialogCallBack callBack) {
+        return this.getDefaultDialog(context,"提示",content,"确定",callBack);
+    }
+
     public interface DialogCallBack {
         void exectEvent(DialogInterface alterDialog);
     }

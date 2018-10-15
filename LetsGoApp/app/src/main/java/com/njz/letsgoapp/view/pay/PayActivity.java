@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.pay;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,9 @@ import com.google.gson.JsonObject;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.order.PayModel;
+import com.njz.letsgoapp.bean.order.Suborders;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.pay.PayContract;
 import com.njz.letsgoapp.mvp.pay.PayPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
@@ -77,6 +80,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     @Override
     public void getAliPaySuccess() {
+        finish();
         startActivity(new Intent(PayActivity.this,PaySuccessActivity.class));
     }
 
@@ -111,7 +115,17 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
         initWXPay();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        //"您确定要放弃支付吗?"
+        DialogUtil.getInstance().getDefaultDialog(context, "您确定要放弃支付吗?", new DialogUtil.DialogCallBack() {
+            @Override
+            public void exectEvent(DialogInterface alterDialog) {
+                alterDialog.dismiss();
+                finish();
+            }
+        }).show();
+    }
 
     @Override
     public void initData() {
