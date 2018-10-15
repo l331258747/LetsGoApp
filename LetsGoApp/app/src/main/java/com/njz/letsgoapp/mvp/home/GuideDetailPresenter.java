@@ -40,7 +40,7 @@ public class GuideDetailPresenter implements GuideDetailContract.Presenter {
                 iView.bannerFindByTypeFailed(errorMsg);
             }
         };
-        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener));
+        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener,context,false));
     }
 
     @Override

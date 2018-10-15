@@ -56,6 +56,6 @@ public class MyInfoPresenter implements MyInfoContract.Presenter {
                 iView.upUploadFailed(errorMsg);
             }
         };
-        MethodApi.upUpload(file, new OnSuccessAndFaultSub(listener));
+        MethodApi.upUpload(file, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

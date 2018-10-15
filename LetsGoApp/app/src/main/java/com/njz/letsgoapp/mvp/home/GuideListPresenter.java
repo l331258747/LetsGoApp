@@ -39,6 +39,6 @@ public class GuideListPresenter implements GuideListContract.Presenter {
                 iView.guideSortTop10ByLocationFailed(errorMsg);
             }
         };
-        MethodApi.guideSortTop10ByLocation(location, type, limit, page, maps,new OnSuccessAndFaultSub(listener));
+        MethodApi.guideSortTop10ByLocation(location, type, limit, page, maps,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

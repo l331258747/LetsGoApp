@@ -46,6 +46,6 @@ public class FollowPresenter implements Presenter {
                 iView.userFocusOffFailed(errorMsg);
             }
         };
-        MethodApi.userFocusOff(isNick,focusId,new OnSuccessAndFaultSub(listener));
+        MethodApi.userFocusOff(isNick,focusId,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

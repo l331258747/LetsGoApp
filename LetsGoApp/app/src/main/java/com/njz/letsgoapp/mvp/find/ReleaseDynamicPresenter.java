@@ -39,6 +39,6 @@ public class ReleaseDynamicPresenter implements ReleaseDynamicContract.Presenter
                 iView.sendSterFailed(errorMsg);
             }
         };
-        MethodApi.sendSter(location,lon,lat,content, files, new OnSuccessAndFaultSub(listener));
+        MethodApi.sendSter(location,lon,lat,content, files, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

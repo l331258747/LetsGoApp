@@ -43,6 +43,6 @@ public class GuideEvaluateListPresenter implements GuideEvaluateListContract.Pre
                 iView.orderReviewsFindGuideReviewsFailed(errorMsg);
             }
         };
-        MethodApi.orderReviewsFindGuideReviews(guideId, limit, page, new OnSuccessAndFaultSub(listener));
+        MethodApi.orderReviewsFindGuideReviews(guideId, limit, page, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

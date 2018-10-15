@@ -1,11 +1,15 @@
 package com.njz.letsgoapp.util.http;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 
 import com.njz.letsgoapp.bean.BaseResponse;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
+import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -39,25 +43,22 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
     private LoadingDialog progressDialog;
 
     /**
-     * 无对话框
-     * @param mResponseCallback 成功回调监听
-     */
-    public OnSuccessAndFaultSub(ResponseCallback mResponseCallback) {
-        this.mResponseCallback = mResponseCallback;
-        showProgress = false;
-    }
-
-    /**
      * 有对话框
      * @param mResponseCallback 成功回调监听
      * @param context                    上下文
      */
     public OnSuccessAndFaultSub(ResponseCallback mResponseCallback, Context context) {
+        this(mResponseCallback,context,true);
+    }
+
+    public OnSuccessAndFaultSub(ResponseCallback mResponseCallback, Context context, boolean showDialog) {
         this.mResponseCallback = mResponseCallback;
         this.context = context;
-        showProgress = true;
-        progressDialog = new LoadingDialog(context);
-        progressDialog.setCancelable(false);
+        showProgress = showDialog;
+        if(showProgress){
+            progressDialog = new LoadingDialog(context);
+            progressDialog.setCancelable(false);
+        }
     }
 
     private void showProgressDialog() {
@@ -96,12 +97,20 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
         LogUtil.e("msg:"+t.getMsg());
         LogUtil.e("data:"+t.getData());
 
-
         if(t.getCode()==0){
 //            mResponseCallback.onSuccess(t.getData());
             mResponseCallback.onSuccess(t.getData());
         }else{
             mResponseCallback.onFault(t.getMsg());
+
+            if(t.getCode() == 401){
+                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登陆", new DialogUtil.DialogCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog) {
+                        context.startActivity(new Intent(context, LoginActivity.class));
+                    }
+                }).show();
+            }
         }
     }
 

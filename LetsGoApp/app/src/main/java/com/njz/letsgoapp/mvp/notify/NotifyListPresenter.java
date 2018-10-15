@@ -37,6 +37,6 @@ public class NotifyListPresenter implements NotifyListContract.Presenter {
                 iView.msgPushGetReceiveMsgListFailed(errorMsg);
             }
         };
-        MethodApi.msgPushGetReceiveMsgList(type,limit,page,new OnSuccessAndFaultSub(listener));
+        MethodApi.msgPushGetReceiveMsgList(type,limit,page,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

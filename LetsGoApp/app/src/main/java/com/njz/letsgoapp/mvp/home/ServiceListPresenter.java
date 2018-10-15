@@ -40,6 +40,6 @@ public class ServiceListPresenter implements ServiceListContract.Presenter {
                 iView.getServiceListFailed(errorMsg);
             }
         };
-        MethodApi.getServiceList(guideId, serveType,location, new OnSuccessAndFaultSub(listener));
+        MethodApi.getServiceList(guideId, serveType,location, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

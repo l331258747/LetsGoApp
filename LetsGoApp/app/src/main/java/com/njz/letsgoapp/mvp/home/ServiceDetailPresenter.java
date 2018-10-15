@@ -56,7 +56,7 @@ public class ServiceDetailPresenter implements ServiceDetailContract.Presenter {
                 iView.bannerFindByTypeFailed(errorMsg);
             }
         };
-        MethodApi.bannerFindByType(type, id, new OnSuccessAndFaultSub(listener));
+        MethodApi.bannerFindByType(type, id, new OnSuccessAndFaultSub(listener,context,false));
 
     }
 }

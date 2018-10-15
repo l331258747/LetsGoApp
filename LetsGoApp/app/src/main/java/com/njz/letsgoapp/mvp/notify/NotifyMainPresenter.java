@@ -40,6 +40,6 @@ public class NotifyMainPresenter implements NotifyMainContract.Presenter {
                 iView.msgPushGetSendMsgListFailed(errorMsg);
             }
         };
-        MethodApi.msgPushReceiveKindList(new OnSuccessAndFaultSub(listener));
+        MethodApi.msgPushReceiveKindList(new OnSuccessAndFaultSub(listener,context,false));
     }
 }

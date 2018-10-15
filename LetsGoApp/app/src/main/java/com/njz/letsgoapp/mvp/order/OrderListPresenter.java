@@ -39,6 +39,6 @@ public class OrderListPresenter implements OrderListContract.Presenter {
                 iView.orderQueryOrderListFailed(errorMsg);
             }
         };
-        MethodApi.orderQueryOrderList(payStatus,limit,page ,new OnSuccessAndFaultSub(listener));
+        MethodApi.orderQueryOrderList(payStatus,limit,page ,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

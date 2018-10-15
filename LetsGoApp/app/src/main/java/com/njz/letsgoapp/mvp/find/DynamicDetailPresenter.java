@@ -54,6 +54,6 @@ public class DynamicDetailPresenter implements DynamicDetailContract.Presenter {
                 iView.friendDiscussFailed(errorMsg);
             }
         };
-        MethodApi.friendDiscuss(friendSterId,discussUserId,discussContent,toUserId,new OnSuccessAndFaultSub(listener));
+        MethodApi.friendDiscuss(friendSterId,discussUserId,discussContent,toUserId,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

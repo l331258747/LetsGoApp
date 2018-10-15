@@ -39,6 +39,6 @@ public class MyCommentPresenter implements MyCommentContract.Presenter {
                 iView.friendMyDiscussFailed(errorMsg);
             }
         };
-        MethodApi.friendMyDiscuss(type,new OnSuccessAndFaultSub(listener));
+        MethodApi.friendMyDiscuss(type,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

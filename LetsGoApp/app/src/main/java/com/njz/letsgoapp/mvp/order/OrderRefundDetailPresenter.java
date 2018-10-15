@@ -39,6 +39,6 @@ public class OrderRefundDetailPresenter implements OrderRefundDetailContract.Pre
                 iView.orderRefundQueryOrderRefundDetailsFailed(errorMsg);
             }
         };
-        MethodApi.orderRefundQueryOrderRefundDetails(refundId, new OnSuccessAndFaultSub(listener));
+        MethodApi.orderRefundQueryOrderRefundDetails(refundId, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

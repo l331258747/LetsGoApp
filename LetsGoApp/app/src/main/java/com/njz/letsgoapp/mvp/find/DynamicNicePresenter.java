@@ -44,6 +44,6 @@ public class DynamicNicePresenter implements DynamicNiceContract.Presenter {
                 iView.friendQueryLikesFailed(errorMsg);
             }
         };
-        MethodApi.friendQueryLikes(isNice,friendSterId,new OnSuccessAndFaultSub(listener));
+        MethodApi.friendQueryLikes(isNice,friendSterId,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

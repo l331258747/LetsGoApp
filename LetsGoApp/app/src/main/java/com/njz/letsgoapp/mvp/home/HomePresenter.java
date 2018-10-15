@@ -44,7 +44,7 @@ public class HomePresenter implements Presenter {
                 iView.bannerFindByTypeFailed(errorMsg);
             }
         };
-        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener));
+        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener,context,false));
     }
 
     @Override
@@ -60,7 +60,7 @@ public class HomePresenter implements Presenter {
                 iView.orderReviewsSortTopFailed(errorMsg);
             }
         };
-        MethodApi.orderReviewsSortTop(location, new OnSuccessAndFaultSub(listener));
+        MethodApi.orderReviewsSortTop(location, new OnSuccessAndFaultSub(listener,context,false));
     }
 
     @Override
@@ -76,6 +76,6 @@ public class HomePresenter implements Presenter {
                 iView.friendFriendSterTopFailed(errorMsg);
             }
         };
-        MethodApi.friendFindAll(location,limit,page, new OnSuccessAndFaultSub(listener));
+        MethodApi.friendFindAll(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

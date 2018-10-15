@@ -40,7 +40,7 @@ public class FindPresenter implements FindContract.Presenter {
                 iView.friendFindAllFailed(errorMsg);
             }
         };
-        MethodApi.friendFindAll(location,limit,page,str, new OnSuccessAndFaultSub(listener));
+        MethodApi.friendFindAll(location,limit,page,str, new OnSuccessAndFaultSub(listener,context,false));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class FindPresenter implements FindContract.Presenter {
                 iView.friendFriendSterFailed(errorMsg);
             }
         };
-        MethodApi.friendFriendSter(limit,page, new OnSuccessAndFaultSub(listener));
+        MethodApi.friendFriendSter(limit,page, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

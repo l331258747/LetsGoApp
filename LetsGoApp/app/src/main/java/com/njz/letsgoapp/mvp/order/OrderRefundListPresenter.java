@@ -40,6 +40,6 @@ public class OrderRefundListPresenter implements OrderRefundListContract.Present
                 iView.orderRefundQueryOrderRefundListFailed(errorMsg);
             }
         };
-        MethodApi.orderRefundQueryOrderRefundList(limit,page,new OnSuccessAndFaultSub(listener));
+        MethodApi.orderRefundQueryOrderRefundList(limit,page,new OnSuccessAndFaultSub(listener,context,false));
     }
 }
