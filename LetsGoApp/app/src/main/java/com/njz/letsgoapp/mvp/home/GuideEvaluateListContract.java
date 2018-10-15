@@ -15,7 +15,7 @@ import com.njz.letsgoapp.bean.home.GuideDetailModel;
 public interface GuideEvaluateListContract {
 
     interface Presenter {
-        void orderReviewsFindGuideReviews(int guideId, int limit, int page);
+        void orderReviewsFindGuideReviews(int guideId,String value, int limit, int page);
     }
 
     interface View {

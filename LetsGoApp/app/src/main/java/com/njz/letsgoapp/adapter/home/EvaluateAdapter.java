@@ -114,6 +114,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
 
     public void setData(List<EvaluateModel2> datas) {
         this.datas = datas;
+        opened = -1;
         notifyDataSetChanged();
     }
 

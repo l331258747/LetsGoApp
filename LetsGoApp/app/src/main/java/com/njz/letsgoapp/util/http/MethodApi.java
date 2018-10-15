@@ -289,8 +289,8 @@ public class MethodApi {
     }
 
     //orderReviewsFindGuideReviews 导游评价列表
-    public static void orderReviewsFindGuideReviews(int guideId, int limit, int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsFindGuideReviews(guideId, limit, page);
+    public static void orderReviewsFindGuideReviews(int guideId,String value, int limit, int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsFindGuideReviews(guideId, value,limit, page);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

@@ -54,6 +54,8 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
     private int isLoadType = 1;//1下拉刷新，2上拉加载
     private boolean isLoad = false;//是否在加载，重复加载问题
 
+    private String value = "";
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -104,7 +106,7 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
         mAdapter.setOnItemClickListener(new EvaluateAdapter.OnItemClickListener() {
             @Override
             public void onReplyClick(int... positions) {
-                for (int position:positions){
+                for (int position : positions) {
                     loadMoreWrapper.notifyItemChanged(position);
                 }
             }
@@ -139,7 +141,13 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                Toast.makeText(activity, mVals[position], Toast.LENGTH_SHORT).show();
+                value = position == 0 ? ""
+                        : position == 1 ? Constant.SERVICE_TYPE_SHORT_GUIDE
+                        : position == 2 ? Constant.SERVICE_TYPE_SHORT_CUSTOM
+                        : position == 3 ? Constant.SERVICE_TYPE_SHORT_CAR
+                        : position == 4 ? Constant.SERVICE_TYPE_SHORT_HOTEL
+                        : position == 5 ? Constant.SERVICE_TYPE_SHORT_TICKET
+                        : "";
                 getRefreshData();
                 return true;
             }
@@ -153,21 +161,20 @@ public class EvaluateListActivity extends BaseActivity implements GuideEvaluateL
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.orderReviewsFindGuideReviews(guideId, Constant.DEFAULT_LIMIT,Constant.DEFAULT_PAGE);
+        mPresenter.orderReviewsFindGuideReviews(guideId, value, Constant.DEFAULT_LIMIT, page);
     }
 
     private void getMoreData() {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
-        mPresenter.orderReviewsFindGuideReviews(guideId, Constant.DEFAULT_LIMIT,page);
+        mPresenter.orderReviewsFindGuideReviews(guideId, value, Constant.DEFAULT_LIMIT, page);
     }
 
 
     @Override
     public void orderReviewsFindGuideReviewsSuccess(BasePageModel<EvaluateModel2> model) {
         List<EvaluateModel2> datas = model.getList();
-
 
 
         if (isLoadType == 1) {
