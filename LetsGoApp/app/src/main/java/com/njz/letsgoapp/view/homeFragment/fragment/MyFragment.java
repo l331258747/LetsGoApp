@@ -134,6 +134,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(context, MyCommentActivity.class));
                 break;
             case R.id.mine_customer:
+                if(!isLogin()) return;
                 DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
             case R.id.mine_setting:

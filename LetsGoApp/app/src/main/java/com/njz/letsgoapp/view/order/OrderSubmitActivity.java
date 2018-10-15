@@ -25,6 +25,7 @@ import com.njz.letsgoapp.mvp.order.OrderCreatePresenter;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemTextView;
 import com.njz.letsgoapp.widget.FixedItemEditView;
