@@ -59,7 +59,33 @@ public class EvaluateModel2 {
     private String userContent;
     private String imgUrl;
     private String level;
+    private String guideContent;
     private String imageUrls;
+    private String guideDate;
+    private List<EvaluateServicesModel> services;
+
+    public List<EvaluateServicesModel> getServices() {
+        return services;
+    }
+
+    public String getServicesStr(){
+        if(services == null || services.size() == 0)
+            return "";
+
+        StringBuffer sb = new StringBuffer();
+        for (EvaluateServicesModel data:services){
+            sb.append(data.getTitle()+"\n");
+        }
+        return sb.substring(0,sb.length() - 1);
+    }
+
+    public String getGuideDate() {
+        return guideDate;
+    }
+
+    public String getGuideContent() {
+        return guideContent;
+    }
 
     public List<String> getImageUrls() {
         if(TextUtils.isEmpty(imageUrls)){

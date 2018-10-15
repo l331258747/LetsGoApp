@@ -202,6 +202,6 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void orderCreateOrderFailed(String msg) {
-
+        showShortToast(msg);
     }
 }

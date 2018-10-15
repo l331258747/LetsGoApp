@@ -3,6 +3,7 @@ package com.njz.letsgoapp.adapter.home;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,12 +59,21 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         holder.commont_time.setText(data.getUserDate());
         holder.commont_score.setText(data.getScore());
         holder.tv_comment_content.setText(data.getUserContent());
-        holder.tv_order.setText("天门山一日游\n包车旅行\n导游陪游景点翻游\n天门山假日酒店");
-        holder.reply_time.setText("回复回复回复回复回复回复回复回复回复回复回复回复回复回复回复回复");
-        holder.reply_content.setText("2018-09-14");
 
-//        holder.rl_reply.setVisibility(View.VISIBLE);
-//        holder.tv_click.setVisibility(View.VISIBLE);
+        if(TextUtils.isEmpty(data.getGuideContent())){
+            holder.rl_reply.setVisibility(View.GONE);
+        }else{
+            holder.rl_reply.setVisibility(View.VISIBLE);
+            holder.reply_time.setText(data.getGuideDate());
+            holder.reply_content.setText(data.getGuideContent());
+        }
+
+        if(TextUtils.isEmpty(data.getServicesStr())){
+            holder.tv_click.setVisibility(View.GONE);
+        }else{
+            holder.tv_click.setVisibility(View.VISIBLE);
+            holder.tv_order.setText(data.getServicesStr());
+        }
 
         holder.tv_comment_guide.setVisibility(View.GONE);
         holder.tv_comment_trip.setVisibility(View.GONE);
