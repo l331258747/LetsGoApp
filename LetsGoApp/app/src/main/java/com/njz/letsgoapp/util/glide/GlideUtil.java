@@ -45,14 +45,14 @@ public class GlideUtil {
     public static void LoadImage(Context mContext, String path,
                                  ImageView imageview) {
         if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.head_default).error(R.mipmap.head_default)
+        Glide.with(mContext).load(path).centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
 
     public static void LoadImageFitCenter(Context mContext, String path,
                                  ImageView imageview) {
         if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).fitCenter().placeholder(R.mipmap.head_default).error(R.mipmap.head_default)
+        Glide.with(mContext).load(path).fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
 
