@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.EvaluateServicesModel;
 import com.njz.letsgoapp.bean.order.AliPay;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -84,6 +85,10 @@ public class PayPresenter implements PayContract.Presenter {
 
     @Override
     public void getAliPay(final String orderInfo) {
+        if(TextUtils.isEmpty(orderInfo)) {
+            ToastUtil.showShortToast(activity,"orderInfo 为空");
+            return;
+        }
         Runnable payRunnable = new Runnable() {
             @Override
             public void run() {
@@ -102,6 +107,10 @@ public class PayPresenter implements PayContract.Presenter {
 
     @Override
     public void getWxPay(String orderInfo,IWXAPI api) {
+        if(TextUtils.isEmpty(orderInfo)){
+            ToastUtil.showShortToast(activity,"orderInfo 为空");
+            return;
+        }
         Gson gson = new Gson();
         PayResultModel data = gson.fromJson(orderInfo, PayResultModel.class);
 

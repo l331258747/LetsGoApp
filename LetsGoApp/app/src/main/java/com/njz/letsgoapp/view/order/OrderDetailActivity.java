@@ -371,7 +371,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         fixed_view_city.setContent(str.getLocation());
         login_view_name.setContent(str.getName());
         login_view_phone.setContent(str.getMobile());
-        et_special.setText(str.getSpecialRequire());
+        et_special.setText(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
             model.setPayingStatus(str.getPayingStatus());

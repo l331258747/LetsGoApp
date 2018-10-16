@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.order;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -132,7 +133,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         fixed_view_city.setContent(str.getLocation());
         login_view_name.setContent(str.getName());
         login_view_phone.setContent(str.getMobile());
-        et_special.setText(str.getSpecialRequire());
+        et_special.setText(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         tv_refund_penalty.setText(str.getDefaultMoney() + "");
         tv_refund_price.setText(str.getRefundMoney() + "");
