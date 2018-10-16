@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndLessScrollOnScrollListener;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.DynamicAdapter;
@@ -67,8 +68,12 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private NestedScrollView scrollView;
 
     private int userId;
-    List<DynamicModel> datas;
     LoginInfoModel data;
+
+    public LoadMoreWrapper loadMoreWrapper;
+    int page = Constant.DEFAULT_PAGE;
+    int isLoadType = 1;//1下拉刷新，2上拉加载
+    boolean isLoad = false;//是否在加载，重复加载问题
 
     @Override
     public void getIntentData() {
@@ -102,8 +107,25 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     @Override
     protected void onResume() {
         super.onResume();
+        getRefreshData();
+    }
 
-        mPresenter.friendPersonalFriendSter(userId, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE);
+    public void getRefreshData() {
+        isLoad = true;
+        page = Constant.DEFAULT_PAGE;
+        isLoadType = 1;
+        getList();
+    }
+
+    public void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
+        getList();
+    }
+
+    public void getList(){
+        mPresenter.friendPersonalFriendSter(userId, Constant.DEFAULT_LIMIT, page);
     }
 
     @Override
@@ -126,7 +148,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),1);
-        recyclerView.setAdapter(mAdapter);
+        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
         recyclerView.setNestedScrollingEnabled(false);
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
@@ -134,13 +157,13 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,datas.get(position).getFriendSterId());
+                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,mAdapter.getItem(position).getFriendSterId());
                 startActivity(intent);
             }
 
             @Override
             public void onNiceClick(int position) {
-                nicePresenter.friendQueryLikes(datas.get(position).isLike(),datas.get(position).getFriendSterId());
+                nicePresenter.friendQueryLikes(mAdapter.getItem(position).isLike(),mAdapter.getItem(position).getFriendSterId());
                 nicePosition = position;
             }
 
@@ -152,23 +175,12 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             }
         });
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        scrollView.setOnScrollChangeListener(new EndLessScrollOnScrollListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY) {
-                    LogUtil.e("Scroll DOWN");
-                }
-                if (scrollY < oldScrollY) {
-                    LogUtil.e("Scroll UP");
-                }
-
-                if (scrollY == 0) {
-                    LogUtil.e("TOP SCROLL");
-                }
-
-                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
-                    LogUtil.e("BOTTOM SCROLL");
-                }
+            public void onLoadMore() {
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                getMoreData();
             }
         });
 
@@ -220,14 +232,28 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
     @Override
     public void friendPersonalFriendSterSuccess(DynamicListModel model) {
-        datas = model.getList();
-        mAdapter.setData(model.getList());
-        mAdapter.notifyDataSetChanged();
+        List<DynamicModel> datas = model.getList();
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
+
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
     }
 
     @Override
     public void friendPersonalFriendSterFailed(String msg) {
         showShortToast(msg);
+        isLoad = false;
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 
     @Override
@@ -252,13 +278,15 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
     @Override
     public void friendQueryLikesSuccess(EmptyModel models) {
-        datas.get(nicePosition).setLike(!datas.get(nicePosition).isLike());
-        if(datas.get(nicePosition).isLike()){
-            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() + 1);
+        mAdapter.getItem(nicePosition).setLike(!mAdapter.getItem(nicePosition).isLike());
+        if(mAdapter.getItem(nicePosition).isLike()){
+            mAdapter.getItem(nicePosition).setLikeCount(mAdapter.getItem(nicePosition).getLikeCount() + 1);
         }else{
-            datas.get(nicePosition).setLikeCount(datas.get(nicePosition).getLikeCount() - 1);
+            mAdapter.getItem(nicePosition).setLikeCount(mAdapter.getItem(nicePosition).getLikeCount() - 1);
         }
         mAdapter.setItemData(nicePosition);
+
+        loadMoreWrapper.notifyItemChanged(nicePosition + 1);
     }
 
     @Override

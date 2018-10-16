@@ -135,6 +135,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_detail:
+                ActivityCollect.getAppCollect().finishAllNotHome();
                 HomeActivity activity = (HomeActivity) ActivityCollect.getAppCollect().findActivity(HomeActivity.class);
                 if(activity!=null){
                     activity.setTabIndex(2);
@@ -143,7 +144,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
             case R.id.btn_go:
                 ActivityCollect.getAppCollect().finishAllNotHome();
-
                 break;
 
             case R.id.btn_repay:
