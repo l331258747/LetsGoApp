@@ -137,7 +137,7 @@ public class OrderRefundBeanGroup {
             case Constant.ORDER_PAY_REFUND:
                 switch (refundStatus){
                     case Constant.ORDER_REFUND_WAIT:
-                        return "导游待确认";
+                        return "导游待审核";
                     case Constant.ORDER_REFUND_PROCESS:
                         return "退款中";
                     case Constant.ORDER_REFUND_FINISH:
