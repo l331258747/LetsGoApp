@@ -150,7 +150,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         stv_tag = contentView.findViewById(R.id.stv_tag);
         tv_name = contentView.findViewById(R.id.tv_name);
 
-        GlideUtil.LoadCircleImage(mContext, guideDetailModel.getImage(), iv_head);
+        GlideUtil.LoadCircleImage(mContext, guideDetailModel.getGuideImg(), iv_head);
         tv_name.setText(guideDetailModel.getGuideName());
         my_rating_bar.setRating((int) guideDetailModel.getGuideScore());
         stv_tag.setServiceTag(guideDetailModel.getServiceTag());

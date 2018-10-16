@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.find;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.dialog.DialogUtil;
+import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.find.DynamicDeleteContract;
 import com.njz.letsgoapp.mvp.find.DynamicDeletePresenter;
 import com.njz.letsgoapp.mvp.find.DynamicDetailContract;
@@ -42,7 +44,7 @@ import java.util.List;
  * Function:
  */
 
-public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View,DynamicDeleteContract.View {
+public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View,DynamicDeleteContract.View, View.OnClickListener {
 
     public static final String FRIENDSTERID ="FRIENDSTERID";
 
@@ -84,6 +86,9 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     public void initView() {
 
         showLeftAndTitle("动态详情");
+        showRightIv();
+        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
+        getRightIv().setOnClickListener(this);
 
         ivImg = $(R.id.iv_img);
         tvName = $(R.id.tv_name);
@@ -289,5 +294,21 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     @Override
     public void friendDeleteFriendSterFailed(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.right_iv:
+                if(model == null) return;
+                ShareDialog dialog = new ShareDialog(activity,
+                        model.getNickname(),
+                        model.getContent(),
+                        "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
+                        "https://www.ifanr.com/1084256");
+                dialog.show();
+                break;
+        }
+
     }
 }
