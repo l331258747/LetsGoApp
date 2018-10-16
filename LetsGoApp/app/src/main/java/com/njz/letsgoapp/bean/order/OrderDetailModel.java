@@ -251,7 +251,14 @@ public class OrderDetailModel {
     public String getPayStatusStr() {
         switch (payStatus) {
             case Constant.ORDER_PAY_WAIT:
-                return "待付款";
+                switch (payingStatus){
+                    case Constant.ORDER_WAIT_PAY:
+                        return "待付款";
+                    case Constant.ORDER_WAIT_PAYING:
+                        return "付款中";
+                    default:
+                        return "";
+                }
             case Constant.ORDER_PAY_ALREADY:
                 switch (orderStatus) {
                     case Constant.ORDER_TRAVEL_WAIT:

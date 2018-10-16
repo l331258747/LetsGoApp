@@ -2,10 +2,13 @@ package com.njz.letsgoapp.view.mine;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,6 +36,7 @@ import com.njz.letsgoapp.mvp.mine.SpacePresenter;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
@@ -59,6 +63,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private SpacePresenter mPresenter;
     private FollowPresenter followPresenter;
     private DynamicNicePresenter nicePresenter;
+
+    private NestedScrollView scrollView;
 
     private int userId;
     List<DynamicModel> datas;
@@ -88,6 +94,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         flowLayout = $(R.id.flow_layout);
         tvFollow = $(R.id.tv_follow);
         tvName = $(R.id.tv_name);
+        scrollView = $(R.id.scrollView);
         tvFollow.setOnClickListener(this);
         initRecycler();
     }
@@ -142,6 +149,26 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
                 Intent intent = new Intent(context, SpaceActivity.class);
                 intent.putExtra(SpaceActivity.USER_ID, mAdapter.getItem(position).getUserId());
                 startActivity(intent);
+            }
+        });
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    LogUtil.e("Scroll DOWN");
+                }
+                if (scrollY < oldScrollY) {
+                    LogUtil.e("Scroll UP");
+                }
+
+                if (scrollY == 0) {
+                    LogUtil.e("TOP SCROLL");
+                }
+
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                    LogUtil.e("BOTTOM SCROLL");
+                }
             }
         });
 
