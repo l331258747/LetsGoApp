@@ -186,6 +186,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 intent.putIntegerArrayListExtra("childIds", (ArrayList<Integer>) childIds);
                 intent.putExtra("name",mAdapter.getItem(index).getName());
                 intent.putExtra("phone",mAdapter.getItem(index).getMobile());
+                intent.putExtra("guideMobile",mAdapter.getItem(index).getGuideMobile());
                 intent.putExtra("status",status);
                 context.startActivity(intent);
             }

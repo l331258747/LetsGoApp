@@ -300,7 +300,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.btn_call:
-                DialogUtil.getInstance().showGuideMobileDialog(context,"123456");
+                DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile());
                 break;
             case R.id.btn_submit:
                 showPopService();

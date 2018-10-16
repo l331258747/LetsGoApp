@@ -102,6 +102,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 serviceInfoGroup3.setOrderNo(orderModel.getOrderNo());
                 serviceInfoGroup3.setLocation(orderModel.getLocation());
                 serviceInfoGroup3.setRefundMoney(orderModel.getRefundMoney());
+                serviceInfoGroup3.setGuideMobile(orderModel.getGuideMobile());
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -199,7 +200,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().showGuideMobileDialog(mContext,"123456");
+                    DialogUtil.getInstance().showGuideMobileDialog(mContext,data.getGuideMobile());
                 }
             });
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {

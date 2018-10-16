@@ -53,8 +53,13 @@ public class OrderRefundModel {
     private String location;
     private String applyTime;
     private String guideName;
+    private String guideMobile;
     private List<OrderRefundChildModel> njzChildOrderToRefundVOS;
     private int id;
+
+    public String getGuideMobile() {
+        return guideMobile;
+    }
 
     public int getId() {
         return id;

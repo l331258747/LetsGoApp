@@ -220,6 +220,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.putIntegerArrayListExtra("childIds", (ArrayList<Integer>) childIds);
                 intent.putExtra("name",model.getName());
                 intent.putExtra("phone",model.getMobile());
+                intent.putExtra("guideMobile",model.getGuideMobile());
                 intent.putExtra("status",status);
                 context.startActivity(intent);
             }
@@ -260,6 +261,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("name",model.getName());
                 intent.putExtra("phone",model.getMobile());
                 intent.putExtra("status",model.getOrderStatus());
+                intent.putExtra("guideMobile",model.getGuideMobile());
                 context.startActivity(intent);
                 break;
             case R.id.btn_delete:

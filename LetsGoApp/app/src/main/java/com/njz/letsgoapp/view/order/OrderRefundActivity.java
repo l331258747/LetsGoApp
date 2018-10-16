@@ -59,6 +59,8 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     String name;
     int status;
 
+    String guideMobile;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -68,6 +70,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
             childIds = new ArrayList<>();
         phone = intent.getStringExtra("phone");
         name = intent.getStringExtra("name");
+        guideMobile = intent.getStringExtra("guideMobile");
         status = intent.getIntExtra("status",0);
     }
 
@@ -168,7 +171,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
                 DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
             case R.id.ll_call_guide:
-                DialogUtil.getInstance().showGuideMobileDialog(context,"123456");
+                DialogUtil.getInstance().showGuideMobileDialog(context,guideMobile);
                 break;
             case R.id.tv_submit:
             case R.id.tv_submit2:

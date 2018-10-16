@@ -337,6 +337,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     intent.putExtra("name", data.getUserName());
                     intent.putExtra("phone", data.getUserMobile());
                     intent.putExtra("status", data.getOrderStatus());
+                    intent.putExtra("guideMobile", data.getGuideMobile());
                     mContext.startActivity(intent);
                 }
             });

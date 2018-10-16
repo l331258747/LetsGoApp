@@ -27,7 +27,16 @@ public class OrderRefundBeanGroup {
     private int id;
     private int payStatus;
     private String guideName;
+    private String guideMobile;
     private OrderRefundChildModel orderChildModel;
+
+    public String getGuideMobile() {
+        return guideMobile;
+    }
+
+    public void setGuideMobile(String guideMobile) {
+        this.guideMobile = guideMobile;
+    }
 
     public float getRefundMoney() {
         return refundMoney;
