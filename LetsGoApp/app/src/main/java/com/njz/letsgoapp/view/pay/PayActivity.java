@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.order.Suborders;
 import com.njz.letsgoapp.constant.Constant;
@@ -79,19 +80,38 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     }
 
     @Override
+    public void orderPayAppQuerySuccess(String model) {
+        LogUtil.e("orderPayAppQuerySuccess");
+    }
+
+    @Override
+    public void orderPayAppQueryFailed(String msg) {
+        LogUtil.e("orderPayAppQueryFailed");
+        showShortToast(msg);
+    }
+
+    @Override
     public void getAliPaySuccess() {
         finish();
         startActivity(new Intent(PayActivity.this,PaySuccessActivity.class));
+        mPresenter.orderPayAppQuery(payModel.getOutTradeNo(),"AliPay");
     }
 
     @Override
     public void getAliPayFailed() {
         startActivity(new Intent(PayActivity.this,PayFaileActivity.class));
+        mPresenter.orderPayAppQuery(payModel.getOutTradeNo(),"AliPay");
     }
 
     @Override
     public void getWxPaySuccess() {
         finish();
+        mPresenter.orderPayAppQuery(payModel.getOutTradeNo(),"WxPay");
+    }
+
+    @Override
+    public void getWxPayFailed() {
+        mPresenter.orderPayAppQuery(payModel.getOutTradeNo(),"WxPay");
     }
 
 

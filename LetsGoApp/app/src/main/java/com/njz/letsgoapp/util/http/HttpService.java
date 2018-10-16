@@ -364,6 +364,13 @@ public interface HttpService {
 
     );
 
+    //orderPay/appQuery 支付查询
+    @GET("orderPay/appQuery")
+    Observable<BaseResponse<String>> orderPayAppQuery(
+            @Query("outTradeNo") String outTradeNo,
+            @Query("type") String type
+    );
+
 
     //order/queryOrderList 订单列表
     @GET("order/queryOrderList")

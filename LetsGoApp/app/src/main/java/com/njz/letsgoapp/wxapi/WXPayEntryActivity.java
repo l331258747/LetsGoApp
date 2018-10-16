@@ -109,7 +109,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         if (errCode == 0) {
             layoutSuccess.setVisibility(View.VISIBLE);
             layoutFailed.setVisibility(View.GONE);
-            RxBus2.getInstance().post(new WxPayEvent());
+            RxBus2.getInstance().post(new WxPayEvent(true));
         } else {
 
             if (type == ConstantsAPI.COMMAND_PAY_BY_WX) {
@@ -127,7 +127,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
             layoutSuccess.setVisibility(View.GONE);
             layoutFailed.setVisibility(View.VISIBLE);
-
+            RxBus2.getInstance().post(new WxPayEvent(false));
         }
     }
 

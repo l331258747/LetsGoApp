@@ -2,6 +2,7 @@ package com.njz.letsgoapp.mvp.pay;
 
 import android.widget.TextView;
 
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 
 /**
@@ -25,6 +26,8 @@ public interface PayContract {
 
         void closeDisposable();
 
+        void orderPayAppQuery(String outTradeNo,String type);
+
     }
 
     interface View {
@@ -36,11 +39,17 @@ public interface PayContract {
 
         void getWxOrderInfoFailed(String msg);
 
+        void orderPayAppQuerySuccess(String model);
+
+        void orderPayAppQueryFailed(String msg);
+
         void getAliPaySuccess();
 
         void getAliPayFailed();
 
         void getWxPaySuccess();
+
+        void getWxPayFailed();
     }
 
 }

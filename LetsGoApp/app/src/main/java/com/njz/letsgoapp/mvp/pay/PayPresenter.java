@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.EvaluateServicesModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.util.http.MethodApi;
@@ -69,7 +70,6 @@ public class PayPresenter implements PayContract.Presenter {
             public void onSuccess(String t) {
                 LogUtil.e("onSuccess");
                 iView.getWxOrderInfoSuccess(t);
-//                payAli(orderinfo);
             }
 
             @Override
@@ -146,7 +146,10 @@ public class PayPresenter implements PayContract.Presenter {
         disposableWx = RxBus2.getInstance().toObservable(WxPayEvent.class, new Consumer<WxPayEvent>() {
             @Override
             public void accept(WxPayEvent wxPayEvent) throws Exception {
-                iView.getWxPaySuccess();
+                if(wxPayEvent.isSuccess())
+                    iView.getWxPaySuccess();
+                else
+                    iView.getWxPayFailed();
             }
         });
     }
@@ -157,6 +160,22 @@ public class PayPresenter implements PayContract.Presenter {
             disposable.dispose();
         if(disposableWx !=null && !disposableWx.isDisposed())
             disposableWx.dispose();
+    }
+
+    @Override
+    public void orderPayAppQuery(String outTradeNo,String type) {
+        ResponseCallback getTopListener = new ResponseCallback<String>() {
+            @Override
+            public void onSuccess(String t) {
+                iView.orderPayAppQuerySuccess(t);
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.orderPayAppQueryFailed(errorMsg);
+            }
+        };
+        MethodApi.orderPayAppQuery(outTradeNo,type,new OnSuccessAndFaultSub(getTopListener,activity,false));
     }
 
 }

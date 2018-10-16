@@ -319,6 +319,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //orderPayAppQuery 支付查询
+    public static void orderPayAppQuery(String outTradeNo, String type, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAppQuery(outTradeNo,type);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //orderQueryOrderList 订单列表
     public static void orderQueryOrderList(int payStatus,int limit, int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderQueryOrderList(payStatus,limit,page);

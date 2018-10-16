@@ -7,4 +7,15 @@ package com.njz.letsgoapp.util.rxbus.busEvent;
  */
 
 public class WxPayEvent {
+
+    boolean isSuccess;
+
+    public WxPayEvent(boolean isSuccess) {
+        this.isSuccess = isSuccess;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
 }
