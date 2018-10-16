@@ -232,12 +232,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
                     ((FootHolder) holder).tv_order_price_title.setText("合计");
-                    ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
+
                     ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                     if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
                         ((FootHolder) holder).btn_pay.setVisibility(View.GONE);
+                        ((FootHolder) holder).btn_cancel_order.setVisibility(View.GONE);
                     }else{
                         ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                        ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
                     }
                     break;
                 case Constant.ORDER_PAY_ALREADY:

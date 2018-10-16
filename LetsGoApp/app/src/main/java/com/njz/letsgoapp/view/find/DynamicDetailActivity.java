@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.find;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,9 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.dialog.DialogUtil;
+import com.njz.letsgoapp.mvp.find.DynamicDeleteContract;
+import com.njz.letsgoapp.mvp.find.DynamicDeletePresenter;
 import com.njz.letsgoapp.mvp.find.DynamicDetailContract;
 import com.njz.letsgoapp.mvp.find.DynamicDetailPresenter;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
@@ -38,12 +42,12 @@ import java.util.List;
  * Function:
  */
 
-public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View {
+public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View,DynamicDeleteContract.View {
 
     public static final String FRIENDSTERID ="FRIENDSTERID";
 
     private ImageView ivImg;
-    private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation;
+    private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete;
     private DynamicImageView dynamicImageView;
 //    private DynamicNiceImageView dynamicNiceImgView;
     private RelativeLayout rlNice;
@@ -55,6 +59,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
     private DynamicDetailPresenter mPresenter;
     private DynamicNicePresenter nicePresenter;
+    private DynamicDeletePresenter deletePresenter;
 
     private int friendSterId;
     private DynamicCommentAdapter mAdapter;
@@ -86,6 +91,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         tvContent = $(R.id.tv_content);
         tvNice = $(R.id.tv_nice);
         tvComment = $(R.id.tv_comment);
+        tvDelete = $(R.id.tv_delete);
         dynamicImageView = $(R.id.dynamic_image_view);
 //        dynamicNiceImgView = $(R.id.dynamic_nice_img_view);
         rlNice = $(R.id.rl_nice);
@@ -152,6 +158,20 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
                 startActivity(intent);
             }
         });
+
+
+        tvDelete.setVisibility(View.GONE);
+        tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtil.getInstance().getDefaultDialog(context, "您是否确认删除动态?", new DialogUtil.DialogCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog) {
+                        deletePresenter.friendDeleteFriendSter(model.getFriendSterId());
+                    }
+                }).show();
+            }
+        });
     }
 
     //初始化recyclerview
@@ -188,6 +208,13 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         tvLocation.setText(model.getLocation());
 
         mAdapter.setData(model.getDynamicComments());
+
+        if(MySelfInfo.getInstance().getUserId() == model.getUserId()){
+            tvDelete.setVisibility(View.VISIBLE);
+        }else{
+            tvDelete.setVisibility(View.GONE);
+        }
+
     }
 
     public void setNice(boolean isNice) {
@@ -202,6 +229,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     public void initData() {
         mPresenter = new DynamicDetailPresenter(context, this);
         nicePresenter = new DynamicNicePresenter(context, this);
+        deletePresenter = new DynamicDeletePresenter(context,this);
+
         mPresenter.friendPersonalFriendSter(friendSterId);
     }
 
@@ -251,4 +280,14 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     }
 
 
+    @Override
+    public void friendDeleteFriendSterSuccess(EmptyModel models) {
+        finish();
+        showShortToast("删除成功");
+    }
+
+    @Override
+    public void friendDeleteFriendSterFailed(String msg) {
+        showShortToast(msg);
+    }
 }

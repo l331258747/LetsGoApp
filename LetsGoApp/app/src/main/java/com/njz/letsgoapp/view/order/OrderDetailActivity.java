@@ -289,12 +289,13 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 tv_order_no.setText(str.getOrderNo());
                 tv_order_create_time.setText(str.getCreateTime());
 
-                btn_cancel_order.setVisibility(View.VISIBLE);
                 btn_call_guide.setVisibility(View.VISIBLE);
                 if(str.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
                     btn_pay.setVisibility(View.GONE);
+                    btn_cancel_order.setVisibility(View.GONE);
                 }else {
                     btn_pay.setVisibility(View.VISIBLE);
+                    btn_cancel_order.setVisibility(View.VISIBLE);
                 }
                 break;
             case Constant.ORDER_PAY_ALREADY:

@@ -221,6 +221,101 @@ public interface HttpService {
 
     );
 
+    //user/findFocus 个人主页
+    @GET("user/viewZone")
+    Observable<BaseResponse<LoginInfoModel>> userViewZone(
+            @Query("userId") int userId
+    );
+
+    //friend/personalFriendSter  个人动态
+    @GET("friend/personalFriendSter")
+    Observable<BaseResponse<DynamicListModel>> friendPersonalFriendSter(
+            @Query("userId") int userId,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    //friend/findByFriendSterId 动态详情
+    @GET("friend/findByFriendSterId")
+    Observable<BaseResponse<DynamicModel>> friendFindByFriendSterId(
+            @Query("friendSterId") int friendSterId
+    );
+
+    //user/findFans 我的粉丝
+    @GET("user/findFans")
+    Observable<BaseResponse<FansListModel>> userFindFans(
+            @Query("userId") int userId,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    //user/findFocus 我的关注
+    @GET("user/findFocus")
+    Observable<BaseResponse<FansListModel>> userFindFocus(
+            @Query("userId") int userId,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    //friend/queryLikes
+    @GET("friend/queryLikes")
+    Observable<BaseResponse<FansListModel>> friendQueryLikes(
+            @Query("friendSterId") int friendSterId,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    //friend/queryLikes 点赞
+    @FormUrlEncoded
+    @POST("friend/doLike")
+    Observable<BaseResponse<EmptyModel>> friendDoLike(
+            @Field("friendSterId") int friendSterId
+    );
+
+    //friend/doUnLike 取消点赞
+    @FormUrlEncoded
+    @POST("friend/doUnLike")
+    Observable<BaseResponse<EmptyModel>> friendDoUnLike(
+            @Field("friendSterId") int friendSterId
+    );
+
+    //user/focusOn 关注
+    @FormUrlEncoded
+    @POST("user/focusOn")
+    Observable<BaseResponse<EmptyModel>> userFocusOn(
+            @Field("focusId") int focusId
+    );
+
+    //user/focusOff 取消关注
+    @FormUrlEncoded
+    @POST("user/focusOff")
+    Observable<BaseResponse<EmptyModel>> userFocusOff(
+            @Field("focusId") int focusId
+    );
+
+    //friend/discuss 动态评论
+    @FormUrlEncoded
+    @POST("friend/discuss")
+    Observable<BaseResponse<DynamicCommentModel>> friendDiscuss(
+            @Field("friendSterId") int friendSterId,
+            @Field("discussUserId") int discussUserId,
+            @Field("discussContent") String discussContent,
+            @Field("toUserId") int toUserId
+    );
+
+    //我的评论 friend/myDiscuss
+    @GET("friend/myDiscuss")
+    Observable<BaseResponse<List<MyCommentModel>>> friendMyDiscuss(
+            @Query("type") int type
+    );
+
+    //friend/deleteFriendSter 删除动态
+    @FormUrlEncoded
+    @POST("friend/deleteFriendSter")
+    Observable<BaseResponse<EmptyModel>> friendDeleteFriendSter(
+            @Field("friendSterId") int friendSterId
+    );
+
     //-------发现 end---------
 
 
@@ -268,6 +363,7 @@ public interface HttpService {
             @Field("type") String type
 
     );
+
 
     //order/queryOrderList 订单列表
     @GET("order/queryOrderList")
@@ -355,94 +451,6 @@ public interface HttpService {
     @POST("up/upload")
     Observable<BaseResponse<String>> upUpload(
             @Part MultipartBody.Part file
-    );
-
-    //user/findFocus 个人主页
-    @GET("user/viewZone")
-    Observable<BaseResponse<LoginInfoModel>> userViewZone(
-            @Query("userId") int userId
-    );
-
-    //friend/personalFriendSter  个人动态
-    @GET("friend/personalFriendSter")
-    Observable<BaseResponse<DynamicListModel>> friendPersonalFriendSter(
-            @Query("userId") int userId,
-            @Query("limit") int limit,
-            @Query("page") int page
-    );
-
-    //friend/findByFriendSterId 动态详情
-    @GET("friend/findByFriendSterId")
-    Observable<BaseResponse<DynamicModel>> friendFindByFriendSterId(
-            @Query("friendSterId") int friendSterId
-    );
-
-    //user/findFans 我的粉丝
-    @GET("user/findFans")
-    Observable<BaseResponse<FansListModel>> userFindFans(
-            @Query("userId") int userId,
-            @Query("limit") int limit,
-            @Query("page") int page
-    );
-
-    //user/findFocus 我的关注
-    @GET("user/findFocus")
-    Observable<BaseResponse<FansListModel>> userFindFocus(
-            @Query("userId") int userId,
-            @Query("limit") int limit,
-            @Query("page") int page
-    );
-
-    //friend/queryLikes
-    @GET("friend/queryLikes")
-    Observable<BaseResponse<FansListModel>> friendQueryLikes(
-            @Query("friendSterId") int friendSterId,
-            @Query("limit") int limit,
-            @Query("page") int page
-    );
-
-    //friend/queryLikes 点赞
-    @FormUrlEncoded
-    @POST("friend/doLike")
-    Observable<BaseResponse<EmptyModel>> friendDoLike(
-            @Field("friendSterId") int friendSterId
-    );
-
-    //friend/doUnLike 取消点赞
-    @FormUrlEncoded
-    @POST("friend/doUnLike")
-    Observable<BaseResponse<EmptyModel>> friendDoUnLike(
-            @Field("friendSterId") int friendSterId
-    );
-
-    //user/focusOn 关注
-    @FormUrlEncoded
-    @POST("user/focusOn")
-    Observable<BaseResponse<EmptyModel>> userFocusOn(
-            @Field("focusId") int focusId
-    );
-
-    //user/focusOff 取消关注
-    @FormUrlEncoded
-    @POST("user/focusOff")
-    Observable<BaseResponse<EmptyModel>> userFocusOff(
-            @Field("focusId") int focusId
-    );
-
-    //friend/discuss 动态评论
-    @FormUrlEncoded
-    @POST("friend/discuss")
-    Observable<BaseResponse<DynamicCommentModel>> friendDiscuss(
-            @Field("friendSterId") int friendSterId,
-            @Field("discussUserId") int discussUserId,
-            @Field("discussContent") String discussContent,
-            @Field("toUserId") int toUserId
-    );
-
-    //我的评论 friend/myDiscuss
-    @GET("friend/myDiscuss")
-    Observable<BaseResponse<List<MyCommentModel>>> friendMyDiscuss(
-            @Query("type") int type
     );
 
     //-------我的 end-------

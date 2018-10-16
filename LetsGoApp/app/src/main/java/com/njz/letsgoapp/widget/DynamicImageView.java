@@ -89,8 +89,7 @@ public class DynamicImageView extends LinearLayout {
         switch (datas.size()) {
             case 1:
                 iv_left1.setVisibility(VISIBLE);
-                iv_left1.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                GlideUtil.LoadImageFitCenter(context, datas.get(0), iv_left1);
+                GlideUtil.LoadImage(context, datas.get(0), iv_left1);
 
                 setOnclick(iv_left1,0);
                 break;

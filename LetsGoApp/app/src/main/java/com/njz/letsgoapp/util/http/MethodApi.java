@@ -181,27 +181,6 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //----------发现 end -------
-
-    //---------我的 start-------
-    public static void userChangePersonalData(MyInfoData data, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().userChangePersonalData(data);
-        HttpMethods.getInstance().toSubscribe(observable, subscriber);
-    }
-
-    //userLabels
-    public static void userLabels(DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().userLabels();
-        HttpMethods.getInstance().toSubscribe(observable, subscriber);
-    }
-
-    public static void upUpload(File file, DisposableObserver subscriber) {
-        RequestBody fileRequestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
-        MultipartBody.Part fileBody = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
-        Observable observable = HttpMethods.getInstance().getHttpService().upUpload(fileBody);
-        HttpMethods.getInstance().toSubscribe(observable, subscriber);
-    }
-
     //userFindFocus
     public static void userViewZone(int userId, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().userViewZone(userId);
@@ -269,6 +248,34 @@ public class MethodApi {
     //我的评论列表 friendMyDiscuss
     public static void friendMyDiscuss(int type, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().friendMyDiscuss(type);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //删除动态 friendDeleteFriendSter
+    public static void friendDeleteFriendSter(int friendSterId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendDeleteFriendSter(friendSterId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
+    //----------发现 end -------
+
+    //---------我的 start-------
+    public static void userChangePersonalData(MyInfoData data, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userChangePersonalData(data);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //userLabels
+    public static void userLabels(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userLabels();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void upUpload(File file, DisposableObserver subscriber) {
+        RequestBody fileRequestBody = RequestBody.create(MediaType.parse("image/jpg"), file);
+        MultipartBody.Part fileBody = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
+        Observable observable = HttpMethods.getInstance().getHttpService().upUpload(fileBody);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

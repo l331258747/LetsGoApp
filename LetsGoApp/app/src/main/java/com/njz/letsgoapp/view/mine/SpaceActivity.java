@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
@@ -20,6 +22,7 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
@@ -41,7 +44,7 @@ import java.util.List;
 /**
  * Created by LGQ
  * Time: 2018/9/4
- * Function:
+ * Function: 个人主页
  */
 
 public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener, FollowContract.View,DynamicNiceContract.View{
@@ -87,7 +90,13 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         tvName = $(R.id.tv_name);
         tvFollow.setOnClickListener(this);
         initRecycler();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mPresenter.friendPersonalFriendSter(userId, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE);
     }
 
     @Override
@@ -98,12 +107,10 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         nicePresenter = new DynamicNicePresenter(context, this);
 
         mPresenter.userViewZone(userId);
-        mPresenter.friendPersonalFriendSter(userId, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE);
 
         if(userId == MySelfInfo.getInstance().getUserId()){
             tvFollow.setVisibility(View.GONE);
         }
-
     }
 
     int nicePosition;
@@ -137,7 +144,9 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
                 startActivity(intent);
             }
         });
+
     }
+
 
     @Override
     public void userViewZoneSuccess(LoginInfoModel data) {
