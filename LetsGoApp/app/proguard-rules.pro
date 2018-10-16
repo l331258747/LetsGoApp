@@ -302,3 +302,14 @@
 # 如果不使用android.support.annotation.Keep则需加上此行
 # -keep class com.my.pkg.SophixStubApplication$RealApplicationStub
 -dontwarn com.alibaba.sdk.android.utils.**
+
+#eventbus
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
