@@ -42,6 +42,11 @@ public class ServiceDetailModel {
     private int status;
     private String location;
     private int count;
+    private String guideMobile;
+
+    public String getGuideMobile() {
+        return guideMobile;
+    }
 
     public String getValue() {
         return value;

@@ -18,6 +18,7 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
 import com.njz.letsgoapp.mvp.home.ServiceDetailContract;
@@ -199,7 +200,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.tv_phone:
-                showShortToast("联系导游");
+                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile());
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));

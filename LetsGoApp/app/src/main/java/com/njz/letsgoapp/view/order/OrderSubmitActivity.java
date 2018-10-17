@@ -128,7 +128,9 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_contract:
-                startActivity(new Intent(context, GuideContractActivity.class));
+                Intent intent = new Intent(context, GuideContractActivity.class);
+                intent.putExtra("CONTRACT_TYPE",0);
+                startActivity(intent);
                 break;
             case R.id.tv_submit:
                 if(!LoginUtil.verifyName(login_view_name.getEtContent()))
