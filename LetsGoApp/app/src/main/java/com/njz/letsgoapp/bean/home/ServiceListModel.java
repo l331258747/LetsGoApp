@@ -25,6 +25,11 @@ public class ServiceListModel {
     private String title;
     private String location;
     private String count;
+    private String imgUrl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
 
     public String getValue() {
         return value;

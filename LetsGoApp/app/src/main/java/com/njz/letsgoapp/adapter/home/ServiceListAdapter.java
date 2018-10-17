@@ -49,7 +49,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         final ServiceListModel data = serviceListModels.get(pos);
         if (data == null) return;
 
-        GlideUtil.LoadImage(context, null, holder.iv_img);
+        GlideUtil.LoadImage(context, data.getImgUrl(), holder.iv_img);
         holder.iv_img_content.setText(data.getServiceType());
         holder.tv_title.setText(data.getTitle());
         holder.tv_sell.setText(data.getCount());
