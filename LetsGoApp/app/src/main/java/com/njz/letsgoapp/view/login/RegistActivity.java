@@ -47,7 +47,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initView() {
 
-//        showLeftAndTitle("注册");
+        showLeftAndTitle("新用户注册");
         showLeftIcon();
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);

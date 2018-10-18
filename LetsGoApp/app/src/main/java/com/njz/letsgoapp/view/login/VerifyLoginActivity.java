@@ -52,7 +52,7 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initView() {
 
-//        showLeftAndTitle("动态码登录");
+        showLeftAndTitle("动态码登录");
         showLeftIcon();
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);

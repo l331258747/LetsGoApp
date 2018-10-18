@@ -27,9 +27,9 @@
         android:id="@+id/login_view_verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:login_item_hint="请输验证码"
+        app:login_item_hint="请输短信动态码"
         app:login_item_max_length="6"
-        app:login_item_right_text="发送验证码" />
+        app:login_item_right_text="获取动态码" />
 
     <com.njz.letsgoapp.widget.LoginItemView2
         android:id="@+id/login_view_password"

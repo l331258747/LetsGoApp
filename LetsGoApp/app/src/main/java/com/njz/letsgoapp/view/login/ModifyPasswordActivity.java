@@ -38,7 +38,7 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
-//        showLeftAndTitle("修改密码");
+        showLeftAndTitle("修改密码");
         showLeftIcon();
         loginViewPasswordOld = $(R.id.login_view_password_old);
         loginViewPasswordOld.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);

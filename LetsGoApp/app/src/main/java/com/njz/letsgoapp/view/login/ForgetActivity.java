@@ -49,7 +49,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initView() {
 
-//        showLeftAndTitle("找回密码");
+        showLeftAndTitle("找回密码");
         showLeftIcon();
 
         loginViewPhone = $(R.id.login_view_phone);
