@@ -79,9 +79,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initView() {
         showLeftAndTitle(title + "详情介绍");
-        showRightIv();
-        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
-        getRightIv().setOnClickListener(this);
+//        showRightIv();
+//        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
+//        getRightIv().setOnClickListener(this);
 
         convenientBanner = $(R.id.convenientBanner);
         tv_title = $(R.id.tv_title);
