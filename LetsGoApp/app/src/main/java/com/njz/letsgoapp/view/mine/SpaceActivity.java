@@ -102,6 +102,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         scrollView = $(R.id.scrollView);
         tvFollow.setOnClickListener(this);
         initRecycler();
+
+        tvFans.setOnClickListener(this);
     }
 
     @Override
@@ -261,6 +263,13 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         switch (v.getId()){
             case R.id.tv_follow:
                 followPresenter.userFocusOff(data.isFocus(),data.getUserId());
+                break;
+            case R.id.tv_fans:
+                Intent intentFans = new Intent(context,FansListActivity.class);
+                intentFans.putExtra(FansListActivity.TITLE, "粉丝列表");
+                intentFans.putExtra(FansListActivity.TYPE,0);
+                intentFans.putExtra(FansListActivity.USER_ID,data.getUserId());
+                startActivity(intentFans);
                 break;
         }
     }
