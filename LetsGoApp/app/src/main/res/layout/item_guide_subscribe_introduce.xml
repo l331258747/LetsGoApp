@@ -22,7 +22,7 @@
         android:layout_marginLeft="10dp"
         android:drawableLeft="@drawable/indicator_normal"
         android:drawablePadding="8dp"
-        android:text="为保障您的利益和服务质量，请不要线下与导游交易，平台仅以真实订单作为产生纠纷的调差依据。" />
+        android:text="为保障您的利益和服务质量，请不要线下与向导交易，平台仅以真实订单作为产生纠纷的调查依据。" />
 
     <TextView
         android:layout_width="wrap_content"

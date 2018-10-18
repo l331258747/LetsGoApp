@@ -68,7 +68,7 @@ public class GlideUtil {
     public static void LoadCircleImage(Context mContext, String path,
                                        ImageView imageview) {
         if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).centerCrop().placeholder(R.mipmap.head_default)
+        Glide.with(mContext).load(path).centerCrop().error(R.mipmap.defult_head)
                 .transform(new GlideCircleTransform(mContext,2,mContext.getResources().getColor(R.color.white)))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
 
