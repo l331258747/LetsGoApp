@@ -43,7 +43,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void initView() {
-        showLeftIcon();
+        showLeftAndTitle("登录");
+
 
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);

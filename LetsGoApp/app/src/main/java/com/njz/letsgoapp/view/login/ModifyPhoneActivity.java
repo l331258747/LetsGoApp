@@ -50,7 +50,7 @@ public class ModifyPhoneActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initView() {
-        showLeftAndTitle("改绑手机号");
+        showLeftAndTitle("修改绑定手机号");
         showLeftIcon();
         loginViewPassword = $(R.id.login_view_password);
         loginViewPassword.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);

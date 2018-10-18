@@ -104,7 +104,7 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
             mResponseCallback.onFault(t.getMsg());
 
             if(t.getCode() == 401){
-                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登陆", new DialogUtil.DialogCallBack() {
+                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
                     @Override
                     public void exectEvent(DialogInterface alterDialog) {
                         context.startActivity(new Intent(context, LoginActivity.class));

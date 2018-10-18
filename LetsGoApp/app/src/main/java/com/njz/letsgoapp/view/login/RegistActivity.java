@@ -39,6 +39,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     RegistPresenter mPresenter;
 
+    boolean isSeeLoginViewPassword;
+    boolean isSeeLoginViewPasswordAgin;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_regist;
@@ -72,6 +75,32 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
         btnRegist.setOnClickListener(this);
 
+        loginViewPassword.setRightImgOnClickLisener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEtState(loginViewPassword, isSeeLoginViewPassword);
+                isSeeLoginViewPassword = !isSeeLoginViewPassword;
+            }
+        });
+        loginViewPasswordAgin.setRightImgOnClickLisener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEtState(loginViewPasswordAgin, isSeeLoginViewPasswordAgin);
+                isSeeLoginViewPasswordAgin = !isSeeLoginViewPasswordAgin;
+            }
+        });
+
+    }
+
+    private void setEtState(LoginItemView2 view,boolean isSee){
+        if(isSee){
+            view.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            view.getRightImage().setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_see));
+        }else{
+            view.setEtInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            view.getRightImage().setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_see_un));
+        }
+        view.getEtView().setSelection(view.getEtContent().length());
     }
 
     @Override
