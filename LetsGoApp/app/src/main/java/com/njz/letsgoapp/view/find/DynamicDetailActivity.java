@@ -28,6 +28,7 @@ import com.njz.letsgoapp.mvp.find.DynamicDetailPresenter;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
@@ -188,10 +189,10 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         mAdapter.setOnItemClickListener(new DynamicCommentAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-//                if (comments.get(position).getDiscussUserId() == MySelfInfo.getInstance().getUserId()){
-//                    ToastUtil.showShortToast(context, "不能回复自己");//TODO
-//                    return;
-//                }
+                if (comments.get(position).getDiscussUserId() == MySelfInfo.getInstance().getUserId()){
+                    ToastUtil.showShortToast(context, "不能回复自己");
+                    return;
+                }
 
                 popComment.setEtHint("回复 " + model.getDynamicComments().get(position).getDiscussUserName());
                 popComment.showPop(btnComment);

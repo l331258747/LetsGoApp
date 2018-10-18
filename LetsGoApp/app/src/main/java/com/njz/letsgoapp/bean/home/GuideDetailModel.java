@@ -140,6 +140,8 @@ public class GuideDetailModel {
         List<String> list = new ArrayList<>();
         if(!TextUtils.isEmpty(guideAge))
             list.add(guideAge);
+        if(!TextUtils.isEmpty(serviceAge))
+            list.add(serviceAge);
         if(language != null || language.size() > 0)
             list.addAll(language);
         return list;
