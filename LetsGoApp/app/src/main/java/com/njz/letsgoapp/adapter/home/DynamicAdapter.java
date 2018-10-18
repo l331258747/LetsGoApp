@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,8 +108,13 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
                 ((DynamicViewHolder) holder).tv_nice.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext,R.mipmap.ic_dynamic_nice_un),null,null,null);
             }
 
-            ((DynamicViewHolder) holder).tv_content.setMaxShowLines(3);
-            ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
+            if(TextUtils.isEmpty(data.getContent())){
+                ((DynamicViewHolder) holder).tv_content.setVisibility(View.GONE);
+            }else{
+                ((DynamicViewHolder) holder).tv_content.setVisibility(View.VISIBLE);
+                ((DynamicViewHolder) holder).tv_content.setMaxShowLines(3);
+                ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
+            }
 
             ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
             ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicImageView.OnItemClickListener() {

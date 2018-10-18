@@ -74,6 +74,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         tv_fans.setOnClickListener(this);
         tv_follow.setOnClickListener(this);
         iv_head.setOnClickListener(this);
+        tv_name.setOnClickListener(this);
         tv_login.setOnClickListener(this);
         tv_space.setOnClickListener(this);
 
@@ -157,6 +158,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intentFollow);
                 break;
             case R.id.tv_space:
+            case R.id.iv_head:
+            case R.id.tv_name:
                 if(!isLogin()) return;
                 Intent intentSpace = new Intent(context, SpaceActivity.class);
                 intentSpace.putExtra(SpaceActivity.USER_ID,MySelfInfo.getInstance().getUserId());

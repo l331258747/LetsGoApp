@@ -24,4 +24,15 @@
         app:left_drawable="@mipmap/ic_arrow_right"
         app:title="用户协议" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:lineSpacingExtra="10dp"
+        android:layout_alignParentBottom="true"
+        android:text="那就走版权所有\nCopyright@那就走2018，ALL RIGHT RESERVED"/>
+
+
+
 </RelativeLayout>
