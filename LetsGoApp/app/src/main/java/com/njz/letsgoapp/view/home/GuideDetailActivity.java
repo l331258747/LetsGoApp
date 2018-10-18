@@ -308,10 +308,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.right_iv:
                 if(guideDetailModel == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
-                        guideDetailModel.getGuideName(),
-                        guideDetailModel.getIntroduce(),
-                        "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
-                        "https://www.ifanr.com/1084256");
+                        guideDetailModel.getShareTitle(),
+                        guideDetailModel.getShareContent(),
+                        guideDetailModel.getShareImg(),
+                        guideDetailModel.getShareUrl());
                 dialog.show();
                 break;
             case R.id.tv_back_top:

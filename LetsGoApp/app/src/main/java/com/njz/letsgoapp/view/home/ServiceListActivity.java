@@ -105,6 +105,7 @@ public class ServiceListActivity extends BaseActivity implements ServiceListCont
                 data.setId(models.get(position).getId());
                 data.setTitile(models.get(position).getTitle());
                 data.setPrice(models.get(position).getServePrice());
+                data.setImg(models.get(position).getImgUrl());
                 RxBus2.getInstance().post(data);
                 finish();
             }

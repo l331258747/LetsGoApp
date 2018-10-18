@@ -85,6 +85,27 @@ public class GuideDetailModel {
     private float carConditions;
     private float guideServices;
 
+    private String shareImg;
+    private String shareContent;
+    private String shareTitle;
+    private String shareUrl;
+
+    public String getShareImg() {
+        return shareImg;
+    }
+
+    public String getShareContent() {
+        return shareContent;
+    }
+
+    public String getShareTitle() {
+        return shareTitle;
+    }
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
     public List<GuideServiceModel> getTravelGuideServiceInfoVOs() {
         return travelGuideServiceInfoVOs;
     }

@@ -195,6 +195,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 data.setId(model.getId());
                 data.setTitile(model.getTitle());
                 data.setPrice(model.getServePrice());
+                data.setImg(model.getTitleImg());
                 RxBus2.getInstance().post(data);
                 RxBus2.getInstance().post(new ServiceDetailCloseEvent());
                 finish();
@@ -211,10 +212,10 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.right_iv:
                 if(model == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
-                        model.getTitle(),
-                        model.getTitle(),
-                        "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
-                        "https://www.ifanr.com/1084256");
+                        model.getShareTitle(),
+                        model.getShareContent(),
+                        model.getShareImg(),
+                        model.getShareUrl());
                 dialog.show();
                 break;
         }

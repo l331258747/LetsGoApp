@@ -44,6 +44,27 @@ public class ServiceDetailModel {
     private int count;
     private String guideMobile;
 
+    private String shareImg;
+    private String shareContent;
+    private String shareTitle;
+    private String shareUrl;
+
+    public String getShareImg() {
+        return shareImg;
+    }
+
+    public String getShareContent() {
+        return shareContent;
+    }
+
+    public String getShareTitle() {
+        return shareTitle;
+    }
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
     public String getGuideMobile() {
         return guideMobile;
     }

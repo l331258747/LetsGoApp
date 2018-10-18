@@ -302,10 +302,10 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
             case R.id.right_iv:
                 if(model == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
-                        model.getNickname(),
-                        model.getContent(),
-                        "http://img2.imgtn.bdimg.com/it/u=668252697,2695635115&fm=214&gp=0.jpg",
-                        "https://www.ifanr.com/1084256");
+                        model.getShareTitle(),
+                        model.getShareContent(),
+                        model.getShareImg(),
+                        model.getShareUrl());
                 dialog.show();
                 break;
         }

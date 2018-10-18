@@ -43,6 +43,27 @@ public class DynamicModel {
     private List<String> imgUrls;
     private List<DynamicCommentModel> travelDiscussVOS;
 
+    private String shareImg;
+    private String shareContent;
+    private String shareTitle;
+    private String shareUrl;
+
+    public String getShareImg() {
+        return shareImg;
+    }
+
+    public String getShareContent() {
+        return shareContent;
+    }
+
+    public String getShareTitle() {
+        return shareTitle;
+    }
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
     public List<DynamicCommentModel> getDynamicComments() {
         return travelDiscussVOS;
     }
