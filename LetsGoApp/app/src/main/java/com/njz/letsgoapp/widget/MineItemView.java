@@ -55,6 +55,11 @@ public class MineItemView extends LinearLayout {
                 tv_content.setText(contentText);
             }
 
+            String hint = attributes.getString(R.styleable.home_my_item_hint);
+            if (!TextUtils.isEmpty(hint)) {
+                tv_content.setHint(hint);
+            }
+
             int leftDrawable = attributes.getResourceId(R.styleable.home_my_item_left_drawable, -1);
             if (leftDrawable != -1) {
                 iv_next.setImageDrawable(context.getResources().getDrawable(leftDrawable));

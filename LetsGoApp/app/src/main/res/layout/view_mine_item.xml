@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
+        tools:hint="请选择"
         android:layout_toStartOf="@+id/iv_next" />
 
     <ImageView

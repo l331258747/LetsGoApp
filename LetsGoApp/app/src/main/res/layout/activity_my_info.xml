@@ -163,9 +163,27 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="20dp"
             app:left_drawable="@mipmap/ic_arrow_right"
+            app:hint="请选择"
             app:title="标签" />
 
+        <TextView
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/btn_theme_solid_r40"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
+
+
+
 
 </android.support.v4.widget.NestedScrollView>

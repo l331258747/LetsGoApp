@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -57,6 +58,8 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     String bNickName, bBirthday, bSex,bRealName,bExplain,bImgUrl;
     List<String> sexs;
 
+    TextView btn_submit;
+
 
     private LoadingDialog loadingDialog;
 
@@ -77,12 +80,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initView() {
 
-        showLeftAndTitle("个人信息");
-        showRightTv();
-        getRightTv().setText("保存");
-        getRightTv().setOnClickListener(this);
-        getRightTv().setTextColor(ContextCompat.getColor(context, R.color.black_66));
-        getRightTv().setEnabled(false);
+        showLeftAndTitle("编辑资料");
 
         iv_head = $(R.id.iv_head);
         et_nikename = $(R.id.et_name);
@@ -91,11 +89,15 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         et_real_name = $(R.id.et_real_name);
         et_explain = $(R.id.et_explain);
         info_tag = $(R.id.info_tag);
+        btn_submit = $(R.id.btn_submit);
 
         info_birthday.setOnClickListener(this);
         info_sex.setOnClickListener(this);
         info_tag.setOnClickListener(this);
         iv_head.setOnClickListener(this);
+        btn_submit.setOnClickListener(this);
+        btn_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_99_solid_r40));
+        btn_submit.setEnabled(false);
 
         loadingDialog = new LoadingDialog(context);
 
@@ -191,7 +193,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 //                    }
 //                });
 //                break;
-            case R.id.right_tv:
+            case R.id.btn_submit:
                 mPresenter.userChangePersonalData(myInfoData);
                 break;
             case R.id.info_birthday:
@@ -265,11 +267,11 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             isChange = true;
         }
         if (isChange) {
-            getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
-            getRightTv().setEnabled(true);
+            btn_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r40));
+            btn_submit.setEnabled(true);
         } else {
-            getRightTv().setTextColor(ContextCompat.getColor(context, R.color.black_66));
-            getRightTv().setEnabled(false);
+            btn_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_99_solid_r40));
+            btn_submit.setEnabled(false);
         }
     }
 
