@@ -65,7 +65,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 });
             }
-            ((GuideViewHolder) holder).iv_sex.setImageDrawable(data.getGuideGender() == 0? ContextCompat.getDrawable(mContext,R.mipmap.icon_girl):ContextCompat.getDrawable(mContext,R.mipmap.icon_boy));
+            ((GuideViewHolder) holder).iv_sex.setImageDrawable(data.getGuideGender() == 2? ContextCompat.getDrawable(mContext,R.mipmap.icon_girl):ContextCompat.getDrawable(mContext,R.mipmap.icon_boy));
 
         }
 

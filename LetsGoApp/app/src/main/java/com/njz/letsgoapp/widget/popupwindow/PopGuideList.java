@@ -157,7 +157,7 @@ public class PopGuideList extends BackgroundDarkPopupWindow implements View.OnCl
 
     //确定
     public void submit() {
-        result.put("gender", tv_sex_lady.isSelected() ? "0"
+        result.put("gender", tv_sex_lady.isSelected() ? "2"
                 : tv_sex_man.isSelected() ? "1"
                 : "");
         result.put("ages", tv_age_18.isSelected() ? "18,25"

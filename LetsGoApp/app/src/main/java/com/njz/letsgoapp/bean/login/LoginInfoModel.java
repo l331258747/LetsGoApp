@@ -94,7 +94,7 @@ public class LoginInfoModel {
 
     public int getGender() {
         if(gender == null)
-            return 0;
+            return 2;
         return gender;
     }
 

@@ -36,11 +36,11 @@ public class MyInfoData {
     }
 
     public String getGendar() {
-        return gendar == 0?"女":"男";
+        return gendar == 2?"女":"男";
     }
 
     public void setGendar(String gendar) {
-        this.gendar = TextUtils.equals(gendar,"女")?0:1;
+        this.gendar = TextUtils.equals(gendar,"女")?2:1;
     }
 
     public String getBirthday() {
