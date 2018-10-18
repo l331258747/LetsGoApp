@@ -123,6 +123,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(context,ModifyPhoneActivity.class));
                 break;
             case R.id.mine_info:
+            case R.id.iv_head:
+            case R.id.tv_name:
                 if(!isLogin()) return;
                 startActivity(new Intent(context,MyInfoActivity.class));
                 break;
@@ -158,8 +160,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intentFollow);
                 break;
             case R.id.tv_space:
-            case R.id.iv_head:
-            case R.id.tv_name:
                 if(!isLogin()) return;
                 Intent intentSpace = new Intent(context, SpaceActivity.class);
                 intentSpace.putExtra(SpaceActivity.USER_ID,MySelfInfo.getInstance().getUserId());

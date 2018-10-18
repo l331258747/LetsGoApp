@@ -52,7 +52,7 @@ import java.util.List;
 public class GuideDetailActivity extends BaseActivity implements View.OnClickListener, GuideDetailContract.View {
 
     ConvenientBanner convenientBanner;
-    ImageView iv_head;
+    ImageView iv_head,iv_sex;
     TextView tv_name, tv_service_num, tv_comment_content, tv_content, tv_back_top, btn_submit;
     MyRatingBar my_rating_bar;
     ServiceTagView stv_tag;
@@ -102,6 +102,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         convenientBanner = $(R.id.convenientBanner);
         iv_head = $(R.id.iv_head);
+        iv_sex = $(R.id.iv_sex);
         tv_name = $(R.id.tv_name);
         my_rating_bar = $(R.id.my_rating_bar);
         stv_tag = $(R.id.stv_tag);
@@ -181,6 +182,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public void initInfo(final GuideDetailModel model) {
         //个人信息
         GlideUtil.LoadCircleImage(context, model.getGuideImg(), iv_head);
+        iv_sex.setImageDrawable(ContextCompat.getDrawable(context,model.getGuideGender() == 2?R.mipmap.icon_girl:R.mipmap.icon_boy));
         tv_name.setText(model.getGuideName());
         my_rating_bar.setRating((int) model.getGuideScore());
         tv_service_num.setText(model.getServiceCounts());
@@ -300,6 +302,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.btn_call:
+                if(guideDetailModel == null) return;
                 DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile());
                 break;
             case R.id.btn_submit:

@@ -40,6 +40,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
 
     private static final int SERVICE_TYPE_TITLE = 10;
     private static final int SERVICE_TYPE_DEFAULT = 12;
+    private final String noSelected = "请选择";
 
     List<GuideServiceModel> serviceInfo;
     Disposable calDisposable;
@@ -130,11 +131,11 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
             if(TextUtils.equals(data.getServiceItem().getValue(),Constant.SERVICE_TYPE_SHORT_CUSTOM)
                     || TextUtils.equals(data.getServiceItem().getValue(),Constant.SERVICE_TYPE_SHORT_TICKET)){
                 initOneDay = data.getServiceItem().getOneTime();
-                ((DefaultHolder) holder).tv_time_content.setText(TextUtils.isEmpty(data.getServiceItem().getOneTime()) ?"0":data.getServiceItem().getOneTime());
+                ((DefaultHolder) holder).tv_time_content.setText(TextUtils.isEmpty(data.getServiceItem().getOneTime()) ?noSelected:data.getServiceItem().getOneTime());
             }else{
                 initDays = data.getServiceItem().getDays();
                 if(data.getServiceItem().getDays() == null || data.getServiceItem().getDays().size() == 0){
-                    ((DefaultHolder) holder).tv_time_content.setText("0");
+                    ((DefaultHolder) holder).tv_time_content.setText(noSelected);
                 }else{
                     ((DefaultHolder) holder).tv_time_content.setText(data.getServiceItem().getDays().size() + "天");
                 }
@@ -332,7 +333,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
         int timeDay2 = 0;
         switch (data.getServiceItem().getValue()){
             case Constant.SERVICE_TYPE_SHORT_CUSTOM:
-                if(TextUtils.equals(timeDay,"0")){
+                if(TextUtils.equals(timeDay,noSelected)){
                     timeDay2 = 0;
                     priceCount.setText(timeDay2 + " x " + num + "人 x " + "￥" + data.getServiceItem().getPrice());
                 }
@@ -344,7 +345,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 break;
             case Constant.SERVICE_TYPE_SHORT_CAR:
             case Constant.SERVICE_TYPE_SHORT_GUIDE:
-                if(TextUtils.equals(timeDay,"0")){
+                if(TextUtils.equals(timeDay,noSelected)){
                     timeDay2 = 0;
                 }else{
                     timeDay = timeDay.substring(0, timeDay.length() - 1);
@@ -354,7 +355,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 priceTotal.setText("￥" + (timeDay2 * data.getServiceItem().getPrice()));
                 break;
             case Constant.SERVICE_TYPE_SHORT_HOTEL:
-                if(TextUtils.equals(timeDay,"0")){
+                if(TextUtils.equals(timeDay,noSelected)){
                     timeDay2 = 0;
                 }else{
                     timeDay = timeDay.substring(0, timeDay.length() - 1);
@@ -364,7 +365,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                 priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
                 break;
             case Constant.SERVICE_TYPE_SHORT_TICKET:
-                if(TextUtils.equals(timeDay,"0")){
+                if(TextUtils.equals(timeDay,noSelected)){
                     timeDay2 = 0;
                     priceCount.setText(timeDay2 + " x " + num + "张 x " + "￥" + data.getServiceItem().getPrice());
                 } else{
