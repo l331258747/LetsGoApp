@@ -21,7 +21,7 @@ public interface VerifyLoginContract {
 
         void msgCheckLoginFailed(String msg);
 
-        void userSmsSendSuccess(VerifyModel str);
+        void userSmsSendSuccess(String str);
 
         void userSmsSendFailed(String msg);
     }

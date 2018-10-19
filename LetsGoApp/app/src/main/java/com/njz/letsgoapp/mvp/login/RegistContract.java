@@ -22,7 +22,7 @@ public interface RegistContract {
 
         void msgCheckRegisterFailed(String msg);
 
-        void userSmsSendSuccess(VerifyModel str);
+        void userSmsSendSuccess(String str);
 
         void userSmsSendFailed(String msg);
     }

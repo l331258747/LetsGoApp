@@ -38,6 +38,7 @@ import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -104,7 +105,7 @@ public interface HttpService {
     //短信验证码
     @FormUrlEncoded
     @POST("sms/userSmsSend")
-    Observable<BaseResponse<VerifyModel>> userSmsSend(
+    Observable<BaseResponse<String>> userSmsSend(
             @Field("mobile") String mobile,
             @Field("type") String type
     );

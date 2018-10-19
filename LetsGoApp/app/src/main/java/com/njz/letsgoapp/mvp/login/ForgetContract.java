@@ -22,7 +22,7 @@ public interface ForgetContract {
 
         void msgCheckFindByFailed(String msg);
 
-        void userSmsSendSuccess(VerifyModel str);
+        void userSmsSendSuccess(String str);
 
         void userSmsSendFailed(String msg);
 

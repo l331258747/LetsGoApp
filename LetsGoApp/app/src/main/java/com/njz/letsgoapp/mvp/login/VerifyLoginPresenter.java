@@ -44,9 +44,9 @@ public class VerifyLoginPresenter implements VerifyLoginContract.Presenter {
 
     @Override
     public void userSmsSend(String mobile, String type) {
-        ResponseCallback listener = new ResponseCallback<VerifyModel>() {
+        ResponseCallback listener = new ResponseCallback<String>() {
             @Override
-            public void onSuccess(VerifyModel data) {
+            public void onSuccess(String data) {
                 iView.userSmsSendSuccess(data);
             }
 

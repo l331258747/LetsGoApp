@@ -22,7 +22,7 @@ public interface ModifyPhoneContract {
 
         void updateMobileFailed(String msg);
 
-        void userSmsSendSuccess(VerifyModel str);
+        void userSmsSendSuccess(String str);
 
         void userSmsSendFailed(String msg);
     }

@@ -157,10 +157,8 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void userSmsSendSuccess(VerifyModel str) {
+    public void userSmsSendSuccess(String str) {
         verifyEvent();
-        if(str == null || str.getMsgCode() == null) return;
-        showLongToast("验证码：" + str.getMsgCode());
     }
 
     @Override
