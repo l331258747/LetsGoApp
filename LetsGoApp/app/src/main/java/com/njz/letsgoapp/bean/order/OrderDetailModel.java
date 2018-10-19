@@ -63,6 +63,11 @@ public class OrderDetailModel {
     private String endData;
     private List<OrderDetailChildModel> njzChildOrderVOS;
     private int payingStatus;
+    private int serveId;
+
+    public int getServeId() {
+        return serveId;
+    }
 
     public int getPayingStatus() {
         return payingStatus;

@@ -17,12 +17,15 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
+import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
 import com.njz.letsgoapp.mvp.home.ServiceDetailContract;
 import com.njz.letsgoapp.mvp.home.ServiceDetailPresenter;
+import com.njz.letsgoapp.mvp.order.ServiceRefundRuleContract;
+import com.njz.letsgoapp.mvp.order.ServiceRefundRulePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
@@ -32,7 +35,6 @@ import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
 import com.njz.letsgoapp.util.webview.LWebView;
 import com.njz.letsgoapp.widget.PriceView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +43,7 @@ import java.util.List;
  * Function:
  */
 
-public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailContract.View {
+public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailContract.View,ServiceRefundRuleContract.View {
 
     public static final String TITLE = "TITLE";
     public static final String SERVICEID = "SERVICEID";
@@ -58,7 +60,12 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     List<ServiceItem> serviceItems;
 
     ServiceDetailPresenter mPresenter;
+    ServiceRefundRulePresenter rulePresenter;
     ServiceDetailModel model;
+
+    TextView price_introduce_content,tv_refund_rule_30,tv_refund_rule_50;
+
+
 
     @Override
     public int getLayoutId() {
@@ -96,6 +103,11 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_back_top.setVisibility(View.GONE);
         scrollView = $(R.id.scrollView);
 
+
+        price_introduce_content = $(R.id.price_introduce_content);
+        tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
+        tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
+
         tv_submit.setOnClickListener(this);
         tv_destination2.setOnClickListener(this);
         tv_phone.setOnClickListener(this);
@@ -118,9 +130,11 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initData() {
         mPresenter = new ServiceDetailPresenter(context, this);
+        rulePresenter = new ServiceRefundRulePresenter(context, this);
 
         mPresenter.getGuideService(serviceId);
         mPresenter.bannerFindByType(0,serviceId);
+        rulePresenter.orderRefundFindRefundRule(serviceId,false);
 
         final int mDisplayHeight = AppUtils.getDisplayHeight();
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -248,6 +262,18 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void bannerFindByTypeFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void orderRefundFindRefundRuleSuccess(ServiceRefundRuleModel str) {
+        price_introduce_content.setText(str.getCostExplain());
+        tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),str.getRenegePriceThree().replace(",","-")));
+        tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),str.getRenegePriceFive().replace(",","-")));
+    }
+
+    @Override
+    public void orderRefundFindRefundRuleFailed(String msg) {
         showShortToast(msg);
     }
 }

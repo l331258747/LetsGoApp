@@ -48,6 +48,11 @@ public class OrderRefundChildModel {
     private float orderPrice;
     private String value;
     private int useDay;
+    private int serveId;
+
+    public int getServeId() {
+        return serveId;
+    }
 
     public float getOrderPrice() {
         return orderPrice;

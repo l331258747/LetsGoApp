@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.adapter.order;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.order.RefundRuleActivity;
 
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
-        OrderRefundChildModel data = datas.get(pos);
+        final OrderRefundChildModel data = datas.get(pos);
 
         GlideUtil.LoadRoundImage(context, data.getTitleImg(), holder.iv_img, 5);
         holder.tv_title.setText(data.getTitle());
@@ -62,7 +64,10 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
         holder.tv_refund_rule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShortToast(context,"退款规则");
+                Intent intent = new Intent(context,RefundRuleActivity.class);
+                intent.putExtra("serviceId",data.getServeId());
+                context.startActivity(intent);
+
             }
         });
         holder.tv_refund_price.setText("￥" + data.getRefundMoney());

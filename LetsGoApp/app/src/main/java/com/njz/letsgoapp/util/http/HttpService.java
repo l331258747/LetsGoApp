@@ -28,6 +28,7 @@ import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.bean.order.PayModel;
+import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
 import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
@@ -423,6 +424,12 @@ public interface HttpService {
     Observable<BaseResponse<EmptyModel>> orderDeleteOrder(
             @Field("id") int id,
             @Field("status") int status
+    );
+
+    //orderRefund/findRefundRule 退订规则
+    @GET("orderRefund/findRefundRule")
+    Observable<BaseResponse<ServiceRefundRuleModel>> orderRefundFindRefundRule(
+            @Query("serveId") int serveId
     );
 
     //-------订单 end---------

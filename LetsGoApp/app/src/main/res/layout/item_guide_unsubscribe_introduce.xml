@@ -26,22 +26,24 @@
         android:text="向导确认订单前不收取违约金" />
 
     <TextView
+        android:id="@+id/tv_refund_rule_30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:drawableLeft="@drawable/indicator_normal"
         android:drawablePadding="8dp"
-        android:text="行程开始前7-19日取消订单，收取游客已付费用30%的违约金" />
+        android:text="@string/refund_rule_30" />
 
     <TextView
+        android:id="@+id/tv_refund_rule_50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:drawableLeft="@drawable/indicator_normal"
         android:drawablePadding="8dp"
-        android:text="行程开始前1-6日取消订单，收取游客已付费用50%的违约金" />
+        android:text="@string/refund_rule_50" />
 
     <TextView
         android:layout_width="wrap_content"

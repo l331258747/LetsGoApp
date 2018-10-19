@@ -374,6 +374,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //orderRefundFindRefundRule 退订规则
+    public static void orderRefundFindRefundRule(int serveId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundFindRefundRule(serveId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------订单 end---------
 
     //--------消息 start ----------

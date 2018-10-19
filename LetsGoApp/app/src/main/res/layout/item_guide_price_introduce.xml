@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/btn_white_bottom_line"
@@ -16,47 +17,13 @@
 
 
     <TextView
+        android:id="@+id/price_introduce_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="\t\t费用包含：" />
+        tools:text="\t\t费用包含：" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:drawableLeft="@drawable/indicator_normal"
-        android:drawablePadding="8dp"
-        android:text="向导陪游费用" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:drawableLeft="@drawable/indicator_normal"
-        android:drawablePadding="8dp"
-        android:text="门票费" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:drawableLeft="@drawable/indicator_normal"
-        android:drawablePadding="8dp"
-        android:text="超时费" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:drawableLeft="@drawable/indicator_normal"
-        android:drawablePadding="8dp"
-        android:text="服务时长8小时" />
 
 
 </LinearLayout>

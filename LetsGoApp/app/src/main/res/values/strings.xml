@@ -23,5 +23,8 @@
     <string name="report_add_msg"><Data><![CDATA[补充说明<font color="#999999">（选填）</font>]]></Data></string>
     <string name="service_note">私人订制选择后其他项目均不可选择，向导陪游，车导服务只可选择一项，代订门票，代订酒店可多选</string>
     <string name="order_pay_time">请在%s前完成支付，否则订单将会自动取消</string>
+    
+    <string name="refund_rule_30">行程开始前%s日取消订单，收取游客已付费用30%%的违约金</string>
+    <string name="refund_rule_50">行程开始前%s日取消订单，收取游客已付费用50%%的违约金</string>
 
 </resources>
