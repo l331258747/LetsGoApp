@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                tools:src="@mipmap/welcome" />
+                tools:src="@mipmap/background" />
 
             <ImageView
                 android:id="@+id/iv_left2"
