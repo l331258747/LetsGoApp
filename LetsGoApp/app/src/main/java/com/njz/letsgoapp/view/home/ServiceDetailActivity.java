@@ -267,6 +267,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void orderRefundFindRefundRuleSuccess(ServiceRefundRuleModel str) {
+        if(str == null) return;
+
         price_introduce_content.setText(str.getCostExplain());
         tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),str.getRenegePriceThree().replace(",","-")));
         tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),str.getRenegePriceFive().replace(",","-")));

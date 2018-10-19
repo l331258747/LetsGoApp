@@ -176,13 +176,13 @@ public interface HttpService {
     );
 
     //获取导游服务详情
-    @GET("guide/getGuideService")
+    @GET("order/getGuideService")
     Observable<BaseResponse<ServiceDetailModel>> getGuideService(
             @Query("serviceId") int serviceId
     );
 
     //获取导游单个服务列表
-    @GET("guide/getServiceList")
+    @GET("order/getServiceList")
     Observable<BaseResponse<List<ServiceListModel>>> getServiceList(
             @Query("guideId") int guideId,
             @Query("serveType") int serveType,
