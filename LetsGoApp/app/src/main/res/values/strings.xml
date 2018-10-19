@@ -27,4 +27,7 @@
     <string name="refund_rule_30">行程开始前%s日取消订单，收取游客已付费用30%%的违约金</string>
     <string name="refund_rule_50">行程开始前%s日取消订单，收取游客已付费用50%%的违约金</string>
 
+
+    <string name="login_user_agreement"><Data><![CDATA[登录代表阅读并同意<font color="#508CCA">用户协议</font>]]></Data></string>
+
 </resources>

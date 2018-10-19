@@ -15,6 +15,7 @@ import com.njz.letsgoapp.mvp.login.VerifyLoginContract;
 import com.njz.letsgoapp.mvp.login.VerifyLoginPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
@@ -36,7 +37,7 @@ import io.reactivex.functions.Function;
 public class VerifyLoginActivity extends BaseActivity implements View.OnClickListener,VerifyLoginContract.View {
 
     LoginItemView2 loginViewPhone, loginViewVerify;
-    TextView btnLogin;
+    TextView btnLogin,tv_user_agreement;
 
     Disposable disposable;
 
@@ -72,6 +73,17 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
+
+        tv_user_agreement = $(R.id.tv_user_agreement);
+        StringUtils.setHtml(tv_user_agreement, getResources().getString(R.string.login_user_agreement));
+        tv_user_agreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GuideContractActivity.class);
+                intent.putExtra("CONTRACT_TYPE",1);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

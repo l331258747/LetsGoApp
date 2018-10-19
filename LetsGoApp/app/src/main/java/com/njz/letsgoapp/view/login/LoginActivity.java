@@ -15,8 +15,10 @@ import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.mvp.login.LoginContract;
 import com.njz.letsgoapp.mvp.login.LoginPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
+import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
 import cn.jpush.android.api.JPushInterface;
@@ -30,7 +32,7 @@ import cn.jpush.android.api.JPushInterface;
 public class LoginActivity extends BaseActivity implements View.OnClickListener,LoginContract.View{
 
     LoginItemView2 loginViewPhone, loginViewPassword;
-    TextView btnLogin;
+    TextView btnLogin,tv_user_agreement;
     TextView tvRegister, tvVerifyLogin;
 
     LoginPresenter mPresenter;
@@ -62,9 +64,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         tvRegister = $(R.id.tv_register);
         tvVerifyLogin = $(R.id.tv_verify_login);
 
+
         btnLogin.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         tvVerifyLogin.setOnClickListener(this);
+
+        tv_user_agreement = $(R.id.tv_user_agreement);
+        StringUtils.setHtml(tv_user_agreement, getResources().getString(R.string.login_user_agreement));
+        tv_user_agreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GuideContractActivity.class);
+                intent.putExtra("CONTRACT_TYPE",1);
+                startActivity(intent);
+            }
+        });
 
         initEt();
     }
