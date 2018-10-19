@@ -145,6 +145,8 @@
         <activity
             android:name=".view.order.OrderRefundDetailActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.order.RefundRuleActivity" />
 
 
         <!-- 消息 -->
