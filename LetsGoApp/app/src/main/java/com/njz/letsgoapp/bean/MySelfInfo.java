@@ -111,8 +111,8 @@ public class MySelfInfo {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_GENDER) == 2?"女":"男";
     }
 
-    public void setUserGender(String gendar) {
-        SPUtils.getInstance().putInt(SPUtils.SP_USER_GENDER, TextUtils.equals("女",gendar)?2:1);
+    public void setUserGender(String gender) {
+        SPUtils.getInstance().putInt(SPUtils.SP_USER_GENDER, TextUtils.equals("女",gender)?2:1);
     }
 
     public String getUserBirthday() {

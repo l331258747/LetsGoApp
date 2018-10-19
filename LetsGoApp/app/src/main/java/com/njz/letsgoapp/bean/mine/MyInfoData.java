@@ -5,7 +5,7 @@ import android.text.TextUtils;
 public class MyInfoData {
     String nickname;
     String name;
-    int gendar ;
+    int gender ;
     String birthday;
     String personalStatement;
     String imgUrl;
@@ -35,12 +35,12 @@ public class MyInfoData {
         this.name = name;
     }
 
-    public String getGendar() {
-        return gendar == 2?"女":"男";
+    public String getGender() {
+        return gender == 2?"女":"男";
     }
 
-    public void setGendar(String gendar) {
-        this.gendar = TextUtils.equals(gendar,"女")?2:1;
+    public void setGender(String gender) {
+        this.gender = TextUtils.equals(gender,"女")?2:1;
     }
 
     public String getBirthday() {
