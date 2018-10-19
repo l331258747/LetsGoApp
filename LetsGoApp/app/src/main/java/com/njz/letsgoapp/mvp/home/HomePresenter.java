@@ -76,6 +76,6 @@ public class HomePresenter implements Presenter {
                 iView.friendFriendSterTopFailed(errorMsg);
             }
         };
-        MethodApi.friendFindAll(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
+        MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

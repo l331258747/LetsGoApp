@@ -109,6 +109,10 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initData() {
+        login_view_name.setContent(TextUtils.isEmpty(MySelfInfo.getInstance().getUserName())?"":MySelfInfo.getInstance().getUserName());
+        login_view_name.getEtView().setSelection(login_view_name.getEtContent().length());
+        login_view_phone.setContent(MySelfInfo.getInstance().getUserMoble());
+
         fixed_view_city.setContent(MySelfInfo.getInstance().getDefaultCity());
         getTotalPrice();
 

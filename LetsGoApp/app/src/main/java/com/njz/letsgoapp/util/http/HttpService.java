@@ -135,6 +135,14 @@ public interface HttpService {
 
     //首页 start
 
+    //friend/friendSterTop
+    @GET("friend/friendSterTop")
+    Observable<BaseResponse<DynamicListModel>> friendFriendSterTop(
+            @Query("location") String location,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
     //首页获取热门导游
     @GET("orderReviews/sortTop")
         Observable<BaseResponse<List<GuideModel>>> orderReviewsSortTop(

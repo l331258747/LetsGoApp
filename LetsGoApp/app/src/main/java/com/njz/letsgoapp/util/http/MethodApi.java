@@ -102,6 +102,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //friendFriendSterTop 首页动态
+    public static void friendFriendSterTop(String location, int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().friendFriendSterTop(location,limit, page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     public static void orderReviewsSortTop(String location, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location, Constant.GUIDE_TYPE_SYNTHESIZE, 5, Constant.DEFAULT_PAGE);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);

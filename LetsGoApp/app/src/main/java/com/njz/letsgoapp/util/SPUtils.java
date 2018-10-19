@@ -166,5 +166,8 @@ public class SPUtils {
     public void logoff() {
         remove(SP_USER_TOKEN);
         remove(SP_USER_ID);
+        remove(SP_USER_NAME);
+        remove(SP_USER_MOBILE);
+        remove(SP_USER_NICKNAME);
     }
 }
