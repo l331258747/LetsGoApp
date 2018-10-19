@@ -199,6 +199,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 LogUtil.e("code:" + code + " adress:" + adress);
                 if(code == 0){
                     city = adress.getCity();
+                    MySelfInfo.getInstance().setDefaultCity(city);
                 }
                 loadingDialog.dismiss();
                 LoadData();
