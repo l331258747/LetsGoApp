@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.njz.letsgoapp.MyApplication;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
@@ -21,6 +22,7 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.pay.PayContract;
 import com.njz.letsgoapp.mvp.pay.PayPresenter;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -181,6 +183,10 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
             case R.id.btn_pay:
                 if (payIndex == 1) {
+                    if (!MyApplication.mWxApi.isWXAppInstalled()) {
+                        ToastUtil.showShortToast(context, "您还未安装微信客户端");
+                        return;
+                    }
                     mPresenter.getWxOrderInfo(payModel.getOutTradeNo());
                 } else {
                     mPresenter.getAliOrderInfo(payModel.getOutTradeNo());
