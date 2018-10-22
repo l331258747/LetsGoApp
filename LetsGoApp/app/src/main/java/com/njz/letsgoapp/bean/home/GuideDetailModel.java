@@ -22,7 +22,7 @@ public class GuideDetailModel {
      * serviceAge : null
      * language : ["中文",“英文”]
      * sign : ["熟悉当地","会攀岩","喜欢自驾"]
-     * authViable : null
+     * cardViable : null
      * guideViable : null
      * driveViable : null
      * guideImg : http://pc03h8bbw.bkt.clouddn.com/1/20180731/1639442522501.jpg
@@ -51,7 +51,7 @@ public class GuideDetailModel {
      * guideViable : 1
      * travelFirstReviewVO : null
      * travelArranges : 0
-     * authViable : 0
+     * cardViable : 0
      * travelGuideServiceInfoEntitys : []
      * id : 4
      * serviceAge : 1年
@@ -77,7 +77,7 @@ public class GuideDetailModel {
 
     private int driveViable;
     private int guideViable;
-    private int authViable;
+    private int cardViable;
 
     private float guideScore;
     private float travelArranges;
@@ -302,12 +302,12 @@ public class GuideDetailModel {
         this.travelArranges = travelArranges;
     }
 
-    public int getAuthViable() {
-        return authViable;
+    public int getCardViable() {
+        return cardViable;
     }
 
-    public void setAuthViable(int authViable) {
-        this.authViable = authViable;
+    public void setCardViable(int cardViable) {
+        this.cardViable = cardViable;
     }
 
     public String getServiceAge() {

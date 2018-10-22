@@ -1,12 +1,9 @@
 package com.njz.letsgoapp.view.home;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -172,7 +169,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         if(model.getGuideViable() == 2){
             authentications.add(GuideAuthenticationView.AUTHENT_GUIDE);
         }
-        if(model.getAuthViable() == 2){
+        if(model.getCardViable() == 2){
             authentications.add(GuideAuthenticationView.AUTHENT_IDENTITY);
         }
         return authentications;
