@@ -17,9 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
-import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -39,6 +37,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private int mPaintDis;
     private TextView start_btn;
 
+    private int pagePosition = 0;
+    private boolean pageChange = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,7 +126,8 @@ public class WelcomeActivity extends AppCompatActivity {
              */
             @Override
             public void onPageSelected(int position) {
-                System.out.println("position:" + position);
+                pagePosition = position;
+                pageChange = true;
                 if (position == mImageViewList.size() - 1) {
                     start_btn.setVisibility(View.VISIBLE);
                     llContainer.setVisibility(View.GONE);
@@ -136,12 +137,21 @@ public class WelcomeActivity extends AppCompatActivity {
                     llContainer.setVisibility(View.VISIBLE);
                     ivRedPoint.setVisibility(View.VISIBLE);
                 }
-
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                System.out.println("state:" + state);
+                //state:1开始滑动，2滑动结束，0滑动动画做完的状态
+                //在最后一页的时候，如果只触发了onPageScrollStateChanged，没有触发onPageSelected，则跳到首页
+                if(state == 1){
+                    pageChange = false;
+                }
+                if(state == 0 && pagePosition == mImageViewList.size() - 1 && !pageChange){
+                    Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(R.anim.left_out,R.anim.right_in);
+                }
             }
         });
     }
