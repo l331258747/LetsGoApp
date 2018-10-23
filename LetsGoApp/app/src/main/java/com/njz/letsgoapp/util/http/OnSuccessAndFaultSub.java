@@ -123,24 +123,24 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
         try {
 
             if (e instanceof SocketTimeoutException) {//请求超时
-                mResponseCallback.onFault("网络连接超时");
+                mResponseCallback.onFault("-网络连接超时");
             } else if (e instanceof ConnectException) {//网络连接超时
-                mResponseCallback.onFault("网络连接失败");
+                mResponseCallback.onFault("-网络连接失败");
             } else if (e instanceof SSLHandshakeException) {//安全证书异常
-                mResponseCallback.onFault("安全证书异常");
+                mResponseCallback.onFault("-安全证书异常");
             } else if (e instanceof HttpException) {//请求的地址不存在
                 int code = ((HttpException) e).code();
                 if (code == 504) {
-                    mResponseCallback.onFault("网络异常，请检查您的网络状态");
+                    mResponseCallback.onFault("-网络异常，请检查您的网络状态");
                 } else if (code == 404) {
-                    mResponseCallback.onFault("请求的地址不存在");
+                    mResponseCallback.onFault("-请求的地址不存在");
                 } else {
-                    mResponseCallback.onFault("请求失败");
+                    mResponseCallback.onFault("-请求失败");
                 }
             } else if (e instanceof UnknownHostException) {//域名解析失败
-                mResponseCallback.onFault("域名解析失败");
+                mResponseCallback.onFault("-域名解析失败");
             } else {
-                mResponseCallback.onFault("error:" + e.getMessage());
+                mResponseCallback.onFault("-error:" + e.getMessage());
             }
         } catch (Exception e2) {
             e2.printStackTrace();

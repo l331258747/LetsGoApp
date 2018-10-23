@@ -16,5 +16,11 @@
 
         <include layout="@layout/common_swiperefresh_layout"/>
 
+        <com.njz.letsgoapp.widget.EmptyView
+            android:id="@+id/view_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
 
 </RelativeLayout>

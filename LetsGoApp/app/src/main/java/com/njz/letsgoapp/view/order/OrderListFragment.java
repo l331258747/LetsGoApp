@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -24,6 +27,7 @@ import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderListContract;
 import com.njz.letsgoapp.mvp.order.OrderListPresenter;
 import com.njz.letsgoapp.view.login.LoginActivity;
+import com.njz.letsgoapp.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,8 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
 
+    public EmptyView view_empty;
+
     public static Fragment newInstance(int payStatus) {
         OrderListFragment fragment = new OrderListFragment();
         Bundle bundle = new Bundle();
@@ -78,6 +84,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Override
     public void initView() {
+        view_empty = $(R.id.view_empty);
         tvLogin = $(R.id.tv_login);
         tvLogin.setOnClickListener(this);
 
@@ -271,6 +278,13 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
+
+        if(mAdapter.getData().size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_order,"这里还是空空哒~","快去下单吧");
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 
     @Override
@@ -279,6 +293,17 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+
+        if(msg.startsWith("-")){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                @Override
+                public void onClick() {
+                    getRefreshData();
+                }
+            });
+        }
     }
 
     @Override
