@@ -29,6 +29,7 @@ import com.njz.letsgoapp.mvp.find.FindPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
+import com.njz.letsgoapp.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,8 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     private boolean hidden;
     private String search;
 
+    public EmptyView view_empty;
+
     public static Fragment newInstance(int type) {
         DynamicFragment fragment = new DynamicFragment();
         Bundle bundle = new Bundle();
@@ -89,6 +92,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     @Override
     public void initView() {
+        view_empty = $(R.id.view_empty);
         tvLogin = $(R.id.tv_login);
         tvLogin.setOnClickListener(this);
 
@@ -278,6 +282,19 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
+
+        if(mAdapter.getDatas().size() == 0){
+            if(dynamicTYpe == DYNAMIC_ALL) {
+                view_empty.setVisible(true);
+                view_empty.setEmptyData(R.mipmap.empty_follow,"空空如也~");
+            }else{
+                view_empty.setVisible(true);
+                view_empty.setEmptyData(R.mipmap.empty_follow,"你还没有关注任何人哦","你不主动，我们怎么会有故事");
+            }
+
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 
     @Override
@@ -286,6 +303,17 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+
+        if(msg.startsWith("-")){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                @Override
+                public void onClick() {
+                    getRefreshData();
+                }
+            });
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.njz.letsgoapp.mvp.other.MyCityPickContract;
 import com.njz.letsgoapp.mvp.other.MyCityPickPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
+import com.njz.letsgoapp.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +56,12 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     String location = "";
     String city = "";
 
-    LinearLayout ll_search;
+    FrameLayout ll_search;
     CitySearchPresenter searchPresenter;
     SearchAdapter searchAdapter;
+
+    EmptyView view_empty;
+    EmptyView view_empty_city;
 
     @Override
     public void getIntentData() {
@@ -72,6 +77,9 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     @Override
     public void initView() {
         hideTitleLayout();
+
+        view_empty = $(R.id.view_empty);
+        view_empty_city = $(R.id.view_empty_city);
 
         ivLeft = $(R.id.iv_left);
         tv_location_city = $(R.id.tv_location_city);
@@ -153,6 +161,15 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             public void onClick(int position) {
                 mAdapterCity.setDatas(provinces.get(position).getTravelRegionEntitys());
                 provinceIndex = position;
+
+                if(provinces.get(position).getTravelRegionEntitys().size() == 0){
+                    view_empty_city.setVisible(true);
+                    view_empty_city.setEmptyData(R.mipmap.empty_search,"要不...换个省会试试？");
+                    view_empty_city.setEmptyBackground(R.color.white);
+                }else{
+                    view_empty_city.setVisible(false);
+                }
+
             }
         });
     }
@@ -212,6 +229,14 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     @Override
     public void regionFuzzyBySpellSuccess(List<SearchCityModel> models) {
         searchAdapter.setData(models);
+
+        if(models.size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_search,"要不...换个关键词试试？");
+        }else{
+            view_empty.setVisible(false);
+        }
+
     }
 
     @Override

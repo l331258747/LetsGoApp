@@ -39,6 +39,8 @@ import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
+import com.njz.letsgoapp.view.find.ReleaseDynamicActivity;
+import com.njz.letsgoapp.widget.EmptyView;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
@@ -75,6 +77,9 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
 
+    public EmptyView view_empty;
+
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -91,6 +96,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
         showLeftAndTitle("个人主页");
 
+        view_empty = $(R.id.view_empty);
         ivHead = $(R.id.iv_head);
         ivSex = $(R.id.iv_sex);
         tvFans = $(R.id.tv_fans);
@@ -149,7 +155,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),1);
+        mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),2);
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         recyclerView.setNestedScrollingEnabled(false);
@@ -249,6 +255,25 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             // 显示加载到底的提示
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
+
+        if(mAdapter.getDatas().size() == 0){
+
+            if(MySelfInfo.getInstance().getUserId() == userId){
+                view_empty.setVisible(true);
+                view_empty.setEmptyData(R.mipmap.empty_dynamic_my,"空空如也，说点什么~",null,"去发布");
+                view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(context, ReleaseDynamicActivity.class));
+                    }
+                });
+            }else{
+                view_empty.setVisible(true);
+                view_empty.setEmptyData(R.mipmap.empty_dynamic_my,"该主人很懒，什么都没留下");
+            }
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 
     @Override
@@ -295,7 +320,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         }
         mAdapter.setItemData(nicePosition);
 
-        loadMoreWrapper.notifyItemChanged(nicePosition + 1);
+        loadMoreWrapper.notifyItemChanged(nicePosition);
     }
 
     @Override

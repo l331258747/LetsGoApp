@@ -34,6 +34,7 @@ import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
+import com.njz.letsgoapp.widget.EmptyView;
 import com.njz.letsgoapp.widget.popupwindow.PopComment;
 
 import java.util.ArrayList;
@@ -72,6 +73,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
     private int toId;
 
+    public EmptyView view_empty;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -90,6 +93,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         showRightIv();
         getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
         getRightIv().setOnClickListener(this);
+
+        view_empty = $(R.id.view_empty);
 
         ivImg = $(R.id.iv_img);
         tvName = $(R.id.tv_name);
@@ -245,6 +250,14 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         this.model = model;
         this.comments = model.getDynamicComments();
         initViewData();
+
+        if(comments.size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_dynamic_detail,"还没有人留言，还不快来抢沙发~");
+        }else{
+            view_empty.setVisible(false);
+        }
+
     }
 
     @Override
@@ -260,6 +273,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         tvComment.setText(model.getReplyCount() + "条评论");
         recyclerView.scrollToPosition(comments.size()-1);
         AppUtils.HideKeyboard(tvComment);
+
+        view_empty.setVisible(false);
     }
 
     @Override

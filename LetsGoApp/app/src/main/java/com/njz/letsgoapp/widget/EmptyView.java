@@ -23,6 +23,7 @@ public class EmptyView extends RelativeLayout {
     Context context;
     ImageView iv_empty_img;
     TextView tv_empty_content,tv_empty_content_2,tv_empty_btn;
+    RelativeLayout rl_empty_parent;
 
     public EmptyView(Context context) {
         this(context,null);
@@ -43,6 +44,7 @@ public class EmptyView extends RelativeLayout {
         tv_empty_content = findViewById(R.id.tv_empty_content);
         tv_empty_content_2 = findViewById(R.id.tv_empty_content_2);
         tv_empty_btn = findViewById(R.id.tv_empty_btn);
+        rl_empty_parent = findViewById(R.id.rl_empty_parent);
 
     }
 
@@ -72,6 +74,10 @@ public class EmptyView extends RelativeLayout {
         }else{
             setBtn(btnStr);
         }
+    }
+
+    public void setEmptyBackground(int colorId){
+        rl_empty_parent.setBackgroundResource(colorId);
     }
 
     private void setImg(int resourceId){

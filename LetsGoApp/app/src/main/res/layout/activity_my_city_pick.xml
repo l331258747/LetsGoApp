@@ -160,19 +160,32 @@
                     android:layout_marginRight="20dp"
                     android:layout_weight="2" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_city"
-                    android:overScrollMode="never"
+                <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_city"
+                        android:overScrollMode="never"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5" />
+
+                    <com.njz.letsgoapp.widget.EmptyView
+                        android:id="@+id/view_empty_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -181,7 +194,13 @@
 
             <include layout="@layout/common_recyclerview"/>
 
-        </LinearLayout>
+            <com.njz.letsgoapp.widget.EmptyView
+                android:id="@+id/view_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
+        </FrameLayout>
 
     </FrameLayout>
 
