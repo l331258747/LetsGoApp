@@ -25,7 +25,7 @@ public class DynamicModel {
      */
 
 
-
+    private List<String> likeList;
     private String imgUrl;
     private String nickname;
     private int userLevel;
@@ -47,6 +47,10 @@ public class DynamicModel {
     private String shareContent;
     private String shareTitle;
     private String shareUrl;
+
+    public List<String> getLikeList() {
+        return likeList;
+    }
 
     public String getShareImg() {
         return shareImg;

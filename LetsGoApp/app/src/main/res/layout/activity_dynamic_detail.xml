@@ -126,13 +126,13 @@
                     android:layout_toEndOf="@+id/iv_nice"
                     tools:text="4人点赞" />
 
-                <!--<com.njz.letsgoapp.widget.DynamicNiceImageView-->
-                    <!--android:id="@+id/dynamic_nice_img_view"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:layout_toStartOf="@+id/iv_next" />-->
+                <com.njz.letsgoapp.widget.DynamicNiceImageView
+                    android:id="@+id/dynamic_nice_img_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toStartOf="@+id/iv_next" />
 
                 <ImageView
                     android:id="@+id/iv_next"

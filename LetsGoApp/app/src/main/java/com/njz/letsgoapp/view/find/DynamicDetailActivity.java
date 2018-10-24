@@ -34,6 +34,7 @@ import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
+import com.njz.letsgoapp.widget.DynamicNiceImageView;
 import com.njz.letsgoapp.widget.EmptyView;
 import com.njz.letsgoapp.widget.popupwindow.PopComment;
 
@@ -53,7 +54,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     private ImageView ivImg;
     private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete;
     private DynamicImageView dynamicImageView;
-//    private DynamicNiceImageView dynamicNiceImgView;
+    private DynamicNiceImageView dynamicNiceImgView;
     private RelativeLayout rlNice;
     private RecyclerView recyclerView;
 
@@ -104,7 +105,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         tvComment = $(R.id.tv_comment);
         tvDelete = $(R.id.tv_delete);
         dynamicImageView = $(R.id.dynamic_image_view);
-//        dynamicNiceImgView = $(R.id.dynamic_nice_img_view);
+        dynamicNiceImgView = $(R.id.dynamic_nice_img_view);
         rlNice = $(R.id.rl_nice);
         recyclerView = $(R.id.recycler_view);
         btnNice = $(R.id.btn_nice);
@@ -214,7 +215,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         tvNice.setText(model.getLikeCount() + "人点赞");
         tvComment.setText(model.getReplyCount() + "条评论");
         dynamicImageView.setImages(model.getImgUrls());
-//        dynamicNiceImgView.setImages(model.getImgUrls());
+        dynamicNiceImgView.setImages(model.getLikeList());
         setNice(model.isLike());
         tvLocation.setText(model.getLocation());
 
