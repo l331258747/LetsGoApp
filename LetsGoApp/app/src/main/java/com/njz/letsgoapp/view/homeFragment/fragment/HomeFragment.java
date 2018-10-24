@@ -54,6 +54,7 @@ import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
+import com.njz.letsgoapp.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     private LinearLayout ll_destination, ll_start_time, ll_end_time;
     private TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, btn_trip_setting;
-    private RelativeLayout rl_guide_title;
+    private RelativeLayout rl_guide_title,dynamic_title;
 
     private ConvenientBanner convenientBanner;
 
@@ -103,6 +104,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     private int nicePosition;
 
+    public EmptyView view_empty;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -123,6 +126,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         }
 
 
+        view_empty = $(R.id.view_empty);
         ll_destination = $(R.id.ll_destination);
         tv_destination_content = $(R.id.tv_destination_content);
         ll_start_time = $(R.id.ll_start_time);
@@ -134,12 +138,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         convenientBanner = $(R.id.convenientBanner);
         scrollView = $(R.id.scrollView);
         rl_guide_title = $(R.id.rl_guide_title);
+        dynamic_title = $(R.id.dynamic_title);
 
         ll_destination.setOnClickListener(this);
         ll_start_time.setOnClickListener(this);
         ll_end_time.setOnClickListener(this);
         btn_trip_setting.setOnClickListener(this);
         rl_guide_title.setOnClickListener(this);
+        dynamic_title.setOnClickListener(this);
 
         if(linear_bar2 != null){
             scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -171,6 +177,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             case R.id.rl_guide_title:
                 intent = new Intent(context,GuideListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.dynamic_title:
+                ((HomeActivity)activity).setTabIndex(1);
                 break;
             case R.id.btn_trip_setting:
                 intent = new Intent(context,GuideListActivity.class);
@@ -232,7 +241,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>());
+        dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),2);
         recyclerView.setAdapter(dynamicAdapter);
         recyclerView.setNestedScrollingEnabled(false);
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
@@ -444,6 +453,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         dynamicDatas = models.getList();
         dynamicAdapter.setData(dynamicDatas);
         dynamicAdapter.notifyDataSetChanged();
+
+        if(dynamicDatas.size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_follow,"这里还是空空哒~");
+            view_empty.setEmptyBackground(R.color.white);
+        }else{
+            view_empty.setVisible(false);
+        }
+
     }
 
     @Override

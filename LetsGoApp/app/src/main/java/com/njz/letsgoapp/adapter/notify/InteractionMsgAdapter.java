@@ -66,6 +66,10 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
         notifyDataSetChanged();
     }
 
+    public List<NotifyMainModel> getDatas(){
+        return this.datas;
+    }
+
     @Override
     public int getItemCount() {
         return datas.size();

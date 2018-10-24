@@ -56,6 +56,10 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
         notifyDataSetChanged();
     }
 
+    public List<NotifyMainModel> getDatas(){
+        return this.datas;
+    }
+
     public void addData(List<NotifyMainModel> datas){
         this.datas.addAll(datas);
         notifyDataSetChanged();

@@ -101,9 +101,53 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_view_h"
                     android:layout_marginTop="10dp"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                    <include layout="@layout/base_recycler_view_layout"/>
+                    <RelativeLayout
+                        android:id="@+id/dynamic_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_dynamic_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="15dp"
+                            android:textSize="21sp"
+                            android:text="热门动态"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignBottom="@+id/tv_dynamic_title"
+                            android:textColor="@color/color_theme"
+                            android:paddingRight="15dp"
+                            android:text="查看全部"/>
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
+
+                        <include layout="@layout/base_recycler_view_layout"/>
+
+                        <com.njz.letsgoapp.widget.EmptyView
+                            android:id="@+id/view_empty"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:visibility="gone"/>
+
+                    </FrameLayout>
+
+
 
                 </LinearLayout>
 

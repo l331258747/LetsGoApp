@@ -16,6 +16,7 @@ import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.notify.InteractionMsgActivity;
 import com.njz.letsgoapp.view.notify.SystemMsgActivity;
+import com.njz.letsgoapp.widget.EmptyView;
 import com.njz.letsgoapp.widget.NotifyItemView;
 
 import java.util.List;
@@ -36,6 +37,8 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
 
     NotifyItemView view_notify_interaction,view_notify_message;
 
+    public EmptyView view_empty;
+
 
     @Override
     public int getLayoutId() {
@@ -45,6 +48,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void initView() {
 
+        view_empty = $(R.id.view_empty);
         view_notify_interaction = $(R.id.view_notify_interaction);
         view_notify_message = $(R.id.view_notify_message);
         tvLogin = $(R.id.tv_login);
@@ -159,6 +163,10 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         if(!hasItem){
             setNotifyItemEmpty(view_notify_interaction);
         }
+
+
+        view_empty.setVisible(false);
+
     }
 
     public void setNotifyItemEmpty(NotifyItemView item){
@@ -185,5 +193,16 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         swipeRefreshLayout.setRefreshing(false);
         showShortToast(msg);
         isLoad = false;
+
+        if(msg.startsWith("-")){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                @Override
+                public void onClick() {
+                    getData();
+                }
+            });
+        }
     }
 }

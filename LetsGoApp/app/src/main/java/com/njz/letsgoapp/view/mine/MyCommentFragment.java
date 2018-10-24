@@ -15,6 +15,7 @@ import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.mine.MyCommentContract;
 import com.njz.letsgoapp.mvp.mine.MyCommentPresenter;
+import com.njz.letsgoapp.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class MyCommentFragment extends BaseFragment implements MyCommentContract
     private boolean isViewCreated;
     boolean isLoad = false;
 
+    public EmptyView view_empty;
 
     public static Fragment newInstance(int type) {
         MyCommentFragment fragment = new MyCommentFragment();
@@ -72,11 +74,14 @@ public class MyCommentFragment extends BaseFragment implements MyCommentContract
 
     @Override
     public int getLayoutId() {
-        return R.layout.common_swiperefresh_layout;
+        return R.layout.fragment_my_comment;
     }
 
     @Override
     public void initView() {
+
+        view_empty = $(R.id.view_empty);
+
         initRecycler();
         initSwipeLayout();
     }
@@ -118,6 +123,19 @@ public class MyCommentFragment extends BaseFragment implements MyCommentContract
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         mAdapter.setData(datas);
+
+        if(data.size() == 0){
+            if(type == 1){
+                view_empty.setVisible(true);
+                view_empty.setEmptyData(R.mipmap.empty_comment_tome,"空空如也，请勤劳发帖！");
+            }else {
+                view_empty.setVisible(true);
+                view_empty.setEmptyData(R.mipmap.empty_comment_meto,"与人互动，心自徜徉");
+            }
+
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 
     @Override
@@ -125,5 +143,16 @@ public class MyCommentFragment extends BaseFragment implements MyCommentContract
         showShortToast(msg);
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
+
+        if(msg.startsWith("-")){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                @Override
+                public void onClick() {
+                    getRefreshData();
+                }
+            });
+        }
     }
 }

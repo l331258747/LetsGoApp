@@ -14,6 +14,7 @@ import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.notify.NotifyListContract;
 import com.njz.letsgoapp.mvp.notify.NotifyListPresenter;
+import com.njz.letsgoapp.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,11 @@ public class InteractionMsgActivity extends BaseActivity implements NotifyListCo
 
     NotifyListPresenter mPresenter;
 
+    public EmptyView view_empty;
+
     @Override
     public int getLayoutId() {
-        return R.layout.common_swiperefresh_layout;
+        return R.layout.activity_msg_interaction;
     }
 
     @Override
@@ -47,6 +50,8 @@ public class InteractionMsgActivity extends BaseActivity implements NotifyListCo
         showLeftAndTitle("旅友互动");
         initRecycler();
         initSwipeLayout();
+
+        view_empty = $(R.id.view_empty);
 
     }
 
@@ -127,6 +132,13 @@ public class InteractionMsgActivity extends BaseActivity implements NotifyListCo
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
+
+        if(mAdapter.getDatas().size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_order,"矮油，咋还没有消息捏");
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 
     @Override
@@ -135,5 +147,16 @@ public class InteractionMsgActivity extends BaseActivity implements NotifyListCo
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+
+        if(msg.startsWith("-")){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                @Override
+                public void onClick() {
+                    getRefreshData();
+                }
+            });
+        }
     }
 }

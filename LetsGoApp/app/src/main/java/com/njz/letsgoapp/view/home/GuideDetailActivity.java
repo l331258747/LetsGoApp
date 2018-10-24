@@ -73,6 +73,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     int guideId;
     public static final String GUIDEID = "GUIDEID";
 
+    LinearLayout view_empty;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -97,6 +99,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
         getRightIv().setOnClickListener(this);
 
+        view_empty = $(R.id.view_empty);
         convenientBanner = $(R.id.convenientBanner);
         iv_head = $(R.id.iv_head);
         iv_sex = $(R.id.iv_sex);
@@ -192,8 +195,13 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         tv_comment_title_count.setText("(" + model.getCount() + "条评论)");
         initEvaluate(model.getTravelFirstReviewVO());
 
-        if(!TextUtils.isEmpty(model.getGuideStory()))
-        webView.loadDataWithBaseURL(null, model.getGuideStory(), "text/html", "utf-8", null);
+        if(!TextUtils.isEmpty(model.getGuideStory())){
+            webView.loadDataWithBaseURL(null, model.getGuideStory(), "text/html", "utf-8", null);
+            view_empty.setVisibility(View.GONE);
+        }else{
+            view_empty.setVisibility(View.VISIBLE);
+        }
+
 
     }
 

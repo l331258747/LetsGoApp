@@ -267,8 +267,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public void friendFindAllSuccess(DynamicListModel models) {
         List<DynamicModel> datas = models.getList();
 
-
-
         if (isLoadType == 1) {
             mAdapter.setData(datas);
         } else {
@@ -284,14 +282,8 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         swipeRefreshLayout.setRefreshing(false);
 
         if(mAdapter.getDatas().size() == 0){
-            if(dynamicTYpe == DYNAMIC_ALL) {
-                view_empty.setVisible(true);
-                view_empty.setEmptyData(R.mipmap.empty_follow,"空空如也~");
-            }else{
-                view_empty.setVisible(true);
-                view_empty.setEmptyData(R.mipmap.empty_follow,"你还没有关注任何人哦","你不主动，我们怎么会有故事");
-            }
-
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_follow,"空空如也~");
         }else{
             view_empty.setVisible(false);
         }
@@ -320,8 +312,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public void friendFriendSterSuccess(List<DynamicModel> models) {
         List<DynamicModel> datas = models;
 
-
-
         if (isLoadType == 1) {
             mAdapter.setData(datas);
         } else {
@@ -335,6 +325,13 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
         swipeRefreshLayout.setRefreshing(false);
+
+        if(mAdapter.getDatas().size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_follow,"你还没有关注任何人哦","你不主动，我们怎么会有故事");
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 
     @Override
@@ -343,6 +340,17 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+
+        if(msg.startsWith("-")){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                @Override
+                public void onClick() {
+                    getRefreshData();
+                }
+            });
+        }
     }
 
     @Override
