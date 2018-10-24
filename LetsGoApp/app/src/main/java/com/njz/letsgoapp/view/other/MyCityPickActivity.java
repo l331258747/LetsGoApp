@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.view.other;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,12 +20,16 @@ import com.njz.letsgoapp.adapter.order.CityPickProvinceAdapter;
 import com.njz.letsgoapp.adapter.other.SearchAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.other.CityModel;
+import com.njz.letsgoapp.bean.other.LocationModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
+import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.other.CitySearchContract;
 import com.njz.letsgoapp.mvp.other.CitySearchPresenter;
 import com.njz.letsgoapp.mvp.other.MyCityPickContract;
 import com.njz.letsgoapp.mvp.other.MyCityPickPresenter;
+import com.njz.letsgoapp.util.PermissionUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.widget.EmptyView;
@@ -62,6 +68,9 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
 
     EmptyView view_empty;
     EmptyView view_empty_city;
+
+    private LocationUtil locationUtil;
+    private boolean locationIsOk = false;
 
     @Override
     public void getIntentData() {
@@ -142,9 +151,39 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         tv_location_city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                city = tv_location_city.getText().toString();
-                RxBus2.getInstance().post(new CityPickEvent(city));
-                finish();
+                if(locationIsOk){
+                    city = tv_location_city.getText().toString();
+                    RxBus2.getInstance().post(new CityPickEvent(city));
+                    finish();
+                }else{
+                    if(!PermissionUtil.getInstance().isGpsAvailable(context)) return;
+                    if(!PermissionUtil.getInstance().getPremission(context,PermissionUtil.PERMISSION_LOCATION,PermissionUtil.PERMISSION_LOCATION_CODE)) return;
+                    getLocation();
+                }
+            }
+        });
+
+        locationUtil = new LocationUtil();
+        getLocation();
+    }
+
+    public void getLocation(){
+        tv_location_city.setText("定位中...");
+        tv_location_city.setEnabled(false);
+        locationIsOk = false;
+        locationUtil.startLocation(new LocationUtil.LocationListener() {
+            @Override
+            public void getAdress(int code, LocationModel adress) {
+                LogUtil.e("code:" + code + " adress:" + adress);
+                if(code == 0){
+                    tv_location_city.setText(adress.getCity());
+                    tv_location_city.setEnabled(true);
+                    locationIsOk = true;
+                }else{
+                    tv_location_city.setText("重新定位");
+                    tv_location_city.setEnabled(true);
+                    locationIsOk = false;
+                }
             }
         });
     }
@@ -242,5 +281,20 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     @Override
     public void regionFuzzyBySpellFailed(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PermissionUtil.PERMISSION_LOCATION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {//选择了不再提示按钮
+                PermissionUtil.getInstance().showAccreditDialog(context, "温馨提示\n" +
+                        "您需要同意那就走使用【定位】权限才能正常发布动态，" +
+                        "由于您选择了【禁止（不再提示）】，将导致无法定位，" +
+                        "需要到设置页面手动授权开启【定位】权限，才能发布动态。");
+                return;
+            }
+        }
     }
 }

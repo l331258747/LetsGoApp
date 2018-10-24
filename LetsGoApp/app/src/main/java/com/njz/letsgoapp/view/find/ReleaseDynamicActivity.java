@@ -121,7 +121,6 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
                     tvLocation.setText("重新定位");
                     tvLocation.setEnabled(true);
                 }
-                loadingDialog.dismiss();
             }
         });
     }
