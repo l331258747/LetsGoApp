@@ -34,7 +34,8 @@ public class GuideContractActivity extends BaseActivity {
 
         tv_content = $(R.id.tv_content);
         tv_content.setText(type == 0 ? SREVICE_CONTRACT : USER_PROTOCOL);
-        tv_content.setMovementMethod(ScrollingMovementMethod.getInstance());
+//        tv_content.setMovementMethod(ScrollingMovementMethod.getInstance());
+        //textview自带滑动，xml添加android:scrollbars="vertical"
 
     }
 
@@ -44,7 +45,7 @@ public class GuideContractActivity extends BaseActivity {
     }
 
 
-    public static final String USER_PROTOCOL = "那就走用户服务协议\n" +
+    public final String USER_PROTOCOL = "那就走用户服务协议\n" +
             "\n" +
             "《那就走用户服务协议》（以下简称“本协议”）作为那就走平台（以下简称“本平台”）提供服务的依据，确定用户在何种条件、以何种方式使用本平台及本平台的服务（具体载体包括但不限于网页、APP应用程序、微信小程序、微信公众号平台等）。在使用本平台及相关服务前，您应当注册成为本平台用户。进行用户注册时，请您认真阅读本协议，一旦完成注册即表示您已经知悉并了解本协议，接受本协议的条款约束，本协议当即具有合同效力。如您对本协议的任何条款表示异议，您可以选择不使用本平台。 \n" +
             "本协议包括基于本协议制定的各项规则，所有规则为本协议不可分割的一部分，与本协议具有同等效力。本平台有权随时变更本协议并在本页面发布。当您继续使用本平台及相关服务，则视为您完全接受协议的变更。那就走平台的所有权、运营权、解释权归湖南那就走网络科技有限公司所有。 \n" +
@@ -160,7 +161,7 @@ public class GuideContractActivity extends BaseActivity {
             "本协议的订立、生效、解释、执行、管辖、争议的解决均适用中华人民共和国法律。 \n";
 
 
-    public static final String SREVICE_CONTRACT = "向导自由执业三方合同\n" +
+    public final String SREVICE_CONTRACT = "向导自由执业三方合同\n" +
             "\n" +
             "服务接受者和向导阅读本合同条款未提出异议的，平台视为服务接受者和向导已全部接受，且三方已于网上签订电子合同，该电子合同具有和书面合同同等的法律效力，服务接受者点击同意接受本合同条款内容且产品订单经向导最终确认后的视为合同生效\n" +
             "\n" +
