@@ -198,23 +198,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         mPresenter = new HomePresenter(context,this);
         nicePresenter = new DynamicNicePresenter(context,this);
 
-        loadingDialog = new LoadingDialog(context);
-        loadingDialog.showDialog("定位中...");
-
-        locationUtil = new LocationUtil();
-        locationUtil.startLocation(new LocationUtil.LocationListener() {
-            @Override
-            public void getAdress(int code, LocationModel adress) {
-                LogUtil.e("code:" + code + " adress:" + adress);
-                if(code == 0){
-                    city = adress.getCity();
-                    MySelfInfo.getInstance().setDefaultCity(city);
-                }
-                loadingDialog.dismiss();
-                LoadData();
-            }
-        });
-
         tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
         tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
         tv_day_time.setText("2天");
@@ -222,6 +205,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         initRecycler();
         initSwipeLayout();
         intRecyclerH();
+
+        //        loadingDialog = new LoadingDialog(context);
+//        loadingDialog.showDialog("定位中...");
+//
+//        locationUtil = new LocationUtil();
+//        locationUtil.startLocation(new LocationUtil.LocationListener() {
+//            @Override
+//            public void getAdress(int code, LocationModel adress) {
+//                LogUtil.e("code:" + code + " adress:" + adress);
+//                if(code == 0){
+//                    city = adress.getCity();
+//                    MySelfInfo.getInstance().setDefaultCity(city);
+//                }
+//                loadingDialog.dismiss();
+//                LoadData();
+//            }
+//        });
+        LoadData();
     }
 
     private void LoadData(){
