@@ -16,17 +16,17 @@ public class ServiceRefundRuleModel {
      * renegePriceThree : 7,13
      */
 
-    private String cost_explain;
+    private String costExplain;
     private int id;
     private String renegePriceFive;
     private String renegePriceThree;
 
     public String getCostExplain() {
-        return cost_explain;
+        return costExplain;
     }
 
-    public void setCostExplain(String cost_explain) {
-        this.cost_explain = cost_explain;
+    public void setCostExplain(String costExplain) {
+        this.costExplain = costExplain;
     }
 
     public int getId() {

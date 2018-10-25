@@ -45,6 +45,7 @@
                     android:drawableLeft="@mipmap/ic_dynamic_location"
                     android:drawablePadding="10dp"
                     android:paddingLeft="10dp"
+                    android:visibility="gone"
                     android:paddingTop="5dp"
                     tools:text="目的地" />
 
@@ -57,29 +58,31 @@
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@+id/tv_destination"
                     android:paddingLeft="10dp"
+                    android:visibility="gone"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
                     tools:text="查看地址位置" />
 
 
-                <TextView
-                    android:id="@+id/tv_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tv_destination"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="5dp"
-                    android:textSize="12sp"
-                    android:text="已售: 11"
-                    android:textColor="@color/color_99" />
-
                 <com.njz.letsgoapp.widget.PriceView
                     android:id="@+id/pv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tv_destination"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/tv_title"
                     android:layout_marginRight="10dp"
                     android:layout_toStartOf="@+id/tv_score" />
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_alignBottom="@+id/pv_price"
+                    android:textSize="12sp"
+                    android:text="已售: 11"
+                    android:textColor="@color/color_99" />
 
 
             </RelativeLayout>
@@ -102,13 +105,24 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
-                <com.njz.letsgoapp.util.webview.LWebView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/webview"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:scrollbars="none" />
+                    android:layout_height="wrap_content">
 
+                    <com.njz.letsgoapp.util.webview.LWebView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/webview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:scrollbars="none" />
+
+                    <com.njz.letsgoapp.widget.emptyView.EmptyView3
+                        android:id="@+id/view_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
             </LinearLayout>
 
 

@@ -34,6 +34,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
 import com.njz.letsgoapp.util.webview.LWebView;
 import com.njz.letsgoapp.widget.PriceView;
+import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
 import java.util.List;
 
@@ -50,7 +51,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public static final String SERVICEITEMS = "SERVICEITEMS";
 
     ConvenientBanner convenientBanner;
-    TextView tv_title, tv_destination, tv_sell, tv_submit, tv_destination2, tv_phone, tv_back_top;
+    TextView tv_title,  tv_sell, tv_submit,  tv_phone, tv_back_top;
+    TextView tv_destination,tv_destination2;
     PriceView pv_price;
     LWebView webView;
     NestedScrollView scrollView;
@@ -65,7 +67,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     TextView price_introduce_content,tv_refund_rule_30,tv_refund_rule_50;
 
-
+    EmptyView3 view_empty;
 
     @Override
     public int getLayoutId() {
@@ -92,8 +94,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
         convenientBanner = $(R.id.convenientBanner);
         tv_title = $(R.id.tv_title);
-        tv_destination = $(R.id.tv_destination);
         tv_phone = $(R.id.tv_phone);
+        tv_destination = $(R.id.tv_destination);
         tv_destination2 = $(R.id.tv_destination2);
         tv_sell = $(R.id.tv_score);
         pv_price = $(R.id.pv_price);
@@ -102,6 +104,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_back_top = $(R.id.tv_back_top);
         tv_back_top.setVisibility(View.GONE);
         scrollView = $(R.id.scrollView);
+        view_empty = $(R.id.view_empty);
 
 
         price_introduce_content = $(R.id.price_introduce_content);
@@ -159,6 +162,14 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
         if(!TextUtils.isEmpty(model.getServeFeature()))
         webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
+
+        if(!TextUtils.isEmpty(model.getServeFeature())){
+            webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
+            view_empty.setVisible(false);
+        }else{
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_guide_story,"他很害羞哦，什么都没留下~");
+        }
 
         //预订(￥0)
         tv_submit.setText("预订(￥" + model.getServePrice() +")");

@@ -35,6 +35,7 @@ import com.njz.letsgoapp.widget.GuideAuthenticationView;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
+import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 import com.njz.letsgoapp.widget.popupwindow.PopService;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     int guideId;
     public static final String GUIDEID = "GUIDEID";
 
-    LinearLayout view_empty;
+    EmptyView3 view_empty;
 
     @Override
     public void getIntentData() {
@@ -197,9 +198,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         if(!TextUtils.isEmpty(model.getGuideStory())){
             webView.loadDataWithBaseURL(null, model.getGuideStory(), "text/html", "utf-8", null);
-            view_empty.setVisibility(View.GONE);
+            view_empty.setVisible(false);
         }else{
-            view_empty.setVisibility(View.VISIBLE);
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_guide_story,"他很害羞哦，什么都没留下~");
         }
 
 
