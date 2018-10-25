@@ -22,6 +22,7 @@ import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderCreateContract;
 import com.njz.letsgoapp.mvp.order.OrderCreatePresenter;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
@@ -152,9 +153,9 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
             for (ServiceItem item : model.getServiceItems()) {
                 if (TextUtils.equals(item.getValue(),Constant.SERVICE_TYPE_SHORT_GUIDE)
                         || TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)) {
-                    totalPrice = item.getPrice() * item.getTimeDay() + totalPrice;
+                    totalPrice = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getTimeDay()) , totalPrice);
                 } else {
-                    totalPrice = item.getPrice() * item.getNumber() * item.getTimeDay() + totalPrice;
+                    totalPrice = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getNumber() * item.getTimeDay()) , totalPrice);
                 }
             }
         }

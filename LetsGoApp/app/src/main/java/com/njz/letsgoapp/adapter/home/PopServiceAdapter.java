@@ -17,6 +17,7 @@ import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.home.ServiceInfoGroup;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServicePriceEvent;
@@ -341,7 +342,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     timeDay2 = 1;
                     priceCount.setText(num + "人 x " + "￥" + data.getServiceItem().getPrice());
                 }
-                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
+                priceTotal.setText("￥" + (DecimalUtil.multiply(timeDay2 * num , data.getServiceItem().getPrice())));
                 break;
             case Constant.SERVICE_TYPE_SHORT_CAR:
             case Constant.SERVICE_TYPE_SHORT_GUIDE:
@@ -352,7 +353,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     timeDay2 = Integer.valueOf(timeDay);
                 }
                 priceCount.setText(timeDay2 + "天 x " + "￥" + data.getServiceItem().getPrice());
-                priceTotal.setText("￥" + (timeDay2 * data.getServiceItem().getPrice()));
+                priceTotal.setText("￥" + (DecimalUtil.multiply(timeDay2 , data.getServiceItem().getPrice())));
                 break;
             case Constant.SERVICE_TYPE_SHORT_HOTEL:
                 if(TextUtils.equals(timeDay,noSelected)){
@@ -362,7 +363,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     timeDay2 = Integer.valueOf(timeDay);
                 }
                 priceCount.setText(timeDay2 + "天 x " +num + "间 x " + "￥" + data.getServiceItem().getPrice());
-                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
+                priceTotal.setText("￥" + (DecimalUtil.multiply(timeDay2 * num , data.getServiceItem().getPrice())));
                 break;
             case Constant.SERVICE_TYPE_SHORT_TICKET:
                 if(TextUtils.equals(timeDay,noSelected)){
@@ -372,7 +373,7 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
                     timeDay2 = 1;
                     priceCount.setText(num + "张 x " + "￥" + data.getServiceItem().getPrice());
                 }
-                priceTotal.setText("￥" + (timeDay2 * num * data.getServiceItem().getPrice()));
+                priceTotal.setText("￥" + (DecimalUtil.multiply(timeDay2 * num , data.getServiceItem().getPrice())));
                 break;
         }
         data.getServiceItem().setNumber(num);

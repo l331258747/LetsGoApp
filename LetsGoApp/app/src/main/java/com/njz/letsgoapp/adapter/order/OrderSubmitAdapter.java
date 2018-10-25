@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             switch (data.getValue()) {
                 case Constant.SERVICE_TYPE_SHORT_CUSTOM:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getNumber() + "人");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getNumber());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + DecimalUtil.multiply(data.getPrice() , data.getNumber()));
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -66,7 +67,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
                 case Constant.SERVICE_TYPE_SHORT_CAR:
                 case Constant.SERVICE_TYPE_SHORT_GUIDE:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getTimeDay() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getTimeDay());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + DecimalUtil.multiply(data.getPrice() , data.getTimeDay()));
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).tv_count_title.setText("出行人数");
@@ -76,7 +77,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
                     break;
                 case Constant.SERVICE_TYPE_SHORT_HOTEL:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getNumber() + "间" + "x" +  data.getTimeDay() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getNumber() * data.getTimeDay());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + DecimalUtil.multiply(data.getPrice() , data.getNumber() * data.getTimeDay()));
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
@@ -84,7 +85,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
                     break;
                 case Constant.SERVICE_TYPE_SHORT_TICKET:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getNumber() + "张");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getPrice() * data.getNumber());
+                    ((ViewHolder) holder).tv_price_total.setText("￥" + DecimalUtil.multiply(data.getPrice() , data.getNumber()));
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 

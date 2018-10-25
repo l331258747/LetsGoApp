@@ -23,6 +23,7 @@ import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -123,9 +124,9 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                     for (ServiceItem item : model.getServiceItems()){
                         if(TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE)
                                 || TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)){
-                            price  = item.getPrice() * item.getTimeDay() + price;
+                            price  = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getTimeDay()) , price);
                         }else{
-                            price  = item.getPrice() * item.getNumber() * item.getTimeDay() + price;
+                            price  = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getNumber() * item.getTimeDay()) , price);
                         }
                     }
                 }
