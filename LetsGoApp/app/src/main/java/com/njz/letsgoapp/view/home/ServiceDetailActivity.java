@@ -154,7 +154,13 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     public void initDetail(ServiceDetailModel model) {
         tv_title.setText(model.getTitle());
-        tv_destination.setText(model.getLocation());
+        if(TextUtils.isEmpty(model.getLocation())){
+            tv_destination.setVisibility(View.GONE);
+        }else{
+            tv_destination.setText(model.getLocation());
+            tv_destination.setVisibility(View.VISIBLE);
+        }
+
         StringUtils.setHtml(tv_destination2, getResources().getString(R.string.destination2));
 
         tv_sell.setText("已售:" + model.getCount());
