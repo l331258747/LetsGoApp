@@ -54,7 +54,8 @@ public class MyApplication extends Application{
             displayHeight = getResources().getDisplayMetrics().heightPixels;
         }
 
-        ExceptionCrashHandler.getInstance().init(context);
+        //本地日志获取和bugly有冲突
+//        ExceptionCrashHandler.getInstance().init(context);
 
         JPushInterface.init(context);
         JPushInterface.setDebugMode(true);
@@ -67,7 +68,7 @@ public class MyApplication extends Application{
 
         //第三个参数为SDK调试模式开关 建议在测试阶段建议设置成true，发布时设置为false。
 //        CrashReport.initCrashReport(getApplicationContext(), "cd379e9015", true);
-        Bugly.init(getApplicationContext(), "cd379e9015", true);
+        Bugly.init(getApplicationContext(), "a6655ed7d5", true);
 
         //sophix 热修复
         SophixManager.getInstance().queryAndLoadNewPatch();
