@@ -3,6 +3,7 @@ package com.njz.letsgoapp.util.http;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.njz.letsgoapp.bean.BaseResponse;
@@ -97,11 +98,31 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
         LogUtil.e("msg:"+t.getMsg());
         LogUtil.e("data:"+t.getData());
 
-        if(t.getCode()==0){
+//        if(t.getCode()==0){
 //            mResponseCallback.onSuccess(t.getData());
+//        }else{
+//            mResponseCallback.onFault(t.getMsg());
+//
+//            if(t.getCode() == 401){
+//                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
+//                    @Override
+//                    public void exectEvent(DialogInterface alterDialog) {
+//                        context.startActivity(new Intent(context, LoginActivity.class));
+//                    }
+//                }).show();
+//            }
+//        }
+
+        if(t.getCode()==0 && t.getErrno() == 0){
             mResponseCallback.onSuccess(t.getData());
         }else{
-            mResponseCallback.onFault(t.getMsg());
+            if(!TextUtils.isEmpty(t.getMsg())){
+                mResponseCallback.onFault(t.getMsg());
+            }else if(!TextUtils.isEmpty(t.getErrmsg())){
+                mResponseCallback.onFault(t.getErrmsg());
+            }else{
+                mResponseCallback.onFault("--");
+            }
 
             if(t.getCode() == 401){
                 DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
@@ -110,8 +131,16 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
                         context.startActivity(new Intent(context, LoginActivity.class));
                     }
                 }).show();
+            }else if(t.getErrno() == 401){
+                DialogUtil.getInstance().getDefaultDialog(context, t.getErrmsg(), "去登录", new DialogUtil.DialogCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog) {
+                        context.startActivity(new Intent(context, LoginActivity.class));
+                    }
+                }).show();
             }
         }
+
     }
 
     /**

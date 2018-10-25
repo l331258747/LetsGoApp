@@ -11,6 +11,25 @@ public class BaseResponse<T> {
     private T data; // 具体的数据结果
     private String msg; // message 可用来返回接口的说明
 
+    private int errno;
+    private String errmsg;
+
+    public int getErrno() {
+        return errno;
+    }
+
+    public void setErrno(int errno) {
+        this.errno = errno;
+    }
+
+    public String getErrmsg() {
+        return errmsg;
+    }
+
+    public void setErrmsg(String errmsg) {
+        this.errmsg = errmsg;
+    }
+
     public int getCode() {
         return code;
     }
