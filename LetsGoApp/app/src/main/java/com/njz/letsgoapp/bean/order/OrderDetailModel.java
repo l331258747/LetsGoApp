@@ -59,8 +59,8 @@ public class OrderDetailModel {
     private int payStatus;
     private String guideName;
     private String guideMobile;
-    private String startData;
-    private String endData;
+    private String startDate;
+    private String endDate;
     private List<OrderDetailChildModel> njzChildOrderVOS;
     private int payingStatus;
     private int serveId;
@@ -85,20 +85,20 @@ public class OrderDetailModel {
         this.guideId = guideId;
     }
 
-    public String getStartData() {
-        return startData;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setStartData(String startData) {
-        this.startData = startData;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getEndData() {
-        return endData;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setEndData(String endData) {
-        this.endData = endData;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public String getGuideMobile() {
@@ -174,6 +174,11 @@ public class OrderDetailModel {
     }
 
     public String getPayType() {
+        if(TextUtils.equals(payType,"WxPay")){
+            return "微信支付";
+        }else if(TextUtils.equals(payType,"AliPay")){
+            return "支付宝支付";
+        }
         return payType;
     }
 

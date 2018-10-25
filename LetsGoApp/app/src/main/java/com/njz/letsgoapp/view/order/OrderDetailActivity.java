@@ -319,7 +319,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                         ll_order_guide_time.setVisibility(View.VISIBLE);
                         tv_order_guide_time.setText(str.getGuideSureTime());
                         ll_order_travel_start.setVisibility(View.VISIBLE);
-                        tv_order_travel_start.setText(str.getStartData());
+                        tv_order_travel_start.setText(str.getStartDate());
                         break;
                 }
 
@@ -345,9 +345,9 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 ll_order_guide_time.setVisibility(View.VISIBLE);
                 tv_order_guide_time.setText(str.getGuideSureTime());
                 ll_order_travel_start.setVisibility(View.VISIBLE);
-                tv_order_travel_start.setText(str.getStartData());
+                tv_order_travel_start.setText(str.getStartDate());
                 ll_order_travel_end.setVisibility(View.VISIBLE);
-                tv_order_travel_end.setText(str.getEndData());
+                tv_order_travel_end.setText(str.getEndDate());
 
                 switch (str.getReviewStatus()) {
                     case Constant.ORDER_EVALUATE_NO:
