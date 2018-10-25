@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
@@ -55,6 +57,8 @@ public class MyReceiver extends BroadcastReceiver {
 
 //                initWindowManager(context);
 //                createFloatView(context, "s");
+
+                RxBus2.getInstance().post(new NotifyEvent(true));
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 用户点击打开了通知");

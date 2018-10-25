@@ -19,6 +19,8 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
 import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.HomeFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.MyFragment;
@@ -29,6 +31,9 @@ import com.njz.letsgoapp.widget.tab.TabLayout;
 import com.njz.letsgoapp.widget.tab.TabView;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -46,6 +51,8 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     private Fragment[] fragments = new Fragment[5];
 
     LinearLayout linear_bar;
+
+    Disposable notifyDisposable;
 
     //----------沉浸式 start ----------
     @Override
@@ -125,6 +132,14 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
 
         // 点击事件处理
         onTabItemClick(tabItems.get(0));
+
+        //小红点处理
+        notifyDisposable = RxBus2.getInstance().toObservable(NotifyEvent.class, new Consumer<NotifyEvent>() {
+            @Override
+            public void accept(NotifyEvent notifyEvent) throws Exception {
+                changeTabBadge(notifyEvent.isShowTips()?-1:0);
+            }
+        });
     }
 
     public void setTabIndex(int i){
@@ -183,6 +198,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
             case 3:
                 setTitleSingle(true, getResString(R.string.home_notify));
                 setMystatusViewShow(true);
+                RxBus2.getInstance().post(new NotifyEvent(false));
                 break;
             case 4:
                 setTitleSingle(false, getResString(R.string.home_my));
@@ -223,4 +239,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(notifyDisposable !=null && !notifyDisposable.isDisposed())
+            notifyDisposable.dispose();
+    }
 }
