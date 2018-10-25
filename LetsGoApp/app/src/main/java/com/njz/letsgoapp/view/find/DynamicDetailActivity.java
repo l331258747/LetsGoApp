@@ -27,6 +27,8 @@ import com.njz.letsgoapp.mvp.find.DynamicDetailContract;
 import com.njz.letsgoapp.mvp.find.DynamicDetailPresenter;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
+import com.njz.letsgoapp.mvp.find.FollowContract;
+import com.njz.letsgoapp.mvp.find.FollowPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
@@ -47,12 +49,13 @@ import java.util.List;
  * Function:
  */
 
-public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View,DynamicDeleteContract.View, View.OnClickListener {
+public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View,
+        DynamicDeleteContract.View, View.OnClickListener,FollowContract.View {
 
     public static final String FRIENDSTERID ="FRIENDSTERID";
 
     private ImageView ivImg;
-    private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete;
+    private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete,tvFollow;
     private DynamicImageView dynamicImageView;
     private DynamicNiceImageView dynamicNiceImgView;
     private RelativeLayout rlNice;
@@ -65,6 +68,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     private DynamicDetailPresenter mPresenter;
     private DynamicNicePresenter nicePresenter;
     private DynamicDeletePresenter deletePresenter;
+    private FollowPresenter followPresenter;
 
     private int friendSterId;
     private DynamicCommentAdapter mAdapter;
@@ -100,6 +104,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         ivImg = $(R.id.iv_img);
         tvName = $(R.id.tv_name);
         tvTime = $(R.id.tv_time);
+        tvFollow = $(R.id.tv_follow);
         tvContent = $(R.id.tv_content);
         tvNice = $(R.id.tv_nice);
         tvComment = $(R.id.tv_comment);
@@ -184,6 +189,13 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
                 }).show();
             }
         });
+        tvFollow.setVisibility(View.GONE);
+        tvFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followPresenter.userFocusOff(model.isFocus(),model.getUserId());
+            }
+        });
     }
 
     //初始化recyclerview
@@ -223,8 +235,11 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
         if(MySelfInfo.getInstance().getUserId() == model.getUserId()){
             tvDelete.setVisibility(View.VISIBLE);
+            tvFollow.setVisibility(View.GONE);
         }else{
             tvDelete.setVisibility(View.GONE);
+            tvFollow.setVisibility(View.VISIBLE);
+            setFollow(model.isFocus());
         }
 
     }
@@ -242,6 +257,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         mPresenter = new DynamicDetailPresenter(context, this);
         nicePresenter = new DynamicNicePresenter(context, this);
         deletePresenter = new DynamicDeletePresenter(context,this);
+        followPresenter = new FollowPresenter(context,this);
 
         mPresenter.friendPersonalFriendSter(friendSterId);
     }
@@ -327,5 +343,28 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
                 break;
         }
 
+    }
+
+    public void setFollow(boolean isFollow){
+        if(isFollow){
+            tvFollow.setText("已关注");
+            tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_gray_solid_r5));
+            tvFollow.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.follow_ok),null,null,null);
+        }else{
+            tvFollow.setText("加关注");
+            tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r5));
+            tvFollow.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.follow_un),null,null,null);
+        }
+    }
+
+    @Override
+    public void userFocusOffSuccess(EmptyModel models) {
+        model.setFocus(!model.isFocus());
+        setFollow(model.isFocus());
+    }
+
+    @Override
+    public void userFocusOffFailed(String msg) {
+        showShortToast(msg);
     }
 }

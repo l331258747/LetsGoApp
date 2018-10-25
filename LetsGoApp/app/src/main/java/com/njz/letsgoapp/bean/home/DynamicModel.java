@@ -48,6 +48,17 @@ public class DynamicModel {
     private String shareTitle;
     private String shareUrl;
 
+    private boolean like;
+    private boolean focus;
+
+    public boolean isFocus() {
+        return focus;
+    }
+
+    public void setFocus(boolean focus) {
+        this.focus = focus;
+    }
+
     public List<String> getLikeList() {
         return likeList;
     }
@@ -75,13 +86,6 @@ public class DynamicModel {
     public void setDynamicComments(List<DynamicCommentModel> travelDiscussVOS) {
         this.travelDiscussVOS = travelDiscussVOS;
     }
-
-    /**
-     * like : true
-     * travelDiscussEntity : null
-     */
-
-    private boolean like;
 
     public String getImgUrl() {
         return imgUrl;
