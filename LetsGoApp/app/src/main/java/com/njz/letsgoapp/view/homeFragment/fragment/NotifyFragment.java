@@ -16,7 +16,8 @@ import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.notify.InteractionMsgActivity;
 import com.njz.letsgoapp.view.notify.SystemMsgActivity;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
+import com.njz.letsgoapp.widget.emptyView.EmptyView;
 import com.njz.letsgoapp.widget.NotifyItemView;
 
 import java.util.List;
@@ -197,7 +198,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         if(msg.startsWith("-")){
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
-            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
                     getData();

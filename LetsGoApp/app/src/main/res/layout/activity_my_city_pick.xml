@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5" />
 
-                    <com.njz.letsgoapp.widget.EmptyView
+                    <com.njz.letsgoapp.widget.emptyView.EmptyView
                         android:id="@+id/view_empty_city"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -194,7 +194,7 @@
 
             <include layout="@layout/common_recyclerview"/>
 
-            <com.njz.letsgoapp.widget.EmptyView
+            <com.njz.letsgoapp.widget.emptyView.EmptyView
                 android:id="@+id/view_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

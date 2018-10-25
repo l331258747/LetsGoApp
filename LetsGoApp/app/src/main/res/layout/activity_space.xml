@@ -190,10 +190,10 @@
             <include layout="@layout/base_recycler_view_layout"/>
 
 
-            <com.njz.letsgoapp.widget.EmptyView
+            <com.njz.letsgoapp.widget.emptyView.EmptyView2
                 android:id="@+id/view_empty"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:visibility="gone"/>
 
         </FrameLayout>

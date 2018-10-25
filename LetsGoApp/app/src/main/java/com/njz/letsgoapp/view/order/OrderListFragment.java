@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -27,7 +24,8 @@ import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderListContract;
 import com.njz.letsgoapp.mvp.order.OrderListPresenter;
 import com.njz.letsgoapp.view.login.LoginActivity;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
+import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -297,7 +295,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         if(msg.startsWith("-")){
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
-            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
                     getRefreshData();

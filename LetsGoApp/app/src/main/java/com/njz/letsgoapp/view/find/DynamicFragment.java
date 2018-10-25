@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,10 +25,10 @@ import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.mvp.find.FindContract;
 import com.njz.letsgoapp.mvp.find.FindPresenter;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
+import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -299,7 +298,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         if(msg.startsWith("-")){
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
-            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
                     getRefreshData();
@@ -344,7 +343,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         if(msg.startsWith("-")){
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
-            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
                     getRefreshData();

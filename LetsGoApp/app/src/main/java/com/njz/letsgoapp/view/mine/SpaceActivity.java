@@ -5,10 +5,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndLessScrollOnScrollListener;
-import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -26,7 +23,6 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
-import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
@@ -37,10 +33,10 @@ import com.njz.letsgoapp.mvp.mine.SpacePresenter;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.find.ReleaseDynamicActivity;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
+import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
@@ -77,7 +73,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
 
-    public EmptyView view_empty;
+    public EmptyView2 view_empty;
 
 
     @Override
@@ -261,7 +257,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             if(MySelfInfo.getInstance().getUserId() == userId){
                 view_empty.setVisible(true);
                 view_empty.setEmptyData(R.mipmap.empty_dynamic_my,"空空如也，说点什么~",null,"去发布");
-                view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+                view_empty.setBtnClickLisener(new EmptyClickLisener() {
                     @Override
                     public void onClick() {
                         startActivity(new Intent(context, ReleaseDynamicActivity.class));

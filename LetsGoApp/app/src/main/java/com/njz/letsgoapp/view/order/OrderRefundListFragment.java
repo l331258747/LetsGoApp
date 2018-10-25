@@ -10,13 +10,13 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.order.OrderRefundListAdapter;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderRefundListContract;
 import com.njz.letsgoapp.mvp.order.OrderRefundListPresenter;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
+import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +128,7 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
         if(msg.startsWith("-")){
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
-            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
                     getRefreshData();

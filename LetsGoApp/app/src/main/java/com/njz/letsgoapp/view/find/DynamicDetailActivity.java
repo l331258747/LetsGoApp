@@ -35,7 +35,7 @@ import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
 import com.njz.letsgoapp.widget.DynamicNiceImageView;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 import com.njz.letsgoapp.widget.popupwindow.PopComment;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
     private int toId;
 
-    public EmptyView view_empty;
+    public EmptyView2 view_empty;
 
     @Override
     public void getIntentData() {

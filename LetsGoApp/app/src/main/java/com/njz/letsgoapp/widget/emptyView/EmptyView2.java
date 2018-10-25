@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.widget;
+package com.njz.letsgoapp.widget.emptyView;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,25 +19,25 @@ import com.njz.letsgoapp.R;
  * Function:
  */
 
-public class EmptyView extends RelativeLayout {
+public class EmptyView2 extends RelativeLayout {
 
     Context context;
     ImageView iv_empty_img;
     TextView tv_empty_content,tv_empty_content_2,tv_empty_btn;
-    RelativeLayout rl_empty_parent;
+    LinearLayout rl_empty_parent;
 
-    public EmptyView(Context context) {
+    public EmptyView2(Context context) {
         this(context,null);
     }
 
-    public EmptyView(Context context, AttributeSet attrs) {
+    public EmptyView2(Context context, AttributeSet attrs) {
         this(context, attrs,0);
     }
 
-    public EmptyView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public EmptyView2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_empty, this, true);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_empty2, this, true);
 
         this.context = context;
 
@@ -105,11 +106,8 @@ public class EmptyView extends RelativeLayout {
     }
 
 
-    BtnClickLisener btnClickLisener;
-    public interface BtnClickLisener {
-        void onClick();
-    }
-    public void setBtnClickLisener(BtnClickLisener btnClickLisener){
+    EmptyClickLisener btnClickLisener;
+    public void setBtnClickLisener(EmptyClickLisener btnClickLisener){
         this.btnClickLisener = btnClickLisener;
     }
 

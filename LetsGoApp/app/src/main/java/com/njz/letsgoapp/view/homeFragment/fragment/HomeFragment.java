@@ -30,7 +30,6 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
-import com.njz.letsgoapp.bean.other.LocationModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
@@ -39,11 +38,9 @@ import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
-import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
@@ -54,7 +51,7 @@ import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +101,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     private int nicePosition;
 
-    public EmptyView view_empty;
+    public EmptyView2 view_empty;
 
     @Override
     public int getLayoutId() {

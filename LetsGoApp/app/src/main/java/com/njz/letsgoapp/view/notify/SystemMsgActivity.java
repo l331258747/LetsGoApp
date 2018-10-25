@@ -13,7 +13,8 @@ import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.notify.NotifyListContract;
 import com.njz.letsgoapp.mvp.notify.NotifyListPresenter;
-import com.njz.letsgoapp.widget.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
+import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,7 +151,7 @@ public class SystemMsgActivity extends BaseActivity implements NotifyListContrac
         if(msg.startsWith("-")){
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
-            view_empty.setBtnClickLisener(new EmptyView.BtnClickLisener() {
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
                     getRefreshData();
