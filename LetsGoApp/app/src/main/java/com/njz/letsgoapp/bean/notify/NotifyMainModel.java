@@ -29,7 +29,7 @@ public class NotifyMainModel {
 
     private int msgId;
     private String title;
-    private int msgType;
+    private String msgType;
     private String content;
     private int sendUserId;
     private int receiveUserId;
@@ -73,11 +73,12 @@ public class NotifyMainModel {
         this.title = title;
     }
 
-    public int getMsgType() {
+
+    public String getMsgType() {
         return msgType;
     }
 
-    public void setMsgType(int msgType) {
+    public void setMsgType(String msgType) {
         this.msgType = msgType;
     }
 
