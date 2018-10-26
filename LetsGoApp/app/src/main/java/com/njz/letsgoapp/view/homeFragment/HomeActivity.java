@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,7 +17,10 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.notify.NotifyMainContract;
+import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -31,6 +35,7 @@ import com.njz.letsgoapp.widget.tab.TabLayout;
 import com.njz.letsgoapp.widget.tab.TabView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -41,7 +46,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickListener {
+public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickListener,NotifyMainContract.View {
 
 
     private TabLayout tabLayout;
@@ -53,6 +58,8 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     LinearLayout linear_bar;
 
     Disposable notifyDisposable;
+
+    private NotifyMainPresenter mPresenter;
 
     //----------沉浸式 start ----------
     @Override
@@ -125,7 +132,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         tabItems.add(new TabItem(R.drawable.tab_home, R.string.home, 0, fragmentCls[0]));
         tabItems.add(new TabItem(R.drawable.tab_find, R.string.home_find, 0, fragmentCls[1]));
         tabItems.add(new TabItem(R.drawable.tab_order, R.string.home_order, 0, fragmentCls[2]));
-        tabItems.add(new TabItem(R.drawable.tab_notify, R.string.home_notify, -1, fragmentCls[3]));
+        tabItems.add(new TabItem(R.drawable.tab_notify, R.string.home_notify, 0, fragmentCls[3]));
         tabItems.add(new TabItem(R.drawable.tab_mine, R.string.home_my, 0, fragmentCls[4]));
 
         tabLayout.initData(tabItems, this);
@@ -140,6 +147,11 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
                 changeTabBadge(notifyEvent.isShowTips()?-1:0);
             }
         });
+
+        mPresenter = new NotifyMainPresenter(context,this);
+        if(MySelfInfo.getInstance().isLogin()){
+            mPresenter.msgPushGetSendMsgList();
+        }
     }
 
     public void setTabIndex(int i){
@@ -244,5 +256,19 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         super.onDestroy();
         if(notifyDisposable !=null && !notifyDisposable.isDisposed())
             notifyDisposable.dispose();
+    }
+
+    @Override
+    public void msgPushGetSendMsgListSuccess(List<NotifyMainModel> data) {
+        if(data == null || data.size() == 0){
+            RxBus2.getInstance().post(new NotifyEvent(false));
+        }else{
+            RxBus2.getInstance().post(new NotifyEvent(true));
+        }
+    }
+
+    @Override
+    public void msgPushGetSendMsgListFailed(String msg) {
+        LogUtil.e(msg);
     }
 }
