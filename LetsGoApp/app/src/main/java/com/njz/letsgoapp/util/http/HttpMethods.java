@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpMethods {
 
     public static final String CACHE_NAME = "lets_go_cache";
-    public static String BASE_URL = URLConstant.BASE_URL;
+    public static String BASE_URL = URLConstant.BASE_URL + "/api/";
     private static final int DEFAULT_CONNECT_TIMEOUT = 10;//设置连接超时时间
     private static final int DEFAULT_WRITE_TIMEOUT = 30;//设置写入超时时间
     private static final int DEFAULT_READ_TIMEOUT = 30;//设置读取超时时间
