@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.njz.letsgoapp.MyApplication;
+import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -57,6 +58,10 @@ public class WXHelp {
             Bitmap thumbBmp = Bitmap.createScaledBitmap(GetLocalOrNetBitmap(imageUrl), 200, 200, true);
             msg.setThumbImage(thumbBmp);
             thumbBmp.recycle();
+        }else{
+            Bitmap thumb = BitmapFactory.decodeResource(context.getResources(), R.mipmap.share_logo);
+            msg.setThumbImage(thumb);
+            thumb.recycle();
         }
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis()); // transaction字段用于唯一标识一个请求

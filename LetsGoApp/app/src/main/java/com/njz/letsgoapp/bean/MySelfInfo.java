@@ -103,8 +103,16 @@ public class MySelfInfo {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_FANS);
     }
 
+    public void setUserFans(int fans){
+        SPUtils.getInstance().putInt(SPUtils.SP_USER_FANS, fans);
+    }
+
     public int getUserFocus() {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_FOCUS);
+    }
+
+    public void setUserFocus(int focus){
+        SPUtils.getInstance().putInt(SPUtils.SP_USER_FOCUS, focus);
     }
 
     public String getUserGender() {
