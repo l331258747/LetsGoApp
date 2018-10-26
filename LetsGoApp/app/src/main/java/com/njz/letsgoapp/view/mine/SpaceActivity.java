@@ -197,7 +197,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         GlideUtil.LoadCircleImage(context, data.getImgUrl(), ivHead);
         tvName.setText(data.getNickname());
         tvAge.setText(TextUtils.isEmpty(data.getBirthday())?"保密":""+DateUtil.getAgeFromBirthTime(data.getBirthday()));
-        StringUtils.setHtml(tvFans, String.format(getResources().getString(R.string.mine_fans), MySelfInfo.getInstance().getUserFocus()));
+        StringUtils.setHtml(tvFans, String.format(getResources().getString(R.string.mine_fans), MySelfInfo.getInstance().getUserFans()));
         tvExplain.setText(data.getPersonalStatement());
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 2 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
         initFlow(data.getTravelMacroEntitysList());

@@ -12,10 +12,14 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.dialog.DialogUtil;
+import com.njz.letsgoapp.mvp.mine.MyMainContract;
+import com.njz.letsgoapp.mvp.mine.MyMainPresenter;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
@@ -32,7 +36,7 @@ import com.njz.letsgoapp.widget.MineItemView2;
  * Function:
  */
 
-public class MyFragment extends BaseFragment implements View.OnClickListener {
+public class MyFragment extends BaseFragment implements View.OnClickListener,MyMainContract.View {
 
     MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting;
 
@@ -40,6 +44,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     TextView tv_name,tv_follow,tv_fans,tv_login,tv_space;
 
     LinearLayout ll_info;
+
+    MyMainPresenter mPresenter;
+    private boolean hidden;
 
 
     @Override
@@ -84,6 +91,22 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         setLoginState();
+        if(hidden) return;
+        getData();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        this.hidden = hidden;
+        if(!hidden){
+            getData();
+        }
+    }
+
+    public void getData(){
+        if(MySelfInfo.getInstance().isLogin())
+            mPresenter.userViewZone(MySelfInfo.getInstance().getUserId());
     }
 
     public void setLoginState(){
@@ -92,8 +115,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             tv_login.setVisibility(View.GONE);
 
             tv_name.setText(MySelfInfo.getInstance().getUserNickname());
-            StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFocus()));
-            StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFans()));
+            StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFans()));
+            StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFocus()));
             mine_bind.setContent(StringUtils.hidePhone(MySelfInfo.getInstance().getUserMoble()));
 
             GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImgUrl(), iv_head);
@@ -109,7 +132,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initData() {
-
+        mPresenter = new MyMainPresenter(context,this);
     }
 
     @Override
@@ -175,5 +198,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         }
         startActivity(new Intent(context,LoginActivity.class));
         return false;
+    }
+
+    @Override
+    public void userViewZoneSuccess(LoginInfoModel data) {
+        MySelfInfo.getInstance().setUserFocus(data.getFocusCount());
+        MySelfInfo.getInstance().setUserFans(data.getFansCount());
+        StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFans()));
+        StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFocus()));
+    }
+
+    @Override
+    public void userViewZoneFailed(String msg) {
+        showShortToast(msg);
     }
 }

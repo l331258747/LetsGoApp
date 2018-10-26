@@ -165,7 +165,6 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             setNotifyItemEmpty(view_notify_interaction);
         }
 
-
         view_empty.setVisible(false);
 
     }
