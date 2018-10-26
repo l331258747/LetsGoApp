@@ -22,6 +22,7 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.home.GuideDetailContract;
@@ -318,10 +319,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.right_iv:
                 if(guideDetailModel == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
-                        guideDetailModel.getShareTitle(),
-                        guideDetailModel.getShareContent(),
-                        guideDetailModel.getShareImg(),
-                        guideDetailModel.getShareUrl());
+                        guideDetailModel.getGuideName()+"导游",
+                        guideDetailModel.getIntroduce(),
+                        guideDetailModel.getGuideImg(),
+                        URLConstant.SHARE_GUIDE+"?location="+MySelfInfo.getInstance().getDefaultCity()+"&guideId"+guideId);
                 dialog.show();
                 break;
             case R.id.tv_back_top:

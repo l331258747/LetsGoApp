@@ -95,9 +95,9 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     public void initView() {
 
         showLeftAndTitle("动态详情");
-        showRightIv();
-        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
-        getRightIv().setOnClickListener(this);
+//        showRightIv();
+//        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
+//        getRightIv().setOnClickListener(this);
 
         view_empty = $(R.id.view_empty);
 
