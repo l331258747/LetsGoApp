@@ -18,9 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_toStartOf="@+id/tv_time"
         android:layout_marginLeft="10dp"
+        android:maxLines="1"
         android:layout_toEndOf="@+id/iv_head"
-        android:text="那就走" />
+        android:text="那就走那就走那就走那就走那就走那就走那就走" />
 
 
     <TextView
@@ -28,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:text="8月12日 上午9:23" />
