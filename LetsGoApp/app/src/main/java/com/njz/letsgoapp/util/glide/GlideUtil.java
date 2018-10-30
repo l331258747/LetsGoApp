@@ -84,52 +84,66 @@ public class GlideUtil {
 
     }
 
+    //加载上边圆角图片
+    public static void LoadTopRoundImage(Context mContext, String path,
+                                      ImageView imageview,int radius) {
+        if(TextUtils.isEmpty(path)) path = "";
+
+        CornerTransform transformation = new CornerTransform(mContext, radius);
+        //只是绘制左上角和右上角圆角
+        transformation.setExceptCorner(false, false, true, true);//false表示为圆角
+
+        Glide.with(mContext).load(path).placeholder(R.mipmap.head_default)
+                .transform(new CenterCrop(mContext),transformation)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+
+    }
 
     //----------默认图
 
-    //加载网络图片
-    public static void LoadImage(Context mContext, String path,
-                                 ImageView imageview,int defultImg) {
-        if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).centerCrop().error(defultImg)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
-    }
-
-    public static void LoadImageFitCenter(Context mContext, String path,
-                                          ImageView imageview,int defultImg) {
-        if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).fitCenter().error(defultImg)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
-    }
-
-
-    //加载本地图片
-    public static void LoadImageWithLocation(Context mContext, Integer path,
-                                             ImageView imageview,int defultImg) {
-        Glide.with(mContext).load(path).error(defultImg)
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .into(imageview);
-    }
-
-    //圆形加载
-    public static void LoadCircleImage(Context mContext, String path,
-                                       ImageView imageview,int defultImg) {
-        if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).centerCrop().error(defultImg)
-                .transform(new GlideCircleTransform(mContext,2,mContext.getResources().getColor(R.color.white)))
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
-
-    }
-
-    //加载圆角图片
-    public static void LoadRoundImage(Context mContext, String path,
-                                      ImageView imageview,int radius,int defultImg) {
-        if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).error(defultImg)
-                .transform(new CenterCrop(mContext),new GlideRoundTransform(mContext, radius))
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
-
-    }
+//    //加载网络图片
+//    public static void LoadImage(Context mContext, String path,
+//                                 ImageView imageview,int defultImg) {
+//        if(TextUtils.isEmpty(path)) path = "";
+//        Glide.with(mContext).load(path).centerCrop().error(defultImg)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+//    }
+//
+//    public static void LoadImageFitCenter(Context mContext, String path,
+//                                          ImageView imageview,int defultImg) {
+//        if(TextUtils.isEmpty(path)) path = "";
+//        Glide.with(mContext).load(path).fitCenter().error(defultImg)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+//    }
+//
+//
+//    //加载本地图片
+//    public static void LoadImageWithLocation(Context mContext, Integer path,
+//                                             ImageView imageview,int defultImg) {
+//        Glide.with(mContext).load(path).error(defultImg)
+//                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                .into(imageview);
+//    }
+//
+//    //圆形加载
+//    public static void LoadCircleImage(Context mContext, String path,
+//                                       ImageView imageview,int defultImg) {
+//        if(TextUtils.isEmpty(path)) path = "";
+//        Glide.with(mContext).load(path).centerCrop().error(defultImg)
+//                .transform(new GlideCircleTransform(mContext,2,mContext.getResources().getColor(R.color.white)))
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+//
+//    }
+//
+//    //加载圆角图片
+//    public static void LoadRoundImage(Context mContext, String path,
+//                                      ImageView imageview,int radius,int defultImg) {
+//        if(TextUtils.isEmpty(path)) path = "";
+//        Glide.with(mContext).load(path).error(defultImg)
+//                .transform(new CenterCrop(mContext),new GlideRoundTransform(mContext, radius))
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+//
+//    }
 
 
 }

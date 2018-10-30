@@ -17,18 +17,27 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  * Function: 圆角图片
  */
 
-public class GlideRoundTransform extends BitmapTransformation {
+public class CornerTransform extends BitmapTransformation {
 
     private float radius = 0f;
+    private boolean exceptLeftTop, exceptRightTop, exceptLeftBottom, exceptRightBotoom;
 
-    public GlideRoundTransform(Context context) {
+    public CornerTransform(Context context) {
         this(context, 4);
     }
 
-    public GlideRoundTransform(Context context, int dp) {
+    public CornerTransform(Context context, int dp) {
         super(context);
         this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
+
+    public void setExceptCorner(boolean leftTop, boolean rightTop, boolean leftBottom, boolean rightBottom) {
+        this.exceptLeftTop = leftTop;
+        this.exceptRightTop = rightTop;
+        this.exceptLeftBottom = leftBottom;
+        this.exceptRightBotoom = rightBottom;
+    }
+
 
     @Override protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
         return roundCrop(pool, toTransform);
@@ -48,6 +57,23 @@ public class GlideRoundTransform extends BitmapTransformation {
         paint.setAntiAlias(true);
         RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
         canvas.drawRoundRect(rectF, radius, radius, paint);
+
+
+        if (exceptLeftTop) { //左上角不为圆角
+            canvas.drawRect(0, 0, radius, radius, paint);
+        }
+        if (exceptRightTop) {//右上角不为圆角
+            canvas.drawRect(canvas.getWidth() - radius, 0, canvas.getWidth(), radius, paint);
+        }
+
+        if (exceptLeftBottom) {//左下角不为圆角
+            canvas.drawRect(0, canvas.getHeight() - radius, radius, canvas.getHeight(), paint);
+        }
+
+        if (exceptRightBotoom) {//右下角不为圆角
+            canvas.drawRect(canvas.getWidth() - radius, canvas.getHeight() - radius, canvas.getWidth(), canvas.getHeight(), paint);
+        }
+
         return result;
     }
 
@@ -56,3 +82,5 @@ public class GlideRoundTransform extends BitmapTransformation {
     }
 
 }
+
+
