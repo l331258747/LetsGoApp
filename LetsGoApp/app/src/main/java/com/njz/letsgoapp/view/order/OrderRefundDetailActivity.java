@@ -1,9 +1,9 @@
 package com.njz.letsgoapp.view.order;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,7 +34,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
 
     RelativeLayout rl_refund_penalty,rl_refund_price,rl_order_price,rl_refund_used_price;
     TextView tv_refund_penalty,tv_refund_price,tv_refund_used_price;
-    CardView cv_refund_reason;
+    FrameLayout cv_refund_reason;
     TextView tv_refund_reason,tv_refund_explain;
 
     @Override

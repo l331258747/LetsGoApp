@@ -126,14 +126,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
-                app:cardElevation="3dp">
+                android:background="@drawable/card_view_bg_10">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,14 +149,14 @@
                         <TextView
                             android:id="@+id/tv_guide_name"
                             android:layout_width="wrap_content"
-                            android:textStyle="bold"
-                            android:drawableLeft="@mipmap/ic_order_title"
-                            android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
-                            android:text="那就走"
+                            android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:layout_alignParentStart="true" />
+                            android:drawableLeft="@mipmap/ic_order_title"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="那就走"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_order_status"
@@ -164,9 +164,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:textStyle="bold"
                             android:text="待付款"
-                            android:textColor="@color/color_red" />
+                            android:textColor="@color/color_red"
+                            android:textStyle="bold" />
 
 
                     </RelativeLayout>
@@ -218,18 +218,17 @@
                             android:background="@color/transparent"
                             android:gravity="top"
                             android:hint="请输入其他需求。（选填）"
-                            android:textColor="@drawable/text_color_fixed_item_edit"
                             android:maxLength="100"
                             android:maxLines="3"
                             android:minLines="1"
                             android:paddingBottom="10dp"
-                            android:paddingTop="10dp" />
+                            android:paddingTop="10dp"
+                            android:textColor="@drawable/text_color_fixed_item_edit" />
 
                     </LinearLayout>
                 </LinearLayout>
 
-                </android.support.v7.widget.CardView>
-
+            </FrameLayout>
 
 
             <LinearLayout
@@ -241,17 +240,17 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:id="@+id/cv_refund_reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:visibility="gone"
-                tools:visibility="visible"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
-                app:cardElevation="3dp">
+                android:background="@drawable/card_view_bg_10"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -261,7 +260,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="10dp">
@@ -286,7 +284,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="10dp">
@@ -301,8 +298,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:minLines="1"
                             android:maxLines="3"
+                            android:minLines="1"
                             android:text="agaegaegagaaegaeg" />
 
                     </LinearLayout>
@@ -310,16 +307,16 @@
                 </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
-                app:cardElevation="3dp">
+                android:background="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -331,7 +328,6 @@
                         android:id="@+id/rl_order_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:gravity="center_vertical"
                         android:padding="10dp">
 
@@ -350,16 +346,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="￥"
-                                android:textStyle="bold"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tv_order_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="11234.9"
-                                android:textStyle="bold"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -369,11 +365,10 @@
                         android:id="@+id/rl_refund_used_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:gravity="center_vertical"
+                        android:padding="10dp"
                         android:visibility="gone"
-                        tools:visibility="visible"
-                        android:padding="10dp">
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -389,17 +384,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:text="￥"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tv_refund_used_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:text="11234.9"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -409,11 +404,10 @@
                         android:id="@+id/rl_refund_penalty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:gravity="center_vertical"
+                        android:padding="10dp"
                         android:visibility="gone"
-                        tools:visibility="visible"
-                        android:padding="10dp">
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -429,17 +423,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:text="￥"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tv_refund_penalty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:text="11234.9"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -449,11 +443,10 @@
                         android:id="@+id/rl_refund_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:visibility="gone"
-                        tools:visibility="visible"
                         android:gravity="center_vertical"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -469,17 +462,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:text="￥"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tv_refund_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
                                 android:text="11234.9"
-                                android:textColor="@color/color_theme" />
+                                android:textColor="@color/color_theme"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -488,21 +481,20 @@
                 </LinearLayout>
 
 
+            </FrameLayout>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                app:cardElevation="3dp">
+                android:background="@drawable/card_view_bg_10">
 
                 <include layout="@layout/layout_order_info" />
 
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
 
 
         </LinearLayout>

@@ -2,11 +2,11 @@ package com.njz.letsgoapp.adapter.mine;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -89,7 +89,7 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_head;
         TextView tv_mine, tv_name, tv_mine2, tv_time,tv_content;
-        CardView cv_parent;
+        FrameLayout cv_parent;
 
         public ViewHolder(View itemView) {
             super(itemView);
