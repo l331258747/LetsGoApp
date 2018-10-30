@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -72,7 +73,7 @@ public class HomeGuideAdapter extends RecyclerView.Adapter<HomeGuideAdapter.View
 
         ImageView iv_img,iv_sex;
         TextView tv_name,tv_service_num;
-        CardView cv_parent;
+        FrameLayout cv_parent;
 
 
         public ViewHolder(View itemView) {

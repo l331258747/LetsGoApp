@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -91,7 +93,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public static class GuideViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
+        FrameLayout cardView;
         ImageView iv_head,iv_sex;
         TextView tv_name;
         MyRatingBar rating_bar_route;
