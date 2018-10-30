@@ -2051,7 +2051,8 @@ public class TabLayout extends HorizontalScrollView {
                     int tabCenter = mIndicatorLeft + width / 2;
                     RectF oval3 = new RectF(tabCenter - mTabLineOffset, getHeight() - mSelectedIndicatorHeight,
                             mIndicatorRight - width / 2 + mTabLineOffset, getHeight());
-                    canvas.drawRoundRect(oval3, 30, 30, mSelectedIndicatorPaint);
+//                    canvas.drawRoundRect(oval3, 30, 30, mSelectedIndicatorPaint);
+                    canvas.drawRect(oval3,mSelectedIndicatorPaint);
                 }
             }
         }
