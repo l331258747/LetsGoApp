@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -26,9 +27,13 @@ public class PicChooseDialog extends Dialog implements View.OnClickListener {
     Button tbChoosePic;
     Button btTackPic;
 
-    public PicChooseDialog(Activity activity) {
+    Uri cameraUri;
+
+    public PicChooseDialog(Activity activity,Uri cameraUri) {
         super(activity);
         mActivity = activity;
+
+        this.cameraUri = cameraUri;
     }
 
     public PicChooseDialog(Activity activity, int theme) {
@@ -72,6 +77,7 @@ public class PicChooseDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.bt_tack_pic:
                 intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,cameraUri);
                 mActivity.startActivityForResult(intent, TackPicturesUtil.TACK_PIC);
                 dismiss();
                 break;

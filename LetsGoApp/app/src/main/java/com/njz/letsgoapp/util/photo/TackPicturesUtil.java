@@ -35,6 +35,9 @@ public class TackPicturesUtil {
 
     public static final int CHOOSE_PIC = 2;
 
+    public Uri cameraUri;
+    public Uri CropUri;
+
     /**
      * IMAGE_CACHE_PATH 图片缓存目录
      */
@@ -53,67 +56,121 @@ public class TackPicturesUtil {
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS) != PackageManager.PERMISSION_GRANTED) {
         } else {
-            PicChooseDialog dialog = new PicChooseDialog(activity);
+            setCameraUri();
+            PicChooseDialog dialog = new PicChooseDialog(activity, cameraUri);
             dialog.show();
         }
     }
 
+    public void setCameraUri() {
+        File outFile = FileUtil.createDownloadFile(IMAGE_CACHE_PATH + System.currentTimeMillis() + ".jpg");
+        if (Build.VERSION.SDK_INT >= 24) {
+            String authority = activity.getApplicationInfo().packageName + ".provider";
+            cameraUri = FileProvider.getUriForFile(activity, authority, outFile);
+        } else {
+            cameraUri = Uri.fromFile(outFile);
+        }
+    }
+
+    /*
+       拍照后获取图片二中途径
+       1，intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+          mActivity.startActivityForResult(intent, TackPicturesUtil.TACK_PIC);
+
+          通过下面方法获取Bitmap，但是为缩略图 data有值
+          Bitmap cropBitmap = data.getParcelableExtra("data");
+
+       2， 直接去获取cameraUri来使用就ok data为null
+          intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+          intent.putExtra(MediaStore.EXTRA_OUTPUT,cameraUri);
+          mActivity.startActivityForResult(intent, TackPicturesUtil.TACK_PIC);
+     */
+
 
     //兼容7.0照相获取uri
-    public String getPicture(int requestCode, int resultCode, Intent data,
-                             boolean isCrop) {
-        if (resultCode != Activity.RESULT_OK || data == null)
+    public String getPicture(int requestCode, int resultCode, Intent data, boolean isCrop) {
+//        if (resultCode != Activity.RESULT_OK || data == null)
+//            return null;
+//
+//        // 获取原图
+//        if (requestCode == TACK_PIC || requestCode == CHOOSE_PIC) {
+//            Uri uri = data.getData();
+//
+//            // 部分手机可能为null
+//            if (uri == null) {
+//                FileOutputStream out = null;
+//                try {
+//                    // 把返回的bitmap存到文件系统中
+//                    Bitmap cropBitmap = data.getParcelableExtra("data");
+//                    File outFile = FileUtil.createDownloadFile(IMAGE_CACHE_PATH + System.currentTimeMillis() + ".jpg");
+//                    out = new FileOutputStream(outFile);
+//                    cropBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//                    if (!cropBitmap.isRecycled())
+//                        cropBitmap.recycle();
+//
+//                    //拍照留下的图片
+//                    File camerafile = new File(outFile.getAbsolutePath());
+//                    if (Build.VERSION.SDK_INT >= 24) {
+//                        String authority = activity.getApplicationInfo().packageName + ".provider";
+//                        uri = FileProvider.getUriForFile(activity, authority, camerafile);
+//                    } else {
+//                        uri = Uri.fromFile(camerafile);
+//                    }
+//
+//                    if (uri == null) {
+//                        return outFile.getAbsolutePath();
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    try {
+//                        if (out != null) {
+//                            out.flush();
+//                            out.close();
+//                        }
+//                    } catch (Exception e2) {
+//                        e2.printStackTrace();
+//                    }
+//                }
+//            }
+//            if (uri == null)
+//                return null;
+//
+//            // 是否需要调用系统剪裁界面
+//            if (isCrop)
+//                cropImageUri(uri, CROP_PIC);
+//            else {
+//                // 不需要剪裁就直接返回原图路径
+//                Cursor cursor = activity.getContentResolver().query(uri, new String[]{MediaStore.Images.Media.DATA}, null, null, null);
+//                if (cursor == null) {
+//                    return null;
+//                }
+//                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                if (cursor.moveToFirst())
+//                    return cursor.getString(column_index);
+//            }
+//        }
+        if (resultCode != Activity.RESULT_OK) {
             return null;
-
-        // 获取原图
+        }
         if (requestCode == TACK_PIC || requestCode == CHOOSE_PIC) {
-            Uri uri = data.getData();
-
-            // 部分手机可能为null
-            if (uri == null) {
-                FileOutputStream out = null;
-                try {
-                    // 把返回的bitmap存到文件系统中
-                    Bitmap cropBitmap = data.getParcelableExtra("data");
-                    File outFile = FileUtil.createDownloadFile(IMAGE_CACHE_PATH + System.currentTimeMillis() + ".jpg");
-                    out = new FileOutputStream(outFile);
-                    cropBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                    if (!cropBitmap.isRecycled())
-                        cropBitmap.recycle();
-
-                    //拍照留下的图片
-                    File camerafile = new File(outFile.getAbsolutePath());
-                    if (Build.VERSION.SDK_INT >= 24) {
-                        String authority = activity.getApplicationInfo().packageName + ".provider";
-                        uri = FileProvider.getUriForFile(activity, authority, camerafile);
-                    } else {
-                        uri = Uri.fromFile(camerafile);
-                    }
-
-                    if (uri == null) {
-                        return outFile.getAbsolutePath();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (out != null) {
-                            out.flush();
-                            out.close();
-                        }
-                    } catch (Exception e2) {
-                        e2.printStackTrace();
-                    }
+            Uri uri = null;
+            if (data != null) {
+                if (data.getData() != null) {
+                    uri = data.getData();
                 }
+            } else {
+                uri = cameraUri;
             }
+
             if (uri == null)
                 return null;
 
             // 是否需要调用系统剪裁界面
-            if (isCrop)
+            if (isCrop){
                 cropImageUri(uri, CROP_PIC);
-            else {
+            } else {
                 // 不需要剪裁就直接返回原图路径
                 Cursor cursor = activity.getContentResolver().query(uri, new String[]{MediaStore.Images.Media.DATA}, null, null, null);
                 if (cursor == null) {
@@ -123,7 +180,9 @@ public class TackPicturesUtil {
                 if (cursor.moveToFirst())
                     return cursor.getString(column_index);
             }
-        } else if (requestCode == CROP_PIC && isCrop) {// 剪裁返回
+
+        }
+        else if (requestCode == CROP_PIC && isCrop) {// 剪裁返回
 
             //"return-data" true 取bitmap的方法。
             FileOutputStream out = null;
@@ -150,9 +209,11 @@ public class TackPicturesUtil {
                     e2.printStackTrace();
                 }
             }
+
+            //"return-data" false 取原图的方法。
         }
 
-        //"return-data" false 取原图的方法。
+
 
         return null;
     }
@@ -190,9 +251,9 @@ public class TackPicturesUtil {
 
 //        intent.putExtra("return-data", false);
 //        //设置输出的地址return-data 设置为false "output"关联一个Uri
-        intent.putExtra("output", uri); //替换原图保存
+//        intent.putExtra("output", uri); //替换原图保存
 //        //outputFormat 设置输出的格式
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 
 
         activity.startActivityForResult(intent, requestCode);
