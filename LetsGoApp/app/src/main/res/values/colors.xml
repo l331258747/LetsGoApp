@@ -33,6 +33,7 @@
     <color name="color_text">#323232</color>
     <color name="color_theme">#ff7c00</color>
     <color name="color_theme_66">#66ff7c00</color>
+    <color name="color_theme_33">#33ff7c00</color>
 
     <color name="color_99">#999999</color>
     <color name="color_4b">#4b4b4b</color>

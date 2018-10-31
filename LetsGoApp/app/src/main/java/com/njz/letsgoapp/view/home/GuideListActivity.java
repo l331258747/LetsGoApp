@@ -24,16 +24,14 @@ import com.njz.letsgoapp.mvp.home.GuideListPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
-import com.njz.letsgoapp.view.cityPick.CityPickActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
-import com.njz.letsgoapp.widget.popupwindow.PopGuideList;
+import com.njz.letsgoapp.widget.popupwindow.PopGuideList2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -62,7 +60,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     Disposable desDisposable;
 
-    PopGuideList popGuideList;
+    PopGuideList2 popGuideList;
 
     GuideListPresenter mPresenter;
 
@@ -124,7 +122,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             }
         });
 
-        popGuideList = new PopGuideList(context, myGuideTab);
+        popGuideList = new PopGuideList2(context, myGuideTab);
         if (!TextUtils.isEmpty(startTime)) {
             popGuideList.setTime(startTime, endTime);
             myGuideTab.setScreen(true);
@@ -132,7 +130,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             maps.put("startTime", startTime);
             maps.put("startTime", endTime);
         }
-        popGuideList.setSubmitLisener(new PopGuideList.SubmitLisener() {
+        popGuideList.setSubmitLisener(new PopGuideList2.SubmitLisener() {
             @Override
             public void onSubmit(Map<String, String> result) {
                 //设置选中，获取回调信息，服务器交互

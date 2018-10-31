@@ -163,7 +163,7 @@ public class TagFlowLayout extends FlowLayout
 
         if (!child.isChecked()) {
             //处理max_select=1的情况
-            if (mSelectedMax == 1 && mSelectedView.size() == 1) {
+            if ((mSelectedMax == -2 || mSelectedMax == 1) && mSelectedView.size() == 1) {
 
                 Iterator<Integer> iterator = mSelectedView.iterator();
                 Integer preIndex = iterator.next();
@@ -173,7 +173,7 @@ public class TagFlowLayout extends FlowLayout
 
                 mSelectedView.remove(preIndex);
                 mSelectedView.add(position);
-            } else {
+            }else {
                 if (mSelectedMax > 0 && mSelectedView.size() >= mSelectedMax) {
                     return;
                 }
@@ -188,6 +188,33 @@ public class TagFlowLayout extends FlowLayout
                 mSelectedView.remove(position);
             }
         }
+//        if (!child.isChecked()) {
+//            //处理max_select=1的情况
+//            if (mSelectedMax == 1 && mSelectedView.size() == 1) {
+//
+//                Iterator<Integer> iterator = mSelectedView.iterator();
+//                Integer preIndex = iterator.next();
+//                TagView pre = (TagView) getChildAt(preIndex);
+//                setChildUnChecked(preIndex, pre);
+//                setChildChecked(position, child);
+//
+//                mSelectedView.remove(preIndex);
+//                mSelectedView.add(position);
+//            } else {
+//                if (mSelectedMax > 0 && mSelectedView.size() >= mSelectedMax) {
+//                    return;
+//                }
+//                setChildChecked(position, child);
+//                mSelectedView.add(position);
+//            }
+//        } else {
+//            if (mSelectedMax == 1 && mSelectedView.size() == 1){
+//                return;
+//            }else {
+//                setChildUnChecked(position, child);
+//                mSelectedView.remove(position);
+//            }
+//        }
         if (mOnSelectListener != null) {
             mOnSelectListener.onSelected(new HashSet<Integer>(mSelectedView));
         }
