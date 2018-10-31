@@ -20,6 +20,7 @@
         android:layout_marginTop="5dp"
         android:layout_toStartOf="@+id/tv_time"
         android:layout_marginLeft="10dp"
+        android:textColor="@color/blue"
         android:maxLines="1"
         android:layout_toEndOf="@+id/iv_head"
         android:text="那就走那就走那就走那就走那就走那就走那就走" />

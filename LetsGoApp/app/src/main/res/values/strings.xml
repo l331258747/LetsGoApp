@@ -30,4 +30,6 @@
 
     <string name="login_user_agreement"><Data><![CDATA[登录代表阅读并同意<font color="#508CCA">用户协议</font>]]></Data></string>
 
+    <string name="comment_name"><Data><![CDATA[回复 <font color="#6cb7fe">%s: </font>]]></Data></string>
+
 </resources>

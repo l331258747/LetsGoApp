@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
+import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 
@@ -53,7 +54,8 @@ public class DynamicCommentAdapter extends RecyclerView.Adapter<DynamicCommentAd
         holder.tv_time.setText(data.getDiscussTime());
         if(data.getToUserId() > 0){
             holder.tv_toName.setVisibility(View.VISIBLE);
-            holder.tv_toName.setText("回复 "+ data.getToUserName() + " : ");
+            StringUtils.setHtml(holder.tv_toName,String.format(mContext.getResources().getString(R.string.comment_name),data.getToUserName()));
+//            holder.tv_toName.setText("回复 "+ data.getToUserName() + " : ");
         }else{
             holder.tv_toName.setVisibility(View.GONE);
         }
