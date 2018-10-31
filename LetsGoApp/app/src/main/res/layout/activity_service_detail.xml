@@ -8,9 +8,9 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
         android:layout_marginBottom="50dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,9 +40,9 @@
                     android:id="@+id/tv_destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_below="@+id/tv_title"
                     android:layout_marginTop="10dp"
-                    android:layout_alignParentBottom="true"
                     android:drawableLeft="@mipmap/ic_dynamic_location"
                     android:drawablePadding="10dp"
                     android:paddingLeft="10dp"
@@ -57,9 +57,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@+id/tv_destination"
                     android:paddingLeft="10dp"
-                    android:visibility="gone"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
+                    android:visibility="gone"
                     tools:text="查看地址位置" />
 
 
@@ -67,8 +67,8 @@
                     android:id="@+id/pv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_title"
                     android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/tv_title"
                     android:layout_marginRight="10dp"
                     android:layout_toStartOf="@+id/tv_score" />
 
@@ -76,13 +76,13 @@
                     android:id="@+id/tv_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginRight="5dp"
                     android:layout_alignBottom="@+id/pv_price"
-                    android:textSize="12sp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
                     android:text="已售: 11"
-                    android:textColor="@color/color_99" />
+                    android:textColor="@color/color_99"
+                    android:textSize="12sp" />
 
 
             </RelativeLayout>
@@ -93,12 +93,12 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
                     android:text="服务特色"
@@ -120,22 +120,25 @@
                         android:id="@+id/view_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
+
             </LinearLayout>
 
 
-            <View
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_999" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:orientation="vertical"
+                android:paddingRight="10dp">
 
-            <include layout="@layout/item_guide_price_introduce" />
-
-            <include layout="@layout/item_guide_subscribe_introduce" />
-
-            <include layout="@layout/item_guide_unsubscribe_introduce" />
+                <include layout="@layout/item_guide_price_introduce" />
+                <include layout="@layout/item_guide_subscribe_introduce" />
+                <include layout="@layout/item_guide_unsubscribe_introduce" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -206,7 +209,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="60dp"
         android:layout_marginRight="15dp"
-        android:background="@mipmap/ic_back_top"/>
+        android:background="@mipmap/ic_back_top" />
 
 </FrameLayout>
 

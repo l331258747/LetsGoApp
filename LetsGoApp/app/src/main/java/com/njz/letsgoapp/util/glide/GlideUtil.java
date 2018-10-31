@@ -78,7 +78,7 @@ public class GlideUtil {
     public static void LoadRoundImage(Context mContext, String path,
                                        ImageView imageview,int radius) {
         if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).placeholder(R.mipmap.head_default)
+        Glide.with(mContext).load(path).asBitmap().placeholder(R.mipmap.head_default)
                 .transform(new CenterCrop(mContext),new GlideRoundTransform(mContext, radius))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
 
@@ -93,7 +93,21 @@ public class GlideUtil {
         //只是绘制左上角和右上角圆角
         transformation.setExceptCorner(false, false, true, true);//false表示为圆角
 
-        Glide.with(mContext).load(path).placeholder(R.mipmap.head_default)
+        Glide.with(mContext).load(path).asBitmap().placeholder(R.mipmap.head_default)
+                .transform(new CenterCrop(mContext),transformation)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+
+    }
+
+    public static void LoadLeftRoundImage(Context mContext, String path,
+                                         ImageView imageview,int radius) {
+        if(TextUtils.isEmpty(path)) path = "";
+
+        CornerTransform transformation = new CornerTransform(mContext, radius);
+        //只是绘制左上角和右上角圆角
+        transformation.setExceptCorner(false, true, false, true);//false表示为圆角
+
+        Glide.with(mContext).load(path).asBitmap().placeholder(R.mipmap.head_default)
                 .transform(new CenterCrop(mContext),transformation)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
 

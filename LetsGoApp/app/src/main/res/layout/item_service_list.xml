@@ -19,16 +19,17 @@
         <ImageView
             android:id="@+id/iv_img"
             android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:scaleType="centerCrop"
             tools:src="@mipmap/background" />
+
 
         <TextView
             android:id="@+id/iv_img_content"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_img"
-            android:background="@color/color_theme"
+            android:background="@drawable/btn_theme_r5_bottomleft"
             android:textColor="@color/white"
             android:maxLines="1"
             android:padding="3dp"
