@@ -184,6 +184,15 @@
                     app:home_my_item2_left_drawable="@mipmap/ic_mine_password"
                     app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
                     app:home_my_item2_title="修改密码" />
+
+                <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_comment"
+                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
+                    app:home_my_item2_title="我的评论" />
             </LinearLayout>
 
         </FrameLayout>
@@ -200,15 +209,6 @@
                 android:layout_below="@+id/rl_head"
                 android:layout_margin="8dp"
                 android:orientation="vertical">
-
-                <com.njz.letsgoapp.widget.MineItemView2
-                    android:id="@+id/mine_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:home_my_item2_left_drawable="@mipmap/ic_mine_comment"
-                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
-                    app:home_my_item2_title="我的评论" />
 
                 <com.njz.letsgoapp.widget.MineItemView2
                     android:id="@+id/mine_customer"

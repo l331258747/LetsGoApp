@@ -41,6 +41,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/blue"
                 android:maxLength="8"
                 android:layout_marginLeft="10dp"
                 tools:text="那就走那就走那就走那就走那就走那就走那就走" />
@@ -88,7 +89,7 @@
             android:gravity="right"
             android:layout_marginTop="10dp"
             android:text="查看动态详情"
-            android:textColor="@color/blue" />
+            android:textColor="@color/color_theme" />
 
 
     </LinearLayout>
