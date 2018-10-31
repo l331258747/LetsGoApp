@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_4b_66">
+
+
+    <LinearLayout
+        android:id="@+id/ll_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btn_white_solid_r5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="15dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@mipmap/upload_bg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:text="发现新版本"
+                android:textColor="@color/color_text"
+                android:textSize="20sp" />
+
+        </FrameLayout>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:tag="beta_upgrade_info"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="adsffsdf"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:tag="beta_upgrade_feature"
+            android:layout_marginTop="10dp"
+            android:maxLines="6"
+            android:textColor="@color/color_text"
+            tools:text="就走那就走\n就走那就走\n就走那就走\n就走那就走\n就走那就走\n那就走那就走\n那就走那就走那就\n走那就走那就走" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_theme_solid_r5"
+            android:gravity="center"
+            android:tag="beta_confirm_button"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="立即升级"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:text="wifi环境下更新不到30秒哦~"
+            android:textColor="@color/color_theme" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:tag="beta_title" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/ll_upload"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:tag="beta_cancel_button"
+        android:gravity="center"
+        android:layout_below="@+id/view_line"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/transparent"
+        android:background="@mipmap/upload_close" />
+
+</RelativeLayout>
+
