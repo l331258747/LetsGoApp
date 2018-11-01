@@ -52,7 +52,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         GlideUtil.LoadLeftRoundImage(context, data.getImgUrl(), holder.iv_img,5);
         holder.iv_img_content.setText(data.getServiceType());
         holder.tv_title.setText(data.getTitle());
-        holder.tv_sell.setText(data.getCount());
+        holder.tv_sell.setText(data.getCount()+"");
         holder.pv_price.setPrice(data.getServePrice());
 
         if (mOnItemClickListener != null) {

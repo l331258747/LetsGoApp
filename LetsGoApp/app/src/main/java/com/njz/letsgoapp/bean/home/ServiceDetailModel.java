@@ -41,7 +41,7 @@ public class ServiceDetailModel {
     private String title;
     private int status;
     private String location;
-    private int count;
+    private int sellOut;
     private String guideMobile;
 
     private String shareImg;
@@ -190,10 +190,10 @@ public class ServiceDetailModel {
     }
 
     public int getCount() {
-        return count;
+        return sellOut;
     }
 
     public void setCount(int count) {
-        this.count = count;
+        this.sellOut = count;
     }
 }

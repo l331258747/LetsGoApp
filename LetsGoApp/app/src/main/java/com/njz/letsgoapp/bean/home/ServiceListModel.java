@@ -24,8 +24,9 @@ public class ServiceListModel {
     private String value;
     private String title;
     private String location;
-    private String count;
+    private int sellOut;
     private String imgUrl;
+
 
     public String getImgUrl() {
         return imgUrl;
@@ -92,11 +93,11 @@ public class ServiceListModel {
         this.location = location;
     }
 
-    public String getCount() {
-        return count;
+    public int getCount() {
+        return sellOut;
     }
 
-    public void setCount(String count) {
-        this.count = count;
+    public void setCount(int count) {
+        this.sellOut = count;
     }
 }

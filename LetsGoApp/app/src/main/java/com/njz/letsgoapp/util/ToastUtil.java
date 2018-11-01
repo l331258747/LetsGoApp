@@ -28,7 +28,7 @@ public class ToastUtil {
 	}
 
 	public static void showLongToast(Context mContext, String msg){
-		showToast(mContext, msg, Toast.LENGTH_LONG);
+		showToast(mContext, msg, Toast.LENGTH_SHORT);
 	}
 
 }
