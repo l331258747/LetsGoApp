@@ -242,8 +242,12 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 for (GuideServiceModel model : ServiceModels){
                     for (ServiceItem item : model.getServiceItems()){
                         isServiceItem = true;
-                        if(item.getNumber() < 1 || item.getTimeDay() < 1){
-                            ToastUtil.showLongToast(mContext,"请完善 " + item.getServiceType() + " 信息");
+                        if(item.getTimeDay() < 1){
+                            ToastUtil.showLongToast(mContext,"请完善 " + item.getServiceType() + " 时间信息");
+                            return;
+                        }
+                        if(item.getNumber() < 1){
+                            ToastUtil.showLongToast(mContext,"请完善 " + item.getServiceType() + " 数量信息");
                             return;
                         }
                     }

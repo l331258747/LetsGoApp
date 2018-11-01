@@ -71,12 +71,10 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         }
 
         if(isServiceSelected(data)){
-            holder.btn_event.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_cc_solid_r5));
-            holder.btn_event.setTextColor(ContextCompat.getColor(context,R.color.color_text));
+            holder.btn_event.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_cc_solid_r3));
             holder.btn_event.setEnabled(false);
         }else{
-            holder.btn_event.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r5));
-            holder.btn_event.setTextColor(ContextCompat.getColor(context,R.color.white));
+            holder.btn_event.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r3));
             holder.btn_event.setEnabled(true);
         }
     }

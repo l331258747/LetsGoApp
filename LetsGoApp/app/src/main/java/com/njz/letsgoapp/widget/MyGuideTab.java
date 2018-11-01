@@ -126,5 +126,7 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
 
     public void setScreen(boolean isSelect){
         tv_screen.setTextColor(isSelect?ContextCompat.getColor(AppUtils.getContext(),R.color.color_theme):ContextCompat.getColor(AppUtils.getContext(),R.color.color_text));
+        tv_screen.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,isSelect?
+                ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_screen):ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_screen_un),null);
     }
 }

@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/btn_theme_solid_r5"
+                android:background="@drawable/btn_theme_solid_r3"
                 android:paddingBottom="3dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"

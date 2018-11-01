@@ -247,8 +247,10 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     public void setNice(boolean isNice) {
         if (isNice) {
             btnNiceContent.setText("已赞");
+            btnNiceContent.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.ic_nice),null,null,null);
         } else {
-            btnNiceContent.setText("赞");
+            btnNiceContent.setText("点赞");
+            btnNiceContent.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context,R.mipmap.ic_nice_un),null,null,null);
         }
     }
 
