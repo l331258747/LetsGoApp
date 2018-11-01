@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -18,6 +19,7 @@ import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.mine.LabelContract;
 import com.njz.letsgoapp.mvp.mine.LabelPresenter;
+import com.njz.letsgoapp.util.GsonUtil;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
@@ -75,31 +77,31 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
     }
 
     public void initFlow(final TagFlowLayout tagFlowLayout, final List<LabelItemModel> mVals) {
-        initFlow(tagFlowLayout,mVals,false);
+        initFlow(tagFlowLayout, mVals, false);
     }
 
-    public void initFlow(final TagFlowLayout tagFlowLayout, final List<LabelItemModel> mVals,final boolean isCustom) {
+    public void initFlow(final TagFlowLayout tagFlowLayout, final List<LabelItemModel> mVals, final boolean isCustom) {
         final LayoutInflater mInflater = LayoutInflater.from(activity);
 
         TagAdapter adapter1 = new TagAdapter<LabelItemModel>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, LabelItemModel s) {
-                if(isCustom){
+                if (isCustom) {
                     final TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_label_custom, tagFlowLayout, false);
                     tv.setText(s.getName());
                     tv.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            DialogUtil.getInstance().getDefaultDialog(context, "确认删除 " + tv.getText().toString() + " 标签?",new DialogUtil.DialogCallBack() {
+                            DialogUtil.getInstance().getDefaultDialog(context, "确认删除 " + tv.getText().toString() + " 标签?", new DialogUtil.DialogCallBack() {
                                 @Override
                                 public void exectEvent(DialogInterface alterDialog) {
-                                    for (int i =0;i<customLabels.size();i++){
-                                        if(TextUtils.equals(customLabels.get(i).getName(),tv.getText().toString()))
+                                    for (int i = 0; i < customLabels.size(); i++) {
+                                        if (TextUtils.equals(customLabels.get(i).getName(), tv.getText().toString()))
                                             customLabels.remove(i);
                                     }
-                                    initFlow(flowlayout_custom,customLabels,true);
-                                    if(getRightTv().isEnabled())
-                                        return ;
+                                    initFlow(flowlayout_custom, customLabels, true);
+                                    if (getRightTv().isEnabled())
+                                        return;
                                     getRightTv().setEnabled(true);
                                     getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
                                 }
@@ -108,7 +110,7 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
                         }
                     });
                     return tv;
-                }else{
+                } else {
                     TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_label, tagFlowLayout, false);
                     tv.setText(s.getName());
                     return tv;
@@ -124,7 +126,7 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 mVals.get(position).setSelect(!mVals.get(position).isSelect());
 
-                if(getRightTv().isEnabled())
+                if (getRightTv().isEnabled())
                     return true;
                 getRightTv().setEnabled(true);
                 getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
@@ -154,7 +156,6 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
         for (int i = 0; i < str.size(); i++) {
             TextView tvTitle = new TextView(context);
             tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
@@ -172,18 +173,27 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
                 llParent.addView(tagFlowLayout);
 
                 List<LabelItemModel> labelItemModels = labelModel.getSysMacroEntitys();
-                for (LabelItemModel item : labelItemModels){
-                    for (LabelItemModel item2 : MySelfInfo.getInstance().getLabels()){
-                        if(item.getId() == item2.getId()){
+                for (LabelItemModel item : labelItemModels) {
+                    for (LabelItemModel item2 : MySelfInfo.getInstance().getLabels()) {
+                        if (item.getId() == item2.getId()) {
                             item.setSelect(true);
                             continue;
                         }
                     }
                 }
                 labelAll.addAll(labelItemModels);
-                initFlow(tagFlowLayout,labelItemModels);
+                initFlow(tagFlowLayout, labelItemModels);
             }
         }
+
+        List<String> ss = GsonUtil.convertJson2Array(MySelfInfo.getInstance().getFreeLabels());
+        for (int i=0;i<ss.size();i++){
+            LabelItemModel labelItemModel = new LabelItemModel();
+            labelItemModel.setSelect(true);
+            labelItemModel.setName(ss.get(i));
+            customLabels.add(labelItemModel);
+        }
+        initFlow(flowlayout_custom, customLabels, true);
     }
 
     @Override
@@ -197,12 +207,14 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
     public void userChangePersonalDataSuccess(String str) {
         showShortToast("修改成功");
         List<LabelItemModel> datas = new ArrayList<>();
-        for (LabelItemModel item : labelAll){
-            if(item.isSelect()){
+        for (LabelItemModel item : labelAll) {
+            if (item.isSelect()) {
                 datas.add(item);
             }
         }
         MySelfInfo.getInstance().setLabels(datas);
+        MySelfInfo.getInstance().setFreeLabels(customLabels);
+
         finish();
     }
 
@@ -213,32 +225,38 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.right_tv:
                 StringBuffer sb = new StringBuffer("");
-                for (LabelItemModel item : labelAll){
-                    if(item.isSelect()){
+                for (LabelItemModel item : labelAll) {
+                    if (item.isSelect()) {
                         LogUtil.e(item.getName());
                         sb.append(item.getId() + ",");
                     }
                 }
-                String theLabel = sb.substring(0,sb.length() - 1);
+                String theLabel = sb.toString();
+                theLabel = theLabel.endsWith(",") ? theLabel.substring(0, theLabel.length() - 1) : theLabel;
+
+                if (customLabels.size() > 0) {
+                    myInfoData.setFreeLabel(customLabels);
+                }
+
                 myInfoData.setTheLabel(theLabel);
                 mPresenter.userChangePersonalData(myInfoData);
                 break;
             case R.id.tv_add:
                 DialogUtil.getInstance().getEditDialog(context, new DialogUtil.DialogEditCallBack() {
                     @Override
-                    public void exectEvent(DialogInterface alterDialog,String str) {
-                        if(TextUtils.isEmpty(str)) return;
+                    public void exectEvent(DialogInterface alterDialog, String str) {
+                        if (TextUtils.isEmpty(str)) return;
                         LabelItemModel labelItemModel = new LabelItemModel();
                         labelItemModel.setSelect(true);
                         labelItemModel.setName(str);
                         customLabels.add(labelItemModel);
-                        initFlow(flowlayout_custom,customLabels,true);
+                        initFlow(flowlayout_custom, customLabels, true);
 
-                        if(getRightTv().isEnabled())
-                            return ;
+                        if (getRightTv().isEnabled())
+                            return;
                         getRightTv().setEnabled(true);
                         getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
                     }

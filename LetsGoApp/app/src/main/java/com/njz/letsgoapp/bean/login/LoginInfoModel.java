@@ -1,8 +1,10 @@
 package com.njz.letsgoapp.bean.login;
 
+import com.google.gson.Gson;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.util.GsonUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,6 +56,7 @@ public class LoginInfoModel {
     private String personalStatement;
     private String imgUrl;
     private String customerMobile;
+    private String freeLabel;
     /**
      * registerIp :
      * registerTime : null
@@ -74,6 +77,18 @@ public class LoginInfoModel {
 
     public List<LabelItemModel> getTravelMacroEntitysList() {
         return travelMacroEntitys;
+    }
+
+    public List<LabelItemModel> getLabelList() {
+        List<LabelItemModel> labels = new ArrayList<>();
+        labels.addAll(travelMacroEntitys);
+        for (String str : GsonUtil.convertJson2Array(freeLabel)){
+            LabelItemModel item = new LabelItemModel();
+            item.setName(str);
+            item.setSelect(true);
+            labels.add(item);
+        }
+        return labels;
     }
 
     public int getUserId() {
@@ -176,5 +191,9 @@ public class LoginInfoModel {
         if(customerMobile == null)
             return "";
         return customerMobile;
+    }
+
+    public String getFreeLabel() {
+        return freeLabel;
     }
 }

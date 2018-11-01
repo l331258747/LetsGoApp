@@ -2,14 +2,38 @@ package com.njz.letsgoapp.bean.mine;
 
 import android.text.TextUtils;
 
+import com.njz.letsgoapp.util.GsonUtil;
+import com.njz.letsgoapp.util.SPUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyInfoData {
     String nickname;
     String name;
-    int gender ;
+    int gender = SPUtils.getInstance().getInt(SPUtils.SP_USER_GENDER);
     String birthday;
     String personalStatement;
     String imgUrl;
     String theLabel;
+    String freeLabel;
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public String getFreeLabel() {
+        return freeLabel;
+    }
+
+    public void setFreeLabel(List<LabelItemModel> freeLabels) {
+        if( freeLabels == null || freeLabels.size() == 0) return;
+        List<String> values = new ArrayList<>();
+        for (LabelItemModel labelItemModel: freeLabels){
+            values.add(labelItemModel.getName());
+        }
+        this.freeLabel = GsonUtil.convertVO2String(values);
+    }
 
     public String getTheLabel() {
         return theLabel;

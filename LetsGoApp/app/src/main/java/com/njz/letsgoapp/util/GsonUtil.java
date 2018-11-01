@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -88,6 +89,7 @@ public class GsonUtil {
     }
 
     public static boolean isJsonArr(String json) {
+        if(TextUtils.isEmpty(json)) return false;
         try {
             JSONArray jsonArray = new JSONArray(json);
             jsonArray = null;
@@ -99,6 +101,7 @@ public class GsonUtil {
     }
 
     public static boolean isJson(String json) {
+        if(TextUtils.isEmpty(json)) return false;
         try {
             JSONObject jsonObject = new JSONObject(json);
             jsonObject = null;
@@ -112,9 +115,11 @@ public class GsonUtil {
     public static ArrayList<String> convertJson2Array(String str) {
         ArrayList<String> strs = new ArrayList<String>();
         try {
-            JSONArray arr = new JSONArray(str);
-            for (int i = 0; i < arr.length(); i++) {
-                strs.add(arr.getString(i));
+            if (isJsonArr(str)) {
+                JSONArray arr = new JSONArray(str);
+                for (int i = 0; i < arr.length(); i++) {
+                    strs.add(arr.getString(i));
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

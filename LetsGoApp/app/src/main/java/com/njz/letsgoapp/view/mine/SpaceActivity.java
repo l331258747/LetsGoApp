@@ -203,7 +203,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         StringUtils.setHtml(tvFans, String.format(getResources().getString(R.string.mine_fans), data.getFansCount()));
         tvExplain.setText(data.getPersonalStatement());
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 2 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
-        initFlow(data.getTravelMacroEntitysList());
+        initFlow(data.getLabelList());
         setFollow(data.isFocus());
     }
 

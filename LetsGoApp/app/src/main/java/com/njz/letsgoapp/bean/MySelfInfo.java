@@ -11,6 +11,7 @@ import com.njz.letsgoapp.util.GsonUtil;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,8 +67,20 @@ public class MySelfInfo {
         SPUtils.getInstance().putString(SPUtils.SP_USER_LABELS, infoModel.getTravelMacroEntitys());
         SPUtils.getInstance().putInt(SPUtils.SP_USER_ID, infoModel.getUserId());
         SPUtils.getInstance().putString(SPUtils.SP_CUSTOMER_MOBILE, infoModel.getCustomerMobile());
+        SPUtils.getInstance().putString(SPUtils.SP_USER_FREE_LABELS, infoModel.getFreeLabel());
 
+    }
 
+    public String getFreeLabels() {
+        return SPUtils.getInstance().getString(SPUtils.SP_USER_FREE_LABELS);
+    }
+
+    public void setFreeLabels(List<LabelItemModel> labels){
+        List<String> lists = new ArrayList<>();
+        for(LabelItemModel item : labels){
+            lists.add(item.getName());
+        }
+        SPUtils.getInstance().putString(SPUtils.SP_USER_FREE_LABELS, GsonUtil.convertVO2String(lists));
     }
 
     public String getCustomerMobile(){

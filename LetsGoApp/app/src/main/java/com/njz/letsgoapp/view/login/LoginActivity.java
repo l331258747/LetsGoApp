@@ -127,7 +127,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void loginSuccess(LoginModel loginModel) {
 
         MySelfInfo.getInstance().setData(loginModel);
-        LogUtil.e("....."+loginModel.getTravelZoneVO().getTravelMacroEntitys());
         LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
 //        startActivity(new Intent(context,HomeActivity.class));
 
