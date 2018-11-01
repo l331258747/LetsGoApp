@@ -57,7 +57,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private RecyclerView recyclerView;
     private DynamicAdapter mAdapter;
     private ImageView ivHead, ivSex;
-    private TextView tvFans, tvAge, tvExplain, tvName, tvFollow;
+    private TextView tvFans, tvAge, tvExplain, tvName, tvFollow,tvModify;
     private TagFlowLayout flowLayout;
     private SpacePresenter mPresenter;
     private FollowPresenter followPresenter;
@@ -94,6 +94,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
         view_empty = $(R.id.view_empty);
         ivHead = $(R.id.iv_head);
+        tvModify = $(R.id.tv_modify);
         ivSex = $(R.id.iv_sex);
         tvFans = $(R.id.tv_fans);
         tvAge = $(R.id.tv_age);
@@ -106,11 +107,13 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         initRecycler();
 
         tvFans.setOnClickListener(this);
+        tvModify.setOnClickListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mPresenter.userViewZone(userId);
         getRefreshData();
     }
 
@@ -139,10 +142,10 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         followPresenter = new FollowPresenter(context, this);
         nicePresenter = new DynamicNicePresenter(context, this);
 
-        mPresenter.userViewZone(userId);
-
         if(userId == MySelfInfo.getInstance().getUserId()){
             tvFollow.setVisibility(View.GONE);
+            tvModify.setVisibility(View.VISIBLE);
+            tvFans.setVisibility(View.GONE);
         }
     }
 
@@ -221,7 +224,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         TagAdapter adapter1 = new TagAdapter<LabelItemModel>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, LabelItemModel s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_label, flowLayout, false);
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_space, flowLayout, false);
                 tv.setText(s.getName());
                 return tv;
             }
@@ -291,6 +294,9 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
                 intentFans.putExtra(FansListActivity.TYPE,0);
                 intentFans.putExtra(FansListActivity.USER_ID,data.getUserId());
                 startActivity(intentFans);
+                break;
+            case R.id.tv_modify:
+                startActivity(new Intent(context,MyInfoActivity.class));
                 break;
         }
     }
