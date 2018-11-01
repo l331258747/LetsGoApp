@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.mine.LabelContract;
 import com.njz.letsgoapp.mvp.mine.LabelPresenter;
 import com.njz.letsgoapp.util.SPUtils;
@@ -39,6 +42,10 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
 
     List<LabelItemModel> labelAll = new ArrayList<>();
 
+    private TextView tv_add;
+    private TagFlowLayout flowlayout_custom;
+    private List<LabelItemModel> customLabels = new ArrayList<>();
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_label;
@@ -54,6 +61,10 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
 
         showLeftAndTitle("标签");
         llParent = $(R.id.ll_parent);
+        tv_add = $(R.id.tv_add);
+        flowlayout_custom = $(R.id.flowlayout_custom);
+
+        tv_add.setOnClickListener(this);
     }
 
     @Override
@@ -64,14 +75,44 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
     }
 
     public void initFlow(final TagFlowLayout tagFlowLayout, final List<LabelItemModel> mVals) {
+        initFlow(tagFlowLayout,mVals,false);
+    }
+
+    public void initFlow(final TagFlowLayout tagFlowLayout, final List<LabelItemModel> mVals,final boolean isCustom) {
         final LayoutInflater mInflater = LayoutInflater.from(activity);
 
         TagAdapter adapter1 = new TagAdapter<LabelItemModel>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, LabelItemModel s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_label, tagFlowLayout, false);
-                tv.setText(s.getName());
-                return tv;
+                if(isCustom){
+                    final TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_label_custom, tagFlowLayout, false);
+                    tv.setText(s.getName());
+                    tv.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            DialogUtil.getInstance().getDefaultDialog(context, "确认删除 " + tv.getText().toString() + " 标签?",new DialogUtil.DialogCallBack() {
+                                @Override
+                                public void exectEvent(DialogInterface alterDialog) {
+                                    for (int i =0;i<customLabels.size();i++){
+                                        if(TextUtils.equals(customLabels.get(i).getName(),tv.getText().toString()))
+                                            customLabels.remove(i);
+                                    }
+                                    initFlow(flowlayout_custom,customLabels,true);
+                                    if(getRightTv().isEnabled())
+                                        return ;
+                                    getRightTv().setEnabled(true);
+                                    getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
+                                }
+                            }).show();
+                            return false;
+                        }
+                    });
+                    return tv;
+                }else{
+                    TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_label, tagFlowLayout, false);
+                    tv.setText(s.getName());
+                    return tv;
+                }
             }
         };
 
@@ -172,17 +213,38 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.right_tv){
-            StringBuffer sb = new StringBuffer("");
-            for (LabelItemModel item : labelAll){
-                if(item.isSelect()){
-                    LogUtil.e(item.getName());
-                    sb.append(item.getId() + ",");
+        switch (v.getId()){
+            case R.id.right_tv:
+                StringBuffer sb = new StringBuffer("");
+                for (LabelItemModel item : labelAll){
+                    if(item.isSelect()){
+                        LogUtil.e(item.getName());
+                        sb.append(item.getId() + ",");
+                    }
                 }
-            }
-            String theLabel = sb.substring(0,sb.length() - 1);
-            myInfoData.setTheLabel(theLabel);
-            mPresenter.userChangePersonalData(myInfoData);
+                String theLabel = sb.substring(0,sb.length() - 1);
+                myInfoData.setTheLabel(theLabel);
+                mPresenter.userChangePersonalData(myInfoData);
+                break;
+            case R.id.tv_add:
+                DialogUtil.getInstance().getEditDialog(context, new DialogUtil.DialogEditCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog,String str) {
+                        if(TextUtils.isEmpty(str)) return;
+                        LabelItemModel labelItemModel = new LabelItemModel();
+                        labelItemModel.setSelect(true);
+                        labelItemModel.setName(str);
+                        customLabels.add(labelItemModel);
+                        initFlow(flowlayout_custom,customLabels,true);
+
+                        if(getRightTv().isEnabled())
+                            return ;
+                        getRightTv().setEnabled(true);
+                        getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
+                    }
+                }).show();
+                break;
         }
     }
+
 }

@@ -7,40 +7,88 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:id="@+id/ll_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:text="技能"-->
-            <!--android:textSize="16sp" />-->
+        <LinearLayout
+            android:id="@+id/ll_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <!--<com.njz.letsgoapp.widget.flowlayout.TagFlowLayout-->
-            <!--android:id="@+id/flowlayout_1"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="10dp"-->
-            <!--app:max_select="-1" />-->
-
-
-        <!--<TextView-->
+            <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:text="气质"-->
             <!--android:textSize="16sp" />-->
 
-        <!--<com.njz.letsgoapp.widget.flowlayout.TagFlowLayout-->
+            <!--<com.njz.letsgoapp.widget.flowlayout.TagFlowLayout-->
             <!--android:id="@+id/flowlayout_2"-->
             <!--android:layout_width="fill_parent"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:padding="10dp"-->
             <!--app:max_select="-1" />-->
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="自定义"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="（长按标签可删除）"
+                    android:textColor="@color/color_99"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/color_theme"
+                    android:text="添加" />
+
+            </LinearLayout>
+
+
+            <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
+                android:id="@+id/flowlayout_custom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:max_select="-1" />
+
+        </LinearLayout>
+
     </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>
 
