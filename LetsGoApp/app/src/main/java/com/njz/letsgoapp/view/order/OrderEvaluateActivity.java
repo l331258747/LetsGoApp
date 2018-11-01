@@ -173,6 +173,7 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
                 }
             });
             loadingDialog.showDialog("正在上传中...");
+            loadingDialog.setCancelable(false);
             compressImage();
 
         }

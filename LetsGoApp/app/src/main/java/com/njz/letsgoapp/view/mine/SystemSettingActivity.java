@@ -78,6 +78,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
                 loadingDialog.showDialog("清理中...");
+                loadingDialog.setCancelable(false);
                 disCleanCache = RxBus2.getInstance().toObservable(CleanCacheEvent.class, new Consumer<CleanCacheEvent>() {
                     @Override
                     public void accept(CleanCacheEvent s) throws Exception {

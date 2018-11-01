@@ -193,6 +193,7 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
                 }
             });
             loadingDialog.showDialog("正在上传中...");
+            loadingDialog.setCancelable(false);
             compressImage();
         }
     }

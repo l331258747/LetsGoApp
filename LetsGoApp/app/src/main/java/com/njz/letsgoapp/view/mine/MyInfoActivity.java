@@ -319,6 +319,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         });
 
         loadingDialog.showDialog("上传头像...");
+        loadingDialog.setCancelable(false);
         compressImage();
     }
 
