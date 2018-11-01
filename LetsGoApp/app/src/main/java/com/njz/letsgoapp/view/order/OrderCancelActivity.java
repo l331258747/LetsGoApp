@@ -14,9 +14,13 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.other.ConfigChildModel;
+import com.njz.letsgoapp.bean.other.ConfigModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderCancelContract;
 import com.njz.letsgoapp.mvp.order.OrderCancelPresenter;
+import com.njz.letsgoapp.mvp.other.ConfigContract;
+import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
@@ -33,7 +37,7 @@ import java.util.List;
  * Function: 大订单取消
  */
 
-public class OrderCancelActivity extends BaseActivity implements View.OnClickListener,OrderCancelContract.View {
+public class OrderCancelActivity extends BaseActivity implements View.OnClickListener,OrderCancelContract.View,ConfigContract.View{
 
     LinearLayout ll_reason;
     TextView tv_reason;
@@ -43,6 +47,7 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
     Button btn_submit;
 
     OrderCancelPresenter mPresenter;
+    ConfigPresenter configPresenter;
 
     int orderId;
     int isMainly;//1为主订单 0位子订单
@@ -86,20 +91,24 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initData() {
         reasons = new ArrayList<>();
-        reasons.add("行程有变");
-        reasons.add("服务地点特殊情况");
-        reasons.add("行程安排不满意");
 
         view_name.setEtContent(name);
         view_phone.setEtContent(phone);
 
         mPresenter = new OrderCancelPresenter(context,this);
+        configPresenter = new ConfigPresenter(context,this);
+
+        List<String> values = new ArrayList<>();
+        values.add(Constant.CONFIG_QXYY);
+        configPresenter.guideGetGuideMacros(values);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ll_reason:
+                if(reasons.size() == 0) return;
                 AppUtils.HideKeyboard(ll_reason);
                 //条件选择器
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(context,
@@ -134,6 +143,19 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void orderTravelDeleteOrderFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void guideGetGuideMacrosSuccess(List<ConfigModel> models) {
+        if(models == null || models.size() == 0) return;
+        for (ConfigChildModel childModel : models.get(0).getList()){
+            reasons.add(childModel.getName());
+        }
+    }
+
+    @Override
+    public void guideGetGuideMacrosFailed(String msg) {
         showShortToast(msg);
     }
 }

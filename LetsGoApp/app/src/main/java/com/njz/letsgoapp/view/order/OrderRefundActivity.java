@@ -22,10 +22,14 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.order.OrderRefundChildModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
+import com.njz.letsgoapp.bean.other.ConfigChildModel;
+import com.njz.letsgoapp.bean.other.ConfigModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderRefundContract;
 import com.njz.letsgoapp.mvp.order.OrderRefundPresenter;
+import com.njz.letsgoapp.mvp.other.ConfigContract;
+import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.widget.FixedItemEditViewNoLine;
 
@@ -38,7 +42,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderRefundActivity extends BaseActivity implements View.OnClickListener,OrderRefundContract.View{
+public class OrderRefundActivity extends BaseActivity implements View.OnClickListener,OrderRefundContract.View,ConfigContract.View{
 
     private RecyclerView recyclerView;
     private TextView tv_tips, tv_reason, tv_submit, tv_submit2, tv_minus_price, tv_last_price;
@@ -52,6 +56,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     private OrderRefundAdapter mAdapter;
 
     private OrderRefundPresenter mPresenter;
+    private ConfigPresenter configPresenter;
 
     int id;
     List<Integer> childIds;
@@ -112,14 +117,12 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initData() {
         reasons = new ArrayList<>();
-        reasons.add("行程有变");
-        reasons.add("服务地点特殊情况");
-        reasons.add("行程安排不满意");
 
         view_name.setEtContent(name);
         view_phone.setEtContent(phone);
 
         mPresenter = new OrderRefundPresenter(context,this);
+        configPresenter = new ConfigPresenter(context,this);
 
         if(status == Constant.ORDER_TRAVEL_WAIT){
             tv_tips.setVisibility(View.GONE);
@@ -135,6 +138,10 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
             mPresenter.orderRefundRefundAnalysis(id,childIds);
 
         }
+
+        List<String> values = new ArrayList<>();
+        values.add(Constant.CONFIG_TKYY);
+        configPresenter.guideGetGuideMacros(values);
 
     }
 
@@ -154,6 +161,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_reason:
+                if(reasons.size() == 0) return;
                 AppUtils.HideKeyboard(ll_reason);
                 //条件选择器
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(context,
@@ -210,6 +218,19 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void orderRefundRefundAnalysisFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void guideGetGuideMacrosSuccess(List<ConfigModel> models) {
+        if(models == null || models.size() == 0) return;
+        for (ConfigChildModel childModel : models.get(0).getList()){
+            reasons.add(childModel.getName());
+        }
+    }
+
+    @Override
+    public void guideGetGuideMacrosFailed(String msg) {
         showShortToast(msg);
     }
 }

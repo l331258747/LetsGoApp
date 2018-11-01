@@ -423,6 +423,11 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    public static void guideGetGuideMacros(String values, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().guideGetGuideMacros(values);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------城市选择 end
 
 }

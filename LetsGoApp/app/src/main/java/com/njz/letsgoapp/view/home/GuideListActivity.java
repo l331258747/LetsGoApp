@@ -15,12 +15,16 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.GuideListAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.other.ConfigModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.GuideListContract;
 import com.njz.letsgoapp.mvp.home.GuideListPresenter;
+import com.njz.letsgoapp.mvp.other.ConfigContract;
+import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
@@ -42,7 +46,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class GuideListActivity extends BaseActivity implements View.OnClickListener, GuideListContract.View {
+public class GuideListActivity extends BaseActivity implements View.OnClickListener, GuideListContract.View,ConfigContract.View {
 
     public static final String START_TIME ="START_TIME";
     public static final String END_TIME ="END_TIME";
@@ -63,6 +67,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     PopGuideList2 popGuideList;
 
     GuideListPresenter mPresenter;
+    ConfigPresenter configPresenter;
 
     Map<String, String> maps;
     int type = Constant.GUIDE_TYPE_SYNTHESIZE;
@@ -242,8 +247,17 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         location = MySelfInfo.getInstance().getDefaultCity();
 
         mPresenter = new GuideListPresenter(context, this);
+        configPresenter = new ConfigPresenter(context, this);
         getRefreshData(type);
         tvCityPick.setText(location);
+
+        List<String> values = new ArrayList<>();
+        values.add(Constant.CONFIG_XB);
+        values.add(Constant.CONFIG_DYNL);
+        values.add(Constant.CONFIG_CYNX);
+        values.add(Constant.CONFIG_FWLX);
+        values.add(Constant.CONFIG_YYLX);
+        configPresenter.guideGetGuideMacros(values);
     }
 
 
@@ -299,5 +313,15 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+    }
+
+    @Override
+    public void guideGetGuideMacrosSuccess(List<ConfigModel> models) {
+        popGuideList.setConfigData(models);
+    }
+
+    @Override
+    public void guideGetGuideMacrosFailed(String msg) {
+        showShortToast(msg);
     }
 }

@@ -69,6 +69,17 @@ public class Constant {
     public static final int ORDER_REFUND_PROCESS = 1;//退款中
     public static final int ORDER_REFUND_FINISH = 2;//已退款
 
+    //--------配置 start-------------
+    public static final String CONFIG_XB = "xb";//导游性别
+    public static final String CONFIG_DYNL = "dynl";//导游年龄
+    public static final String CONFIG_CYNX = "cynx";//服务年限
+    public static final String CONFIG_FWLX = "fwlx";//服务类型
+    public static final String CONFIG_YYLX = "yylx";//语言类型
+    public static final String CONFIG_TKYY = "tkyy";//退款原因
+    public static final String CONFIG_QXYY = "qxyy";//取消原因
+
+    //--------配置 end-------------
+
 
     //------消息 start-------
 

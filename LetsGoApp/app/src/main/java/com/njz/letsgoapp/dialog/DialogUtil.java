@@ -43,7 +43,6 @@ public class DialogUtil {
     public AlertDialog getDefaultDialog(Context context, String title, String content, String positiveName, final DialogUtil.DialogCallBack callBack) {
         AlertDialog alterDialog = new AlertDialog.Builder(context)
                 .setMessage(content)
-                .setTitle(title)
                 .setPositiveButton(positiveName, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -84,7 +83,6 @@ public class DialogUtil {
         et.setInputType(InputType.TYPE_CLASS_TEXT);
         et.setHint("请输入4个字以内的标签");
         AlertDialog alterDialog = new AlertDialog.Builder(context)
-                .setTitle("提示")
                 .setView(dialogView)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override

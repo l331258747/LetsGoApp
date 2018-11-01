@@ -29,12 +29,14 @@ import com.njz.letsgoapp.bean.order.OrderRefundDetailModel;
 import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
+import com.njz.letsgoapp.bean.other.ConfigModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
 import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
+import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
 import java.util.List;
 import java.util.Map;
@@ -499,6 +501,11 @@ public interface HttpService {
             @Query("spell") String spell
     );
 
+    //配置 guide/getGuideMacros
+    @GET("guide/getGuideMacros")
+    Observable<BaseResponse<List<ConfigModel>>> guideGetGuideMacros(
+            @Query("values") String values
+    );
     //--------other end---------
 
 
