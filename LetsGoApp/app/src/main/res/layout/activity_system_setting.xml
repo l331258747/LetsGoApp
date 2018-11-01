@@ -36,6 +36,13 @@
             app:left_drawable="@mipmap/ic_arrow_right"
             app:title="关于我们" />
 
+        <com.njz.letsgoapp.widget.MineItemView
+            android:id="@+id/system_setting_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:title="检测升级" />
+
     </LinearLayout>
 
     <Button

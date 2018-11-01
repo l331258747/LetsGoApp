@@ -13,6 +13,7 @@ import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CleanCacheEvent;
 import com.njz.letsgoapp.widget.MineItemView;
+import com.tencent.bugly.beta.Beta;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -25,7 +26,7 @@ import io.reactivex.functions.Consumer;
 
 public class SystemSettingActivity extends BaseActivity implements View.OnClickListener {
 
-    MineItemView system_setting_clean, system_setting_feedback, system_setting_about;
+    MineItemView system_setting_clean, system_setting_feedback, system_setting_about,system_setting_upload;
 
     Disposable disCleanCache;
 
@@ -46,9 +47,11 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         system_setting_clean = $(R.id.system_setting_clean);
         system_setting_feedback = $(R.id.system_setting_feedback);
         system_setting_about = $(R.id.system_setting_about);
+        system_setting_upload = $(R.id.system_setting_upload);
 
         system_setting_feedback.setOnClickListener(this);
         system_setting_about.setOnClickListener(this);
+        system_setting_upload.setOnClickListener(this);
 
         btnLoginoff = $(R.id.btn_loginoff);
         btnLoginoff.setOnClickListener(this);
@@ -125,6 +128,9 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             case R.id.btn_loginoff:
                 MySelfInfo.getInstance().loginOff();
                 finish();
+                break;
+            case R.id.system_setting_upload:
+                Beta.checkUpgrade();
                 break;
         }
     }
