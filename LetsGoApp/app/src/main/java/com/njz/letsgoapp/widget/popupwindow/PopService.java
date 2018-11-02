@@ -301,36 +301,49 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                     }
                 }
                 return false;
+//            case Constant.SERVICE_TYPE_SHORT_GUIDE:
+//                for (GuideServiceModel model : ServiceModels){
+//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE) && model.getServiceItems().size() > 0){
+//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
+//                        return true;
+//                    }
+//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM) && model.getServiceItems().size() > 0){
+//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
+//                        return true;
+//                    }
+//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CAR) && model.getServiceItems().size() > 0){
+//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            case Constant.SERVICE_TYPE_SHORT_CAR:
+//                for (GuideServiceModel model : ServiceModels){
+//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CAR) && model.getServiceItems().size() > 0){
+//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
+//                        return true;
+//                    }
+//
+//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM) && model.getServiceItems().size() > 0){
+//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
+//                        return true;
+//                    }
+//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE) && model.getServiceItems().size() > 0){
+//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
+//                        return true;
+//                    }
+//                }
+//                return false;
             case Constant.SERVICE_TYPE_SHORT_GUIDE:
-                for (GuideServiceModel model : ServiceModels){
-                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE) && model.getServiceItems().size() > 0){
-                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-                        return true;
-                    }
-                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM) && model.getServiceItems().size() > 0){
-                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-                        return true;
-                    }
-                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CAR) && model.getServiceItems().size() > 0){
-                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-                        return true;
-                    }
-                }
-                return false;
             case Constant.SERVICE_TYPE_SHORT_CAR:
                 for (GuideServiceModel model : ServiceModels){
-                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CAR) && model.getServiceItems().size() > 0){
-                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-                        return true;
-                    }
-
-                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM) && model.getServiceItems().size() > 0){
-                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-                        return true;
-                    }
-                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE) && model.getServiceItems().size() > 0){
-                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-                        return true;
+                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE)
+                            || TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)
+                            || TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)){
+                        if(model.getServiceItems().size() > 0){
+                            ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
+                            return true;
+                        }
                     }
                 }
                 return false;
