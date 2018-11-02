@@ -46,7 +46,17 @@
     </RelativeLayout>
 
 
-    <com.njz.letsgoapp.widget.myTextView.ShowAllTextView
+    <!--<com.njz.letsgoapp.widget.myTextView.ShowAllTextView-->
+        <!--android:id="@+id/tv_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="23dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:lineSpacingExtra="3dp"-->
+        <!--tools:text="案件管理上的觉案里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉" />-->
+
+    <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +64,10 @@
         android:layout_marginRight="23dp"
         android:layout_marginTop="10dp"
         android:lineSpacingExtra="3dp"
+        android:maxLines="3"
+        android:ellipsize="end"
         tools:text="案件管理上的觉案里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉" />
+
 
     <com.njz.letsgoapp.widget.DynamicImageView
         android:id="@+id/dynamic_image_view"

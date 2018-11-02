@@ -108,12 +108,18 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
                 ((DynamicViewHolder) holder).tv_nice.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext,R.mipmap.ic_dynamic_nice_un),null,null,null);
             }
 
+//            if(TextUtils.isEmpty(data.getContent())){
+//                ((DynamicViewHolder) holder).tv_content.setVisibility(View.GONE);
+//            }else{
+//                ((DynamicViewHolder) holder).tv_content.setVisibility(View.VISIBLE);
+//                ((DynamicViewHolder) holder).tv_content.setMaxShowLines(3);
+//                ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
+//            }
             if(TextUtils.isEmpty(data.getContent())){
                 ((DynamicViewHolder) holder).tv_content.setVisibility(View.GONE);
             }else{
                 ((DynamicViewHolder) holder).tv_content.setVisibility(View.VISIBLE);
-                ((DynamicViewHolder) holder).tv_content.setMaxShowLines(3);
-                ((DynamicViewHolder) holder).tv_content.setMyText(""+data.getContent());
+                ((DynamicViewHolder) holder).tv_content.setText(""+data.getContent());
             }
 
             ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
@@ -171,7 +177,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
         ImageView iv_img;
         TextView tv_name,tv_time,tv_location,tv_comment,tv_nice;
         DynamicImageView dynamic_image_view;
-        ShowAllTextView  tv_content;
+//        ShowAllTextView  tv_content;
+        TextView  tv_content;
         RelativeLayout rl_head;
 
         DynamicViewHolder(View itemView) {
