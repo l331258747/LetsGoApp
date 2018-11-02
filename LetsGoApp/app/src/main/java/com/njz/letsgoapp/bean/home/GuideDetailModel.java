@@ -239,6 +239,9 @@ public class GuideDetailModel {
     public float getBuyServices() {
         return buyServices;
     }
+    public String getBuyServiceStr() {
+        return "代订服务" + buyServices;
+    }
 
     public void setBuyServices(float buyServices) {
         this.buyServices = buyServices;
@@ -255,6 +258,9 @@ public class GuideDetailModel {
 
     public float getCarConditions() {
         return carConditions;
+    }
+    public String getCarConditionStr() {
+        return "车辆状况" + carConditions;
     }
 
     public void setCarConditions(float carConditions) {
@@ -281,6 +287,9 @@ public class GuideDetailModel {
     public float getGuideServices() {
         return guideServices;
     }
+    public String getGuideServiceStr(){
+        return "导游服务" + guideServices;
+    }
 
     public void setGuideServices(float guideServices) {
         this.guideServices = guideServices;
@@ -296,6 +305,9 @@ public class GuideDetailModel {
 
     public float getTravelArranges() {
         return travelArranges;
+    }
+    public String getTravelArrangeStr() {
+        return "行程安排" + travelArranges;
     }
 
     public void setTravelArranges(float travelArranges) {

@@ -12,7 +12,6 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         android:text="退订规则"
         android:textSize="16sp" />
 

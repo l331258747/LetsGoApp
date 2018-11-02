@@ -32,7 +32,6 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:maxLines="2"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我我是标题选我" />
 
@@ -103,7 +102,6 @@
                     android:paddingTop="8dp"
                     android:text="服务特色"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <FrameLayout

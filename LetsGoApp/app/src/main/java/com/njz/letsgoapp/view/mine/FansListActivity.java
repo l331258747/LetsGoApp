@@ -55,7 +55,7 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
 
     @Override
     public int getLayoutId() {
-        return R.layout.common_swiperefresh_layout;
+        return R.layout.activity_fans_list;
     }
 
     @Override

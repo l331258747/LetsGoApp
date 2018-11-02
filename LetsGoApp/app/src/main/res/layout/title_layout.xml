@@ -50,7 +50,6 @@
         android:textSize="14sp"
         android:visibility="gone"
         tools:text="登录"
-        tools:textColor="@color/black"
         tools:visibility="visible" />
 
     <ImageView

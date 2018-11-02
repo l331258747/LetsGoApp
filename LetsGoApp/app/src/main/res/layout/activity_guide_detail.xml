@@ -98,16 +98,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@drawable/btn_d9_bottom_line"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp">
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:text="评价"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:textSize="16sp" />
 
 
@@ -146,10 +145,59 @@
                         android:textColor="@color/color_price"
                         android:textSize="12sp" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_d9_bottom_line"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_comment_guide_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ffe8d2_solid_r15_p5"
+                        android:layout_margin="3dp"
+                        android:gravity="center"
+                        tools:text="导游服务 5.0"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_comment_trip_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/ffe8d2_solid_r15_p5"
+                        android:gravity="center"
+                        tools:text="行程安排 5.0"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_comment_car_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/ffe8d2_solid_r15_p5"
+                        android:gravity="center"
+                        tools:text="车辆状态 5.0"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_comment_book_total"
+                        android:layout_margin="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ffe8d2_solid_r15_p5"
+                        android:gravity="center"
+                        tools:text="代订服务 5.0"
+                        android:textSize="10sp" />
 
                 </LinearLayout>
 
-                <include layout="@layout/item_comment" />
+                <include layout="@layout/item_comment_guide" />
 
             </LinearLayout>
 
@@ -167,9 +215,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:layout_marginLeft="3dp"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
                     android:text="他的故事"
                     android:textSize="16sp" />
 

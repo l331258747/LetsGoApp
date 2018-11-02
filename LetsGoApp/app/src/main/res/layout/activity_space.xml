@@ -118,13 +118,18 @@
                         <TextView
                             android:id="@+id/tv_follow"
                             android:layout_width="wrap_content"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_theme_solid_r5"
-                            android:padding="5dp"
-                            android:drawableLeft="@mipmap/follow_un"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_theme_hollow_r5"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
                             android:text="加关注"
                             android:drawablePadding="5dp"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/color_theme" />
 
                     </LinearLayout>
 
@@ -195,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="动态"
-                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="21sp" />
 
             <View

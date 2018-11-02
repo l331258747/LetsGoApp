@@ -72,6 +72,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     GuideDetailModel guideDetailModel;
 
+    TextView tv_comment_guide_total,tv_comment_trip_total,tv_comment_car_total,tv_comment_book_total;
+
     int guideId;
     public static final String GUIDEID = "GUIDEID";
 
@@ -122,6 +124,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         ll_comment_title = $(R.id.ll_comment_title);
         tv_comment_title_score = $(R.id.tv_comment_title_score);
         tv_comment_title_count = $(R.id.tv_comment_title_count);
+        tv_comment_guide_total = $(R.id.tv_comment_guide_total);
+        tv_comment_trip_total = $(R.id.tv_comment_trip_total);
+        tv_comment_car_total = $(R.id.tv_comment_car_total);
+        tv_comment_book_total = $(R.id.tv_comment_book_total);
 
         tv_back_top.setVisibility(View.GONE);
         tv_back_top.setOnClickListener(this);
@@ -195,6 +201,29 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         tv_comment_title_score.setText("" + model.getGuideScore());
         tv_comment_title_count.setText("(" + model.getCount() + "条评论)");
+
+        tv_comment_guide_total.setVisibility(View.GONE);
+        tv_comment_trip_total.setVisibility(View.GONE);
+        tv_comment_car_total.setVisibility(View.GONE);
+        tv_comment_book_total.setVisibility(View.GONE);
+
+        if(model.getGuideServices() > 0 ){
+            tv_comment_guide_total.setVisibility(View.VISIBLE);
+            tv_comment_guide_total.setText(model.getGuideServiceStr());
+        }
+        if(model.getTravelArranges() > 0 ){
+            tv_comment_trip_total.setVisibility(View.VISIBLE);
+            tv_comment_trip_total.setText(model.getTravelArrangeStr());
+        }
+        if(model.getCarConditions() > 0){
+            tv_comment_car_total.setVisibility(View.VISIBLE);
+            tv_comment_car_total.setText(model.getCarConditionStr());
+        }
+        if(model.getBuyServices() > 0){
+            tv_comment_book_total.setVisibility(View.VISIBLE);
+            tv_comment_book_total.setText(model.getBuyServiceStr());
+        }
+
         initEvaluate(model.getTravelFirstReviewVO());
 
         if(!TextUtils.isEmpty(model.getGuideStory())){

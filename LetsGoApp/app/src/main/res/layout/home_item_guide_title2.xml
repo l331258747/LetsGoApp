@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="动态"
-        android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="21sp" />
 
     <View

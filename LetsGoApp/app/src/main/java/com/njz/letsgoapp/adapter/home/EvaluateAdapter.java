@@ -42,7 +42,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = LayoutInflater.from(mContext).inflate(R.layout.item_comment, parent, false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.item_comment_guide, parent, false);
         return new ViewHolder(view);
     }
 

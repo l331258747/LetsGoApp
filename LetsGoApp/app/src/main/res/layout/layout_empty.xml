@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tv_empty_content"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/empty_network" />
+        android:src="@mipmap/empty_follow" />
 
     <TextView
         android:id="@+id/tv_empty_content"
