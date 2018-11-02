@@ -23,7 +23,6 @@
             android:id="@+id/system_setting_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginTop="8dp"
             app:left_drawable="@mipmap/ic_arrow_right"
             app:title="意见反馈" />

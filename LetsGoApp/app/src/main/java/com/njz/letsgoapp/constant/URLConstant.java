@@ -7,8 +7,8 @@ package com.njz.letsgoapp.constant;
  */
 
 public class URLConstant {
-//    public static final String BASE_URL = "http://192.168.100.156:8090/travel-framework/";//测试地址
-    public static final String BASE_URL = "http://www.njzou.net/travel-framework/";//外网地址
+    public static final String BASE_URL = "http://192.168.100.156:8090/travel-framework/";//测试地址
+//    public static final String BASE_URL = "http://www.njzou.net/travel-framework/";//外网地址
 //    public static final String BASE_URL = "http://192.168.100.126:8080/";//本地
 
     //消息本地

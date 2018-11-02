@@ -15,14 +15,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:maxLines="1"
         android:layout_weight="1"
-        android:paddingBottom="5dp"
-        android:inputType="number"
-        android:paddingTop="5dp"
         android:background="@color/transparent"
-        android:textColorHint="@color/color_99"
-        android:hint="请输入手机号" />
+        android:hint="请输入手机号"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textColorHint="@color/color_99" />
 
     <ImageView
         android:id="@+id/login_item_iv"

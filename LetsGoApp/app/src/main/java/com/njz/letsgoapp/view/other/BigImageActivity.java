@@ -82,7 +82,7 @@ public class BigImageActivity extends BaseActivity {
             }
         }, datas)
                 .setPointViewVisible(true) //设置指示器是否可见
-                .setPageIndicator(new int[]{R.drawable.shape_point1, R.drawable.shape_point2})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.drawable.oval_white_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override

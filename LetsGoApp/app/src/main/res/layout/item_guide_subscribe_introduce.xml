@@ -11,26 +11,53 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_marginTop="8dp"
         android:text="预订须知"
         android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:drawableLeft="@drawable/indicator_normal"
-        android:drawablePadding="8dp"
-        android:text="为保障您的利益和服务质量，请不要线下与向导交易，平台仅以真实订单作为产生纠纷的调查依据。" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/indicator_normal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:drawablePadding="8dp"
+            android:text="为保障您的利益和服务质量，请不要线下与向导交易，平台仅以真实订单作为产生纠纷的调查依据。" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:drawableLeft="@drawable/indicator_normal"
-        android:drawablePadding="8dp"
-        android:text="那就走平台仅提供信息展示，您所购买的服务由向导提供，如需发票，请与导游协调索取。" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/indicator_normal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="那就走平台仅提供信息展示，您所购买的服务由向导提供，如需发票，请与导游协调索取。" />
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
