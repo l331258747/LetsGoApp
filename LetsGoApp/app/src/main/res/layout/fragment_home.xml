@@ -77,7 +77,6 @@
                             android:paddingLeft="15dp"
                             android:layout_alignParentRight="true"
                             android:layout_alignBottom="@+id/tv_guide_title"
-                            android:textColor="@color/color_theme"
                             android:paddingRight="15dp"
                             android:text="查看全部"/>
 
@@ -128,7 +127,6 @@
                             android:paddingLeft="15dp"
                             android:layout_alignParentRight="true"
                             android:layout_alignBottom="@+id/tv_dynamic_title"
-                            android:textColor="@color/color_theme"
                             android:paddingRight="15dp"
                             android:text="查看全部"/>
 
@@ -137,7 +135,6 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:paddingBottom="10dp">
 
                         <include layout="@layout/base_recycler_view_layout"/>

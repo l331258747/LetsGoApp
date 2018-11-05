@@ -7,31 +7,39 @@
 
     <TextView
         android:id="@+id/tv_identity"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:drawableLeft="@mipmap/ic_authentication_ok"
+        android:drawablePadding="3dp"
         android:gravity="center"
-        android:text="身份证认证" />
+        android:minWidth="90dp"
+        android:text="身份证认证"
+        android:textSize="12sp" />
 
 
     <TextView
         android:id="@+id/tv_guide"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:drawableLeft="@mipmap/ic_authentication_ok"
+        android:drawablePadding="3dp"
         android:gravity="center"
-        android:text="导游证认证" />
+        android:minWidth="90dp"
+        android:text="导游证认证"
+        android:textSize="12sp" />
 
 
     <TextView
         android:id="@+id/tv_car"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:drawableLeft="@mipmap/ic_authentication_ok"
+        android:drawablePadding="3dp"
         android:gravity="center"
-        android:text="驾驶证认证" />
+        android:minWidth="90dp"
+        android:text="驾驶证认证"
+        android:textSize="12sp" />
 
 </LinearLayout>

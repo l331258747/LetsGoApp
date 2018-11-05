@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textStyle="bold"
                 tools:text="张家界"
                 android:textColor="@color/color_4b"
                 android:textSize="15sp" />
@@ -75,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
+                android:textStyle="bold"
                 tools:text="1018-07-12"
                 android:textColor="@color/color_4b"
                 android:textSize="15sp" />
@@ -111,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textStyle="bold"
                 tools:text="1218-07-16"
                 android:textColor="@color/color_4b"
                 android:textSize="15sp" />

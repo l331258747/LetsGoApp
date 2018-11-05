@@ -33,13 +33,13 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:maxLines="1"
-                android:textSize="16sp"
-                tools:text="那就走" />
+                android:maxLength="4"
+                tools:text="那就走那就走那就走" />
 
             <ImageView
                 android:id="@+id/iv_sex"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/tv_name"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="5dp"
             android:textSize="10sp"
             tools:text="2000次服务" />

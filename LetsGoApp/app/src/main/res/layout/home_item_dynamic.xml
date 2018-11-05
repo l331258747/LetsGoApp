@@ -94,8 +94,8 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/ic_dynamic_location"
             android:drawablePadding="10dp"
-            android:text="长沙"
-            android:textSize="10sp" />
+            android:textSize="12sp"
+            android:text="长沙" />
 
         <TextView
             android:id="@+id/tv_count"
@@ -103,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:drawableLeft="@mipmap/ic_dynamic_comment"
+            android:textSize="12sp"
             android:drawablePadding="10dp"
             android:text="1000" />
 
@@ -113,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="90dp"
+            android:textSize="12sp"
             android:drawableLeft="@mipmap/ic_dynamic_nice_un"
             android:paddingLeft="30dp"
             android:drawablePadding="10dp"
