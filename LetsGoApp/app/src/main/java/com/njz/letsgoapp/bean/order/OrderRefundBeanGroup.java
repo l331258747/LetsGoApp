@@ -142,7 +142,14 @@ public class OrderRefundBeanGroup {
                         return "";
                 }
             case Constant.ORDER_PAY_FINISH:
-                return "已完成";
+                switch (reviewStatus){
+                    case Constant.ORDER_EVALUATE_NO:
+                        return "未点评";
+                    case Constant.ORDER_EVALUATE_YES:
+                        return "已点评";
+                    default:
+                        return "";
+                }
             case Constant.ORDER_PAY_REFUND:
                 switch (refundStatus){
                     case Constant.ORDER_REFUND_WAIT:

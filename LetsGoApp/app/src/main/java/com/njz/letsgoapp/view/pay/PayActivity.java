@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     private TextView tvPrice,tvTitle,tvTime;
     private ImageView ivWX;
     private ImageView ivZhifubao;
-    private Button btnPay;
+    private TextView btnPay;
     private RelativeLayout rl_sel_zhifubao,rl_sel_weixin;
 
     private double price;
@@ -125,6 +126,16 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
     @Override
     public void initView() {
         showLeftAndTitle("支付");
+        showRightTv();
+        getRightTv().setText("关闭");
+        getRightTv().setTextColor(ContextCompat.getColor(context,R.color.color_99));
+        getRightTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         payModel = getIntent().getParcelableExtra(ORDER_ID);
 
         tvPrice = $(R.id.tv_price_all);

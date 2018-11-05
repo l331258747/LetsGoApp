@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -136,27 +137,37 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     }
 
 
-    ImageView iv_head;
+    ImageView iv_head,iv_sex;
     MyRatingBar my_rating_bar;
     TextView tv_service_num;
     GuideLabelView guideLabel;
     ServiceTagView stv_tag;
-    TextView tv_name;
+    TextView tv_name,tv_pop_close;
 
     private void initInfo() {
         iv_head = contentView.findViewById(R.id.iv_head);
+        iv_sex = contentView.findViewById(R.id.iv_sex);
         my_rating_bar = contentView.findViewById(R.id.my_rating_bar);
         tv_service_num = contentView.findViewById(R.id.tv_service_num);
         guideLabel = contentView.findViewById(R.id.guide_label);
         stv_tag = contentView.findViewById(R.id.stv_tag);
         tv_name = contentView.findViewById(R.id.tv_name);
+        tv_pop_close = contentView.findViewById(R.id.tv_pop_close);
 
         GlideUtil.LoadCircleImage(mContext, guideDetailModel.getGuideImg(), iv_head);
+        iv_sex.setImageDrawable(ContextCompat.getDrawable(context,guideDetailModel.getGuideGender() == 2?R.mipmap.icon_girl:R.mipmap.icon_boy));
         tv_name.setText(guideDetailModel.getGuideName());
         my_rating_bar.setRating((int) guideDetailModel.getGuideScore());
         stv_tag.setServiceTag(guideDetailModel.getServiceTag());
         tv_service_num.setText(guideDetailModel.getServiceCounts());
         guideLabel.setTabel(guideDetailModel.getSign());
+
+        tv_pop_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissPopupWindow();
+            }
+        });
     }
 
     public void showPopupWindow(View parent) {

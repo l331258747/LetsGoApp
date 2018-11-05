@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.order;
 
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -44,7 +45,7 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
     FixedItemEditViewNoLine view_name,view_phone;
     EditText et_special;
     List<String> reasons;
-    Button btn_submit;
+    TextView btn_submit;
 
     OrderCancelPresenter mPresenter;
     ConfigPresenter configPresenter;
@@ -93,7 +94,9 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
         reasons = new ArrayList<>();
 
         view_name.setEtContent(name);
+        view_name.getEtView().setTextColor(ContextCompat.getColor(context,R.color.color_99));
         view_phone.setEtContent(phone);
+        view_phone.getEtView().setTextColor(ContextCompat.getColor(context,R.color.color_99));
 
         mPresenter = new OrderCancelPresenter(context,this);
         configPresenter = new ConfigPresenter(context,this);

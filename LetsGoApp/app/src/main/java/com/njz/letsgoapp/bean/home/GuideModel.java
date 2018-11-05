@@ -23,7 +23,7 @@ public class GuideModel {
     private int serviceCounts;
     private int count;
     private String introduce;
-    private double guideScore;
+    private float guideScore;
     private List<GuideServiceModel> travelGuideServiceInfoVOs;
     /**
      * guideScore : 0
@@ -91,11 +91,11 @@ public class GuideModel {
         this.introduce = introduce;
     }
 
-    public double getGuideScore() {
+    public float getGuideScore() {
         return guideScore;
     }
 
-    public void setGuideScore(double guideScore) {
+    public void setGuideScore(float guideScore) {
         this.guideScore = guideScore;
     }
 

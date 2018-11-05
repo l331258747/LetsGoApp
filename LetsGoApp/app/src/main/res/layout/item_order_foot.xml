@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
-    android:layout_marginBottom="10dp"
     android:background="@drawable/btn_white_r5_bottom"
     android:orientation="vertical">
 
@@ -26,22 +25,23 @@
                 android:id="@+id/tv_order_price_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:text="总额：" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥"
-                android:textStyle="bold"
-                android:textColor="@color/color_red" />
+                android:textColor="@color/color_red"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_order_price_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:text="2600"
-                android:textColor="@color/color_red" />
+                android:textColor="@color/color_red"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:id="@+id/btn_cancel_order"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_99_hollow_r3_p5"
                 android:gravity="center"
                 android:text="取消订单" />
@@ -76,7 +76,7 @@
                 android:id="@+id/btn_refund"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_99_hollow_r3_p5"
                 android:gravity="center"
                 android:text="退款" />
@@ -85,7 +85,7 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_99_hollow_r3_p5"
                 android:gravity="center"
                 android:text="删除"
@@ -95,7 +95,7 @@
                 android:id="@+id/btn_call_guide"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_2585e7_hollow_r3_p5"
                 android:gravity="center"
                 android:text="联系导游"
@@ -106,7 +106,7 @@
                 android:id="@+id/btn_call_customer"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_theme_hollow_r3_p5"
                 android:gravity="center"
                 android:text="联系客服"
@@ -117,7 +117,7 @@
                 android:id="@+id/btn_pay"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_theme_solid_r3_p5"
                 android:gravity="center"
                 android:text="付款"
@@ -127,10 +127,10 @@
                 android:id="@+id/btn_evaluate"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_theme_hollow_r3_p5"
                 android:gravity="center"
-                android:text="评价"
+                android:text="点评"
                 android:textColor="@color/color_theme" />
 
         </LinearLayout>

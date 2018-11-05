@@ -28,6 +28,7 @@ import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
+import com.njz.letsgoapp.widget.SpecialFixedItemEditView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     public FixedItemTextView fixed_view_city;
     public FixedItemEditView login_view_name, login_view_phone;
-    public EditText et_special;
+    public SpecialFixedItemEditView et_special;
 
     public RecyclerView recyclerView;
     public TextView tv_order_price;
@@ -144,7 +145,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         login_view_phone.getEtView().setEnabled(false);
         login_view_name.getEtView().setEnabled(false);
-        et_special.setEnabled(false);
+        et_special.getEtView().setEnabled(false);
 
         ll_order_no.setVisibility(View.GONE);
         ll_order_create_time.setVisibility(View.GONE);
@@ -371,7 +372,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         fixed_view_city.setContent(str.getLocation());
         login_view_name.setContent(str.getName());
         login_view_phone.setContent(str.getMobile());
-        et_special.setText(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
+        et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
             model.setPayingStatus(str.getPayingStatus());

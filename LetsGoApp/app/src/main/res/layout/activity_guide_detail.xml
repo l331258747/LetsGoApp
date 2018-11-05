@@ -19,41 +19,50 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include
-                layout="@layout/home_item_banner"
-                tools:visibility="gone" />
-
-            <!--个人信息-->
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:layout_height="wrap_content">
 
-                <include layout="@layout/service_personal_info" />
+                <include
+                    layout="@layout/home_item_banner"
+                    tools:visibility="gone" />
 
-
-                <com.njz.letsgoapp.widget.GuideAuthenticationView
-                    android:id="@+id/guide_authentication"
-                    android:layout_marginTop="10dp"
+                <!--个人信息-->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_white_r10_top"
+                    android:orientation="vertical"
+                    android:layout_marginTop="190dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <include layout="@layout/service_personal_info" />
 
 
-                <TextView
-                    android:id="@+id/tv_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:ellipsize="end"
-                    android:maxLines="3"
-                    android:textSize="14sp"
-                    tools:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔" />
+                    <com.njz.letsgoapp.widget.GuideAuthenticationView
+                        android:id="@+id/guide_authentication"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-            </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:textSize="14sp"
+                        tools:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
 
             <!--服务内容-->
             <LinearLayout
@@ -287,7 +296,7 @@
                     android:drawableLeft="@mipmap/ic_phone"
                     android:drawablePadding="10dp"
                     android:gravity="center"
-                    android:text="联系导游"
+                    android:text="联系TA"
                     android:textColor="@color/color_theme" />
 
             </LinearLayout>
@@ -301,7 +310,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_theme_solid_r5_p8"
                 android:gravity="center"
-                android:text="预订"
+                android:text="立即预订"
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>

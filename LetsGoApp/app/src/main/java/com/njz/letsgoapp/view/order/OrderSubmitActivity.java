@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -30,6 +31,7 @@ import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemTextView;
 import com.njz.letsgoapp.widget.FixedItemEditView;
+import com.njz.letsgoapp.widget.SpecialFixedItemEditView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +50,9 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
     FixedItemEditView login_view_name, login_view_phone;
     FixedItemTextView fixed_view_city;
+    SpecialFixedItemEditView et_special;
     RecyclerView recyclerView;
     TextView tv_contract, tv_submit;
-    EditText et_special;
 
     OrderCreatePresenter mPresenter;
 
@@ -77,13 +79,31 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
         login_view_name = $(R.id.login_view_name);
         login_view_name.setEtInputType(InputType.TYPE_CLASS_TEXT);
+        login_view_name.setIvRight(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login_view_name.getEtView().setText("");
+            }
+        });
         login_view_phone = $(R.id.login_view_phone);
         login_view_phone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
+        login_view_phone.setIvRight(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login_view_phone.getEtView().setText("");
+            }
+        });
         fixed_view_city = $(R.id.fixed_view_city);
         recyclerView = $(R.id.recycler_view);
         tv_contract = $(R.id.tv_contract);
         tv_submit = $(R.id.tv_submit);
         et_special = $(R.id.et_special);
+        et_special.setIvRight(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_special.getEtView().setText("");
+            }
+        });
 
         StringUtils.setHtml(tv_contract, getResources().getString(R.string.guide_service_contract));
 
@@ -159,7 +179,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                 }
             }
         }
-        tv_submit.setText("立即预定（￥" + totalPrice + "）");
+        tv_submit.setText("提交订单（￥" + totalPrice + "）");
     }
 
     public SendOrderModel getOrderData() {
@@ -169,7 +189,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         sendOrderModel.setName(login_view_name.getEtContent());
         sendOrderModel.setGuideId(guideId);
         sendOrderModel.setLocation(fixed_view_city.getContent());
-        sendOrderModel.setSpecialRequire(et_special.getText().toString());
+        sendOrderModel.setSpecialRequire(et_special.getEtContent());
         sendOrderModel.setEarlyOrderPrice(totalPrice);
 
         List<SendChildOrderModel> sendChildOrders = new ArrayList<>();

@@ -37,7 +37,7 @@
                     android:id="@+id/btn_cancel_order"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_cc_solid_r5_p8"
                     android:gravity="center"
                     android:text="取消订单"
@@ -47,7 +47,7 @@
                     android:id="@+id/btn_refund"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_cc_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -57,7 +57,7 @@
                     android:id="@+id/btn_delete"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_cc_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -68,7 +68,7 @@
                     android:id="@+id/btn_call_guide"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_1f92ff_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -78,7 +78,7 @@
                     android:id="@+id/btn_call_custom"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_theme_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -89,7 +89,7 @@
                     android:id="@+id/btn_pay"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_theme_solid_r5_p8"
                     android:gravity="center"
                     android:text="付款"
@@ -99,7 +99,7 @@
                     android:id="@+id/btn_evaluate"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_theme_solid_r5_p8"
                     android:gravity="center"
                     android:text="评价"
@@ -115,9 +115,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="vertical"
         android:overScrollMode="never">
 
@@ -129,9 +128,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/card_view_bg_10">
 
@@ -171,10 +167,16 @@
 
                     </RelativeLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/color_d9"/>
+
                     <com.njz.letsgoapp.widget.FixedItemTextView
                         android:id="@+id/fixed_view_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:login_item_title_color="@color/color_99"
                         app:login_item_title="目的地"
                         app:login_item_title_width="80dp" />
 
@@ -184,6 +186,7 @@
                         android:layout_height="wrap_content"
                         app:login_item_hint="请输入联系人"
                         app:login_item_max_length="5"
+                        app:login_item_title_color="@color/color_99"
                         app:login_item_title="联系人"
                         app:login_item_title_width="80dp" />
 
@@ -193,60 +196,30 @@
                         android:layout_height="wrap_content"
                         app:login_item_hint="请输入联系方式"
                         app:login_item_max_length="11"
+                        app:login_item_title_color="@color/color_99"
                         app:login_item_title="联系方式"
                         app:login_item_title_width="80dp" />
 
-                    <LinearLayout
+                    <com.njz.letsgoapp.widget.SpecialFixedItemEditView
+                        android:id="@+id/et_special"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="特殊要求" />
-
-                        <EditText
-                            android:id="@+id/et_special"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/transparent"
-                            android:gravity="top"
-                            android:hint="请输入其他需求。（选填）"
-                            android:maxLength="100"
-                            android:maxLines="3"
-                            android:minLines="1"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp"
-                            android:textColor="@drawable/text_color_fixed_item_edit" />
-
-                    </LinearLayout>
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_hint="请输入其他需求。（选填）"
+                        app:login_item_max_length="200"
+                        app:login_item_title="特殊要求"
+                        app:login_item_title_width="80dp"/>
                 </LinearLayout>
 
             </FrameLayout>
 
+            <include layout="@layout/base_recycler_view_layout" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <include layout="@layout/base_recycler_view_layout" />
-
-            </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/cv_refund_reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/card_view_bg_10"
                 android:visibility="gone"
@@ -313,8 +286,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white">
 
@@ -334,6 +305,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/color_99"
                             android:text="合计" />
 
                         <LinearLayout
@@ -487,9 +459,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/card_view_bg_10">
 
                 <include layout="@layout/layout_order_info" />

@@ -3,15 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_d9_bottom_line"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp">
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <ImageView
             android:id="@+id/comment_head"
@@ -19,24 +22,29 @@
             android:layout_height="35dp"
             tools:src="@mipmap/head_default" />
 
-        <TextView
-            android:id="@+id/commont_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/comment_head"
-            tools:text="那就走" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/commont_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/comment_head"
-            android:textSize="12sp"
-            android:textColor="@color/color_99"
-            android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/comment_head"
-            tools:text="2018-08-08" />
+            <TextView
+                android:id="@+id/commont_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                tools:text="那就走" />
+
+            <TextView
+                android:id="@+id/commont_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_99"
+                android:textSize="12sp"
+                tools:text="2018-08-08" />
+
+        </LinearLayout>
 
 
         <TextView
@@ -47,10 +55,10 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
             android:background="@drawable/oval_green_solid"
-            android:padding="5dp"
             android:gravity="center"
-            tools:text="5.0"
-            android:textColor="@color/white" />
+            android:padding="5dp"
+            android:textColor="@color/white"
+            tools:text="5.0" />
     </RelativeLayout>
 
     <LinearLayout
@@ -58,48 +66,60 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_d9_bottom_line"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp">
 
         <TextView
             android:id="@+id/tv_comment_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ffe8d2_solid_r15_p5"
             android:layout_margin="3dp"
             android:gravity="center"
-            tools:text="导游服务 5.0"
-            android:textSize="10sp" />
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textSize="10sp"
+            tools:text="导游服务 5.0" />
 
         <TextView
             android:id="@+id/tv_comment_trip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
-            tools:text="行程安排 5.0"
-            android:textSize="10sp" />
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textSize="10sp"
+            tools:text="行程安排 5.0" />
 
         <TextView
             android:id="@+id/tv_comment_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:background="@drawable/ffe8d2_solid_r15_p5"
             android:gravity="center"
-            tools:text="车辆状态 5.0"
-            android:textSize="10sp" />
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textSize="10sp"
+            tools:text="车辆状态 5.0" />
 
         <TextView
             android:id="@+id/tv_comment_book"
-            android:layout_margin="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ffe8d2_solid_r15_p5"
+            android:layout_margin="3dp"
             android:gravity="center"
-            tools:text="代订服务 5.0"
-            android:textSize="10sp" />
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textSize="10sp"
+            tools:text="代订服务 5.0" />
 
     </LinearLayout>
 
@@ -107,71 +127,111 @@
         android:id="@+id/tv_comment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp"
         android:maxLines="4"
         tools:text="行程很好行程很好行程很好行程很\n好行程很好\n行程很好行程很好行程很好\n行程很好行程很好\n行程很好行程很好" />
 
-    <include layout="@layout/base_recycler_view_layout" />
+    <LinearLayout
+        android:id="@+id/ll_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <include layout="@layout/base_recycler_view_layout" />
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/rl_reply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@color/color_f7"
-        android:padding="8dp"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:background="@drawable/evaluate_comment_bg"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="回复：" />
+            android:text="回复："
+            android:textColor="@color/color_99" />
 
         <TextView
             android:id="@+id/reply_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="2018-04-06" />
+            android:text="2018-04-06"
+            android:textColor="@color/color_99"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/reply_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/reply_time"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:maxLines="4"
             tools:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容" />
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_click"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_d9" />
+
+    <LinearLayout
+        android:id="@+id/ll_click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@color/color_f7"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="查看全部订购信息"
-        android:textColor="@color/blue"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="查看全部订购信息"
+            android:textColor="@color/blue"
+            android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/tv_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_f7"
-        android:gravity="center"
-        android:padding="8dp"
-        android:layout_marginTop="5dp"
-        android:visibility="gone"
-        tools:visibility="visible"
-        tools:text="订购内容：订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容" />
+        <ImageView
+            android:id="@+id/iv_open_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/evaluate_open_un" />
 
+        <LinearLayout
+            android:id="@+id/ll_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/color_99"
+                tools:text="订购内容：订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容订购内容"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/evaluate_close" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

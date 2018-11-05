@@ -3,6 +3,7 @@ package com.njz.letsgoapp.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -53,6 +54,11 @@ public class FixedItemEditView extends LinearLayout {
                 tv_name.setText(titleText);
             }
 
+            int titleColor = attributes.getResourceId(R.styleable.login_item_login_item_title_color,0);
+            if (titleColor != 0) {
+                tv_name.setTextColor(ContextCompat.getColor(context,titleColor));
+            }
+
             int nameViewWidth = attributes.getDimensionPixelSize(R.styleable.login_item_login_item_title_width,0);
             if(nameViewWidth != 0){
                 tv_name.setWidth(nameViewWidth);
@@ -91,6 +97,10 @@ public class FixedItemEditView extends LinearLayout {
 
     public void setContent(String str){
         et_input.setText(str);
+    }
+
+    public void setIvRight(OnClickListener listener){
+        iv_next.setOnClickListener(listener);
     }
 
 }

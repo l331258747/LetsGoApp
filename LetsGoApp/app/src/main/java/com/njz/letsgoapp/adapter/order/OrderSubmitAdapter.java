@@ -51,7 +51,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             final ServiceItem data = serviceItems.get(pos);
             if (data == null) return;
 
-            GlideUtil.LoadImage(context, data.getImg(), ((ViewHolder) holder).iv_img);
+            GlideUtil.LoadRoundImage(context, data.getImg(), ((ViewHolder) holder).iv_img,5);
             ((ViewHolder) holder).tv_title.setText(data.getTitile());
             ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
 

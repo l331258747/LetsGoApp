@@ -57,7 +57,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((GuideViewHolder) holder).rating_bar_route.setRating((int)data.getGuideScore());
             ((GuideViewHolder) holder).tv_content.setText(data.getIntroduce());
             ((GuideViewHolder) holder).tv_service_item.setServiceTag(data.getServiceTags());
-            ((GuideViewHolder) holder).ll_times.setGuideScore(data.getServiceCounts(),(int)data.getGuideScore(),data.getCount());
+            ((GuideViewHolder) holder).ll_times.setGuideScore(data.getServiceCounts(),data.getGuideScore(),data.getCount());
             if (mOnItemClickListener != null) {
                 ((GuideViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                     @Override

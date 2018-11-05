@@ -78,9 +78,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/card_view_bg_10">
 
         <LinearLayout
@@ -99,8 +99,8 @@
 
                 <ImageView
                     android:id="@+id/iv_weixin"
-                    android:layout_width="28dp"
-                    android:layout_height="24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/ic_weixin" />
@@ -155,8 +155,8 @@
 
                 <ImageView
                     android:id="@+id/iv_zhifubao"
-                    android:layout_width="28dp"
-                    android:layout_height="24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/ic_zhifubao" />
@@ -204,15 +204,20 @@
 
 
 
-    <Button
+    <TextView
         android:id="@+id/btn_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginTop="20dp"
         android:text="确认支付"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="16sp"
         android:textColor="@color/white"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@drawable/btn_theme_solid_r5"
         android:layout_alignParentBottom="true"
         />

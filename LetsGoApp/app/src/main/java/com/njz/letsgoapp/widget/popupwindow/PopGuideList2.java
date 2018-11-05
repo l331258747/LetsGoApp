@@ -196,8 +196,8 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
     //取消选中状态
     private void setResetAllView(TextView... tvs) {
         for (TextView tv : tvs) {
-            tv.setBackgroundResource(R.drawable.btn_99_hollow_r2_p5);
-            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_text));
+            tv.setBackgroundResource(R.drawable.btn_gray_hollow_r3);
+            tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_99));
             tv.setSelected(false);
         }
     }

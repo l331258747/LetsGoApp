@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,7 +44,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = LayoutInflater.from(mContext).inflate(R.layout.item_comment_guide, parent, false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.item_comment, parent, false);
         return new ViewHolder(view);
     }
 
@@ -69,9 +71,9 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         }
 
         if(TextUtils.isEmpty(data.getServicesStr())){
-            holder.tv_click.setVisibility(View.GONE);
+            holder.ll_click.setVisibility(View.GONE);
         }else{
-            holder.tv_click.setVisibility(View.VISIBLE);
+            holder.ll_click.setVisibility(View.VISIBLE);
             holder.tv_order.setText(data.getServicesStr());
         }
 
@@ -100,8 +102,15 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         holder.mRecyclerView.setLayoutManager(new GridLayoutManager(
                 holder.mRecyclerView.getContext(), 4));
 
-        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(mContext, data.getImageUrls());
-        holder.mRecyclerView.setAdapter(enterAdapter);
+        if(data.getImageUrls() == null || data.getImageUrls().size() == 0){
+            holder.ll_photo.setVisibility(View.GONE);
+        }else{
+            holder.ll_photo.setVisibility(View.VISIBLE);
+            SimpleImageAdapter enterAdapter = new SimpleImageAdapter(mContext, data.getImageUrls());
+            holder.mRecyclerView.setAdapter(enterAdapter);
+        }
+
+
 
         holder.bindView(pos);
 
@@ -128,17 +137,20 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView commont_head;
+        ImageView commont_head,iv_open_service;
         TextView commont_name, commont_time, commont_score, tv_comment_content, tv_order, reply_time, reply_content;
         RelativeLayout rl_reply;
         RecyclerView mRecyclerView;
         TextView tv_comment_guide,tv_comment_trip,tv_comment_car,tv_comment_book;
+        LinearLayout ll_order,ll_click,ll_photo;
 
         TextView tv_click;
 
         ViewHolder(View itemView) {
             super(itemView);
             commont_head = itemView.findViewById(R.id.comment_head);
+            ll_order = itemView.findViewById(R.id.ll_order);
+            ll_photo = itemView.findViewById(R.id.ll_photo);
             commont_name = itemView.findViewById(R.id.commont_name);
             commont_time = itemView.findViewById(R.id.commont_time);
             commont_score = itemView.findViewById(R.id.commont_score);
@@ -152,16 +164,21 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
             tv_comment_trip = itemView.findViewById(R.id.tv_comment_trip);
             tv_comment_car = itemView.findViewById(R.id.tv_comment_car);
             tv_comment_book = itemView.findViewById(R.id.tv_comment_book);
+            iv_open_service = itemView.findViewById(R.id.iv_open_service);
             tv_click = itemView.findViewById(R.id.tv_click);
-            tv_click.setOnClickListener(this);
+            ll_click = itemView.findViewById(R.id.ll_click);
+            ll_click.setOnClickListener(this);
+
 
         }
 
         void bindView(int pos) {
             if (pos == opened){
-                tv_order.setVisibility(View.VISIBLE);
+                ll_order.setVisibility(View.VISIBLE);
+                iv_open_service.setImageDrawable(ContextCompat.getDrawable(mContext,R.mipmap.evaluate_open));
             } else{
-                tv_order.setVisibility(View.GONE);
+                ll_order.setVisibility(View.GONE);
+                iv_open_service.setImageDrawable(ContextCompat.getDrawable(mContext,R.mipmap.evaluate_open_un));
             }
         }
 

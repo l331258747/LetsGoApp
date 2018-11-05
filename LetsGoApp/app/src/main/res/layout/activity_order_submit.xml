@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:overScrollMode="never">
@@ -23,10 +23,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/card_view_bg_10">
 
                 <LinearLayout
@@ -39,6 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:login_item_title="目的地"
+                        app:login_item_title_color="@color/color_99"
                         app:login_item_title_width="80dp" />
 
                     <com.njz.letsgoapp.widget.FixedItemEditView
@@ -47,7 +44,9 @@
                         android:layout_height="wrap_content"
                         app:login_item_hint="请输入联系人"
                         app:login_item_max_length="5"
+                        app:login_item_title_color="@color/color_99"
                         app:login_item_title="联系人"
+                        app:login_item_right_drawable="@mipmap/edit_cancel"
                         app:login_item_title_width="80dp" />
 
                     <com.njz.letsgoapp.widget.FixedItemEditView
@@ -56,38 +55,22 @@
                         android:layout_height="wrap_content"
                         app:login_item_hint="请输入联系方式"
                         app:login_item_max_length="11"
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_right_drawable="@mipmap/edit_cancel"
                         app:login_item_title="联系方式"
                         app:login_item_title_width="80dp" />
 
-                    <LinearLayout
+                    <com.njz.letsgoapp.widget.SpecialFixedItemEditView
+                        android:id="@+id/et_special"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:orientation="vertical">
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_hint="请输入其他需求。（选填）"
+                        app:login_item_right_drawable="@mipmap/edit_cancel"
+                        app:login_item_max_length="200"
+                        app:login_item_title="特殊要求"
+                        app:login_item_title_width="80dp"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="特殊要求" />
-
-                        <EditText
-                            android:id="@+id/et_special"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/transparent"
-                            android:gravity="top"
-                            android:hint="请输入其他需求。（选填）"
-                            android:maxLength="100"
-                            android:maxLines="3"
-                            android:minLines="1"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
             </FrameLayout>
@@ -95,8 +78,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content">
 
                 <include layout="@layout/base_recycler_view_layout" />
 
@@ -107,16 +89,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@drawable/btn_white_solid_r5">
 
                 <TextView
                     android:id="@+id/tv_contract"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
                     android:drawableLeft="@mipmap/ic_register_read"
                     android:drawablePadding="3dp"
                     android:padding="5dp"
@@ -129,15 +108,34 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <TextView
-        android:id="@+id/tv_submit"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="@color/color_theme"
-        android:gravity="center"
-        android:text="立即预定（￥0）"
-        android:textColor="@color/white" />
+        android:background="@color/white"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_d9"/>
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_theme_solid_r5"
+            android:gravity="center"
+            android:text="提交订单（￥0）"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
 
 </FrameLayout>
 
