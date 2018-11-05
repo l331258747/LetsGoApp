@@ -118,8 +118,6 @@ dependencies {
     //阿里云 热修复
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.2.4'
     //-------控件----------
-    //banner
-    compile 'com.bigkoo:convenientbanner:2.0.5'
     //富文本
     compile 'jp.wasabeef:richeditor-android:1.2.2'
     compile 'com.contrarywind:Android-PickerView:4.1.6'
@@ -127,4 +125,5 @@ dependencies {
     compile project(':CalendarLib')
     compile project(':citypicker')
     compile project(':PhotoPicker')
+    compile project(':convenientbanner')
 }

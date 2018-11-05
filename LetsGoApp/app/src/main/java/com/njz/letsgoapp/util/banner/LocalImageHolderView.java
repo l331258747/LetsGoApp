@@ -44,7 +44,6 @@ public class LocalImageHolderView<T> implements Holder<T> {
         bannerListener.bannerListener(context,position,data,imageView);
     }
 
-
     public interface BannerListener<T> {
         void bannerListener(Context context, int position, T data,ImageView view);
     }
