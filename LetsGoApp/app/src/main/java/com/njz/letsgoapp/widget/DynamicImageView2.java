@@ -91,32 +91,32 @@ public class DynamicImageView2 extends LinearLayout {
         switch (datas.size()) {
             case 1:
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(0), iv_left1);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
 
                 setOnclick(iv_left1,0);
                 break;
             case 2:
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(0), iv_left1);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
 
                 ll_right.setVisibility(VISIBLE);
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(1), iv_right1);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
 
                 setOnclick(iv_left1,0);
                 setOnclick(iv_right1,1);
                 break;
             case 3:
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(0), iv_left1);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
 
                 ll_right.setVisibility(VISIBLE);
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(1), iv_right1);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
 
                 ll_left2.setVisibility(VISIBLE);
                 iv_left21.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(2), iv_left21);
+                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_left21,R.mipmap.dynamic_default);
 
                 setOnclick(iv_left1,0);
                 setOnclick(iv_right1,1);
@@ -124,18 +124,18 @@ public class DynamicImageView2 extends LinearLayout {
                 break;
             case 4:
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(0), iv_left1);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
 
                 ll_right.setVisibility(VISIBLE);
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(1), iv_right1);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
 
                 ll_left2.setVisibility(VISIBLE);
                 iv_left21.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(2), iv_left21);
+                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_left21,R.mipmap.dynamic_default);
 
                 iv_left22.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(3), iv_left22);
+                GlideUtil.LoadDefaultImage(context, datas.get(3), iv_left22,R.mipmap.dynamic_default);
 
                 setOnclick(iv_left1,0);
                 setOnclick(iv_right1,1);
@@ -144,19 +144,19 @@ public class DynamicImageView2 extends LinearLayout {
                 break;
             case 5:
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(0), iv_left1);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
 
                 ll_right.setVisibility(VISIBLE);
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(1), iv_right1);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
 
                 ll_bottom.setVisibility(VISIBLE);
                 iv_bottom1.setVisibility(VISIBLE);
                 iv_bottom2.setVisibility(VISIBLE);
                 iv_bottom3.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(2), iv_bottom1);
-                GlideUtil.LoadImage(context, datas.get(3), iv_bottom2);
-                GlideUtil.LoadImage(context, datas.get(4), iv_bottom3);
+                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_bottom1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(3), iv_bottom2,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(4), iv_bottom3,R.mipmap.dynamic_default);
 
                 setOnclick(iv_left1,0);
                 setOnclick(iv_right1,1);
@@ -168,22 +168,22 @@ public class DynamicImageView2 extends LinearLayout {
             default:
 
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(0), iv_left1);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
 
                 ll_right.setVisibility(VISIBLE);
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(1), iv_right1);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
 
                 iv_right2.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(2), iv_right2);
+                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_right2,R.mipmap.dynamic_default);
 
                 ll_bottom.setVisibility(VISIBLE);
                 iv_bottom1.setVisibility(VISIBLE);
                 iv_bottom2.setVisibility(VISIBLE);
                 iv_bottom3.setVisibility(VISIBLE);
-                GlideUtil.LoadImage(context, datas.get(3), iv_bottom1);
-                GlideUtil.LoadImage(context, datas.get(4), iv_bottom2);
-                GlideUtil.LoadImage(context, datas.get(5), iv_bottom3);
+                GlideUtil.LoadDefaultImage(context, datas.get(3), iv_bottom1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(4), iv_bottom2,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(5), iv_bottom3,R.mipmap.dynamic_default);
 
                 setOnclick(iv_left1,0);
                 setOnclick(iv_right1,1);
