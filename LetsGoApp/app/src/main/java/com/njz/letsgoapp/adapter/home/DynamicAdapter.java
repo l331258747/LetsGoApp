@@ -20,6 +20,7 @@ import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
+import com.njz.letsgoapp.widget.DynamicImageView2;
 import com.njz.letsgoapp.widget.myTextView.ShowAllTextView;
 
 import java.util.List;
@@ -123,7 +124,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
             }
 
             ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
-            ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicImageView.OnItemClickListener() {
+            ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicImageView2.OnItemClickListener() {
                 @Override
                 public void onClick(int position) {
                     BigImageActivity.startActivity((Activity) mContext,position,data.getImgUrls());
@@ -176,7 +177,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
         LinearLayout ll_parent;
         ImageView iv_img;
         TextView tv_name,tv_time,tv_location,tv_comment,tv_nice;
-        DynamicImageView dynamic_image_view;
+        DynamicImageView2 dynamic_image_view;
 //        ShowAllTextView  tv_content;
         TextView  tv_content;
         RelativeLayout rl_head;

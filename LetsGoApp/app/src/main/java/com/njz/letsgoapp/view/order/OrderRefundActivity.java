@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.order;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -119,7 +120,9 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         reasons = new ArrayList<>();
 
         view_name.setEtContent(name);
+        view_name.getEtView().setTextColor(ContextCompat.getColor(context,R.color.color_99));
         view_phone.setEtContent(phone);
+        view_phone.getEtView().setTextColor(ContextCompat.getColor(context,R.color.color_99));
 
         mPresenter = new OrderRefundPresenter(context,this);
         configPresenter = new ConfigPresenter(context,this);

@@ -55,7 +55,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             final OrderRefundDetailChildModel data = datas.get(pos);
             if (data == null) return;
 
-            GlideUtil.LoadImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img);
+            GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
             ((ViewHolder) holder).tv_title.setText(data.getTitle());
             ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
             ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
@@ -66,7 +66,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
-                    ((ViewHolder) holder).tv_time_title.setText("行程时间");
+                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_custom));
                     break;
                 case Constant.SERVICE_TYPE_SHORT_CAR:
                 case Constant.SERVICE_TYPE_SHORT_GUIDE:
@@ -76,21 +76,21 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
                     ((ViewHolder) holder).tv_count_title.setText("出行人数");
                     ((ViewHolder) holder).tv_count_content.setText(data.getPersonNum() + "");
 
-                    ((ViewHolder) holder).tv_time_title.setText("出行日期");
+                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_car));
                     break;
                 case Constant.SERVICE_TYPE_SHORT_HOTEL:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getRoomNum() + "间" + "x" +  data.getDayNum() + "天");
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
-                    ((ViewHolder) holder).tv_time_title.setText("入住时间");
+                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_hotel));
                     break;
                 case Constant.SERVICE_TYPE_SHORT_TICKET:
                     ((ViewHolder) holder).tv_day.setText("x" + data.getTicketNum() + "张");
 
                     ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
 
-                    ((ViewHolder) holder).tv_time_title.setText("日期");
+                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_ticket));
                     break;
             }
 

@@ -74,7 +74,7 @@
         tools:text="案件管理上的觉案里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉" />
 
 
-    <com.njz.letsgoapp.widget.DynamicImageView
+    <com.njz.letsgoapp.widget.DynamicImageView2
         android:id="@+id/dynamic_image_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -2,49 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_view_bg_10"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:orientation="vertical">
 
         <com.njz.letsgoapp.widget.EvaluateView
             android:id="@+id/ev_guide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             app:order_evaluate_title="导游服务" />
 
         <com.njz.letsgoapp.widget.EvaluateView
             android:id="@+id/ev_car"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             app:order_evaluate_title="车辆状况" />
 
         <com.njz.letsgoapp.widget.EvaluateView
             android:id="@+id/ev_substituting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             app:order_evaluate_title="代订服务" />
 
         <com.njz.letsgoapp.widget.EvaluateView
             android:id="@+id/ev_trip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             app:order_evaluate_title="行程安排" />
 
         <EditText
             android:id="@+id/et_special"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_black_hollow_p5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_d9_hollow"
+            android:minLines="5"
+            android:maxLength="200"
+            android:padding="10dp"
             android:gravity="top"
             android:hint="说点什么..." />
 
@@ -52,12 +61,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="15dp">
 
             <include layout="@layout/base_recycler_view_layout"/>
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="50dp"
+        android:textSize="16dp"
+        android:background="@drawable/btn_theme_solid_r5"
+        android:text="确认提交"
+        android:textColor="@color/white" />
 
 </LinearLayout>

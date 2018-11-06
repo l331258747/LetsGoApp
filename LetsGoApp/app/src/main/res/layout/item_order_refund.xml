@@ -221,7 +221,7 @@
                 android:layout_alignParentRight="true"
                 android:textStyle="bold"
                 android:text="￥266"
-                android:textColor="@color/color_red" />
+                android:textColor="@color/color_ff4000" />
 
             <View
                 android:layout_width="match_parent"

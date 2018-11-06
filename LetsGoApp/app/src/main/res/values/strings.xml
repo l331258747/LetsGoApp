@@ -32,4 +32,9 @@
 
     <string name="comment_name"><Data><![CDATA[回复 <font color="#6cb7fe">%s: </font>]]></Data></string>
 
+    <string name="order_item_date_custom">行程时间&#8195;</string>
+    <string name="order_item_date_car">出行日期&#8195;</string>
+    <string name="order_item_date_hotel">入住时间&#8195;</string>
+    <string name="order_item_date_ticket">日期&#8195;&#8195;&#8195;</string>
+
 </resources>

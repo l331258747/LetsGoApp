@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.amap.api.maps2d.model.Text;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
@@ -41,6 +43,7 @@ import me.iwf.photopicker.PhotoPreview;
 
 public class OrderEvaluateActivity extends BaseActivity implements View.OnClickListener, OrderEvaluateContract.View {
 
+    private TextView btn_submit;
     private RecyclerView mPhotoRecyclerView;
     private PhotoAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
@@ -72,18 +75,15 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initView() {
-        showLeftAndTitle("评价");
+        showLeftAndTitle("发表评价");
 
-        showRightTv();
-        getRightTv().setText("提交");
-        getRightTv().setOnClickListener(this);
-        getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
-
+        btn_submit = $(R.id.btn_submit);
         ev_guide = $(R.id.ev_guide);
         ev_car = $(R.id.ev_car);
         ev_substituting = $(R.id.ev_substituting);
         ev_trip = $(R.id.ev_trip);
         et_special = $(R.id.et_special);
+        btn_submit.setOnClickListener(this);
 
         initAddPhoto();
 
@@ -164,7 +164,7 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.right_tv) {
+        if (v.getId() == R.id.btn_submit) {
             disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
                 @Override
                 public void accept(UpLoadPhotos upLoadPhotos) throws Exception {

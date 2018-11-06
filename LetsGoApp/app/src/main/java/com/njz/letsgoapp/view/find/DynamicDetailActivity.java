@@ -36,6 +36,7 @@ import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.DynamicImageView;
+import com.njz.letsgoapp.widget.DynamicImageView2;
 import com.njz.letsgoapp.widget.DynamicNiceImageView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 import com.njz.letsgoapp.widget.popupwindow.PopComment;
@@ -56,7 +57,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
     private ImageView ivImg;
     private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete,tvFollow;
-    private DynamicImageView dynamicImageView;
+    private DynamicImageView2 dynamicImageView;
     private DynamicNiceImageView dynamicNiceImgView;
     private RelativeLayout rlNice;
     private RecyclerView recyclerView;
@@ -142,7 +143,7 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
             }
         });
 
-        dynamicImageView.setOnItemClickListener(new DynamicImageView.OnItemClickListener() {
+        dynamicImageView.setOnItemClickListener(new DynamicImageView2.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 BigImageActivity.startActivity((Activity) context, position, model.getImgUrls());

@@ -240,6 +240,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/color_99"
                             android:text="退款原因" />
 
                         <TextView
@@ -264,6 +265,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/color_99"
                             android:text="退款说明" />
 
                         <TextView
@@ -285,7 +287,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white">
 
@@ -345,6 +346,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/color_99"
                             android:text="已消费金额" />
 
                         <LinearLayout
@@ -384,6 +386,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/color_99"
                             android:text="违约金" />
 
                         <LinearLayout
@@ -396,7 +399,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="￥"
-                                android:textColor="@color/color_theme"
+                                android:textColor="@color/color_ff4000"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -404,7 +407,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="11234.9"
-                                android:textColor="@color/color_theme"
+                                android:textColor="@color/color_ff4000"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -423,6 +426,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/color_99"
                             android:text="退款总金额" />
 
                         <LinearLayout

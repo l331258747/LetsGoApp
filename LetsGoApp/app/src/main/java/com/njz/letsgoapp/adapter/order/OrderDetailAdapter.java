@@ -57,7 +57,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             final OrderDetailChildModel data = datas.get(pos);
             if (data == null) return;
 
-            GlideUtil.LoadImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img);
+            GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
             ((ViewHolder) holder).tv_title.setText(data.getTitle());
             ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
 

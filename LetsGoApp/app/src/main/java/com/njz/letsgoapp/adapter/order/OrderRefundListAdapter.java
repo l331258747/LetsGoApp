@@ -194,7 +194,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                     }
                     break;
             }
-            ((FootHolder) holder).tv_order_price_title.setText("合计");
+            ((FootHolder) holder).tv_order_price_title.setText("合计:");
             ((FootHolder) holder).tv_order_price_content.setText("" + data.getRefundMoney());
 
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
