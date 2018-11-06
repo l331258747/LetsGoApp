@@ -80,6 +80,7 @@ public class DynamicImageView2 extends LinearLayout {
     public void setImages(List<String> datas) {
         setVisibility();
         if (datas == null || datas.size() == 0) {
+            setVisibility(GONE);
             ll_top.setVisibility(GONE);
             ll_bottom.setVisibility(GONE);
             return;

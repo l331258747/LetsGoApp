@@ -1,9 +1,11 @@
 package com.njz.letsgoapp.view.mine;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.njz.letsgoapp.R;
@@ -39,7 +41,6 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    private LinearLayout layout_parent;
 
     FansListAdapter mAdapter;
     String title = "";
@@ -70,12 +71,18 @@ public class FansListActivity extends BaseActivity implements FansListContract.V
     public void initView() {
 
         showLeftAndTitle(title);
+        showRightTv();
+        getRightTv().setText("关闭");
+        getRightTv().setTextColor(ContextCompat.getColor(context,R.color.color_text));
+        getRightTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         initRecycler();
         initSwipeLayout();
-
-        layout_parent = $(R.id.layout_parent);
-        layout_parent.setBackgroundColor(getResources().getColor(R.color.parent_background));
     }
 
     @Override
