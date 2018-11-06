@@ -2,15 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_parent"
     android:layout_width="match_parent"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
+    android:layout_marginTop="15dp"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_head"
-        android:layout_marginTop="5dp"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:src="@mipmap/head_default" />
 
     <TextView
@@ -34,6 +32,8 @@
         android:layout_marginLeft="5dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
+        android:textColor="@color/color_99"
+        android:textSize="12sp"
         android:text="8月12日 上午9:23" />
 
     <LinearLayout
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_name"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
@@ -65,7 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_d9"
-        android:layout_alignStart="@id/tv_name"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

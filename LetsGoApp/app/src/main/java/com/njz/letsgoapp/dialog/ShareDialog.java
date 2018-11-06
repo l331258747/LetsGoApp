@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.njz.letsgoapp.R;
@@ -25,6 +26,7 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
     Activity mContext;
     RelativeLayout layoutParent;
     RelativeLayout ivFriend, ivFriends,ivPeport;
+    LinearLayout llClose;
 
     int flag;
     String title;
@@ -57,11 +59,13 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         ivFriend = layout.findViewById(R.id.iv_friend);
         ivFriends = layout.findViewById(R.id.iv_friends);
         ivPeport = layout.findViewById(R.id.iv_report);
+        llClose = layout.findViewById(R.id.ll_close);
 
         layoutParent.setOnClickListener(this);
         ivFriend.setOnClickListener(this);
         ivFriends.setOnClickListener(this);
         ivPeport.setOnClickListener(this);
+        llClose.setOnClickListener(this);
     }
 
     @Override
@@ -77,14 +81,13 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
                     imageUrl,
                     url
             );
-        }
-
-        if(view.getId() == R.id.iv_report){
+        }else if(view.getId() == R.id.iv_report){
             report();
+        }else if(view.getId() == R.id.ll_close){
+            dismiss();
+        }else{
+            dismiss();
         }
-
-        dismiss();
-
     }
 
     private void report() {

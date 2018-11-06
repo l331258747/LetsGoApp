@@ -75,7 +75,7 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     public void initView() {
         showLeftAndTitle("发布动态");
         showRightTv();
-        getRightTv().setText("发布");
+        getRightTv().setText("发表");
         getRightTv().setOnClickListener(this);
         getRightTv().setTextColor(ContextCompat.getColor(context, R.color.color_theme));
 
@@ -130,7 +130,7 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
         //------------附件
         mPhotoRecyclerView = $(R.id.recycler_view);
         photoAdapter = new PhotoAdapter(context, selectedPhotos);
-        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(PhotoAdapter.IMAGE_LINE, OrientationHelper.VERTICAL));
+        mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL));
         mPhotoRecyclerView.setAdapter(photoAdapter);
         mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,
                 new RecyclerItemClickListener.OnItemClickListener() {

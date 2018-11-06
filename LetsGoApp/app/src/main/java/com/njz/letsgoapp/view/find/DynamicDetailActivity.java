@@ -350,11 +350,11 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
     public void setFollow(boolean isFollow){
         if(isFollow){
-            tvFollow.setText("已关注");
-            tvFollow.setTextColor(ContextCompat.getColor(context,R.color.color_99));
-            tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_99_hollow_r5));
+            tvFollow.setText(getResources().getString(R.string.follow_in));
+            tvFollow.setTextColor(ContextCompat.getColor(context,R.color.white));
+            tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r5));
         }else{
-            tvFollow.setText("加关注");
+            tvFollow.setText(getResources().getString(R.string.follow_un));
             tvFollow.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
             tvFollow.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_hollow_r5));
         }

@@ -37,4 +37,8 @@
     <string name="order_item_date_hotel">入住时间&#8195;</string>
     <string name="order_item_date_ticket">日期&#8195;&#8195;&#8195;</string>
 
+
+    <string name="follow_un">&#8194;关注&#8194;</string>
+    <string name="follow_in">已关注</string>
+
 </resources>
