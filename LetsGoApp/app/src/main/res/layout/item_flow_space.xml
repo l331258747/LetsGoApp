@@ -5,7 +5,7 @@
     android:gravity="center"
     android:layout_margin="5dp"
     android:background="@drawable/btn_gray_hollow_r3"
-    android:textColor="@color/color_99"
+    android:textColor="@color/color_text"
     android:paddingBottom="5dp"
     android:paddingTop="5dp"
     android:paddingLeft="10dp"

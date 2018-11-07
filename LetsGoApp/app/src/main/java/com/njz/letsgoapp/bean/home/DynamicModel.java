@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.home;
 
+import android.text.TextUtils;
+
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 
 import java.util.List;
@@ -42,6 +44,7 @@ public class DynamicModel {
     private int userId;
     private List<String> imgUrls;
     private List<DynamicCommentModel> travelDiscussVOS;
+    private String startTimeTwo;
 
     private String shareImg;
     private String shareContent;
@@ -50,6 +53,19 @@ public class DynamicModel {
 
     private boolean like;
     private boolean focus;
+
+    public String getStartTimeTwo() {
+        if(TextUtils.isEmpty(startTimeTwo)){
+            return "";
+        }
+        if(startTimeTwo.startsWith("今天")){
+            return "今天";
+        }
+        if(startTimeTwo.startsWith("昨天")){
+            return "昨天";
+        }
+        return startTimeTwo;
+    }
 
     public boolean isFocus() {
         return focus;

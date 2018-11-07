@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="time"/>
+
+    <com.njz.letsgoapp.widget.DynamicSpaceImageView
+        android:layout_below="@+id/tv_time"
+        android:id="@+id/dynamic_image_view"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="50dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_toEndOf="@+id/dynamic_image_view"
+        android:layout_alignTop="@+id/dynamic_image_view"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:lineSpacingExtra="5dp"
+            tools:text="案件管理上的觉案里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉案件管理上的感觉阿里斯顿开关机爱丽丝的感觉" />
+
+        <TextView
+            android:id="@+id/tv_img_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentBottom="true"
+            android:text="共5张"
+            android:textSize="12sp"
+            android:textColor="@color/color_99"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

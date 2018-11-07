@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndLessScrollOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
-import com.njz.letsgoapp.adapter.home.DynamicAdapter;
+import com.njz.letsgoapp.adapter.home.SpaceDynamicAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -24,14 +24,11 @@ import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
-import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.mvp.find.FollowContract;
 import com.njz.letsgoapp.mvp.find.FollowPresenter;
 import com.njz.letsgoapp.mvp.mine.SpaceContract;
 import com.njz.letsgoapp.mvp.mine.SpacePresenter;
 import com.njz.letsgoapp.util.DateUtil;
-import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.find.ReleaseDynamicActivity;
@@ -50,18 +47,17 @@ import java.util.List;
  * Function: 个人主页
  */
 
-public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener, FollowContract.View,DynamicNiceContract.View{
+public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener, FollowContract.View{
 
     public static final String USER_ID = "USER_ID";
 
     private RecyclerView recyclerView;
-    private DynamicAdapter mAdapter;
+    private SpaceDynamicAdapter mAdapter;
     private ImageView ivHead, ivSex;
     private TextView tvFans, tvAge, tvExplain, tvName, tvFollow,tvModify;
     private TagFlowLayout flowLayout;
     private SpacePresenter mPresenter;
     private FollowPresenter followPresenter;
-    private DynamicNicePresenter nicePresenter;
 
     private NestedScrollView scrollView;
 
@@ -74,6 +70,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     boolean isLoad = false;//是否在加载，重复加载问题
 
     public EmptyView2 view_empty;
+    public ImageView iv_back,iv_share;
 
 
     @Override
@@ -92,6 +89,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
         hideTitleLayout();
 
+        iv_back = $(R.id.iv_back);
+        iv_share = $(R.id.iv_share);
         view_empty = $(R.id.view_empty);
         ivHead = $(R.id.iv_head);
         tvModify = $(R.id.tv_modify);
@@ -108,6 +107,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
         tvFans.setOnClickListener(this);
         tvModify.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
+        iv_share.setOnClickListener(this);
     }
 
     @Override
@@ -140,7 +141,6 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         //TODO 个人信息，个人动态
         mPresenter = new SpacePresenter(context, this);
         followPresenter = new FollowPresenter(context, this);
-        nicePresenter = new DynamicNicePresenter(context, this);
 
         if(userId == MySelfInfo.getInstance().getUserId()){
             tvFollow.setVisibility(View.GONE);
@@ -156,13 +156,13 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),2);
+        mAdapter = new SpaceDynamicAdapter(activity, new ArrayList<DynamicModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         recyclerView.setNestedScrollingEnabled(false);
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
-        mAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new SpaceDynamicAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(context, DynamicDetailActivity.class);
@@ -170,18 +170,6 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
                 startActivity(intent);
             }
 
-            @Override
-            public void onNiceClick(int position) {
-                nicePresenter.friendQueryLikes(mAdapter.getItem(position).isLike(),mAdapter.getItem(position).getFriendSterId());
-                nicePosition = position;
-            }
-
-            @Override
-            public void onHeadClick(int position) {
-                Intent intent = new Intent(context, SpaceActivity.class);
-                intent.putExtra(SpaceActivity.USER_ID, mAdapter.getItem(position).getUserId());
-                startActivity(intent);
-            }
         });
 
         scrollView.setOnScrollChangeListener(new EndLessScrollOnScrollListener() {
@@ -203,7 +191,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         tvName.setText(data.getNickname());
         tvAge.setText(TextUtils.isEmpty(data.getBirthday())?"保密":""+DateUtil.getAgeFromBirthTime(data.getBirthday()));
         tvFans.setText(data.getFansCount()+"");
-        tvExplain.setText(data.getPersonalStatement());
+        tvExplain.setText(TextUtils.isEmpty(data.getPersonalStatement())?"无":data.getPersonalStatement());
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 2 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
         initFlow(data.getLabelList());
         setFollow(data.isFocus());
@@ -274,6 +262,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             }
         }else{
             view_empty.setVisible(false);
+//            recyclerView.addItemDecoration(new TitleItemDecoration(context,mAdapter.getDatas(),2));
         }
     }
 
@@ -300,6 +289,12 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             case R.id.tv_modify:
                 startActivity(new Intent(context,MyInfoActivity.class));
                 break;
+            case R.id.iv_back:
+                onBackPressed();
+                break;
+            case R.id.iv_share:
+                //TODO 分享
+                break;
         }
     }
 
@@ -314,21 +309,4 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         showShortToast(msg);
     }
 
-    @Override
-    public void friendQueryLikesSuccess(EmptyModel models) {
-        mAdapter.getItem(nicePosition).setLike(!mAdapter.getItem(nicePosition).isLike());
-        if(mAdapter.getItem(nicePosition).isLike()){
-            mAdapter.getItem(nicePosition).setLikeCount(mAdapter.getItem(nicePosition).getLikeCount() + 1);
-        }else{
-            mAdapter.getItem(nicePosition).setLikeCount(mAdapter.getItem(nicePosition).getLikeCount() - 1);
-        }
-        mAdapter.setItemData(nicePosition);
-
-        loadMoreWrapper.notifyItemChanged(nicePosition);
-    }
-
-    @Override
-    public void friendQueryLikesFailed(String msg) {
-        showShortToast(msg);
-    }
 }
