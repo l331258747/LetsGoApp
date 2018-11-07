@@ -90,7 +90,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     @Override
     public void initView() {
 
-        showLeftAndTitle("个人主页");
+        hideTitleLayout();
 
         view_empty = $(R.id.view_empty);
         ivHead = $(R.id.iv_head);
@@ -145,7 +145,9 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         if(userId == MySelfInfo.getInstance().getUserId()){
             tvFollow.setVisibility(View.GONE);
             tvModify.setVisibility(View.VISIBLE);
-            tvFans.setVisibility(View.GONE);
+        }else{
+            tvFollow.setVisibility(View.VISIBLE);
+            tvModify.setVisibility(View.GONE);
         }
     }
 
@@ -200,7 +202,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         GlideUtil.LoadCircleImage(context, data.getImgUrl(), ivHead);
         tvName.setText(data.getNickname());
         tvAge.setText(TextUtils.isEmpty(data.getBirthday())?"保密":""+DateUtil.getAgeFromBirthTime(data.getBirthday()));
-        StringUtils.setHtml(tvFans, String.format(getResources().getString(R.string.mine_fans), data.getFansCount()));
+        tvFans.setText(data.getFansCount()+"");
         tvExplain.setText(data.getPersonalStatement());
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 2 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
         initFlow(data.getLabelList());
