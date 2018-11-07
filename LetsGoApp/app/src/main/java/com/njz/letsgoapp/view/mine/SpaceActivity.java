@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -28,10 +29,12 @@ import com.njz.letsgoapp.mvp.find.FollowContract;
 import com.njz.letsgoapp.mvp.find.FollowPresenter;
 import com.njz.letsgoapp.mvp.mine.SpaceContract;
 import com.njz.letsgoapp.mvp.mine.SpacePresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.find.ReleaseDynamicActivity;
+import com.njz.letsgoapp.view.find.SpaceDynamicDetailActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
@@ -54,10 +57,11 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private RecyclerView recyclerView;
     private SpaceDynamicAdapter mAdapter;
     private ImageView ivHead, ivSex;
-    private TextView tvFans, tvAge, tvExplain, tvName, tvFollow,tvModify;
+    private TextView tvFans, tvAge, tvExplain, tvName, tvFollow,tvModify,tv_title_title;
     private TagFlowLayout flowLayout;
     private SpacePresenter mPresenter;
     private FollowPresenter followPresenter;
+    private RelativeLayout rl_title_parent;
 
     private NestedScrollView scrollView;
 
@@ -71,6 +75,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
     public EmptyView2 view_empty;
     public ImageView iv_back,iv_share;
+    private View view_title_line;
 
 
     @Override
@@ -89,6 +94,9 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
         hideTitleLayout();
 
+        view_title_line = $(R.id.view_title_line);
+        rl_title_parent = $(R.id.rl_title_parent);
+        tv_title_title = $(R.id.tv_title_title);
         iv_back = $(R.id.iv_back);
         iv_share = $(R.id.iv_share);
         view_empty = $(R.id.view_empty);
@@ -149,6 +157,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             tvFollow.setVisibility(View.VISIBLE);
             tvModify.setVisibility(View.GONE);
         }
+
     }
 
     int nicePosition;
@@ -165,19 +174,38 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         mAdapter.setOnItemClickListener(new SpaceDynamicAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(context, DynamicDetailActivity.class);
+                Intent intent = new Intent(context, SpaceDynamicDetailActivity.class);
                 intent.putExtra(DynamicDetailActivity.FRIENDSTERID,mAdapter.getItem(position).getFriendSterId());
                 startActivity(intent);
             }
 
         });
 
+        final int mDisplayHeight = AppUtils.dip2px(150 - 42);
         scrollView.setOnScrollChangeListener(new EndLessScrollOnScrollListener() {
             @Override
             public void onLoadMore() {
                 if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
                 loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
                 getMoreData();
+            }
+
+            @Override
+            public void onScrollChange(int scrollY) {
+                if (scrollY > mDisplayHeight) {
+                    rl_title_parent.setBackgroundResource(R.color.white);
+                    tv_title_title.setTextColor(ContextCompat.getColor(context,R.color.black));
+                    iv_back.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_back));
+                    iv_share.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_share));
+                    view_title_line.setVisibility(View.VISIBLE);
+
+                } else {
+                    rl_title_parent.setBackgroundResource(R.color.transparent);
+                    tv_title_title.setTextColor(ContextCompat.getColor(context,R.color.white));
+                    iv_back.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_back_white));
+                    iv_share.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_share_white));
+                    view_title_line.setVisibility(View.GONE);
+                }
             }
         });
 

@@ -171,6 +171,7 @@
         <activity android:name=".view.mine.LabelActivity" />
         <activity android:name=".view.mine.MyCommentActivity" />
         <activity android:name=".view.mine.SpaceActivity" />
+        <activity android:name=".view.find.SpaceDynamicDetailActivity" />
 
         <!--登录-->
         <activity android:name=".view.login.LoginActivity"

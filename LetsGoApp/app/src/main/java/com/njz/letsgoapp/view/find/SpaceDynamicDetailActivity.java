@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -36,7 +37,6 @@ import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
-import com.njz.letsgoapp.widget.DynamicImageView;
 import com.njz.letsgoapp.widget.DynamicImageView2;
 import com.njz.letsgoapp.widget.DynamicNiceImageView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
@@ -51,13 +51,13 @@ import java.util.List;
  * Function:
  */
 
-public class DynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View,
+public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicDetailContract.View, DynamicNiceContract.View,
         DynamicDeleteContract.View, View.OnClickListener,FollowContract.View {
 
     public static final String FRIENDSTERID ="FRIENDSTERID";
 
-    private ImageView ivImg;
-    private TextView tvName, tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete,tvFollow;
+    private ImageView iv_head;
+    private TextView  tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete,tvFollow;
     private DynamicImageView2 dynamicImageView;
     private DynamicNiceImageView dynamicNiceImgView;
     private RelativeLayout rlNice;
@@ -81,6 +81,11 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     private int toId;
 
     public EmptyView2 view_empty;
+    private ImageView iv_back,iv_share;
+    private RelativeLayout rl_title_parent;
+    private TextView tv_title_title;
+    private NestedScrollView scrollView;
+    private View view_title_line;
 
     @Override
     public void getIntentData() {
@@ -90,21 +95,23 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_dynamic_detail;
+        return R.layout.activity_space_dynamic_detail;
     }
 
     @Override
     public void initView() {
 
-        showLeftAndTitle("动态详情");
-//        showRightIv();
-//        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
-//        getRightIv().setOnClickListener(this);
+        hideTitleLayout();
 
         view_empty = $(R.id.view_empty);
 
-        ivImg = $(R.id.iv_img);
-        tvName = $(R.id.tv_name);
+        view_title_line = $(R.id.view_title_line);
+        rl_title_parent = $(R.id.rl_title_parent);
+        tv_title_title = $(R.id.tv_title_title);
+        scrollView = $(R.id.scrollView);
+        iv_back = $(R.id.iv_back);
+        iv_share = $(R.id.iv_share);
+        iv_head = $(R.id.iv_head);
         tvTime = $(R.id.tv_time);
         tvFollow = $(R.id.tv_follow);
         tvContent = $(R.id.tv_content);
@@ -120,6 +127,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         tvLocation = $(R.id.tv_location);
         btnNiceContent = $(R.id.btn_nice_content);
         recyclerView.setNestedScrollingEnabled(false);
+        iv_back.setOnClickListener(this);
+        iv_share.setOnClickListener(this);
         initRecycler();
 
         popComment = new PopComment(context, btnComment);
@@ -169,16 +178,6 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
             }
         });
 
-        ivImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SpaceActivity.class);
-                intent.putExtra(SpaceActivity.USER_ID, model.getUserId());
-                startActivity(intent);
-            }
-        });
-
-
         tvDelete.setVisibility(View.GONE);
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,9 +221,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     }
 
     public void initViewData() {
-        GlideUtil.LoadCircleImage(context, model.getImgUrl(), ivImg);
-        tvName.setText(model.getNickname());
-        tvTime.setText(model.getStartTime());
+        GlideUtil.LoadCircleImage(context, model.getImgUrl(), iv_head);
+        tvTime.setText(model.getStartTimeTwo());
         if(TextUtils.isEmpty(model.getContent())){
             tvContent.setVisibility(View.GONE);
         }else{
@@ -274,6 +272,26 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         followPresenter = new FollowPresenter(context,this);
 
         mPresenter.friendPersonalFriendSter(friendSterId);
+
+        final int mDisplayHeight = AppUtils.dip2px(140 - 42);
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > mDisplayHeight) {
+                    rl_title_parent.setBackgroundResource(R.color.white);
+                    tv_title_title.setTextColor(ContextCompat.getColor(context,R.color.black));
+                    iv_back.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_back));
+                    iv_share.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_share));
+                    view_title_line.setVisibility(View.VISIBLE);
+                } else {
+                    rl_title_parent.setBackgroundResource(R.color.transparent);
+                    tv_title_title.setTextColor(ContextCompat.getColor(context,R.color.white));
+                    iv_back.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_back_white));
+                    iv_share.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_share_white));
+                    view_title_line.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
@@ -346,14 +364,11 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.right_iv:
-                if(model == null) return;
-                ShareDialog dialog = new ShareDialog(activity,
-                        model.getShareTitle(),
-                        model.getShareContent(),
-                        model.getShareImg(),
-                        model.getShareUrl());
-                dialog.show();
+            case R.id.iv_back:
+                onBackPressed();
+                break;
+            case R.id.iv_share:
+                //TODO 举报
                 break;
         }
 

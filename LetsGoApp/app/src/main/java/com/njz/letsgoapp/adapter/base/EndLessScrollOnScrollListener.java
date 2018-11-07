@@ -14,6 +14,8 @@ public abstract class EndLessScrollOnScrollListener implements NestedScrollView.
     @Override
     public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
+        onScrollChange(scrollY);
+
         if (scrollY == 0) {
             LogUtil.e("TOP SCROLL");
         }
@@ -28,4 +30,6 @@ public abstract class EndLessScrollOnScrollListener implements NestedScrollView.
      * 加载更多回调
      */
     public abstract void onLoadMore();
+    public abstract void onScrollChange(int scrollY);
+
 }

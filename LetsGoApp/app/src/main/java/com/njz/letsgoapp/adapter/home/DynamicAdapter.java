@@ -123,7 +123,13 @@ public class DynamicAdapter extends RecyclerView.Adapter<DynamicAdapter.BaseView
                 ((DynamicViewHolder) holder).tv_content.setText(""+data.getContent());
             }
 
-            ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
+            if(data.getImgUrls() ==null || data.getImgUrls().size() == 0){
+                ((DynamicViewHolder) holder).dynamic_image_view.setVisibility(View.GONE);
+            }else{
+                ((DynamicViewHolder) holder).dynamic_image_view.setVisibility(View.VISIBLE);
+                ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
+            }
+
             ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicImageView2.OnItemClickListener() {
                 @Override
                 public void onClick(int position) {

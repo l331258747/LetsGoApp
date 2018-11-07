@@ -1,326 +1,344 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:overScrollMode="never">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:overScrollMode="never">
 
-        <!-- 标题 背景图 -->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <FrameLayout
+            <!-- 标题 背景图 -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="wrap_content">
 
-                <ImageView
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@mipmap/bg_home_my"
-                    android:src="@mipmap/bg_home_my" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp">
+                    android:layout_height="150dp">
 
                     <ImageView
-                        android:id="@+id/iv_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:padding="10dp"
-                        android:src="@mipmap/icon_back_white" />
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@mipmap/bg_home_my"
+                        android:src="@mipmap/bg_home_my" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:minHeight="44dp"
-                        android:text="个人主页"
-                        android:textColor="@color/white"
-                        android:textSize="17sp" />
-
-                    <ImageView
-                        android:id="@+id/iv_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:gravity="center"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:src="@mipmap/icon_share_white" />
+                </FrameLayout>
 
 
-                </RelativeLayout>
-
-            </FrameLayout>
-
-
-            <!-- 个人信息 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="140dp"
-                android:background="@drawable/btn_white_r10_top"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp">
-
+                <!-- 个人信息 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="140dp"
+                    android:background="@drawable/btn_white_r10_top"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp">
 
-                    <!--头像-->
-                    <RelativeLayout
-                        android:layout_width="80dp"
-                        android:layout_height="80dp">
-
-                        <ImageView
-                            android:id="@+id/iv_head"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            tools:src="@mipmap/head_default" />
-
-                        <ImageView
-                            android:id="@+id/iv_sex"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_margin="5dp"
-                            tools:src="@mipmap/icon_boy" />
-
-                    </RelativeLayout>
-
-                    <!--姓名 年龄 粉丝-->
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="15dp"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="那就走" />
+                        <!--头像-->
+                        <RelativeLayout
+                            android:layout_width="80dp"
+                            android:layout_height="80dp">
 
+                            <ImageView
+                                android:id="@+id/iv_head"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                tools:src="@mipmap/head_default" />
+
+                            <ImageView
+                                android:id="@+id/iv_sex"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_margin="5dp"
+                                tools:src="@mipmap/icon_boy" />
+
+                        </RelativeLayout>
+
+                        <!--姓名 年龄 粉丝-->
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                            <LinearLayout
+                            <TextView
+                                android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="年龄" />
-
-                                <TextView
-                                    android:id="@+id/tv_age"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:textColor="@color/color_theme"
-                                    tools:text="25" />
-
-                            </LinearLayout>
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="15dp"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="那就走" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="20dp"
                                 android:orientation="horizontal">
 
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="粉丝" />
+                                    android:orientation="horizontal">
 
-                                <TextView
-                                    android:id="@+id/tv_fans"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="年龄" />
+
+                                    <TextView
+                                        android:id="@+id/tv_age"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/color_theme"
+                                        tools:text="25" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:textColor="@color/color_theme"
-                                    tools:text="25" />
+                                    android:layout_marginLeft="30dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="粉丝" />
+
+                                    <TextView
+                                        android:id="@+id/tv_fans"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/color_theme"
+                                        tools:text="25" />
+
+                                </LinearLayout>
+
+
+
 
                             </LinearLayout>
-
-
 
 
                         </LinearLayout>
 
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:id="@+id/tv_modify"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:drawableLeft="@mipmap/ic_space_modify"
+                                android:drawablePadding="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="10dp"
+                                android:text="修改"
+                                android:textSize="12dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_follow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/btn_theme_solid_r5"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="5dp"
+                                android:text="@string/follow_in"
+                                android:textColor="@color/white" />
+
+                        </FrameLayout>
+
 
                     </LinearLayout>
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/color_d9" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_modify"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:drawableLeft="@mipmap/ic_space_modify"
-                            android:drawablePadding="10dp"
-                            android:paddingBottom="10dp"
-                            android:paddingLeft="10dp"
-                            android:text="修改"
-                            android:textSize="12dp"/>
+                            android:text="个性签名" />
+
 
                         <TextView
-                            android:id="@+id/tv_follow"
+                            android:id="@+id/tv_explain"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_theme_solid_r5"
-                            android:gravity="center"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:paddingTop="5dp"
-                            android:text="@string/follow_in"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/color_99"
+                            android:layout_marginLeft="10dp"
+                            tools:text="agaegawegawegawegaegaegaegaegaegawegaegaegaegaegaeg" />
 
-                    </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="个人标签" />
+
+
+                        <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
+                            android:id="@+id/flow_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            app:max_select="0" />
+
+                    </LinearLayout>
 
 
                 </LinearLayout>
 
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp">
+
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="动态"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/color_d9" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="个性签名" />
-
-
-                    <TextView
-                        android:id="@+id/tv_explain"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_99"
-                        android:layout_marginLeft="10dp"
-                        tools:text="agaegawegawegawegaegaegaegaegaegawegaegaegaegaegaeg" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="个人标签" />
-
-
-                    <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
-                        android:id="@+id/flow_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        app:max_select="0" />
-
-                </LinearLayout>
-
-
             </LinearLayout>
 
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="15dp">
-
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="动态"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/color_d9" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_view_h"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:background="@color/white">
+
+
+                <include layout="@layout/base_recycler_view_layout" />
+
+
+                <com.njz.letsgoapp.widget.emptyView.EmptyView2
+                    android:id="@+id/view_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_title_parent"
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_view_h"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:background="@color/white">
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/icon_back_white" />
 
+        <TextView
+            android:id="@+id/tv_title_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:minHeight="44dp"
+            android:text="个人主页"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
 
-            <include layout="@layout/base_recycler_view_layout" />
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:src="@mipmap/icon_share_white" />
 
+        <View
+            android:id="@+id/view_title_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:background="@color/line_color_d8" />
 
-            <com.njz.letsgoapp.widget.emptyView.EmptyView2
-                android:id="@+id/view_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+    </RelativeLayout>
 
-        </FrameLayout>
+</FrameLayout>
 
-
-    </LinearLayout>
-
-</android.support.v4.widget.NestedScrollView>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_marginBottom="50dp"
@@ -16,6 +16,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="200dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@mipmap/bg_home_my"
+                        android:src="@mipmap/bg_home_my" />
+
+                    <ImageView
+                        android:id="@+id/iv_head"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        tools:src="@mipmap/head_default"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="100dp"/>
+
+                </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,37 +50,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="10dp">
 
-
-                    <ImageView
-                        android:id="@+id/iv_img"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@mipmap/head_default" />
-
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_toEndOf="@+id/iv_img"
-                        android:textSize="13sp"
-                        android:maxLines="1"
-                        tools:text="那就走" />
 
                     <TextView
                         android:id="@+id/tv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/iv_img"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toEndOf="@+id/iv_img"
-                        android:textColor="@color/color_99"
-                        android:textSize="11sp"
-                        tools:text="23分钟前" />
+                        android:textSize="18sp"
+                        android:layout_centerVertical="true"
+                        tools:text="今天" />
 
                     <TextView
                         android:id="@+id/tv_delete"
@@ -67,7 +68,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:padding="5dp"
-                        android:visibility="gone"
                         android:textColor="@color/color_99"
                         android:text="删除" />
 
@@ -294,6 +294,53 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title_parent"
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/icon_back_white" />
+
+        <TextView
+            android:id="@+id/tv_title_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:minHeight="44dp"
+            android:text="我的动态"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:src="@mipmap/icon_share_white" />
+
+        <View
+            android:id="@+id/view_title_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:background="@color/line_color_d8" />
+
+    </RelativeLayout>
 
 </FrameLayout>
 
