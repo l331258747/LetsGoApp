@@ -52,27 +52,47 @@ public class MyRatingBar extends LinearLayout implements View.OnClickListener {
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.my_ratingbar);
         if (attributes != null) {
             int margin = (int) attributes.getDimension(R.styleable.my_ratingbar_my_ratingbar_margin, AppUtils.dip2px(3f));
+            int padding = (int) attributes.getDimension(R.styleable.my_ratingbar_my_ratingbar_padding, 0);
 
             int width = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
             int height = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
             ivStar1.measure(width, height);
 
             int size = (int) attributes.getDimension(R.styleable.my_ratingbar_my_ratingbar_size, ivStar1.getMeasuredHeight());
+            if(padding == 0){
+                LayoutParams lp = (LayoutParams) ivStar1.getLayoutParams();
+                lp.height = size;
+                lp.width = size;
+                ivStar1.setLayoutParams(lp);
 
-            LayoutParams lp = (LayoutParams) ivStar1.getLayoutParams();
-            lp.height = size;
-            lp.width = size;
-            ivStar1.setLayoutParams(lp);
+                LayoutParams lp2 = (LayoutParams) ivStar1.getLayoutParams();
+                lp2.leftMargin = margin;
+                lp2.height = size;
+                lp2.width = size;
 
-            LayoutParams lp2 = (LayoutParams) ivStar1.getLayoutParams();
-            lp2.leftMargin = margin;
-            lp2.height = size;
-            lp2.width = size;
+                ivStar2.setLayoutParams(lp2);
+                ivStar3.setLayoutParams(lp2);
+                ivStar4.setLayoutParams(lp2);
+                ivStar5.setLayoutParams(lp2);
+            }else{
 
-            ivStar2.setLayoutParams(lp2);
-            ivStar3.setLayoutParams(lp2);
-            ivStar4.setLayoutParams(lp2);
-            ivStar5.setLayoutParams(lp2);
+                size = size + padding;
+                LayoutParams lp = (LayoutParams) ivStar1.getLayoutParams();
+                lp.height = size;
+                lp.width = size;
+
+                ivStar1.setLayoutParams(lp);
+                ivStar2.setLayoutParams(lp);
+                ivStar3.setLayoutParams(lp);
+                ivStar4.setLayoutParams(lp);
+                ivStar5.setLayoutParams(lp);
+
+                ivStar1.setPadding(padding/2,0,padding/2,0);
+                ivStar2.setPadding(padding/2,0,padding/2,0);
+                ivStar3.setPadding(padding/2,0,padding/2,0);
+                ivStar4.setPadding(padding/2,0,padding/2,0);
+                ivStar5.setPadding(padding/2,0,padding/2,0);
+            }
 
             boolean isCLick = attributes.getBoolean(R.styleable.my_ratingbar_my_ratingbar_click, false);
             if (isCLick) {

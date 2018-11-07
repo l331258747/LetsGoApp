@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             app:my_ratingbar_click="true"
             app:my_ratingbar_margin="10dp"
-            app:my_ratingbar_size="15dp" />
+            app:my_ratingbar_size="15dp"
+            app:my_ratingbar_padding="15dp"/>
 
         <TextView
             android:id="@+id/tv_content"

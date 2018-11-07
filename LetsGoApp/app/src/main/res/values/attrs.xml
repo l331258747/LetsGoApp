@@ -3,6 +3,7 @@
 
     <declare-styleable name="my_ratingbar">
         <attr name="my_ratingbar_margin" format="dimension"/>
+        <attr name="my_ratingbar_padding" format="dimension"/>
         <attr name="my_ratingbar_size" format="dimension"/>
         <attr name="my_ratingbar_click" format="boolean"/>
     </declare-styleable>
