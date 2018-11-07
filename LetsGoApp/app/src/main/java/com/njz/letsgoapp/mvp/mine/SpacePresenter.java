@@ -55,6 +55,6 @@ public class SpacePresenter implements SpaceContract.Presenter {
                 iView.friendPersonalFriendSterFailed(errorMsg);
             }
         };
-        MethodApi.friendPersonalFriendSter(userId, limit,page,new OnSuccessAndFaultSub(listener, context));
+        MethodApi.friendPersonalFriendSter(userId, limit,page,new OnSuccessAndFaultSub(listener, context,false));
     }
 }

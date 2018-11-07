@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -60,29 +61,39 @@ public class SpaceDynamicAdapter extends RecyclerView.Adapter<SpaceDynamicAdapte
             if (data == null) return;
 
             ((DynamicViewHolder) holder).tv_time.setVisibility(View.GONE);
-            if(pos == 0){
+            if (pos == 0) {
                 ((DynamicViewHolder) holder).tv_time.setVisibility(View.VISIBLE);
                 ((DynamicViewHolder) holder).tv_time.setText(data.getStartTimeTwo());
-            }else{
-                if(TextUtils.equals(dynamis.get(pos).getStartTimeTwo(),dynamis.get(pos-1).getStartTimeTwo())){
+            } else {
+                if (TextUtils.equals(dynamis.get(pos).getStartTimeTwo(), dynamis.get(pos - 1).getStartTimeTwo())) {
                     ((DynamicViewHolder) holder).tv_time.setVisibility(View.GONE);
-                }else{
+                } else {
                     ((DynamicViewHolder) holder).tv_time.setVisibility(View.VISIBLE);
                     ((DynamicViewHolder) holder).tv_time.setText(data.getStartTimeTwo());
                 }
             }
 
+            if (data.getImgUrls() == null || data.getImgUrls().size() == 0) {
+                ((DynamicViewHolder) holder).ll_text_content.setVisibility(View.VISIBLE);
+                ((DynamicViewHolder) holder).ll_img_content.setVisibility(View.GONE);
+            } else {
+                ((DynamicViewHolder) holder).ll_text_content.setVisibility(View.GONE);
+                ((DynamicViewHolder) holder).ll_img_content.setVisibility(View.VISIBLE);
+            }
+
+            ((DynamicViewHolder) holder).tv_content_2.setText(""+data.getContent());
             ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
-            ((DynamicViewHolder) holder).tv_img_count.setText("共"+data.getImgUrls().size()+"张");
-            ((DynamicViewHolder) holder).tv_content.setText(""+data.getContent());
+            ((DynamicViewHolder) holder).tv_content.setText("" + data.getContent());
+            ((DynamicViewHolder) holder).tv_img_count.setText("共" + data.getImgUrls().size() + "张");
+
             ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicSpaceImageView.OnItemClickListener() {
                 @Override
                 public void onClick() {
-                    BigImageActivity.startActivity((Activity) mContext,0,data.getImgUrls());
+                    BigImageActivity.startActivity((Activity) mContext, 0, data.getImgUrls());
                 }
             });
 
-            if(mOnItemClickListener != null){
+            if (mOnItemClickListener != null) {
                 ((DynamicViewHolder) holder).ll_parent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -103,7 +114,8 @@ public class SpaceDynamicAdapter extends RecyclerView.Adapter<SpaceDynamicAdapte
     public class DynamicViewHolder extends BaseViewHolder {
         RelativeLayout ll_parent;
         DynamicSpaceImageView dynamic_image_view;
-        TextView tv_content,tv_img_count,tv_time;
+        TextView tv_content, tv_img_count, tv_time,tv_content_2;
+        LinearLayout ll_text_content, ll_img_content;
 
         DynamicViewHolder(View itemView) {
             super(itemView);
@@ -112,17 +124,20 @@ public class SpaceDynamicAdapter extends RecyclerView.Adapter<SpaceDynamicAdapte
             tv_content = itemView.findViewById(R.id.tv_content);
             tv_img_count = itemView.findViewById(R.id.tv_img_count);
             tv_time = itemView.findViewById(R.id.tv_time);
+            ll_text_content = itemView.findViewById(R.id.ll_text_content);
+            ll_img_content = itemView.findViewById(R.id.ll_img_content);
+            tv_content_2 = itemView.findViewById(R.id.tv_content_2);
         }
 
     }
 
     //--------------View Holder end----------------
 
-    public DynamicModel getItem(int position){
+    public DynamicModel getItem(int position) {
         return this.dynamis.get(position);
     }
 
-    public List<DynamicModel> getDatas(){
+    public List<DynamicModel> getDatas() {
         return this.dynamis;
     }
 
@@ -131,7 +146,7 @@ public class SpaceDynamicAdapter extends RecyclerView.Adapter<SpaceDynamicAdapte
         notifyDataSetChanged();
     }
 
-    public void addData(List<DynamicModel> dynamis){
+    public void addData(List<DynamicModel> dynamis) {
         this.dynamis.addAll(dynamis);
         notifyDataSetChanged();
     }
@@ -142,6 +157,7 @@ public class SpaceDynamicAdapter extends RecyclerView.Adapter<SpaceDynamicAdapte
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }

@@ -65,7 +65,7 @@ public class DynamicSpaceImageView extends LinearLayout {
     public void setImages(List<String> datas) {
         setVisibility();
         if (datas == null || datas.size() == 0) {
-            setVisibility(GONE);
+//            setVisibility(GONE);
             return;
         }
 
