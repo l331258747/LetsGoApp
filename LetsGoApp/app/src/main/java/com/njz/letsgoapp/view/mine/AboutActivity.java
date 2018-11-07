@@ -25,7 +25,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        showLeftAndTitle("关于");
+        showLeftAndTitle("关于我们");
 
         about_agreement = $(R.id.about_agreement);
         about_agreement.setOnClickListener(new View.OnClickListener() {

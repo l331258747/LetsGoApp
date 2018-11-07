@@ -76,19 +76,22 @@
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:maxLines="3"
             tools:text="那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_d9"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:layout_marginTop="10dp"
             android:text="查看动态详情"
+            android:layout_marginTop="10dp"
             android:textColor="@color/color_theme" />
 
 

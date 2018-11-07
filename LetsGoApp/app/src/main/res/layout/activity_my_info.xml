@@ -12,31 +12,41 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_margin="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_head"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/head_default" />
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="20dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_camera" />
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/head_default" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/ic_camera" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
 
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="40dp"
             android:background="@color/white"
             android:padding="8dp">
@@ -101,6 +111,7 @@
             android:layout_marginTop="8dp"
             app:content="男"
             app:left_drawable="@mipmap/ic_arrow_right"
+            app:hint="请选择"
             app:title="性别" />
 
         <com.njz.letsgoapp.widget.MineItemView
@@ -109,7 +120,8 @@
             android:layout_height="wrap_content"
             app:content="1990-01-01"
             app:left_drawable="@mipmap/ic_arrow_right"
-            app:title="生日" />
+            app:hint="请选择"
+            app:title="出生日期" />
 
         <!--<com.njz.letsgoapp.widget.MineItemView-->
             <!--android:id="@+id/info_lacation"-->
@@ -128,11 +140,12 @@
             <!--app:left_drawable="@mipmap/ic_arrow_right"-->
             <!--app:title="故乡" />-->
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@color/white"
+            android:orientation="horizontal"
             android:padding="8dp">
 
             <TextView
@@ -146,15 +159,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_explain"
+                android:layout_marginLeft="10dp"
                 android:maxLength="200"
-                android:layout_marginTop="8dp"
                 android:background="@color/white"
                 android:gravity="top"
                 android:hint="简单介绍下自己吧！(200字以内)"
                 android:lines="3"
                 android:maxLines="3" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <com.njz.letsgoapp.widget.MineItemView
             android:id="@+id/info_tag"

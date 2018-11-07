@@ -42,7 +42,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initView() {
 
-        showLeftAndTitle("设置");
+        showLeftAndTitle("系统设置");
 
         system_setting_clean = $(R.id.system_setting_clean);
         system_setting_feedback = $(R.id.system_setting_feedback);

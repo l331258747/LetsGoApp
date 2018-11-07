@@ -3,6 +3,7 @@ package com.njz.letsgoapp.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -58,6 +59,11 @@ public class MineItemView extends LinearLayout {
             String hint = attributes.getString(R.styleable.home_my_item_hint);
             if (!TextUtils.isEmpty(hint)) {
                 tv_content.setHint(hint);
+            }
+
+            int titleColor = attributes.getResourceId(R.styleable.home_my_item_content_color,-1);
+            if (titleColor != -1) {
+                tv_content.setTextColor(ContextCompat.getColor(context,titleColor));
             }
 
             int leftDrawable = attributes.getResourceId(R.styleable.home_my_item_left_drawable, -1);
