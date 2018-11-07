@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -47,6 +48,7 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
     private TextView tv_add;
     private TagFlowLayout flowlayout_custom;
     private List<LabelItemModel> customLabels = new ArrayList<>();
+    private boolean isOnCreate = true;
 
     @Override
     public int getLayoutId() {
@@ -116,6 +118,29 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
                     return tv;
                 }
             }
+
+            @Override
+            public void onSelected(int position, View view) {
+                if(isCustom) return;
+                super.onSelected(position, view);
+                if (!isOnCreate && getLabelSize() > 5) {
+                    showShortToast("个人标签最多只能添加6个!");
+                    return ;
+                }
+
+                view.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme33_hollow_r40));
+                ((TextView)view).setTextColor(ContextCompat.getColor(context,R.color.color_theme));
+                mVals.get(position).setSelect(true);
+            }
+
+            @Override
+            public void unSelected(int position, View view) {
+                if(isCustom) return;
+                super.unSelected(position, view);
+                view.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_gray_hollow_r40));
+                ((TextView)view).setTextColor(ContextCompat.getColor(context,R.color.color_99));
+                mVals.get(position).setSelect(false);
+            }
         };
 
         adapter1.setSelectedList(getSelectIndex(mVals));
@@ -124,8 +149,6 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
         tagFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                mVals.get(position).setSelect(!mVals.get(position).isSelect());
-
                 if (getRightTv().isEnabled())
                     return true;
                 getRightTv().setEnabled(true);
@@ -194,6 +217,8 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
             customLabels.add(labelItemModel);
         }
         initFlow(flowlayout_custom, customLabels, true);
+
+        isOnCreate = false;
     }
 
     @Override
@@ -245,6 +270,10 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
                 mPresenter.userChangePersonalData(myInfoData);
                 break;
             case R.id.tv_add:
+                if(getLabelSize() >5){
+                    showShortToast("个人标签最多只能添加6个!");
+                    return;
+                }
                 DialogUtil.getInstance().getEditDialog(context, new DialogUtil.DialogEditCallBack() {
                     @Override
                     public void exectEvent(DialogInterface alterDialog, String str) {
@@ -263,6 +292,17 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
                 }).show();
                 break;
         }
+    }
+
+    public int getLabelSize(){
+        int size = 0;
+        for (int i = 0;i<labelAll.size();i++){
+            if(labelAll.get(i).isSelect()){
+                size= size+1;
+            }
+        }
+        size = size + customLabels.size();
+        return size;
     }
 
 }
