@@ -6,7 +6,10 @@ import android.widget.Button;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.mvp.login.LogoutContract;
+import com.njz.letsgoapp.mvp.login.LogoutPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.CacheUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
@@ -24,7 +27,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class SystemSettingActivity extends BaseActivity implements View.OnClickListener {
+public class SystemSettingActivity extends BaseActivity implements View.OnClickListener,LogoutContract.View {
 
     MineItemView system_setting_clean, system_setting_feedback, system_setting_about,system_setting_upload;
 
@@ -33,6 +36,8 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
     LoadingDialog loadingDialog;
 
     Button btnLoginoff;
+
+    LogoutPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -109,6 +114,8 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
 
         system_setting_about.setContent("当前版本 " + AppUtils.getVersionName());
 
+        mPresenter = new LogoutPresenter(context,this);
+
     }
 
     @Override
@@ -126,12 +133,25 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                 startActivity(new Intent(context, AboutActivity.class));
                 break;
             case R.id.btn_loginoff:
-                MySelfInfo.getInstance().loginOff();
-                finish();
+                mPresenter.userLogout();
                 break;
             case R.id.system_setting_upload:
                 Beta.checkUpgrade();
                 break;
         }
+    }
+
+    @Override
+    public void userLogoutSuccess(EmptyModel str) {
+        showShortToast("退出");
+        MySelfInfo.getInstance().loginOff();
+        finish();
+    }
+
+    @Override
+    public void userLogoutFailed(String msg) {
+        showShortToast(msg);
+        MySelfInfo.getInstance().loginOff();
+        finish();
     }
 }

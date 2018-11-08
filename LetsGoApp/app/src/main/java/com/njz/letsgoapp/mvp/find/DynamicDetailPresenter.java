@@ -59,4 +59,20 @@ public class DynamicDetailPresenter implements DynamicDetailContract.Presenter {
         };
         MethodApi.friendDiscuss(friendSterId,discussUserId,discussContent,toUserId,new OnSuccessAndFaultSub(listener,context,false));
     }
+
+    @Override
+    public void friendDeleteDiscuss(int discussId) {
+        ResponseCallback listener = new ResponseCallback<EmptyModel>() {
+            @Override
+            public void onSuccess(EmptyModel data) {
+                iView.friendDeleteDiscussSuccess(data);
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.friendDeleteDiscussFailed(errorMsg);
+            }
+        };
+        MethodApi.friendDeleteDiscuss(discussId,new OnSuccessAndFaultSub(listener,context,false));
+    }
 }

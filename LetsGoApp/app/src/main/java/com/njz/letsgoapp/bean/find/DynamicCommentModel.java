@@ -27,6 +27,11 @@ public class DynamicCommentModel {
     private String discussContent;
     private int toUserId;
     private int discussUserId;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
 
     public String getToUserUrl() {
         return toUserUrl;

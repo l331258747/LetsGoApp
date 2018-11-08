@@ -132,6 +132,11 @@ public interface HttpService {
             @Field("password") String password
     );
 
+    @POST("user/logout")
+    Observable<BaseResponse<EmptyModel>> userLogout(
+    );
+
+
     //登录系列   end
 
 
@@ -313,6 +318,13 @@ public interface HttpService {
             @Field("discussUserId") int discussUserId,
             @Field("discussContent") String discussContent,
             @Field("toUserId") int toUserId
+    );
+
+    //friend/deleteDiscuss 动态评论删除
+    @FormUrlEncoded
+    @POST("friend/deleteDiscuss")
+    Observable<BaseResponse<EmptyModel>> friendDeleteDiscuss(
+            @Field("discussId") int discussId
     );
 
     //我的评论 friend/myDiscuss

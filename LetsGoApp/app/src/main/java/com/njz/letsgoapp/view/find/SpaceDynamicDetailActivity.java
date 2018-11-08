@@ -87,6 +87,8 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
     private NestedScrollView scrollView;
     private View view_title_line;
 
+    private int deletePosition;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -207,9 +209,15 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
 
         mAdapter.setOnItemClickListener(new DynamicCommentAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
+            public void onClick(final int position) {
                 if (comments.get(position).getDiscussUserId() == MySelfInfo.getInstance().getUserId()){
-                    ToastUtil.showShortToast(context, "不能回复自己");
+                    DialogUtil.getInstance().getDefaultDialog(context, "是否删除评论?", new DialogUtil.DialogCallBack() {
+                        @Override
+                        public void exectEvent(DialogInterface alterDialog) {
+                            deletePosition = position;
+                            mPresenter.friendDeleteDiscuss(comments.get(position).getId());
+                        }
+                    }).show();
                     return;
                 }
 
@@ -300,9 +308,9 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
         this.comments = model.getDynamicComments();
         initViewData();
 
+        view_empty.setEmptyData(R.mipmap.empty_dynamic_detail,"还没有人留言，还不快来抢沙发~");
         if(comments.size() == 0){
             view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_dynamic_detail,"还没有人留言，还不快来抢沙发~");
         }else{
             view_empty.setVisible(false);
         }
@@ -330,6 +338,24 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
     public void friendDiscussFailed(String msg) {
         showShortToast(msg);
         AppUtils.HideKeyboard(tvComment);
+    }
+
+    @Override
+    public void friendDeleteDiscussSuccess(EmptyModel models) {
+        comments.remove(deletePosition);
+        mAdapter.setData(comments);
+        model.setReplyCount(model.getReplyCount() - 1);
+        tvComment.setText(model.getReplyCount() + "条评论");
+        showShortToast("删除成功");
+
+        if(comments.size() == 0){
+            view_empty.setVisible(true);
+        }
+    }
+
+    @Override
+    public void friendDeleteDiscussFailed(String msg) {
+        showShortToast(msg);
     }
 
     @Override

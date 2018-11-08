@@ -31,12 +31,10 @@ import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.mvp.find.FollowContract;
 import com.njz.letsgoapp.mvp.find.FollowPresenter;
 import com.njz.letsgoapp.util.AppUtils;
-import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
-import com.njz.letsgoapp.widget.DynamicImageView;
 import com.njz.letsgoapp.widget.DynamicImageView2;
 import com.njz.letsgoapp.widget.DynamicNiceImageView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
@@ -81,6 +79,8 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     private int toId;
 
     public EmptyView2 view_empty;
+
+    private int deletePosition;
 
     @Override
     public void getIntentData() {
@@ -208,9 +208,15 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
 
         mAdapter.setOnItemClickListener(new DynamicCommentAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int position) {
+            public void onClick(final int position) {
                 if (comments.get(position).getDiscussUserId() == MySelfInfo.getInstance().getUserId()){
-                    ToastUtil.showShortToast(context, "不能回复自己");
+                    DialogUtil.getInstance().getDefaultDialog(context, "是否删除评论?", new DialogUtil.DialogCallBack() {
+                        @Override
+                        public void exectEvent(DialogInterface alterDialog) {
+                            deletePosition = position;
+                            mPresenter.friendDeleteDiscuss(comments.get(position).getId());
+                        }
+                    }).show();
                     return;
                 }
 
@@ -282,9 +288,9 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
         this.comments = model.getDynamicComments();
         initViewData();
 
+        view_empty.setEmptyData(R.mipmap.empty_dynamic_detail,"还没有人留言，还不快来抢沙发~");
         if(comments.size() == 0){
             view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_dynamic_detail,"还没有人留言，还不快来抢沙发~");
         }else{
             view_empty.setVisible(false);
         }
@@ -312,6 +318,24 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     public void friendDiscussFailed(String msg) {
         showShortToast(msg);
         AppUtils.HideKeyboard(tvComment);
+    }
+
+    @Override
+    public void friendDeleteDiscussSuccess(EmptyModel models) {
+        comments.remove(deletePosition);
+        mAdapter.setData(comments);
+        model.setReplyCount(model.getReplyCount() - 1);
+        tvComment.setText(model.getReplyCount() + "条评论");
+        showShortToast("删除成功");
+
+        if(comments.size() == 0){
+            view_empty.setVisible(true);
+        }
+    }
+
+    @Override
+    public void friendDeleteDiscussFailed(String msg) {
+        showShortToast(msg);
     }
 
     @Override

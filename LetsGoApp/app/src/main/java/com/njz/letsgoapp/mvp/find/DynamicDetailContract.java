@@ -16,6 +16,8 @@ public interface DynamicDetailContract {
         void friendPersonalFriendSter(int friendSterId);
 
         void friendDiscuss(int friendSterId, int discussUserId, String discussContent, int toUserId);
+
+        void friendDeleteDiscuss(int discussId);
     }
 
     interface View {
@@ -26,5 +28,9 @@ public interface DynamicDetailContract {
         void friendDiscussSuccess(DynamicCommentModel models);
 
         void friendDiscussFailed(String msg);
+
+        void friendDeleteDiscussSuccess(EmptyModel models);
+
+        void friendDeleteDiscussFailed(String msg);
     }
 }
