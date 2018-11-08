@@ -518,6 +518,16 @@ public interface HttpService {
     Observable<BaseResponse<List<ConfigModel>>> guideGetGuideMacros(
             @Query("values") String values
     );
+
+    //意见反馈 up/userIdea
+    @Multipart
+    @POST("up/userIdea")
+    Observable<BaseResponse<EmptyModel>> upUserIdea(
+            @Part("mobile") RequestBody mobile,
+            @Part("content") RequestBody content,
+            @Part List<MultipartBody.Part> files
+    );
+
     //--------other end---------
 
 

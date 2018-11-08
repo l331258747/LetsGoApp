@@ -15,6 +15,7 @@ import com.njz.letsgoapp.util.CacheUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CleanCacheEvent;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.widget.MineItemView;
 import com.tencent.bugly.beta.Beta;
 
@@ -127,7 +128,11 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.system_setting_feedback:
-                startActivity(new Intent(context, FeedbackActivity.class));
+                if (MySelfInfo.getInstance().isLogin()) {//登录状态
+                    startActivity(new Intent(context, FeedbackActivity.class));
+                }else{
+                    startActivity(new Intent(context,LoginActivity.class));
+                }
                 break;
             case R.id.system_setting_about:
                 startActivity(new Intent(context, AboutActivity.class));

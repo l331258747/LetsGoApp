@@ -435,8 +435,17 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //配置 guide/getGuideMacros
     public static void guideGetGuideMacros(String values, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().guideGetGuideMacros(values);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //意见反馈 up/userIdea
+    public static void upUserIdea(String mobile, String content, List<String> files, DisposableObserver subscriber) {
+        List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
+
+        Observable observable = HttpMethods.getInstance().getHttpService().upUserIdea(getStringPart(mobile),getStringPart(content),partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

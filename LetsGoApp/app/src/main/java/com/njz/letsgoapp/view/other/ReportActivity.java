@@ -9,10 +9,8 @@ import android.widget.EditText;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.accessory.PhotoAdapter;
 import com.njz.letsgoapp.util.accessory.RecyclerItemClickListener;
-import com.njz.letsgoapp.view.mine.FeedbackActivity;
 
 import java.util.ArrayList;
 import java.util.List;
