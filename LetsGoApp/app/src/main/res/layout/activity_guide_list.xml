@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="向导列表"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/color_text"
             android:textSize="17sp"
             android:layout_centerInParent="true"/>
 

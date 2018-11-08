@@ -279,7 +279,7 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 if (scrollY > mDisplayHeight) {
                     rl_title_parent.setBackgroundResource(R.color.white);
-                    tv_title_title.setTextColor(ContextCompat.getColor(context,R.color.black));
+                    tv_title_title.setTextColor(ContextCompat.getColor(context,R.color.color_text));
                     iv_back.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_back));
                     iv_share.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_share));
                     view_title_line.setVisibility(View.VISIBLE);

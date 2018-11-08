@@ -31,7 +31,7 @@
             android:maxLines="1"
             android:inputType = "text"
             android:minHeight="44dp"
-            android:textColor="@color/black"
+            android:textColor="@color/color_text"
             android:textSize="17sp"
             android:visibility="visible"
             android:text="目的地选择" />
