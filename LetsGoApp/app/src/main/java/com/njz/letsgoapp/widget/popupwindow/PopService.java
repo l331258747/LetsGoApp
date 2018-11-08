@@ -126,7 +126,11 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                         if(TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE)
                                 || TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)){
                             price  = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getTimeDay()) , price);
-                        }else{
+                        }
+                        else if(TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)){
+                            price  = DecimalUtil.add(item.getPrice() , price);
+                        }
+                        else{
                             price  = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getNumber() * item.getTimeDay()) , price);
                         }
                     }

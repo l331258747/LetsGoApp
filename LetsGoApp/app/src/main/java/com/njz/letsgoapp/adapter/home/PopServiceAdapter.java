@@ -334,15 +334,24 @@ public class PopServiceAdapter extends RecyclerView.Adapter<PopServiceAdapter.Ba
         int timeDay2 = 0;
         switch (data.getServiceItem().getValue()){
             case Constant.SERVICE_TYPE_SHORT_CUSTOM:
+//                if(TextUtils.equals(timeDay,noSelected)){
+//                    timeDay2 = 0;
+//                    priceCount.setText(timeDay2 + " x " + num + "人 x " + "￥" + data.getServiceItem().getPrice());
+//                }
+//                else{
+//                    timeDay2 = 1;
+//                    priceCount.setText(num + "人 x " + "￥" + data.getServiceItem().getPrice());
+//                }
+//                priceTotal.setText("￥" + (DecimalUtil.multiply(timeDay2 * num , data.getServiceItem().getPrice())));
                 if(TextUtils.equals(timeDay,noSelected)){
                     timeDay2 = 0;
-                    priceCount.setText(timeDay2 + " x " + num + "人 x " + "￥" + data.getServiceItem().getPrice());
+                    priceCount.setText("￥" + data.getServiceItem().getPrice());
                 }
                 else{
                     timeDay2 = 1;
-                    priceCount.setText(num + "人 x " + "￥" + data.getServiceItem().getPrice());
+                    priceCount.setText("￥" + data.getServiceItem().getPrice());
                 }
-                priceTotal.setText("￥" + (DecimalUtil.multiply(timeDay2 * num , data.getServiceItem().getPrice())));
+                priceTotal.setText("￥" + data.getServiceItem().getPrice());
                 break;
             case Constant.SERVICE_TYPE_SHORT_CAR:
             case Constant.SERVICE_TYPE_SHORT_GUIDE:

@@ -174,7 +174,11 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                 if (TextUtils.equals(item.getValue(),Constant.SERVICE_TYPE_SHORT_GUIDE)
                         || TextUtils.equals(item.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)) {
                     totalPrice = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getTimeDay()) , totalPrice);
-                } else {
+                }
+                else if(TextUtils.equals(item.getValue(),Constant.SERVICE_TYPE_SHORT_CUSTOM)){
+                    totalPrice = DecimalUtil.add(item.getPrice() , totalPrice);
+                }
+                else {
                     totalPrice = DecimalUtil.add(DecimalUtil.multiply(item.getPrice() , item.getNumber() * item.getTimeDay()) , totalPrice);
                 }
             }
