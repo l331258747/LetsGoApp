@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignBottom="@+id/tv_title"
-                android:text="2018-01-01"
+                tools:text="2018-01-01"
                 android:textSize="12sp"
                 android:textColor="@color/color_99"/>
         </RelativeLayout>
@@ -80,6 +80,7 @@
             app:order_evaluate_title="行程安排" />
 
         <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_d9_hollow"

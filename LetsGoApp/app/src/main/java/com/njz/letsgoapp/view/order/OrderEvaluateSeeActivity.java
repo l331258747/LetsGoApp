@@ -26,7 +26,7 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
     TextView tv_time,reply_content;
     EvaluateView ev_guide,ev_car,ev_substituting,ev_trip;
     TextView tv_special;
-    LinearLayout ll_img,ll_reply;
+    LinearLayout ll_img,ll_reply,ll_content;
     RecyclerView mRecyclerView;
 
     OrderEvaluateSeePresenter mPresenter;
@@ -37,7 +37,6 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
     public void getIntentData() {
         super.getIntentData();
         orderId = intent.getIntExtra("ORDER_ID", 0);
-        orderId = 123;
     }
 
     @Override
@@ -58,6 +57,7 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
         ev_trip = $(R.id.ev_trip);
         tv_special = $(R.id.tv_special);
         ll_img = $(R.id.ll_img);
+        ll_content = $(R.id.ll_content);
         ll_reply = $(R.id.ll_reply);
         mRecyclerView = $(R.id.recycler_view);
 
@@ -78,25 +78,25 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
     public void orderReviewsQueryOrderReviewSuccess(EvaluateModel2 str) {
         if(str == null) return;
         tv_time.setText(str.getUserDate());
-        if(str.getGuideService() < 0){
+        if(str.getGuideService() < 1){
             ev_guide.setVisibility(View.GONE);
         }else{
             ev_guide.setContent((int)str.getGuideService());
             ev_guide.getRatingBar().setRating((int)str.getGuideService());
         }
-        if(str.getCarCondition() < 0){
+        if(str.getCarCondition() < 1){
             ev_car.setVisibility(View.GONE);
         }else{
             ev_car.setContent((int)str.getCarCondition());
             ev_car.getRatingBar().setRating((int)str.getCarCondition());
         }
-        if(str.getBuyService() < 0){
+        if(str.getBuyService() < 1){
             ev_substituting.setVisibility(View.GONE);
         }else{
             ev_substituting.setContent((int)str.getBuyService());
             ev_substituting.getRatingBar().setRating((int)str.getBuyService());
         }
-        if(str.getTravelArrange() < 0){
+        if(str.getTravelArrange() < 1){
             ev_trip.setVisibility(View.GONE);
         }else{
             ev_trip.setContent((int)str.getTravelArrange());
@@ -116,6 +116,10 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
             mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), 4));
             SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, str.getImageUrls());
             mRecyclerView.setAdapter(enterAdapter);
+        }
+
+        if(tv_special.getVisibility() == View.GONE && ll_img.getVisibility() == View.GONE){
+            ll_content.setVisibility(View.GONE);
         }
 
         if(TextUtils.isEmpty(str.getGuideContent())){
