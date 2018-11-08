@@ -313,6 +313,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //orderReviewsQueryOrderReview
+    public static void orderReviewsQueryOrderReview(int orderId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsQueryOrderReview(orderId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //orderReviewsFindGuideReviews 导游评价列表
     public static void orderReviewsFindGuideReviews(int guideId,String value, int limit, int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsFindGuideReviews(guideId, value,limit, page);

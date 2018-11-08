@@ -58,7 +58,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public TextView tv_order_no, tv_order_create_time, tv_order_pay_time, tv_order_pay_method, tv_order_guide_time, tv_order_refund_apply,
             tv_order_refund_verify, tv_order_refund_time,tv_order_travel_start,tv_order_travel_end;
 
-    public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate;
+    public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate,btn_evaluate_see;
 
     public OrderDetailPresenter mPresenter;
     public OrderDeletePresenter deletePresenter;
@@ -126,6 +126,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_delete = $(R.id.btn_delete);
         btn_call_custom = $(R.id.btn_call_custom);
         btn_evaluate = $(R.id.btn_evaluate);
+        btn_evaluate_see = $(R.id.btn_evaluate_see);
 
         btn_cancel_order.setOnClickListener(this);
         btn_call_guide.setOnClickListener(this);
@@ -134,6 +135,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_delete.setOnClickListener(this);
         btn_call_custom.setOnClickListener(this);
         btn_evaluate.setOnClickListener(this);
+        btn_evaluate_see.setOnClickListener(this);
 
         btn_cancel_order.setVisibility(View.GONE);
         btn_call_guide.setVisibility(View.GONE);
@@ -142,6 +144,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_delete.setVisibility(View.GONE);
         btn_call_custom.setVisibility(View.GONE);
         btn_evaluate.setVisibility(View.GONE);
+        btn_evaluate_see.setVisibility(View.GONE);
 
         login_view_phone.getEtView().setEnabled(false);
         login_view_name.getEtView().setEnabled(false);
@@ -278,6 +281,13 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("evaluateType",model.getEvaluateType());
                 startActivity(intent);
                 break;
+            case R.id.btn_evaluate_see:
+                intent = new Intent(context,OrderEvaluateActivity.class);
+                intent.putExtra("ORDER_ID",model.getId());
+                intent.putExtra("GUIDE_ID",model.getGuideId());
+                intent.putExtra("evaluateType",model.getEvaluateType());
+                startActivity(intent);
+                break;
         }
 
     }
@@ -358,6 +368,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     case Constant.ORDER_EVALUATE_YES:
                         btn_delete.setVisibility(View.VISIBLE);
                         btn_call_guide.setVisibility(View.VISIBLE);
+                        btn_evaluate_see.setVisibility(View.VISIBLE);
                         break;
                 }
 

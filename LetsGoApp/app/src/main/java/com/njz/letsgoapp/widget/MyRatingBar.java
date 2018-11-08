@@ -76,10 +76,10 @@ public class MyRatingBar extends LinearLayout implements View.OnClickListener {
                 ivStar5.setLayoutParams(lp2);
             }else{
 
-                size = size + padding;
+//                size = size + padding;
                 LayoutParams lp = (LayoutParams) ivStar1.getLayoutParams();
                 lp.height = size;
-                lp.width = size;
+                lp.width = size + padding;
 
                 ivStar1.setLayoutParams(lp);
                 ivStar2.setLayoutParams(lp);

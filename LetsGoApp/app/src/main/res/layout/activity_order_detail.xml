@@ -105,6 +105,17 @@
                     android:text="评价"
                     android:textColor="@color/white" />
 
+                <TextView
+                    android:id="@+id/btn_evaluate_see"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    android:background="@drawable/btn_theme_solid_r5_p8"
+                    android:gravity="center"
+                    android:text="查看评价"
+                    android:textColor="@color/white" />
+
             </LinearLayout>
 
         </HorizontalScrollView>
@@ -469,6 +480,8 @@
                 <include layout="@layout/layout_order_info" />
 
             </FrameLayout>
+
+
 
 
         </LinearLayout>

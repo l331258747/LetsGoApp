@@ -358,6 +358,12 @@ public interface HttpService {
             @Part List<MultipartBody.Part> files
     );
 
+    //orderReviews/queryOrderReview 查看评价
+    @GET("orderReviews/queryOrderReview")
+    Observable<BaseResponse<BasePageModel<EvaluateModel2>>> orderReviewsQueryOrderReview(
+            @Query("orderId") int orderId
+    );
+
     //orderReviews/findGuideReviews 导游评价列表
     @GET("orderReviews/findGuideReviews")
     Observable<BaseResponse<BasePageModel<EvaluateModel2>>> orderReviewsFindGuideReviews(
