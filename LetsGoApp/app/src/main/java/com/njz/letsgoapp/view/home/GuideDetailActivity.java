@@ -348,10 +348,12 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.right_iv:
                 if(guideDetailModel == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
-                        guideDetailModel.getGuideName()+"导游",
-                        guideDetailModel.getIntroduce(),
+                        guideDetailModel.getGuideName()+"向导",
+                        TextUtils.isEmpty(guideDetailModel.getIntroduce())?"赶快约TA一起体验当地的风土人情吧！":guideDetailModel.getIntroduce(),
                         guideDetailModel.getGuideImg(),
-                        URLConstant.SHARE_GUIDE+"?location="+MySelfInfo.getInstance().getDefaultCity()+"&guideId"+guideId);
+                        URLConstant.SHARE_GUIDE+"?location="+MySelfInfo.getInstance().getDefaultCity()+"&guideId"+guideDetailModel.getId());
+                dialog.setReportData(guideDetailModel.getId(), ShareDialog.REPORT_GUIDE);
+                dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
                 break;
             case R.id.tv_back_top:

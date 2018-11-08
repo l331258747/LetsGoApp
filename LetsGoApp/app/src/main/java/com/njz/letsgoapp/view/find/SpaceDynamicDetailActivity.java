@@ -21,6 +21,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.find.DynamicDeleteContract;
@@ -394,7 +395,15 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
                 onBackPressed();
                 break;
             case R.id.iv_share:
-                //TODO 举报
+                if(model == null) return;
+                ShareDialog dialog = new ShareDialog(activity,
+                        model.getNickname() + "旅游动态",
+                        TextUtils.isEmpty(model.getContent())?"TA发表了一份动态，快去查看吧！":model.getContent(),
+                        model.getImgUrl(),
+                        URLConstant.SHARE_DYNAMIC+"?friendSterId="+model.getFriendSterId());
+                dialog.setReportData(model.getFriendSterId(), ShareDialog.REPORT_DYNAMIC);
+                dialog.setType(ShareDialog.TYPE_ALL);
+                dialog.show();
                 break;
         }
 

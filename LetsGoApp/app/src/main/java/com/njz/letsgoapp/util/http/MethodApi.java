@@ -449,6 +449,15 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //举报 up/userReport
+    public static void upUserReport(int reportId,String reportContent, String reportReason, int reportClass, List<String> files, DisposableObserver subscriber) {
+        List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
+
+        Observable observable = HttpMethods.getInstance().getHttpService().upUserReport(reportId,getStringPart(reportContent)
+                ,getStringPart(reportReason),reportClass,partList);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------城市选择 end
 
 }

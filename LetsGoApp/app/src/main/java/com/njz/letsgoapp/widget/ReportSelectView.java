@@ -20,8 +20,10 @@ import com.njz.letsgoapp.util.AppUtils;
 
 public class ReportSelectView extends LinearLayout implements View.OnClickListener {
 
-    LinearLayout ll_sexy,ll_rumor,ll_sensitive,ll_copy,ll_advertisement,ll_harass;
-    ImageView iv_sexy,iv_rumor,iv_sensitive,iv_copy,iv_advertisement,iv_harass;
+    LinearLayout ll_sexy,ll_rumor,ll_sensitive,ll_other,ll_advertisement,ll_harass;
+    ImageView iv_sexy,iv_rumor,iv_sensitive,iv_other,iv_advertisement,iv_harass;
+
+    String content;
 
     public ReportSelectView(Context context) {
         this(context, null);
@@ -39,24 +41,25 @@ public class ReportSelectView extends LinearLayout implements View.OnClickListen
         ll_sexy = findViewById(R.id.ll_sexy);
         ll_rumor = findViewById(R.id.ll_rumor);
         ll_sensitive = findViewById(R.id.ll_sensitive);
-        ll_copy = findViewById(R.id.ll_copy);
+        ll_other = findViewById(R.id.ll_other);
         ll_advertisement = findViewById(R.id.ll_advertisement);
         ll_harass = findViewById(R.id.ll_harass);
 
         iv_sexy = findViewById(R.id.iv_sexy);
         iv_rumor = findViewById(R.id.iv_rumor);
         iv_sensitive = findViewById(R.id.iv_sensitive);
-        iv_copy = findViewById(R.id.iv_copy);
         iv_advertisement = findViewById(R.id.iv_advertisement);
         iv_harass = findViewById(R.id.iv_harass);
+        iv_other = findViewById(R.id.iv_other);
 
         ll_sexy.setOnClickListener(this);
         ll_rumor.setOnClickListener(this);
         ll_sensitive.setOnClickListener(this);
-        ll_copy.setOnClickListener(this);
         ll_advertisement.setOnClickListener(this);
         ll_harass.setOnClickListener(this);
+        ll_other.setOnClickListener(this);
 
+        content = "淫秽色情";
     }
 
     @Override
@@ -65,21 +68,27 @@ public class ReportSelectView extends LinearLayout implements View.OnClickListen
         switch (v.getId()){
             case R.id.ll_sexy:
                 iv_sexy.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_select));
+                content = "淫秽色情";
                 break;
             case R.id.ll_rumor:
                 iv_rumor.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_select));
+                content = "不实谣言";
                 break;
             case R.id.ll_sensitive:
                 iv_sensitive.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_select));
+                content = "敏感信息";
                 break;
-            case R.id.ll_copy:
-                iv_copy.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_select));
+            case R.id.ll_other:
+                iv_other.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_select));
+                content = "其他";
                 break;
             case R.id.ll_advertisement:
                 iv_advertisement.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_select));
+                content = "广告营销";
                 break;
             case R.id.ll_harass:
                 iv_harass.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_select));
+                content = "骚扰他人";
                 break;
 
         }
@@ -89,8 +98,12 @@ public class ReportSelectView extends LinearLayout implements View.OnClickListen
         iv_sexy.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_unselect));
         iv_rumor.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_unselect));
         iv_sensitive.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_unselect));
-        iv_copy.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_unselect));
+        iv_other.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_unselect));
         iv_advertisement.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_unselect));
         iv_harass.setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(),R.mipmap.ic_unselect));
+    }
+
+    public String getContent(){
+        return content;
     }
 }

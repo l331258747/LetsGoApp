@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
     android:background="@drawable/btn_white_solid_r5"
     android:orientation="vertical">
 
@@ -11,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:textSize="16sp"
         android:text="请选择举报原因" />
 
     <View
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="色情淫秽" />
+            android:text="淫秽色情" />
 
         <ImageView
             android:id="@+id/iv_sexy"
@@ -77,7 +77,7 @@
         android:background="@color/color_d9" />
 
     <LinearLayout
-        android:id="@+id/ll_sensitive"
+        android:id="@+id/ll_harass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -87,10 +87,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="敏感信息" />
+            android:text="骚扰他人" />
 
         <ImageView
-            android:id="@+id/iv_sensitive"
+            android:id="@+id/iv_harass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_unselect" />
@@ -105,7 +105,7 @@
         android:background="@color/color_d9" />
 
     <LinearLayout
-        android:id="@+id/ll_copy"
+        android:id="@+id/ll_sensitive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -115,10 +115,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="抄袭内容" />
+            android:text="敏感信息" />
 
         <ImageView
-            android:id="@+id/iv_copy"
+            android:id="@+id/iv_sensitive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_unselect" />
@@ -161,7 +161,7 @@
         android:background="@color/color_d9" />
 
     <LinearLayout
-        android:id="@+id/ll_harass"
+        android:id="@+id/ll_other"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -171,10 +171,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="骚扰他人" />
+            android:text="其他" />
 
         <ImageView
-            android:id="@+id/iv_harass"
+            android:id="@+id/iv_other"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_unselect" />

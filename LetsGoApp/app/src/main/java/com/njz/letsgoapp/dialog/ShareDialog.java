@@ -34,6 +34,20 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
     String imageUrl;
     String url;
 
+    private int reportId;
+    private int reportClass;
+
+    public static final int REPORT_DYNAMIC = 1;
+    public static final int REPORT_GUIDE = 2;
+    public static final int REPORT_SERVICE = 3;
+    public static final int REPORT_USER = 4;
+
+    public static final int TYPE_REPORT = 1;
+    public static final int TYPE_ALL = 0;
+
+    int type = TYPE_ALL;
+
+
     public ShareDialog(Activity context, String title, String content, String imageUrl, String url) {
         super(context);
         mContext = context;
@@ -42,6 +56,7 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         this.imageUrl = imageUrl;
         this.url = url;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +81,23 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         ivFriends.setOnClickListener(this);
         ivPeport.setOnClickListener(this);
         llClose.setOnClickListener(this);
+
+        if(type == TYPE_REPORT){
+            ivFriend.setVisibility(View.GONE);
+            ivFriends.setVisibility(View.GONE);
+        }else{
+            ivFriend.setVisibility(View.VISIBLE);
+            ivFriends.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void setReportData(int reportId,int reportClass){
+        this.reportId = reportId;
+        this.reportClass = reportClass;
+    }
+
+    public void setType(int type){
+        this. type = type;
     }
 
     @Override
@@ -83,14 +115,15 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
             );
         }else if(view.getId() == R.id.iv_report){
             report();
-        }else if(view.getId() == R.id.ll_close){
-            dismiss();
-        }else{
-            dismiss();
         }
+
+        dismiss();
     }
 
     private void report() {
-        mContext.startActivity(new Intent(mContext, ReportActivity.class));
+        Intent intent = new Intent(mContext, ReportActivity.class);
+        intent.putExtra("reportId",reportId);
+        intent.putExtra("reportClass",reportClass);
+        mContext.startActivity(intent);
     }
 }

@@ -20,6 +20,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.find.DynamicDeleteContract;
@@ -97,9 +98,9 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
     public void initView() {
 
         showLeftAndTitle("动态详情");
-//        showRightIv();
-//        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
-//        getRightIv().setOnClickListener(this);
+        showRightIv();
+        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
+        getRightIv().setOnClickListener(this);
 
         view_empty = $(R.id.view_empty);
 
@@ -373,10 +374,12 @@ public class DynamicDetailActivity extends BaseActivity implements DynamicDetail
             case R.id.right_iv:
                 if(model == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
-                        model.getShareTitle(),
-                        model.getShareContent(),
-                        model.getShareImg(),
-                        model.getShareUrl());
+                        model.getNickname() + "旅游动态",
+                        TextUtils.isEmpty(model.getContent())?"TA发表了一份动态，快去查看吧！":model.getContent(),
+                        model.getImgUrl(),
+                        URLConstant.SHARE_DYNAMIC+"?friendSterId="+model.getFriendSterId());
+                dialog.setReportData(model.getFriendSterId(), ShareDialog.REPORT_DYNAMIC);
+                dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
                 break;
         }

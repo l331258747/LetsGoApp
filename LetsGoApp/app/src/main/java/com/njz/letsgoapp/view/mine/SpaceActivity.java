@@ -25,6 +25,7 @@ import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.find.FollowContract;
 import com.njz.letsgoapp.mvp.find.FollowPresenter;
 import com.njz.letsgoapp.mvp.mine.SpaceContract;
@@ -321,7 +322,11 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
                 onBackPressed();
                 break;
             case R.id.iv_share:
-                //TODO 分享
+                if(data == null) return;
+                ShareDialog dialog = new ShareDialog(activity, "", "", "", "");
+                dialog.setReportData(data.getUserId(), ShareDialog.REPORT_USER);
+                dialog.setType(ShareDialog.TYPE_REPORT);
+                dialog.show();
                 break;
         }
     }

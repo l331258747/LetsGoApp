@@ -528,6 +528,16 @@ public interface HttpService {
             @Part List<MultipartBody.Part> files
     );
 
+    //举报 up/userReport
+    @Multipart
+    @POST("up/userReport")
+    Observable<BaseResponse<EmptyModel>> upUserReport(
+            @Part("reportId") int reportId,
+            @Part("reportContent") RequestBody reportContent,
+            @Part("reportReason") RequestBody reportReason,
+            @Part("reportClass") int reportClass,
+            @Part List<MultipartBody.Part> files
+    );
     //--------other end---------
 
 

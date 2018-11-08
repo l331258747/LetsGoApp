@@ -88,9 +88,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initView() {
         showLeftAndTitle(title + "详情介绍");
-//        showRightIv();
-//        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
-//        getRightIv().setOnClickListener(this);
+        showRightIv();
+        getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
+        getRightIv().setOnClickListener(this);
 
         convenientBanner = $(R.id.convenientBanner);
         tv_title = $(R.id.tv_title);
@@ -242,11 +242,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.right_iv:
                 if(model == null) return;
-                ShareDialog dialog = new ShareDialog(activity,
-                        model.getShareTitle(),
-                        model.getShareContent(),
-                        model.getShareImg(),
-                        model.getShareUrl());
+                ShareDialog dialog = new ShareDialog(activity,"","","","");
+                dialog.setReportData(model.getId(), ShareDialog.REPORT_SERVICE);
+                dialog.setType(ShareDialog.TYPE_REPORT);
                 dialog.show();
                 break;
         }

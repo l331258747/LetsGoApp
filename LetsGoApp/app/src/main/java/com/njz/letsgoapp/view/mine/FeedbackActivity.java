@@ -87,7 +87,7 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
                     public void onItemClick(View view, int position) {
                         if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
                             PhotoPicker.builder()
-                                    .setPhotoCount(PhotoAdapter.MAX)
+                                    .setPhotoCount(PhotoAdapter.MAX_4)
                                     .setShowCamera(true)
                                     .setPreviewEnabled(false)
                                     .setSelected(selectedPhotos)
