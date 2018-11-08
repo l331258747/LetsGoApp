@@ -54,7 +54,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/frame_bottom"
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:orientation="vertical">

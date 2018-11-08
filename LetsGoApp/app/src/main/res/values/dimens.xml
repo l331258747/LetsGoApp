@@ -66,5 +66,7 @@
     <dimen name="sp_26">26sp</dimen>
 
     <dimen name="custom_section_height">36dp</dimen>
+    <dimen name="title_height">42dp</dimen>
+    <dimen name="frame_bottom">50dp</dimen>
 
 </resources>

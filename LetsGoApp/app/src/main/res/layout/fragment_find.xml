@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/title_height"
         android:background="@color/white">
 
         <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toLeftOf="@+id/iv_release"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_ee_solid_r5_p8"
+            android:background="@drawable/btn_ee_solid_r5"
             android:focusable="true"
             android:focusableInTouchMode="true">
 
@@ -31,6 +31,10 @@
                 android:background="@color/transparent"
                 android:hint="搜索关键字"
                 android:textColor="@color/gray_999"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:inputType="text"
                 android:maxLines="1"
                 android:maxLength="15"
@@ -41,10 +45,11 @@
 
         <ImageView
             android:id="@+id/iv_release"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="5dp"
             android:layout_marginRight="8dp"
             android:src="@mipmap/ic_dynamic"/>
     </RelativeLayout>
