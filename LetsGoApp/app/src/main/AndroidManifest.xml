@@ -140,6 +140,8 @@
             android:name=".view.order.OrderEvaluateActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".view.order.OrderEvaluateSeeActivity" />
+        <activity
             android:name=".view.order.OrderCancelActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity

@@ -67,7 +67,7 @@ public class EvaluateView extends LinearLayout {
         return my_rating_bar;
     }
 
-    private void setContent(int rating) {
+    public void setContent(int rating) {
         switch (rating){
             case 1:
                 tv_content.setText("非常差");

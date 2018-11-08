@@ -360,7 +360,7 @@ public interface HttpService {
 
     //orderReviews/queryOrderReview 查看评价
     @GET("orderReviews/queryOrderReview")
-    Observable<BaseResponse<BasePageModel<EvaluateModel2>>> orderReviewsQueryOrderReview(
+    Observable<BaseResponse<EvaluateModel2>> orderReviewsQueryOrderReview(
             @Query("orderId") int orderId
     );
 

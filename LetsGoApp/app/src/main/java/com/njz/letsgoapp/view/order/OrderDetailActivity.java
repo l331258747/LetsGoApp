@@ -282,10 +282,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.btn_evaluate_see:
-                intent = new Intent(context,OrderEvaluateActivity.class);
+                intent = new Intent(context,OrderEvaluateSeeActivity.class);
                 intent.putExtra("ORDER_ID",model.getId());
-                intent.putExtra("GUIDE_ID",model.getGuideId());
-                intent.putExtra("evaluateType",model.getEvaluateType());
                 startActivity(intent);
                 break;
         }

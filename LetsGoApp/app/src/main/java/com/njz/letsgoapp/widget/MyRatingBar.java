@@ -107,6 +107,22 @@ public class MyRatingBar extends LinearLayout implements View.OnClickListener {
         }
     }
 
+    public void setClick(boolean isClick){
+        if (isClick) {
+            ivStar1.setEnabled(true);
+            ivStar2.setEnabled(true);
+            ivStar3.setEnabled(true);
+            ivStar4.setEnabled(true);
+            ivStar5.setEnabled(true);
+        }else{
+            ivStar1.setEnabled(false);
+            ivStar2.setEnabled(false);
+            ivStar3.setEnabled(false);
+            ivStar4.setEnabled(false);
+            ivStar5.setEnabled(false);
+        }
+    }
+
     public void setRating(int rating) {
         if(rating < 0) rating = 0;
         if (rating > 5) rating = 5;
