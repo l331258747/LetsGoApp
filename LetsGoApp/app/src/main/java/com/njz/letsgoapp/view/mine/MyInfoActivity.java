@@ -52,7 +52,7 @@ import io.reactivex.functions.Consumer;
 
 public class MyInfoActivity extends BaseActivity implements View.OnClickListener,MyInfoContract.View {
     ImageView iv_head;
-    MineItemView info_sex, info_birthday, info_tag;
+    TextView info_sex, info_birthday, info_tag;
     EditText et_nikename,et_real_name,et_explain;
 
     String bNickName, bBirthday, bSex,bRealName,bExplain,bImgUrl;
@@ -125,13 +125,13 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         setHeadImg(MySelfInfo.getInstance().getUserImgUrl());
         et_nikename.setText(MySelfInfo.getInstance().getUserNickname());
         et_real_name.setText(MySelfInfo.getInstance().getUserName());
-        info_sex.setContent(MySelfInfo.getInstance().getUserGender());
-        info_birthday.setContent(MySelfInfo.getInstance().getUserBirthday());
+        info_sex.setText(MySelfInfo.getInstance().getUserGender());
+        info_birthday.setText(MySelfInfo.getInstance().getUserBirthday());
         et_explain.setText(SPUtils.getInstance().getString(SPUtils.SP_USER_PERSONAL_STATEMENT));
 
         bNickName = et_nikename.getText().toString();
-        bBirthday = info_birthday.getContent();
-        bSex = info_sex.getContent();
+        bBirthday = info_birthday.getText().toString();
+        bSex = info_sex.getText().toString();
         bExplain = et_explain.getText().toString();
         bRealName = et_real_name.getText().toString();
         bImgUrl = MySelfInfo.getInstance().getUserImgUrl();
@@ -203,11 +203,11 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                         new OnTimeSelectListener() {
                             @Override
                             public void onTimeSelect(Date date, View v) {
-                                info_birthday.setContent(DateUtil.dateToStr(date));
+                                info_birthday.setText(DateUtil.dateToStr(date));
                                 isChange();
                             }
                         })
-                        .setDate(DateUtil.getSelectedDate(info_birthday.getContent()))// 如果不设置的话，默认是系统时间*/
+                        .setDate(DateUtil.getSelectedDate(info_birthday.getText().toString()))// 如果不设置的话，默认是系统时间*/
                         .setRangDate(DateUtil.getStartDate(), DateUtil.getEndDate())//起始终止年月日设定
                         .build();
                 pvTime.show();
@@ -219,7 +219,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
                         new OnOptionsSelectListener() {
                             @Override
                             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                                info_sex.setContent(sexs.get(options1));
+                                info_sex.setText(sexs.get(options1));
                                 isChange();
                             }
                         })
@@ -250,12 +250,12 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             myInfoData.setNickname(et_nikename.getText().toString());
             isChange = true;
         }
-        if (!TextUtils.equals(info_sex.getContent(), bSex)) {
-            myInfoData.setGender(info_sex.getContent());
+        if (!TextUtils.equals(info_sex.getText().toString(), bSex)) {
+            myInfoData.setGender(info_sex.getText().toString());
             isChange = true;
         }
-        if (!TextUtils.equals(info_birthday.getContent(), bBirthday)) {
-            myInfoData.setBirthday(info_birthday.getContent());
+        if (!TextUtils.equals(info_birthday.getText().toString(), bBirthday)) {
+            myInfoData.setBirthday(info_birthday.getText().toString());
             isChange = true;
         }
         if (!TextUtils.equals(et_real_name.getText().toString(), bRealName)) {
@@ -356,7 +356,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             MySelfInfo.getInstance().setUserNickname(myInfoData.getNickname());
         }
         if(!TextUtils.equals(myInfoData.getGender(),MySelfInfo.getInstance().getUserGender())){
-            MySelfInfo.getInstance().setUserGender(info_sex.getContent());
+            MySelfInfo.getInstance().setUserGender(info_sex.getText().toString());
         }
         if(!TextUtils.isEmpty(myInfoData.getBirthday())){
             MySelfInfo.getInstance().setUserBirthday(myInfoData.getBirthday());

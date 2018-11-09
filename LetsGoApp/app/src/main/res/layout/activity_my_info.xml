@@ -63,13 +63,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toEndOf="@+id/tv_name"
-                android:background="@color/white"
+                android:background="@color/transparent"
+                android:gravity="center"
                 android:hint="请输入"
                 android:inputType="text"
-                android:maxLength="20"
+                android:maxLength="15"
                 android:maxLines="1" />
 
         </RelativeLayout>
@@ -93,10 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toEndOf="@+id/tv_real_name"
-                android:background="@color/white"
+                android:gravity="center"
+                android:background="@color/transparent"
                 android:hint="请输入"
                 android:inputType="text"
                 android:maxLength="5"
@@ -104,24 +100,86 @@
 
         </RelativeLayout>
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/info_sex"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:content="男"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:hint="请选择"
-            app:title="性别" />
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:padding="8dp">
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/info_birthday"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="性别&#8195;&#8195;" />
+
+            <TextView
+                android:id="@+id/info_sex"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:background="@color/transparent"
+                android:hint="请选择"
+                android:maxLines="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_arrow_right"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:content="1990-01-01"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:hint="请选择"
-            app:title="出生日期" />
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="出生日期" />
+
+            <TextView
+                android:id="@+id/info_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:background="@color/transparent"
+                android:hint="请选择"
+                android:maxLines="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_arrow_right"/>
+
+        </RelativeLayout>
+
+        <!--<com.njz.letsgoapp.widget.MineItemView-->
+            <!--android:id="@+id/info_sex"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--app:content="男"-->
+            <!--app:left_drawable="@mipmap/ic_arrow_right"-->
+            <!--app:hint="请选择"-->
+            <!--app:title="性别" />-->
+
+        <!--<com.njz.letsgoapp.widget.MineItemView-->
+            <!--android:id="@+id/info_birthday"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:content="1990-01-01"-->
+            <!--app:left_drawable="@mipmap/ic_arrow_right"-->
+            <!--app:hint="请选择"-->
+            <!--app:title="出生日期" />-->
 
         <!--<com.njz.letsgoapp.widget.MineItemView-->
             <!--android:id="@+id/info_lacation"-->
@@ -169,15 +227,47 @@
 
         </LinearLayout>
 
-        <com.njz.letsgoapp.widget.MineItemView
-            android:id="@+id/info_tag"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
-            app:left_drawable="@mipmap/ic_arrow_right"
-            app:hint="请选择"
-            app:title="标签" />
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="标签" />
+
+            <TextView
+                android:id="@+id/info_tag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:background="@color/transparent"
+                android:hint="请选择"
+                android:maxLines="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_arrow_right"/>
+
+        </RelativeLayout>
+
+        <!--<com.njz.letsgoapp.widget.MineItemView-->
+            <!--android:id="@+id/info_tag"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--app:left_drawable="@mipmap/ic_arrow_right"-->
+            <!--app:hint="请选择"-->
+            <!--app:title="标签" />-->
 
         <TextView
             android:id="@+id/btn_submit"
