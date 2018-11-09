@@ -93,6 +93,11 @@ public class Constant {
     public static final String NOTIFY_TYPE_REPORT_MSG = "jbxx";//举报消息
     public static final String NOTIFY_TYPE_OPINION_MSG = "yjxx";//意见消息Opinion
 
+    //跳转信息
+    public static final String NOTIFY_SKIP_FSD = "FSD";//动态详情
+    public static final String NOTIFY_SKIP_OD = "OD";//订单详情
+    public static final String NOTIFY_SKIP_UD = "UD";//用户详情
+    public static final String NOTIFY_SKIP_GD = "GD";//导游详情
 
     //------消息 end-------
 

@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.notify;
 
+import android.text.TextUtils;
+
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.GsonUtil;
 
@@ -40,6 +42,23 @@ public class NotifyMainModel {
     private String msgBroad;
     private String msgTypeName;
     private int unReadNum;
+    /**
+     * FRIEND_STER_DETAIL("FSD","动态详情页"),
+     ORDER_DETAIL("OD","订单详情页"),
+     USER_DETAIL("UD","用户详情页"),
+     GUIDE_DETAIL("GD","导游详情页"),
+     */
+    private String skip;
+
+    public String getSkip() {
+        if(TextUtils.isEmpty(skip))
+            return "";
+        return skip;
+    }
+
+    public void setSkip(String skip) {
+        this.skip = skip;
+    }
 
     public int getUnReadNum() {
         return unReadNum;
@@ -106,8 +125,10 @@ public class NotifyMainModel {
         this.receiveUserId = receiveUserId;
     }
 
-    public String getCorrelationId() {
-        return correlationId;
+    public int getCorrelationId() {
+        if(TextUtils.isEmpty(correlationId))
+            return -1;
+        return Integer.valueOf(correlationId);
     }
 
     public void setCorrelationId(String correlationId) {

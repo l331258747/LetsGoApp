@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
@@ -42,7 +43,6 @@
             android:layout_marginTop="10dp"
             tools:text="那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走" />
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -68,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="查看详情"
-                android:visibility="gone"
                 tools:visibility="visible"
                 android:textColor="@color/color_theme" />
 

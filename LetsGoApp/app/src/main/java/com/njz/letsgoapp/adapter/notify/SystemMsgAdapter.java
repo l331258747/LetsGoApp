@@ -1,17 +1,25 @@
 package com.njz.letsgoapp.adapter.notify;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.bean.notify.NotifyMainModel;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.find.DynamicDetailActivity;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.mine.SpaceActivity;
+import com.njz.letsgoapp.view.order.OrderDetailActivity;
 
 import java.util.List;
 
@@ -49,6 +57,46 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
         holder.tv_time.setText(data.getCreateDate());
         holder.tv_content.setText(data.getContent().getAlert());
 
+        setSkip(holder.rl_parent,data.getSkip(),data.getCorrelationId());
+    }
+
+    public void setSkip(View view, final String skip, final int correlationId){
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(correlationId == -1){
+                    ToastUtil.showShortToast(mContext,"不能进行跳转correlationId");
+                    return;
+                }
+                Intent intent;
+                switch (skip){
+                    case Constant.NOTIFY_SKIP_FSD:
+                        intent = new Intent(mContext, DynamicDetailActivity.class);
+                        intent.putExtra(DynamicDetailActivity.FRIENDSTERID,correlationId);
+                        mContext.startActivity(intent);
+                        break;
+                    case Constant.NOTIFY_SKIP_GD:
+                        intent = new Intent(mContext, GuideDetailActivity.class);
+                        intent.putExtra(GuideDetailActivity.GUIDEID,correlationId);
+                        mContext.startActivity(intent);
+                        break;
+                    case Constant.NOTIFY_SKIP_OD:
+                        intent = new Intent(mContext, OrderDetailActivity.class);
+                        intent.putExtra("ORDER_ID",correlationId);
+                        mContext.startActivity(intent);
+                        break;
+                    case Constant.NOTIFY_SKIP_UD:
+                        intent = new Intent(mContext, SpaceActivity.class);
+                        intent.putExtra(SpaceActivity.USER_ID,correlationId);
+                        mContext.startActivity(intent);
+                        break;
+                    default:
+                        ToastUtil.showShortToast(mContext,"不能进行跳转skip");
+                        break;
+                }
+
+            }
+        });
     }
 
     public void setData(List<NotifyMainModel> datas) {
@@ -73,10 +121,12 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_name,tv_time,tv_content;
+        FrameLayout rl_parent;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            rl_parent = itemView.findViewById(R.id.rl_parent);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_content = itemView.findViewById(R.id.tv_content);
