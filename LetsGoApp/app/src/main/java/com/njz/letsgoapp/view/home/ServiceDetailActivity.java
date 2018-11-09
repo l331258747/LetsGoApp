@@ -44,7 +44,7 @@ import java.util.List;
  * Function:
  */
 
-public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailContract.View,ServiceRefundRuleContract.View {
+public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailContract.View {
 
     public static final String TITLE = "TITLE";
     public static final String SERVICEID = "SERVICEID";
@@ -62,7 +62,6 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     List<ServiceItem> serviceItems;
 
     ServiceDetailPresenter mPresenter;
-    ServiceRefundRulePresenter rulePresenter;
     ServiceDetailModel model;
 
     TextView price_introduce_content,tv_refund_rule_30,tv_refund_rule_50;
@@ -133,11 +132,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initData() {
         mPresenter = new ServiceDetailPresenter(context, this);
-        rulePresenter = new ServiceRefundRulePresenter(context, this);
 
         mPresenter.getGuideService(serviceId);
         mPresenter.bannerFindByType(0,serviceId);
-        rulePresenter.orderRefundFindRefundRule(serviceId,false);
 
         final int mDisplayHeight = AppUtils.getDisplayHeight();
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -154,10 +151,10 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     public void initDetail(ServiceDetailModel model) {
         tv_title.setText(model.getTitle());
-        if(TextUtils.isEmpty(model.getLocation())){
+        if(TextUtils.isEmpty(model.getAddress())){
             tv_destination.setVisibility(View.GONE);
         }else{
-            tv_destination.setText(model.getLocation());
+            tv_destination.setText(model.getAddress());
             tv_destination.setVisibility(View.VISIBLE);
         }
 
@@ -168,6 +165,13 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
         if(!TextUtils.isEmpty(model.getServeFeature()))
         webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
+
+        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
+            price_introduce_content.setText(model.getCostExplain());
+        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
+            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),model.getRenegePriceThree().replace(",","-")));
+        if(!TextUtils.isEmpty(model.getRenegePriceFive()))
+            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),model.getRenegePriceFive().replace(",","-")));
 
         if(!TextUtils.isEmpty(model.getServeFeature())){
             webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
@@ -280,17 +284,4 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         showShortToast(msg);
     }
 
-    @Override
-    public void orderRefundFindRefundRuleSuccess(ServiceRefundRuleModel str) {
-        if(str == null) return;
-
-        price_introduce_content.setText(str.getCostExplain());
-        tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),str.getRenegePriceThree().replace(",","-")));
-        tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),str.getRenegePriceFive().replace(",","-")));
-    }
-
-    @Override
-    public void orderRefundFindRefundRuleFailed(String msg) {
-        showShortToast(msg);
-    }
 }

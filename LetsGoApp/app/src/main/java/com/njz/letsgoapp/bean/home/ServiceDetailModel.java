@@ -48,6 +48,11 @@ public class ServiceDetailModel {
     private String shareContent;
     private String shareTitle;
     private String shareUrl;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
 
     public String getShareImg() {
         return shareImg;
