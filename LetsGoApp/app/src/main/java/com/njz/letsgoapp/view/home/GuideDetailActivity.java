@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +33,7 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.webview.LWebView;
+import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.GuideAuthenticationView;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
@@ -238,7 +240,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     //评价
-    public void initEvaluate(EvaluateModel evaluateModel) {
+    public void initEvaluate(final EvaluateModel evaluateModel) {
         if (evaluateModel == null) {
             LinearLayout ll_comment = $(R.id.ll_comment);
             ll_comment.setVisibility(View.GONE);
@@ -287,6 +289,12 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
         mRecyclerView.setLayoutManager(new GridLayoutManager( mRecyclerView.getContext(), 4));
         SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, evaluateModel.getImageUrls());
+        enterAdapter.setOnItemClickListener(new SimpleImageAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                BigImageActivity.startActivity(activity,position,evaluateModel.getImageUrls());
+            }
+        });
         mRecyclerView.setAdapter(enterAdapter);
     }
 

@@ -93,7 +93,8 @@ public class EvaluateModel2 {
         }
 
         String[] strs = imageUrls.split(",");
-        return Arrays.asList(strs);
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        return lists;
     }
 
 

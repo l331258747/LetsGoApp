@@ -45,6 +45,15 @@ public class SimpleImageAdapter extends RecyclerView.Adapter<SimpleImageAdapter.
 //                BigImageActivity.startActivity((Activity) context, position, data);
 //            }
 //        });
+
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnItemClickListener!=null){
+                    mOnItemClickListener.onClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -69,4 +78,15 @@ public class SimpleImageAdapter extends RecyclerView.Adapter<SimpleImageAdapter.
         }
 
     }
+
+    OnItemClickListener mOnItemClickListener;
+
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
 }

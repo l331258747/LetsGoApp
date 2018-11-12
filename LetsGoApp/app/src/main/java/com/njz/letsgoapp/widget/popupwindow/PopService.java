@@ -29,8 +29,8 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServicePriceEvent;
-import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 import com.njz.letsgoapp.view.home.ServiceListActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.order.OrderSubmitActivity;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
@@ -263,6 +263,11 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
+                if (!MySelfInfo.getInstance().isLogin()) {//登录状态
+                    mContext.startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+
                 boolean isServiceItem = false;
 
                 for (GuideServiceModel model : ServiceModels){

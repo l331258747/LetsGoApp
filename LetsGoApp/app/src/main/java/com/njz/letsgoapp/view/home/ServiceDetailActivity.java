@@ -7,6 +7,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -60,11 +61,13 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     String title;
     int serviceId;
     List<ServiceItem> serviceItems;
+    boolean isHideBottom;
 
     ServiceDetailPresenter mPresenter;
     ServiceDetailModel model;
 
     TextView price_introduce_content,tv_refund_rule_30,tv_refund_rule_50;
+    LinearLayout ll_bottom;
 
     EmptyView3 view_empty;
 
@@ -79,6 +82,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         title = intent.getStringExtra(TITLE);
         serviceId = intent.getIntExtra(SERVICEID, 0);
         serviceItems = intent.getParcelableArrayListExtra(SERVICEITEMS);
+        isHideBottom = intent.getBooleanExtra("isHideBottom",false);
         if (TextUtils.isEmpty(title)) {
             title = "";
         }
@@ -91,6 +95,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
         getRightIv().setOnClickListener(this);
 
+        ll_bottom = $(R.id.ll_bottom);
         convenientBanner = $(R.id.convenientBanner);
         tv_title = $(R.id.tv_title);
         tv_phone = $(R.id.tv_phone);
@@ -115,6 +120,11 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_phone.setOnClickListener(this);
         tv_back_top.setOnClickListener(this);
 
+        if(isHideBottom){
+            tv_submit.setVisibility(View.INVISIBLE);
+        }else{
+            tv_submit.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

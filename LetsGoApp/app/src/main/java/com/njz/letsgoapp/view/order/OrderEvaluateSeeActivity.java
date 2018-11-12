@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.order;
 
+import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.mvp.order.OrderEvaluateSeeContract;
 import com.njz.letsgoapp.mvp.order.OrderEvaluateSeePresenter;
+import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.EvaluateView;
 
 /**
@@ -75,7 +77,7 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
     }
 
     @Override
-    public void orderReviewsQueryOrderReviewSuccess(EvaluateModel2 str) {
+    public void orderReviewsQueryOrderReviewSuccess(final EvaluateModel2 str) {
         if(str == null) return;
         tv_time.setText(str.getUserDate());
         if(str.getGuideService() < 1){
@@ -115,6 +117,12 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
             mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
             mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), 4));
             SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, str.getImageUrls());
+            enterAdapter.setOnItemClickListener(new SimpleImageAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    BigImageActivity.startActivity(activity,position,str.getImageUrls());
+                }
+            });
             mRecyclerView.setAdapter(enterAdapter);
         }
 

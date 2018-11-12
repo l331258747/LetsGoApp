@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.adapter.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,6 +19,7 @@ import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
 import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.other.BigImageActivity;
 
 import java.util.List;
 
@@ -107,6 +109,12 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         }else{
             holder.ll_photo.setVisibility(View.VISIBLE);
             SimpleImageAdapter enterAdapter = new SimpleImageAdapter(mContext, data.getImageUrls());
+            enterAdapter.setOnItemClickListener(new SimpleImageAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    BigImageActivity.startActivity((Activity) mContext,position,data.getImageUrls());
+                }
+            });
             holder.mRecyclerView.setAdapter(enterAdapter);
         }
 

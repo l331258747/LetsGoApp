@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -96,6 +97,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     orderChildModel.setPayingStatus(orderModel.getPayingStatus());
                     serviceInfoGroup2.setLabelTab(OrderBeanGroup.LABEL_TAB_DEFAULT);
                     serviceInfoGroup2.setOrderChildModel(orderChildModel);
+                    serviceInfoGroup2.setId(orderModel.getId());
                     serviceInfoGroup2.setIndex(i);
                     orderBeanGroups.add(serviceInfoGroup2);
                 }
@@ -200,6 +202,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
             setNum(data, ((DefaultHolder) holder).tv_num);
             ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
+
+            if (mOnItemClickListener != null) {
+                ((DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getId());
+                    }
+                });
+            }
         }
 
         if (holder instanceof TitleHolder) {
@@ -341,7 +352,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     mContext.startActivity(intent);
                 }
             });
-
         }
     }
 
@@ -399,9 +409,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     public class DefaultHolder extends OrderListAdapter.BaseViewHolder {
         ImageView iv_img;
         TextView tv_title, btn_cancel, tv_price, tv_num, tv_total_price;
+        LinearLayout ll_order_item;
 
         DefaultHolder(View itemView) {
             super(itemView);
+            ll_order_item = itemView.findViewById(R.id.ll_order_item);
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             btn_cancel = itemView.findViewById(R.id.btn_cancel);

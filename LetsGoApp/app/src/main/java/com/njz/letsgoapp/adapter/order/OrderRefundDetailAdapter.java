@@ -1,10 +1,12 @@
 package com.njz.letsgoapp.adapter.order;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailChildModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 
 import java.util.List;
 
@@ -107,6 +110,17 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
                 ((ViewHolder) holder).tv_not_travel_day_content.setText(data.getUnUseDay()+"天");
                 ((ViewHolder) holder).tv_used_price_content.setText("￥" + data.getUseMoney());
             }
+
+            ((ViewHolder) holder).fl_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ServiceDetailActivity.class);
+                    intent.putExtra(ServiceDetailActivity.SERVICEID,data.getServeId());
+                    intent.putExtra("isHideBottom",true);
+                    context.startActivity(intent);
+                }
+            });
+
         }
     }
 
@@ -133,11 +147,13 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
         LinearLayout ll_count,ll_travel_going;
         TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content,btn_cancel
                 ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content;
+        FrameLayout fl_parent;
 
         TextView tv_penalty_title,tv_penalty_content,tv_refund_price_title,tv_refund_price_content;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            fl_parent = itemView.findViewById(R.id.fl_parent);
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             ll_travel_going = itemView.findViewById(R.id.ll_travel_going);

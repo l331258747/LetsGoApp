@@ -52,6 +52,11 @@ public class OrderDetailChildModel {
     private String value;
     private int useDay;
     private int payingStatus;
+    private int serveId;
+
+    public int getServeId() {
+        return serveId;
+    }
 
     public int getPayingStatus() {
         return payingStatus;
