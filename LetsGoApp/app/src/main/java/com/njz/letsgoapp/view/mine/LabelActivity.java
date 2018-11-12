@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class LabelActivity extends BaseActivity implements LabelContract.View, V
 
     List<LabelItemModel> labelAll = new ArrayList<>();
 
-    private TextView tv_add;
+    private ImageView tv_add;
     private TagFlowLayout flowlayout_custom;
     private List<LabelItemModel> customLabels = new ArrayList<>();
     private boolean isOnCreate = true;

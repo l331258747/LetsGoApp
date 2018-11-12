@@ -2,6 +2,7 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:padding="10dp">
@@ -65,24 +66,31 @@
                     android:textColor="@color/color_99"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/tv_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/color_theme"
-                    android:text="添加" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_add"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingRight="15dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:textColor="@color/color_theme"-->
+                    <!--android:text="添加" />-->
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@mipmap/ic_label_add"/>
 
             <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
                 android:id="@+id/flowlayout_custom"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 app:max_select="-1" />
 
         </LinearLayout>
