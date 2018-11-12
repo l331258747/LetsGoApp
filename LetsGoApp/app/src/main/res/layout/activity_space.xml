@@ -90,8 +90,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="15dp"
                                 android:textSize="16sp"
+                                android:maxLines="1"
                                 android:textStyle="bold"
-                                tools:text="那就走" />
+                                android:ellipsize="end"
+                                tools:text="那就走那就走那就走那就走那就走" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"

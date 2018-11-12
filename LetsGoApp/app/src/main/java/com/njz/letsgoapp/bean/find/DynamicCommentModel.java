@@ -28,6 +28,11 @@ public class DynamicCommentModel {
     private int toUserId;
     private int discussUserId;
     private int id;
+    private String startTimeTwo;
+
+    public String getStartTimeTwo() {
+        return startTimeTwo;
+    }
 
     public int getId() {
         return id;

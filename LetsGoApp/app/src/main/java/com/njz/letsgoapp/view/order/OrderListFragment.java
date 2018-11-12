@@ -55,6 +55,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     boolean isLoad = false;//是否在加载，重复加载问题
 
     public EmptyView view_empty;
+    public boolean isGoLogin;
 
     public static Fragment newInstance(int payStatus) {
         OrderListFragment fragment = new OrderListFragment();
@@ -102,11 +103,12 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public void onResume() {
         super.onResume();
         if(hidden) return;
-        if(getUserVisibleHint()){
+        if(getUserVisibleHint() && isGoLogin){
             if(setLogin()){
                 getRefreshData();
             }
         }
+        isGoLogin = false;
     }
 
     //切换底部标签的时候回调用，解决从其他页面登录后（个人中心），数据刷新不了。
@@ -130,6 +132,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
+                    isGoLogin = true;
                     startActivity(new Intent(context, LoginActivity.class));
                 }
             });
@@ -147,6 +150,12 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         mPresenter = new OrderListPresenter(context,this);
 
         deletePresenter = new OrderDeletePresenter(context,this);
+
+        if(getUserVisibleHint()){
+            if(setLogin()){
+                getRefreshData();
+            }
+        }
     }
 
 

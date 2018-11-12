@@ -51,7 +51,7 @@ public class DynamicCommentAdapter extends RecyclerView.Adapter<DynamicCommentAd
 
         GlideUtil.LoadCircleImage(mContext, data.getDiscussUserUrl(), holder.iv_head);
         holder.tv_name.setText(data.getDiscussUserName());
-        holder.tv_time.setText(data.getDiscussTime());
+        holder.tv_time.setText(data.getStartTimeTwo());
         if(data.getToUserId() > 0){
             holder.tv_toName.setVisibility(View.VISIBLE);
             StringUtils.setHtml(holder.tv_toName,String.format(mContext.getResources().getString(R.string.comment_name),data.getToUserName()));

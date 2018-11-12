@@ -124,7 +124,6 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     protected void onResume() {
         super.onResume();
         mPresenter.userViewZone(userId);
-        getRefreshData();
     }
 
     public void getRefreshData() {
@@ -158,6 +157,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             tvFollow.setVisibility(View.VISIBLE);
             tvModify.setVisibility(View.GONE);
         }
+
+        getRefreshData();
 
     }
 

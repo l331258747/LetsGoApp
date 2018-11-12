@@ -38,7 +38,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     NotifyItemView view_notify_interaction,view_notify_message;
 
     public EmptyView view_empty;
-
+    public boolean isGoLogin;
 
     @Override
     public int getLayoutId() {
@@ -61,9 +61,10 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         if(hidden) return;
-        if(setLogin()){
+        if(setLogin() && isGoLogin){
             getData();
         }
+        isGoLogin = false;
     }
 
     public boolean setLogin(){
@@ -75,6 +76,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
+                    isGoLogin = true;
                     startActivity(new Intent(context, LoginActivity.class));
                 }
             });
@@ -115,6 +117,10 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void initData() {
         mPresenter = new NotifyMainPresenter(context,this);
+
+        if(setLogin()){
+            getData();
+        }
     }
 
     public void getData(){

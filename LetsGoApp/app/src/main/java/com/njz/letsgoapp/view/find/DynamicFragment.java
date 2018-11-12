@@ -63,6 +63,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     private String search;
 
     public EmptyView view_empty;
+    public boolean isGoLogin;
 
     public static Fragment newInstance(int type) {
         DynamicFragment fragment = new DynamicFragment();
@@ -114,7 +115,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public void onResume() {
         super.onResume();
         if(hidden) return;
-        if(getUserVisibleHint()){
+        if(getUserVisibleHint()  && isGoLogin){
             if(dynamicTYpe == DYNAMIC_FOLLOW) {
                 if(setLogin()){
                     getRefreshData();
@@ -123,6 +124,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
                 getRefreshData();
             }
         }
+        isGoLogin = false;
     }
 
     public void setHidden(boolean hidden){
@@ -149,6 +151,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             view_empty.setBtnClickLisener(new EmptyClickLisener() {
                 @Override
                 public void onClick() {
+                    isGoLogin = true;
                     startActivity(new Intent(context, LoginActivity.class));
                 }
             });
@@ -165,6 +168,17 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public void initData() {
         mPresenter = new FindPresenter(context, this);
         nicePresenter = new DynamicNicePresenter(context,this);
+
+        if(getUserVisibleHint()){
+            if(dynamicTYpe == DYNAMIC_FOLLOW) {
+                if(setLogin()){
+                    getRefreshData();
+                }
+            }else{
+                getRefreshData();
+            }
+        }
+
     }
 
     //初始化recyclerview
