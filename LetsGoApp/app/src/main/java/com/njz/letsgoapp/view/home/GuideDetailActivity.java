@@ -33,6 +33,7 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.webview.LWebView;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.GuideAuthenticationView;
 import com.njz.letsgoapp.widget.GuideLabelView;
@@ -351,6 +352,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile());
                 break;
             case R.id.btn_submit:
+                if (!MySelfInfo.getInstance().isLogin()) {//登录状态
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
                 showPopService();
                 break;
             case R.id.right_iv:
