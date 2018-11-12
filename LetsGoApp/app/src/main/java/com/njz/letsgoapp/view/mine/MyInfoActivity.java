@@ -21,11 +21,13 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.mvp.mine.MyInfoContract;
 import com.njz.letsgoapp.mvp.mine.MyInfoPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.GsonUtil;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
@@ -121,6 +123,12 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     };
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        info_tag.setText(getLable());
+    }
+
+    @Override
     public void initData() {
         setHeadImg(MySelfInfo.getInstance().getUserImgUrl());
         et_nikename.setText(MySelfInfo.getInstance().getUserNickname());
@@ -157,6 +165,21 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 
         tackPicUtil = new TackPicturesUtil(this);
         getPicPermission(context);
+    }
+
+    private String getLable() {
+        StringBuffer lables = new StringBuffer("");
+        List<LabelItemModel> ss2 = MySelfInfo.getInstance().getLabels();
+        for (LabelItemModel item : ss2){
+            lables.append(item.getName()+",");
+        }
+        List<String> ss = GsonUtil.convertJson2Array(MySelfInfo.getInstance().getFreeLabels());
+        for (String str : ss){
+            lables.append(str+",");
+        }
+        String str = lables.toString();
+        str = str.endsWith(",")?str.substring(0,str.length()-1):str;
+        return str;
     }
 
 //    Disposable desDisposable;

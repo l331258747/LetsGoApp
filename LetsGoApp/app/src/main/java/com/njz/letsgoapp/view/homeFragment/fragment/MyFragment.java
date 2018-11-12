@@ -100,6 +100,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
         if(!hidden){
+            setLoginState();
             getData();
         }
     }

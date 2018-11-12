@@ -7,7 +7,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.njz.letsgoapp.bean.BaseResponse;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.dialog.DialogUtil;
+import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.view.login.LoginActivity;
@@ -125,6 +128,7 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
             }
 
             if(t.getCode() == 401){
+                MySelfInfo.getInstance().loginOff();
                 DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
                     @Override
                     public void exectEvent(DialogInterface alterDialog) {
@@ -132,6 +136,7 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
                     }
                 }).show();
             }else if(t.getErrno() == 401){
+                MySelfInfo.getInstance().loginOff();
                 DialogUtil.getInstance().getDefaultDialog(context, t.getErrmsg(), "去登录", new DialogUtil.DialogCallBack() {
                     @Override
                     public void exectEvent(DialogInterface alterDialog) {
