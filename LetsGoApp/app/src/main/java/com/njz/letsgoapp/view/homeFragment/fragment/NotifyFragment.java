@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class NotifyFragment extends BaseFragment implements View.OnClickListener,NotifyMainContract.View {
 
-    private TextView tvLogin;
     private boolean hidden;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isLoad;
@@ -52,8 +51,6 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         view_empty = $(R.id.view_empty);
         view_notify_interaction = $(R.id.view_notify_interaction);
         view_notify_message = $(R.id.view_notify_message);
-        tvLogin = $(R.id.tv_login);
-        tvLogin.setOnClickListener(this);
         view_notify_interaction.setOnClickListener(this);
         view_notify_message.setOnClickListener(this);
 
@@ -73,11 +70,18 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         boolean isLogin;
         if (!MySelfInfo.getInstance().isLogin()) {
             swipeRefreshLayout.setVisibility(View.GONE);
-            tvLogin.setVisibility(View.VISIBLE);
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_comment_tome, "查看消息请先登录", null,"登录");
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
+                @Override
+                public void onClick() {
+                    startActivity(new Intent(context, LoginActivity.class));
+                }
+            });
             isLogin = false;
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
-            tvLogin.setVisibility(View.GONE);
+            view_empty.setVisible(false);
             isLogin = true;
         }
         return isLogin;
@@ -130,9 +134,6 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             case R.id.view_notify_message:
                 intent = new Intent(context,SystemMsgActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.tv_login:
-                startActivity(new Intent(context, LoginActivity.class));
                 break;
         }
     }

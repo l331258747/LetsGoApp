@@ -46,7 +46,6 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public int payStatus;
     public boolean isViewCreated;
     private boolean hidden;
-    TextView tvLogin;
 
     private OrderListPresenter mPresenter;
     public OrderDeletePresenter deletePresenter;
@@ -83,8 +82,6 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     @Override
     public void initView() {
         view_empty = $(R.id.view_empty);
-        tvLogin = $(R.id.tv_login);
-        tvLogin.setOnClickListener(this);
 
         initRecycler();
         initSwipeLayout();
@@ -128,11 +125,18 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         boolean isLogin;
         if (!MySelfInfo.getInstance().isLogin()) {
             swipeRefreshLayout.setVisibility(View.GONE);
-            tvLogin.setVisibility(View.VISIBLE);
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_comment_tome, "查看订单请先登录", null,"登录");
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
+                @Override
+                public void onClick() {
+                    startActivity(new Intent(context, LoginActivity.class));
+                }
+            });
             isLogin = false;
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
-            tvLogin.setVisibility(View.GONE);
+            view_empty.setVisible(false);
             isLogin = true;
         }
         return isLogin;
@@ -306,9 +310,6 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.tv_login) {
-            startActivity(new Intent(context, LoginActivity.class));
-        }
     }
 
     @Override

@@ -44,8 +44,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     public static final int DYNAMIC_ALL = 0;
     public static final int DYNAMIC_FOLLOW = 1;
 
-    TextView tvLogin;
-
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private DynamicAdapter mAdapter;
@@ -92,8 +90,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     @Override
     public void initView() {
         view_empty = $(R.id.view_empty);
-        tvLogin = $(R.id.tv_login);
-        tvLogin.setOnClickListener(this);
 
         initRecycler();
         initSwipeLayout();
@@ -148,11 +144,18 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         boolean isLogin;
         if (dynamicTYpe == DYNAMIC_FOLLOW && !MySelfInfo.getInstance().isLogin()) {
             swipeRefreshLayout.setVisibility(View.GONE);
-            tvLogin.setVisibility(View.VISIBLE);
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_comment_tome, "查看关注请先登录", null,"登录");
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
+                @Override
+                public void onClick() {
+                    startActivity(new Intent(context, LoginActivity.class));
+                }
+            });
             isLogin = false;
         } else {
             swipeRefreshLayout.setVisibility(View.VISIBLE);
-            tvLogin.setVisibility(View.GONE);
+            view_empty.setVisible(false);
             isLogin = true;
         }
         return isLogin;
@@ -354,9 +357,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.tv_login) {
-            startActivity(new Intent(context, LoginActivity.class));
-        }
+
     }
 
     @Override
