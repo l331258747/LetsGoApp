@@ -73,43 +73,43 @@ public class DynamicSpaceImageView extends LinearLayout {
             case 1:
                 ll_left.setVisibility(VISIBLE);
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default_xh);
                 break;
             case 2:
                 ll_left.setVisibility(VISIBLE);
                 ll_right.setVisibility(VISIBLE);
 
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default_xh);
 
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default_xh);
                 break;
             case 3:
                 ll_left.setVisibility(VISIBLE);
                 ll_right.setVisibility(VISIBLE);
 
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default_xh);
 
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default_xh);
                 iv_right2.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_right2,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_right2,R.mipmap.dynamic_default_xh);
                 break;
             default :
                 ll_left.setVisibility(VISIBLE);
                 ll_right.setVisibility(VISIBLE);
 
                 iv_left1.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(0), iv_left1,R.mipmap.dynamic_default_xh);
                 iv_left2.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_left2,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(2), iv_left2,R.mipmap.dynamic_default_xh);
 
                 iv_right1.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(1), iv_right1,R.mipmap.dynamic_default_xh);
                 iv_right2.setVisibility(VISIBLE);
-                GlideUtil.LoadDefaultImage(context, datas.get(3), iv_right2,R.mipmap.dynamic_default);
+                GlideUtil.LoadDefaultImage(context, datas.get(3), iv_right2,R.mipmap.dynamic_default_xh);
                 break;
         }
         setOnclick();
