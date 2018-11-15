@@ -3,6 +3,7 @@ package com.njz.letsgoapp.adapter.notify;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
@@ -61,6 +63,12 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
 
         holder.tv_mine2.setText(data.getContent().getOther().getType());
 
+        if(data.getCorrelationId() == -1 || TextUtils.isEmpty(data.getSkip())){
+            holder.tv_jump.setVisibility(View.GONE);
+        }else{
+            holder.tv_jump.setVisibility(View.VISIBLE);
+        }
+
         setSkip(holder.rl_parent,data.getSkip(),data.getCorrelationId());
     }
 
@@ -69,7 +77,7 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
             @Override
             public void onClick(View v) {
                 if(correlationId == -1){
-                    ToastUtil.showShortToast(mContext,"不能进行跳转correlationId");
+                    LogUtil.e("不能进行跳转correlationId");
                     return;
                 }
                 Intent intent;
@@ -95,7 +103,7 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
                         mContext.startActivity(intent);
                         break;
                     default:
-                        ToastUtil.showShortToast(mContext,"不能进行跳转skip");
+                        LogUtil.e("不能进行跳转skip");
                         break;
                 }
 
@@ -127,6 +135,7 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
         ImageView iv_head;
         TextView tv_name,tv_time,tv_mine2;
         FrameLayout rl_parent;
+        TextView tv_jump;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -136,6 +145,7 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_mine2 = itemView.findViewById(R.id.tv_mine2);
+            tv_jump = itemView.findViewById(R.id.tv_jump);
         }
     }
 }
