@@ -76,15 +76,16 @@ public class SpaceDynamicAdapter extends RecyclerView.Adapter<SpaceDynamicAdapte
             if (data.getImgUrls() == null || data.getImgUrls().size() == 0) {
                 ((DynamicViewHolder) holder).ll_text_content.setVisibility(View.VISIBLE);
                 ((DynamicViewHolder) holder).ll_img_content.setVisibility(View.GONE);
+
+                ((DynamicViewHolder) holder).tv_content_2.setText(""+data.getContent());
             } else {
                 ((DynamicViewHolder) holder).ll_text_content.setVisibility(View.GONE);
                 ((DynamicViewHolder) holder).ll_img_content.setVisibility(View.VISIBLE);
-            }
 
-            ((DynamicViewHolder) holder).tv_content_2.setText(""+data.getContent());
-            ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
-            ((DynamicViewHolder) holder).tv_content.setText("" + data.getContent());
-            ((DynamicViewHolder) holder).tv_img_count.setText("共" + data.getImgUrls().size() + "张");
+                ((DynamicViewHolder) holder).dynamic_image_view.setImages(data.getImgUrls());
+                ((DynamicViewHolder) holder).tv_content.setText("" + data.getContent());
+                ((DynamicViewHolder) holder).tv_img_count.setText("共" + data.getImgUrls().size() + "张");
+            }
 
             ((DynamicViewHolder) holder).dynamic_image_view.setOnItemClickListener(new DynamicSpaceImageView.OnItemClickListener() {
                 @Override

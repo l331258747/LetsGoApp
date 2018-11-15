@@ -54,7 +54,7 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
         if (data == null) return;
 
         holder.tv_name.setText(data.getTitle());
-        holder.tv_time.setText(data.getCreateDate());
+        holder.tv_time.setText(data.getStartTimeTwo());
         holder.tv_content.setText(data.getContent().getAlert());
 
         setSkip(holder.rl_parent,data.getSkip(),data.getCorrelationId());

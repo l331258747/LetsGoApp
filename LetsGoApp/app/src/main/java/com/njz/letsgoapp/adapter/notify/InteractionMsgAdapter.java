@@ -57,7 +57,7 @@ public class InteractionMsgAdapter extends RecyclerView.Adapter<InteractionMsgAd
 
         GlideUtil.LoadCircleImage(mContext, data.getContent().getOther().getImg(), holder.iv_head);
         holder.tv_name.setText(data.getContent().getOther().getName());
-        holder.tv_time.setText(data.getCreateDate());
+        holder.tv_time.setText(data.getStartTimeTwo());
 
         holder.tv_mine2.setText(data.getContent().getOther().getType());
 

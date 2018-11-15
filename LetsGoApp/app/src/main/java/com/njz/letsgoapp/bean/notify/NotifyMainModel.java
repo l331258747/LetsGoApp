@@ -38,6 +38,7 @@ public class NotifyMainModel {
     private String correlationId;
     private String sendToReceive;
     private long createDate;
+    private String startTimeTwo;
     private boolean read;
     private String msgBroad;
     private String msgTypeName;
@@ -165,5 +166,11 @@ public class NotifyMainModel {
 
     public void setMsgTypeName(String msgTypeName) {
         this.msgTypeName = msgTypeName;
+    }
+
+    public String getStartTimeTwo() {
+        if(TextUtils.isEmpty(startTimeTwo))
+            return getCreateDate();
+        return startTimeTwo;
     }
 }

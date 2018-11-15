@@ -69,8 +69,6 @@ public class DynamicSpaceImageView extends LinearLayout {
             return;
         }
 
-        setOnclick();
-
         switch (datas.size()) {
             case 1:
                 ll_left.setVisibility(VISIBLE);
@@ -114,6 +112,7 @@ public class DynamicSpaceImageView extends LinearLayout {
                 GlideUtil.LoadDefaultImage(context, datas.get(3), iv_right2,R.mipmap.dynamic_default);
                 break;
         }
+        setOnclick();
     }
 
     private void setOnclick(){
