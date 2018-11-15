@@ -51,7 +51,7 @@ public class Constant {
     public static final int ORDER_PAY_WAIT = 0;//待付款
     public static final int ORDER_PAY_ALREADY = 1;//已支付
     public static final int ORDER_PAY_FINISH = 2;//已完成
-    public static final int ORDER_PAY_REFUND = 3;//退款单
+    public static final int ORDER_PAY_REFUND = 4;//退款单
 
     public static final int ORDER_WAIT_PAY = 0;//待付款
     public static final int ORDER_WAIT_PAYING = 1;//付款中
@@ -96,6 +96,7 @@ public class Constant {
     //跳转信息
     public static final String NOTIFY_SKIP_FSD = "FSD";//动态详情
     public static final String NOTIFY_SKIP_OD = "OD";//订单详情
+    public static final String NOTIFY_SKIP_ORD = "ORD";//退款单详情
     public static final String NOTIFY_SKIP_UD = "UD";//用户详情
     public static final String NOTIFY_SKIP_GD = "GD";//导游详情
 

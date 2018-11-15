@@ -22,6 +22,7 @@ import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.order.OrderDetailActivity;
+import com.njz.letsgoapp.view.order.OrderRefundDetailActivity;
 
 import java.util.List;
 
@@ -96,6 +97,11 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
                     case Constant.NOTIFY_SKIP_UD:
                         intent = new Intent(mContext, SpaceActivity.class);
                         intent.putExtra(SpaceActivity.USER_ID,correlationId);
+                        mContext.startActivity(intent);
+                        break;
+                    case Constant.NOTIFY_SKIP_ORD:
+                        intent = new Intent(mContext, OrderRefundDetailActivity.class);
+                        intent.putExtra("ORDER_ID",correlationId);
                         mContext.startActivity(intent);
                         break;
                     default:
