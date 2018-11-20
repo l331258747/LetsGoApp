@@ -338,9 +338,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_select_service:
-                showPopService();
-                break;
             case R.id.ll_comment_title:
                 if(guideDetailModel == null) return;
                 Intent intent = new Intent(context, EvaluateListActivity.class);
@@ -351,6 +348,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 if(guideDetailModel == null) return;
                 DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile());
                 break;
+            case R.id.ll_select_service:
             case R.id.btn_submit:
                 if (!MySelfInfo.getInstance().isLogin()) {//登录状态
                     startActivity(new Intent(context,LoginActivity.class));

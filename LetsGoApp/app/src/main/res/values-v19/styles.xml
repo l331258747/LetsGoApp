@@ -1,0 +1,19 @@
+<resources>
+    <!--修改 完成(*/*) 颜色 android:actionMenuTextColor-->
+    <!--修改 所有图片 颜色 __picker_fragment_photo_picker.xml-->
+    <style name="customTheme" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--标题 1/1 图片的颜色-->
+        <item name="android:textColorPrimary">#ffffff</item>
+        <item name="android:homeAsUpIndicator">@mipmap/icon_back</item>
+        <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog.Alert.Self</item>
+        <!--标题栏 底色-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--撤销文字颜色  多张删除其中一张提示时 撤销文字的颜色-->
+        <item name="colorAccent">#ffffff</item>
+    </style>
+    <!--附件 样式end-->
+
+
+
+</resources>
