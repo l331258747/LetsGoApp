@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.constant;
 
+import com.njz.letsgoapp.util.AppUtils;
+
 /**
  * Created by LGQ
  * Time: 2018/7/17
@@ -7,14 +9,19 @@ package com.njz.letsgoapp.constant;
  */
 
 public class URLConstant {
-//    public static final String BASE_URL = "http://192.168.100.156:8090/travel-framework/";//测试地址
-//    public static final String BASE_URL = "http://www.njzou.net/travel-framework/";//外网地址
-//    public static final String BASE_URL = "http://192.168.100.122:8080/";//本地
 
-    //消息本地
-    public static final String BASE_URL = "http://192.168.100.120:8089/";//16670198324    admin
+    public static final String BASE_URL = getUrl();//本地
 
     public static final String SHARE_GUIDE = BASE_URL+"/share/guideDeta.html";
     public static final String SHARE_DYNAMIC = BASE_URL+"/share/moveDeta.html";
 
+    public static String getUrl(){
+        if(AppUtils.getVersionCodeInt() % 100 == 0){
+            return "http://www.njzou.net/travel-framework/";
+        }else{
+            return "http://192.168.100.156:8090/travel-framework/";//测试地址
+//            return "http://192.168.100.123:8080/";//本地 //18826420934  //941740
+//            return "http://192.168.100.120:8089/";//消息本地 //16670198324    admin
+        }
+    }
 }

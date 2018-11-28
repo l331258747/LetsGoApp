@@ -22,13 +22,13 @@ android {
         }
     }
 
-    //versioncode versionname命名规则查看redme.txt
+    //versioncode versionname命名规则查看redme.txt 最后的两位是留给测试版本
     defaultConfig {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 41
-        versionName "0.0.0.41"
+        versionCode 1000000
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
