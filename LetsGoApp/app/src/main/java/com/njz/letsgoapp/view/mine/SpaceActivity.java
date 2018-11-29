@@ -262,8 +262,10 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         }
         if(data.getUserId() == MySelfInfo.getInstance().getUserId()){
             iv_backimg.setOnClickListener(this);
+            iv_share.setVisibility(View.GONE);
         }else{
             iv_backimg.setOnClickListener(null);
+            iv_share.setVisibility(View.VISIBLE);
         }
     }
 

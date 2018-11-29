@@ -42,8 +42,9 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
     public static final int REPORT_SERVICE = 3;
     public static final int REPORT_USER = 4;
 
-    public static final int TYPE_REPORT = 1;
-    public static final int TYPE_ALL = 0;
+    public static final int TYPE_REPORT = 1;//只显示举报
+    public static final int TYPE_ALL = 0;//全部限制
+    public static final int TYPE_FRIEND = 2;//全部限制
 
     int type = TYPE_ALL;
 
@@ -85,9 +86,15 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         if(type == TYPE_REPORT){
             ivFriend.setVisibility(View.GONE);
             ivFriends.setVisibility(View.GONE);
+            ivPeport.setVisibility(View.VISIBLE);
+        }else if(type == TYPE_FRIEND){
+            ivFriend.setVisibility(View.VISIBLE);
+            ivFriends.setVisibility(View.VISIBLE);
+            ivPeport.setVisibility(View.GONE);
         }else{
             ivFriend.setVisibility(View.VISIBLE);
             ivFriends.setVisibility(View.VISIBLE);
+            ivPeport.setVisibility(View.VISIBLE);
         }
     }
 

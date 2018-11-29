@@ -24,9 +24,10 @@
                     android:layout_height="200dp">
 
                     <ImageView
+                        android:id="@+id/iv_backimg"
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
-                        android:background="@mipmap/bg_home_my"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/bg_home_my" />
 
                     <ImageView

@@ -57,7 +57,7 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
 
     public static final String FRIENDSTERID ="FRIENDSTERID";
 
-    private ImageView iv_head;
+    private ImageView iv_head,iv_backimg;
     private TextView  tvTime, tvContent, tvNice, tvComment, btnNiceContent, tvLocation,tvDelete,tvFollow;
     private DynamicImageView2 dynamicImageView;
     private DynamicNiceImageView dynamicNiceImgView;
@@ -108,6 +108,7 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
 
         view_empty = $(R.id.view_empty);
 
+        iv_backimg = $(R.id.iv_backimg);
         view_title_line = $(R.id.view_title_line);
         rl_title_parent = $(R.id.rl_title_parent);
         tv_title_title = $(R.id.tv_title_title);
@@ -260,7 +261,6 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
             tvFollow.setVisibility(View.VISIBLE);
             setFollow(model.isFocus());
         }
-
     }
 
     public void setNice(boolean isNice) {
@@ -402,7 +402,12 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
                         model.getImgUrl(),
                         URLConstant.SHARE_DYNAMIC+"?friendSterId="+model.getFriendSterId());
                 dialog.setReportData(model.getFriendSterId(), ShareDialog.REPORT_DYNAMIC);
-                dialog.setType(ShareDialog.TYPE_ALL);
+                if(model.getUserId() == MySelfInfo.getInstance().getUserId()){
+                    dialog.setType(ShareDialog.TYPE_FRIEND);
+                }else{
+                    dialog.setType(ShareDialog.TYPE_ALL);
+                }
+
                 dialog.show();
                 break;
         }
