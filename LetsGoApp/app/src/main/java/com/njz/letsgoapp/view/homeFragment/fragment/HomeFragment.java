@@ -84,7 +84,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private ConvenientBanner convenientBanner;
 
     private NestedScrollView scrollView;
-    private LinearLayout linear_bar2;
+//    private LinearLayout linear_bar2;
 
     private HomePresenter mPresenter;
     private DynamicNicePresenter nicePresenter;
@@ -111,16 +111,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initView() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            linear_bar2 = $(R.id.ll_bar2);
-            //获取到状态栏的高度
-            int statusHeight = AppUtils.getStateBar();
-            //动态的设置隐藏布局的高度
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linear_bar2.getLayoutParams();
-            params.height = statusHeight;
-            linear_bar2.setLayoutParams(params);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            linear_bar2 = $(R.id.ll_bar2);
+//            //获取到状态栏的高度
+//            int statusHeight = AppUtils.getStateBar();
+//            //动态的设置隐藏布局的高度
+//            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linear_bar2.getLayoutParams();
+//            params.height = statusHeight;
+//            linear_bar2.setLayoutParams(params);
+//        }
 
 
         view_empty = $(R.id.view_empty);
@@ -144,18 +144,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         rl_guide_title.setOnClickListener(this);
         dynamic_title.setOnClickListener(this);
 
-        if(linear_bar2 != null){
-            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if(AppUtils.px2dip(scrollY) > 250){
-                        linear_bar2.setVisibility(View.VISIBLE);
-                    }else{
-                        linear_bar2.setVisibility(View.GONE);
-                    }
-                }
-            });
-        }
+//        if(linear_bar2 != null){
+//            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//                @Override
+//                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                    if(AppUtils.px2dip(scrollY) > 250){
+//                        linear_bar2.setVisibility(View.VISIBLE);
+//                    }else{
+//                        linear_bar2.setVisibility(View.GONE);
+//                    }
+//                }
+//            });
+//        }
     }
 
     @Override

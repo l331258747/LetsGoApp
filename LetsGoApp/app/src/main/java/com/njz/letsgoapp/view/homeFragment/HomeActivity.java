@@ -55,7 +55,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     private Class[] fragmentCls = new Class[5];
     private Fragment[] fragments = new Fragment[5];
 
-    LinearLayout linear_bar;
+//    LinearLayout linear_bar;
 
     Disposable notifyDisposable;
 
@@ -66,24 +66,24 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-            linear_bar = (LinearLayout) findViewById(R.id.ll_bar);
-            //获取到状态栏的高度
-            int statusHeight = AppUtils.getStateBar();
-            //动态的设置隐藏布局的高度
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear_bar.getLayoutParams();
-            params.height = statusHeight;
-            linear_bar.setLayoutParams(params);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//
+//            linear_bar = (LinearLayout) findViewById(R.id.ll_bar);
+//            //获取到状态栏的高度
+//            int statusHeight = AppUtils.getStateBar();
+//            //动态的设置隐藏布局的高度
+//            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear_bar.getLayoutParams();
+//            params.height = statusHeight;
+//            linear_bar.setLayoutParams(params);
+//        }
     }
 
-    public void setMystatusViewShow(boolean isShow) {
-        if (linear_bar == null)
-            return;
-        linear_bar.setVisibility(isShow ? View.VISIBLE : View.GONE);
-    }
+//    public void setMystatusViewShow(boolean isShow) {
+//        if (linear_bar == null)
+//            return;
+//        linear_bar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+//    }
 
     //----------沉浸式 end ----------
 
@@ -197,24 +197,19 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         switch (index) {
             case 0:
                 setTitleSingle(false, getResString(R.string.home));
-                setMystatusViewShow(false);
                 break;
             case 1:
                 setTitleSingle(false, getResString(R.string.home_find));
-                setMystatusViewShow(true);
                 break;
             case 2:
                 setTitleSingle(false, getResString(R.string.home_order));
-                setMystatusViewShow(true);
                 break;
             case 3:
                 setTitleSingle(true, getResString(R.string.home_notify));
-                setMystatusViewShow(true);
                 RxBus2.getInstance().post(new NotifyEvent(false));
                 break;
             case 4:
                 setTitleSingle(false, getResString(R.string.home_my));
-                setMystatusViewShow(true);
                 break;
         }
 
