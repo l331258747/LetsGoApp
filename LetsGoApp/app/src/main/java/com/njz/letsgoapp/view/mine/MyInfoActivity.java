@@ -217,6 +217,18 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 //                });
 //                break;
             case R.id.btn_submit:
+                if(TextUtils.isEmpty(bImgUrl)){
+                    showShortToast("请选择头像");
+                    return;
+                }
+                if(TextUtils.isEmpty(et_nikename.getText().toString())){
+                    showShortToast("请输入昵称");
+                    return;
+                }
+                if(TextUtils.isEmpty(et_real_name.getText().toString())){
+                    showShortToast("请输入真实姓名");
+                    return;
+                }
                 mPresenter.userChangePersonalData(myInfoData,true);
                 break;
             case R.id.info_birthday:
@@ -289,6 +301,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             myInfoData.setPersonalStatement(et_explain.getText().toString());
             isChange = true;
         }
+
         if (isChange) {
             btn_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_theme_solid_r40));
             btn_submit.setEnabled(true);
