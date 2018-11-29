@@ -57,7 +57,7 @@ public class MethodApi {
 
     //-----------login start------------
     public static void login(String mobile, String password, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().login(mobile, password); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().login(mobile, password,0); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -96,7 +96,7 @@ public class MethodApi {
 
     //userLogout
     public static void userLogout(DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().userLogout(); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().userLogout(0); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

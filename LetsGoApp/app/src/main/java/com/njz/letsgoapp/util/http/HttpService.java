@@ -75,7 +75,8 @@ public interface HttpService {
     @POST("user/login")
     Observable<BaseResponse<LoginModel>> login(
             @Field("mobile") String mobile,
-            @Field("password") String password
+            @Field("password") String password,
+            @Field("loginType") int loginType
     );
 
     //注册
@@ -132,8 +133,10 @@ public interface HttpService {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
     @POST("user/logout")
     Observable<BaseResponse<EmptyModel>> userLogout(
+            @Field("loginType") int loginType
     );
 
 
