@@ -145,7 +145,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         notice_ll = $(R.id.notice_ll);
         view_flipper = $(R.id.view_flipper);
         view_flipper.setAutoStart(false);
-        view_flipper.setFlipInterval(3000); // ms
+        view_flipper.setFlipInterval(Constant.BANNER_RUNNING_TIME); // ms
 
         notice_ll.setOnClickListener(new View.OnClickListener() {
             @Override
