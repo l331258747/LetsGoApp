@@ -252,6 +252,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
                 payModel.setOutTradeNo(model.getOrderNo());
                 payModel.setLastPayTime(model.getLastPayTime());
+                payModel.setOrderId(model.getId());
                 PayActivity.startActivity(context, payModel);
                 break;
             case R.id.btn_refund:
