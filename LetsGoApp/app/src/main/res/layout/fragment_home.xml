@@ -1,10 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_city_pick"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_city_down"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:text="张家界" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_release"
+            android:background="@drawable/btn_ee_solid_r40"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <EditText
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_search"
+                android:drawablePadding="10dp"
+                android:background="@color/transparent"
+                android:hint="搜索关键字"
+                android:textColor="@color/gray_999"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="15"
+                android:imeOptions="actionSearch"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_d9"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -33,19 +90,6 @@
                     android:background="@color/white"
                     app:canLoop="true" />
 
-                <LinearLayout
-                    android:id="@+id/ll_trip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="210dp">
-
-                    <include layout="@layout/home_item_trip_setting"/>
-
-                </LinearLayout>
-
                 <!--公告-->
                 <LinearLayout
                     android:id="@+id/notice_ll"
@@ -53,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:background="#ffe6d5"
                     android:gravity="center_vertical"
-                    android:layout_below="@+id/ll_trip"
+                    android:layout_below="@+id/convenientBanner"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
                     android:paddingTop="10dp"
@@ -89,12 +133,101 @@
                         android:src="@mipmap/ic_text_banner_more"/>
                 </LinearLayout>
 
+                <!-- grid -->
+                <LinearLayout
+                    android:id="@+id/ll_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:background="@color/white"
+                    android:paddingBottom="15dp"
+                    android:layout_below="@+id/notice_ll"
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_grid_guide"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:drawablePadding="15dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/grid_guide"
+                            android:text="向导陪游"/>
+
+                        <TextView
+                            android:id="@+id/tv_grid_car"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:drawablePadding="15dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/grid_car"
+                            android:text="接送机/站"/>
+
+                        <TextView
+                            android:id="@+id/tv_grid_feature"
+                            android:layout_width="0dp"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:drawablePadding="15dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/grid_feature"
+                            android:text="特色体验"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_grid_custom"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:drawablePadding="15dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/grid_custom"
+                            android:text="私人定制"/>
+
+                        <TextView
+                            android:id="@+id/tv_grid_hotel"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:drawablePadding="15dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/grid_hotel"
+                            android:text="代订酒店"/>
+
+                        <TextView
+                            android:id="@+id/tv_grid_ticket"
+                            android:layout_width="0dp"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:drawablePadding="15dp"
+                            android:layout_height="wrap_content"
+                            android:drawableTop="@mipmap/grid_ticket"
+                            android:text="代订门票"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- 优选向导 -->
                 <LinearLayout
                     android:id="@+id/ll_view_h"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/notice_ll"
+                    android:layout_below="@+id/ll_grid"
+                    android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical">
 
@@ -259,15 +392,5 @@
         <!--</android.support.design.widget.CoordinatorLayout>-->
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/ll_bar2"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="10dp"-->
-        <!--android:orientation="vertical"-->
-        <!--android:background="@color/black"-->
-        <!--android:visibility="gone">-->
-    <!--</LinearLayout>-->
-
-
-</FrameLayout>
+</LinearLayout>
 

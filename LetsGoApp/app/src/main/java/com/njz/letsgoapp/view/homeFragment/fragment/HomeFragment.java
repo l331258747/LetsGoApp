@@ -77,12 +77,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private LinearLayoutManager linearLayoutManager;
     private LinearLayout notice_ll;
     private ViewFlipper view_flipper;
+    private TextView tv_grid_guide,tv_grid_car,tv_grid_feature,tv_grid_custom,tv_grid_hotel,tv_grid_ticket;
 
-    private Disposable calDisposable;
     private Disposable desDisposable;
 
-    private LinearLayout ll_destination, ll_start_time, ll_end_time;
-    private TextView tv_destination_content, tv_start_time_content, tv_end_time_content, tv_day_time, btn_trip_setting;
     private RelativeLayout rl_guide_title,dynamic_title;
 
     private ConvenientBanner convenientBanner;
@@ -93,9 +91,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private List<GuideModel> guideDatas;
     private List<DynamicModel> dynamicDatas;
 
-    private LocationUtil locationUtil;
     private String city;
-    private LoadingDialog loadingDialog;
 
     private boolean isLoad = false;
     private boolean isBannerLoad,isDynamicLoad,isGuideLoad;
@@ -103,6 +99,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private int nicePosition;
 
     public EmptyView2 view_empty;
+
+    private TextView tv_city_pick;
 
     @Override
     public int getLayoutId() {
@@ -112,27 +110,28 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initView() {
 
+        tv_grid_guide = $(R.id.tv_grid_guide);
+        tv_grid_car = $(R.id.tv_grid_car);
+        tv_grid_feature = $(R.id.tv_grid_feature);
+        tv_grid_custom = $(R.id.tv_grid_custom);
+        tv_grid_hotel = $(R.id.tv_grid_hotel);
+        tv_grid_ticket = $(R.id.tv_grid_ticket);
+        tv_grid_guide.setOnClickListener(this);
+        tv_grid_car.setOnClickListener(this);
+        tv_grid_feature.setOnClickListener(this);
+        tv_grid_custom.setOnClickListener(this);
+        tv_grid_hotel.setOnClickListener(this);
+        tv_grid_ticket.setOnClickListener(this);
 
-
+        tv_city_pick = $(R.id.tv_city_pick);
         view_empty = $(R.id.view_empty);
-        ll_destination = $(R.id.ll_destination);
-        tv_destination_content = $(R.id.tv_destination_content);
-        ll_start_time = $(R.id.ll_start_time);
-        ll_end_time = $(R.id.ll_end_time);
-        tv_start_time_content = $(R.id.tv_start_time_content);
-        tv_end_time_content = $(R.id.tv_end_time_content);
-        tv_day_time = $(R.id.tv_day_time);
-        btn_trip_setting = $(R.id.btn_trip_setting);
         convenientBanner = $(R.id.convenientBanner);
         rl_guide_title = $(R.id.rl_guide_title);
         dynamic_title = $(R.id.dynamic_title);
 
-        ll_destination.setOnClickListener(this);
-        ll_start_time.setOnClickListener(this);
-        ll_end_time.setOnClickListener(this);
-        btn_trip_setting.setOnClickListener(this);
         rl_guide_title.setOnClickListener(this);
         dynamic_title.setOnClickListener(this);
+        tv_city_pick.setOnClickListener(this);
 
         initTextBanner();
 
@@ -214,27 +213,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.ll_destination:
+            case R.id.tv_grid_ticket:
+                showShortToast(tv_grid_ticket.getText().toString());
+                break;
+            case R.id.tv_grid_guide:
+                showShortToast(tv_grid_guide.getText().toString());
+                break;
+            case R.id.tv_grid_car:
+                showShortToast(tv_grid_car.getText().toString());
+                break;
+            case R.id.tv_grid_custom:
+                showShortToast(tv_grid_custom.getText().toString());
+                break;
+            case R.id.tv_grid_feature:
+                showShortToast(tv_grid_feature.getText().toString());
+                break;
+            case R.id.tv_grid_hotel:
+                showShortToast(tv_grid_hotel.getText().toString());
+                break;
+            case R.id.tv_city_pick:
                 cityPick();
-                break;
-            case R.id.ll_start_time:
-                calendarPick();
-                break;
-            case R.id.ll_end_time:
-                calendarPick();
-                break;
-            case R.id.rl_guide_title:
-                intent = new Intent(context,GuideListActivity.class);
-                startActivity(intent);
                 break;
             case R.id.dynamic_title:
                 ((HomeActivity)activity).setTabIndex(1);
-                break;
-            case R.id.btn_trip_setting:
-                intent = new Intent(context,GuideListActivity.class);
-                intent.putExtra(GuideListActivity.START_TIME,tv_start_time_content.getText().toString());
-                intent.putExtra(GuideListActivity.END_TIME,tv_end_time_content.getText().toString());
-                startActivity(intent);
                 break;
         }
     }
@@ -242,14 +243,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initData() {
         city = MySelfInfo.getInstance().getDefaultCity();
-        tv_destination_content.setText(city);
+        tv_city_pick.setText(city);
 
         mPresenter = new HomePresenter(context,this);
         nicePresenter = new DynamicNicePresenter(context,this);
-
-        tv_start_time_content.setText(DateUtil.dateToStr(DateUtil.getNowDate()));
-        tv_end_time_content.setText(DateUtil.dateToStr(DateUtil.getDate(1)));
-        tv_day_time.setText("2天");
 
         initRecycler();
         initSwipeLayout();
@@ -275,7 +272,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     private void LoadData(){
-        tv_destination_content.setText(city);
+        tv_city_pick.setText(city);
         isDynamicLoad =false;
         isBannerLoad = false;
         isGuideLoad = false;
@@ -372,7 +369,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     //城市选择
     private void cityPick(){
         Intent intent = new Intent(context, MyCityPickActivity.class);
-        intent.putExtra(MyCityPickActivity.LOCATION,tv_destination_content.getText().toString());
+        intent.putExtra(MyCityPickActivity.LOCATION,tv_city_pick.getText().toString());
         startActivity(intent);
         desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
             @Override
@@ -381,7 +378,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 if(TextUtils.isEmpty(cityPickEvent.getCity()))
                     return;
 
-                tv_destination_content.setText(cityPickEvent.getCity());
+                tv_city_pick.setText(cityPickEvent.getCity());
                 MySelfInfo.getInstance().setDefaultCity(cityPickEvent.getCity());
                 city = cityPickEvent.getCity();
 
@@ -393,26 +390,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 mPresenter.orderReviewsSortTop(city);
 
                 swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-    }
-
-    //日历选择
-    private void calendarPick() {
-        Intent intent = new Intent(context, CalendarActivity.class);
-        intent.putExtra(CalendarActivity.CALENDAR_ID, 1);
-        startActivity(intent);
-
-        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
-            @Override
-            public void accept(CalendarEvent calendarEvent) throws Exception {
-                calDisposable.dispose();
-                if(TextUtils.isEmpty(calendarEvent.getStartTime())){
-                    return;
-                }
-                tv_start_time_content.setText(calendarEvent.getStartTime());
-                tv_end_time_content.setText(calendarEvent.getEndTime());
-                tv_day_time.setText(calendarEvent.getDays());
             }
         });
     }
@@ -556,8 +533,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(locationUtil != null)
-            locationUtil.stopLocation();
     }
 }
 
