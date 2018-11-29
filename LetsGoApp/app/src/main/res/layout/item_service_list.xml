@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_img"
             android:background="@drawable/btn_theme_r5_bottomleft"
+            android:gravity="center"
             android:textColor="@color/white"
             android:maxLines="1"
             android:padding="3dp"
