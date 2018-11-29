@@ -28,10 +28,11 @@
                     android:layout_height="150dp">
 
                     <ImageView
+                        android:id="@+id/iv_backimg"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:background="@mipmap/bg_home_my"
-                        android:src="@mipmap/bg_home_my" />
+                        android:scaleType="centerCrop"
+                        tools:src="@mipmap/bg_home_my" />
 
                 </FrameLayout>
 

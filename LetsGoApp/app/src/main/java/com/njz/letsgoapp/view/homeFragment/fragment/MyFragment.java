@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,7 +41,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
 
     MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting;
 
-    ImageView iv_head;
+    ImageView iv_head,iv_backimg;
     TextView tv_name,tv_follow,tv_fans,tv_login,tv_space;
 
     LinearLayout ll_info;
@@ -60,6 +61,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
         tv_name = $(R.id.tv_name);
 
         mine_bind = $(R.id.mine_bind);
+        iv_backimg = $(R.id.iv_backimg);
         mine_info = $(R.id.mine_info);
         mine_modify = $(R.id.mine_modify);
         mine_comment = $(R.id.mine_comment);
@@ -121,6 +123,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
             mine_bind.setContent(StringUtils.hidePhone(MySelfInfo.getInstance().getUserMoble()));
 
             GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImgUrl(), iv_head);
+            if(TextUtils.isEmpty(MySelfInfo.getInstance().getUserBackimg())){
+                iv_backimg.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.bg_home_my));
+            }else{
+                GlideUtil.LoadImage(context, MySelfInfo.getInstance().getUserBackimg(), iv_backimg);
+            }
+
+
 
         } else {
             ll_info.setVisibility(View.GONE);
@@ -128,6 +137,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
 
             mine_bind.setContent("");
             GlideUtil.LoadCircleImage(context, "", iv_head);
+            iv_backimg.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.bg_home_my));
         }
     }
 

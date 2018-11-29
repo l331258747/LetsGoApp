@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -24,15 +25,24 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
+import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.find.FollowContract;
 import com.njz.letsgoapp.mvp.find.FollowPresenter;
+import com.njz.letsgoapp.mvp.mine.MyInfoContract;
+import com.njz.letsgoapp.mvp.mine.MyInfoPresenter;
 import com.njz.letsgoapp.mvp.mine.SpaceContract;
 import com.njz.letsgoapp.mvp.mine.SpacePresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.accessory.ImageUtils;
+import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.photo.TackPicturesUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
+import com.njz.letsgoapp.util.thread.MyThreadPool;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.find.ReleaseDynamicActivity;
 import com.njz.letsgoapp.view.find.SpaceDynamicDetailActivity;
@@ -42,8 +52,12 @@ import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -51,13 +65,13 @@ import java.util.List;
  * Function: 个人主页
  */
 
-public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener, FollowContract.View{
+public class SpaceActivity extends BaseActivity implements SpaceContract.View, View.OnClickListener, FollowContract.View,MyInfoContract.View{
 
     public static final String USER_ID = "USER_ID";
 
     private RecyclerView recyclerView;
     private SpaceDynamicAdapter mAdapter;
-    private ImageView ivHead, ivSex;
+    private ImageView ivHead, ivSex,iv_backimg;
     private TextView tvFans, tvAge, tvExplain, tvName, tvFollow,tvModify,tv_title_title;
     private TagFlowLayout flowLayout;
     private SpacePresenter mPresenter;
@@ -78,6 +92,14 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     public ImageView iv_back,iv_share;
     private View view_title_line;
 
+    private TackPicturesUtil tackPicUtil;
+    private String backpath;// 头像地址
+    private String backCompressPath;
+    private Disposable disposable;
+    private LoadingDialog loadingDialog;
+    private MyInfoPresenter infoPresenter;
+    public MyInfoData myInfoData = new MyInfoData();
+
 
     @Override
     public void getIntentData() {
@@ -95,6 +117,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
         hideTitleLayout();
 
+        iv_backimg = $(R.id.iv_backimg);
         view_title_line = $(R.id.view_title_line);
         rl_title_parent = $(R.id.rl_title_parent);
         tv_title_title = $(R.id.tv_title_title);
@@ -118,6 +141,8 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         tvModify.setOnClickListener(this);
         iv_back.setOnClickListener(this);
         iv_share.setOnClickListener(this);
+
+        loadingDialog = new LoadingDialog(context);
     }
 
     @Override
@@ -148,6 +173,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     public void initData() {
         //TODO 个人信息，个人动态
         mPresenter = new SpacePresenter(context, this);
+        infoPresenter = new MyInfoPresenter(context, this);
         followPresenter = new FollowPresenter(context, this);
 
         if(userId == MySelfInfo.getInstance().getUserId()){
@@ -159,6 +185,9 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         }
 
         getRefreshData();
+
+        tackPicUtil = new TackPicturesUtil(this);
+        getPicPermission(context);
 
     }
 
@@ -225,6 +254,17 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 2 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
         initFlow(data.getLabelList());
         setFollow(data.isFocus());
+
+        if(TextUtils.isEmpty(data.getBackImg())){
+            iv_backimg.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.bg_home_my));
+        }else{
+            GlideUtil.LoadImage(context, data.getBackImg(), iv_backimg);
+        }
+        if(data.getUserId() == MySelfInfo.getInstance().getUserId()){
+            iv_backimg.setOnClickListener(this);
+        }else{
+            iv_backimg.setOnClickListener(null);
+        }
     }
 
     public void setFollow(boolean isFollow){
@@ -322,6 +362,9 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             case R.id.iv_back:
                 onBackPressed();
                 break;
+            case R.id.iv_backimg:
+                tackPicUtil.showDialog(context);
+                break;
             case R.id.iv_share:
                 if(data == null) return;
                 ShareDialog dialog = new ShareDialog(activity, "", "", "", "");
@@ -342,5 +385,103 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     public void userFocusOffFailed(String msg) {
         showShortToast(msg);
     }
+
+
+    //-----------start 拍照-----------
+
+    //拍照，存储权限
+    public void getPicPermission(Context context) {
+        tackPicUtil.checkPermission(context);
+    }
+
+
+    /**
+     * 获取图片回调
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TackPicturesUtil.CHOOSE_PIC:
+            case TackPicturesUtil.TACK_PIC:
+            case TackPicturesUtil.CROP_PIC:
+                String path = tackPicUtil.getPicture(requestCode, resultCode, data, false);
+                if (path == null)
+                    return;
+                backpath = path;
+                upFile();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void upFile() {
+        disposable = RxBus2.getInstance().toObservable(UpLoadPhotos.class, new Consumer<UpLoadPhotos>() {
+            @Override
+            public void accept(UpLoadPhotos upLoadPhotos) throws Exception {
+                sendHead();
+                disposable.dispose();
+            }
+        });
+
+        loadingDialog.showDialog("上传头像...");
+        loadingDialog.setCancelable(false);
+        compressImage();
+    }
+
+    public void sendHead() {
+        //构建要上传的文件
+        File file = new File(backCompressPath);
+        infoPresenter.upUpload(file);
+    }
+
+    private void compressImage() {
+        MyThreadPool.getInstance().submit(new Runnable() {
+            @Override
+            public void run() {
+                File file = new File(backpath);
+                String savePath = TackPicturesUtil.IMAGE_CACHE_PATH + "crop" + file.getName();
+                ImageUtils.getImage(backpath, savePath);
+                backCompressPath = savePath;
+                RxBus2.getInstance().post(new UpLoadPhotos());
+            }
+        });
+    }
+
+    private void setBackImg(String path) {
+        GlideUtil.LoadImage(context, path, iv_backimg);
+    }
+
+    @Override
+    public void userChangePersonalDataSuccess(String str) {
+        loadingDialog.dismiss();
+        MySelfInfo.getInstance().setUserBackimg(myInfoData.getBackUrl());
+        showShortToast("修改成功");
+        setBackImg(myInfoData.getBackUrl());
+    }
+
+    @Override
+    public void userChangePersonalDataFailed(String msg) {
+        loadingDialog.dismiss();
+        showShortToast(msg);
+    }
+
+    @Override
+    public void upUploadSuccess(String str) {
+        myInfoData.setBackUrl(str);
+        infoPresenter.userChangePersonalData(myInfoData,false);
+    }
+
+    @Override
+    public void upUploadFailed(String msg) {
+        loadingDialog.dismiss();
+        showShortToast(msg);
+    }
+
+    //----------------end 拍照
 
 }

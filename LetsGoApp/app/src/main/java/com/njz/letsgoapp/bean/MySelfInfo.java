@@ -68,7 +68,16 @@ public class MySelfInfo {
         SPUtils.getInstance().putInt(SPUtils.SP_USER_ID, infoModel.getUserId());
         SPUtils.getInstance().putString(SPUtils.SP_CUSTOMER_MOBILE, infoModel.getCustomerMobile());
         SPUtils.getInstance().putString(SPUtils.SP_USER_FREE_LABELS, infoModel.getFreeLabel());
+        SPUtils.getInstance().putString(SPUtils.SP_USER_BACKIMG, infoModel.getBackImg());
 
+    }
+
+    public String getUserBackimg(){
+        return SPUtils.getInstance().getString(SPUtils.SP_USER_BACKIMG);
+    }
+
+    public void setUserBackimg(String str){
+        SPUtils.getInstance().putString(SPUtils.SP_USER_BACKIMG, str);
     }
 
     public String getFreeLabels() {

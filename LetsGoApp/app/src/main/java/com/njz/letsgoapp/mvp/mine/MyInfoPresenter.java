@@ -28,7 +28,7 @@ public class MyInfoPresenter implements MyInfoContract.Presenter {
     }
 
     @Override
-    public void userChangePersonalData(MyInfoData maps) {
+    public void userChangePersonalData(MyInfoData maps,boolean showDialog) {
         ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override
             public void onSuccess(EmptyModel data) {
@@ -40,7 +40,7 @@ public class MyInfoPresenter implements MyInfoContract.Presenter {
                 iView.userChangePersonalDataFailed(errorMsg);
             }
         };
-        MethodApi.userChangePersonalData(maps, new OnSuccessAndFaultSub(listener,context));
+        MethodApi.userChangePersonalData(maps, new OnSuccessAndFaultSub(listener,context,showDialog?true:false));
     }
 
     @Override

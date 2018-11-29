@@ -17,6 +17,15 @@ public class MyInfoData {
     String imgUrl;
     String theLabel;
     String freeLabel;
+    String backImg;
+
+    public void setBackUrl(String backUrl) {
+        this.backImg = backUrl;
+    }
+
+    public String getBackUrl(){
+        return backImg;
+    }
 
     public void setGender(int gender) {
         this.gender = gender;

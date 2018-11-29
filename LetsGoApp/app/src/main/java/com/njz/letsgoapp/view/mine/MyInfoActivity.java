@@ -217,7 +217,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
 //                });
 //                break;
             case R.id.btn_submit:
-                mPresenter.userChangePersonalData(myInfoData);
+                mPresenter.userChangePersonalData(myInfoData,true);
                 break;
             case R.id.info_birthday:
                 AppUtils.HideKeyboard(info_birthday);

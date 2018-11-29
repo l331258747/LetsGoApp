@@ -35,6 +35,7 @@ public class SPUtils {
     public static final String SP_USER_ID = "sp_user_id";
     public static final String SP_DEFAULT_CITY = "sp_default_city";
     public static final String SP_CUSTOMER_MOBILE = "sp_customer_mobile";
+    public static final String SP_USER_BACKIMG = "sp_user_backimg";
 
     public static final String SP_APP_VERSION = "sp_app_version";
 

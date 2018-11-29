@@ -14,7 +14,7 @@ import java.io.File;
 public interface MyInfoContract {
 
     interface Presenter {
-        void userChangePersonalData(MyInfoData maps);
+        void userChangePersonalData(MyInfoData maps, boolean showDialog);
         void upUpload(File file);
     }
 
