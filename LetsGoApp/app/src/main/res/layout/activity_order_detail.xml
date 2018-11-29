@@ -151,12 +151,15 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="15dp">
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
 
                         <TextView
                             android:id="@+id/tv_guide_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="15dp"
+                            android:paddingBottom="15dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:drawableLeft="@mipmap/ic_order_title"
@@ -337,7 +340,7 @@
                                 android:id="@+id/tv_order_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="11234.9"
+                                android:text="0"
                                 android:textColor="@color/color_theme"
                                 android:textStyle="bold" />
 
@@ -377,7 +380,7 @@
                                 android:id="@+id/tv_refund_used_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="11234.9"
+                                android:text="0"
                                 android:textColor="@color/color_theme"
                                 android:textStyle="bold" />
 
@@ -417,7 +420,7 @@
                                 android:id="@+id/tv_refund_penalty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="11234.9"
+                                android:text="0"
                                 android:textColor="@color/color_ff4000"
                                 android:textStyle="bold" />
 
@@ -457,7 +460,7 @@
                                 android:id="@+id/tv_refund_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="11234.9"
+                                android:text="0"
                                 android:textColor="@color/color_theme"
                                 android:textStyle="bold" />
 

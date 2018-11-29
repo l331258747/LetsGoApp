@@ -25,6 +25,8 @@ import com.njz.letsgoapp.mvp.order.OrderDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderDetailPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
@@ -136,6 +138,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_call_custom.setOnClickListener(this);
         btn_evaluate.setOnClickListener(this);
         btn_evaluate_see.setOnClickListener(this);
+        tv_guide_name.setOnClickListener(this);
 
         btn_cancel_order.setVisibility(View.GONE);
         btn_call_guide.setVisibility(View.GONE);
@@ -245,6 +248,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.btn_call_guide:
                 DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile());
+                break;
+            case R.id.tv_guide_name:
+                intent = new Intent(context, GuideDetailActivity.class);
+                intent.putExtra(GuideDetailActivity.GUIDEID,model.getGuideId());
+                context.startActivity(intent);
                 break;
             case R.id.btn_pay:
                 PayModel payModel = new PayModel();
