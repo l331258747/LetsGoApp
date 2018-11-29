@@ -11,49 +11,22 @@ package com.njz.letsgoapp.bean.home;
 
 public class NoticeItem {
 
-	private String noticeContent;
-	private String title;
-	private String noticeId;
-	private String editDate;
-	private String noticeUrl;
+	private String msg;
+	private int guideId;
 
-	public String getNoticeContent() {
-		return noticeContent;
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setNoticeContent(String noticeContent) {
-		this.noticeContent = noticeContent;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
-	public String getTitle() {
-		return title;
+	public int getGuideId() {
+		return guideId;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getNoticeId() {
-		return noticeId;
-	}
-
-	public void setNoticeId(String noticeId) {
-		this.noticeId = noticeId;
-	}
-
-	public String getEditDate() {
-		return editDate;
-	}
-
-	public void setEditDate(String editDate) {
-		this.editDate = editDate;
-	}
-
-	public String getNoticeUrl() {
-		return noticeUrl;
-	}
-
-	public void setNoticeUrl(String noticeUrl) {
-		this.noticeUrl = noticeUrl;
+	public void setGuideId(int guideId) {
+		this.guideId = guideId;
 	}
 }

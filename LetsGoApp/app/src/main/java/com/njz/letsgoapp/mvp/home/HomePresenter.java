@@ -7,6 +7,7 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.home.NoticeItem;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.mvp.home.HomeContract.Presenter;
 import com.njz.letsgoapp.util.http.MethodApi;
@@ -81,9 +82,9 @@ public class HomePresenter implements Presenter {
 
     @Override
     public void orderCarouselOrder() {
-        ResponseCallback listener = new ResponseCallback<List<String>>() {
+        ResponseCallback listener = new ResponseCallback<List<NoticeItem>>() {
             @Override
-            public void onSuccess(List<String> data) {
+            public void onSuccess(List<NoticeItem> data) {
                 iView.orderCarouselOrderSuccess(data);
             }
 

@@ -5,6 +5,7 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.home.NoticeItem;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public interface HomeContract {
         void friendFriendSterTopSuccess(DynamicListModel models);
         void friendFriendSterTopFailed(String msg);
 
-        void orderCarouselOrderSuccess(List<String> models);
+        void orderCarouselOrderSuccess(List<NoticeItem> models);
         void orderCarouselOrderFailed(String msg);
     }
 }

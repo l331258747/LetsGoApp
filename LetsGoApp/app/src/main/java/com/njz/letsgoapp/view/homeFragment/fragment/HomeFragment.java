@@ -101,6 +101,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     public EmptyView2 view_empty;
 
     private TextView tv_city_pick;
+    private boolean isflipper;
 
     @Override
     public int getLayoutId() {
@@ -154,29 +155,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         });
     }
 
-    private void initTextBannerData(List<String> strs){
+    private void initTextBannerData(List<NoticeItem> strs){
         noticeItems = new ArrayList<>();
-        for(int i =0;i<strs.size();i++){
-            NoticeItem item = new NoticeItem();
-            item.setTitle(strs.get(i));
-            noticeItems.add(item);
-        }
+        noticeItems.addAll(strs);
     }
 
     private void goNotice() {
         if(noticeItems.size() == 0) return;
-        showShortToast(view_flipper.getDisplayedChild()+"");
-//        Intent intent = new Intent(context, GuideDetailActivity.class);
-//        intent.putExtra(GuideDetailActivity.GUIDEID, 1);
-//        startActivity(intent);
-
-
+        Intent intent = new Intent(context, GuideDetailActivity.class);
+        intent.putExtra(GuideDetailActivity.GUIDEID, noticeItems.get(view_flipper.getDisplayedChild()).getGuideId());
+        startActivity(intent);
     }
 
     /**
      * 公告
      */
     public void addNotice() {
+        isflipper = false;
         int size = noticeItems.size();
         view_flipper.removeAllViews();
 
@@ -187,25 +182,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
         if(size == 1){
             View view = View.inflate(context, R.layout.view_flipper_item_layout, null);
-            ((TextView) view.findViewById(R.id.textview1)).setText(noticeItems.get(0).getTitle());
+            ((TextView) view.findViewById(R.id.textview1)).setText(noticeItems.get(0).getMsg());
             view_flipper.addView(view);
             view_flipper.stopFlipping();
             return;
         }
 
         view_flipper.startFlipping();
+        isflipper = true;
         for (int i = 0; i < size; i++) {
             View view = View.inflate(context, R.layout.view_flipper_item_layout, null);
-            ((TextView) view.findViewById(R.id.textview1)).setText(noticeItems.get(i).getTitle());
+            ((TextView) view.findViewById(R.id.textview1)).setText(noticeItems.get(i).getMsg());
             view_flipper.addView(view);
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        view_flipper.stopFlipping();
-    }
     //-----end 最新预订
 
 
@@ -419,12 +410,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     public void onPause() {
         super.onPause();
         convenientBanner.stopTurning();
+        view_flipper.stopFlipping();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         convenientBanner.startTurning(Constant.BANNER_RUNNING_TIME);
+        if(isflipper)
+            view_flipper.startFlipping();
+
     }
     //----------banner end
 
@@ -504,7 +499,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     @Override
-    public void orderCarouselOrderSuccess(List<String> models) {
+    public void orderCarouselOrderSuccess(List<NoticeItem> models) {
         initTextBannerData(models);
         addNotice();
     }

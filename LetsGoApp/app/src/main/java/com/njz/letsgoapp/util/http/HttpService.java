@@ -4,6 +4,7 @@ import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
+import com.njz.letsgoapp.bean.home.NoticeItem;
 import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
@@ -210,7 +211,7 @@ public interface HttpService {
 
     //order/carouselOrder 最新预订
     @GET("order/carouselOrder")
-    Observable<BaseResponse<List<String>>> orderCarouselOrder(
+    Observable<BaseResponse<List<NoticeItem>>> orderCarouselOrder(
             @Query("payStatus") int payStatus,
             @Query("limit") int limit,
             @Query("page") int page
