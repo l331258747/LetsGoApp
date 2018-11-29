@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -30,6 +31,7 @@ import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.home.NoticeItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
@@ -73,6 +75,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private DynamicAdapter dynamicAdapter;
     private HomeGuideAdapter guideAdapter;
     private LinearLayoutManager linearLayoutManager;
+    private LinearLayout notice_ll;
+    private ViewFlipper view_flipper;
 
     private Disposable calDisposable;
     private Disposable desDisposable;
@@ -82,9 +86,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private RelativeLayout rl_guide_title,dynamic_title;
 
     private ConvenientBanner convenientBanner;
-
-    private NestedScrollView scrollView;
-//    private LinearLayout linear_bar2;
 
     private HomePresenter mPresenter;
     private DynamicNicePresenter nicePresenter;
@@ -111,16 +112,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initView() {
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            linear_bar2 = $(R.id.ll_bar2);
-//            //获取到状态栏的高度
-//            int statusHeight = AppUtils.getStateBar();
-//            //动态的设置隐藏布局的高度
-//            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) linear_bar2.getLayoutParams();
-//            params.height = statusHeight;
-//            linear_bar2.setLayoutParams(params);
-//        }
 
 
         view_empty = $(R.id.view_empty);
@@ -133,7 +124,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         tv_day_time = $(R.id.tv_day_time);
         btn_trip_setting = $(R.id.btn_trip_setting);
         convenientBanner = $(R.id.convenientBanner);
-        scrollView = $(R.id.scrollView);
         rl_guide_title = $(R.id.rl_guide_title);
         dynamic_title = $(R.id.dynamic_title);
 
@@ -144,19 +134,81 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         rl_guide_title.setOnClickListener(this);
         dynamic_title.setOnClickListener(this);
 
-//        if(linear_bar2 != null){
-//            scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//                @Override
-//                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                    if(AppUtils.px2dip(scrollY) > 250){
-//                        linear_bar2.setVisibility(View.VISIBLE);
-//                    }else{
-//                        linear_bar2.setVisibility(View.GONE);
-//                    }
-//                }
-//            });
-//        }
+        initTextBanner();
+
     }
+
+    //-----srart 最新预订
+    private ArrayList<NoticeItem> noticeItems = new ArrayList<>();
+
+    public void initTextBanner(){
+        notice_ll = $(R.id.notice_ll);
+        view_flipper = $(R.id.view_flipper);
+        view_flipper.setAutoStart(false);
+        view_flipper.setFlipInterval(3000); // ms
+
+        notice_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goNotice();
+            }
+        });
+    }
+
+    private void initTextBannerData(List<String> strs){
+        noticeItems = new ArrayList<>();
+        for(int i =0;i<strs.size();i++){
+            NoticeItem item = new NoticeItem();
+            item.setTitle(strs.get(i));
+            noticeItems.add(item);
+        }
+    }
+
+    private void goNotice() {
+        if(noticeItems.size() == 0) return;
+        showShortToast(view_flipper.getDisplayedChild()+"");
+//        Intent intent = new Intent(context, GuideDetailActivity.class);
+//        intent.putExtra(GuideDetailActivity.GUIDEID, 1);
+//        startActivity(intent);
+
+
+    }
+
+    /**
+     * 公告
+     */
+    public void addNotice() {
+        int size = noticeItems.size();
+        view_flipper.removeAllViews();
+
+        if(size == 0){
+            view_flipper.stopFlipping();
+            return;
+        }
+
+        if(size == 1){
+            View view = View.inflate(context, R.layout.view_flipper_item_layout, null);
+            ((TextView) view.findViewById(R.id.textview1)).setText(noticeItems.get(0).getTitle());
+            view_flipper.addView(view);
+            view_flipper.stopFlipping();
+            return;
+        }
+
+        view_flipper.startFlipping();
+        for (int i = 0; i < size; i++) {
+            View view = View.inflate(context, R.layout.view_flipper_item_layout, null);
+            ((TextView) view.findViewById(R.id.textview1)).setText(noticeItems.get(i).getTitle());
+            view_flipper.addView(view);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        view_flipper.stopFlipping();
+    }
+    //-----end 最新预订
+
 
     @Override
     public void onClick(View v) {
@@ -230,6 +282,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
         mPresenter.orderReviewsSortTop(city);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
+        mPresenter.orderCarouselOrder();
 
         swipeRefreshLayout.setRefreshing(true);
     }
@@ -309,6 +362,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
+                mPresenter.orderCarouselOrder();
 
             }
         });
@@ -470,6 +524,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             isLoad = false;
         }
         showLongToast(msg);
+    }
+
+    @Override
+    public void orderCarouselOrderSuccess(List<String> models) {
+        initTextBannerData(models);
+        addNotice();
+    }
+
+    @Override
+    public void orderCarouselOrderFailed(String msg) {
+        showShortToast(msg);
     }
 
     @Override

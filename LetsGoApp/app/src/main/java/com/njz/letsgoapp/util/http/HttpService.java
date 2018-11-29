@@ -208,6 +208,15 @@ public interface HttpService {
 
     );
 
+    //order/carouselOrder 最新预订
+    @GET("order/carouselOrder")
+    Observable<BaseResponse<List<String>>> orderCarouselOrder(
+            @Query("payStatus") int payStatus,
+            @Query("limit") int limit,
+            @Query("page") int page
+
+    );
+
     //--------首页 end--------
 
     //-------发现 start-------

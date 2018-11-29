@@ -21,6 +21,7 @@ public interface HomeContract {
         void bannerFindByType(int type, int guideId);
         void orderReviewsSortTop(String location);
         void friendFindAll(String location, int limit, int page);
+        void orderCarouselOrder();
     }
 
     interface View {
@@ -32,5 +33,8 @@ public interface HomeContract {
 
         void friendFriendSterTopSuccess(DynamicListModel models);
         void friendFriendSterTopFailed(String msg);
+
+        void orderCarouselOrderSuccess(List<String> models);
+        void orderCarouselOrderFailed(String msg);
     }
 }

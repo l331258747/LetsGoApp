@@ -145,6 +145,12 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //orderCarouselOrder 最新预订
+    public static void orderCarouselOrder(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderCarouselOrder(1, 5,1);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //----------首页 end -------
 
 

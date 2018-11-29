@@ -78,4 +78,20 @@ public class HomePresenter implements Presenter {
         };
         MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
     }
+
+    @Override
+    public void orderCarouselOrder() {
+        ResponseCallback listener = new ResponseCallback<List<String>>() {
+            @Override
+            public void onSuccess(List<String> data) {
+                iView.orderCarouselOrderSuccess(data);
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.orderCarouselOrderFailed(errorMsg);
+            }
+        };
+        MethodApi.orderCarouselOrder(new OnSuccessAndFaultSub(listener,context,false));
+    }
 }
