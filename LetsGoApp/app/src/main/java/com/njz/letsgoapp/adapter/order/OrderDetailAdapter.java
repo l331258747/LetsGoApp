@@ -125,18 +125,23 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
                     break;
                 case Constant.ORDER_PAY_ALREADY:
-                    ((ViewHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
-                    ((ViewHolder) holder).btn_cancel.setText("退款");
-                    ((ViewHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(mOnRefundClickListener != null){
-                                List<Integer> childIds = new ArrayList<Integer>();
-                                childIds.add(data.getId());
-                                mOnRefundClickListener.onClick(0, childIds, data.getChildOrderStatus(), pos);
+                    if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
+                        ((ViewHolder) holder).btn_cancel.setVisibility(View.GONE);
+                    }else{
+                        ((ViewHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
+                        ((ViewHolder) holder).btn_cancel.setText("退款");
+                        ((ViewHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(mOnRefundClickListener != null){
+                                    List<Integer> childIds = new ArrayList<Integer>();
+                                    childIds.add(data.getId());
+                                    mOnRefundClickListener.onClick(0, childIds, data.getChildOrderStatus(), pos);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+
                     break;
             }
 
