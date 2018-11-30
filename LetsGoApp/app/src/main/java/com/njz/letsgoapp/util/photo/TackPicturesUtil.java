@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -39,6 +40,7 @@ public class TackPicturesUtil {
 
     public Uri cameraUri;
     public Uri CropUri;
+    public String cropPath;
 
     /**
      * IMAGE_CACHE_PATH 图片缓存目录
@@ -76,12 +78,15 @@ public class TackPicturesUtil {
 
     public void setCropUri() {
         File outFile = FileUtil.createDownloadFile(IMAGE_CACHE_PATH + System.currentTimeMillis() + ".jpg");
-        if (Build.VERSION.SDK_INT >= 24) {
-            String authority = activity.getApplicationInfo().packageName + ".provider";
-            CropUri = FileProvider.getUriForFile(activity, authority, outFile);
-        } else {
-            CropUri = Uri.fromFile(outFile);
-        }
+        cropPath = outFile.getAbsolutePath();
+        CropUri = Uri.fromFile(outFile);
+//        if (Build.VERSION.SDK_INT >= 24) {
+//            String authority = activity.getApplicationInfo().packageName + ".provider";
+//            CropUri = FileProvider.getUriForFile(activity, authority, outFile);
+//        } else {
+//            CropUri = Uri.fromFile(outFile);
+//        }
+//        CropUri = Uri.parse("file://" + "/" + Environment.getExternalStorageDirectory().getPath() + "/" + System.currentTimeMillis() + ".jpg");
     }
 
     /*
@@ -200,46 +205,39 @@ public class TackPicturesUtil {
         else if (requestCode == CROP_PIC && isCrop) {// 剪裁返回
 
             //"return-data" true 取bitmap的方法。
-            FileOutputStream out = null;
-            try {
-                // 把返回的bitmap存到文件系统中
-                Bitmap cropBitmap = data.getParcelableExtra("data");
-                File outFile = FileUtil.createDownloadFile(IMAGE_CACHE_PATH + System.currentTimeMillis() + ".jpg");
-                out = new FileOutputStream(outFile);
-                cropBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                if (!cropBitmap.isRecycled())
-                    cropBitmap.recycle();
-
-                return outFile.getAbsolutePath();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (out != null) {
-                        out.flush();
-                        out.close();
-                    }
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                }
-            }
+//            FileOutputStream out = null;
+//            try {
+//                // 把返回的bitmap存到文件系统中
+//                Bitmap cropBitmap = data.getParcelableExtra("data");
+//                File outFile = FileUtil.createDownloadFile(IMAGE_CACHE_PATH + System.currentTimeMillis() + ".jpg");
+//                out = new FileOutputStream(outFile);
+//                cropBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//                if (!cropBitmap.isRecycled())
+//                    cropBitmap.recycle();
+//
+//                return outFile.getAbsolutePath();
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    if (out != null) {
+//                        out.flush();
+//                        out.close();
+//                    }
+//                } catch (Exception e2) {
+//                    e2.printStackTrace();
+//                }
+//            }
 
             //"return-data" false 取原图的方法。
-//            Uri uri = null;
-//            uri = CropUri;
-//
-//            if (uri == null)
-//                return null;
-//
-//            // 不需要剪裁就直接返回原图路径
-//            Cursor cursor = activity.getContentResolver().query(uri, new String[]{MediaStore.Images.Media.DATA}, null, null, null);
-//            if (cursor == null) {
-//                return null;
-//            }
-//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//            if (cursor.moveToFirst())
-//                return cursor.getString(column_index);
+            Uri uri = null;
+            uri = CropUri;
+
+            if (uri == null)
+                return null;
+
+            return cropPath;
 
         }
 
@@ -274,14 +272,14 @@ public class TackPicturesUtil {
 
         //return-data 设置了true的话直接返回bitmap，可能会很占内存
         //设置为true的话会模糊，因为取得是bitmap在内存中的缩略图
-        intent.putExtra("return-data", true);
+//        intent.putExtra("return-data", true);
 
-//        setCropUri();
-//        intent.putExtra("return-data", false);
-//        //设置输出的地址return-data 设置为false "output"关联一个Uri
-//        intent.putExtra("output", CropUri); //替换原图保存
-//        //outputFormat 设置输出的格式
-//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        setCropUri();
+        intent.putExtra("return-data", false);
+        //设置输出的地址return-data 设置为false "output"关联一个Uri
+        intent.putExtra("output", CropUri); //替换原图保存
+        //outputFormat 设置输出的格式
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 
 
         activity.startActivityForResult(intent, requestCode);
@@ -304,10 +302,5 @@ public class TackPicturesUtil {
                     Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS}, 2);
         }
 
-//        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-//        StrictMode.setVmPolicy(builder.build());
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//            builder.detectFileUriExposure();
-//        }
     }
 }
