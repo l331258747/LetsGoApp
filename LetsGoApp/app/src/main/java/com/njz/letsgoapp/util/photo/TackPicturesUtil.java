@@ -18,6 +18,7 @@ import android.support.v4.content.FileProvider;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.PicChooseDialog;
 import com.njz.letsgoapp.util.FileUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -178,6 +179,9 @@ public class TackPicturesUtil {
             if (uri == null)
                 return null;
 
+            LogUtil.e(uri.toString());
+            LogUtil.e(uri.getPath());
+
             // 是否需要调用系统剪裁界面
             if (isCrop){
                 cropImageUri(uri, CROP_PIC);
@@ -241,7 +245,6 @@ public class TackPicturesUtil {
 
         return null;
     }
-
 
     /**
      * 调用系统剪裁
