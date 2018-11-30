@@ -16,6 +16,7 @@ import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderRefundDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderRefundDetailPresenter;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
 
 import java.util.ArrayList;
 
@@ -89,6 +90,11 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
                 break;
             case R.id.btn_call_custom:
                 DialogUtil.getInstance().showCustomerMobileDialog(context);
+                break;
+            case R.id.tv_guide_name:
+//                intent = new Intent(context, GuideDetailActivity.class);
+//                intent.putExtra(GuideDetailActivity.GUIDEID,refundModel.getGuideId());
+//                startActivity(intent);
                 break;
         }
 
