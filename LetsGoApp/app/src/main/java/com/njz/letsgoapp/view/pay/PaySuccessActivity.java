@@ -52,6 +52,9 @@ public class PaySuccessActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btn_go:
                 ActivityCollect.getAppCollect().finishAllNotHome();
+                HomeActivity activity2 = (HomeActivity) ActivityCollect.getAppCollect().findActivity(HomeActivity.class);
+                activity2.setTabIndex(2);
+                activity2.getOrderFragment().setIndex(1);
                 break;
         }
     }

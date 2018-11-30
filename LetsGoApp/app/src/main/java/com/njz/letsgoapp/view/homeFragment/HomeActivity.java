@@ -158,6 +158,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         onTabItemClick(tabItems.get(i));
     }
 
+    public OrderFragment getOrderFragment(){
+        return (OrderFragment) fragments[2];
+    }
+
     //防止fragment混淆
     @Override
     protected void onSaveInstanceState(Bundle outState) {
