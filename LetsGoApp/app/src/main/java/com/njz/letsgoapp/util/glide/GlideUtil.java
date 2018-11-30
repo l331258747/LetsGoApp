@@ -119,7 +119,7 @@ public class GlideUtil {
     public static void LoadDefaultImage(Context mContext, String path,
                                  ImageView imageview,int defultImg) {
         if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).centerCrop().placeholder(defultImg).error(defultImg)
+        Glide.with(mContext).load(path).asBitmap().centerCrop().placeholder(defultImg).error(defultImg)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
     }
 
