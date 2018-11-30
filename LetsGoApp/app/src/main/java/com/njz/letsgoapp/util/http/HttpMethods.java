@@ -132,7 +132,7 @@ public class HttpMethods {
                 .client(okHttpBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(baseUrl)
+                .baseUrl(baseUrl + "/api/")
                 .build();
         httpService = retrofit.create(HttpService.class);
     }
