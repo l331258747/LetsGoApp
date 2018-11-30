@@ -19,6 +19,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderRefundAdapter;
+import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.order.OrderRefundChildModel;
@@ -32,6 +33,7 @@ import com.njz.letsgoapp.mvp.order.OrderRefundPresenter;
 import com.njz.letsgoapp.mvp.other.ConfigContract;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.widget.FixedItemEditViewNoLine;
 
 import java.util.ArrayList;
@@ -191,7 +193,12 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                mPresenter.orderRefundAliRefund(id,childIds,tv_reason.getText().toString(),et_special.getText().toString());
+                DialogUtil.getInstance().getDefaultDialog(context, "是否确认退款?", new DialogUtil.DialogCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog) {
+                        mPresenter.orderRefundAliRefund(id,childIds,tv_reason.getText().toString(),et_special.getText().toString());
+                    }
+                });
                 break;
 
         }
@@ -200,7 +207,9 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void orderRefundAliRefundSuccess(EmptyModel str) {
         showShortToast("操作成功");
-
+        HomeActivity activity = (HomeActivity) ActivityCollect.getAppCollect().findActivity(HomeActivity.class);
+        activity.setTabIndex(2);
+        activity.getOrderFragment().setIndex(3);
         finish();
     }
 

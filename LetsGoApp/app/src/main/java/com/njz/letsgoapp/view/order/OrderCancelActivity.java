@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.order;
 
+import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.other.ConfigChildModel;
 import com.njz.letsgoapp.bean.other.ConfigModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderCancelContract;
 import com.njz.letsgoapp.mvp.order.OrderCancelPresenter;
 import com.njz.letsgoapp.mvp.other.ConfigContract;
@@ -130,8 +132,14 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
                     showShortToast("请选择取消原因");
                     return;
                 }
+                DialogUtil.getInstance().getDefaultDialog(context, "是否确认取消?", new DialogUtil.DialogCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog) {
+                        mPresenter.orderTravelDeleteOrder(orderId,isMainly,tv_reason.getText().toString(),et_special.getText().toString());
+                    }
+                });
 
-                mPresenter.orderTravelDeleteOrder(orderId,isMainly,tv_reason.getText().toString(),et_special.getText().toString());
+
                 break;
         }
     }
