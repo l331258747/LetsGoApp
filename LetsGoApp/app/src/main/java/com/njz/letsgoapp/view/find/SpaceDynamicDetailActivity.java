@@ -402,7 +402,12 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
                         model.getImgUrl(),
                         URLConstant.SHARE_DYNAMIC+"?friendSterId="+model.getFriendSterId());
                 dialog.setReportData(model.getFriendSterId(), ShareDialog.REPORT_DYNAMIC);
-                dialog.setType(ShareDialog.TYPE_ALL);
+                if(model.getUserId() == MySelfInfo.getInstance().getUserId()){
+                    dialog.setType(ShareDialog.TYPE_FRIEND);
+                }else{
+                    dialog.setType(ShareDialog.TYPE_ALL);
+                }
+
                 dialog.show();
                 break;
         }

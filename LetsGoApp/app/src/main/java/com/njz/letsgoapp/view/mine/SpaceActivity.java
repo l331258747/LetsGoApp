@@ -225,6 +225,12 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         ivSex.setImageDrawable(ContextCompat.getDrawable(context, data.getGender() == 2 ? R.mipmap.icon_girl : R.mipmap.icon_boy));
         initFlow(data.getLabelList());
         setFollow(data.isFocus());
+
+        if(data.getUserId() == MySelfInfo.getInstance().getUserId()){
+            iv_share.setVisibility(View.GONE);
+        }else{
+            iv_share.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setFollow(boolean isFollow){
