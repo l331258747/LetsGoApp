@@ -318,6 +318,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     payModel.setSubject(data.getLocation() + data.getGuideName() + "导游为您服务！");
                     payModel.setOutTradeNo(data.getOrderNo());
                     payModel.setLastPayTime("2018-01-01 12:00");
+                    payModel.setOrderId(data.getId());
                     PayActivity.startActivity(mContext, payModel);//TODO 订单上传成功，返回单号
                 }
             });

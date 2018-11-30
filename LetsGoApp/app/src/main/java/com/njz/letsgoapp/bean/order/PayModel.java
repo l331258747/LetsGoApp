@@ -25,6 +25,15 @@ public class PayModel implements Parcelable{
     private String subject;
     private String outTradeNo;
     private String body;
+    private int orderId;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
     public PayModel() {
     }
@@ -75,6 +84,7 @@ public class PayModel implements Parcelable{
         subject = in.readString();
         outTradeNo = in.readString();
         body = in.readString();
+        orderId = in.readInt();
     }
 
     public static final Creator<PayModel> CREATOR = new Creator<PayModel>() {
@@ -101,5 +111,6 @@ public class PayModel implements Parcelable{
         dest.writeString(subject);
         dest.writeString(outTradeNo);
         dest.writeString(body);
+        dest.writeInt(orderId);
     }
 }

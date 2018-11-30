@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.njz.letsgoapp.MyApplication;
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.order.PayModel;
@@ -25,6 +26,7 @@ import com.njz.letsgoapp.mvp.pay.PayContract;
 import com.njz.letsgoapp.mvp.pay.PayPresenter;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.order.OrderDetailActivity;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -161,7 +163,14 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
             @Override
             public void exectEvent(DialogInterface alterDialog) {
                 alterDialog.dismiss();
-                finish();
+                if(payModel.getOrderId() == 0){
+                    finish();
+                    return;
+                }
+                ActivityCollect.getAppCollect().finishAllNotHome();
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("ORDER_ID",payModel.getOrderId());
+                startActivity(intent);
             }
         }).show();
     }
