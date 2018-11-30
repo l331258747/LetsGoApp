@@ -1,9 +1,11 @@
 package com.njz.letsgoapp.view.login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -12,10 +14,13 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.constant.URLConstant;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.login.LoginContract;
 import com.njz.letsgoapp.mvp.login.LoginPresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.util.http.HttpMethods;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
@@ -34,6 +39,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     LoginItemView2 loginViewPhone, loginViewPassword;
     TextView btnLogin,tv_user_agreement;
     TextView tvRegister, tvVerifyLogin;
+    ImageView iv_change_url;
 
     LoginPresenter mPresenter;
 
@@ -48,6 +54,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         showLeftAndTitle("登录");
 
 
+        iv_change_url = $(R.id.iv_change_url);
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         loginViewPassword = $(R.id.login_view_password);
@@ -82,6 +89,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             }
         });
 
+        changeUrl();
+    }
+
+    int changeInt = 0;
+    private void changeUrl() {
+        if(AppUtils.getVersionCodeInt() % 100 == 0) return;
+        iv_change_url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeInt = changeInt + 1;
+                if(changeInt == 5){
+                    changeInt = 0;
+                    DialogUtil.getInstance().getEditDialog(context, new DialogUtil.DialogEditCallBack() {
+                        @Override
+                        public void exectEvent(DialogInterface alterDialog, String str) {
+                            HttpMethods.getInstance().changeBaseUrl(str+"/");
+                        }
+                    },30,"http://").show();
+                }
+            }
+        });
     }
 
     @Override

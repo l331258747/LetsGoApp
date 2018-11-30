@@ -104,6 +104,36 @@ public class DialogUtil {
         return alterDialog;
     }
 
+    public AlertDialog getEditDialog(Context context ,final DialogUtil.DialogEditCallBack callBack,int maxLength,String content) {
+
+        View dialogView = View.inflate(context, R.layout.dialog_edit, null);
+        final EditText et = dialogView.findViewById(R.id.et_input);
+        et.setText(content);
+        et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
+        et.setMaxLines(1);
+        et.setInputType(InputType.TYPE_CLASS_TEXT);
+        AlertDialog alterDialog = new AlertDialog.Builder(context)
+                .setView(dialogView)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(callBack == null){
+                            dialog.cancel();
+                        }else{
+                            callBack.exectEvent(dialog,et.getText().toString());
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).create();
+
+        return alterDialog;
+    }
+
     public interface DialogCallBack {
         void exectEvent(DialogInterface alterDialog);
     }
