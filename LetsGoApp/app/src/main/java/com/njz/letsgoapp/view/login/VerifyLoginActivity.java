@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.login;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -45,6 +46,14 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
 
     TextView tvVerify;
 
+    String loginPhone;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        loginPhone = intent.getStringExtra("LOGIN_PHONE");
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_verify_login;
@@ -57,6 +66,8 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
         showLeftIcon();
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
+        if(!TextUtils.isEmpty(loginPhone))
+            loginViewPhone.getEtView().setText(loginPhone);
         loginViewVerify = $(R.id.login_view_verify);
         loginViewVerify.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         tvVerify = loginViewVerify.getRightText();

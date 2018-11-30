@@ -56,7 +56,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         loginViewPassword.setOnClickLisener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, ForgetActivity.class));
+                Intent intent = new Intent(context, ForgetActivity.class);
+                intent.putExtra("LOGIN_PHONE",loginViewPhone.getEtContent());
+                startActivity(intent);
             }
         });
 
@@ -89,6 +91,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()){
             case R.id.btn_login:
                 if(!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
@@ -101,7 +104,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 startActivity(new Intent(context, RegistActivity.class));
                 break;
             case R.id.tv_verify_login:
-                startActivity(new Intent(context, VerifyLoginActivity.class));
+                intent = new Intent(context, VerifyLoginActivity.class);
+                intent.putExtra("LOGIN_PHONE",loginViewPhone.getEtContent());
+                startActivity(intent);
                 break;
         }
     }

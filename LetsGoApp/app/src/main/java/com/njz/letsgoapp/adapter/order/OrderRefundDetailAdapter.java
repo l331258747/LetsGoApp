@@ -3,6 +3,7 @@ package com.njz.letsgoapp.adapter.order;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +105,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
 
             ((ViewHolder) holder).ll_travel_going.setVisibility(View.GONE);
 
-            if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
+            if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING && !TextUtils.equals(data.getValue(),Constant.SERVICE_TYPE_SHORT_TICKET)){
                 ((ViewHolder) holder).ll_travel_going.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).tv_travel_day_content.setText(data.getUseDay()+"天");
                 ((ViewHolder) holder).tv_not_travel_day_content.setText(data.getUnUseDay()+"天");

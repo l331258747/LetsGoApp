@@ -33,6 +33,8 @@ public class OrderFragment extends BaseFragment {
     private OrderListFragment orderListFragment2;
     private OrderRefundListFragment orderListFragment3;
 
+    private int index;
+
 
     @Override
     public int getLayoutId() {
@@ -59,6 +61,15 @@ public class OrderFragment extends BaseFragment {
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        mViewPager.setCurrentItem(index);
+    }
+
+    public void setIndex(int index){
+        this.index = index;
+        if(mViewPager != null){
+            mViewPager.setCurrentItem(index);
+        }
     }
 
     @Override

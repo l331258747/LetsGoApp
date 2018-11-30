@@ -163,6 +163,10 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
             @Override
             public void exectEvent(DialogInterface alterDialog) {
                 alterDialog.dismiss();
+                if(payModel.getOrderId() == 0){
+                    finish();
+                    return;
+                }
                 ActivityCollect.getAppCollect().finishAllNotHome();
                 Intent intent = new Intent(context, OrderDetailActivity.class);
                 intent.putExtra("ORDER_ID",payModel.getOrderId());

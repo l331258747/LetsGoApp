@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
@@ -69,6 +70,16 @@ public class TackPicturesUtil {
             cameraUri = FileProvider.getUriForFile(activity, authority, outFile);
         } else {
             cameraUri = Uri.fromFile(outFile);
+        }
+    }
+
+    public void setCropUri() {
+        File outFile = FileUtil.createDownloadFile(IMAGE_CACHE_PATH + System.currentTimeMillis() + ".jpg");
+        if (Build.VERSION.SDK_INT >= 24) {
+            String authority = activity.getApplicationInfo().packageName + ".provider";
+            CropUri = FileProvider.getUriForFile(activity, authority, outFile);
+        } else {
+            CropUri = Uri.fromFile(outFile);
         }
     }
 
@@ -211,9 +222,22 @@ public class TackPicturesUtil {
             }
 
             //"return-data" false 取原图的方法。
+//            Uri uri = null;
+//            uri = CropUri;
+//
+//            if (uri == null)
+//                return null;
+//
+//            // 不需要剪裁就直接返回原图路径
+//            Cursor cursor = activity.getContentResolver().query(uri, new String[]{MediaStore.Images.Media.DATA}, null, null, null);
+//            if (cursor == null) {
+//                return null;
+//            }
+//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            if (cursor.moveToFirst())
+//                return cursor.getString(column_index);
+
         }
-
-
 
         return null;
     }
@@ -249,9 +273,10 @@ public class TackPicturesUtil {
         //设置为true的话会模糊，因为取得是bitmap在内存中的缩略图
         intent.putExtra("return-data", true);
 
+//        setCropUri();
 //        intent.putExtra("return-data", false);
 //        //设置输出的地址return-data 设置为false "output"关联一个Uri
-//        intent.putExtra("output", uri); //替换原图保存
+//        intent.putExtra("output", CropUri); //替换原图保存
 //        //outputFormat 设置输出的格式
 //        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 
@@ -275,5 +300,11 @@ public class TackPicturesUtil {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS}, 2);
         }
+
+//        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+//        StrictMode.setVmPolicy(builder.build());
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//            builder.detectFileUriExposure();
+//        }
     }
 }

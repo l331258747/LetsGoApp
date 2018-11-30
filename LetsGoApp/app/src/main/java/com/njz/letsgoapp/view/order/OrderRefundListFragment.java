@@ -112,7 +112,7 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
 
         if(mAdapter.getData().size() == 0){
             view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_order,"这里还是空空哒~","快去下单吧");
+            view_empty.setEmptyData(R.mipmap.empty_order_refund,"这里还是空空哒~");
         }else{
             view_empty.setVisible(false);
         }
