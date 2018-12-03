@@ -263,17 +263,30 @@
 
                     </RelativeLayout>
 
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view_h"
-                        android:layout_below="@+id/ll_trip"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:overScrollMode="never"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="15dp"
-                        android:paddingBottom="10dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"/>
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view_h"
+                            android:layout_below="@+id/ll_trip"
+                            android:layout_width="match_parent"
+                            android:overScrollMode="never"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="10dp"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"/>
+
+                        <com.njz.letsgoapp.widget.emptyView.EmptyView2
+                            android:id="@+id/view_empty_guide"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"/>
+
+                    </FrameLayout>
+
+
 
 
                 </LinearLayout>

@@ -102,7 +102,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
 //    private int nicePosition;
 
-    public EmptyView2 view_empty;
+    public EmptyView2 view_empty,view_empty_guide;
 
     private TextView tv_city_pick;
     private boolean isflipper;
@@ -130,6 +130,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
         tv_city_pick = $(R.id.tv_city_pick);
         view_empty = $(R.id.view_empty);
+        view_empty_guide = $(R.id.view_empty_guide);
         convenientBanner = $(R.id.convenientBanner);
         rl_guide_title = $(R.id.rl_guide_title);
         dynamic_title = $(R.id.dynamic_title);
@@ -480,6 +481,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
         guideDatas = models.getList();
         guideAdapter.setData(guideDatas);
+
+        if(models.getList().size() == 0){
+            view_empty_guide.setVisible(true);
+            view_empty_guide.setEmptyData(R.mipmap.empty_home_guide,"向导正在招募中，要不要您换个城市试试~");
+            view_empty_guide.setEmptyBackground(R.color.white);
+        }else{
+            view_empty_guide.setVisible(false);
+        }
     }
 
     @Override
