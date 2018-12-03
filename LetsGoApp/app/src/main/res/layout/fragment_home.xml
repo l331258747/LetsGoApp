@@ -327,8 +327,6 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
                         android:paddingBottom="10dp">
 
                         <include layout="@layout/base_recycler_view_layout"/>

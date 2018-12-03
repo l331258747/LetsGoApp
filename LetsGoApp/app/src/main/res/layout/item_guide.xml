@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
@@ -7,46 +7,53 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginRight="15dp"
+    android:paddingBottom="15dp"
     android:layout_marginLeft="15dp"
     android:background="@drawable/card_view_bg_10">
+
+    <ImageView
+        android:id="@+id/iv_backimg"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:src="@mipmap/background"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="10dp">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@mipmap/head_default" />
+
+        <ImageView
+            android:id="@+id/iv_sex"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            tools:background="@mipmap/icon_boy" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:padding="10dp"
+        android:layout_below="@+id/iv_backimg"
+        android:layout_toEndOf="@+id/rl_head"
         android:layout_height="wrap_content">
-
-
-        <RelativeLayout
-            android:id="@+id/rl_head"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp">
-
-            <ImageView
-                android:id="@+id/iv_head"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:src="@mipmap/head_default" />
-
-            <ImageView
-                android:id="@+id/iv_sex"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                tools:background="@mipmap/icon_boy" />
-
-        </RelativeLayout>
-
 
         <LinearLayout
             android:id="@+id/ll_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/rl_head"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -75,34 +82,35 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_name"
             android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/rl_head"
             app:guide_score_text_size="12" />
-
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_times"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@id/rl_head"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="14sp"
-            tools:text="阿尔噶尔阿哥噶尔噶啊噶诶玩过阿尔噶围观按个发文稿啊哥哥艾尔" />
-
-
-        <com.njz.letsgoapp.widget.ServiceTagView
-            android:id="@+id/tv_service_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_content"
-            android:layout_toEndOf="@id/rl_head"
-            android:textColor="@color/color_99"
-            android:layout_marginTop="5dp"
-            android:textSize="12sp"
-            tools:text="向导陪游向导陪游向导陪游向导陪游向导陪游向导陪游" />
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_head"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:maxLines="1"
+        android:textSize="14sp"
+        tools:text="阿尔噶尔阿哥噶尔噶啊噶诶玩过阿尔噶围观按个发文稿啊哥哥艾尔" />
 
-</FrameLayout>
+
+    <com.njz.letsgoapp.widget.ServiceTagView
+        android:id="@+id/tv_service_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/color_99"
+        android:layout_marginTop="5dp"
+        android:textSize="11sp"
+        tools:text="向导陪游向导陪游向导陪游向导陪游向导陪游向导陪游" />
+
+
+</RelativeLayout>

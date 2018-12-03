@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_left"
@@ -17,31 +19,49 @@
             android:padding="10dp"
             android:src="@mipmap/icon_back" />
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="向导列表"
-            android:gravity="center"
-            android:textColor="@color/color_text"
-            android:textSize="17sp"
-            android:layout_centerInParent="true"/>
-
-
         <TextView
             android:id="@+id/tv_city_pick"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawablePadding="5dp"
             android:drawableRight="@mipmap/ic_city_down"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:layout_marginRight="10dp"
             android:text="张家界" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_release"
+            android:background="@drawable/btn_ee_solid_r40"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/ic_search"
+                android:drawablePadding="10dp"
+                android:background="@color/transparent"
+                android:hint="搜索目的地/向导/玩法"
+                android:textColor="@color/gray_999"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="15"
+                android:imeOptions="actionSearch" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

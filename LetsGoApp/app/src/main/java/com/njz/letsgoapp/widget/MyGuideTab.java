@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -20,13 +21,15 @@ import com.njz.letsgoapp.util.AppUtils;
 
 public class MyGuideTab extends LinearLayout implements View.OnClickListener {
 
-    TextView tv_synthesize, tv_count, tv_score, tv_comment, tv_screen;
-    View line_synthesize, line_count, line_score, line_comment;
+    RelativeLayout rl_price,rl_comment;
+    TextView tv_synthesize, tv_count, tv_score, tv_comment, tv_screen,tv_price;
+    View line_synthesize, line_count, line_score, line_comment,line_price;
     public static final int MYGUIDETAB_SYNTHESIZE = 1;
     public static final int MYGUIDETAB_COUNT = 2;
     public static final int MYGUIDETAB_SCORE = 3;
     public static final int MYGUIDETAB_COMMENT = 4;
     public static final int MYGUIDETAB_SCREEN = 5;
+    public static final int MYGUIDETAB_PRICE = 6;
 
     Context context;
 
@@ -46,6 +49,11 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
         View view = LayoutInflater.from(context).inflate(R.layout.my_tab_view, this, true);
 
 
+        rl_price = view.findViewById(R.id.rl_price);
+        tv_price = view.findViewById(R.id.tv_price);
+        line_price = view.findViewById(R.id.line_price);
+        rl_comment = view.findViewById(R.id.rl_comment);
+
         tv_synthesize = view.findViewById(R.id.tv_synthesize);
         tv_count = view.findViewById(R.id.tv_count);
         tv_score = view.findViewById(R.id.tv_score);
@@ -63,6 +71,7 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
         tv_score.setOnClickListener(this);
         tv_screen.setOnClickListener(this);
         tv_comment.setOnClickListener(this);
+        tv_price.setOnClickListener(this);
 
         setTextColor(tv_synthesize,line_synthesize);
 
@@ -88,6 +97,10 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
                 setTextColor(tv_score,line_score);
                 index = MYGUIDETAB_SCORE;
                 break;
+            case R.id.tv_price:
+                setTextColor(tv_price,line_price);
+                index = MYGUIDETAB_PRICE;
+                break;
             case R.id.tv_screen:
                 index = MYGUIDETAB_SCREEN;
                 break;
@@ -109,12 +122,14 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
         tv_count.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.color_text));
         tv_score.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.color_text));
         tv_comment.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.color_text));
+        tv_price.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.color_text));
         tv.setTextColor(ContextCompat.getColor(AppUtils.getContext(),R.color.color_theme));
 
         line_synthesize.setVisibility(GONE);
         line_count.setVisibility(GONE);
         line_score.setVisibility(GONE);
         line_comment.setVisibility(GONE);
+        line_price.setVisibility(GONE);
         line.setVisibility(VISIBLE);
     }
 
@@ -122,6 +137,11 @@ public class MyGuideTab extends LinearLayout implements View.OnClickListener {
 
     public interface OnItemClickListener {
         void onClick(int position);
+    }
+
+    public void setPriceLayout(){
+        rl_price.setVisibility(VISIBLE);
+        rl_comment.setVisibility(GONE);
     }
 
     public void setScreen(boolean isSelect){

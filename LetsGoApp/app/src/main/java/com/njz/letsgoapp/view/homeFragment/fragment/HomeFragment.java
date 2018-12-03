@@ -52,6 +52,7 @@ import com.njz.letsgoapp.view.calendar.CalendarActivity;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.home.PlayListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
@@ -210,22 +211,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         Intent intent;
         switch (v.getId()) {
             case R.id.tv_grid_ticket:
-                showShortToast(tv_grid_ticket.getText().toString());
+                startActivity(new Intent(context,PlayListActivity.class));
                 break;
             case R.id.tv_grid_guide:
-                showShortToast(tv_grid_guide.getText().toString());
+                startActivity(new Intent(context,PlayListActivity.class));
                 break;
             case R.id.tv_grid_car:
-                showShortToast(tv_grid_car.getText().toString());
+                startActivity(new Intent(context,PlayListActivity.class));
                 break;
             case R.id.tv_grid_custom:
-                showShortToast(tv_grid_custom.getText().toString());
+                startActivity(new Intent(context,PlayListActivity.class));
                 break;
             case R.id.tv_grid_feature:
-                showShortToast(tv_grid_feature.getText().toString());
+                startActivity(new Intent(context,PlayListActivity.class));
                 break;
             case R.id.tv_grid_hotel:
-                showShortToast(tv_grid_hotel.getText().toString());
+                startActivity(new Intent(context,PlayListActivity.class));
                 break;
             case R.id.tv_city_pick:
                 cityPick();

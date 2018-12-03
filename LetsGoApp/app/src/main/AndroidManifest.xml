@@ -115,6 +115,9 @@
         <activity
             android:name=".view.home.GuideListActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.home.PlayListActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.home.GuideContractActivity" />
 
         <activity android:name=".view.home.ServiceDetailActivity" />

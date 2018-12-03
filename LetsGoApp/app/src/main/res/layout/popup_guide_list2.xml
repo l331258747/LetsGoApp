@@ -17,18 +17,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="出行日期" />
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="出行日期" />
 
                 <TextView
                     android:id="@+id/tv_time_unrestricted"
@@ -89,6 +88,122 @@
 
                 </LinearLayout>
 
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_has_car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="是否带车" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_car_yes"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/selector_flow_guide"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="5dp"
+                        android:text="是"
+                        android:textColor="@drawable/color_folw_guide"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_car_no"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/selector_flow_guide"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="5dp"
+                        android:text="否"
+                        android:textColor="@drawable/color_folw_guide"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="价格范围" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_price_min"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/selector_flow_guide"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="5dp"
+                        android:maxLines="1"
+                        android:hint="最低价"
+                        android:textColor="@drawable/color_folw_guide"
+                        android:inputType="number"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/color_99" />
+
+                    <EditText
+                        android:id="@+id/et_price_max"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/selector_flow_guide"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="15dp"
+                        android:maxLines="1"
+                        android:inputType="number"
+                        android:paddingRight="15dp"
+                        android:paddingTop="5dp"
+                        android:hint="最高价"
+                        android:textColor="@drawable/color_folw_guide"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

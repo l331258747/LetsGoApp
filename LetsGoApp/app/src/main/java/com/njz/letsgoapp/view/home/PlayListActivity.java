@@ -1,7 +1,6 @@
 package com.njz.letsgoapp.view.home;
 
 import android.content.Intent;
-import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,19 +12,14 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
-import com.njz.letsgoapp.adapter.home.GuideListAdapter;
+import com.njz.letsgoapp.adapter.home.HomePlayAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.home.GuideListModel;
-import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.home.PlayData;
 import com.njz.letsgoapp.bean.other.ConfigModel;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.mvp.home.GuideListContract;
-import com.njz.letsgoapp.mvp.home.GuideListPresenter;
 import com.njz.letsgoapp.mvp.other.ConfigContract;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
@@ -42,20 +36,17 @@ import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
- * Time: 2018/8/8
+ * Time: 2018/12/3
  * Function:
  */
 
-public class GuideListActivity extends BaseActivity implements View.OnClickListener, GuideListContract.View,ConfigContract.View {
-
-    public static final String START_TIME ="START_TIME";
-    public static final String END_TIME ="END_TIME";
+public class PlayListActivity extends BaseActivity implements View.OnClickListener, ConfigContract.View {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private LoadMoreWrapper loadMoreWrapper;
 
-    GuideListAdapter mAdapter;
+    HomePlayAdapter mAdapter;
 
     ImageView ivLeft;
     TextView tvCityPick;
@@ -66,7 +57,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     PopGuideList2 popGuideList;
 
-    GuideListPresenter mPresenter;
     ConfigPresenter configPresenter;
 
     Map<String, String> maps;
@@ -79,11 +69,32 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
 
+
     @Override
-    public void getIntentData() {
-        super.getIntentData();
-        startTime = intent.getStringExtra(START_TIME);
-        endTime = intent.getStringExtra(END_TIME);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_left:
+                finish();
+                break;
+            case R.id.tv_city_pick:
+                intent = new Intent(context, MyCityPickActivity.class);
+                intent.putExtra(MyCityPickActivity.LOCATION, tvCityPick.getText().toString());
+                startActivity(intent);
+                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+                    @Override
+                    public void accept(CityPickEvent cityPickEvent) throws Exception {
+                        desDisposable.dispose();
+                        if(TextUtils.isEmpty(cityPickEvent.getCity()))
+                            return;
+                        MySelfInfo.getInstance().setDefaultCity(cityPickEvent.getCity());
+                        location = cityPickEvent.getCity();
+                        tvCityPick.setText(cityPickEvent.getCity());
+                        getRefreshData(type);
+
+                    }
+                });
+                break;
+        }
     }
 
     @Override
@@ -93,13 +104,13 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void initView() {
-
         hideTitleLayout();
 
         ivLeft = $(R.id.iv_left);
         tvCityPick = $(R.id.tv_city_pick);
 
         myGuideTab = $(R.id.my_guide_tab);
+        myGuideTab.setPriceLayout();
         myGuideTab.setCallback(new MyGuideTab.OnItemClickListener() {
             @Override
             public void onClick(int position) {
@@ -120,6 +131,10 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                         type = Constant.GUIDE_TYPE_COMMENT;
                         getRefreshData(type);
                         break;
+                    case MyGuideTab.MYGUIDETAB_PRICE:
+                        type = Constant.GUIDE_TYPE_PRICE;
+                        getRefreshData(type);
+                        break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         popGuideList.showPopupWindow(myGuideTab);
                         break;
@@ -128,6 +143,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         });
 
         popGuideList = new PopGuideList2(context, myGuideTab);
+        popGuideList.setLayoutType(1,2);
         if (!TextUtils.isEmpty(startTime)) {
             popGuideList.setTime(startTime, endTime);
             myGuideTab.setScreen(true);
@@ -181,18 +197,14 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     private void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new GuideListAdapter(activity, new ArrayList<GuideModel>());
+        mAdapter = new HomePlayAdapter(activity, new ArrayList<PlayData>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         page = Constant.DEFAULT_PAGE;
 
-        mAdapter.setOnItemClickListener(new GuideListAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(context, GuideDetailActivity.class);
-                LogUtil.e(mAdapter.getDatas().get(position).getGuideId() + "");
-                intent.putExtra(GuideDetailActivity.GUIDEID, mAdapter.getDatas().get(position).getId());
-                startActivity(intent);
             }
         });
 
@@ -225,22 +237,24 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.guideSortTop10ByLocation(location, type, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE, maps);
+        getData();
     }
 
     private void getMoreData(int type) {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
-        mPresenter.guideSortTop10ByLocation(location, type, Constant.DEFAULT_LIMIT, page, maps);
+        getData();
     }
 
+    private void getData(){
+        initPlayData();
+    }
 
     @Override
     public void initData() {
         location = MySelfInfo.getInstance().getDefaultCity();
 
-        mPresenter = new GuideListPresenter(context, this);
         configPresenter = new ConfigPresenter(context, this);
         getRefreshData(type);
         tvCityPick.setText(location);
@@ -249,64 +263,9 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         values.add(Constant.CONFIG_XB);
         values.add(Constant.CONFIG_DYNL);
         values.add(Constant.CONFIG_CYNX);
-        values.add(Constant.CONFIG_FWLX);
+//        values.add(Constant.CONFIG_FWLX);
         values.add(Constant.CONFIG_YYLX);
         configPresenter.guideGetGuideMacros(values);
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_left:
-                finish();
-                break;
-            case R.id.tv_city_pick:
-                intent = new Intent(context, MyCityPickActivity.class);
-                intent.putExtra(MyCityPickActivity.LOCATION, tvCityPick.getText().toString());
-                startActivity(intent);
-                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-                    @Override
-                    public void accept(CityPickEvent cityPickEvent) throws Exception {
-                        desDisposable.dispose();
-                        if(TextUtils.isEmpty(cityPickEvent.getCity()))
-                            return;
-                        MySelfInfo.getInstance().setDefaultCity(cityPickEvent.getCity());
-                        location = cityPickEvent.getCity();
-                        tvCityPick.setText(cityPickEvent.getCity());
-                        getRefreshData(type);
-
-                    }
-                });
-                break;
-        }
-    }
-
-    @Override
-    public void guideSortTop10ByLocationSuccess(GuideListModel models) {
-        List<GuideModel> datas = models.getList();
-
-        if (isLoadType == 1) {
-            mAdapter.setData(datas);
-        } else {
-            mAdapter.addData(datas);
-        }
-        isLoad = false;
-        if (datas.size() >= Constant.DEFAULT_LIMIT) {
-            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
-        } else {
-            // 显示加载到底的提示
-            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
-        }
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void guideSortTop10ByLocationFailed(String msg) {
-        showShortToast(msg);
-        isLoad = false;
-        swipeRefreshLayout.setRefreshing(false);
-        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 
     @Override
@@ -317,5 +276,18 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void guideGetGuideMacrosFailed(String msg) {
         showShortToast(msg);
+    }
+
+    public void initPlayData(){
+        List<PlayData> datas = new ArrayList<>();
+        PlayData data = new PlayData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543829470523&di=87de21d5e5ce4826a6d74b97deefb0b8&imgtype=0&src=http%3A%2F%2Fgotrip.zjol.com.cn%2Fxw14873%2Fycll14875%2F201710%2FW020171024603757884776.jpg",
+                "长沙特色小吃游",300f,"长沙",4.8f,100,400);
+        datas.add(data);
+        datas.add(data);
+        datas.add(data);
+
+        mAdapter.setData(datas);
+        swipeRefreshLayout.setRefreshing(false);
+
     }
 }

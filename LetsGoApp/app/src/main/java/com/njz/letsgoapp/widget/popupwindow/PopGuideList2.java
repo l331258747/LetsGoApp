@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -50,6 +51,10 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
     Disposable calDisposable;
 
     TextView tv_time_start, tv_time_end,tv_time_unrestricted;
+
+    LinearLayout ll_has_car,ll_price;
+    TextView tv_car_yes,tv_car_no;
+    EditText et_price_min,et_price_max;
 
     List<ConfigModel> configModels;
     List<TagFlowLayout> tagFlowLayouts = new ArrayList<>();
@@ -95,6 +100,15 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
         tv_time_unrestricted.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
         btn_reset.setOnClickListener(this);
+
+        ll_has_car = contentView.findViewById(R.id.ll_has_car);
+        ll_price = contentView.findViewById(R.id.ll_price);
+        tv_car_yes = contentView.findViewById(R.id.tv_car_yes);
+        tv_car_no = contentView.findViewById(R.id.tv_car_no);
+        et_price_min = contentView.findViewById(R.id.et_price_min);
+        et_price_max = contentView.findViewById(R.id.et_price_max);
+        tv_car_yes.setOnClickListener(this);
+        tv_car_no.setOnClickListener(this);
     }
 
 
@@ -187,6 +201,8 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
             tagFlowLayouts.get(i).onChanged();
         }
         setResetAllView(tv_time_start,tv_time_end,tv_time_unrestricted);
+        setResetAllView(tv_car_no,tv_car_yes);
+        setResetEditView(et_price_min,et_price_max);
         tv_time_start.setText("开始时间");
         tv_time_end.setText("结束时间");
         submitLisener.onReset();
@@ -201,10 +217,41 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
             tv.setSelected(false);
         }
     }
+    private void setResetEditView(EditText... ets) {
+        for (EditText et : ets) {
+            et.setBackgroundResource(R.drawable.btn_gray_hollow_r3);
+            et.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_99));
+            et.setText("");
+        }
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.tv_car_no:
+                setResetAllView(tv_car_yes);
+                if(tv_car_no.isSelected()){
+                    tv_car_no.setBackgroundResource(R.drawable.btn_gray_hollow_r3);
+                    tv_car_no.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_99));
+                    tv_car_no.setSelected(false);
+                }else{
+                    tv_car_no.setBackgroundResource(R.drawable.btn_theme_hollow_r3);
+                    tv_car_no.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
+                    tv_car_no.setSelected(true);
+                }
+                break;
+            case R.id.tv_car_yes:
+                setResetAllView(tv_car_no);
+                if(tv_car_yes.isSelected()){
+                    tv_car_yes.setBackgroundResource(R.drawable.btn_gray_hollow_r3);
+                    tv_car_yes.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_99));
+                    tv_car_yes.setSelected(false);
+                }else{
+                    tv_car_yes.setBackgroundResource(R.drawable.btn_theme_hollow_r3);
+                    tv_car_yes.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
+                    tv_car_yes.setSelected(true);
+                }
+                break;
             case R.id.tv_time_start:
                 setTime();
                 break;
@@ -260,6 +307,21 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
         tv_time_end.setBackgroundResource(R.drawable.btn_theme_hollow_r3);
         tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
         tv_time_end.setSelected(true);
+    }
+
+
+    //1,显示是否有车，2显示是否有价格输入
+    public void setLayoutType(int... type){
+        for (int item:type){
+            switch (item){
+                case 1:
+                    ll_has_car.setVisibility(View.VISIBLE);
+                    break;
+                case 2:
+                    ll_price.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
     }
 
     private void setTime() {

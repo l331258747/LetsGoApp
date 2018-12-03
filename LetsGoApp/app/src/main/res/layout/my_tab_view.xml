@@ -75,6 +75,32 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="价格"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/line_price"
+            android:layout_width="25dp"
+            android:layout_height="3dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/line_theme_solid" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_comment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
