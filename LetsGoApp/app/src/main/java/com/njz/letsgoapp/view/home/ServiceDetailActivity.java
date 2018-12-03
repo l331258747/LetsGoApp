@@ -2,17 +2,22 @@ package com.njz.letsgoapp.view.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
@@ -34,9 +39,13 @@ import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
 import com.njz.letsgoapp.util.webview.LWebView;
+import com.njz.letsgoapp.view.home.serverFragment.ServerFeatureFragment;
+import com.njz.letsgoapp.view.order.OrderListFragment;
+import com.njz.letsgoapp.view.order.OrderRefundListFragment;
 import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,8 +64,11 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     TextView tv_title,  tv_sell, tv_submit,  tv_phone, tv_back_top;
     TextView tv_destination,tv_destination2;
     PriceView pv_price;
-    LWebView webView;
-    NestedScrollView scrollView;
+    ViewPager mViewPager;
+
+    private String[] titles = {"服务特色", "TA的评价"};
+    private List<Fragment> mFragments;
+    private TabLayout mTabLayout;
 
     String title;
     int serviceId;
@@ -66,10 +78,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     ServiceDetailPresenter mPresenter;
     ServiceDetailModel model;
 
-    TextView price_introduce_content,tv_refund_rule_30,tv_refund_rule_50;
     LinearLayout ll_bottom;
-
-    EmptyView3 view_empty;
 
     @Override
     public int getLayoutId() {
@@ -88,6 +97,18 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    public  void initViewPage(ServiceDetailModel model){
+        mFragments = new ArrayList<>();
+        mFragments.add(ServerFeatureFragment.newInstance(model));
+        mFragments.add(ServerFeatureFragment.newInstance(model));
+
+        BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);
+        mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(3);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+    }
+
     @Override
     public void initView() {
         showLeftAndTitle(title + "详情介绍");
@@ -95,6 +116,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
         getRightIv().setOnClickListener(this);
 
+        mViewPager = $(R.id.viewpager);
+        mTabLayout = $(R.id.tablayout);
         ll_bottom = $(R.id.ll_bottom);
         convenientBanner = $(R.id.convenientBanner);
         tv_title = $(R.id.tv_title);
@@ -104,16 +127,16 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_sell = $(R.id.tv_score);
         pv_price = $(R.id.pv_price);
         tv_submit = $(R.id.tv_submit);
-        webView = $(R.id.webview);
+//        webView = $(R.id.webview);
         tv_back_top = $(R.id.tv_back_top);
         tv_back_top.setVisibility(View.GONE);
-        scrollView = $(R.id.scrollView);
-        view_empty = $(R.id.view_empty);
+//        scrollView = $(R.id.scrollView);
+//        view_empty = $(R.id.view_empty);
 
 
-        price_introduce_content = $(R.id.price_introduce_content);
-        tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
-        tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
+//        price_introduce_content = $(R.id.price_introduce_content);
+//        tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
+//        tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
 
         tv_submit.setOnClickListener(this);
         tv_destination2.setOnClickListener(this);
@@ -146,17 +169,19 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         mPresenter.getGuideService(serviceId);
         mPresenter.bannerFindByType(0,serviceId);
 
-        final int mDisplayHeight = AppUtils.getDisplayHeight();
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > mDisplayHeight) {
-                    tv_back_top.setVisibility(View.VISIBLE);
-                } else {
-                    tv_back_top.setVisibility(View.GONE);
-                }
-            }
-        });
+//        initViewPage();
+
+//        final int mDisplayHeight = AppUtils.getDisplayHeight();
+//        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY > mDisplayHeight) {
+//                    tv_back_top.setVisibility(View.VISIBLE);
+//                } else {
+//                    tv_back_top.setVisibility(View.GONE);
+//                }
+//            }
+//        });
     }
 
     public void initDetail(ServiceDetailModel model) {
@@ -173,23 +198,25 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_sell.setText("已售:" + model.getCount());
         pv_price.setPrice(model.getServePrice());
 
-        if(!TextUtils.isEmpty(model.getServeFeature()))
-        webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
+        initViewPage(model);
 
-        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
-            price_introduce_content.setText(model.getCostExplain());
-        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
-            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),model.getRenegePriceThree().replace(",","-")));
-        if(!TextUtils.isEmpty(model.getRenegePriceFive()))
-            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),model.getRenegePriceFive().replace(",","-")));
-
-        if(!TextUtils.isEmpty(model.getServeFeature())){
-            webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
-            view_empty.setVisible(false);
-        }else{
-            view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_guide_story,"他很害羞哦，什么都没留下~");
-        }
+//        if(!TextUtils.isEmpty(model.getServeFeature()))
+//        webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
+//
+//        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
+//            price_introduce_content.setText(model.getCostExplain());
+//        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
+//            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),model.getRenegePriceThree().replace(",","-")));
+//        if(!TextUtils.isEmpty(model.getRenegePriceFive()))
+//            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),model.getRenegePriceFive().replace(",","-")));
+//
+//        if(!TextUtils.isEmpty(model.getServeFeature())){
+//            webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
+//            view_empty.setVisible(false);
+//        }else{
+//            view_empty.setVisible(true);
+//            view_empty.setEmptyData(R.mipmap.empty_guide_story,"他很害羞哦，什么都没留下~");
+//        }
 
         //预订(￥0)
         tv_submit.setText("预订(￥" + model.getServePrice() +")");
@@ -252,7 +279,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 startActivity(new Intent(context, MapActivity.class));
                 break;
             case R.id.tv_back_top:
-                scrollView.scrollTo(0, 0);
+//                scrollView.scrollTo(0, 0);
                 break;
             case R.id.right_iv:
                 if(model == null) return;
@@ -268,9 +295,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     protected void onDestroy() {
         super.onDestroy();
         // webview 需要加载空界面来释放资源
-        webView.loadUrl("about:blank");
-        webView.clearCache(false);
-        webView.destroy();
+//        webView.loadUrl("about:blank");
+//        webView.clearCache(false);
+//        webView.destroy();
     }
 
     @Override

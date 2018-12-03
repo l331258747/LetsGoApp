@@ -114,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:text="行程开始前其他时间取消订单，不收取违约金" />
+
     </LinearLayout>
 
 

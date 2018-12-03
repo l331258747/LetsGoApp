@@ -1,12 +1,15 @@
 package com.njz.letsgoapp.bean.home;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by LGQ
  * Time: 2018/8/31
  * Function:
  */
 
-public class ServiceDetailModel {
+public class ServiceDetailModel implements Parcelable{
 
 
     /**
@@ -49,6 +52,43 @@ public class ServiceDetailModel {
     private String shareTitle;
     private String shareUrl;
     private String address;
+
+    protected ServiceDetailModel(Parcel in) {
+        id = in.readInt();
+        guideId = in.readInt();
+        commentId = in.readInt();
+        titleImg = in.readString();
+        servePrice = in.readFloat();
+        serveFeature = in.readString();
+        serveType = in.readInt();
+        serviceType = in.readString();
+        value = in.readString();
+        renegePriceThree = in.readString();
+        renegePriceFive = in.readString();
+        costExplain = in.readString();
+        title = in.readString();
+        status = in.readInt();
+        location = in.readString();
+        sellOut = in.readInt();
+        guideMobile = in.readString();
+        shareImg = in.readString();
+        shareContent = in.readString();
+        shareTitle = in.readString();
+        shareUrl = in.readString();
+        address = in.readString();
+    }
+
+    public static final Creator<ServiceDetailModel> CREATOR = new Creator<ServiceDetailModel>() {
+        @Override
+        public ServiceDetailModel createFromParcel(Parcel in) {
+            return new ServiceDetailModel(in);
+        }
+
+        @Override
+        public ServiceDetailModel[] newArray(int size) {
+            return new ServiceDetailModel[size];
+        }
+    };
 
     public String getAddress() {
         return address;
@@ -200,5 +240,36 @@ public class ServiceDetailModel {
 
     public void setCount(int count) {
         this.sellOut = count;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(guideId);
+        dest.writeInt(commentId);
+        dest.writeString(titleImg);
+        dest.writeFloat(servePrice);
+        dest.writeString(serveFeature);
+        dest.writeInt(serveType);
+        dest.writeString(serviceType);
+        dest.writeString(value);
+        dest.writeString(renegePriceThree);
+        dest.writeString(renegePriceFive);
+        dest.writeString(costExplain);
+        dest.writeString(title);
+        dest.writeInt(status);
+        dest.writeString(location);
+        dest.writeInt(sellOut);
+        dest.writeString(guideMobile);
+        dest.writeString(shareImg);
+        dest.writeString(shareContent);
+        dest.writeString(shareTitle);
+        dest.writeString(shareUrl);
+        dest.writeString(address);
     }
 }
