@@ -40,75 +40,11 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class PlayListActivity extends BaseActivity implements View.OnClickListener, ConfigContract.View {
+public class PlayListActivity extends GuideListActivity {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
-    private LoadMoreWrapper loadMoreWrapper;
+    HomePlayAdapter playAdapter;
 
-    HomePlayAdapter mAdapter;
-
-    ImageView ivLeft;
-    TextView tvCityPick;
-
-    MyGuideTab myGuideTab;
-
-    Disposable desDisposable;
-
-    PopGuideList2 popGuideList;
-
-    ConfigPresenter configPresenter;
-
-    Map<String, String> maps;
-    int type = Constant.GUIDE_TYPE_SYNTHESIZE;
-
-    String startTime;
-    String endTime;
-    String location;
-    int page;
-    int isLoadType = 1;//1下拉刷新，2上拉加载
-    boolean isLoad = false;//是否在加载，重复加载问题
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_left:
-                finish();
-                break;
-            case R.id.tv_city_pick:
-                intent = new Intent(context, MyCityPickActivity.class);
-                intent.putExtra(MyCityPickActivity.LOCATION, tvCityPick.getText().toString());
-                startActivity(intent);
-                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-                    @Override
-                    public void accept(CityPickEvent cityPickEvent) throws Exception {
-                        desDisposable.dispose();
-                        if(TextUtils.isEmpty(cityPickEvent.getCity()))
-                            return;
-                        MySelfInfo.getInstance().setDefaultCity(cityPickEvent.getCity());
-                        location = cityPickEvent.getCity();
-                        tvCityPick.setText(cityPickEvent.getCity());
-                        getRefreshData(type);
-
-                    }
-                });
-                break;
-        }
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_guide_list;
-    }
-
-    @Override
-    public void initView() {
-        hideTitleLayout();
-
-        ivLeft = $(R.id.iv_left);
-        tvCityPick = $(R.id.tv_city_pick);
-
+    public void initTabLayout() {
         myGuideTab = $(R.id.my_guide_tab);
         myGuideTab.setPriceLayout();
         myGuideTab.setCallback(new MyGuideTab.OnItemClickListener() {
@@ -176,33 +112,18 @@ public class PlayListActivity extends BaseActivity implements View.OnClickListen
                 getRefreshData(type);
             }
         });
-
-        ivLeft.setOnClickListener(this);
-        tvCityPick.setOnClickListener(this);
-
-        initRecycler();
-        initSwipeLayout();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (popGuideList != null && popGuideList.isShowing()) {
-            popGuideList.dismissPopupWindow();
-            return;
-        }
-        super.onBackPressed();
     }
 
     //初始化recyclerview
-    private void initRecycler() {
+    public void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new HomePlayAdapter(activity, new ArrayList<PlayData>());
-        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayData>());
+        loadMoreWrapper = new LoadMoreWrapper(playAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         page = Constant.DEFAULT_PAGE;
 
-        mAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
+        playAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
             }
@@ -219,35 +140,8 @@ public class PlayListActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    //初始化SwipeLayout
-    private void initSwipeLayout() {
-        swipeRefreshLayout = $(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.color_theme));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (isLoad) return;
-                getRefreshData(type);
-            }
-        });
-    }
 
-    private void getRefreshData(int type) {
-        swipeRefreshLayout.setRefreshing(true);
-        isLoad = true;
-        page = Constant.DEFAULT_PAGE;
-        isLoadType = 1;
-        getData();
-    }
-
-    private void getMoreData(int type) {
-        isLoad = true;
-        page = page + 1;
-        isLoadType = 2;
-        getData();
-    }
-
-    private void getData(){
+    public void getData(int type){
         initPlayData();
     }
 
@@ -268,16 +162,6 @@ public class PlayListActivity extends BaseActivity implements View.OnClickListen
         configPresenter.guideGetGuideMacros(values);
     }
 
-    @Override
-    public void guideGetGuideMacrosSuccess(List<ConfigModel> models) {
-        popGuideList.setConfigData(models);
-    }
-
-    @Override
-    public void guideGetGuideMacrosFailed(String msg) {
-        showShortToast(msg);
-    }
-
     public void initPlayData(){
         List<PlayData> datas = new ArrayList<>();
         PlayData data = new PlayData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543829470523&di=87de21d5e5ce4826a6d74b97deefb0b8&imgtype=0&src=http%3A%2F%2Fgotrip.zjol.com.cn%2Fxw14873%2Fycll14875%2F201710%2FW020171024603757884776.jpg",
@@ -286,7 +170,7 @@ public class PlayListActivity extends BaseActivity implements View.OnClickListen
         datas.add(data);
         datas.add(data);
 
-        mAdapter.setData(datas);
+        playAdapter.setData(datas);
         swipeRefreshLayout.setRefreshing(false);
 
     }

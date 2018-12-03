@@ -51,33 +51,33 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     public static final String START_TIME ="START_TIME";
     public static final String END_TIME ="END_TIME";
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
-    private LoadMoreWrapper loadMoreWrapper;
+    public SwipeRefreshLayout swipeRefreshLayout;
+    public RecyclerView recyclerView;
+    public LoadMoreWrapper loadMoreWrapper;
 
-    GuideListAdapter mAdapter;
+    public GuideListAdapter mAdapter;
 
-    ImageView ivLeft;
-    TextView tvCityPick;
+    public ImageView ivLeft;
+    public TextView tvCityPick;
 
-    MyGuideTab myGuideTab;
+    public MyGuideTab myGuideTab;
 
-    Disposable desDisposable;
+    public Disposable desDisposable;
 
-    PopGuideList2 popGuideList;
+    public PopGuideList2 popGuideList;
 
-    GuideListPresenter mPresenter;
-    ConfigPresenter configPresenter;
+    public GuideListPresenter mPresenter;
+    public ConfigPresenter configPresenter;
 
-    Map<String, String> maps;
-    int type = Constant.GUIDE_TYPE_SYNTHESIZE;
+    public Map<String, String> maps;
+    public int type = Constant.GUIDE_TYPE_SYNTHESIZE;
 
-    String startTime;
-    String endTime;
-    String location;
-    int page;
-    int isLoadType = 1;//1下拉刷新，2上拉加载
-    boolean isLoad = false;//是否在加载，重复加载问题
+    public String startTime;
+    public String endTime;
+    public String location;
+    public int page;
+    public int isLoadType = 1;//1下拉刷新，2上拉加载
+    public boolean isLoad = false;//是否在加载，重复加载问题
 
     @Override
     public void getIntentData() {
@@ -99,6 +99,16 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         ivLeft = $(R.id.iv_left);
         tvCityPick = $(R.id.tv_city_pick);
 
+        initTabLayout();
+
+        ivLeft.setOnClickListener(this);
+        tvCityPick.setOnClickListener(this);
+
+        initRecycler();
+        initSwipeLayout();
+    }
+
+    public void initTabLayout() {
         myGuideTab = $(R.id.my_guide_tab);
         myGuideTab.setCallback(new MyGuideTab.OnItemClickListener() {
             @Override
@@ -160,12 +170,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 getRefreshData(type);
             }
         });
-
-        ivLeft.setOnClickListener(this);
-        tvCityPick.setOnClickListener(this);
-
-        initRecycler();
-        initSwipeLayout();
     }
 
     @Override
@@ -178,7 +182,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     }
 
     //初始化recyclerview
-    private void initRecycler() {
+    public void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new GuideListAdapter(activity, new ArrayList<GuideModel>());
@@ -220,19 +224,23 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
-    private void getRefreshData(int type) {
+    public void getRefreshData(int type) {
         swipeRefreshLayout.setRefreshing(true);
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
-        mPresenter.guideSortTop10ByLocation(location, type, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE, maps);
+        getData(type);
     }
 
-    private void getMoreData(int type) {
+    public void getMoreData(int type) {
         isLoad = true;
         page = page + 1;
         isLoadType = 2;
-        mPresenter.guideSortTop10ByLocation(location, type, Constant.DEFAULT_LIMIT, page, maps);
+        getData(type);
+    }
+
+    public void getData(int type){
+        mPresenter.guideSortTop10ByLocation(location, type, Constant.DEFAULT_LIMIT, Constant.DEFAULT_PAGE, maps);
     }
 
 
