@@ -83,5 +83,9 @@
         <attr name="tabLineOffset" format="dimension" />
 
     </declare-styleable>
+    <declare-styleable name="priceView">
+        <attr name="priceView_suffix" format="string"/>
+
+    </declare-styleable>
 
 </resources>

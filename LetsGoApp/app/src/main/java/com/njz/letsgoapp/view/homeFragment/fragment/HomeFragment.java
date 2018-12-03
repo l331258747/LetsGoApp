@@ -23,6 +23,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
+import com.njz.letsgoapp.adapter.home.HomePlayAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -32,6 +33,7 @@ import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.NoticeItem;
+import com.njz.letsgoapp.bean.home.PlayData;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
@@ -67,13 +69,15 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View,DynamicNiceContract.View{
+//public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View,DynamicNiceContract.View{
+public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View{
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private RecyclerView recycler_view_h;
-    private DynamicAdapter dynamicAdapter;
+//    private DynamicAdapter dynamicAdapter;
     private HomeGuideAdapter guideAdapter;
+    private HomePlayAdapter playAdapter;
     private LinearLayoutManager linearLayoutManager;
     private LinearLayout notice_ll;
     private ViewFlipper view_flipper;
@@ -86,17 +90,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private ConvenientBanner convenientBanner;
 
     private HomePresenter mPresenter;
-    private DynamicNicePresenter nicePresenter;
+//    private DynamicNicePresenter nicePresenter;
 
     private List<GuideModel> guideDatas;
-    private List<DynamicModel> dynamicDatas;
+//    private List<DynamicModel> dynamicDatas;
 
     private String city;
 
     private boolean isLoad = false;
     private boolean isBannerLoad,isDynamicLoad,isGuideLoad;
 
-    private int nicePosition;
+//    private int nicePosition;
 
     public EmptyView2 view_empty;
 
@@ -228,6 +232,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             case R.id.dynamic_title:
                 ((HomeActivity)activity).setTabIndex(1);
                 break;
+            case R.id.rl_guide_title:
+                intent = new Intent(context,GuideListActivity.class);
+                startActivity(intent);
+
         }
     }
 
@@ -237,7 +245,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         tv_city_pick.setText(city);
 
         mPresenter = new HomePresenter(context,this);
-        nicePresenter = new DynamicNicePresenter(context,this);
+//        nicePresenter = new DynamicNicePresenter(context,this);
 
         initRecycler();
         initSwipeLayout();
@@ -267,7 +275,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         isDynamicLoad =false;
         isBannerLoad = false;
         isGuideLoad = false;
-        mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
+//        mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
+        initPlayData();
         mPresenter.orderReviewsSortTop(city);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
         mPresenter.orderCarouselOrder();
@@ -280,40 +289,55 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),2);
-        recyclerView.setAdapter(dynamicAdapter);
+        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayData>());
+        recyclerView.setAdapter(playAdapter);
         recyclerView.setNestedScrollingEnabled(false);
-        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
-        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+        playAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,dynamicDatas.get(position).getFriendSterId());
-                startActivity(intent);
-            }
+            public void onClick(int position) {
 
-            @Override
-            public void onNiceClick(int position) {
-                nicePresenter.friendQueryLikes(dynamicDatas.get(position).isLike(),dynamicDatas.get(position).getFriendSterId());
-                nicePosition = position;
-            }
-
-            @Override
-            public void onHeadClick(int position) {
-                Intent intent = new Intent(context, SpaceActivity.class);
-                intent.putExtra(SpaceActivity.USER_ID, dynamicAdapter.getItem(position).getUserId());
-                startActivity(intent);
-            }
-        });
-
-        dynamicAdapter.setCheckAllListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((HomeActivity)activity).setTabIndex(1);
             }
         });
     }
+//    private void initRecycler() {
+//        recyclerView = $(R.id.recycler_view);
+//        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),2);
+//        recyclerView.setAdapter(dynamicAdapter);
+//        recyclerView.setNestedScrollingEnabled(false);
+//        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
+//
+//        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Intent intent = new Intent(context, DynamicDetailActivity.class);
+//                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,dynamicDatas.get(position).getFriendSterId());
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onNiceClick(int position) {
+//                nicePresenter.friendQueryLikes(dynamicDatas.get(position).isLike(),dynamicDatas.get(position).getFriendSterId());
+//                nicePosition = position;
+//            }
+//
+//            @Override
+//            public void onHeadClick(int position) {
+//                Intent intent = new Intent(context, SpaceActivity.class);
+//                intent.putExtra(SpaceActivity.USER_ID, dynamicAdapter.getItem(position).getUserId());
+//                startActivity(intent);
+//            }
+//        });
+//
+//        dynamicAdapter.setCheckAllListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ((HomeActivity)activity).setTabIndex(1);
+//            }
+//        });
+//    }
 
     private void intRecyclerH(){
 
@@ -347,7 +371,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isDynamicLoad = false;
                 isGuideLoad = false;
 
-                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
+//                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
+                initPlayData();
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
                 mPresenter.orderCarouselOrder();
@@ -377,7 +402,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isBannerLoad = true;
                 isGuideLoad = false;
 
-                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
+//                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
+                initPlayData();
                 mPresenter.orderReviewsSortTop(city);
 
                 swipeRefreshLayout.setRefreshing(true);
@@ -466,37 +492,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         showLongToast(msg);
     }
 
-    @Override
-    public void friendFriendSterTopSuccess(DynamicListModel models) {
-        isDynamicLoad = true;
-        if(isBannerLoad && isDynamicLoad && isGuideLoad){
-            swipeRefreshLayout.setRefreshing(false);
-            isLoad = false;
-        }
-
-        dynamicDatas = models.getList();
-        dynamicAdapter.setData(dynamicDatas);
-        dynamicAdapter.notifyDataSetChanged();
-
-        if(dynamicDatas.size() == 0){
-            view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_follow,"这里还是空空哒~");
-            view_empty.setEmptyBackground(R.color.white);
-        }else{
-            view_empty.setVisible(false);
-        }
-
-    }
-
-    @Override
-    public void friendFriendSterTopFailed(String msg) {
-        isDynamicLoad = true;
-        if(isBannerLoad && isDynamicLoad && isGuideLoad){
-            swipeRefreshLayout.setRefreshing(false);
-            isLoad = false;
-        }
-        showLongToast(msg);
-    }
+//    @Override
+//    public void friendFriendSterTopSuccess(DynamicListModel models) {
+//        isDynamicLoad = true;
+//        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+//            swipeRefreshLayout.setRefreshing(false);
+//            isLoad = false;
+//        }
+//
+//        dynamicDatas = models.getList();
+//        dynamicAdapter.setData(dynamicDatas);
+//        dynamicAdapter.notifyDataSetChanged();
+//
+//        if(dynamicDatas.size() == 0){
+//            view_empty.setVisible(true);
+//            view_empty.setEmptyData(R.mipmap.empty_follow,"这里还是空空哒~");
+//            view_empty.setEmptyBackground(R.color.white);
+//        }else{
+//            view_empty.setVisible(false);
+//        }
+//
+//    }
+//
+//    @Override
+//    public void friendFriendSterTopFailed(String msg) {
+//        isDynamicLoad = true;
+//        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+//            swipeRefreshLayout.setRefreshing(false);
+//            isLoad = false;
+//        }
+//        showLongToast(msg);
+//    }
 
     @Override
     public void orderCarouselOrderSuccess(List<NoticeItem> models) {
@@ -509,25 +535,50 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         showShortToast(msg);
     }
 
-    @Override
-    public void friendQueryLikesSuccess(EmptyModel models) {
-        dynamicDatas.get(nicePosition).setLike(!dynamicDatas.get(nicePosition).isLike());
-        if(dynamicDatas.get(nicePosition).isLike()){
-            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() + 1);
-        }else{
-            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() - 1);
-        }
-        dynamicAdapter.setItemData(nicePosition);
-    }
-
-    @Override
-    public void friendQueryLikesFailed(String msg) {
-        showShortToast(msg);
-    }
+//    @Override
+//    public void friendQueryLikesSuccess(EmptyModel models) {
+//        dynamicDatas.get(nicePosition).setLike(!dynamicDatas.get(nicePosition).isLike());
+//        if(dynamicDatas.get(nicePosition).isLike()){
+//            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() + 1);
+//        }else{
+//            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() - 1);
+//        }
+//        dynamicAdapter.setItemData(nicePosition);
+//    }
+//
+//    @Override
+//    public void friendQueryLikesFailed(String msg) {
+//        showShortToast(msg);
+//    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public void initPlayData(){
+        List<PlayData> datas = new ArrayList<>();
+        PlayData data = new PlayData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543829470523&di=87de21d5e5ce4826a6d74b97deefb0b8&imgtype=0&src=http%3A%2F%2Fgotrip.zjol.com.cn%2Fxw14873%2Fycll14875%2F201710%2FW020171024603757884776.jpg",
+                "长沙特色小吃游",300f,"长沙",4.8f,100,400);
+        datas.add(data);
+        datas.add(data);
+        datas.add(data);
+
+        isDynamicLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
+
+        playAdapter.setData(datas);
+
+        if(datas.size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_follow,"这里还是空空哒~");
+            view_empty.setEmptyBackground(R.color.white);
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 }
 

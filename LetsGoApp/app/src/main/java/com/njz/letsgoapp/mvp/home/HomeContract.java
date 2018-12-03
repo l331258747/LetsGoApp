@@ -21,7 +21,6 @@ public interface HomeContract {
     interface Presenter {
         void bannerFindByType(int type, int guideId);
         void orderReviewsSortTop(String location);
-        void friendFindAll(String location, int limit, int page);
         void orderCarouselOrder();
     }
 
@@ -31,9 +30,6 @@ public interface HomeContract {
 
         void orderReviewsSortTopSuccess(GuideListModel models);
         void orderReviewsSortTopFailed(String msg);
-
-        void friendFriendSterTopSuccess(DynamicListModel models);
-        void friendFriendSterTopFailed(String msg);
 
         void orderCarouselOrderSuccess(List<NoticeItem> models);
         void orderCarouselOrderFailed(String msg);

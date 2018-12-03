@@ -64,21 +64,21 @@ public class HomePresenter implements Presenter {
         MethodApi.orderReviewsSortTop(location, new OnSuccessAndFaultSub(listener,context,false));
     }
 
-    @Override
-    public void friendFindAll(String location, int limit, int page) {
-        ResponseCallback listener = new ResponseCallback<DynamicListModel>() {
-            @Override
-            public void onSuccess(DynamicListModel data) {
-                iView.friendFriendSterTopSuccess(data);
-            }
-
-            @Override
-            public void onFault(String errorMsg) {
-                iView.friendFriendSterTopFailed(errorMsg);
-            }
-        };
-        MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
-    }
+//    @Override
+//    public void friendFindAll(String location, int limit, int page) {
+//        ResponseCallback listener = new ResponseCallback<DynamicListModel>() {
+//            @Override
+//            public void onSuccess(DynamicListModel data) {
+//                iView.friendFriendSterTopSuccess(data);
+//            }
+//
+//            @Override
+//            public void onFault(String errorMsg) {
+//                iView.friendFriendSterTopFailed(errorMsg);
+//            }
+//        };
+//        MethodApi.friendFriendSterTop(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
+//    }
 
     @Override
     public void orderCarouselOrder() {

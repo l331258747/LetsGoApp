@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,7 @@ import java.text.DecimalFormat;
  */
 
 public class PriceView extends LinearLayout {
-    TextView tvPrice;
+    TextView tvPrice,tv_suffix;
 
     public PriceView(Context context) {
         this(context, null);
@@ -35,9 +37,19 @@ public class PriceView extends LinearLayout {
         View view = LayoutInflater.from(context).inflate(R.layout.view_my_price, this, true);
 
         tvPrice = view.findViewById(R.id.tv_comment);
+        tv_suffix = view.findViewById(R.id.tv_suffix);
 
+        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.priceView);
+        if (attributes != null) {
+
+            String str = attributes.getString(R.styleable.priceView_priceView_suffix);
+            if (!TextUtils.isEmpty(str)) {
+                tv_suffix.setText(str);
+            }
+
+            attributes.recycle();
+        }
     }
-
 
     public void setPrice(float price) {
         if (price < 0) price = 0;
