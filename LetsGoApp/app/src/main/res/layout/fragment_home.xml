@@ -224,6 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_grid"
                     android:layout_marginTop="10dp"
+                    android:paddingTop="15dp"
                     android:background="@color/white"
                     android:orientation="vertical">
 
@@ -232,11 +233,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="21sp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_centerVertical="true"
+                            android:background="@color/color_theme"/>
+
                         <TextView
                             android:id="@+id/tv_guide_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
                             android:paddingLeft="15dp"
                             android:textStyle="bold"
                             android:textSize="21sp"
@@ -248,7 +255,9 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="15dp"
                             android:layout_alignParentRight="true"
-                            android:layout_alignBottom="@+id/tv_guide_title"
+                            android:layout_centerVertical="true"
+                            android:drawableRight="@mipmap/ic_arrow_right"
+                            android:drawablePadding="8dp"
                             android:paddingRight="15dp"
                             android:text="查看全部"/>
 
@@ -274,6 +283,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_view_h"
                     android:layout_marginTop="10dp"
+                    android:paddingTop="10dp"
                     android:background="@color/white"
                     android:orientation="vertical">
 
@@ -282,11 +292,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="21sp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_centerVertical="true"
+                            android:background="@color/color_theme"/>
+
                         <TextView
                             android:id="@+id/tv_dynamic_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
                             android:paddingLeft="15dp"
                             android:textSize="21sp"
                             android:textStyle="bold"
@@ -298,7 +314,9 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="15dp"
                             android:layout_alignParentRight="true"
-                            android:layout_alignBottom="@+id/tv_dynamic_title"
+                            android:layout_centerVertical="true"
+                            android:drawableRight="@mipmap/ic_arrow_right"
+                            android:drawablePadding="8dp"
                             android:paddingRight="15dp"
                             android:text="查看全部"/>
 
