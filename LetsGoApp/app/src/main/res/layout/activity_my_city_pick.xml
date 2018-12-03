@@ -23,57 +23,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_30"
             android:layout_marginRight="@dimen/dp_30"
-            android:layout_centerVertical="true"
             android:ellipsize="end"
             android:gravity="center"
+            android:inputType="text"
             android:maxLines="1"
-            android:inputType = "text"
             android:minHeight="44dp"
+            android:text="目的地选择"
             android:textColor="@color/color_text"
             android:textSize="17sp"
-            android:visibility="visible"
-            android:text="目的地选择" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@+id/iv_left"
-        android:background="@drawable/btn_ee_solid_r5"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
 
-
-        <EditText
-            android:id="@+id/tv_search"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:drawableLeft="@mipmap/ic_search"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:drawablePadding="10dp"
-            android:hint="搜索目的地"
-            android:imeOptions="actionSearch"
-            android:inputType="textEmailAddress"
-            android:maxLength="15"
-            android:maxLines="1"
-            android:textColor="@color/gray_999"
-            android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btn_ee_solid_r5"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:drawableLeft="@mipmap/ic_search"
+                android:drawablePadding="10dp"
+                android:hint="搜索关键字"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/gray_999" />
 
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -149,9 +150,9 @@
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:paddingTop="15dp"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view_province"
@@ -220,9 +221,9 @@
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:background="@color/white"
             android:visibility="gone">
 
             <include layout="@layout/common_recyclerview" />
@@ -235,7 +236,6 @@
 
         </FrameLayout>
     </FrameLayout>
-
 
 
 </LinearLayout>
