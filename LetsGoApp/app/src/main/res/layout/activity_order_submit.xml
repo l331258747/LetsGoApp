@@ -60,6 +60,34 @@
                         app:login_item_title="联系方式"
                         app:login_item_title_width="80dp" />
 
+
+                    <RelativeLayout
+                        android:id="@+id/rl_person_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/btn_gray_bottom_line_p8"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/login_item_name"
+                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/color_99"
+                            android:text="出行人数" />
+
+
+                        <com.njz.letsgoapp.widget.NumberView
+                            android:id="@+id/numberView"
+                            android:layout_width="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
                     <com.njz.letsgoapp.widget.SpecialFixedItemEditView
                         android:id="@+id/et_special"
                         android:layout_width="match_parent"
@@ -85,12 +113,37 @@
             </LinearLayout>
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="应付金额"/>
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥0"
+                    android:textColor="@color/color_theme"
+                    android:layout_alignParentRight="true"/>
+
+
+            </RelativeLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/btn_white_solid_r5">
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/tv_contract"
@@ -130,7 +183,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/btn_theme_solid_r5"
             android:gravity="center"
-            android:text="提交订单（￥0）"
+            android:text="确认并支付"
             android:textColor="@color/white" />
 
     </LinearLayout>

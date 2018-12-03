@@ -52,7 +52,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     FixedItemTextView fixed_view_city;
     SpecialFixedItemEditView et_special;
     RecyclerView recyclerView;
-    TextView tv_contract, tv_submit;
+    TextView tv_contract, tv_submit,tv_total_price;
 
     OrderCreatePresenter mPresenter;
 
@@ -96,6 +96,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         fixed_view_city = $(R.id.fixed_view_city);
         recyclerView = $(R.id.recycler_view);
         tv_contract = $(R.id.tv_contract);
+        tv_total_price = $(R.id.tv_total_price);
         tv_submit = $(R.id.tv_submit);
         et_special = $(R.id.et_special);
         et_special.setIvRight(new View.OnClickListener() {
@@ -183,7 +184,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                 }
             }
         }
-        tv_submit.setText("提交订单（￥" + totalPrice + "）");
+        tv_total_price.setText("￥" + totalPrice);
     }
 
     public SendOrderModel getOrderData() {
