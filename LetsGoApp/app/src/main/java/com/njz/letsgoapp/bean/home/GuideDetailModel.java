@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.home;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
  * Function:
  */
 
-public class GuideDetailModel {
+public class GuideDetailModel implements Parcelable{
 
 
     /**
@@ -89,6 +91,48 @@ public class GuideDetailModel {
     private String shareContent;
     private String shareTitle;
     private String shareUrl;
+
+    protected GuideDetailModel(Parcel in) {
+        mobile = in.readString();
+        guideName = in.readString();
+        language = in.createStringArrayList();
+        sign = in.createStringArrayList();
+        guideImg = in.readString();
+        guideGender = in.readInt();
+        serviceCounts = in.readInt();
+        count = in.readInt();
+        introduce = in.readString();
+        guideStory = in.readString();
+        image = in.readString();
+        guideAge = in.readString();
+        id = in.readInt();
+        serviceAge = in.readString();
+        travelGuideServiceInfoVOs = in.createTypedArrayList(GuideServiceModel.CREATOR);
+        driveViable = in.readInt();
+        guideViable = in.readInt();
+        cardViable = in.readInt();
+        guideScore = in.readFloat();
+        travelArranges = in.readFloat();
+        buyServices = in.readFloat();
+        carConditions = in.readFloat();
+        guideServices = in.readFloat();
+        shareImg = in.readString();
+        shareContent = in.readString();
+        shareTitle = in.readString();
+        shareUrl = in.readString();
+    }
+
+    public static final Creator<GuideDetailModel> CREATOR = new Creator<GuideDetailModel>() {
+        @Override
+        public GuideDetailModel createFromParcel(Parcel in) {
+            return new GuideDetailModel(in);
+        }
+
+        @Override
+        public GuideDetailModel[] newArray(int size) {
+            return new GuideDetailModel[size];
+        }
+    };
 
     public String getShareImg() {
         return shareImg;
@@ -328,5 +372,41 @@ public class GuideDetailModel {
 
     public void setServiceAge(String serviceAge) {
         this.serviceAge = serviceAge;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mobile);
+        dest.writeString(guideName);
+        dest.writeStringList(language);
+        dest.writeStringList(sign);
+        dest.writeString(guideImg);
+        dest.writeInt(guideGender);
+        dest.writeInt(serviceCounts);
+        dest.writeInt(count);
+        dest.writeString(introduce);
+        dest.writeString(guideStory);
+        dest.writeString(image);
+        dest.writeString(guideAge);
+        dest.writeInt(id);
+        dest.writeString(serviceAge);
+        dest.writeTypedList(travelGuideServiceInfoVOs);
+        dest.writeInt(driveViable);
+        dest.writeInt(guideViable);
+        dest.writeInt(cardViable);
+        dest.writeFloat(guideScore);
+        dest.writeFloat(travelArranges);
+        dest.writeFloat(buyServices);
+        dest.writeFloat(carConditions);
+        dest.writeFloat(guideServices);
+        dest.writeString(shareImg);
+        dest.writeString(shareContent);
+        dest.writeString(shareTitle);
+        dest.writeString(shareUrl);
     }
 }

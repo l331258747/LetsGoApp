@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="75dp"
+        android:layout_height="65dp">
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/background" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black_66"
+            android:gravity="center"
+            android:text="长沙"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="那就走那就走" />
+
+        <com.njz.letsgoapp.widget.GuideScoreView2
+            android:id="@+id/guideScoreView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="5dp"
+            app:guide_score_text_size="12" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <com.njz.letsgoapp.widget.PriceView
+                android:id="@+id/priceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_theme2_hollow_r3"
+                        android:textColor="@color/color_theme"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingRight="8dp"
+                        android:textSize="12sp"
+                        android:text="预订" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_gray_hollow_r3"
+                        android:textColor="@color/color_99"
+                        android:paddingTop="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:textSize="12sp"
+                        android:text="取消" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_theme_solid_r3"
+                        android:textColor="@color/white"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingRight="8dp"
+                        android:textSize="12sp"
+                        android:text="已选" />
+
+                </LinearLayout>
+
+
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

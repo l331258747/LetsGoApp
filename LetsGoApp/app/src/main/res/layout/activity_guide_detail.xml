@@ -1,68 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scrollView"
-        android:overScrollMode="never"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_window_background"
+                android:fitsSystemWindows="true"
+                app:elevation="0dp">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:layout_scrollFlags="scroll">
+
+                    <include layout="@layout/home_item_banner" />
+
+                    <!--个人信息-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="190dp"
+                        android:background="@drawable/btn_white_r10_top"
+                        android:orientation="vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <include layout="@layout/service_personal_info" />
+
+
+                        <com.njz.letsgoapp.widget.GuideAuthenticationView
+                            android:id="@+id/guide_authentication"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp" />
+
+
+                        <TextView
+                            android:id="@+id/tv_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:textSize="14sp"
+                            tools:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:tabIndicatorColor="@color/color_theme"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/color_theme"
+                    app:tabTextColor="@color/color_text"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:background="@color/white"
+                    android:src="@color/color_d9"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <include
-                    layout="@layout/home_item_banner"
-                    tools:visibility="gone" />
-
-                <!--个人信息-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_white_r10_top"
-                    android:orientation="vertical"
-                    android:layout_marginTop="190dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
-
-                    <include layout="@layout/service_personal_info" />
-
-
-                    <com.njz.letsgoapp.widget.GuideAuthenticationView
-                        android:id="@+id/guide_authentication"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-
-                    <TextView
-                        android:id="@+id/tv_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:ellipsize="end"
-                        android:maxLines="3"
-                        android:textSize="14sp"
-                        tools:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <!--服务内容-->
             <LinearLayout
@@ -73,14 +120,14 @@
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="15dp"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="请选择服务内容"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -97,11 +144,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingRight="15dp"
-                android:paddingLeft="15dp"
                 android:background="@color/white"
+                android:orientation="vertical"
                 android:paddingBottom="15dp"
-                android:orientation="vertical">
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/ll_comment_title"
@@ -115,8 +163,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:text="评价"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                     <LinearLayout
@@ -166,11 +214,11 @@
                         android:id="@+id/tv_comment_guide_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/ffe8d2_solid_r15_p5"
                         android:layout_margin="3dp"
+                        android:background="@drawable/ffe8d2_solid_r15_p5"
                         android:gravity="center"
-                        tools:text="导游服务 5.0"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        tools:text="导游服务 5.0" />
 
                     <TextView
                         android:id="@+id/tv_comment_trip_total"
@@ -179,8 +227,8 @@
                         android:layout_margin="3dp"
                         android:background="@drawable/ffe8d2_solid_r15_p5"
                         android:gravity="center"
-                        tools:text="行程安排 5.0"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        tools:text="行程安排 5.0" />
 
                     <TextView
                         android:id="@+id/tv_comment_car_total"
@@ -189,18 +237,18 @@
                         android:layout_margin="3dp"
                         android:background="@drawable/ffe8d2_solid_r15_p5"
                         android:gravity="center"
-                        tools:text="车辆状态 5.0"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        tools:text="车辆状态 5.0" />
 
                     <TextView
                         android:id="@+id/tv_comment_book_total"
-                        android:layout_margin="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
                         android:background="@drawable/ffe8d2_solid_r15_p5"
                         android:gravity="center"
-                        tools:text="代订服务 5.0"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        tools:text="代订服务 5.0" />
 
                 </LinearLayout>
 
@@ -213,20 +261,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
                 android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:orientation="vertical">
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_marginLeft="3dp"
                     android:paddingTop="10dp"
                     android:text="他的故事"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -243,7 +292,7 @@
                         android:id="@+id/view_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -255,7 +304,7 @@
         </LinearLayout>
 
 
-    </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -322,7 +371,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="60dp"
         android:layout_marginRight="15dp"
-        android:background="@mipmap/ic_back_top"/>
+        android:background="@mipmap/ic_back_top" />
 
 
 </FrameLayout>

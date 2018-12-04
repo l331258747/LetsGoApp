@@ -48,34 +48,6 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <include layout="@layout/item_guide_price_introduce" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/color_d9" />
-
-            <include layout="@layout/item_guide_subscribe_introduce" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/color_d9" />
-
-            <include layout="@layout/item_guide_unsubscribe_introduce" />
-        </LinearLayout>
-
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -108,19 +108,11 @@ public class EvaluateModel2 {
         return "导游服务" + guideService;
     }
 
-    public void setGuideService(int guideService) {
-        this.guideService = guideService;
-    }
-
     public float getCarCondition() {
         return carCondition;
     }
     public String getCarConditionStr() {
         return "车辆状况" + carCondition;
-    }
-
-    public void setCarCondition(int carCondition) {
-        this.carCondition = carCondition;
     }
 
     public float getBuyService() {
@@ -130,19 +122,11 @@ public class EvaluateModel2 {
         return "代订服务" + buyService;
     }
 
-    public void setBuyService(int buyService) {
-        this.buyService = buyService;
-    }
-
     public float getTravelArrange() {
         return travelArrange;
     }
     public String getTravelArrangeStr() {
         return "行程安排" + travelArrange;
-    }
-
-    public void setTravelArrange(int travelArrange) {
-        this.travelArrange = travelArrange;
     }
 
     public String getScore() {
@@ -192,5 +176,37 @@ public class EvaluateModel2 {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public void setGuideService(float guideService) {
+        this.guideService = guideService;
+    }
+
+    public void setCarCondition(float carCondition) {
+        this.carCondition = carCondition;
+    }
+
+    public void setBuyService(float buyService) {
+        this.buyService = buyService;
+    }
+
+    public void setTravelArrange(float travelArrange) {
+        this.travelArrange = travelArrange;
+    }
+
+    public void setGuideContent(String guideContent) {
+        this.guideContent = guideContent;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public void setGuideDate(String guideDate) {
+        this.guideDate = guideDate;
+    }
+
+    public void setServices(List<EvaluateServicesModel> services) {
+        this.services = services;
     }
 }

@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -39,10 +40,15 @@ import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
 import com.njz.letsgoapp.util.webview.LWebView;
+import com.njz.letsgoapp.view.home.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.home.serverFragment.ServerFeatureFragment;
+import com.njz.letsgoapp.view.home.serverFragment.ServerOtherFragment;
 import com.njz.letsgoapp.view.order.OrderListFragment;
 import com.njz.letsgoapp.view.order.OrderRefundListFragment;
+import com.njz.letsgoapp.widget.GuideLabelView;
+import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.PriceView;
+import com.njz.letsgoapp.widget.ServiceTagView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
 import java.util.ArrayList;
@@ -60,25 +66,25 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public static final String SERVICEID = "SERVICEID";
     public static final String SERVICEITEMS = "SERVICEITEMS";
 
-    ConvenientBanner convenientBanner;
-    TextView tv_title,  tv_sell, tv_submit,  tv_phone, tv_back_top;
-    TextView tv_destination,tv_destination2;
-    PriceView pv_price;
-    ViewPager mViewPager;
+    public ConvenientBanner convenientBanner;
+    public TextView tv_title,  tv_sell, tv_submit,  tv_phone, tv_back_top;
+    public TextView tv_destination,tv_destination2;
+    public PriceView pv_price;
+    public ViewPager mViewPager;
 
-    private String[] titles = {"服务特色", "TA的评价"};
-    private List<Fragment> mFragments;
-    private TabLayout mTabLayout;
+    public String[] titles = {"服务特色", "TA的评价"};
+    public List<Fragment> mFragments;
+    public TabLayout mTabLayout;
 
-    String title;
-    int serviceId;
-    List<ServiceItem> serviceItems;
-    boolean isHideBottom;
+    public String title;
+    public int serviceId;
+    public List<ServiceItem> serviceItems;
+    public boolean isHideBottom;
 
-    ServiceDetailPresenter mPresenter;
-    ServiceDetailModel model;
+    public ServiceDetailPresenter mPresenter;
+    public ServiceDetailModel model;
 
-    LinearLayout ll_bottom;
+    public LinearLayout ll_bottom;
 
     @Override
     public int getLayoutId() {
@@ -100,11 +106,11 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public  void initViewPage(ServiceDetailModel model){
         mFragments = new ArrayList<>();
         mFragments.add(ServerFeatureFragment.newInstance(model));
-        mFragments.add(ServerFeatureFragment.newInstance(model));
+        mFragments.add(ServerEvaluateFragment.newInstance());
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(1);
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
@@ -127,16 +133,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         tv_sell = $(R.id.tv_score);
         pv_price = $(R.id.pv_price);
         tv_submit = $(R.id.tv_submit);
-//        webView = $(R.id.webview);
         tv_back_top = $(R.id.tv_back_top);
         tv_back_top.setVisibility(View.GONE);
-//        scrollView = $(R.id.scrollView);
-//        view_empty = $(R.id.view_empty);
-
-
-//        price_introduce_content = $(R.id.price_introduce_content);
-//        tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
-//        tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
 
         tv_submit.setOnClickListener(this);
         tv_destination2.setOnClickListener(this);
@@ -169,19 +167,6 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         mPresenter.getGuideService(serviceId);
         mPresenter.bannerFindByType(0,serviceId);
 
-//        initViewPage();
-
-//        final int mDisplayHeight = AppUtils.getDisplayHeight();
-//        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (scrollY > mDisplayHeight) {
-//                    tv_back_top.setVisibility(View.VISIBLE);
-//                } else {
-//                    tv_back_top.setVisibility(View.GONE);
-//                }
-//            }
-//        });
     }
 
     public void initDetail(ServiceDetailModel model) {
@@ -200,26 +185,8 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
         initViewPage(model);
 
-//        if(!TextUtils.isEmpty(model.getServeFeature()))
-//        webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
-//
-//        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
-//            price_introduce_content.setText(model.getCostExplain());
-//        if(!TextUtils.isEmpty(model.getRenegePriceThree()))
-//            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),model.getRenegePriceThree().replace(",","-")));
-//        if(!TextUtils.isEmpty(model.getRenegePriceFive()))
-//            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),model.getRenegePriceFive().replace(",","-")));
-//
-//        if(!TextUtils.isEmpty(model.getServeFeature())){
-//            webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
-//            view_empty.setVisible(false);
-//        }else{
-//            view_empty.setVisible(true);
-//            view_empty.setEmptyData(R.mipmap.empty_guide_story,"他很害羞哦，什么都没留下~");
-//        }
-
         //预订(￥0)
-        tv_submit.setText("预订(￥" + model.getServePrice() +")");
+//        tv_submit.setText("预订(￥" + model.getServePrice() +")");
 
         setServiceSelected();
     }
@@ -289,15 +256,6 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
                 dialog.show();
                 break;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // webview 需要加载空界面来释放资源
-//        webView.loadUrl("about:blank");
-//        webView.clearCache(false);
-//        webView.destroy();
     }
 
     @Override

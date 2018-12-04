@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="25dp"
+    android:paddingTop="25dp">
+
+    <FrameLayout
+        android:id="@+id/fl_head"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            tools:src="@mipmap/head_default" />
+
+        <ImageView
+            android:id="@+id/iv_sex"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="bottom|right"
+            tools:background="@mipmap/icon_boy"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/fl_head"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tools:text="那就走"
+            android:textSize="16sp" />
+
+        <com.njz.letsgoapp.widget.MyRatingBar
+            android:id="@+id/my_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_arrow_right"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+    <com.njz.letsgoapp.widget.GuideLabelView
+        android:id="@+id/guide_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/fl_head" />
+
+    <com.njz.letsgoapp.widget.ServiceTagView
+        android:id="@+id/stv_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/guide_label"
+        android:maxLines="1"
+        android:inputType="text"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/fl_head" />
+
+</RelativeLayout>
