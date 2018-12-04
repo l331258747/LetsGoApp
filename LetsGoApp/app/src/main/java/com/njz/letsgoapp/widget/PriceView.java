@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,7 +21,7 @@ import java.text.DecimalFormat;
  */
 
 public class PriceView extends LinearLayout {
-    TextView tvPrice,tv_suffix;
+    TextView tvPrice,tv_suffix,tv_mark;
 
     public PriceView(Context context) {
         this(context, null);
@@ -38,6 +39,7 @@ public class PriceView extends LinearLayout {
 
         tvPrice = view.findViewById(R.id.tv_comment);
         tv_suffix = view.findViewById(R.id.tv_suffix);
+        tv_mark = view.findViewById(R.id.tv_mark);
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.priceView);
         if (attributes != null) {
@@ -45,6 +47,13 @@ public class PriceView extends LinearLayout {
             String str = attributes.getString(R.styleable.priceView_priceView_suffix);
             if (!TextUtils.isEmpty(str)) {
                 tv_suffix.setText(str);
+            }
+
+            float priceSize = attributes.getInteger(R.styleable.priceView_priceView_size, 0);
+            if (priceSize != 0) {
+                tvPrice.setTextSize(TypedValue.COMPLEX_UNIT_SP,priceSize);
+                tv_mark.setTextSize(TypedValue.COMPLEX_UNIT_SP,priceSize);
+                tv_suffix.setTextSize(TypedValue.COMPLEX_UNIT_SP,priceSize - 3);
             }
 
             attributes.recycle();

@@ -85,6 +85,7 @@
     </declare-styleable>
     <declare-styleable name="priceView">
         <attr name="priceView_suffix" format="string"/>
+        <attr name="priceView_size" format="integer"/>
 
     </declare-styleable>
 

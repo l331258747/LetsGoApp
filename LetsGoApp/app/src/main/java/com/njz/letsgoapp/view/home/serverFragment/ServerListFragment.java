@@ -118,7 +118,6 @@ public class ServerListFragment extends BaseFragment {
         datas.add(data);
         datas.add(data);
         datas.add(data);
-
         mAdapter2.setDatas(datas);
 
         List<GuideServiceModel> datas2 = new ArrayList<>();

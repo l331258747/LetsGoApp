@@ -45,10 +45,12 @@ public class ServerListAdapter1 extends RecyclerView.Adapter<ServerListAdapter1.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (holder == null) return;
 
+        holder.tv_name.setText(datas.get(position).getServiceType());
+
         if(isClicks.get(position)){
-            holder.tv_name.setBackgroundColor(R.color.white);
+            holder.tv_name.setBackgroundColor(ContextCompat.getColor(context,R.color.white));
         }else{
-            holder.tv_name.setBackgroundColor(R.color.color_f7);
+            holder.tv_name.setBackgroundColor(ContextCompat.getColor(context,R.color.color_f7));
         }
 
         if(mOnItemClickListener != null){
