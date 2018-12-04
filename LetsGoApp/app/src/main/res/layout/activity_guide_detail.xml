@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_window_background"
                 android:fitsSystemWindows="true"
+                app:layout_behavior="com.njz.letsgoapp.util.FlingBehavior"
                 app:elevation="0dp">
 
 
@@ -323,8 +324,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:background="@color/white"
             android:gravity="center"
             android:orientation="horizontal">
@@ -333,7 +332,6 @@
                 android:id="@+id/btn_call"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_theme_hollow_r5_p8"
                 android:gravity="center">

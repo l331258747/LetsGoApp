@@ -79,7 +79,7 @@ public class ServerListFragment extends BaseFragment {
         recycler_view1.setLayoutManager(linearLayoutManager);
         mAdapter1 = new ServerListAdapter1(activity, new ArrayList<GuideServiceModel>());
         recycler_view1.setAdapter(mAdapter1);
-        recycler_view1.setNestedScrollingEnabled(false);
+//        recycler_view1.setNestedScrollingEnabled(false);
 
         mAdapter1.setOnItemClickListener(new ServerListAdapter1.OnItemClickListener() {
             @Override
@@ -94,7 +94,7 @@ public class ServerListFragment extends BaseFragment {
         recycler_view2.setLayoutManager(linearLayoutManager);
         mAdapter2 = new ServerListAdapter2(activity, new ArrayList<PlayData>());
         recycler_view2.setAdapter(mAdapter2);
-        recycler_view2.setNestedScrollingEnabled(false);
+//        recycler_view2.setNestedScrollingEnabled(false);
 
         mAdapter2.setOnItemClickListener(new ServerListAdapter2.OnItemClickListener() {
             @Override
@@ -118,11 +118,17 @@ public class ServerListFragment extends BaseFragment {
         datas.add(data);
         datas.add(data);
         datas.add(data);
+        datas.add(data);
+        datas.add(data);
+        datas.add(data);
+        datas.add(data);
         mAdapter2.setDatas(datas);
 
         List<GuideServiceModel> datas2 = new ArrayList<>();
         GuideServiceModel item = new GuideServiceModel();
         item.setServiceType("私人定制");
+        datas2.add(item);
+        datas2.add(item);
         datas2.add(item);
         datas2.add(item);
         datas2.add(item);
