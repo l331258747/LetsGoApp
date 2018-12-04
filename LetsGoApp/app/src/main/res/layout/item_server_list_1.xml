@@ -11,7 +11,7 @@
         android:layout_height="60dp"
         android:background="@color/white"
         android:gravity="center"
-        android:maxLines="2"
+        android:maxLines="1"
         android:textSize="12sp"
         tools:text="湖南" />
 
