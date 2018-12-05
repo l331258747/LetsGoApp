@@ -154,13 +154,29 @@
                     android:paddingRight="15dp"
                     android:paddingTop="15dp">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view_province"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:layout_weight="2"
-                        android:overScrollMode="never" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_default"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/view_city_pick"
+                            android:gravity="center"
+                            android:text="全部" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never" />
+
+                    </LinearLayout>
+
 
                     <RelativeLayout
                         android:layout_width="0dp"

@@ -57,6 +57,7 @@
             android:id="@+id/scoreView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_location"
             app:guide_score_text_size="12" />
 
 

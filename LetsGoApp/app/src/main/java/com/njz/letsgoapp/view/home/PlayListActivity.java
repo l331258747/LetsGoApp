@@ -1,28 +1,20 @@
 package com.njz.letsgoapp.view.home;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.HomePlayAdapter;
-import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.home.PlayData;
-import com.njz.letsgoapp.bean.other.ConfigModel;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.mvp.other.ConfigContract;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
-import com.njz.letsgoapp.util.rxbus.RxBus2;
-import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
-import com.njz.letsgoapp.view.other.MyCityPickActivity;
+import com.njz.letsgoapp.mvp.server.ServerListContract;
+import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList2;
 
@@ -31,18 +23,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-
 /**
  * Created by LGQ
  * Time: 2018/12/3
  * Function:
  */
 
-public class PlayListActivity extends GuideListActivity {
+public class PlayListActivity extends GuideListActivity implements ServerListContract.View{
 
     HomePlayAdapter playAdapter;
+    ServerListPresenter serverListPresenter;
+
+    String value;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        value = intent.getStringExtra("SERVER_VALUE");
+    }
 
     public void initTabLayout() {
         myGuideTab = $(R.id.my_guide_tab);
@@ -53,23 +51,23 @@ public class PlayListActivity extends GuideListActivity {
                 switch (position) {
                     case MyGuideTab.MYGUIDETAB_SYNTHESIZE:
                         type = Constant.GUIDE_TYPE_SYNTHESIZE;
-                        getRefreshData(type);
+                        getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_COUNT:
                         type = Constant.GUIDE_TYPE_COUNT;
-                        getRefreshData(type);
+                        getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_SCORE:
                         type = Constant.GUIDE_TYPE_SCORE;
-                        getRefreshData(type);
+                        getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_COMMENT:
                         type = Constant.GUIDE_TYPE_COMMENT;
-                        getRefreshData(type);
+                        getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_PRICE:
                         type = Constant.GUIDE_TYPE_PRICE;
-                        getRefreshData(type);
+                        getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
                         popGuideList.showPopupWindow(myGuideTab);
@@ -102,23 +100,24 @@ public class PlayListActivity extends GuideListActivity {
                 } else {
                     maps = null;
                 }
-                getRefreshData(type);
+                getRefreshData();
             }
 
             @Override
             public void onReset() {
                 myGuideTab.setScreen(false);
                 maps = null;
-                getRefreshData(type);
+                getRefreshData();
             }
         });
     }
 
     //初始化recyclerview
+    @Override
     public void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayData>());
+        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayModel>());
         loadMoreWrapper = new LoadMoreWrapper(playAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         page = Constant.DEFAULT_PAGE;
@@ -134,15 +133,28 @@ public class PlayListActivity extends GuideListActivity {
             public void onLoadMore() {
                 if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
                 loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
-                getMoreData(type);
+                getMoreData();
             }
         });
 
     }
 
+    @Override
+    public void initSwipeLayout() {
+        swipeRefreshLayout = $(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.color_theme));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (isLoad) return;
+                getRefreshData();
+            }
+        });
+    }
 
-    public void getData(int type){
-        initPlayData();
+
+    public void getData(){
+        serverListPresenter.serveGuideServeOrderList(value,Constant.DEFAULT_LIMIT,page,location,"0");
     }
 
     @Override
@@ -150,7 +162,9 @@ public class PlayListActivity extends GuideListActivity {
         location = MySelfInfo.getInstance().getDefaultCity();
 
         configPresenter = new ConfigPresenter(context, this);
-        getRefreshData(type);
+        serverListPresenter = new ServerListPresenter(context,this);
+
+        getRefreshData();
         tvCityPick.setText(location);
 
         List<String> values = new ArrayList<>();
@@ -162,16 +176,43 @@ public class PlayListActivity extends GuideListActivity {
         configPresenter.guideGetGuideMacros(values);
     }
 
-    public void initPlayData(){
-        List<PlayData> datas = new ArrayList<>();
-        PlayData data = new PlayData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543829470523&di=87de21d5e5ce4826a6d74b97deefb0b8&imgtype=0&src=http%3A%2F%2Fgotrip.zjol.com.cn%2Fxw14873%2Fycll14875%2F201710%2FW020171024603757884776.jpg",
-                "长沙特色小吃游",300f,"长沙",4.8f,100,400);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
+    public void getRefreshData() {
+        swipeRefreshLayout.setRefreshing(true);
+        isLoad = true;
+        page = Constant.DEFAULT_PAGE;
+        isLoadType = 1;
+        getData();
+    }
 
-        playAdapter.setData(datas);
+    public void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
+        getData();
+    }
+
+    @Override
+    public void serveGuideServeOrderListSuccess(List<PlayModel> datas) {
+        if (isLoadType == 1) {
+            playAdapter.setData(datas);
+        } else {
+            playAdapter.addData(datas);
+        }
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
         swipeRefreshLayout.setRefreshing(false);
+    }
 
+    @Override
+    public void serveGuideServeOrderListFailed(String msg) {
+        showShortToast(msg);
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 }

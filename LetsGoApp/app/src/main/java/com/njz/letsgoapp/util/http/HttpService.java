@@ -37,6 +37,7 @@ import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
 import java.util.List;
@@ -560,6 +561,18 @@ public interface HttpService {
     //--------other end---------
 
 
+    //-----------start服务---------
+    //serve/guideServeOrderList 服务列表
+    @GET("serve/guideServeOrderList")
+    Observable<BaseResponse<List<PlayModel>>> serveGuideServeOrderList(
+            @Query("serveTypeName") String serveTypeName,
+            @Query("limit") int limit,
+            @Query("page") int page,
+            @Query("address") String address,
+            @Query("mustPlay") String mustPlay
+    );
+
+    //-----------end服务---------
 
 
 }

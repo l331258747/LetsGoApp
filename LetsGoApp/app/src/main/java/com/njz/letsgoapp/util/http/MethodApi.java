@@ -472,4 +472,13 @@ public class MethodApi {
 
     //--------城市选择 end
 
+    //--------服务 start
+    //serveGuideServeOrderList 服务列表
+    public static void serveGuideServeOrderList(String serveTypeName, int limit, int page,String address,String mustPlay, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().serveGuideServeOrderList(serveTypeName,limit,page,address,mustPlay);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //--------服务 end
+
 }

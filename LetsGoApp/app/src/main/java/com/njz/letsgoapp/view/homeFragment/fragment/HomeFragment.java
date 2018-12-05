@@ -2,16 +2,11 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,40 +16,28 @@ import android.widget.ViewFlipper;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.home.DynamicAdapter;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.adapter.home.HomePlayAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.BannerModel;
-import com.njz.letsgoapp.bean.home.DynamicListModel;
-import com.njz.letsgoapp.bean.home.DynamicModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.NoticeItem;
-import com.njz.letsgoapp.bean.home.PlayData;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.map.LocationUtil;
-import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
-import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
-import com.njz.letsgoapp.util.AppUtils;
-import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.mvp.server.ServerListContract;
+import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
-import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
-import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
-import com.njz.letsgoapp.view.calendar.CalendarActivity;
-import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.home.PlayListActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
-import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 
@@ -70,13 +53,11 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-//public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View,DynamicNiceContract.View{
-public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View{
+public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View,ServerListContract.View{
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private RecyclerView recycler_view_h;
-//    private DynamicAdapter dynamicAdapter;
     private HomeGuideAdapter guideAdapter;
     private HomePlayAdapter playAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -91,17 +72,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private ConvenientBanner convenientBanner;
 
     private HomePresenter mPresenter;
-//    private DynamicNicePresenter nicePresenter;
+    private ServerListPresenter serverListPresenter;
 
     private List<GuideModel> guideDatas;
-//    private List<DynamicModel> dynamicDatas;
 
     private String city;
 
     private boolean isLoad = false;
     private boolean isBannerLoad,isDynamicLoad,isGuideLoad;
-
-//    private int nicePosition;
 
     public EmptyView2 view_empty,view_empty_guide;
 
@@ -211,22 +189,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         Intent intent;
         switch (v.getId()) {
             case R.id.tv_grid_ticket:
-                startActivity(new Intent(context,PlayListActivity.class));
+                intent = new Intent(context,PlayListActivity.class);
+                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_TICKET);
+                startActivity(intent);
                 break;
             case R.id.tv_grid_guide:
-                startActivity(new Intent(context,PlayListActivity.class));
+                intent = new Intent(context,PlayListActivity.class);
+                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_GUIDE);
+                startActivity(intent);
                 break;
             case R.id.tv_grid_car:
-                startActivity(new Intent(context,PlayListActivity.class));
+                intent = new Intent(context,PlayListActivity.class);
+                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_CAR);
+                startActivity(intent);
                 break;
             case R.id.tv_grid_custom:
-                startActivity(new Intent(context,PlayListActivity.class));
+                intent = new Intent(context,PlayListActivity.class);
+                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_CUSTOM);
+                startActivity(intent);
                 break;
             case R.id.tv_grid_feature:
-                startActivity(new Intent(context,PlayListActivity.class));
+                intent = new Intent(context,PlayListActivity.class);
+                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_FEATURE);
+                startActivity(intent);
                 break;
             case R.id.tv_grid_hotel:
-                startActivity(new Intent(context,PlayListActivity.class));
+                intent = new Intent(context,PlayListActivity.class);
+                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_HOTEL);
+                startActivity(intent);
                 break;
             case R.id.tv_city_pick:
                 cityPick();
@@ -247,7 +237,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         tv_city_pick.setText(city);
 
         mPresenter = new HomePresenter(context,this);
-//        nicePresenter = new DynamicNicePresenter(context,this);
+        serverListPresenter = new ServerListPresenter(context,this);
 
         initRecycler();
         initSwipeLayout();
@@ -273,12 +263,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     private void LoadData(){
-        tv_city_pick.setText(city);
         isDynamicLoad =false;
         isBannerLoad = false;
         isGuideLoad = false;
-//        mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
-        initPlayData();
+        serverListPresenter.serveGuideServeOrderList("",5,1,city,"1");
         mPresenter.orderReviewsSortTop(city);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
         mPresenter.orderCarouselOrder();
@@ -291,7 +279,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayData>());
+        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayModel>());
         recyclerView.setAdapter(playAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -302,47 +290,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             }
         });
     }
-//    private void initRecycler() {
-//        recyclerView = $(R.id.recycler_view);
-//        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//        dynamicAdapter = new DynamicAdapter(activity, new ArrayList<DynamicModel>(),2);
-//        recyclerView.setAdapter(dynamicAdapter);
-//        recyclerView.setNestedScrollingEnabled(false);
-//        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
-//
-//        dynamicAdapter.setOnItemClickListener(new DynamicAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Intent intent = new Intent(context, DynamicDetailActivity.class);
-//                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,dynamicDatas.get(position).getFriendSterId());
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onNiceClick(int position) {
-//                nicePresenter.friendQueryLikes(dynamicDatas.get(position).isLike(),dynamicDatas.get(position).getFriendSterId());
-//                nicePosition = position;
-//            }
-//
-//            @Override
-//            public void onHeadClick(int position) {
-//                Intent intent = new Intent(context, SpaceActivity.class);
-//                intent.putExtra(SpaceActivity.USER_ID, dynamicAdapter.getItem(position).getUserId());
-//                startActivity(intent);
-//            }
-//        });
-//
-//        dynamicAdapter.setCheckAllListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((HomeActivity)activity).setTabIndex(1);
-//            }
-//        });
-//    }
 
     private void intRecyclerH(){
-
         guideDatas = new ArrayList<>();
         recycler_view_h = $(R.id.recycler_view_h);
         recycler_view_h.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -373,8 +322,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isDynamicLoad = false;
                 isGuideLoad = false;
 
-//                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
-                initPlayData();
+                serverListPresenter.serveGuideServeOrderList("",5,1,city,"1");
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
                 mPresenter.orderCarouselOrder();
@@ -404,8 +352,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isBannerLoad = true;
                 isGuideLoad = false;
 
-//                mPresenter.friendFindAll(city,5,Constant.DEFAULT_PAGE);
-                initPlayData();
+                serverListPresenter.serveGuideServeOrderList("",5,1,city,"1");
                 mPresenter.orderReviewsSortTop(city);
 
                 swipeRefreshLayout.setRefreshing(true);
@@ -502,38 +449,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         showLongToast(msg);
     }
 
-//    @Override
-//    public void friendFriendSterTopSuccess(DynamicListModel models) {
-//        isDynamicLoad = true;
-//        if(isBannerLoad && isDynamicLoad && isGuideLoad){
-//            swipeRefreshLayout.setRefreshing(false);
-//            isLoad = false;
-//        }
-//
-//        dynamicDatas = models.getList();
-//        dynamicAdapter.setData(dynamicDatas);
-//        dynamicAdapter.notifyDataSetChanged();
-//
-//        if(dynamicDatas.size() == 0){
-//            view_empty.setVisible(true);
-//            view_empty.setEmptyData(R.mipmap.empty_follow,"这里还是空空哒~");
-//            view_empty.setEmptyBackground(R.color.white);
-//        }else{
-//            view_empty.setVisible(false);
-//        }
-//
-//    }
-//
-//    @Override
-//    public void friendFriendSterTopFailed(String msg) {
-//        isDynamicLoad = true;
-//        if(isBannerLoad && isDynamicLoad && isGuideLoad){
-//            swipeRefreshLayout.setRefreshing(false);
-//            isLoad = false;
-//        }
-//        showLongToast(msg);
-//    }
-
     @Override
     public void orderCarouselOrderSuccess(List<NoticeItem> models) {
         initTextBannerData(models);
@@ -545,34 +460,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         showShortToast(msg);
     }
 
-//    @Override
-//    public void friendQueryLikesSuccess(EmptyModel models) {
-//        dynamicDatas.get(nicePosition).setLike(!dynamicDatas.get(nicePosition).isLike());
-//        if(dynamicDatas.get(nicePosition).isLike()){
-//            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() + 1);
-//        }else{
-//            dynamicDatas.get(nicePosition).setLikeCount(dynamicDatas.get(nicePosition).getLikeCount() - 1);
-//        }
-//        dynamicAdapter.setItemData(nicePosition);
-//    }
-//
-//    @Override
-//    public void friendQueryLikesFailed(String msg) {
-//        showShortToast(msg);
-//    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
-    public void initPlayData(){
-        List<PlayData> datas = new ArrayList<>();
-        PlayData data = new PlayData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543829470523&di=87de21d5e5ce4826a6d74b97deefb0b8&imgtype=0&src=http%3A%2F%2Fgotrip.zjol.com.cn%2Fxw14873%2Fycll14875%2F201710%2FW020171024603757884776.jpg",
-                "长沙特色小吃游",300f,"长沙",4.8f,100,400);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
+    @Override
+    public void serveGuideServeOrderListSuccess(List<PlayModel> datas) {
 
         isDynamicLoad = true;
         if(isBannerLoad && isDynamicLoad && isGuideLoad){
@@ -589,6 +483,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         }else{
             view_empty.setVisible(false);
         }
+    }
+
+    @Override
+    public void serveGuideServeOrderListFailed(String msg) {
+        isDynamicLoad = true;
+        if(isBannerLoad && isDynamicLoad && isGuideLoad){
+            swipeRefreshLayout.setRefreshing(false);
+            isLoad = false;
+        }
+        showLongToast(msg);
     }
 }
 

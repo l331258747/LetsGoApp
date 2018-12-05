@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.mvp.home;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
@@ -9,6 +10,7 @@ import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.NoticeItem;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract.Presenter;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -61,6 +63,7 @@ public class HomePresenter implements Presenter {
                 iView.orderReviewsSortTopFailed(errorMsg);
             }
         };
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         MethodApi.orderReviewsSortTop(location, new OnSuccessAndFaultSub(listener,context,false));
     }
 

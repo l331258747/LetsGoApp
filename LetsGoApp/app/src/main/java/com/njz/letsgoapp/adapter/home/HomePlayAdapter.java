@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.PlayData;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView2;
 import com.njz.letsgoapp.widget.PriceView;
@@ -26,9 +26,9 @@ import java.util.List;
 public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHolder> {
 
     Context context;
-    List<PlayData> datas;
+    List<PlayModel> datas;
 
-    public HomePlayAdapter(Context context, List<PlayData> datas) {
+    public HomePlayAdapter(Context context, List<PlayModel> datas) {
         this.context = context;
         this.datas = datas;
     }
@@ -42,14 +42,14 @@ public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (holder == null) return;
-        final PlayData data = datas.get(position);
+        final PlayModel data = datas.get(position);
         if (data == null) return;
 
-        GlideUtil.LoadTopRoundImage(context, data.getImg(), holder.iv_img,5);
+        GlideUtil.LoadTopRoundImage(context, data.getTitleImg(), holder.iv_img,5);
         holder.tv_title.setText(data.getTitle());
-        holder.tv_location.setText(data.getLocation());
-        holder.priceView.setPrice(data.getPrice());
-        holder.scoreView.setGuideScore(data.getCount(),data.getScore(),data.getComment());
+        holder.tv_location.setText(data.getAddress());
+        holder.priceView.setPrice(data.getServePrice());
+        holder.scoreView.setGuideScore(data.getSellCount(),data.getScore(),data.getReviewCount());
         if (mOnItemClickListener != null) {
             holder.ll_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,8 +65,13 @@ public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHo
         return datas.size();
     }
 
-    public void setData(List<PlayData> datas) {
+    public void setData(List<PlayModel> datas) {
         this.datas = datas;
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<PlayModel> datas){
+        this.datas.addAll(datas);
         notifyDataSetChanged();
     }
 

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.PlayData;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView2;
 import com.njz.letsgoapp.widget.PriceView;
@@ -23,10 +23,10 @@ import java.util.List;
  */
 
 public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.ViewHolder>{
-    List<PlayData> datas;
+    List<PlayModel> datas;
     Context context;
 
-    public ServerListAdapter2(Context context,List<PlayData> datas) {
+    public ServerListAdapter2(Context context,List<PlayModel> datas) {
         this.datas = datas;
         this.context = context;
     }
@@ -40,12 +40,12 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (holder == null) return;
-        PlayData data = datas.get(position);
-        GlideUtil.LoadImage(context,data.getImg(),holder.iv_img);
-        holder.tv_location.setText(data.getLocation());
+        PlayModel data = datas.get(position);
+        GlideUtil.LoadImage(context,data.getTitleImg(),holder.iv_img);
+        holder.tv_location.setText(data.getAddress());
         holder.tv_title.setText(data.getTitle());
-        holder.guideScoreView2.setGuideScore(data.getCount(),data.getScore(),data.getComment());
-        holder.priceView.setPrice(data.getPrice());
+        holder.guideScoreView2.setGuideScore(data.getSellCount(),data.getScore(),data.getReviewCount());
+        holder.priceView.setPrice(data.getServePrice());
 
     }
 
@@ -71,7 +71,7 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
 
     }
 
-    public void setDatas(List<PlayData> datas){
+    public void setDatas(List<PlayModel> datas){
         this.datas = datas;
         if(datas == null) return;
 

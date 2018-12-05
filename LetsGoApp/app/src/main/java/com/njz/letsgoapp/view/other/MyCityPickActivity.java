@@ -21,6 +21,7 @@ import com.njz.letsgoapp.bean.other.CityModel;
 import com.njz.letsgoapp.bean.other.LocationModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.map.LocationUtil;
 import com.njz.letsgoapp.mvp.other.CitySearchContract;
 import com.njz.letsgoapp.mvp.other.CitySearchPresenter;
@@ -67,6 +68,8 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     EmptyView view_empty;
     EmptyView view_empty_city;
 
+    TextView tv_default;
+
     private LocationUtil locationUtil;
     private boolean locationIsOk = false;
 
@@ -89,6 +92,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         view_empty_city = $(R.id.view_empty_city);
 
         ivLeft = $(R.id.iv_left);
+        tv_default = $(R.id.tv_default);
         tv_location_city = $(R.id.tv_location_city);
         ll_search = $(R.id.ll_search);
         ivLeft.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +120,18 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
                     return true;
                 }
                 return false;
+            }
+        });
+        initDefault();
+    }
+
+    private void initDefault(){
+        tv_default.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                city = Constant.DEFAULT_CITY;
+                RxBus2.getInstance().post(new CityPickEvent(city));
+                finish();
             }
         });
     }

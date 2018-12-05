@@ -7,16 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
-import com.njz.letsgoapp.adapter.home.EvaluateAdapter;
 import com.njz.letsgoapp.adapter.home.ServerListAdapter1;
 import com.njz.letsgoapp.adapter.home.ServerListAdapter2;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
-import com.njz.letsgoapp.bean.home.PlayData;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.constant.Constant;
 
 import java.util.ArrayList;
@@ -92,7 +89,7 @@ public class ServerListFragment extends BaseFragment {
         recycler_view2 = $(R.id.recycler_view2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recycler_view2.setLayoutManager(linearLayoutManager);
-        mAdapter2 = new ServerListAdapter2(activity, new ArrayList<PlayData>());
+        mAdapter2 = new ServerListAdapter2(activity, new ArrayList<PlayModel>());
         recycler_view2.setAdapter(mAdapter2);
 //        recycler_view2.setNestedScrollingEnabled(false);
 
@@ -112,16 +109,7 @@ public class ServerListFragment extends BaseFragment {
     }
 
     public void getData(){
-        List<PlayData> datas = new ArrayList<>();
-        PlayData data = new PlayData("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543829470523&di=87de21d5e5ce4826a6d74b97deefb0b8&imgtype=0&src=http%3A%2F%2Fgotrip.zjol.com.cn%2Fxw14873%2Fycll14875%2F201710%2FW020171024603757884776.jpg",
-                "长沙特色小吃游",300f,"长沙",4.8f,100,400);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
-        datas.add(data);
+        List<PlayModel> datas = new ArrayList<>();
         mAdapter2.setDatas(datas);
 
         List<GuideServiceModel> datas2 = new ArrayList<>();

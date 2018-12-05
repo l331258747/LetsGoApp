@@ -19,8 +19,8 @@ public class URLConstant {
         if(AppUtils.getVersionCodeInt() % 100 == 0){
             return "http://www.njzou.net/travel-framework/";
         }else{
-            return "http://192.168.100.156:8090/travel-framework/";//测试地址
-//            return "http://192.168.100.123:8080/";//本地 //18826420934  //941740
+//            return "http://192.168.100.156:8090/travel-framework/";//测试地址
+            return "http://192.168.100.143:8080/";//本地 //18826420934  //941740
 //            return "http://192.168.100.120:8089/";//消息本地 //16670198324    admin
         }
     }

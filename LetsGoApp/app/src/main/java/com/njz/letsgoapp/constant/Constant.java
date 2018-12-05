@@ -34,7 +34,7 @@ public class Constant {
     public static final int GUIDE_TYPE_COMMENT = 4;
     public static final int GUIDE_TYPE_PRICE = 5;
 
-    public static final String DEFAULT_CITY = "张家界";
+    public static final String DEFAULT_CITY = "全部";
 
 //    public static final String SERVICE_TYPE_CUSTOM = "私人定制";
 //    public static final String SERVICE_TYPE_HOTEL = "代订酒店";
@@ -47,6 +47,14 @@ public class Constant {
     public static final String SERVICE_TYPE_SHORT_TICKET = "ddjdmp";
     public static final String SERVICE_TYPE_SHORT_CAR = "cdfw";
     public static final String SERVICE_TYPE_SHORT_GUIDE = "xdpy";
+
+    //xdpy向导陪游 tsty特色体验 srdz私人定制 ddjd代订酒店 ddmp代订门票 jsjz接送机/站
+    public static final String SERVER_TYPE_GUIDE = "xdpy";
+    public static final String SERVER_TYPE_FEATURE = "tsty";
+    public static final String SERVER_TYPE_CUSTOM = "srdz";
+    public static final String SERVER_TYPE_HOTEL = "ddjd";
+    public static final String SERVER_TYPE_TICKET = "ddmp";
+    public static final String SERVER_TYPE_CAR = "jsjz";
 
 
     public static final int ORDER_PAY_WAIT = 0;//待付款
