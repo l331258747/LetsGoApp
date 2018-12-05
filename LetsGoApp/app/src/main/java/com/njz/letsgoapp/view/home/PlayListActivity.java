@@ -154,7 +154,7 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
 
 
     public void getData(){
-        serverListPresenter.serveGuideServeOrderList(value,Constant.DEFAULT_LIMIT,page,location,"0");
+        serverListPresenter.serveGuideServeOrderList(value,Constant.DEFAULT_LIMIT,page,location,0,0,0);
     }
 
     @Override

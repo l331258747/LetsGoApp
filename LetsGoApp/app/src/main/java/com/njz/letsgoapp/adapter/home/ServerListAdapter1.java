@@ -102,6 +102,10 @@ public class ServerListAdapter1 extends RecyclerView.Adapter<ServerListAdapter1.
         notifyDataSetChanged();
     }
 
+    public GuideServiceModel getData(int position){
+        return this.datas.get(position);
+    }
+
     OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
         void onClick(int position);

@@ -2,6 +2,9 @@ package com.njz.letsgoapp.bean.home;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
+
+import com.njz.letsgoapp.constant.Constant;
 
 import java.util.List;
 
@@ -31,6 +34,21 @@ public class GuideServiceModel implements Parcelable {
     }
 
     public String getValue() {
+        return value;
+    }
+    public String getValue2new() {
+        switch (value){
+            case Constant.SERVICE_TYPE_SHORT_GUIDE:
+                return Constant.SERVER_TYPE_GUIDE;
+            case Constant.SERVICE_TYPE_SHORT_CAR:
+                return Constant.SERVER_TYPE_CAR;
+            case Constant.SERVICE_TYPE_SHORT_CUSTOM:
+                return Constant.SERVER_TYPE_CUSTOM;
+            case Constant.SERVICE_TYPE_SHORT_HOTEL:
+                return Constant.SERVER_TYPE_HOTEL;
+            case Constant.SERVICE_TYPE_SHORT_TICKET:
+                return Constant.SERVER_TYPE_TICKET;
+        }
         return value;
     }
 

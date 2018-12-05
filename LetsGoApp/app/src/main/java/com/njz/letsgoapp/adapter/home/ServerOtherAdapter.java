@@ -15,6 +15,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.home.ServerOtherData;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.PriceView;
@@ -30,9 +31,9 @@ import java.util.List;
 public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.ViewHolder> {
 
     Context mContext;
-    List<ServerOtherData> datas;
+    List<PlayModel> datas;
 
-    public ServerOtherAdapter(Context mContext, List<ServerOtherData> datas) {
+    public ServerOtherAdapter(Context mContext, List<PlayModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -48,15 +49,15 @@ public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
-        final ServerOtherData data = datas.get(pos);
+        final PlayModel data = datas.get(pos);
         if (data == null) return;
 
-        GlideUtil.LoadTopRoundImage(mContext, data.getImg(), holder.iv_img,5);
+        GlideUtil.LoadTopRoundImage(mContext, data.getTitleImg(), holder.iv_img,5);
 
-        holder.tv_server.setText(data.getServerName() + " | " + data.getLocation());
+        holder.tv_server.setText(data.getServeTypeNameStr() + " | " + data.getAddress());
         holder.tv_title.setText(data.getTitle());
-        holder.tv_count.setText("已售"+data.getCount());
-        holder.preview.setPrice(data.getPrice());
+        holder.tv_count.setText("已售"+data.getSellCount());
+        holder.preview.setPrice(data.getServePrice());
     }
 
     @Override
@@ -64,8 +65,12 @@ public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.
         return datas.size();
     }
 
-    public void setData(List<ServerOtherData> datas){
+    public void setData(List<PlayModel> datas){
         this.datas = datas;
+    }
+
+    public void addData(List<PlayModel> datas){
+        this.datas.addAll(datas);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -105,12 +105,12 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     public  void initViewPage(ServiceDetailModel model){
         mFragments = new ArrayList<>();
-        mFragments.add(ServerFeatureFragment.newInstance(model));
+//        mFragments.add(ServerFeatureFragment.newInstance(model));
         mFragments.add(ServerEvaluateFragment.newInstance());
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(0);
         mTabLayout.setupWithViewPager(mViewPager);
 
     }

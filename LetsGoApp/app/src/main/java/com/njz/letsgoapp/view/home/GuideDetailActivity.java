@@ -68,25 +68,17 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tv_name, tv_service_num, tv_comment_content, tv_content, tv_back_top, btn_submit;
     MyRatingBar my_rating_bar;
     ServiceTagView stv_tag;
-//    NestedScrollView scrollView;
 
 //    LinearLayout ll_select_service;
     LinearLayout btn_call;
-
-//    LinearLayout ll_comment_title;
-//    TextView tv_comment_title_score, tv_comment_title_count;
 
     PopService popService;
     GuideLabelView guideLabel;
     GuideAuthenticationView guide_authentication;
 
-//    LWebView webView;
-
     GuideDetailPresenter mPresenter;
 
     GuideDetailModel guideDetailModel;
-
-//    TextView tv_comment_guide_total,tv_comment_trip_total,tv_comment_car_total,tv_comment_book_total;
 
     int guideId;
     public static final String GUIDEID = "GUIDEID";
@@ -124,14 +116,12 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         mViewPager = $(R.id.viewpager);
         mTabLayout = $(R.id.tablayout);
-//        view_empty = $(R.id.view_empty);
         convenientBanner = $(R.id.convenientBanner);
         iv_head = $(R.id.iv_head);
         iv_sex = $(R.id.iv_sex);
         tv_name = $(R.id.tv_name);
         my_rating_bar = $(R.id.my_rating_bar);
         stv_tag = $(R.id.stv_tag);
-//        ll_select_service = $(R.id.ll_select_service);
         tv_content = $(R.id.tv_content);
         btn_call = $(R.id.btn_call);
         btn_submit = $(R.id.btn_submit);
@@ -140,21 +130,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         guide_authentication = $(R.id.guide_authentication);
         tv_comment_content = $(R.id.tv_comment_content);
         tv_back_top = $(R.id.tv_back_top);
-//        webView = $(R.id.webview);
-//        scrollView = $(R.id.scrollView);
-//        ll_comment_title = $(R.id.ll_comment_title);
-//        tv_comment_title_score = $(R.id.tv_comment_title_score);
-//        tv_comment_title_count = $(R.id.tv_comment_title_count);
-//        tv_comment_guide_total = $(R.id.tv_comment_guide_total);
-//        tv_comment_trip_total = $(R.id.tv_comment_trip_total);
-//        tv_comment_car_total = $(R.id.tv_comment_car_total);
-//        tv_comment_book_total = $(R.id.tv_comment_book_total);
 
         tv_back_top.setVisibility(View.GONE);
         tv_back_top.setOnClickListener(this);
 
-//        ll_comment_title.setOnClickListener(this);
-//        ll_select_service.setOnClickListener(this);
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
     }
@@ -180,17 +159,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         mPresenter.guideFindGuideDetails(MySelfInfo.getInstance().getDefaultCity(), guideId);
         mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
-//        final int mDisplayHeight = AppUtils.getDisplayHeight();
-//        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (scrollY > mDisplayHeight) {
-//                    tv_back_top.setVisibility(View.VISIBLE);
-//                } else {
-//                    tv_back_top.setVisibility(View.GONE);
-//                }
-//            }
-//        });
     }
 
     //认证
@@ -222,41 +190,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         guide_authentication.setAuthentication(getViable(model));
         tv_content.setText(model.getIntroduce());
 
-//        tv_comment_title_score.setText("" + model.getGuideScore());
-//        tv_comment_title_count.setText("(" + model.getCount() + "条评论)");
-//
-//        tv_comment_guide_total.setVisibility(View.GONE);
-//        tv_comment_trip_total.setVisibility(View.GONE);
-//        tv_comment_car_total.setVisibility(View.GONE);
-//        tv_comment_book_total.setVisibility(View.GONE);
-//
-//        if(model.getGuideServices() > 0 ){
-//            tv_comment_guide_total.setVisibility(View.VISIBLE);
-//            tv_comment_guide_total.setText(model.getGuideServiceStr());
-//        }
-//        if(model.getTravelArranges() > 0 ){
-//            tv_comment_trip_total.setVisibility(View.VISIBLE);
-//            tv_comment_trip_total.setText(model.getTravelArrangeStr());
-//        }
-//        if(model.getCarConditions() > 0){
-//            tv_comment_car_total.setVisibility(View.VISIBLE);
-//            tv_comment_car_total.setText(model.getCarConditionStr());
-//        }
-//        if(model.getBuyServices() > 0){
-//            tv_comment_book_total.setVisibility(View.VISIBLE);
-//            tv_comment_book_total.setText(model.getBuyServiceStr());
-//        }
-//
-//        initEvaluate(model.getTravelFirstReviewVO());
-
-//        if(!TextUtils.isEmpty(model.getGuideStory())){
-//            webView.loadDataWithBaseURL(null, model.getGuideStory(), "text/html", "utf-8", null);
-//            view_empty.setVisible(false);
-//        }else{
-//            view_empty.setVisible(true);
-//            view_empty.setEmptyData(R.mipmap.empty_guide_story,"他很害羞哦，什么都没留下~");
-//        }
-
         initViewPage(model);
 
     }
@@ -274,65 +207,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
-
-//    //评价
-//    public void initEvaluate(final EvaluateModel evaluateModel) {
-//        if (evaluateModel == null) {
-//            LinearLayout ll_comment = $(R.id.ll_comment);
-//            ll_comment.setVisibility(View.GONE);
-//            return;
-//        }
-//
-//        ImageView comment_head = $(R.id.comment_head);
-//        TextView commont_name = $(R.id.commont_name);
-//        TextView commont_time = $(R.id.commont_time);
-//        TextView commont_score = $(R.id.commont_score);
-//        TextView tv_comment_content = $(R.id.tv_comment_content);
-//        TextView tv_comment_guide = $(R.id.tv_comment_guide);
-//        TextView tv_comment_trip = $(R.id.tv_comment_trip);
-//        TextView tv_comment_car = $(R.id.tv_comment_car);
-//        TextView tv_comment_book = $(R.id.tv_comment_book);
-//
-//        GlideUtil.LoadCircleImage(context, evaluateModel.getImgUrl(), comment_head);
-//        commont_name.setText(evaluateModel.getNickname());
-//        commont_time.setText(evaluateModel.getUserDate());
-//        commont_score.setText("" + evaluateModel.getScore());
-//        tv_comment_content.setText(evaluateModel.getUserContent());
-//
-//        tv_comment_guide.setVisibility(View.GONE);
-//        tv_comment_trip.setVisibility(View.GONE);
-//        tv_comment_car.setVisibility(View.GONE);
-//        tv_comment_book.setVisibility(View.GONE);
-//
-//        if(evaluateModel.getGuideService() > 0 ){
-//            tv_comment_guide.setVisibility(View.VISIBLE);
-//            tv_comment_guide.setText(evaluateModel.getGuideServiceStr());
-//        }
-//        if(evaluateModel.getTravelArrange() > 0 ){
-//            tv_comment_trip.setVisibility(View.VISIBLE);
-//            tv_comment_trip.setText(evaluateModel.getTravelArrangeStr());
-//        }
-//        if(evaluateModel.getCarCondition() > 0){
-//            tv_comment_car.setVisibility(View.VISIBLE);
-//            tv_comment_car.setText(evaluateModel.getCarConditionStr());
-//        }
-//        if(evaluateModel.getBuyService() > 0){
-//            tv_comment_book.setVisibility(View.VISIBLE);
-//            tv_comment_book.setText(evaluateModel.getBuyServiceStr());
-//        }
-//
-//        RecyclerView mRecyclerView = $(R.id.recycler_view);
-//        mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
-//        mRecyclerView.setLayoutManager(new GridLayoutManager( mRecyclerView.getContext(), 4));
-//        SimpleImageAdapter enterAdapter = new SimpleImageAdapter(context, evaluateModel.getImageUrls());
-//        enterAdapter.setOnItemClickListener(new SimpleImageAdapter.OnItemClickListener() {
-//            @Override
-//            public void onClick(int position) {
-//                BigImageActivity.startActivity(activity,position,evaluateModel.getImageUrls());
-//            }
-//        });
-//        mRecyclerView.setAdapter(enterAdapter);
-//    }
 
     //banner
     public void initBanner(List<BannerModel> banners) {
@@ -356,19 +230,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
     }
 
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        // webview 需要加载空界面来释放资源
-//        webView.loadUrl("about:blank");
-//        webView.clearCache(false);
-//        webView.destroy();
-//
-//        if(popService != null){
-//            popService.onDestroty();
-//        }
-//    }
 
     @Override
     public void onClick(View v) {

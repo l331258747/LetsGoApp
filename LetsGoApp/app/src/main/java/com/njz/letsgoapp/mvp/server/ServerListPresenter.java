@@ -29,7 +29,7 @@ public class ServerListPresenter implements ServerListContract.Presenter{
     }
 
     @Override
-    public void serveGuideServeOrderList(String serveTypeName, int limit, int page,String address,String mustPlay) {
+    public void serveGuideServeOrderList(String serveTypeName, int limit, int page,String address,int mustPlay,int guideId,int guideServeId) {
         ResponseCallback listener = new ResponseCallback<List<PlayModel>>() {
             @Override
             public void onSuccess(List<PlayModel> data) {
@@ -42,6 +42,6 @@ public class ServerListPresenter implements ServerListContract.Presenter{
             }
         };
         address = TextUtils.equals(Constant.DEFAULT_CITY,address)?"":address;
-        MethodApi.serveGuideServeOrderList(serveTypeName,limit, page,address,mustPlay, new OnSuccessAndFaultSub(listener, context,false));
+        MethodApi.serveGuideServeOrderList(serveTypeName,limit, page,address,mustPlay,guideId, guideServeId,new OnSuccessAndFaultSub(listener, context,false));
     }
 }

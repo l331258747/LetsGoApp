@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.view.home.serverFragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +12,12 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.ServerOtherAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.ServerOtherData;
+import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.server.ServerListContract;
+import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +28,7 @@ import java.util.List;
  * Function:
  */
 
-public class ServerOtherFragment extends BaseFragment {
+public class ServerOtherFragment extends BaseFragment implements ServerListContract.View{
 
     private RecyclerView recyclerView;
 
@@ -33,9 +39,27 @@ public class ServerOtherFragment extends BaseFragment {
     private int isLoadType = 1;//1下拉刷新，2上拉加载
     private boolean isLoad = false;//是否在加载，重复加载问题
 
-    public static Fragment newInstance() {
+    ServerListPresenter serverListPresenter;
+    private int guideId;
+    private int guideServeId;
+
+    public static Fragment newInstance(int guideId,int guideServeId) {
         ServerOtherFragment fragment = new ServerOtherFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("guideId", guideId);
+        bundle.putInt("guideServeId", guideServeId);
+        fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            guideId = bundle.getInt("guideId");
+            guideServeId = bundle.getInt("guideServeId");
+        }
     }
 
     @Override
@@ -50,15 +74,18 @@ public class ServerOtherFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        serverListPresenter = new ServerListPresenter(context,this);
         getRefreshData();
     }
+
+
 
     //初始化recyclerview
     private void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new ServerOtherAdapter(activity, new ArrayList<ServerOtherData>());
+        mAdapter = new ServerOtherAdapter(activity, new ArrayList<PlayModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         recyclerView.setNestedScrollingEnabled(false);
@@ -88,31 +115,11 @@ public class ServerOtherFragment extends BaseFragment {
     }
 
     public void getData() {
-        List<ServerOtherData> datas = new ArrayList<>();
-        ServerOtherData item = new ServerOtherData();
-        item.setImg(Constant.TEST_IMG_URL);
-        item.setPrice(4.5f);
-        item.setCount(400);
-        item.setLocation("长沙");
-        item.setTitle("那就走那就走那就走那就走那就走");
-        item.setServerName("私人定制");
+        serverListPresenter.serveGuideServeOrderList("",Constant.DEFAULT_LIMIT,page, "",0,guideId,guideServeId);
+    }
 
-        ServerOtherData item2 = new ServerOtherData();
-        item2.setImg(Constant.TEST_IMG_URL);
-        item2.setPrice(4.5f);
-        item2.setCount(400);
-        item2.setLocation("长沙");
-        item2.setTitle("那就走");
-        item2.setServerName("私人定制");
-
-        for (int i = 0; i < 7; i++) {
-            if(i%3==0){
-                datas.add(item);
-            }else{
-                datas.add(item2);
-            }
-        }
-
+    @Override
+    public void serveGuideServeOrderListSuccess(List<PlayModel> datas) {
         mAdapter.setData(datas);
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
@@ -121,5 +128,10 @@ public class ServerOtherFragment extends BaseFragment {
             // 显示加载到底的提示
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
+    }
+
+    @Override
+    public void serveGuideServeOrderListFailed(String msg) {
+        showShortToast(msg);
     }
 }

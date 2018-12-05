@@ -37,6 +37,8 @@ import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.home.PlayListActivity;
+import com.njz.letsgoapp.view.home.ServiceDetailActivity;
+import com.njz.letsgoapp.view.home.ServiceDetailActivity2;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
@@ -243,22 +245,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         initSwipeLayout();
         intRecyclerH();
 
-        //        loadingDialog = new LoadingDialog(context);
-//        loadingDialog.showDialog("定位中...");
-//
-//        locationUtil = new LocationUtil();
-//        locationUtil.startLocation(new LocationUtil.LocationListener() {
-//            @Override
-//            public void getAdress(int code, LocationModel adress) {
-//                LogUtil.e("code:" + code + " adress:" + adress);
-//                if(code == 0){
-//                    city = adress.getCity();
-//                    MySelfInfo.getInstance().setDefaultCity(city);
-//                }
-//                loadingDialog.dismiss();
-//                LoadData();
-//            }
-//        });
         LoadData();
     }
 
@@ -266,7 +252,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         isDynamicLoad =false;
         isBannerLoad = false;
         isGuideLoad = false;
-        serverListPresenter.serveGuideServeOrderList("",5,1,city,"1");
+        serverListPresenter.serveGuideServeOrderList("",5,1,city,1,0,0);
         mPresenter.orderReviewsSortTop(city);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
         mPresenter.orderCarouselOrder();
@@ -286,6 +272,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         playAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
+                Intent intent = new Intent(context, ServiceDetailActivity2.class);
+                intent.putExtra(ServiceDetailActivity.SERVICEID,playAdapter.getData(position).getId());
+                startActivity(intent);
 
             }
         });
@@ -322,11 +311,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isDynamicLoad = false;
                 isGuideLoad = false;
 
-                serverListPresenter.serveGuideServeOrderList("",5,1,city,"1");
+                serverListPresenter.serveGuideServeOrderList("",5,1,city,1,0,0);
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
                 mPresenter.orderCarouselOrder();
-
             }
         });
     }
@@ -352,7 +340,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isBannerLoad = true;
                 isGuideLoad = false;
 
-                serverListPresenter.serveGuideServeOrderList("",5,1,city,"1");
+                serverListPresenter.serveGuideServeOrderList("",5,1,city,1,0,0);
                 mPresenter.orderReviewsSortTop(city);
 
                 swipeRefreshLayout.setRefreshing(true);

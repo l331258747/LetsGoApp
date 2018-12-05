@@ -75,6 +75,10 @@ public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public PlayModel getData(int position){
+        return this.datas.get(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout ll_parent;
         ImageView iv_img;

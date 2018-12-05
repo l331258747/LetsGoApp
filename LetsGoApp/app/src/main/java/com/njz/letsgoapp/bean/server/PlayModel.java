@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.server;
 
+import com.njz.letsgoapp.constant.Constant;
+
 import java.util.List;
 
 /**
@@ -114,6 +116,26 @@ public class PlayModel {
 
     public String getServeTypeName() {
         return serveTypeName;
+    }
+
+    //xdpy向导陪游 tsty特色体验 srdz私人定制 ddjd代订酒店 ddmp代订门票 jsjz接送机/站
+    public String getServeTypeNameStr(){
+        switch (serveTypeName){
+            case Constant.SERVER_TYPE_GUIDE:
+                return "向导陪游";
+            case Constant.SERVER_TYPE_CAR:
+                return "接送机/站";
+            case Constant.SERVER_TYPE_CUSTOM:
+                return "私人定制";
+            case Constant.SERVER_TYPE_TICKET:
+                return "代订门票";
+            case Constant.SERVER_TYPE_HOTEL:
+                return "代订酒店";
+            case Constant.SERVER_TYPE_FEATURE:
+                return "特色体验";
+            default:
+                return "服务";
+        }
     }
 
     public int getStatus() {

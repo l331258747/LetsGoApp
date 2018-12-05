@@ -1,9 +1,11 @@
 package com.njz.letsgoapp.mvp.home;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -39,6 +41,7 @@ public class GuideListPresenter implements GuideListContract.Presenter {
                 iView.guideSortTop10ByLocationFailed(errorMsg);
             }
         };
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         MethodApi.guideSortTop10ByLocation(location, type, limit, page, maps,new OnSuccessAndFaultSub(listener,context,false));
     }
 }
