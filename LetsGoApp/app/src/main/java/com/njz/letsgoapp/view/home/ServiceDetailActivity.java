@@ -25,6 +25,7 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
@@ -33,6 +34,10 @@ import com.njz.letsgoapp.mvp.home.ServiceDetailContract;
 import com.njz.letsgoapp.mvp.home.ServiceDetailPresenter;
 import com.njz.letsgoapp.mvp.order.ServiceRefundRuleContract;
 import com.njz.letsgoapp.mvp.order.ServiceRefundRulePresenter;
+import com.njz.letsgoapp.mvp.other.BannerContract;
+import com.njz.letsgoapp.mvp.other.BannerPresenter;
+import com.njz.letsgoapp.mvp.server.ServerDetailContract;
+import com.njz.letsgoapp.mvp.server.ServerDetailPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
@@ -60,7 +65,7 @@ import java.util.List;
  * Function:
  */
 
-public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailContract.View {
+public class ServiceDetailActivity extends BaseActivity implements ServerDetailContract.View,BannerContract.View,View.OnClickListener {
 
     public static final String TITLE = "TITLE";
     public static final String SERVICEID = "SERVICEID";
@@ -81,8 +86,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public List<ServiceItem> serviceItems;
     public boolean isHideBottom;
 
-    public ServiceDetailPresenter mPresenter;
-    public ServiceDetailModel model;
+    public ServerDetailPresenter serverDetailPresenter;
+    public BannerPresenter bannerPresenter;
+    public ServerDetailMedel model;
 
     public LinearLayout ll_bottom;
 
@@ -103,9 +109,9 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    public  void initViewPage(ServiceDetailModel model){
+    public  void initViewPage(ServerDetailMedel model){
         mFragments = new ArrayList<>();
-//        mFragments.add(ServerFeatureFragment.newInstance(model));
+        mFragments.add(ServerFeatureFragment.newInstance(model));
         mFragments.add(ServerEvaluateFragment.newInstance());
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);
@@ -162,14 +168,15 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initData() {
-        mPresenter = new ServiceDetailPresenter(context, this);
+        serverDetailPresenter = new ServerDetailPresenter(context, this);
+        bannerPresenter = new BannerPresenter(context,this);
 
-        mPresenter.getGuideService(serviceId);
-        mPresenter.bannerFindByType(0,serviceId);
+        serverDetailPresenter.serveGuideServeOrder(serviceId);
+        bannerPresenter.bannerFindByType(0,serviceId);
 
     }
 
-    public void initDetail(ServiceDetailModel model) {
+    public void initDetail(ServerDetailMedel model) {
         tv_title.setText(model.getTitle());
         if(TextUtils.isEmpty(model.getAddress())){
             tv_destination.setVisibility(View.GONE);
@@ -180,7 +187,7 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
 
         StringUtils.setHtml(tv_destination2, getResources().getString(R.string.destination2));
 
-        tv_sell.setText("已售:" + model.getCount());
+        tv_sell.setText("已售:" + model.getSellCount());
         pv_price.setPrice(model.getServePrice());
 
         initViewPage(model);
@@ -227,20 +234,21 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
-                ServiceItem data = new ServiceItem();
-                data.setServiceType(model.getServiceType());
-                data.setValue(model.getValue());
-                data.setServeType(model.getServeType());
-                data.setId(model.getId());
-                data.setTitile(model.getTitle());
-                data.setPrice(model.getServePrice());
-                data.setImg(model.getTitleImg());
-                RxBus2.getInstance().post(data);
-                RxBus2.getInstance().post(new ServiceDetailCloseEvent());
-                finish();
+//                ServiceItem data = new ServiceItem();
+//                data.setServiceType(model.getServiceType());
+//                data.setValue(model.getValue());
+//                data.setServeType(model.getServeType());
+//                data.setId(model.getId());
+//                data.setTitile(model.getTitle());
+//                data.setPrice(model.getServePrice());
+//                data.setImg(model.getTitleImg());
+//                RxBus2.getInstance().post(data);
+//                RxBus2.getInstance().post(new ServiceDetailCloseEvent());
+//                finish();
                 break;
             case R.id.tv_phone:
-                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile());
+                if(model == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context,model.getMobile());
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));
@@ -259,17 +267,6 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void getGuideServiceSuccess(ServiceDetailModel model) {
-        this.model = model;
-        initDetail(model);
-    }
-
-    @Override
-    public void getGuideServiceFailed(String msg) {
-        showShortToast(msg);
-    }
-
-    @Override
     public void bannerFindByTypeSuccess(List<BannerModel> models) {
         initBanner(models);
     }
@@ -279,4 +276,14 @@ public class ServiceDetailActivity extends BaseActivity implements View.OnClickL
         showShortToast(msg);
     }
 
+    @Override
+    public void serveGuideServeOrderSuccess(ServerDetailMedel str) {
+        this.model = str;
+        initDetail(model);
+    }
+
+    @Override
+    public void serveGuideServeOrderFailed(String msg) {
+        showShortToast(msg);
+    }
 }

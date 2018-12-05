@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.home.serverFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,8 @@ import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
+import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.home.ServiceDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +80,6 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
     public void initData() {
         serverListPresenter = new ServerListPresenter(context,this);
         initServerList();
-        getRefreshData();
     }
 
     //初始化recyclerview
@@ -93,7 +95,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             @Override
             public void onClick(int position) {
                 value = mAdapter1.getData(position).getValue2new();
-                getData();
+                getRefreshData();//TODO 没有点击也调用了
             }
         });
     }
@@ -109,7 +111,25 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         mAdapter2.setOnItemClickListener(new ServerListAdapter2.OnItemClickListener() {
             @Override
             public void onClick(int position) {
+                Intent intent = new Intent(context, ServiceDetailActivity.class);
+                intent.putExtra(ServiceDetailActivity.SERVICEID,mAdapter2.getData(position).getId());
+                LogUtil.e(mAdapter2.getData(position).getId()+"-------");
+                startActivity(intent);
+            }
 
+            @Override
+            public void onCancelClick(int position) {
+                //TODO 把本地数据清除,刷新价格
+            }
+
+            @Override
+            public void onBookClick(int position) {
+                //TODO 其他的定制根据类型弹出不一样的pop，pop选择后修改本地数据并修改列表数据刷新
+            }
+
+            @Override
+            public void onCustemClick(int position) {
+                //TODO 私人定制 跳转私人定制页面
             }
         });
     }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -40,7 +41,7 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         if (holder == null) return;
         PlayModel data = datas.get(position);
         GlideUtil.LoadImage(context,data.getTitleImg(),holder.iv_img);
@@ -56,6 +57,46 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
             holder.tv_book.setVisibility(View.VISIBLE);
         }
 
+        holder.ll_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnItemClickListener !=null){
+                    mOnItemClickListener.onClick(position);
+                }
+            }
+        });
+
+        holder.tv_custom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnItemClickListener !=null){
+                    mOnItemClickListener.onCustemClick(position);
+                }
+            }
+        });
+        holder.tv_book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnItemClickListener !=null){
+                    mOnItemClickListener.onBookClick(position);
+                    holder.tv_cancel.setVisibility(View.VISIBLE);
+                    holder.tv_selected.setVisibility(View.VISIBLE);
+                    holder.tv_book.setVisibility(View.GONE);
+                }
+            }
+        });
+        holder.tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnItemClickListener !=null){
+                    mOnItemClickListener.onCancelClick(position);
+                    holder.tv_book.setVisibility(View.VISIBLE);
+                    holder.tv_cancel.setVisibility(View.GONE);
+                    holder.tv_selected.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -69,9 +110,11 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
         GuideScoreView2 guideScoreView2;
         PriceView priceView;
         TextView tv_custom,tv_selected,tv_cancel,tv_book;
+        LinearLayout ll_parent;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ll_parent = itemView.findViewById(R.id.ll_parent);
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_location = itemView.findViewById(R.id.tv_location);
             tv_title = itemView.findViewById(R.id.tv_title);
@@ -104,9 +147,17 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
         this.datas.addAll(datas);
     }
 
+
+    public PlayModel getData(int position){
+        return this.datas.get(position);
+    }
+
     OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {
         void onClick(int position);
+        void onCancelClick(int position);
+        void onBookClick(int position);
+        void onCustemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
