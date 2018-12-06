@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home.serverFragment;
+package com.njz.letsgoapp.view.serverFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

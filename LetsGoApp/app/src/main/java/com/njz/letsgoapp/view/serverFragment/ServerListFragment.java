@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home.serverFragment;
+package com.njz.letsgoapp.view.serverFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,14 +15,14 @@ import com.njz.letsgoapp.adapter.home.ServerListAdapter2;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
-import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
-import com.njz.letsgoapp.view.home.ServiceDetailActivity;
+import com.njz.letsgoapp.view.server.CustomActivity;
+import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +94,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         mAdapter1.setOnItemClickListener(new ServerListAdapter1.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                value = mAdapter1.getData(position).getValue2new();
+                value = mAdapter1.getData(position).getValue();
                 getRefreshData();//TODO 没有点击也调用了
             }
         });
@@ -130,6 +130,9 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             @Override
             public void onCustemClick(int position) {
                 //TODO 私人定制 跳转私人定制页面
+                Intent intent = new Intent(context, CustomActivity.class);
+                intent.putExtra("LOCATION", mAdapter2.getData(position).getAddress());
+                startActivity(intent);
             }
         });
     }
@@ -145,7 +148,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         List<GuideServiceModel> datas2 = model.getTravelGuideServiceInfoVOs();
         mAdapter1.setDatas(datas2);
         if(datas2 !=null && datas2.size() !=0){
-            value = datas2.get(0).getValue2new();
+            value = datas2.get(0).getValue();
         }
     }
 

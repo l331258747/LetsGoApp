@@ -43,6 +43,8 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
         tv_minus.setOnClickListener(this);
         tv_plus.setOnClickListener(this);
 
+        setNum(0);
+
     }
 
     public void setNum(int num) {

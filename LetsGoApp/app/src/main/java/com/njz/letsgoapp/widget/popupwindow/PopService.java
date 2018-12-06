@@ -29,7 +29,7 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServicePriceEvent;
-import com.njz.letsgoapp.view.home.ServiceListActivity;
+import com.njz.letsgoapp.view.server.ServiceListActivity;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.order.OrderSubmitActivity;
 import com.njz.letsgoapp.widget.GuideLabelView;

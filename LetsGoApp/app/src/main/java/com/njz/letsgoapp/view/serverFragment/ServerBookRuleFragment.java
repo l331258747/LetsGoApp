@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home.serverFragment;
+package com.njz.letsgoapp.view.serverFragment;
 
 import android.support.v4.app.Fragment;
 

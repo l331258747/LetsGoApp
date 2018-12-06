@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home.serverFragment;
+package com.njz.letsgoapp.view.serverFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.util.webview.LWebView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;

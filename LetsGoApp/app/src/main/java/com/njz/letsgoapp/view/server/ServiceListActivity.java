@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home;
+package com.njz.letsgoapp.view.server;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,7 +14,6 @@ import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.mvp.home.ServiceListContract;
 import com.njz.letsgoapp.mvp.home.ServiceListPresenter;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
 

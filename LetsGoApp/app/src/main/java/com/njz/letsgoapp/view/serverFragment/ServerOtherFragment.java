@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home.serverFragment;
+package com.njz.letsgoapp.view.serverFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,8 +12,6 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.ServerOtherAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.home.ServerOtherData;
 import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;

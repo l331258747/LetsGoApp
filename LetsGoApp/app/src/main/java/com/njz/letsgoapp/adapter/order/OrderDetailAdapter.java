@@ -3,7 +3,6 @@ package com.njz.letsgoapp.adapter.order;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.view.home.ServiceDetailActivity;
+import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

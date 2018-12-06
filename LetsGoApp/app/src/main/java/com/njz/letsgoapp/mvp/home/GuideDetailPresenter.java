@@ -1,10 +1,12 @@
 package com.njz.letsgoapp.mvp.home;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -56,6 +58,7 @@ public class GuideDetailPresenter implements GuideDetailContract.Presenter {
                 iView.guideFindGuideDetailsFailed(errorMsg);
             }
         };
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         MethodApi.guideFindGuideDetails(location, guideId, new OnSuccessAndFaultSub(listener,context));
     }
 

@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home;
+package com.njz.letsgoapp.view.server;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
-import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
-import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
@@ -22,11 +20,9 @@ import com.njz.letsgoapp.mvp.server.ServerDetailContract;
 import com.njz.letsgoapp.mvp.server.ServerDetailPresenter;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.rxbus.RxBus2;
-import com.njz.letsgoapp.util.rxbus.busEvent.ServiceDetailCloseEvent;
-import com.njz.letsgoapp.view.home.serverFragment.ServerEvaluateFragment;
-import com.njz.letsgoapp.view.home.serverFragment.ServerFeatureFragment;
-import com.njz.letsgoapp.view.home.serverFragment.ServerOtherFragment;
+import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
+import com.njz.letsgoapp.view.serverFragment.ServerFeatureFragment;
+import com.njz.letsgoapp.view.serverFragment.ServerOtherFragment;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;

@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.home;
+package com.njz.letsgoapp.view.server;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +15,7 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
+import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList2;
 

@@ -13,11 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailChildModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.view.home.ServiceDetailActivity;
+import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 
 import java.util.List;
 
