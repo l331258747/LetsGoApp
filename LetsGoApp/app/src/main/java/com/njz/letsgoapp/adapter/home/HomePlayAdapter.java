@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView2;
 import com.njz.letsgoapp.widget.PriceView;
@@ -26,9 +27,9 @@ import java.util.List;
 public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHolder> {
 
     Context context;
-    List<PlayModel> datas;
+    List<ServerDetailMedel> datas;
 
-    public HomePlayAdapter(Context context, List<PlayModel> datas) {
+    public HomePlayAdapter(Context context, List<ServerDetailMedel> datas) {
         this.context = context;
         this.datas = datas;
     }
@@ -42,7 +43,7 @@ public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (holder == null) return;
-        final PlayModel data = datas.get(position);
+        final ServerDetailMedel data = datas.get(position);
         if (data == null) return;
 
         GlideUtil.LoadTopRoundImage(context, data.getTitleImg(), holder.iv_img,5);
@@ -65,17 +66,17 @@ public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHo
         return datas.size();
     }
 
-    public void setData(List<PlayModel> datas) {
+    public void setData(List<ServerDetailMedel> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
 
-    public void addData(List<PlayModel> datas){
+    public void addData(List<ServerDetailMedel> datas){
         this.datas.addAll(datas);
         notifyDataSetChanged();
     }
 
-    public PlayModel getData(int position){
+    public ServerDetailMedel getData(int position){
         return this.datas.get(position);
     }
 

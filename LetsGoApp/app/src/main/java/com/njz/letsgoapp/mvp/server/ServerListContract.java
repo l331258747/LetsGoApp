@@ -2,6 +2,7 @@ package com.njz.letsgoapp.mvp.server;
 
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface ServerListContract {
     }
 
     interface View {
-        void serveGuideServeOrderListSuccess(List<PlayModel> str);
+        void serveGuideServeOrderListSuccess(List<ServerDetailMedel> str);
 
         void serveGuideServeOrderListFailed(String msg);
 

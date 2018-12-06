@@ -20,6 +20,13 @@ public class DateUtil {
         return dateString;
     }
 
+    //date 转 String 月日
+    public static String dateToStrMD(Date dateDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM—dd");
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
+
     //String 转 date
     public static Date str2Date(String dateStr) {
         SimpleDateFormat df;

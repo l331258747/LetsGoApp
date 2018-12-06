@@ -43,4 +43,32 @@ public class PlayChileMedel {
     public int getId() {
         return id;
     }
+
+    public void setNjzGuideServeFormatDic(String njzGuideServeFormatDic) {
+        this.njzGuideServeFormatDic = njzGuideServeFormatDic;
+    }
+
+    public void setServePriceSelect(String servePriceSelect) {
+        this.servePriceSelect = servePriceSelect;
+    }
+
+    public void setServeDefaultPrice(float serveDefaultPrice) {
+        this.serveDefaultPrice = serveDefaultPrice;
+    }
+
+    public void setFormatUnit(String formatUnit) {
+        this.formatUnit = formatUnit;
+    }
+
+    public void setNjzGuideServeId(int njzGuideServeId) {
+        this.njzGuideServeId = njzGuideServeId;
+    }
+
+    public void setGuideServeFormatName(String guideServeFormatName) {
+        this.guideServeFormatName = guideServeFormatName;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -16,6 +16,7 @@ import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.home.ServerOtherData;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.other.BigImageActivity;
 import com.njz.letsgoapp.widget.PriceView;
@@ -31,9 +32,9 @@ import java.util.List;
 public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.ViewHolder> {
 
     Context mContext;
-    List<PlayModel> datas;
+    List<ServerDetailMedel> datas;
 
-    public ServerOtherAdapter(Context mContext, List<PlayModel> datas) {
+    public ServerOtherAdapter(Context mContext, List<ServerDetailMedel> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -49,7 +50,7 @@ public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         final int pos = holder.getAdapterPosition();
-        final PlayModel data = datas.get(pos);
+        final ServerDetailMedel data = datas.get(pos);
         if (data == null) return;
 
         GlideUtil.LoadTopRoundImage(mContext, data.getTitleImg(), holder.iv_img,5);
@@ -65,11 +66,11 @@ public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.
         return datas.size();
     }
 
-    public void setData(List<PlayModel> datas){
+    public void setData(List<ServerDetailMedel> datas){
         this.datas = datas;
     }
 
-    public void addData(List<PlayModel> datas){
+    public void addData(List<ServerDetailMedel> datas){
         this.datas.addAll(datas);
     }
 

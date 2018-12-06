@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView2;
@@ -26,10 +28,10 @@ import java.util.List;
  */
 
 public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.ViewHolder>{
-    List<PlayModel> datas;
+    List<ServerDetailMedel> datas;
     Context context;
 
-    public ServerListAdapter2(Context context,List<PlayModel> datas) {
+    public ServerListAdapter2(Context context,List<ServerDetailMedel> datas) {
         this.datas = datas;
         this.context = context;
     }
@@ -43,7 +45,7 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         if (holder == null) return;
-        PlayModel data = datas.get(position);
+        ServerDetailMedel data = datas.get(position);
         GlideUtil.LoadImage(context,data.getTitleImg(),holder.iv_img);
         holder.tv_location.setText(data.getAddress());
         holder.tv_title.setText(data.getTitle());
@@ -136,19 +138,19 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
 
     }
 
-    public void setDatas(List<PlayModel> datas){
+    public void setDatas(List<ServerDetailMedel> datas){
         this.datas = datas;
         if(datas == null) return;
 
         notifyDataSetChanged();
     }
 
-    public void addDatas(List<PlayModel> datas){
+    public void addDatas(List<ServerDetailMedel> datas){
         this.datas.addAll(datas);
     }
 
 
-    public PlayModel getData(int position){
+    public ServerDetailMedel getData(int position){
         return this.datas.get(position);
     }
 

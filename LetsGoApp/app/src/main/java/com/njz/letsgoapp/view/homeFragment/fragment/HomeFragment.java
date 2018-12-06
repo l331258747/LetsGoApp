@@ -25,6 +25,7 @@ import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.NoticeItem;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
@@ -36,6 +37,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.other.SearchActivity;
 import com.njz.letsgoapp.view.server.PlayListActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
@@ -85,7 +87,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     public EmptyView2 view_empty,view_empty_guide;
 
-    private TextView tv_city_pick;
+    private TextView tv_city_pick,tv_search;
     private boolean isflipper;
 
     @Override
@@ -96,6 +98,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initView() {
 
+        tv_search = $(R.id.tv_search);
         tv_grid_guide = $(R.id.tv_grid_guide);
         tv_grid_car = $(R.id.tv_grid_car);
         tv_grid_feature = $(R.id.tv_grid_feature);
@@ -119,6 +122,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         rl_guide_title.setOnClickListener(this);
         dynamic_title.setOnClickListener(this);
         tv_city_pick.setOnClickListener(this);
+        tv_search.setOnClickListener(this);
 
         initTextBanner();
 
@@ -223,6 +227,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             case R.id.tv_city_pick:
                 cityPick();
                 break;
+            case R.id.tv_search:
+                intent = new Intent(context, SearchActivity.class);
+                startActivity(intent);
+                break;
             case R.id.dynamic_title:
                 ((HomeActivity)activity).setTabIndex(1);
                 break;
@@ -265,7 +273,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayModel>());
+        playAdapter = new HomePlayAdapter(activity, new ArrayList<ServerDetailMedel>());
         recyclerView.setAdapter(playAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -454,7 +462,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     @Override
-    public void serveGuideServeOrderListSuccess(List<PlayModel> datas) {
+    public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
 
         isDynamicLoad = true;
         if(isBannerLoad && isDynamicLoad && isGuideLoad){

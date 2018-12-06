@@ -43,7 +43,7 @@ public class PlayModel {
     private String guideImg;
     private int serveMinNum;
     private String title;
-    private int score;
+    private float score;
     private int serveMaxNum;
     private int reviewCount;
     private int sellCount;
@@ -90,7 +90,7 @@ public class PlayModel {
         return title;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 

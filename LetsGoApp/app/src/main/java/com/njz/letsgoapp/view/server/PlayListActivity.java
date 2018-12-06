@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.server;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import com.njz.letsgoapp.adapter.home.HomePlayAdapter;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
@@ -118,7 +120,7 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
     public void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        playAdapter = new HomePlayAdapter(activity, new ArrayList<PlayModel>());
+        playAdapter = new HomePlayAdapter(activity, new ArrayList<ServerDetailMedel>());
         loadMoreWrapper = new LoadMoreWrapper(playAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         page = Constant.DEFAULT_PAGE;
@@ -126,6 +128,9 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
         playAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
+                Intent intent = new Intent(context, ServiceDetailActivity2.class);
+                intent.putExtra(ServiceDetailActivity.SERVICEID,playAdapter.getData(position).getId());
+                startActivity(intent);
             }
         });
 
@@ -193,7 +198,7 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
     }
 
     @Override
-    public void serveGuideServeOrderListSuccess(List<PlayModel> datas) {
+    public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
         if (isLoadType == 1) {
             playAdapter.setData(datas);
         } else {

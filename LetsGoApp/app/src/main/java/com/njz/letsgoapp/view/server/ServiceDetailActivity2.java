@@ -20,12 +20,15 @@ import com.njz.letsgoapp.mvp.server.ServerDetailContract;
 import com.njz.letsgoapp.mvp.server.ServerDetailPresenter;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerFeatureFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerOtherFragment;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
+import com.njz.letsgoapp.widget.popupwindow.PopServer;
+import com.njz.letsgoapp.widget.popupwindow.PopService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,11 +77,15 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
     }
 
+    PopServer popServer;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
-
+                if (popServer == null) {
+                    popServer = new PopServer(activity, tv_submit,serverDetailMedel);
+                }
+                popServer.showPopupWindow(tv_submit);
                 break;
             case R.id.tv_phone:
                 if(serverDetailMedel == null) return;
@@ -128,7 +135,9 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
         rl_person_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 导游详情
+                Intent intent = new Intent(context, GuideDetailActivity.class);
+                intent.putExtra("GUIDEID",serverDetailMedel.getGuideId());
+                startActivity(intent);
             }
         });
     }

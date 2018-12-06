@@ -17,12 +17,14 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.server.CustomActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
+import com.njz.letsgoapp.widget.popupwindow.PopServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
     private int page;
     private int isLoadType = 1;//1下拉刷新，2上拉加载
     private boolean isLoad = false;//是否在加载，重复加载问题
+    PopServer popServer;
 
     private String value;
 
@@ -103,7 +106,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         recycler_view2 = $(R.id.recycler_view2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recycler_view2.setLayoutManager(linearLayoutManager);
-        mAdapter2 = new ServerListAdapter2(activity, new ArrayList<PlayModel>());
+        mAdapter2 = new ServerListAdapter2(activity, new ArrayList<ServerDetailMedel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter2);
         recycler_view2.setAdapter(loadMoreWrapper);
 //        recycler_view2.setNestedScrollingEnabled(false);
@@ -125,6 +128,9 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             @Override
             public void onBookClick(int position) {
                 //TODO 其他的定制根据类型弹出不一样的pop，pop选择后修改本地数据并修改列表数据刷新
+                popServer = new PopServer(activity, recycler_view2,mAdapter2.getData(position));
+                popServer.showPopupWindow(recycler_view2);
+
             }
 
             @Override
@@ -158,7 +164,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
     }
 
     @Override
-    public void serveGuideServeOrderListSuccess(List<PlayModel> datas) {
+    public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
         if (isLoadType == 1) {
             mAdapter2.setDatas(datas);
         } else {

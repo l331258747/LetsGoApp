@@ -160,7 +160,7 @@ public class TagFlowLayout extends FlowLayout
 
     private void doSelect(TagView child, int position) {
         if(mSelectedMax == 0) return;
-
+        //-2 多选或者无，-1一个或无，0不能选，1一个
         if (!child.isChecked()) {
             //处理max_select=1的情况
             if ((mSelectedMax == -2 || mSelectedMax == 1) && mSelectedView.size() == 1) {

@@ -31,6 +31,7 @@
 
     <!--      start -->
     <color name="color_window_background">#f7f7f7</color>
+    <color name="color_88">#888888</color>
     <color name="color_text">#323232</color>
     <color name="color_theme">#ff7c00</color>
     <color name="color_fa9611">#ff9912</color>

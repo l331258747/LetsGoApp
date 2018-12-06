@@ -565,7 +565,7 @@ public interface HttpService {
     //-----------start服务---------
     //serve/guideServeOrderList 服务列表
     @GET("serve/guideServeOrderList")
-    Observable<BaseResponse<List<PlayModel>>> serveGuideServeOrderList(
+    Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeOrderList(
             @Query("serveTypeName") String serveTypeName,
             @Query("limit") int limit,
             @Query("page") int page,

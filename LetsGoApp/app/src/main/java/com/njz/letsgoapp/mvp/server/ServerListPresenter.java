@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -30,9 +31,9 @@ public class ServerListPresenter implements ServerListContract.Presenter{
 
     @Override
     public void serveGuideServeOrderList(String serveTypeName, int limit, int page,String address,int mustPlay,int guideId,int guideServeId) {
-        ResponseCallback listener = new ResponseCallback<List<PlayModel>>() {
+        ResponseCallback listener = new ResponseCallback<List<ServerDetailMedel>>() {
             @Override
-            public void onSuccess(List<PlayModel> data) {
+            public void onSuccess(List<ServerDetailMedel> data) {
                 iView.serveGuideServeOrderListSuccess(data);
             }
 

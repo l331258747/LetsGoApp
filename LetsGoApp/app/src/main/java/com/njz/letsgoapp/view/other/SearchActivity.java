@@ -4,7 +4,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -33,6 +35,8 @@ public class SearchActivity extends BaseActivity implements CitySearchContract.V
 
     CitySearchPresenter mPresenter;
 
+    ImageView iv_left;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_search;
@@ -41,6 +45,14 @@ public class SearchActivity extends BaseActivity implements CitySearchContract.V
     @Override
     public void initView() {
         hideTitleLayout();
+
+        iv_left = $(R.id.iv_left);
+        iv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         et_search = $(R.id.et_search);
         recyclerView = $(R.id.recycler_view);
