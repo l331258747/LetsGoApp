@@ -581,6 +581,30 @@ public interface HttpService {
             @Query("id") int id
     );
 
+    @GET("serve/guideServeFilterList")
+    Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeFilterList(
+            @Query("serveTypeName") String serveTypeName,
+            @Query("limit") int limit,
+            @Query("page") int page,
+            @Query("address") String address,
+            @Query("mustPlay") int mustPlay,
+            @Query("guideId") int guideId,
+            @Query("guideServeId") int guideServeId,
+            @Query("order") int order,
+            @QueryMap Map<String, String> maps
+    );
+    @GET("serve/guideServeFilterList")
+    Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeFilterList2(
+            @Query("serveTypeName") String serveTypeName,
+            @Query("limit") int limit,
+            @Query("page") int page,
+            @Query("address") String address,
+            @Query("mustPlay") int mustPlay,
+            @Query("guideId") int guideId,
+            @Query("guideServeId") int guideServeId,
+            @Query("order") int order
+    );
+
     //-----------end服务---------
 
 

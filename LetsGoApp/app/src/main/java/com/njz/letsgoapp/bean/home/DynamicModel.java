@@ -50,9 +50,14 @@ public class DynamicModel {
     private String shareContent;
     private String shareTitle;
     private String shareUrl;
+    private String backImg;
 
     private boolean like;
     private boolean focus;
+
+    public String getBackImg() {
+        return backImg;
+    }
 
     public String getStartTimeTwo() {
         if(TextUtils.isEmpty(startTimeTwo)){

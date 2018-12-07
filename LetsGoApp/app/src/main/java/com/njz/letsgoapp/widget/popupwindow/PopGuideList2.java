@@ -164,6 +164,55 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
     private Map<String,String> result = new HashMap<>();
     //确定
     public void submit() {
+
+        if(type > 0){
+            boolean islanguage = false;
+            for (int i =0;i<tagFlowLayouts.size();i++){
+                StringBuffer sb = new StringBuffer("");
+                if(TextUtils.equals((String)tagFlowLayouts.get(i).getTag(),Constant.CONFIG_YYLX)){
+                    for (int index : tagFlowLayouts.get(i).getSelectedList()) {
+                        sb.append(configModels.get(i).getList().get(index).getId()+",");
+                    }
+                }else{
+                    for (int index : tagFlowLayouts.get(i).getSelectedList()) {
+                        sb.append(configModels.get(i).getList().get(index).getValue()+",");
+                    }
+                }
+                String sbString = sb.toString();
+                sbString = sbString.endsWith(",")?sbString.substring(0,sbString.length()-1):sbString;
+                if(TextUtils.equals((String)tagFlowLayouts.get(i).getTag(),Constant.CONFIG_XB)){
+                    result.put("gender", sbString);
+                }else if(TextUtils.equals((String)tagFlowLayouts.get(i).getTag(),Constant.CONFIG_DYNL)){
+                    result.put("ages", sbString);
+                }else  if(TextUtils.equals((String)tagFlowLayouts.get(i).getTag(),Constant.CONFIG_CYNX)){
+                    result.put("workYears", sbString);
+                }else if(TextUtils.equals((String)tagFlowLayouts.get(i).getTag(),Constant.CONFIG_YYLX)){
+                    islanguage = true;
+                    result.put("language", sbString);
+                }
+            }
+            if(!islanguage){
+                result.put("language", "");
+            }
+
+            if(type == 1 || type == 3){
+                result.put("havingCar", tv_car_yes.isSelected() ? "true" : "false");
+            }else{
+                result.put("havingCar", "false");
+            }
+            if(TextUtils.isEmpty(et_price_min.getText().toString()) || TextUtils.isEmpty(et_price_max.getText().toString())){
+                result.put("priceRange", "");
+            }else {
+                result.put("priceRange", et_price_min.getText().toString()+"," + et_price_max.getText().toString());
+            }
+
+            result.put("travelDates", tv_time_start.isSelected() ? (tv_time_start.getText().toString()+"," + tv_time_end.getText().toString()):"");
+
+            submitLisener.onSubmit(result);
+            dismissPopupWindow();
+            return;
+        }
+
         for (int i =0;i<tagFlowLayouts.size();i++){
             StringBuffer sb = new StringBuffer("");
             if(TextUtils.equals((String)tagFlowLayouts.get(i).getTag(),Constant.CONFIG_YYLX)){
@@ -191,6 +240,7 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
         }
         result.put("startTime", tv_time_start.isSelected() ? tv_time_start.getText().toString() : "");
         result.put("startTime", tv_time_end.isSelected() ? tv_time_end.getText().toString() : "");
+
         submitLisener.onSubmit(result);
         dismissPopupWindow();
     }
@@ -310,17 +360,17 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
     }
 
 
-    //1,显示是否有车，2显示是否有价格输入
-    public void setLayoutType(int... type){
-        for (int item:type){
-            switch (item){
-                case 1:
-                    ll_has_car.setVisibility(View.VISIBLE);
-                    break;
-                case 2:
-                    ll_price.setVisibility(View.VISIBLE);
-                    break;
-            }
+    //1,显示是否有车，2显示是否有价格输入,3都显示
+    int type;
+    public void setLayoutType(int type){
+        this.type = type;
+        if(type == 1){
+            ll_has_car.setVisibility(View.VISIBLE);
+        }else if(type == 2){
+            ll_price.setVisibility(View.VISIBLE);
+        }else if(type == 3){
+            ll_has_car.setVisibility(View.VISIBLE);
+            ll_price.setVisibility(View.VISIBLE);
         }
     }
 

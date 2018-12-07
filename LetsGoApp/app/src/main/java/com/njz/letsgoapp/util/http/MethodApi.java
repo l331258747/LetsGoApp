@@ -479,6 +479,22 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //serveGuideServeFilterList 服务列表筛选
+    public static void serveGuideServeFilterList(String serveTypeName, int limit, int page,String address,int mustPlay,
+                                                 int guideId,int guideServeId,int order,Map<String, String> maps, DisposableObserver subscriber) {
+        if(maps == null){
+            Observable observable = HttpMethods.getInstance().getHttpService().serveGuideServeFilterList2(serveTypeName,limit,page,address
+                    ,mustPlay,guideId,guideServeId,order);
+            HttpMethods.getInstance().toSubscribe(observable, subscriber);
+        }else {
+            Observable observable = HttpMethods.getInstance().getHttpService().serveGuideServeFilterList(serveTypeName,limit,page,
+                    address,mustPlay,guideId,guideServeId,order,maps);
+            HttpMethods.getInstance().toSubscribe(observable, subscriber);
+        }
+
+
+    }
+
     //serveGuideServeOrder 服务详情
     public static void serveGuideServeOrder(int id, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().serveGuideServeOrder(id);

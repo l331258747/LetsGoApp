@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
@@ -17,7 +18,13 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
+import com.njz.letsgoapp.mvp.server.ServerListScreenContract;
+import com.njz.letsgoapp.mvp.server.ServerListScreenPresenter;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.other.MyCityPickActivity;
+import com.njz.letsgoapp.view.other.SearchActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList2;
 
@@ -26,18 +33,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.functions.Consumer;
+
 /**
  * Created by LGQ
  * Time: 2018/12/3
  * Function:
  */
 
-public class PlayListActivity extends GuideListActivity implements ServerListContract.View{
+public class PlayListActivity extends GuideListActivity implements ServerListScreenContract.View{
 
     HomePlayAdapter playAdapter;
-    ServerListPresenter serverListPresenter;
+    ServerListScreenPresenter serverListPresenter;
 
     String value;
+    int order = Constant.GUIDE_TYPE_SYNTHESIZE;
 
     @Override
     public void getIntentData() {
@@ -53,23 +63,23 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
             public void onClick(int position) {
                 switch (position) {
                     case MyGuideTab.MYGUIDETAB_SYNTHESIZE:
-                        type = Constant.GUIDE_TYPE_SYNTHESIZE;
+                        order = Constant.GUIDE_TYPE_SYNTHESIZE;
                         getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_COUNT:
-                        type = Constant.GUIDE_TYPE_COUNT;
+                        order = Constant.GUIDE_TYPE_COUNT;
                         getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_SCORE:
-                        type = Constant.GUIDE_TYPE_SCORE;
+                        order = Constant.GUIDE_TYPE_SCORE;
                         getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_COMMENT:
-                        type = Constant.GUIDE_TYPE_COMMENT;
+                        order = Constant.GUIDE_TYPE_COMMENT;
                         getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_PRICE:
-                        type = Constant.GUIDE_TYPE_PRICE;
+                        order = Constant.GUIDE_TYPE_PRICE;
                         getRefreshData();
                         break;
                     case MyGuideTab.MYGUIDETAB_SCREEN:
@@ -80,7 +90,6 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
         });
 
         popGuideList = new PopGuideList2(context, myGuideTab);
-        popGuideList.setLayoutType(1,2);
         if (!TextUtils.isEmpty(startTime)) {
             popGuideList.setTime(startTime, endTime);
             myGuideTab.setScreen(true);
@@ -160,7 +169,7 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
 
 
     public void getData(){
-        serverListPresenter.serveGuideServeOrderList(value,Constant.DEFAULT_LIMIT,page,location,0,0,0);
+        serverListPresenter.serveGuideServeFilterList(value,Constant.DEFAULT_LIMIT,page,location,0,0,0,order,maps);
     }
 
     @Override
@@ -168,18 +177,46 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
         location = MySelfInfo.getInstance().getDefaultCity();
 
         configPresenter = new ConfigPresenter(context, this);
-        serverListPresenter = new ServerListPresenter(context,this);
+        serverListPresenter = new ServerListScreenPresenter(context,this);
 
         getRefreshData();
         tvCityPick.setText(location);
 
-        List<String> values = new ArrayList<>();
-        values.add(Constant.CONFIG_XB);
-        values.add(Constant.CONFIG_DYNL);
-        values.add(Constant.CONFIG_CYNX);
-//        values.add(Constant.CONFIG_FWLX);
-        values.add(Constant.CONFIG_YYLX);
-        configPresenter.guideGetGuideMacros(values);
+//        List<String> values = new ArrayList<>();
+//        values.add(Constant.CONFIG_XB);
+//        values.add(Constant.CONFIG_DYNL);
+//        values.add(Constant.CONFIG_CYNX);
+////        values.add(Constant.CONFIG_FWLX);
+//        values.add(Constant.CONFIG_YYLX);
+//        configPresenter.guideGetGuideMacros(values);
+
+
+        if(TextUtils.equals(value,Constant.SERVER_TYPE_GUIDE) || TextUtils.equals(value,Constant.SERVER_TYPE_FEATURE)){
+            List<String> values = new ArrayList<>();
+            values.add(Constant.CONFIG_XB);
+            values.add(Constant.CONFIG_DYNL);
+            values.add(Constant.CONFIG_CYNX);
+            values.add(Constant.CONFIG_YYLX);
+            configPresenter.guideGetGuideMacros(values);
+            popGuideList.setLayoutType(3);
+        }else if(TextUtils.equals(value,Constant.SERVER_TYPE_HOTEL) || TextUtils.equals(value,Constant.SERVER_TYPE_TICKET)){
+            List<String> values = new ArrayList<>();
+            values.add(Constant.CONFIG_XB);
+            values.add(Constant.CONFIG_DYNL);
+            values.add(Constant.CONFIG_CYNX);
+            configPresenter.guideGetGuideMacros(values);
+            popGuideList.setLayoutType(2);
+        }else if(TextUtils.equals(value,Constant.SERVER_TYPE_CUSTOM) || TextUtils.equals(value,Constant.SERVER_TYPE_CAR)){
+            List<String> values = new ArrayList<>();
+            values.add(Constant.CONFIG_XB);
+            values.add(Constant.CONFIG_DYNL);
+            values.add(Constant.CONFIG_CYNX);
+            values.add(Constant.CONFIG_YYLX);
+            configPresenter.guideGetGuideMacros(values);
+            popGuideList.setLayoutType(2);
+        }
+
+
     }
 
     public void getRefreshData() {
@@ -197,8 +234,9 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
         getData();
     }
 
+
     @Override
-    public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
+    public void serveGuideServeFilterListSuccess(List<ServerDetailMedel> datas) {
         if (isLoadType == 1) {
             playAdapter.setData(datas);
         } else {
@@ -215,10 +253,41 @@ public class PlayListActivity extends GuideListActivity implements ServerListCon
     }
 
     @Override
-    public void serveGuideServeOrderListFailed(String msg) {
+    public void serveGuideServeFilterListFailed(String msg) {
         showShortToast(msg);
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_left:
+                finish();
+                break;
+            case R.id.tv_search:
+                intent = new Intent(context, SearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_city_pick:
+                intent = new Intent(context, MyCityPickActivity.class);
+                intent.putExtra(MyCityPickActivity.LOCATION, tvCityPick.getText().toString());
+                startActivity(intent);
+                desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
+                    @Override
+                    public void accept(CityPickEvent cityPickEvent) throws Exception {
+                        desDisposable.dispose();
+                        if(TextUtils.isEmpty(cityPickEvent.getCity()))
+                            return;
+                        MySelfInfo.getInstance().setDefaultCity(cityPickEvent.getCity());
+                        location = cityPickEvent.getCity();
+                        tvCityPick.setText(cityPickEvent.getCity());
+                        getRefreshData();
+
+                    }
+                });
+                break;
+        }
     }
 }

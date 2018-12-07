@@ -171,5 +171,6 @@ public class SPUtils {
         remove(SP_USER_NAME);
         remove(SP_USER_MOBILE);
         remove(SP_USER_NICKNAME);
+        remove(SP_USER_BACKIMG);
     }
 }

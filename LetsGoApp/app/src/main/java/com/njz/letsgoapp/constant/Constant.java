@@ -32,7 +32,7 @@ public class Constant {
     public static final int GUIDE_TYPE_COUNT = 2;
     public static final int GUIDE_TYPE_SCORE = 3;
     public static final int GUIDE_TYPE_COMMENT = 4;
-    public static final int GUIDE_TYPE_PRICE = 5;
+    public static final int GUIDE_TYPE_PRICE = 4;
 
     public static final String DEFAULT_CITY = "全部";
 

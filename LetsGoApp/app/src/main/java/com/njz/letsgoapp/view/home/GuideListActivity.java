@@ -29,6 +29,7 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
+import com.njz.letsgoapp.view.other.SearchActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList2;
 
@@ -78,6 +79,7 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
     public int page;
     public int isLoadType = 1;//1下拉刷新，2上拉加载
     public boolean isLoad = false;//是否在加载，重复加载问题
+    public TextView tv_search;
 
     @Override
     public void getIntentData() {
@@ -98,9 +100,11 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
 
         ivLeft = $(R.id.iv_left);
         tvCityPick = $(R.id.tv_city_pick);
+        tv_search = $(R.id.tv_search);
 
         initTabLayout();
 
+        tv_search.setOnClickListener(this);
         ivLeft.setOnClickListener(this);
         tvCityPick.setOnClickListener(this);
 
@@ -268,6 +272,10 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.iv_left:
                 finish();
+                break;
+            case R.id.tv_search:
+                intent = new Intent(context, SearchActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_city_pick:
                 intent = new Intent(context, MyCityPickActivity.class);

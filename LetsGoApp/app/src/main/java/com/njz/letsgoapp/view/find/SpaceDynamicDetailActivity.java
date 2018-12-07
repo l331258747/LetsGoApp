@@ -253,6 +253,12 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
 
         mAdapter.setData(model.getDynamicComments());
 
+        if(TextUtils.isEmpty(model.getBackImg())){
+            iv_backimg.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.bg_home_my));
+        }else{
+            GlideUtil.LoadImage(context, model.getBackImg(), iv_backimg);
+        }
+
         if(MySelfInfo.getInstance().getUserId() == model.getUserId()){
             tvDelete.setVisibility(View.VISIBLE);
             tvFollow.setVisibility(View.GONE);
