@@ -121,6 +121,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         final List<PlayChileMedel> mValsYy = new ArrayList<>();
         final List<PlayChileMedel> mValsRq = new ArrayList<>();
         final List<PlayChileMedel> mValsTc = new ArrayList<>();
+
         for (int i = 0; i < mVals.size(); i++) {
             if (mVals.get(i).getNjzGuideServeFormatDic().endsWith("cx")) {
                 mValsCx.add(mVals.get(i));
@@ -128,10 +129,6 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             }
             if (mVals.get(i).getNjzGuideServeFormatDic().endsWith("yy")) {
                 mValsYy.add(mVals.get(i));
-                continue;
-            }
-            if (mVals.get(i).getNjzGuideServeFormatDic().endsWith("rq")) {
-                mValsRq.add(mVals.get(i));
                 continue;
             }
             if (mVals.get(i).getNjzGuideServeFormatDic().endsWith("tc")) {

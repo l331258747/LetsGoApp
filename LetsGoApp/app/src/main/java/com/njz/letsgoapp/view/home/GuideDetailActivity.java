@@ -30,6 +30,7 @@ import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.serverFragment.ServerBookRuleFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerListFragment;
@@ -59,7 +60,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     ServiceTagView stv_tag;
 
 //    LinearLayout ll_select_service;
-    LinearLayout btn_call;
+    LinearLayout btn_call,ll_detail;
 
     PopService popService;
     GuideLabelView guideLabel;
@@ -113,6 +114,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         stv_tag = $(R.id.stv_tag);
         tv_content = $(R.id.tv_content);
         btn_call = $(R.id.btn_call);
+        ll_detail = $(R.id.ll_detail);
         btn_submit = $(R.id.btn_submit);
         guideLabel = $(R.id.guide_label);
         tv_service_num = $(R.id.tv_service_num);
@@ -125,6 +127,12 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
+        ll_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
 

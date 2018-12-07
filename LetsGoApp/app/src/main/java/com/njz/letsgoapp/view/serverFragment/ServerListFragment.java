@@ -14,6 +14,7 @@ import com.njz.letsgoapp.adapter.home.ServerListAdapter1;
 import com.njz.letsgoapp.adapter.home.ServerListAdapter2;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
@@ -98,7 +99,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             @Override
             public void onClick(int position) {
                 value = mAdapter1.getData(position).getValue();
-                getRefreshData();//TODO 没有点击也调用了
+                getRefreshData();
             }
         });
     }
