@@ -126,4 +126,5 @@ dependencies {
     compile project(':citypicker')
     compile project(':PhotoPicker')
     compile project(':convenientbanner')
+    compile project(':PriceCalendarLib')
 }

@@ -1,1 +1,1 @@
-include ':app', ':CalendarLib', ':citypicker',':PhotoPicker',':convenientbanner'
+include ':app', ':CalendarLib', ':citypicker',':PhotoPicker',':convenientbanner',':PriceCalendarLib'
