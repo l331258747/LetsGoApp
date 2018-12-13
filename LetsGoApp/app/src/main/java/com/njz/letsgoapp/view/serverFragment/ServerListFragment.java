@@ -19,6 +19,7 @@ import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
@@ -130,6 +131,12 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             public void onBookClick(int position) {
                 //TODO 其他的定制根据类型弹出不一样的pop，pop选择后修改本地数据并修改列表数据刷新
                 popServer = new PopServer(activity, recycler_view2,mAdapter2.getData(position));
+                popServer.setSubmit("选好了", new PopServer.SubmitClick() {
+                    @Override
+                    public void onClick(ServerItem serverItem) {
+
+                    }
+                });
                 popServer.showPopupWindow(recycler_view2);
 
             }
