@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
@@ -28,7 +29,6 @@ import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
 import com.njz.letsgoapp.widget.popupwindow.PopServer;
-import com.njz.letsgoapp.widget.popupwindow.PopService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +75,8 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
         serverDetailPresenter.serveGuideServeOrder(serviceId);
         bannerPresenter.bannerFindByType(0,serviceId);
 
+
+
     }
 
     PopServer popServer;
@@ -84,6 +86,12 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
             case R.id.tv_submit:
                 if (popServer == null) {
                     popServer = new PopServer(activity, tv_submit,serverDetailMedel);
+                    popServer.setSubmit(null, new PopServer.SubmitClick() {
+                        @Override
+                        public void onClick(ServerItem serverItem) {
+
+                        }
+                    });
                 }
                 popServer.showPopupWindow(tv_submit);
                 break;
@@ -169,6 +177,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
     @Override
     public void serveGuideServeOrderFailed(String msg) {
-
+        showLeftAndTitle(msg);
     }
+
 }

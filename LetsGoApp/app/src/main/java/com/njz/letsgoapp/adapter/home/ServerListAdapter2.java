@@ -53,7 +53,7 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
         holder.priceView.setPrice(data.getServePrice());
 
         holder.setBtnVisible();
-        if(TextUtils.equals(data.getServeTypeName(), Constant.SERVER_TYPE_CUSTOM)){
+        if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
             holder.tv_custom.setVisibility(View.VISIBLE);
         }else{
             holder.tv_book.setVisibility(View.VISIBLE);

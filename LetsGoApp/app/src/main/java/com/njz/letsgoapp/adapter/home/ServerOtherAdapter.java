@@ -55,7 +55,7 @@ public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.
 
         GlideUtil.LoadTopRoundImage(mContext, data.getTitleImg(), holder.iv_img,5);
 
-        holder.tv_server.setText(data.getServeTypeNameStr() + " | " + data.getAddress());
+        holder.tv_server.setText(data.getServeTypeName() + " | " + data.getAddress());
         holder.tv_title.setText(data.getTitle());
         holder.tv_count.setText("已售"+data.getSellCount());
         holder.preview.setPrice(data.getServePrice());

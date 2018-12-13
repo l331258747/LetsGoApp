@@ -334,7 +334,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
             case TackPicturesUtil.CHOOSE_PIC:
             case TackPicturesUtil.TACK_PIC:
             case TackPicturesUtil.CROP_PIC:
-                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
+                String path = tackPicUtil.getPicture(requestCode, resultCode, data, false);
                 if (path == null)
                     return;
                 headpath = path;

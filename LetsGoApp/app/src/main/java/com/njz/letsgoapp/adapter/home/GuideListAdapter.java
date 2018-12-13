@@ -54,7 +54,7 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (data == null) return;
 
             GlideUtil.LoadCircleImage(mContext, data.getGuideImg(), ((GuideViewHolder) holder).iv_head);
-            GlideUtil.LoadTopRoundImage(mContext, data.getGuideImg(), ((GuideViewHolder) holder).iv_backimg,5);
+            GlideUtil.LoadTopRoundImage(mContext, data.getTitleImg(), ((GuideViewHolder) holder).iv_backimg,5);
             ((GuideViewHolder) holder).tv_name.setText(data.getGuideName());
             ((GuideViewHolder) holder).rating_bar_route.setRating((int)data.getGuideScore());
             ((GuideViewHolder) holder).tv_content.setText(data.getIntroduce());

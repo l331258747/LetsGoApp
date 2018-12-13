@@ -55,6 +55,12 @@ public class Constant {
     public static final String SERVER_TYPE_HOTEL = "ddjd";
     public static final String SERVER_TYPE_TICKET = "ddmp";
     public static final String SERVER_TYPE_CAR = "jsjz";
+    public static final int SERVER_TYPE_GUIDE_ID = 1;
+    public static final int SERVER_TYPE_FEATURE_ID = 4;
+    public static final int SERVER_TYPE_CUSTOM_ID = 3;
+    public static final int SERVER_TYPE_HOTEL_ID = 5;
+    public static final int SERVER_TYPE_TICKET_ID = 6;
+    public static final int SERVER_TYPE_CAR_ID = 2;
 
 
     public static final int ORDER_PAY_WAIT = 0;//待付款

@@ -138,6 +138,7 @@
 
         <!--服务-->CustomActivity
         <activity android:name=".view.server.CustomActivity"/>
+        <activity android:name=".view.calendar.PriceCalendarActivity"/>
 
         <!-- 订单-->
         <activity
@@ -422,7 +423,6 @@
         </provider>
 
         <!-- bugly 升级 end -->
-
 
     </application>
 

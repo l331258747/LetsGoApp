@@ -15,7 +15,7 @@ import java.util.List;
 public interface ServerListContract {
 
     interface Presenter {
-        void serveGuideServeOrderList(String serveTypeName,int limit,int page,String address,int mustPlay,int guideId,int guideServeId);
+        void serveGuideServeOrderList(int serveType,int limit,int page,String address,int mustPlay,int guideId,int guideServeId);
 
     }
 

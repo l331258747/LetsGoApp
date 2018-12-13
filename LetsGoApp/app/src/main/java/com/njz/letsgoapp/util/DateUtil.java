@@ -20,6 +20,13 @@ public class DateUtil {
         return dateString;
     }
 
+    //date 转 String 年月日
+    public static String dateToStr(Date dateDate, String format) {
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
+
     //date 转 String 月日
     public static String dateToStrMD(Date dateDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("MM—dd");
@@ -27,10 +34,24 @@ public class DateUtil {
         return dateString;
     }
 
+
+
     //String 转 date
     public static Date str2Date(String dateStr) {
         SimpleDateFormat df;
         df = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return df.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Date();
+    }
+    //String 转 date
+    public static Date str2Date(String dateStr, String format) {
+        SimpleDateFormat df;
+        df = new SimpleDateFormat(format);
         try {
             return df.parse(dateStr);
         } catch (ParseException e) {
@@ -124,5 +145,12 @@ public class DateUtil {
         return date+"";
     }
 
+
+    public static String getWith0(int i){
+        if(i < 10){
+            return "0" + i;
+        }
+        return ""+i;
+    }
 }
 

@@ -14,7 +14,7 @@ import java.util.Map;
 public interface ServerListScreenContract {
 
     interface Presenter {
-        void serveGuideServeFilterList(String serveTypeName, int limit, int page, String address, int mustPlay, int guideId, int guideServeId, int order,Map<String,String> maps);
+        void serveGuideServeFilterList(int serveType, int limit, int page, String address, int mustPlay, int guideId, int guideServeId, int order,Map<String,String> maps);
 
     }
 

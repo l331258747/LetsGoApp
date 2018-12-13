@@ -186,33 +186,6 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                 @Override
                 public void onTitleClick(String serviceTypeName ,String serviceTypeShort,int serviceTypeId, int id) {
                     Intent intent;
-//                    if (TextUtils.equals(serviceTypeShort , Constant.SERVICE_TYPE_SHORT_GUIDE)) {
-//
-//                        if(serviceNoJoin(serviceTypeShort)) return;
-//
-//                        intent = new Intent(mContext, ServiceDetailActivity.class);
-//                        intent.putExtra(ServiceDetailActivity.TITLE, serviceTypeName);
-//                        intent.putExtra(ServiceDetailActivity.SERVICEID, id);
-//                        intent.putParcelableArrayListExtra(ServiceDetailActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(serviceTypeId));
-//                        mContext.startActivity(intent);
-//                        return;
-//                    }
-//                    if (TextUtils.equals(serviceTypeShort , Constant.SERVICE_TYPE_SHORT_CUSTOM)
-//                            || TextUtils.equals(serviceTypeShort , Constant.SERVICE_TYPE_SHORT_HOTEL)
-//                            || TextUtils.equals(serviceTypeShort , Constant.SERVICE_TYPE_SHORT_TICKET)
-//                            || TextUtils.equals(serviceTypeShort , Constant.SERVICE_TYPE_SHORT_CAR)) {
-//
-//                        if(serviceNoJoin(serviceTypeShort)) return;
-//
-//                        intent = new Intent(mContext, ServiceListActivity.class);
-//                        intent.putExtra(ServiceListActivity.TITLE, serviceTypeName);
-//                        intent.putExtra(ServiceListActivity.SERVICE_TYPE, serviceTypeId);
-//                        intent.putExtra(ServiceListActivity.GUIDE_ID, guideId);
-//                        intent.putParcelableArrayListExtra(ServiceListActivity.SERVICEITEMS, (ArrayList<ServiceItem>) getServiceItems(serviceTypeId));
-//
-//                        mContext.startActivity(intent);
-//                        return;
-//                    }
 
                     if(serviceNoJoin(serviceTypeShort)) return;
 
@@ -321,39 +294,6 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
                     }
                 }
                 return false;
-//            case Constant.SERVICE_TYPE_SHORT_GUIDE:
-//                for (GuideServiceModel model : ServiceModels){
-//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE) && model.getServiceItems().size() > 0){
-//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-//                        return true;
-//                    }
-//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM) && model.getServiceItems().size() > 0){
-//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-//                        return true;
-//                    }
-//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CAR) && model.getServiceItems().size() > 0){
-//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            case Constant.SERVICE_TYPE_SHORT_CAR:
-//                for (GuideServiceModel model : ServiceModels){
-//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CAR) && model.getServiceItems().size() > 0){
-//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-//                        return true;
-//                    }
-//
-//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM) && model.getServiceItems().size() > 0){
-//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-//                        return true;
-//                    }
-//                    if(TextUtils.equals(model.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE) && model.getServiceItems().size() > 0){
-//                        ToastUtil.showLongToast(mContext,"若要选择此服务，请先取消" + model.getServiceType());
-//                        return true;
-//                    }
-//                }
-//                return false;
             case Constant.SERVICE_TYPE_SHORT_GUIDE:
             case Constant.SERVICE_TYPE_SHORT_CAR:
                 for (GuideServiceModel model : ServiceModels){

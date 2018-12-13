@@ -35,6 +35,7 @@ import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerFeatureFragment;
 import com.njz.letsgoapp.widget.PriceView;
+import com.njz.letsgoapp.widget.popupwindow.PopServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,6 +211,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
                 .setManualPageable(true);//设置手动影响（设置了该项无法手动切换）
     }
 
+    PopServer popServer;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -225,6 +227,12 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 //                RxBus2.getInstance().post(data);
 //                RxBus2.getInstance().post(new ServiceDetailCloseEvent());
 //                finish();
+
+                if (popServer == null) {
+                    popServer = new PopServer(activity, tv_submit,model);
+                }
+                popServer.showPopupWindow(tv_submit);
+
                 break;
             case R.id.tv_phone:
                 if(model == null) return;

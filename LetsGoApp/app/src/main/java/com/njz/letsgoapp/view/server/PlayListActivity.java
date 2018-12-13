@@ -46,13 +46,13 @@ public class PlayListActivity extends GuideListActivity implements ServerListScr
     HomePlayAdapter playAdapter;
     ServerListScreenPresenter serverListPresenter;
 
-    String value;
+    int serveType;
     int order = Constant.GUIDE_TYPE_SYNTHESIZE;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
-        value = intent.getStringExtra("SERVER_VALUE");
+        serveType = intent.getIntExtra("SERVER_ID",0);
     }
 
     public void initTabLayout() {
@@ -169,7 +169,7 @@ public class PlayListActivity extends GuideListActivity implements ServerListScr
 
 
     public void getData(){
-        serverListPresenter.serveGuideServeFilterList(value,Constant.DEFAULT_LIMIT,page,location,0,0,0,order,maps);
+        serverListPresenter.serveGuideServeFilterList(serveType,Constant.DEFAULT_LIMIT,page,location,0,0,0,order,maps);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class PlayListActivity extends GuideListActivity implements ServerListScr
 //        configPresenter.guideGetGuideMacros(values);
 
 
-        if(TextUtils.equals(value,Constant.SERVER_TYPE_GUIDE) || TextUtils.equals(value,Constant.SERVER_TYPE_FEATURE)){
+        if(serveType == Constant.SERVER_TYPE_GUIDE_ID || serveType == Constant.SERVER_TYPE_FEATURE_ID){
             List<String> values = new ArrayList<>();
             values.add(Constant.CONFIG_XB);
             values.add(Constant.CONFIG_DYNL);
@@ -199,14 +199,14 @@ public class PlayListActivity extends GuideListActivity implements ServerListScr
             values.add(Constant.CONFIG_YYLX);
             configPresenter.guideGetGuideMacros(values);
             popGuideList.setLayoutType(3);
-        }else if(TextUtils.equals(value,Constant.SERVER_TYPE_HOTEL) || TextUtils.equals(value,Constant.SERVER_TYPE_TICKET)){
+        }else if(serveType == Constant.SERVER_TYPE_HOTEL_ID || serveType == Constant.SERVER_TYPE_TICKET_ID){
             List<String> values = new ArrayList<>();
             values.add(Constant.CONFIG_XB);
             values.add(Constant.CONFIG_DYNL);
             values.add(Constant.CONFIG_CYNX);
             configPresenter.guideGetGuideMacros(values);
             popGuideList.setLayoutType(2);
-        }else if(TextUtils.equals(value,Constant.SERVER_TYPE_CUSTOM) || TextUtils.equals(value,Constant.SERVER_TYPE_CAR)){
+        }else if(serveType == Constant.SERVER_TYPE_CUSTOM_ID || serveType == Constant.SERVER_TYPE_CAR_ID){
             List<String> values = new ArrayList<>();
             values.add(Constant.CONFIG_XB);
             values.add(Constant.CONFIG_DYNL);

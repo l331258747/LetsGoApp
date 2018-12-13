@@ -11,13 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.bean.server.PlayChileMedel;
+import com.njz.letsgoapp.bean.server.PriceCalendarChildModel;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by LGQ
@@ -31,6 +35,8 @@ public class ViewServerFlow extends LinearLayout {
 
     TextView tv_title, tv_title2,tv_date_more;
     TagFlowLayout tagFlowLayout;
+    boolean isSelectedOne;
+    int maxSelectCount;
 
     public ViewServerFlow(Context context) {
         this(context, null);
@@ -54,7 +60,16 @@ public class ViewServerFlow extends LinearLayout {
     }
 
     public void setMaxSelect(int size){
+        maxSelectCount = size;
         tagFlowLayout.setMaxSelectCount(size);
+    }
+
+    public int getMaxSelect(){
+        return maxSelectCount;
+    }
+
+    public void setSelectedOne(boolean isSelectedOne){
+        this.isSelectedOne = isSelectedOne;
     }
 
     public void setMore(View.OnClickListener click){
@@ -76,6 +91,11 @@ public class ViewServerFlow extends LinearLayout {
             public View getView(FlowLayout parent, int position, PlayChileMedel s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_server, tagFlowLayout, false);
                 tv.setText(s.getGuideServeFormatName());
+
+                if(position == 0 && isSelectedOne){
+                    onSelected(0,tv);
+                }
+
                 return tv;
             }
             @Override
@@ -98,16 +118,12 @@ public class ViewServerFlow extends LinearLayout {
         tagFlowLayout.setAdapter(adapter1);
     }
 
-    OnTagLinsenerClick onTagLinsenerClick;
-    public void setOnTagLinsenerClick(OnTagLinsenerClick onTagLinsenerClick){
-        this.onTagLinsenerClick = onTagLinsenerClick;
-    }
     public interface OnTagLinsenerClick{
         void onTagLinsenerClick(int position);
     }
 
 
-    public void initFlow2(String title, String title2, List<PlayChileMedel> mVals) {
+    public void initFlow2(String title, String title2, final List<PriceCalendarChildModel> mVals) {
         tv_title.setText(title);
         if (TextUtils.isEmpty(title2)) {
             tv_title2.setVisibility(GONE);
@@ -116,13 +132,14 @@ public class ViewServerFlow extends LinearLayout {
             tv_title2.setText(title2);
         }
         final LayoutInflater mInflater = LayoutInflater.from(context);
-        TagAdapter adapter1 = new TagAdapter<PlayChileMedel>(mVals) {
+        TagAdapter adapter1 = new TagAdapter<PriceCalendarChildModel>(mVals) {
 
             @Override
-            public View getView(FlowLayout parent, int position, PlayChileMedel s) {
+            public View getView(FlowLayout parent, int position, PriceCalendarChildModel s) {
                 LinearLayout ll = (LinearLayout) mInflater.inflate(R.layout.item_flow_server2, tagFlowLayout, false);
-                ((TextView) ll.findViewById(R.id.tv_txt1)).setText(s.getGuideServeFormatName());
-                ((TextView) ll.findViewById(R.id.tv_txt2)).setText("￥" + s.getServeDefaultPrice());
+                ((TextView) ll.findViewById(R.id.tv_txt1)).setText(s.getTimeMD());
+                ((TextView) ll.findViewById(R.id.tv_txt2)).setText("￥" + s.getAddPrice());
+
                 return ll;
             }
 
@@ -132,6 +149,8 @@ public class ViewServerFlow extends LinearLayout {
 
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ffe6d5_solid_r5));
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
+
+                mVals.get(position).setSelect(true);
             }
 
             @Override
@@ -139,8 +158,57 @@ public class ViewServerFlow extends LinearLayout {
                 super.unSelected(position, view);
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ee_solid_r5));
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
+
+                mVals.get(position).setSelect(false);
             }
         };
         tagFlowLayout.setAdapter(adapter1);
     }
+
+    public void setAdapter(final List<PriceCalendarChildModel> mVals){
+        final LayoutInflater mInflater = LayoutInflater.from(context);
+        final TagAdapter adapter1 = new TagAdapter<PriceCalendarChildModel>(mVals) {
+
+            @Override
+            public View getView(FlowLayout parent, int position, PriceCalendarChildModel s) {
+                LinearLayout ll = (LinearLayout) mInflater.inflate(R.layout.item_flow_server2, tagFlowLayout, false);
+                ((TextView) ll.findViewById(R.id.tv_txt1)).setText(s.getTimeMD());
+                ((TextView) ll.findViewById(R.id.tv_txt2)).setText("￥" + s.getAddPrice());
+                return ll;
+            }
+
+            @Override
+            public void onSelected(int position, View view) {
+                super.onSelected(position, view);
+
+                view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ffe6d5_solid_r5));
+                ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
+
+                mVals.get(position).setSelect(true);
+            }
+
+            @Override
+            public void unSelected(int position, View view) {
+                super.unSelected(position, view);
+                view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ee_solid_r5));
+                ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
+
+                mVals.get(position).setSelect(false);
+            }
+        };
+        tagFlowLayout.setAdapter(adapter1);
+        adapter1.setSelectedList(getSelectIndex(mVals));
+    }
+
+    public Set<Integer> getSelectIndex(List<PriceCalendarChildModel> sVals) {
+        Set<Integer> ints = new HashSet<>();
+        for (int i = 0; i < sVals.size(); i++) {
+            if (sVals.get(i).isSelect() == true) {
+                ints.add(i);
+            }
+        }
+        return ints;
+    }
+
+
 }

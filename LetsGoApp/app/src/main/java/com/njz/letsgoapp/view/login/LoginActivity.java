@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         public void exectEvent(DialogInterface alterDialog, String str) {
                             HttpMethods.getInstance().changeBaseUrl(str+"/");
                         }
-                    },30,"http://").show();
+                    },60,"http://").show();
                 }
             }
         });

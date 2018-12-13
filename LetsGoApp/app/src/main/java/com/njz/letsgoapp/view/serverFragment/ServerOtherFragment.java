@@ -114,7 +114,7 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
     }
 
     public void getData() {
-        serverListPresenter.serveGuideServeOrderList("",Constant.DEFAULT_LIMIT,page, "",0,guideId,guideServeId);
+        serverListPresenter.serveGuideServeOrderList(0,Constant.DEFAULT_LIMIT,page, "",0,guideId,guideServeId);
     }
 
     @Override

@@ -50,7 +50,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
     private boolean isLoad = false;//是否在加载，重复加载问题
     PopServer popServer;
 
-    private String value;
+    private int value;
 
     public static Fragment newInstance(GuideDetailModel guideDetailModel) {
         ServerListFragment fragment = new ServerListFragment();
@@ -98,7 +98,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         mAdapter1.setOnItemClickListener(new ServerListAdapter1.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                value = mAdapter1.getData(position).getValue();
+                value = mAdapter1.getData(position).getServeType();
                 getRefreshData();
             }
         });
@@ -155,13 +155,13 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         List<GuideServiceModel> datas2 = model.getTravelGuideServiceInfoVOs();
         mAdapter1.setDatas(datas2);
         if(datas2 !=null && datas2.size() !=0){
-            value = datas2.get(0).getValue();
+            value = datas2.get(0).getServeType();
         }
     }
 
     public void getData(){
-        if(!TextUtils.isEmpty(value))
-            serverListPresenter.serveGuideServeOrderList(value,Constant.DEFAULT_LIMIT,page, MySelfInfo.getInstance().getDefaultCity(),0,1,0);
+        if(value != 0)
+            serverListPresenter.serveGuideServeOrderList(value,Constant.DEFAULT_LIMIT,page, MySelfInfo.getInstance().getDefaultCity(),0,model.getId(),0);
     }
 
     @Override

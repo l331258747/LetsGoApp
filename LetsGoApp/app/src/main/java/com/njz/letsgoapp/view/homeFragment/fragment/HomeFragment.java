@@ -196,32 +196,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         switch (v.getId()) {
             case R.id.tv_grid_ticket:
                 intent = new Intent(context,PlayListActivity.class);
-                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_TICKET);
+                intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_TICKET_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_guide:
                 intent = new Intent(context,PlayListActivity.class);
-                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_GUIDE);
+                intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_GUIDE_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_car:
                 intent = new Intent(context,PlayListActivity.class);
-                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_CAR);
+                intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_CAR_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_custom:
                 intent = new Intent(context,PlayListActivity.class);
-                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_CUSTOM);
+                intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_CUSTOM_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_feature:
                 intent = new Intent(context,PlayListActivity.class);
-                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_FEATURE);
+                intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_FEATURE_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_hotel:
                 intent = new Intent(context,PlayListActivity.class);
-                intent.putExtra("SERVER_VALUE",Constant.SERVER_TYPE_HOTEL);
+                intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_HOTEL_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_city_pick:
@@ -260,7 +260,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         isDynamicLoad =false;
         isBannerLoad = false;
         isGuideLoad = false;
-        serverListPresenter.serveGuideServeOrderList("",5,1,city,1,0,0);
+        serverListPresenter.serveGuideServeOrderList(0,5,1,city,1,0,0);
         mPresenter.orderReviewsSortTop(city);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
         mPresenter.orderCarouselOrder();
@@ -319,7 +319,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isDynamicLoad = false;
                 isGuideLoad = false;
 
-                serverListPresenter.serveGuideServeOrderList("",5,1,city,1,0,0);
+                serverListPresenter.serveGuideServeOrderList(0,5,1,city,1,0,0);
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
                 mPresenter.orderCarouselOrder();
@@ -348,7 +348,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isBannerLoad = true;
                 isGuideLoad = false;
 
-                serverListPresenter.serveGuideServeOrderList("",5,1,city,1,0,0);
+                serverListPresenter.serveGuideServeOrderList(0,5,1,city,1,0,0);
                 mPresenter.orderReviewsSortTop(city);
 
                 swipeRefreshLayout.setRefreshing(true);

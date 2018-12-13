@@ -38,6 +38,7 @@ import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.server.PriceCalendarModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
@@ -566,7 +567,7 @@ public interface HttpService {
     //serve/guideServeOrderList 服务列表
     @GET("serve/guideServeOrderList")
     Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeOrderList(
-            @Query("serveTypeName") String serveTypeName,
+            @Query("serveType") int serveType,
             @Query("limit") int limit,
             @Query("page") int page,
             @Query("address") String address,
@@ -583,7 +584,7 @@ public interface HttpService {
 
     @GET("serve/guideServeFilterList")
     Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeFilterList(
-            @Query("serveTypeName") String serveTypeName,
+            @Query("serveType") int serveType,
             @Query("limit") int limit,
             @Query("page") int page,
             @Query("address") String address,
@@ -595,7 +596,7 @@ public interface HttpService {
     );
     @GET("serve/guideServeFilterList")
     Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeFilterList2(
-            @Query("serveTypeName") String serveTypeName,
+            @Query("serveType") int serveType,
             @Query("limit") int limit,
             @Query("page") int page,
             @Query("address") String address,
@@ -603,6 +604,23 @@ public interface HttpService {
             @Query("guideId") int guideId,
             @Query("guideServeId") int guideServeId,
             @Query("order") int order
+    );
+
+    //serve/getPrice 更多日期——价格
+    @GET("serve/getMorePrice")
+    Observable<BaseResponse<PriceCalendarModel>> serveGetMorePrice(
+            @Query("formatIds") String formatIds,
+            @Query("year") String year,
+            @Query("month") String month,
+            @Query("serveId") int serveId
+    );
+
+    //serve/getPrice 获得价格
+    @GET("serve/getPrice")
+    Observable<BaseResponse<PriceCalendarModel>> serveGetPrice(
+            @Query("formatIds") String formatIds,
+            @Query("travelDates") String travelDates,
+            @Query("serveId") int serveId
     );
 
     //-----------end服务---------

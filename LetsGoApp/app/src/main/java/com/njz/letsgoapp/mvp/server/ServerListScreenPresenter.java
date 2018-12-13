@@ -29,7 +29,7 @@ public class ServerListScreenPresenter  implements ServerListScreenContract.Pres
     }
 
     @Override
-    public void serveGuideServeFilterList(String serveTypeName, int limit, int page, String address, int mustPlay, int guideId, int guideServeId, int order,Map<String, String> maps) {
+    public void serveGuideServeFilterList(int serveType, int limit, int page, String address, int mustPlay, int guideId, int guideServeId, int order,Map<String, String> maps) {
         ResponseCallback listener = new ResponseCallback<List<ServerDetailMedel>>() {
             @Override
             public void onSuccess(List<ServerDetailMedel> data) {
@@ -42,7 +42,7 @@ public class ServerListScreenPresenter  implements ServerListScreenContract.Pres
             }
         };
         address = TextUtils.equals(Constant.DEFAULT_CITY,address)?"":address;
-        MethodApi.serveGuideServeFilterList(serveTypeName,limit, page,address,mustPlay,guideId, guideServeId,order,maps,new OnSuccessAndFaultSub(listener, context,false));
+        MethodApi.serveGuideServeFilterList(serveType,limit, page,address,mustPlay,guideId, guideServeId,order,maps,new OnSuccessAndFaultSub(listener, context,false));
 
     }
 }

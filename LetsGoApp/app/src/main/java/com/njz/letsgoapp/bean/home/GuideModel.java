@@ -18,6 +18,7 @@ public class GuideModel {
 
     private int guideId;
     private String guideName;
+    private String titleImg;
     private String guideImg;
     private int guideGender;
     private int serviceCounts;
@@ -34,6 +35,9 @@ public class GuideModel {
 
     private int id;
 
+    public String getTitleImg() {
+        return titleImg;
+    }
 
     public int getGuideId() {
         return guideId;

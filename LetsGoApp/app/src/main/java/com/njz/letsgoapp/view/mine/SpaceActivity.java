@@ -410,7 +410,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             case TackPicturesUtil.CHOOSE_PIC:
             case TackPicturesUtil.TACK_PIC:
             case TackPicturesUtil.CROP_PIC:
-                String path = tackPicUtil.getPicture(requestCode, resultCode, data, false);
+                String path = tackPicUtil.getPicture(requestCode, resultCode, data, true);
                 if (path == null)
                     return;
                 backpath = path;
