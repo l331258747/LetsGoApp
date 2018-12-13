@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.server;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -89,7 +90,12 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                     popServer.setSubmit(null, new PopServer.SubmitClick() {
                         @Override
                         public void onClick(ServerItem serverItem) {
-
+                            List<ServerItem> serverItems = new ArrayList<ServerItem>();
+                            serverItems.add(serverItem);
+                            Intent intent = new Intent(context,OrderSubmitActivity.class);
+                            intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) serverItems);
+                            intent.putExtra("GUIDE_ID",serverDetailMedel.getGuideId());
+                            startActivity(intent);
                         }
                     });
                 }

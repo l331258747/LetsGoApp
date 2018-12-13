@@ -165,7 +165,7 @@ public class ViewServerFlow extends LinearLayout {
         tagFlowLayout.setAdapter(adapter1);
     }
 
-    public void setAdapter(final List<PriceCalendarChildModel> mVals){
+    public void setAdapter(final List<PriceCalendarChildModel> mVals,final OnTagLinsenerClick onTagLinsenerClick){
         final LayoutInflater mInflater = LayoutInflater.from(context);
         final TagAdapter adapter1 = new TagAdapter<PriceCalendarChildModel>(mVals) {
 
@@ -185,6 +185,7 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
 
                 mVals.get(position).setSelect(true);
+                onTagLinsenerClick.onTagLinsenerClick(position);
             }
 
             @Override
@@ -194,6 +195,7 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
 
                 mVals.get(position).setSelect(false);
+                onTagLinsenerClick.onTagLinsenerClick(position);
             }
         };
         tagFlowLayout.setAdapter(adapter1);

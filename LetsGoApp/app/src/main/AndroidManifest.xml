@@ -139,6 +139,7 @@
         <!--服务-->CustomActivity
         <activity android:name=".view.server.CustomActivity"/>
         <activity android:name=".view.calendar.PriceCalendarActivity"/>
+        <activity android:name=".view.server.OrderSubmitActivity"/>
 
         <!-- 订单-->
         <activity

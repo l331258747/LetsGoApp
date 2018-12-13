@@ -165,16 +165,24 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 (TextUtils.isEmpty(titleLanguage) ? "" : ("+" + titleLanguage))
         );
 
-        priceTotal = priceLanguage + priceCar + priceTc;
-        tv_price_total.setText("￥" + (priceTotal));
-        priceView.setPrice(priceTotal);
-
         formatIds = (formatIdTc != 0 ? formatIdTc + "," : "")
                 + (formatIdCar != 0 ? formatIdCar + "," : "")
                 + (formatIdLanguage != 0 ? formatIdLanguage + "," : "");
         formatIds = formatIds.endsWith(",") ? formatIds.substring(0, formatIds.length() - 1) : formatIds;
 
         datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailMedel.getServeType());
+    }
+
+    public void setPriceChange(){
+        priceTotal = 0;
+        for (int i = 0; i < priceCalendarChildModels.size(); i++) {
+            if(priceCalendarChildModels.get(i).isSelect()){
+                priceTotal = priceTotal + priceCalendarChildModels.get(i).getAddPrice();
+            }
+        }
+
+        priceView.setPrice(priceTotal);
+        tv_price_total.setText("￥" + priceTotal);
     }
 
     public String getTravelDates() {
@@ -340,8 +348,9 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                     data.setServiceTypeName(serverDetailMedel.getServeTypeName());
                     data.setServeNum(1);
                     data.setSelectTimeValueList(getTravelDates());
-                    data.setNjzGuideServeId(serverDetailMedel.getServeType());
+                    data.setNjzGuideServeId(serverDetailMedel.getId());
                     data.setNjzGuideServeFormatId(formatIds);
+                    data.setServerType(serverDetailMedel.getServeType());
                     onSubmitClick.onClick(data);
                 }
                 break;
@@ -359,7 +368,13 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             }
         }
         Collections.sort(priceCalendarChildModels); // 按年龄排序
-        pirceVsf.setAdapter(priceCalendarChildModels);
+        pirceVsf.setAdapter(priceCalendarChildModels, new ViewServerFlow.OnTagLinsenerClick() {
+            @Override
+            public void onTagLinsenerClick(int position) {
+                setPriceChange();
+            }
+        });
+        setPriceChange();
     }
 
     @Override

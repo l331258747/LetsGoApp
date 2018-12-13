@@ -2,6 +2,10 @@ package com.njz.letsgoapp.bean.server;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
+
+import com.njz.letsgoapp.adapter.server.OrderSubmitAdapter;
+import com.njz.letsgoapp.constant.Constant;
 
 /**
  * Created by LGQ
@@ -119,6 +123,39 @@ public class ServerItem implements Parcelable {
     public void setServiceTypeName(String serviceTypeName) {
         this.serviceTypeName = serviceTypeName;
     }
+
+    public String getTimeTitle(){
+        switch (serverType){
+            case Constant.SERVER_TYPE_GUIDE_ID:
+                return "行程时间";
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return "入住时间";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return "日期";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return "出发日期";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return "出发日期";
+        }
+        return "";
+    }
+
+    public String getCountContent(){
+        switch (serverType){
+            case Constant.SERVER_TYPE_GUIDE_ID:
+                return "";
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return serveNum + "间";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return serveNum + "张";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return serveNum + "次";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return serveNum + "次";
+        }
+        return "";
+    }
+
 
     @Override
     public int describeContents() {
