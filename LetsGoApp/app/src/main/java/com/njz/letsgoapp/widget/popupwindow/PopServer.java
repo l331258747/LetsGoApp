@@ -196,6 +196,19 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         return travelDates;
     }
 
+    public String getSubmitTravelDates() {
+        String travelDates;
+        StringBuffer travelDatesb = new StringBuffer();
+        for (int i = 0; i < priceCalendarChildModels.size(); i++) {
+            if(priceCalendarChildModels.get(i).isSelect()){
+                travelDatesb.append(priceCalendarChildModels.get(i).getTime("-") + ",");
+            }
+        }
+        travelDates = travelDatesb.toString();
+        travelDates = travelDates.endsWith(",") ? travelDates.substring(0, travelDates.length() - 1) : travelDates;
+        return travelDates;
+    }
+
     private void initFlowDate(List<PlayChileMedel> mVals) {
         final List<PlayChileMedel> mValsCx = new ArrayList<>();
         final List<PlayChileMedel> mValsYy = new ArrayList<>();
@@ -339,20 +352,29 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 dismissPopupWindow();
                 break;
             case R.id.tv_submit:
-                dismissPopupWindow();
                 if(onSubmitClick !=null){
+                    if(TextUtils.isEmpty(formatIds)){
+                        ToastUtil.showShortToast(context,"请选择规格");
+                        return ;
+                    }
+                    if(TextUtils.isEmpty(getSubmitTravelDates())){
+                        ToastUtil.showShortToast(context,"请选择时间");
+                        return;
+                    }
+
                     ServerItem data = new ServerItem();
                     data.setImg(serverDetailMedel.getTitleImg());
                     data.setTitile(tv_title.getText().toString());
                     data.setPrice(priceTotal);
                     data.setServiceTypeName(serverDetailMedel.getServeTypeName());
                     data.setServeNum(1);
-                    data.setSelectTimeValueList(getTravelDates());
+                    data.setSelectTimeValueList(getSubmitTravelDates());
                     data.setNjzGuideServeId(serverDetailMedel.getId());
                     data.setNjzGuideServeFormatId(formatIds);
                     data.setServerType(serverDetailMedel.getServeType());
                     onSubmitClick.onClick(data);
                 }
+                dismissPopupWindow();
                 break;
         }
     }

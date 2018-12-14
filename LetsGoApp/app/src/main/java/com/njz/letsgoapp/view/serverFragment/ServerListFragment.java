@@ -111,14 +111,12 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         mAdapter2 = new ServerListAdapter2(activity, new ArrayList<ServerDetailMedel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter2);
         recycler_view2.setAdapter(loadMoreWrapper);
-//        recycler_view2.setNestedScrollingEnabled(false);
 
         mAdapter2.setOnItemClickListener(new ServerListAdapter2.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity.class);
                 intent.putExtra(ServiceDetailActivity.SERVICEID,mAdapter2.getData(position).getId());
-                LogUtil.e(mAdapter2.getData(position).getId()+"-------");
                 startActivity(intent);
             }
 
