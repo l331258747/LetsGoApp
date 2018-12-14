@@ -87,6 +87,7 @@ public class ServerDetailMedel implements Parcelable{
     private List<String> languages;
     private List<PlayChileMedel> njzGuideServeFormatEntitys;
     private String mobile;
+    private boolean isBook;
 
 
     protected ServerDetailMedel(Parcel in) {
@@ -123,6 +124,7 @@ public class ServerDetailMedel implements Parcelable{
         signs = in.createStringArrayList();
         languages = in.createStringArrayList();
         mobile = in.readString();
+        isBook = in.readByte() != 0;
     }
 
     public static final Creator<ServerDetailMedel> CREATOR = new Creator<ServerDetailMedel>() {
@@ -136,6 +138,14 @@ public class ServerDetailMedel implements Parcelable{
             return new ServerDetailMedel[size];
         }
     };
+
+    public boolean isBook() {
+        return isBook;
+    }
+
+    public void setBook(boolean book) {
+        isBook = book;
+    }
 
     public float getGuideScore() {
         return guideScore;
@@ -273,6 +283,7 @@ public class ServerDetailMedel implements Parcelable{
         return njzGuideServeFormatEntitys;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -313,5 +324,6 @@ public class ServerDetailMedel implements Parcelable{
         dest.writeStringList(signs);
         dest.writeStringList(languages);
         dest.writeString(mobile);
+        dest.writeByte((byte) (isBook ? 1 : 0));
     }
 }

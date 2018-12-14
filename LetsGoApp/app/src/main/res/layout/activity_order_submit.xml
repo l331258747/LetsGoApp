@@ -23,7 +23,9 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_view_bg_10">
+                android:background="@drawable/card_view_bg_10"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -44,9 +46,9 @@
                         android:layout_height="wrap_content"
                         app:login_item_hint="请输入联系人"
                         app:login_item_max_length="5"
-                        app:login_item_title_color="@color/color_99"
-                        app:login_item_title="联系人"
                         app:login_item_right_drawable="@mipmap/edit_cancel"
+                        app:login_item_title="联系人"
+                        app:login_item_title_color="@color/color_99"
                         app:login_item_title_width="80dp" />
 
                     <com.njz.letsgoapp.widget.FixedItemEditView
@@ -55,9 +57,9 @@
                         android:layout_height="wrap_content"
                         app:login_item_hint="请输入联系方式"
                         app:login_item_max_length="11"
-                        app:login_item_title_color="@color/color_99"
                         app:login_item_right_drawable="@mipmap/edit_cancel"
                         app:login_item_title="联系方式"
+                        app:login_item_title_color="@color/color_99"
                         app:login_item_title_width="80dp" />
 
 
@@ -73,18 +75,18 @@
                         <TextView
                             android:id="@+id/login_item_name"
                             android:layout_width="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:textColor="@color/color_99"
-                            android:text="出行人数" />
+                            android:text="出行人数"
+                            android:textColor="@color/color_99" />
 
 
                         <com.njz.letsgoapp.widget.NumberView
                             android:id="@+id/numberView"
                             android:layout_width="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true" />
 
                     </RelativeLayout>
 
@@ -92,12 +94,12 @@
                         android:id="@+id/et_special"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:login_item_title_color="@color/color_99"
                         app:login_item_hint="请输入其他需求。（选填）"
-                        app:login_item_right_drawable="@mipmap/edit_cancel"
                         app:login_item_max_length="200"
+                        app:login_item_right_drawable="@mipmap/edit_cancel"
                         app:login_item_title="特殊要求"
-                        app:login_item_title_width="80dp"/>
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_title_width="80dp" />
 
                 </LinearLayout>
 
@@ -116,25 +118,25 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="15dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:background="@color/white">
+                android:paddingTop="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="应付金额"/>
+                    android:text="应付金额" />
 
                 <TextView
                     android:id="@+id/tv_total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:text="￥0"
-                    android:textColor="@color/color_theme"
-                    android:layout_alignParentRight="true"/>
+                    android:textColor="@color/color_theme" />
 
 
             </RelativeLayout>
@@ -163,31 +165,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="@dimen/frame_bottom"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        android:layout_height="@dimen/frame_bottom"
         android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/color_d9"/>
+            android:background="@color/color_d9" />
 
         <TextView
             android:id="@+id/tv_submit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/btn_theme_solid_r5"
             android:gravity="center"
             android:text="确认并支付"
             android:textColor="@color/white" />
 
     </LinearLayout>
-
 
 
 </FrameLayout>

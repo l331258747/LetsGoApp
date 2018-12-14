@@ -56,7 +56,15 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
         if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
             holder.tv_custom.setVisibility(View.VISIBLE);
         }else{
-            holder.tv_book.setVisibility(View.VISIBLE);
+            if(data.isBook()){
+                holder.tv_cancel.setVisibility(View.VISIBLE);
+                holder.tv_selected.setVisibility(View.VISIBLE);
+                holder.tv_book.setVisibility(View.GONE);
+            }else{
+                holder.tv_book.setVisibility(View.VISIBLE);
+                holder.tv_cancel.setVisibility(View.GONE);
+                holder.tv_selected.setVisibility(View.GONE);
+            }
         }
 
         holder.ll_parent.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +89,6 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
             public void onClick(View v) {
                 if(mOnItemClickListener !=null){
                     mOnItemClickListener.onBookClick(position);
-                    holder.tv_cancel.setVisibility(View.VISIBLE);
-                    holder.tv_selected.setVisibility(View.VISIBLE);
-                    holder.tv_book.setVisibility(View.GONE);
                 }
             }
         });
@@ -92,13 +97,9 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
             public void onClick(View v) {
                 if(mOnItemClickListener !=null){
                     mOnItemClickListener.onCancelClick(position);
-                    holder.tv_book.setVisibility(View.VISIBLE);
-                    holder.tv_cancel.setVisibility(View.GONE);
-                    holder.tv_selected.setVisibility(View.GONE);
                 }
             }
         });
-
     }
 
     @Override
@@ -148,7 +149,6 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
     public void addDatas(List<ServerDetailMedel> datas){
         this.datas.addAll(datas);
     }
-
 
     public ServerDetailMedel getData(int position){
         return this.datas.get(position);

@@ -2,13 +2,16 @@ package com.njz.letsgoapp.view.serverFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.ServerListAdapter1;
 import com.njz.letsgoapp.adapter.home.ServerListAdapter2;
@@ -53,10 +56,13 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
     private int value;
 
-    public static Fragment newInstance(GuideDetailModel guideDetailModel) {
+    List<ServerItem> serverItems;
+
+    public static Fragment newInstance(GuideDetailModel guideDetailModel,List<ServerItem> serverItems) {
         ServerListFragment fragment = new ServerListFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("GuideDetailModel", guideDetailModel);
+        bundle.putParcelableArrayList("serverItems", (ArrayList<ServerItem>) serverItems);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -67,6 +73,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         Bundle bundle = getArguments();
         if (bundle != null) {
             model = bundle.getParcelable("GuideDetailModel");
+            serverItems = bundle.getParcelableArrayList("serverItems");
         }
     }
 
@@ -111,6 +118,16 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         mAdapter2 = new ServerListAdapter2(activity, new ArrayList<ServerDetailMedel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter2);
         recycler_view2.setAdapter(loadMoreWrapper);
+        ((SimpleItemAnimator)recycler_view2.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
+
+        recycler_view2.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                getMoreData();
+            }
+        });
 
         mAdapter2.setOnItemClickListener(new ServerListAdapter2.OnItemClickListener() {
             @Override
@@ -122,17 +139,25 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
             @Override
             public void onCancelClick(int position) {
-                //TODO 把本地数据清除,刷新价格
+                for (ServerItem st : serverItems){
+                    if(mAdapter2.getData(position).getId() == st.getNjzGuideServeId()){
+                        serverItems.remove(st);
+                        break;
+                    }
+                }
+                mAdapter2.getData(position).setBook(false);
+                loadMoreWrapper.notifyItemChanged(position);
             }
 
             @Override
-            public void onBookClick(int position) {
-                //TODO 其他的定制根据类型弹出不一样的pop，pop选择后修改本地数据并修改列表数据刷新
+            public void onBookClick(final int position) {
                 popServer = new PopServer(activity, recycler_view2,mAdapter2.getData(position));
                 popServer.setSubmit("选好了", new PopServer.SubmitClick() {
                     @Override
                     public void onClick(ServerItem serverItem) {
-
+                        serverItems.add(serverItem);
+                        mAdapter2.getData(position).setBook(true);
+                        loadMoreWrapper.notifyItemChanged(position);
                     }
                 });
                 popServer.showPopupWindow(recycler_view2);
@@ -141,7 +166,6 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
             @Override
             public void onCustemClick(int position) {
-                //TODO 私人定制 跳转私人定制页面
                 Intent intent = new Intent(context, CustomActivity.class);
                 intent.putExtra("LOCATION", mAdapter2.getData(position).getAddress());
                 startActivity(intent);
@@ -153,6 +177,13 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
+        getData();
+    }
+
+    public void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
         getData();
     }
 
@@ -171,6 +202,14 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
     @Override
     public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
+        for (ServerItem si : serverItems){
+            for (ServerDetailMedel data : datas){
+                if(si.getNjzGuideServeId() == data.getId()){
+                    data.setBook(true);
+                }
+            }
+        }
+
         if (isLoadType == 1) {
             mAdapter2.setDatas(datas);
         } else {

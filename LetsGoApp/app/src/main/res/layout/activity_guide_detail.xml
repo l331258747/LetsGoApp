@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_window_background"
                 android:fitsSystemWindows="true"
-                app:layout_behavior="com.njz.letsgoapp.util.FlingBehavior"
+                app:layout_behavior="com.njz.letsgoapp.util.behavior.FlingBehavior"
                 app:elevation="0dp">
 
 

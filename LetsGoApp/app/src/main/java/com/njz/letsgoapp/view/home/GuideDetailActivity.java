@@ -20,6 +20,7 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
+import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.dialog.DialogUtil;
@@ -31,6 +32,7 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.server.OrderSubmitActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerBookRuleFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerListFragment;
@@ -79,6 +81,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public List<Fragment> mFragments;
     public TabLayout mTabLayout;
     public ViewPager mViewPager;
+    public List<ServerItem> serverItems;
 
     @Override
     public void getIntentData() {
@@ -156,6 +159,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         mPresenter.guideFindGuideDetails(MySelfInfo.getInstance().getDefaultCity(), guideId);
         mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
+        serverItems = new ArrayList<>();
     }
 
     //认证
@@ -193,7 +197,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     public  void initViewPage(GuideDetailModel model){
         mFragments = new ArrayList<>();
-        mFragments.add(ServerListFragment.newInstance(model));
+        mFragments.add(ServerListFragment.newInstance(model,serverItems));
         mFragments.add(ServerEvaluateFragment.newInstance());
         mFragments.add(ServerStoryFragment.newInstance(model.getGuideStory()));
         mFragments.add(ServerBookRuleFragment.newInstance());
@@ -230,10 +234,11 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.ll_comment_title:
                 if(guideDetailModel == null) return;
-                Intent intent = new Intent(context, EvaluateListActivity.class);
+                intent = new Intent(context, EvaluateListActivity.class);
                 intent.putExtra(EvaluateListActivity.GUIDEID,guideDetailModel.getId());
                 startActivity(intent);
                 break;
@@ -247,7 +252,19 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                     startActivity(new Intent(context,LoginActivity.class));
                     return ;
                 }
-                showPopService();
+//                showPopService();
+                //TODO 结算界面
+
+                if(serverItems.size() == 0){
+                    showShortToast("请选择服务");
+                    return;
+                }
+
+                intent = new Intent(context,OrderSubmitActivity.class);
+                intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) serverItems);
+                intent.putExtra("GUIDE_ID",guideDetailModel.getId());
+                startActivity(intent);
+
                 break;
             case R.id.right_iv:
                 if(guideDetailModel == null) return;
@@ -267,21 +284,21 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void showPopService() {
-
-        if (guideDetailModel == null
-                || guideDetailModel.getTravelGuideServiceInfoVOs() == null
-                || guideDetailModel.getTravelGuideServiceInfoVOs().size() == 0) {
-            ToastUtil.showShortToast(context, "没有可供选择的服务项");
-            return;
-        }
-
-        if (popService == null) {
-            popService = new PopService(activity, btn_submit,guideDetailModel);
-            popService.initData(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoVOs());
-        }
-        popService.showPopupWindow(btn_submit);
-    }
+//    private void showPopService() {
+//
+//        if (guideDetailModel == null
+//                || guideDetailModel.getTravelGuideServiceInfoVOs() == null
+//                || guideDetailModel.getTravelGuideServiceInfoVOs().size() == 0) {
+//            ToastUtil.showShortToast(context, "没有可供选择的服务项");
+//            return;
+//        }
+//
+//        if (popService == null) {
+//            popService = new PopService(activity, btn_submit,guideDetailModel);
+//            popService.initData(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoVOs());
+//        }
+//        popService.showPopupWindow(btn_submit);
+//    }
 
     @Override
     public void bannerFindByTypeSuccess(List<BannerModel> models) {

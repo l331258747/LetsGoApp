@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.util;
+package com.njz.letsgoapp.util.behavior;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
