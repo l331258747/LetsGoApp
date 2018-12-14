@@ -42,6 +42,7 @@ import com.njz.letsgoapp.widget.GuideAuthenticationView;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
+import com.njz.letsgoapp.widget.popupwindow.PopServerDetail;
 import com.njz.letsgoapp.widget.popupwindow.PopService;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     ServiceTagView stv_tag;
 
 //    LinearLayout ll_select_service;
-    LinearLayout btn_call,ll_detail;
+    LinearLayout btn_call,ll_detail,ll_bottom;
 
     PopService popService;
     GuideLabelView guideLabel;
@@ -71,6 +72,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     GuideDetailPresenter mPresenter;
 
     GuideDetailModel guideDetailModel;
+    PopServerDetail popServerDetail;
 
     int guideId;
     public static final String GUIDEID = "GUIDEID";
@@ -118,6 +120,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         tv_content = $(R.id.tv_content);
         btn_call = $(R.id.btn_call);
         ll_detail = $(R.id.ll_detail);
+        ll_bottom = $(R.id.ll_bottom);
         btn_submit = $(R.id.btn_submit);
         guideLabel = $(R.id.guide_label);
         tv_service_num = $(R.id.tv_service_num);
@@ -130,12 +133,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
-        ll_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                
-            }
-        });
+        ll_detail.setOnClickListener(this);
     }
 
 
@@ -279,6 +277,14 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.tv_back_top:
 //                scrollView.scrollTo(0, 0);
+                break;
+            case R.id.ll_detail:
+                if(serverItems.size() == 0){
+                    showShortToast("请选择服务");
+                    return;
+                }
+                popServerDetail = new PopServerDetail(activity, ll_bottom,serverItems);
+                popServerDetail.showPopupWindow(ll_bottom);
                 break;
 
         }

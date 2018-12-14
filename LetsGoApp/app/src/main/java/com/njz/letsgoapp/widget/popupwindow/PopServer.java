@@ -324,7 +324,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             setDarkStyle(-1);
             setDarkColor(Color.parseColor("#a0000000"));
             resetDarkPosition();
-            darkAbove(parent);
+            darkFillScreen();
             showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         }
     }

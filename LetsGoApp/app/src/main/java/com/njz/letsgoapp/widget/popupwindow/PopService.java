@@ -66,8 +66,7 @@ public class PopService extends BackgroundDarkPopupWindow implements View.OnClic
         super(parentView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         mContext = context;
         this.guideDetailModel = guideDetailModel;
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.popup_service, null);
         recyclerView = contentView.findViewById(R.id.recycler_view);
 
