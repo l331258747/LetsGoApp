@@ -51,6 +51,7 @@ public class PopServerDetail extends BackgroundDarkPopupWindow {
         tv_pop_close = contentView.findViewById(R.id.tv_pop_close);
         tv_empty = contentView.findViewById(R.id.tv_empty);
 
+
         tv_pop_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +72,19 @@ public class PopServerDetail extends BackgroundDarkPopupWindow {
         this.setFocusable(true);
 
         initList();
+        initEmpty();
+    }
+
+    private void initEmpty(){
+        tv_empty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serverItems.clear();
+                RxBus2.getInstance().post(new ServerDetailEvent());
+                RxBus2.getInstance().post(new ServerPriceTotalEvent());
+                dismissPopupWindow();
+            }
+        });
     }
 
     private void initList() {
