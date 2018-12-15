@@ -69,13 +69,13 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_minus:
-                if(minNum != -1){
-                    if (num < 1)
+                if(minNum > 0){
+                    if (num < minNum + 1)
                         return;
                     num--;
                     setNum(num);
                 }else {
-                    if (num < minNum - 1)
+                    if (num < 1)
                         return;
                     num--;
                     setNum(num);
