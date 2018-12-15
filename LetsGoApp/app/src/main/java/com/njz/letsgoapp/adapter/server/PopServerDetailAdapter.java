@@ -48,7 +48,7 @@ public class PopServerDetailAdapter extends RecyclerView.Adapter<PopServerDetail
             if (data == null) return;
 
             holder.tv_title.setText(data.getTitile());
-            holder.tv_price.setText("￥" + data.getPrice());
+            holder.tv_price.setText("￥" + (data.getPrice() * data.getServeNum()));
 
             if(data.getServerType() == Constant.SERVER_TYPE_GUIDE_ID){
                 holder.tv_cancel.setVisibility(View.VISIBLE);
@@ -74,6 +74,7 @@ public class PopServerDetailAdapter extends RecyclerView.Adapter<PopServerDetail
                     if(mOnItemClickListener != null){
                         mOnItemClickListener.onNumClick(pos,num);
                     }
+                    holder.tv_price.setText("￥" + (data.getPrice() * num));
                 }
             });
 

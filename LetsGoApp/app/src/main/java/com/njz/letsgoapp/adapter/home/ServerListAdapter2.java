@@ -153,6 +153,9 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
     public ServerDetailMedel getData(int position){
         return this.datas.get(position);
     }
+    public List<ServerDetailMedel> getDatas(){
+        return this.datas;
+    }
 
     OnItemClickListener mOnItemClickListener;
     public interface OnItemClickListener {

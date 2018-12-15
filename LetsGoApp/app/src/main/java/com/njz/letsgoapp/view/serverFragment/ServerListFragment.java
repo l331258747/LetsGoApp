@@ -2,13 +2,11 @@ package com.njz.letsgoapp.view.serverFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.text.TextUtils;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
@@ -17,17 +15,16 @@ import com.njz.letsgoapp.adapter.home.ServerListAdapter1;
 import com.njz.letsgoapp.adapter.home.ServerListAdapter2;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
-import com.njz.letsgoapp.bean.server.PlayModel;
+import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
 import com.njz.letsgoapp.view.server.CustomActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
@@ -36,15 +33,18 @@ import com.njz.letsgoapp.widget.popupwindow.PopServer;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
 /**
  * Created by LGQ
  * Time: 2018/12/4
  * Function:
  */
 
-public class ServerListFragment extends BaseFragment implements ServerListContract.View{
+public class ServerListFragment extends BaseFragment implements ServerListContract.View {
     GuideDetailModel model;
-    RecyclerView recycler_view1,recycler_view2;
+    RecyclerView recycler_view1, recycler_view2;
     private ServerListAdapter1 mAdapter1;
     private ServerListAdapter2 mAdapter2;
 
@@ -59,8 +59,9 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
     private int value;
 
     List<ServerItem> serverItems;
+    Disposable serverDetailDisposable;
 
-    public static Fragment newInstance(GuideDetailModel guideDetailModel,List<ServerItem> serverItems) {
+    public static Fragment newInstance(GuideDetailModel guideDetailModel, List<ServerItem> serverItems) {
         ServerListFragment fragment = new ServerListFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("GuideDetailModel", guideDetailModel);
@@ -92,8 +93,23 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
     @Override
     public void initData() {
-        serverListPresenter = new ServerListPresenter(context,this);
+        serverListPresenter = new ServerListPresenter(context, this);
         initServerList();
+
+        serverDetailDisposable = RxBus2.getInstance().toObservable(ServerDetailEvent.class, new Consumer<ServerDetailEvent>() {
+            @Override
+            public void accept(ServerDetailEvent serverDetailEvent) throws Exception {
+                for (ServerDetailMedel data : mAdapter2.getDatas()) {
+                    data.setBook(false);
+                    for (ServerItem si : serverItems) {
+                        if (si.getNjzGuideServeId() == data.getId()) {
+                            data.setBook(true);
+                        }
+                    }
+                }
+                loadMoreWrapper.notifyDataSetChanged();
+            }
+        });
     }
 
     //初始化recyclerview
@@ -113,6 +129,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             }
         });
     }
+
     private void initRecycler2() {
         recycler_view2 = $(R.id.recycler_view2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
@@ -120,7 +137,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         mAdapter2 = new ServerListAdapter2(activity, new ArrayList<ServerDetailMedel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter2);
         recycler_view2.setAdapter(loadMoreWrapper);
-        ((SimpleItemAnimator)recycler_view2.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
+        ((SimpleItemAnimator) recycler_view2.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
         recycler_view2.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
@@ -135,14 +152,14 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity.class);
-                intent.putExtra(ServiceDetailActivity.SERVICEID,mAdapter2.getData(position).getId());
+                intent.putExtra(ServiceDetailActivity.SERVICEID, mAdapter2.getData(position).getId());
                 startActivity(intent);
             }
 
             @Override
             public void onCancelClick(int position) {
-                for (ServerItem st : serverItems){
-                    if(mAdapter2.getData(position).getId() == st.getNjzGuideServeId()){
+                for (ServerItem st : serverItems) {
+                    if (mAdapter2.getData(position).getId() == st.getNjzGuideServeId()) {
                         serverItems.remove(st);
                         break;
                     }
@@ -154,7 +171,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
             @Override
             public void onBookClick(final int position) {
-                popServer = new PopServer(activity, recycler_view2,mAdapter2.getData(position));
+                popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position));
                 popServer.setSubmit("选好了", new PopServer.SubmitClick() {
                     @Override
                     public void onClick(ServerItem serverItem) {
@@ -190,24 +207,24 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         getData();
     }
 
-    private void initServerList(){
+    private void initServerList() {
         List<GuideServiceModel> datas2 = model.getTravelGuideServiceInfoVOs();
         mAdapter1.setDatas(datas2);
-        if(datas2 !=null && datas2.size() !=0){
+        if (datas2 != null && datas2.size() != 0) {
             value = datas2.get(0).getServeType();
         }
     }
 
-    public void getData(){
-        if(value != 0)
-            serverListPresenter.serveGuideServeOrderList(value,Constant.DEFAULT_LIMIT,page, MySelfInfo.getInstance().getDefaultCity(),0,model.getId(),0);
+    public void getData() {
+        if (value != 0)
+            serverListPresenter.serveGuideServeOrderList(value, Constant.DEFAULT_LIMIT, page, MySelfInfo.getInstance().getDefaultCity(), 0, model.getId(), 0);
     }
 
     @Override
     public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
-        for (ServerItem si : serverItems){
-            for (ServerDetailMedel data : datas){
-                if(si.getNjzGuideServeId() == data.getId()){
+        for (ServerItem si : serverItems) {
+            for (ServerDetailMedel data : datas) {
+                if (si.getNjzGuideServeId() == data.getId()) {
                     data.setBook(true);
                 }
             }
@@ -232,5 +249,12 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         showShortToast(msg);
         isLoad = false;
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (serverDetailDisposable != null && !serverDetailDisposable.isDisposed())
+            serverDetailDisposable.dispose();
     }
 }

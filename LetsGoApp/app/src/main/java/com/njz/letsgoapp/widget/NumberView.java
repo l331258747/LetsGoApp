@@ -22,6 +22,7 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
     TextView tv_num;
     ImageView tv_minus,tv_plus;
     int num;
+    int minNum = -1;
 
     public NumberView(Context context) {
         this(context, null);
@@ -59,15 +60,27 @@ public class NumberView extends LinearLayout implements View.OnClickListener {
         return this.num;
     }
 
+    public void setMinNum(int minNum){
+        this.minNum = minNum;
+    }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_minus:
-                if (num < 1)
-                    return;
-                num--;
-                setNum(num);
+                if(minNum != -1){
+                    if (num < 1)
+                        return;
+                    num--;
+                    setNum(num);
+                }else {
+                    if (num < minNum - 1)
+                        return;
+                    num--;
+                    setNum(num);
+                }
+
                 break;
             case R.id.tv_plus:
                 if (num > 1000)

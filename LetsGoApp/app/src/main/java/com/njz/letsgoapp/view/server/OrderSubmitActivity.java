@@ -169,7 +169,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     public void getTotalPrice() {
         totalPrice = 0;
         for (ServerItem model : serverItems) {
-            totalPrice = totalPrice + model.getPrice();
+            totalPrice = totalPrice + (model.getPrice() * model.getServeNum());
         }
         tv_total_price.setText("￥" + totalPrice);
     }

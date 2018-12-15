@@ -17,6 +17,9 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.server.PopServerDetailAdapter;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
 
 import java.util.List;
 
@@ -81,11 +84,27 @@ public class PopServerDetail extends BackgroundDarkPopupWindow {
             public void onCancelClick(int position) {
                 serverItems.remove(position);
                 mAdapter.notifyDataSetChanged();
+                RxBus2.getInstance().post(new ServerDetailEvent());
+                RxBus2.getInstance().post(new ServerPriceTotalEvent());
+                if(serverItems.size() == 0){
+                    dismissPopupWindow();
+                    return;
+                }
             }
 
             @Override
             public void onNumClick(int position, int num) {
                 serverItems.get(position).setServeNum(num);
+                if(num == 0){
+                    serverItems.remove(position);
+                    mAdapter.notifyDataSetChanged();
+                    RxBus2.getInstance().post(new ServerDetailEvent());
+                }
+                RxBus2.getInstance().post(new ServerPriceTotalEvent());
+                if(serverItems.size() == 0){
+                    dismissPopupWindow();
+                    return;
+                }
             }
         });
     }

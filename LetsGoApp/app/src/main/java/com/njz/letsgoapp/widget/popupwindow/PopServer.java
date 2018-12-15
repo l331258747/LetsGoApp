@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -30,6 +31,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.PriceCalendarEvent;
 import com.njz.letsgoapp.view.calendar.PriceCalendarActivity;
 import com.njz.letsgoapp.widget.GuideScoreView2;
+import com.njz.letsgoapp.widget.NumberView;
 import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.ViewServerFlow;
 
@@ -58,6 +60,9 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     GuideScoreView2 guideScoreView2;
     PriceView priceView;
     LinearLayout flow_parent;
+    RelativeLayout rl_count;
+    NumberView numberView;
+
 
     ServerDetailMedel serverDetailMedel;
 
@@ -82,6 +87,8 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
     ViewServerFlow pirceVsf;
     Disposable priceDisposable;
+
+    int serverNum;
 
 
     public PopServer(final Activity context, View parentView, ServerDetailMedel serverDetailMedel) {
@@ -129,6 +136,8 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     }
 
     public void initView() {
+        rl_count = contentView.findViewById(R.id.rl_count);
+        numberView = contentView.findViewById(R.id.numberView);
         flow_parent = contentView.findViewById(R.id.flow_parent);
         iv_img = contentView.findViewById(R.id.iv_img);
         tv_title = contentView.findViewById(R.id.tv_title);
@@ -148,7 +157,24 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         tv_pop_close.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
 
+        initNum();
         initData();
+    }
+
+    private void initNum(){
+        serverNum = 1;
+        numberView.setNum(1);
+        numberView.setMinNum(1);
+        numberView.setCallback(new NumberView.OnItemClickListener() {
+            @Override
+            public void onClick(int num) {
+                serverNum = num;
+                tv_price_total.setText("￥" + (priceTotal * serverNum));
+            }
+        });
+        if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
+            rl_count.setVisibility(View.GONE);
+        }
     }
 
     private void initData() {
@@ -158,7 +184,6 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     }
 
     public void setChange() {
-
         tv_title.setText(serverDetailMedel.getTitle() +
                 (TextUtils.isEmpty(titleTc) ? "" : ("+" + titleTc)) +
                 (TextUtils.isEmpty(titleCar) ? "" : ("+" + titleCar)) +
@@ -170,6 +195,8 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 + (formatIdLanguage != 0 ? formatIdLanguage + "," : "");
         formatIds = formatIds.endsWith(",") ? formatIds.substring(0, formatIds.length() - 1) : formatIds;
 
+        priceView.setPrice(priceLanguage + priceCar + priceTc);
+
         datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailMedel.getServeType());
     }
 
@@ -180,9 +207,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 priceTotal = priceTotal + priceCalendarChildModels.get(i).getAddPrice();
             }
         }
-
-        priceView.setPrice(priceTotal);
-        tv_price_total.setText("￥" + priceTotal);
+        tv_price_total.setText("￥" + (priceTotal * serverNum));
     }
 
     public String getTravelDates() {
@@ -367,7 +392,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                     data.setTitile(tv_title.getText().toString());
                     data.setPrice(priceTotal);
                     data.setServiceTypeName(serverDetailMedel.getServeTypeName());
-                    data.setServeNum(1);
+                    data.setServeNum(serverNum);
                     data.setSelectTimeValueList(getSubmitTravelDates());
                     data.setNjzGuideServeId(serverDetailMedel.getId());
                     data.setNjzGuideServeFormatId(formatIds);

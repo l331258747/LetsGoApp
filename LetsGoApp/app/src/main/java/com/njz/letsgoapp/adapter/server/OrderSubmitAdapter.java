@@ -55,7 +55,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             GlideUtil.LoadRoundImage(context, data.getImg(), holder.iv_img,5);
             holder.tv_title.setText(data.getTitile());
             holder.tv_serverName.setText(data.getServiceTypeName());
-            holder.tv_price_total.setText("￥" + data.getPrice());
+            holder.tv_price_total.setText("￥" + (data.getPrice() * data.getServeNum()));
 
             holder.ll_count.setVisibility(View.VISIBLE);
             if(data.getServerType() == Constant.SERVER_TYPE_GUIDE_ID){

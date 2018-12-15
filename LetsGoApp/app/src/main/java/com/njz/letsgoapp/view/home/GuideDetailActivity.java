@@ -309,7 +309,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public float getServerPriceTotal(){
         float serverPriceTotal = 0;
         for (int i=0; i < serverItems.size();i++){
-            serverPriceTotal = serverPriceTotal + serverItems.get(i).getPrice();
+            serverPriceTotal = serverPriceTotal + (serverItems.get(i).getPrice() * serverItems.get(i).getServeNum());
         }
         return serverPriceTotal;
     }
