@@ -46,15 +46,15 @@ import java.util.List;
  * Function:
  */
 
-public class ServiceDetailActivity extends BaseActivity implements ServerDetailContract.View,BannerContract.View,View.OnClickListener {
+public class ServiceDetailActivity extends BaseActivity implements ServerDetailContract.View, BannerContract.View, View.OnClickListener {
 
     public static final String TITLE = "TITLE";
     public static final String SERVICEID = "SERVICEID";
     public static final String SERVICEITEMS = "SERVICEITEMS";
 
     public ConvenientBanner convenientBanner;
-    public TextView tv_title,  tv_sell, tv_submit,  tv_phone, tv_back_top;
-    public TextView tv_destination,tv_destination2;
+    public TextView tv_title, tv_sell, tv_submit, tv_phone, tv_back_top, tv_float_call;
+    public TextView tv_destination, tv_destination2;
     public PriceView pv_price;
     public ViewPager mViewPager;
 
@@ -84,13 +84,13 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         title = intent.getStringExtra(TITLE);
         serviceId = intent.getIntExtra(SERVICEID, 0);
         serviceItems = intent.getParcelableArrayListExtra(SERVICEITEMS);
-        isHideBottom = intent.getBooleanExtra("isHideBottom",false);
+        isHideBottom = intent.getBooleanExtra("isHideBottom", false);
         if (TextUtils.isEmpty(title)) {
             title = "";
         }
     }
 
-    public  void initViewPage(ServerDetailMedel model){
+    public void initViewPage(ServerDetailMedel model) {
         mFragments = new ArrayList<>();
         mFragments.add(ServerFeatureFragment.newInstance(model));
         mFragments.add(ServerEvaluateFragment.newInstance());
@@ -110,6 +110,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         getRightIv().setOnClickListener(this);
 
         mViewPager = $(R.id.viewpager);
+        tv_float_call = $(R.id.tv_float_call);
         mTabLayout = $(R.id.tablayout);
         ll_bottom = $(R.id.ll_bottom);
         convenientBanner = $(R.id.convenientBanner);
@@ -127,12 +128,14 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         tv_destination2.setOnClickListener(this);
         tv_phone.setOnClickListener(this);
         tv_back_top.setOnClickListener(this);
+        tv_float_call.setOnClickListener(this);
 
-        if(isHideBottom){
+        if (isHideBottom) {
             tv_submit.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             tv_submit.setVisibility(View.VISIBLE);
         }
+        ll_bottom.setVisibility(View.GONE);
     }
 
     @Override
@@ -150,18 +153,18 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
     @Override
     public void initData() {
         serverDetailPresenter = new ServerDetailPresenter(context, this);
-        bannerPresenter = new BannerPresenter(context,this);
+        bannerPresenter = new BannerPresenter(context, this);
 
         serverDetailPresenter.serveGuideServeOrder(serviceId);
-        bannerPresenter.bannerFindByType(0,serviceId);
+        bannerPresenter.bannerFindByType(0, serviceId);
 
     }
 
     public void initDetail(ServerDetailMedel model) {
         tv_title.setText(model.getTitle());
-        if(TextUtils.isEmpty(model.getAddress())){
+        if (TextUtils.isEmpty(model.getAddress())) {
             tv_destination.setVisibility(View.GONE);
-        }else{
+        } else {
             tv_destination.setText(model.getAddress());
             tv_destination.setVisibility(View.VISIBLE);
         }
@@ -179,12 +182,12 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         setServiceSelected();
     }
 
-    public void setServiceSelected(){
-        if(serviceItems == null) return;
-        for (ServiceItem item : serviceItems){
-            if(item.getId() == model.getId()){
-                tv_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_cc_solid_r5_p8));
-                tv_submit.setTextColor(ContextCompat.getColor(context,R.color.color_text));
+    public void setServiceSelected() {
+        if (serviceItems == null) return;
+        for (ServiceItem item : serviceItems) {
+            if (item.getId() == model.getId()) {
+                tv_submit.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_cc_solid_r5_p8));
+                tv_submit.setTextColor(ContextCompat.getColor(context, R.color.color_text));
                 tv_submit.setEnabled(false);
             }
         }
@@ -212,6 +215,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
     }
 
     PopServer popServer;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -229,14 +233,14 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 //                finish();
 
                 if (popServer == null) {
-                    popServer = new PopServer(activity, tv_submit,model);
+                    popServer = new PopServer(activity, tv_submit, model);
                 }
                 popServer.showPopupWindow(tv_submit);
 
                 break;
             case R.id.tv_phone:
-                if(model == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context,model.getMobile());
+                if (model == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile());
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));
@@ -244,9 +248,13 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
             case R.id.tv_back_top:
 //                scrollView.scrollTo(0, 0);
                 break;
+            case R.id.tv_float_call:
+                if (model == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile());
+                break;
             case R.id.right_iv:
-                if(model == null) return;
-                ShareDialog dialog = new ShareDialog(activity,"","","","");
+                if (model == null) return;
+                ShareDialog dialog = new ShareDialog(activity, "", "", "", "");
                 dialog.setReportData(model.getId(), ShareDialog.REPORT_SERVICE);
                 dialog.setType(ShareDialog.TYPE_REPORT);
                 dialog.show();
