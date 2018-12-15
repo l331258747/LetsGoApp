@@ -27,6 +27,8 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
 import com.njz.letsgoapp.view.server.CustomActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 import com.njz.letsgoapp.widget.popupwindow.PopServer;
@@ -147,6 +149,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
                 }
                 mAdapter2.getData(position).setBook(false);
                 loadMoreWrapper.notifyItemChanged(position);
+                RxBus2.getInstance().post(new ServerPriceTotalEvent());
             }
 
             @Override
@@ -158,10 +161,10 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
                         serverItems.add(serverItem);
                         mAdapter2.getData(position).setBook(true);
                         loadMoreWrapper.notifyItemChanged(position);
+                        RxBus2.getInstance().post(new ServerPriceTotalEvent());
                     }
                 });
                 popServer.showPopupWindow(recycler_view2);
-
             }
 
             @Override

@@ -32,6 +32,9 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServicePriceEvent;
 import com.njz.letsgoapp.view.server.OrderSubmitActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerBookRuleFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
@@ -48,6 +51,9 @@ import com.njz.letsgoapp.widget.popupwindow.PopService;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
 /**
  * Created by LGQ
  * Time: 2018/8/9
@@ -58,7 +64,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     ConvenientBanner convenientBanner;
     ImageView iv_head,iv_sex;
-    TextView tv_name, tv_service_num, tv_comment_content, tv_content, tv_back_top, btn_submit;
+    TextView tv_name, tv_service_num, tv_comment_content, tv_content, tv_back_top, btn_submit,tv_price_total;
     MyRatingBar my_rating_bar;
     ServiceTagView stv_tag;
 
@@ -85,6 +91,8 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public ViewPager mViewPager;
     public List<ServerItem> serverItems;
 
+    public  Disposable serverPriceTotalDisposable;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -110,6 +118,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         getRightIv().setOnClickListener(this);
 
         mViewPager = $(R.id.viewpager);
+        tv_price_total = $(R.id.tv_price_total);
         mTabLayout = $(R.id.tablayout);
         convenientBanner = $(R.id.convenientBanner);
         iv_head = $(R.id.iv_head);
@@ -158,6 +167,13 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
         serverItems = new ArrayList<>();
+
+        serverPriceTotalDisposable = RxBus2.getInstance().toObservable(ServerPriceTotalEvent.class, new Consumer<ServerPriceTotalEvent>() {
+            @Override
+            public void accept(ServerPriceTotalEvent serverPriceTotalEvent) throws Exception {
+                tv_price_total.setText("￥" + getServerPriceTotal());
+            }
+        });
     }
 
     //认证
@@ -290,6 +306,14 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    public float getServerPriceTotal(){
+        float serverPriceTotal = 0;
+        for (int i=0; i < serverItems.size();i++){
+            serverPriceTotal = serverPriceTotal + serverItems.get(i).getPrice();
+        }
+        return serverPriceTotal;
+    }
+
 //    private void showPopService() {
 //
 //        if (guideDetailModel == null
@@ -325,5 +349,12 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void guideFindGuideDetailsFailed(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(serverPriceTotalDisposable !=null && !serverPriceTotalDisposable.isDisposed())
+            serverPriceTotalDisposable.dispose();
     }
 }
