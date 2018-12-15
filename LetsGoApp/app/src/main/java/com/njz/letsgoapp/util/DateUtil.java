@@ -15,9 +15,7 @@ public class DateUtil {
 
     //date 转 String 年月日
     public static String dateToStr(Date dateDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = formatter.format(dateDate);
-        return dateString;
+        return dateToStr(dateDate,"yyyy-MM-dd");
     }
 
     //date 转 String 年月日
@@ -27,26 +25,14 @@ public class DateUtil {
         return dateString;
     }
 
-    //date 转 String 月日
-    public static String dateToStrMD(Date dateDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("MM—dd");
-        String dateString = formatter.format(dateDate);
-        return dateString;
+    //date 转 String 年月日
+    public static int dateToInt(Date dateDate, String format) {
+        return Integer.valueOf(dateToStr(dateDate,format));
     }
-
-
 
     //String 转 date
     public static Date str2Date(String dateStr) {
-        SimpleDateFormat df;
-        df = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            return df.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return new Date();
+        return str2Date(dateStr,"yyyy-MM-dd");
     }
     //String 转 date
     public static Date str2Date(String dateStr, String format) {

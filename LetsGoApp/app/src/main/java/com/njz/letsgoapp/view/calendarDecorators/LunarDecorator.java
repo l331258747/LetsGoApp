@@ -25,10 +25,10 @@ public class LunarDecorator implements DayViewDecorator {
     Date startTime;
     Date endTime;
 
-    public LunarDecorator(String year, String month,List<PriceModel> priceModels) {
+    public LunarDecorator(String year, String month, List<PriceModel> priceModels) {
         this.year = year;
         this.month = month;
-        lunarSpan = new LunarSpan(year,month,priceModels);
+        lunarSpan = new LunarSpan(year, month, priceModels);
 
 
         Calendar instance1 = Calendar.getInstance();
@@ -43,18 +43,17 @@ public class LunarDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        LogUtil.e("1:"+day.getDate().getYear());
-        LogUtil.e("1:"+day.getDate().getMonth());
-        LogUtil.e("1:"+day.getDate().getDay());
 
-        LogUtil.e(DateUtil.dateToStr(day.getDate()));
-
-
-
-        if(day.getDate().getTime() < startTime.getTime())
+        if(Integer.valueOf(DateUtil.dateToStr(day.getDate(),"yyyyMMdd")) < Integer.valueOf(DateUtil.dateToStr(startTime,"yyyyMMdd"))){
             return false;
-        if(day.getDate().getTime() > endTime.getTime())
+        }
+        if(Integer.valueOf(DateUtil.dateToStr(day.getDate(),"yyyyMMdd")) > Integer.valueOf(DateUtil.dateToStr(endTime,"yyyyMMdd"))){
             return false;
+        }
+//        if (day.getDate().getTime() < startTime.getTime())
+//            return false;
+//        if (day.getDate().getTime() > endTime.getTime())
+//            return false;
         return true;
     }
 
@@ -63,10 +62,10 @@ public class LunarDecorator implements DayViewDecorator {
         view.addSpan(lunarSpan);
     }
 
-    public void setTime(String year, String month,List<PriceModel> priceModels){
+    public void setTime(String year, String month, List<PriceModel> priceModels) {
         this.year = year;
         this.month = month;
-        lunarSpan.setTime(year,month,priceModels);
+        lunarSpan.setTime(year, month, priceModels);
     }
 
 
