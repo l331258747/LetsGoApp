@@ -6,6 +6,7 @@ import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
+import com.njz.letsgoapp.bean.server.SubmitOrderModel;
 import com.njz.letsgoapp.constant.Constant;
 
 import java.io.File;
@@ -510,6 +511,12 @@ public class MethodApi {
     //serve/getPrice 更多日期——价格
     public static void serveGetPrice(String formatIds, String travelDates, int serveId, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().serveGetPrice(formatIds,travelDates,serveId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //orderCreateOrder 创建订单
+    public static void orderCreateOrder(SubmitOrderModel submitOrderModel, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderCreateOrder(submitOrderModel);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

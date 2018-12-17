@@ -40,6 +40,7 @@ import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.bean.server.PriceCalendarModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.SubmitOrderModel;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
 import java.util.List;
@@ -621,6 +622,12 @@ public interface HttpService {
             @Query("formatIds") String formatIds,
             @Query("travelDates") String travelDates,
             @Query("serveId") int serveId
+    );
+
+    //order/createOrder
+    @POST("order/createOrder")
+    Observable<BaseResponse<PayModel>> orderCreateOrder(
+            @Body SubmitOrderModel data
     );
 
     //-----------end服务---------

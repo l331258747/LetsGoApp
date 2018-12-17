@@ -65,6 +65,8 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
 
             holder.tv_time_title.setText(data.getTimeTitle());
             holder.tv_time_content.setText(data.getSelectTimeValueList());
+
+            holder.tv_location_content.setText(data.getLocation());
         }
     }
 
@@ -81,7 +83,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_img;
-        TextView tv_title, tv_serverName,  tv_price_total;
+        TextView tv_title, tv_serverName,  tv_price_total,tv_location_content;
         LinearLayout ll_count;
         TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content;
 
@@ -98,6 +100,8 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             ll_count = itemView.findViewById(R.id.ll_count);
             tv_count_content = itemView.findViewById(R.id.tv_count_content);
             tv_count_title = itemView.findViewById(R.id.tv_count_title);
+
+            tv_location_content = itemView.findViewById(R.id.tv_location_content);
 
         }
     }

@@ -97,6 +97,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                             Intent intent = new Intent(context,OrderSubmitActivity.class);
                             intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) serverItems);
                             intent.putExtra("GUIDE_ID",serverDetailMedel.getGuideId());
+                            intent.putExtra("LOCATION",serverDetailMedel.getAddress());
                             startActivity(intent);
                         }
                     });

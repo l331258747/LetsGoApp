@@ -24,6 +24,7 @@ public class ServerItem implements Parcelable {
     float price;//价格
     String serviceTypeName;//服务名称
     int serverType;
+    String location;
 
     public ServerItem() {
     }
@@ -38,6 +39,7 @@ public class ServerItem implements Parcelable {
         price = in.readFloat();
         serviceTypeName = in.readString();
         serverType = in.readInt();
+        location = in.readString();
     }
 
     public static final Creator<ServerItem> CREATOR = new Creator<ServerItem>() {
@@ -120,6 +122,14 @@ public class ServerItem implements Parcelable {
         this.serverType = serverType;
     }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
     public void setServiceTypeName(String serviceTypeName) {
         this.serviceTypeName = serviceTypeName;
     }
@@ -173,5 +183,6 @@ public class ServerItem implements Parcelable {
         dest.writeFloat(price);
         dest.writeString(serviceTypeName);
         dest.writeInt(serverType);
+        dest.writeString(location);
     }
 }

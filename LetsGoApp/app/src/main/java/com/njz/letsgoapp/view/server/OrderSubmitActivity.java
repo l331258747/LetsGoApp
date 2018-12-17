@@ -19,9 +19,13 @@ import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.send.SendChildOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
+import com.njz.letsgoapp.bean.server.SubmitOrderChildModel;
+import com.njz.letsgoapp.bean.server.SubmitOrderModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderCreateContract;
 import com.njz.letsgoapp.mvp.order.OrderCreatePresenter;
+import com.njz.letsgoapp.mvp.server.CreateOrderContract;
+import com.njz.letsgoapp.mvp.server.CreateOrderPresenter;
 import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
@@ -29,6 +33,7 @@ import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
+import com.njz.letsgoapp.widget.NumberView;
 import com.njz.letsgoapp.widget.SpecialFixedItemEditView;
 
 import java.util.ArrayList;
@@ -40,7 +45,7 @@ import java.util.List;
  * Function: 确认订单
  */
 
-public class OrderSubmitActivity extends BaseActivity implements View.OnClickListener,OrderCreateContract.View{
+public class OrderSubmitActivity extends BaseActivity implements View.OnClickListener,CreateOrderContract.View{
 
     public static final String SERVICEMODEL = "SERVICEMODEL";
     public static final String GUIDE_ID = "GUIDE_ID";
@@ -51,18 +56,21 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     SpecialFixedItemEditView et_special;
     RecyclerView recyclerView;
     TextView tv_contract, tv_submit,tv_total_price;
+    NumberView numberView;
 
-    OrderCreatePresenter mPresenter;
+    CreateOrderPresenter mPresenter;
 
     List<ServerItem> serverItems;
     int guideId;
     float totalPrice;
+    String location;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         serverItems = intent.getParcelableArrayListExtra(SERVICEMODEL);
         guideId = intent.getIntExtra(GUIDE_ID, 0);
+        location = intent.getStringExtra(LOCATION);
     }
 
     @Override
@@ -74,6 +82,10 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     public void initView() {
 
         showLeftAndTitle("确认订单");
+
+        numberView = $(R.id.numberView);
+        numberView.setNum(1);
+        numberView.setMinNum(1);
 
         login_view_name = $(R.id.login_view_name);
         login_view_name.setEtInputType(InputType.TYPE_CLASS_TEXT);
@@ -91,7 +103,10 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                 login_view_phone.getEtView().setText("");
             }
         });
+
         fixed_view_city = $(R.id.fixed_view_city);
+        fixed_view_city.setVisibility(View.GONE);
+
         recyclerView = $(R.id.recycler_view);
         tv_contract = $(R.id.tv_contract);
         tv_total_price = $(R.id.tv_total_price);
@@ -133,20 +148,11 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         login_view_name.getEtView().setSelection(login_view_name.getEtContent().length());
         login_view_phone.setContent(MySelfInfo.getInstance().getUserMoble());
 
-        fixed_view_city.setContent(MySelfInfo.getInstance().getDefaultCity());
+        fixed_view_city.setContent(location);
         getTotalPrice();
 
-        mPresenter = new OrderCreatePresenter(context,this);
+        mPresenter = new CreateOrderPresenter(context,this);
     }
-
-
-//    public List<ServerItem> getData() {
-//        List<ServiceItem> serviceItems = new ArrayList<>();
-//        for (GuideServiceModel model : serviceModels) {
-//            serviceItems.addAll(model.getServiceItems());
-//        }
-//        return serviceItems;
-//    }
 
     @Override
     public void onClick(View v) {
@@ -157,11 +163,11 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.tv_submit:
-//                if(!LoginUtil.verifyName(login_view_name.getEtContent()))
-//                    return;
-//                if(!LoginUtil.verifyPhone(login_view_phone.getEtContent()))
-//                    return;
-//                mPresenter.orderCreateOrder(getOrderData());
+                if(!LoginUtil.verifyName(login_view_name.getEtContent()))
+                    return;
+                if(!LoginUtil.verifyPhone(login_view_phone.getEtContent()))
+                    return;
+                mPresenter.orderCreateOrder(getOrderData());
                 break;
         }
     }
@@ -174,46 +180,19 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         tv_total_price.setText("￥" + totalPrice);
     }
 
-//    public SendOrderModel getOrderData() {
-//        List<ServiceItem> sis = getData();
-//        SendOrderModel sendOrderModel = new SendOrderModel();
-//        sendOrderModel.setMobile(login_view_phone.getEtContent());
-//        sendOrderModel.setName(login_view_name.getEtContent());
-//        sendOrderModel.setGuideId(guideId);
-//        sendOrderModel.setLocation(fixed_view_city.getContent());
-//        sendOrderModel.setSpecialRequire(et_special.getEtContent());
-//        sendOrderModel.setEarlyOrderPrice(totalPrice);
-//
-//        List<SendChildOrderModel> sendChildOrders = new ArrayList<>();
-//        for (ServiceItem si : sis) {
-//            SendChildOrderModel sendChildOrder = new SendChildOrderModel();
-//            sendChildOrder.setServeId(si.getId());
-//            sendChildOrder.setPrice(si.getPrice());
-//            sendChildOrder.setDayNum(si.getTimeDay());
-//
-//            if (TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_GUIDE)
-//                    || TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CAR)
-//                    || TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)) {
-//                sendChildOrder.setPersonNum(si.getNumber());
-//            } else if(TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_HOTEL)){
-//                sendChildOrder.setRoomNum(si.getNumber());
-//            } else if(TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_TICKET)){
-//                sendChildOrder.setTicketNum(si.getNumber());
-//            }
-//
-//            if(TextUtils.equals(si.getValue() , Constant.SERVICE_TYPE_SHORT_CUSTOM)
-//                    || TextUtils.equals(si.getValue() ,Constant.SERVICE_TYPE_SHORT_TICKET)){
-//                sendChildOrder.setTravelDate(si.getOneTime());
-//            }else{
-//                sendChildOrder.setTravelDate(si.getDaysStr2());
-//            }
-//
-//            sendChildOrders.add(sendChildOrder);
-//        }
-//        sendOrderModel.setChildOrders(sendChildOrders);
-//
-//        return sendOrderModel;
-//    }
+    public SubmitOrderModel getOrderData() {
+        SubmitOrderModel submitOrderModel = new SubmitOrderModel();
+        submitOrderModel.setGuideId(guideId);
+        submitOrderModel.setLocation(fixed_view_city.getContent());
+        submitOrderModel.setMobile(login_view_phone.getEtContent());
+        submitOrderModel.setName(login_view_name.getEtContent());
+        submitOrderModel.setPersonNum(numberView.getNum());
+        submitOrderModel.setSpecialRequire(et_special.getEtContent());
+        SubmitOrderChildModel submitOrderChildModel = new SubmitOrderChildModel();
+        submitOrderChildModel.setNjzGuideServeToOrderServeDtos(serverItems);
+        submitOrderModel.setNjzGuideServeToOrderDto(submitOrderChildModel);
+        return submitOrderModel;
+    }
 
     @Override
     public void orderCreateOrderSuccess(PayModel str) {

@@ -272,6 +272,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 intent = new Intent(context,OrderSubmitActivity.class);
                 intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) serverItems);
                 intent.putExtra("GUIDE_ID",guideDetailModel.getId());
+                intent.putExtra("LOCATION",MySelfInfo.getInstance().getDefaultCity());
                 startActivity(intent);
 
                 break;

@@ -391,6 +391,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                     data.setImg(serverDetailMedel.getTitleImg());
                     data.setTitile(tv_title.getText().toString());
                     data.setPrice(priceTotal);
+                    data.setLocation(serverDetailMedel.getAddress());
                     data.setServiceTypeName(serverDetailMedel.getServeTypeName());
                     data.setServeNum(serverNum);
                     data.setSelectTimeValueList(getSubmitTravelDates());
