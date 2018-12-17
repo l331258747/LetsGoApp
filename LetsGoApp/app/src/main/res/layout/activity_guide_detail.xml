@@ -69,7 +69,7 @@
 
                 </RelativeLayout>
 
-                <android.support.design.widget.TabLayout
+                <com.njz.letsgoapp.widget.myTabLayout.TabLayout
                     android:id="@+id/tablayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,6 +78,7 @@
                     android:paddingRight="15dp"
                     app:tabIndicatorColor="@color/color_theme"
                     app:tabMode="scrollable"
+                    app:tabLineOffset="20dp"
                     app:tabSelectedTextColor="@color/color_theme"
                     app:tabTextColor="@color/color_text"/>
 

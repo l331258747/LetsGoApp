@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
@@ -24,6 +25,7 @@ import com.njz.letsgoapp.mvp.server.ServerDetailPresenter;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerFeatureFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerOtherFragment;
@@ -88,6 +90,10 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
+                if(!MySelfInfo.getInstance().isLogin()){
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
                 if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                     Intent intent = new Intent(context, CustomActivity.class);
                     intent.putExtra("LOCATION", serverDetailMedel.getAddress());

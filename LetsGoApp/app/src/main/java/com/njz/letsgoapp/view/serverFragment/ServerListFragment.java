@@ -26,6 +26,7 @@ import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.server.CustomActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 import com.njz.letsgoapp.widget.popupwindow.PopServer;
@@ -186,6 +187,10 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
             @Override
             public void onCustemClick(int position) {
+                if(!MySelfInfo.getInstance().isLogin()){
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
                 Intent intent = new Intent(context, CustomActivity.class);
                 intent.putExtra("LOCATION", mAdapter2.getData(position).getAddress());
                 intent.putExtra("GUIDE_ID", mAdapter2.getData(position).getGuideId());

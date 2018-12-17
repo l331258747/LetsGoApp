@@ -2,7 +2,6 @@ package com.njz.letsgoapp.view.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -43,6 +42,7 @@ import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
 import com.njz.letsgoapp.widget.popupwindow.PopServerDetail;
+import com.njz.letsgoapp.widget.myTabLayout.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;

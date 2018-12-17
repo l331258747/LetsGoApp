@@ -123,7 +123,6 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.tv_time:
             case R.id.ll_time:
-                //TODO 日期选择
                 intent = new Intent(context, RangeCalendarActivity.class);
                 intent.putExtra("startTime", startTime);
                 intent.putExtra("endTime", endTime);

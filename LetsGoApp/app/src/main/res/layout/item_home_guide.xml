@@ -33,6 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:maxLines="1"
+                android:textStyle="bold"
                 android:maxLength="4"
                 tools:text="那就走那就走那就走" />
 
