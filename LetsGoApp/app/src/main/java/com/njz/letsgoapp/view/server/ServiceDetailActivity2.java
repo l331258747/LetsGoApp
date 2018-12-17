@@ -13,6 +13,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.bean.server.ServerItem;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
@@ -87,6 +88,12 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
+                if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                    Intent intent = new Intent(context, CustomActivity.class);
+                    intent.putExtra("LOCATION", serverDetailMedel.getAddress());
+                    startActivity(intent);
+                    return;
+                }
                 if (popServer == null) {
                     popServer = new PopServer(activity, tv_submit,serverDetailMedel);
                     popServer.setSubmit(null, new PopServer.SubmitClick() {
