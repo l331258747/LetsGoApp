@@ -17,14 +17,13 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
-import com.njz.letsgoapp.adapter.home.HomePlayAdapter;
+import com.njz.letsgoapp.adapter.home.HomeServerAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.NoticeItem;
-import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract;
@@ -38,7 +37,7 @@ import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.other.SearchActivity;
-import com.njz.letsgoapp.view.server.PlayListActivity;
+import com.njz.letsgoapp.view.server.ServerListActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
@@ -63,7 +62,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private RecyclerView recyclerView;
     private RecyclerView recycler_view_h;
     private HomeGuideAdapter guideAdapter;
-    private HomePlayAdapter playAdapter;
+    private HomeServerAdapter playAdapter;
     private LinearLayoutManager linearLayoutManager;
     private LinearLayout notice_ll;
     private ViewFlipper view_flipper;
@@ -195,32 +194,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         Intent intent;
         switch (v.getId()) {
             case R.id.tv_grid_ticket:
-                intent = new Intent(context,PlayListActivity.class);
+                intent = new Intent(context,ServerListActivity.class);
                 intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_TICKET_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_guide:
-                intent = new Intent(context,PlayListActivity.class);
+                intent = new Intent(context,ServerListActivity.class);
                 intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_GUIDE_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_car:
-                intent = new Intent(context,PlayListActivity.class);
+                intent = new Intent(context,ServerListActivity.class);
                 intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_CAR_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_custom:
-                intent = new Intent(context,PlayListActivity.class);
+                intent = new Intent(context,ServerListActivity.class);
                 intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_CUSTOM_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_feature:
-                intent = new Intent(context,PlayListActivity.class);
+                intent = new Intent(context,ServerListActivity.class);
                 intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_FEATURE_ID);
                 startActivity(intent);
                 break;
             case R.id.tv_grid_hotel:
-                intent = new Intent(context,PlayListActivity.class);
+                intent = new Intent(context,ServerListActivity.class);
                 intent.putExtra("SERVER_ID",Constant.SERVER_TYPE_HOTEL_ID);
                 startActivity(intent);
                 break;
@@ -273,11 +272,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        playAdapter = new HomePlayAdapter(activity, new ArrayList<ServerDetailMedel>());
+        playAdapter = new HomeServerAdapter(activity, new ArrayList<ServerDetailMedel>());
         recyclerView.setAdapter(playAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
-        playAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
+        playAdapter.setOnItemClickListener(new HomeServerAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);

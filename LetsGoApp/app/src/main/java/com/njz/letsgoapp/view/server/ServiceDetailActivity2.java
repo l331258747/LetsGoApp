@@ -75,9 +75,11 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
         serverDetailPresenter.serveGuideServeOrder(serviceId);
         bannerPresenter.bannerFindByType(0,serviceId);
+    }
 
-
-
+    public void initBottom(){
+        ll_bottom.setVisibility(View.VISIBLE);
+        tv_float_call.setVisibility(View.GONE);
     }
 
     PopServer popServer;

@@ -135,7 +135,12 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         } else {
             tv_submit.setVisibility(View.VISIBLE);
         }
+        initBottom();
+    }
+
+    public void initBottom(){
         ll_bottom.setVisibility(View.GONE);
+        tv_float_call.setVisibility(View.VISIBLE);
     }
 
     @Override

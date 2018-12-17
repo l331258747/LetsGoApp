@@ -591,7 +591,7 @@ public interface HttpService {
             @Query("mustPlay") int mustPlay,
             @Query("guideId") int guideId,
             @Query("guideServeId") int guideServeId,
-            @Query("order") int order,
+            @Query("type") int type,
             @QueryMap Map<String, String> maps
     );
     @GET("serve/guideServeFilterList")
@@ -603,7 +603,7 @@ public interface HttpService {
             @Query("mustPlay") int mustPlay,
             @Query("guideId") int guideId,
             @Query("guideServeId") int guideServeId,
-            @Query("order") int order
+            @Query("type") int type
     );
 
     //serve/getPrice 更多日期——价格

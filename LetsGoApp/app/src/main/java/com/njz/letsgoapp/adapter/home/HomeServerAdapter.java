@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView2;
@@ -24,12 +23,12 @@ import java.util.List;
  * Function:
  */
 
-public class HomePlayAdapter extends RecyclerView.Adapter<HomePlayAdapter.ViewHolder> {
+public class HomeServerAdapter extends RecyclerView.Adapter<HomeServerAdapter.ViewHolder> {
 
     Context context;
     List<ServerDetailMedel> datas;
 
-    public HomePlayAdapter(Context context, List<ServerDetailMedel> datas) {
+    public HomeServerAdapter(Context context, List<ServerDetailMedel> datas) {
         this.context = context;
         this.datas = datas;
     }

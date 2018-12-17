@@ -9,15 +9,11 @@ import android.view.View;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
-import com.njz.letsgoapp.adapter.home.HomePlayAdapter;
-import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.adapter.home.HomeServerAdapter;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
-import com.njz.letsgoapp.mvp.server.ServerListContract;
-import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.mvp.server.ServerListScreenContract;
 import com.njz.letsgoapp.mvp.server.ServerListScreenPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -41,9 +37,9 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class PlayListActivity extends GuideListActivity implements ServerListScreenContract.View{
+public class ServerListActivity extends GuideListActivity implements ServerListScreenContract.View{
 
-    HomePlayAdapter playAdapter;
+    HomeServerAdapter playAdapter;
     ServerListScreenPresenter serverListPresenter;
 
     int serveType;
@@ -129,12 +125,12 @@ public class PlayListActivity extends GuideListActivity implements ServerListScr
     public void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        playAdapter = new HomePlayAdapter(activity, new ArrayList<ServerDetailMedel>());
+        playAdapter = new HomeServerAdapter(activity, new ArrayList<ServerDetailMedel>());
         loadMoreWrapper = new LoadMoreWrapper(playAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         page = Constant.DEFAULT_PAGE;
 
-        playAdapter.setOnItemClickListener(new HomePlayAdapter.OnItemClickListener() {
+        playAdapter.setOnItemClickListener(new HomeServerAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);

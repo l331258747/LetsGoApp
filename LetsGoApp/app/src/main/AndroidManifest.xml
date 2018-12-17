@@ -116,7 +116,7 @@
             android:name=".view.home.GuideListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".view.server.PlayListActivity"
+            android:name=".view.server.ServerListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.home.GuideContractActivity" />
 
