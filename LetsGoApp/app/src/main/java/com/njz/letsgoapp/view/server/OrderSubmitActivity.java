@@ -20,6 +20,7 @@ import com.njz.letsgoapp.bean.send.SendChildOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.bean.server.SubmitOrderChildModel;
+import com.njz.letsgoapp.bean.server.SubmitOrderChilderItemModel;
 import com.njz.letsgoapp.bean.server.SubmitOrderModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderCreateContract;
@@ -180,6 +181,19 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         tv_total_price.setText("￥" + totalPrice);
     }
 
+    public List<SubmitOrderChilderItemModel> getData(){
+        List<SubmitOrderChilderItemModel> childerItems = new ArrayList<>();
+        for (ServerItem item : serverItems){
+            SubmitOrderChilderItemModel childerItem = new SubmitOrderChilderItemModel();
+            childerItem.setServeNum(item.getServeNum());
+            childerItem.setNjzGuideServeId(item.getNjzGuideServeId());
+            childerItem.setNjzGuideServeFormatId(item.getNjzGuideServeFormatId());
+            childerItem.setSelectTimeValueList(item.getSelectTimeValueList());
+            childerItems.add(childerItem);
+        }
+        return childerItems;
+    }
+
     public SubmitOrderModel getOrderData() {
         SubmitOrderModel submitOrderModel = new SubmitOrderModel();
         submitOrderModel.setGuideId(guideId);
@@ -189,7 +203,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         submitOrderModel.setPersonNum(numberView.getNum());
         submitOrderModel.setSpecialRequire(et_special.getEtContent());
         SubmitOrderChildModel submitOrderChildModel = new SubmitOrderChildModel();
-        submitOrderChildModel.setNjzGuideServeToOrderServeDtos(serverItems);
+        submitOrderChildModel.setNjzGuideServeToOrderServeDtos(getData());
         submitOrderModel.setNjzGuideServeToOrderDto(submitOrderChildModel);
         return submitOrderModel;
     }

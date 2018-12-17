@@ -20,8 +20,8 @@ public class URLConstant {
             return "http://www.njzou.net/travel-framework/";
         }else{
 //            return "http://192.168.100.156:8090/travel-framework/";//测试地址
-//            return "http://192.168.100.198:8080/";//本地 //18826420934  //941740
-            return "http://192.168.100.246:8088/travel-framework/";//测试地址
+            return "http://192.168.100.128:8080/";//本地 //18826420934  //941740
+//            return "http://192.168.100.246:8088/travel-framework/";//测试地址
 
         }
     }

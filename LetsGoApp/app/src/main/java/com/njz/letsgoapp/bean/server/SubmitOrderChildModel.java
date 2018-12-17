@@ -3,13 +3,13 @@ package com.njz.letsgoapp.bean.server;
 import java.util.List;
 
 public class SubmitOrderChildModel {
-    List<ServerItem> njzGuideServeToOrderServeDtos;
+    List<SubmitOrderChilderItemModel> njzGuideServeToOrderServeDtos;
 
-    public List<ServerItem> getNjzGuideServeToOrderServeDtos() {
+    public List<SubmitOrderChilderItemModel> getNjzGuideServeToOrderServeDtos() {
         return njzGuideServeToOrderServeDtos;
     }
 
-    public void setNjzGuideServeToOrderServeDtos(List<ServerItem> njzGuideServeToOrderServeDtos) {
+    public void setNjzGuideServeToOrderServeDtos(List<SubmitOrderChilderItemModel> njzGuideServeToOrderServeDtos) {
         this.njzGuideServeToOrderServeDtos = njzGuideServeToOrderServeDtos;
     }
 }

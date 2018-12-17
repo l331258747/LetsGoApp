@@ -91,6 +91,9 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                 if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                     Intent intent = new Intent(context, CustomActivity.class);
                     intent.putExtra("LOCATION", serverDetailMedel.getAddress());
+                    intent.putExtra("GUIDE_ID", serverDetailMedel.getGuideId());
+                    intent.putExtra("SERVER_ID", serverDetailMedel.getId());
+
                     startActivity(intent);
                     return;
                 }

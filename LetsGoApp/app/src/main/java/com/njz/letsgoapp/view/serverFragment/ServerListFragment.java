@@ -188,6 +188,8 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
             public void onCustemClick(int position) {
                 Intent intent = new Intent(context, CustomActivity.class);
                 intent.putExtra("LOCATION", mAdapter2.getData(position).getAddress());
+                intent.putExtra("GUIDE_ID", mAdapter2.getData(position).getGuideId());
+                intent.putExtra("SERVER_ID", mAdapter2.getData(position).getId());
                 startActivity(intent);
             }
         });
