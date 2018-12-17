@@ -122,7 +122,6 @@ dependencies {
     compile 'jp.wasabeef:richeditor-android:1.2.2'
     compile 'com.contrarywind:Android-PickerView:4.1.6'
     //-------远程库 end--------
-    compile project(':CalendarLib')
     compile project(':citypicker')
     compile project(':PhotoPicker')
     compile project(':convenientbanner')

@@ -21,7 +21,7 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
-import com.njz.letsgoapp.view.calendar.CalendarActivity;
+import com.njz.letsgoapp.view.calendar.RangeCalendarActivity;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
@@ -374,30 +374,39 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
         }
     }
 
+    String startTime = "";
+    String endTime = "";
+    Disposable calendarDisposable;
     private void setTime() {
-        context.startActivity(new Intent(context, CalendarActivity.class));
-        calDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
+
+        Intent intent = new Intent(context, RangeCalendarActivity.class);
+        intent.putExtra("startTime", startTime);
+        intent.putExtra("endTime", endTime);
+        context.startActivity(intent);
+
+        calendarDisposable = RxBus2.getInstance().toObservable(CalendarEvent.class, new Consumer<CalendarEvent>() {
             @Override
             public void accept(CalendarEvent calendarEvent) throws Exception {
-                calDisposable.dispose();
-                if(TextUtils.isEmpty(calendarEvent.getStartTime())){
-                    return;
+                if (!TextUtils.isEmpty(calendarEvent.getStartTime())) {
+                    tv_time_start.setText(startTime = calendarEvent.getStartTime());
+                    tv_time_end.setText(endTime = calendarEvent.getEndTime());
+
+                    tv_time_start.setBackgroundResource(R.drawable.btn_theme_hollow_r3);
+                    tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
+                    tv_time_start.setSelected(true);
+                    tv_time_end.setBackgroundResource(R.drawable.btn_theme_hollow_r3);
+                    tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
+                    tv_time_end.setSelected(true);
+
+                    tv_time_unrestricted.setBackgroundResource(R.drawable.btn_gray_hollow_r3);
+                    tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_99));
+                    tv_time_unrestricted.setSelected(false);
+
                 }
-                tv_time_start.setText(calendarEvent.getStartTime());
-                tv_time_end.setText(calendarEvent.getEndTime());
-
-                tv_time_start.setBackgroundResource(R.drawable.btn_theme_hollow_r3);
-                tv_time_start.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
-                tv_time_start.setSelected(true);
-                tv_time_end.setBackgroundResource(R.drawable.btn_theme_hollow_r3);
-                tv_time_end.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_theme));
-                tv_time_end.setSelected(true);
-
-                tv_time_unrestricted.setBackgroundResource(R.drawable.btn_gray_hollow_r3);
-                tv_time_unrestricted.setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.color_99));
-                tv_time_unrestricted.setSelected(false);
+                calendarDisposable.dispose();
             }
         });
+
     }
 
     SubmitLisener submitLisener;
