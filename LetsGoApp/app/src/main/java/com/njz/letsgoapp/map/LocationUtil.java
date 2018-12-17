@@ -7,7 +7,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.njz.letsgoapp.bean.other.LocationModel;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
-import com.zaaach.citypicker.model.City;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -62,17 +62,6 @@
     </style>
     <!--动画 end-->
 
-    <!--城市选择 start-->
-    <style name="CustomTheme" parent="DefaultCityPickerTheme">
-        <item name="cpCancelTextColor">@color/color_theme</item>
-        <item name="cpSearchCursorDrawable">@color/color_theme</item>
-        <item name="cpIndexBarNormalTextColor">@color/color_theme</item>
-        <item name="cpIndexBarSelectedTextColor">@color/color_theme</item>
-        <item name="cpSectionHeight">@dimen/custom_section_height</item>
-        <item name="cpOverlayBackground">@color/color_theme</item>
-    </style>
-    <!--城市选择 end-->
-
     <!--附件 样式start-->
     <style name="Theme.AppCompat.Light.Dialog.Alert.Self"
         parent="@style/Theme.AppCompat.Light.Dialog.Alert">
