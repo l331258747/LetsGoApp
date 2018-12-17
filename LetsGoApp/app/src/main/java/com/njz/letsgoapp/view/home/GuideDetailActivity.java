@@ -28,25 +28,21 @@ import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.home.GuideDetailContract;
 import com.njz.letsgoapp.mvp.home.GuideDetailPresenter;
 import com.njz.letsgoapp.util.AppUtils;
-import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
-import com.njz.letsgoapp.util.rxbus.busEvent.ServicePriceEvent;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.server.OrderSubmitActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerBookRuleFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerListFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerStoryFragment;
-import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.widget.GuideAuthenticationView;
 import com.njz.letsgoapp.widget.GuideLabelView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
 import com.njz.letsgoapp.widget.popupwindow.PopServerDetail;
-import com.njz.letsgoapp.widget.popupwindow.PopService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +67,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 //    LinearLayout ll_select_service;
     LinearLayout btn_call,ll_detail,ll_bottom;
 
-    PopService popService;
     GuideLabelView guideLabel;
     GuideAuthenticationView guide_authentication;
 
@@ -313,22 +308,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         }
         return serverPriceTotal;
     }
-
-//    private void showPopService() {
-//
-//        if (guideDetailModel == null
-//                || guideDetailModel.getTravelGuideServiceInfoVOs() == null
-//                || guideDetailModel.getTravelGuideServiceInfoVOs().size() == 0) {
-//            ToastUtil.showShortToast(context, "没有可供选择的服务项");
-//            return;
-//        }
-//
-//        if (popService == null) {
-//            popService = new PopService(activity, btn_submit,guideDetailModel);
-//            popService.initData(guideDetailModel.getId(), guideDetailModel.getTravelGuideServiceInfoVOs());
-//        }
-//        popService.showPopupWindow(btn_submit);
-//    }
 
     @Override
     public void bannerFindByTypeSuccess(List<BannerModel> models) {

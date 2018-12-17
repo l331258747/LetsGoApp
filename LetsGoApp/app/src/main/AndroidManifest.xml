@@ -136,15 +136,12 @@
         <activity android:name=".view.find.ReleaseDynamicActivity"/>
         <activity android:name=".view.find.DynamicDetailActivity"/>
 
-        <!--服务-->CustomActivity
+        <!--服务-->
         <activity android:name=".view.server.CustomActivity"/>
         <activity android:name=".view.calendar.PriceCalendarActivity"/>
         <activity android:name=".view.server.OrderSubmitActivity"/>
 
         <!-- 订单-->
-        <activity
-            android:name=".view.order.OrderSubmitActivity"
-            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.order.OrderEvaluateActivity"
             android:windowSoftInputMode="adjustPan" />
