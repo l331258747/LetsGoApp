@@ -137,7 +137,7 @@ public class OrderCancelActivity extends BaseActivity implements View.OnClickLis
                     public void exectEvent(DialogInterface alterDialog) {
                         mPresenter.orderTravelDeleteOrder(orderId,isMainly,tv_reason.getText().toString(),et_special.getText().toString());
                     }
-                });
+                }).show();
 
 
                 break;

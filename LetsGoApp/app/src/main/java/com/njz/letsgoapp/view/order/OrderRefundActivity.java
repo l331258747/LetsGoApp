@@ -198,7 +198,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
                     public void exectEvent(DialogInterface alterDialog) {
                         mPresenter.orderRefundAliRefund(id,childIds,tv_reason.getText().toString(),et_special.getText().toString());
                     }
-                });
+                }).show();
                 break;
 
         }
