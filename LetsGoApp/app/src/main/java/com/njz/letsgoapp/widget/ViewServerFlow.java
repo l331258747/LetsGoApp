@@ -11,14 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.bean.server.PlayChileMedel;
 import com.njz.letsgoapp.bean.server.PriceCalendarChildModel;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,15 +57,18 @@ public class ViewServerFlow extends LinearLayout {
 
     }
 
+    //设置最大选择数量，-1：多选或不选，-2：单选或不选，0：不能选，1：只能选择1个
     public void setMaxSelect(int size){
         maxSelectCount = size;
         tagFlowLayout.setMaxSelectCount(size);
     }
 
+    //用来给日历做判断，进入日历为单选还是多选
     public int getMaxSelect(){
         return maxSelectCount;
     }
 
+    //用来判断默认首个元素是否被选中
     public void setSelectedOne(boolean isSelectedOne){
         this.isSelectedOne = isSelectedOne;
     }
@@ -77,7 +78,9 @@ public class ViewServerFlow extends LinearLayout {
         tv_date_more.setOnClickListener(click);
     }
 
+    //----------套餐，车型，语言，初始化---------
     public void initFlow(String title, String title2, List<PlayChileMedel> mVals,final OnTagLinsenerClick onTagLinsenerClick) {
+        //标题文字显示
         tv_title.setText(title);
         if (TextUtils.isEmpty(title2)) {
             tv_title2.setVisibility(GONE);
@@ -85,16 +88,13 @@ public class ViewServerFlow extends LinearLayout {
             tv_title2.setVisibility(VISIBLE);
             tv_title2.setText(title2);
         }
+
         final LayoutInflater mInflater = LayoutInflater.from(context);
         TagAdapter adapter1 = new TagAdapter<PlayChileMedel>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, PlayChileMedel s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_server, tagFlowLayout, false);
                 tv.setText(s.getGuideServeFormatName());
-
-                if(position == 0 && isSelectedOne){
-                    onSelected(0,tv);
-                }
 
                 return tv;
             }
@@ -104,7 +104,7 @@ public class ViewServerFlow extends LinearLayout {
 
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ffe6d5_solid_r5));
                 ((TextView) view).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
-                onTagLinsenerClick.onTagLinsenerClick(position);
+                onTagLinsenerClick.onTagLinsenerClick(position,true);
 
             }
 
@@ -113,16 +113,25 @@ public class ViewServerFlow extends LinearLayout {
                 super.unSelected(position, view);
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ee_solid_r5));
                 ((TextView) view).setTextColor(ContextCompat.getColor(context, R.color.color_88));
+                onTagLinsenerClick.onTagLinsenerClick(position,false);
             }
         };
         tagFlowLayout.setAdapter(adapter1);
+        if(isSelectedOne){
+            adapter1.setSelectedList(getSelectIndex2(mVals));
+        }
     }
 
-    public interface OnTagLinsenerClick{
-        void onTagLinsenerClick(int position);
+    public interface OnTagLinsenerClick2 {
+        void onTagLinsenerClick2(int position);
+    }
+
+    public interface OnTagLinsenerClick {
+        void onTagLinsenerClick(int position,boolean isSelected);
     }
 
 
+    //---------日期初始化------------
     public void initFlow2(String title, String title2, final List<PriceCalendarChildModel> mVals) {
         tv_title.setText(title);
         if (TextUtils.isEmpty(title2)) {
@@ -165,7 +174,8 @@ public class ViewServerFlow extends LinearLayout {
         tagFlowLayout.setAdapter(adapter1);
     }
 
-    public void setAdapter(final List<PriceCalendarChildModel> mVals,final OnTagLinsenerClick onTagLinsenerClick){
+    //---------日期setAdapter------------
+    public void setAdapter(final List<PriceCalendarChildModel> mVals,final OnTagLinsenerClick2 onTagLinsenerClick2){
         final LayoutInflater mInflater = LayoutInflater.from(context);
         final TagAdapter adapter1 = new TagAdapter<PriceCalendarChildModel>(mVals) {
 
@@ -185,7 +195,7 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
 
                 mVals.get(position).setSelect(true);
-                onTagLinsenerClick.onTagLinsenerClick(position);
+                onTagLinsenerClick2.onTagLinsenerClick2(position);
             }
 
             @Override
@@ -195,7 +205,7 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
 
                 mVals.get(position).setSelect(false);
-                onTagLinsenerClick.onTagLinsenerClick(position);
+                onTagLinsenerClick2.onTagLinsenerClick2(position);
             }
         };
         tagFlowLayout.setAdapter(adapter1);
@@ -208,6 +218,13 @@ public class ViewServerFlow extends LinearLayout {
             if (sVals.get(i).isSelect() == true) {
                 ints.add(i);
             }
+        }
+        return ints;
+    }
+    public Set<Integer> getSelectIndex2(List<PlayChileMedel> sVals) {
+        Set<Integer> ints = new HashSet<>();
+        if(sVals.size() > 0){
+            ints.add(0);
         }
         return ints;
     }

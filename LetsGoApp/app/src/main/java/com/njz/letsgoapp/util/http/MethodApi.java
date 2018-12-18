@@ -74,7 +74,7 @@ public class MethodApi {
     }
 
     public static void msgCheckLogin(String mobile, String msg, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckLogin(mobile, msg); //在HttpServer中
+        Observable observable = HttpMethods.getInstance().getHttpService().msgCheckLogin(mobile, msg,0); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

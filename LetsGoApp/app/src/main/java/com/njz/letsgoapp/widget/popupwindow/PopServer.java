@@ -260,7 +260,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             vsf.setSelectedOne(true);
             vsf.initFlow("选择套餐", null, mValsTc, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
-                public void onTagLinsenerClick(int position) {
+                public void onTagLinsenerClick(int position,boolean isSelected) {
                     titleTc = mValsTc.get(position).getGuideServeFormatName();
                     priceTc = mValsTc.get(position).getServeDefaultPrice();
                     formatIdTc = mValsTc.get(position).getId();
@@ -271,12 +271,28 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         if (mValsCx.size() > 0) {
             ViewServerFlow vsf = new ViewServerFlow(context);
             flow_parent.addView(vsf);
-            vsf.initFlow("选择车型", "（自己开车可不选）", mValsCx, new ViewServerFlow.OnTagLinsenerClick() {
+
+            String title2 = "";
+            if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CAR_ID){
+                vsf.setSelectedOne(true);
+            }else{
+                title2 = "（自己开车可不选）";
+                vsf.setMaxSelect(-2);
+            }
+
+            vsf.initFlow("选择车型", title2, mValsCx, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
-                public void onTagLinsenerClick(int position) {
-                    titleCar = mValsCx.get(position).getGuideServeFormatName();
-                    priceCar = mValsCx.get(position).getServeDefaultPrice();
-                    formatIdCar = mValsCx.get(position).getId();
+                public void onTagLinsenerClick(int position,boolean isSelected) {
+                    if(isSelected){
+                        titleCar = mValsCx.get(position).getGuideServeFormatName();
+                        priceCar = mValsCx.get(position).getServeDefaultPrice();
+                        formatIdCar = mValsCx.get(position).getId();
+                    }else{
+                        titleCar = "";
+                        priceCar = 0f;
+                        formatIdCar = 0;
+                    }
+
                     setChange();
                 }
             });
@@ -288,7 +304,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             vsf.setSelectedOne(true);
             vsf.initFlow("选择语言", null, mValsYy, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
-                public void onTagLinsenerClick(int position) {
+                public void onTagLinsenerClick(int position,boolean isSelected) {
                     titleLanguage = mValsYy.get(position).getGuideServeFormatName();
                     priceLanguage = mValsYy.get(position).getServeDefaultPrice();
                     formatIdLanguage = mValsYy.get(position).getId();
@@ -416,9 +432,9 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             }
         }
         Collections.sort(priceCalendarChildModels); // 按年龄排序
-        pirceVsf.setAdapter(priceCalendarChildModels, new ViewServerFlow.OnTagLinsenerClick() {
+        pirceVsf.setAdapter(priceCalendarChildModels, new ViewServerFlow.OnTagLinsenerClick2() {
             @Override
-            public void onTagLinsenerClick(int position) {
+            public void onTagLinsenerClick2(int position) {
                 setPriceChange();
             }
         });

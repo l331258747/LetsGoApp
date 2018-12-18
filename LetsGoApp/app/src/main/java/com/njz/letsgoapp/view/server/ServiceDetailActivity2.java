@@ -90,10 +90,13 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
+                if(serverDetailMedel == null) return;
+
                 if(!MySelfInfo.getInstance().isLogin()){
                     startActivity(new Intent(context,LoginActivity.class));
                     return ;
                 }
+
                 if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                     Intent intent = new Intent(context, CustomActivity.class);
                     intent.putExtra("LOCATION", serverDetailMedel.getAddress());

@@ -107,7 +107,8 @@ public interface HttpService {
     @POST("sms/msgCheckLogin")
     Observable<BaseResponse<LoginModel>> msgCheckLogin(
             @Field("mobile") String mobile,
-            @Field("msg") String msg
+            @Field("msg") String msg,
+            @Field("loginType") int loginType
     );
 
     //短信验证码
