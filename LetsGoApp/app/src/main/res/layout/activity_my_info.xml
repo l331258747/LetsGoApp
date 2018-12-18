@@ -27,7 +27,7 @@
                     android:id="@+id/iv_head"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/head_default" />
+                    android:src="@mipmap/default_head" />
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -25,7 +25,7 @@
                 android:id="@+id/iv_img"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                tools:src="@mipmap/head_default" />
+                tools:src="@mipmap/default_head" />
 
             <TextView
                 android:id="@+id/tv_title"

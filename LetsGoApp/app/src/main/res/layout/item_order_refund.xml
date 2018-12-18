@@ -22,7 +22,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/head_default" />
+                android:src="@mipmap/default_head" />
 
             <TextView
                 android:id="@+id/tv_title"

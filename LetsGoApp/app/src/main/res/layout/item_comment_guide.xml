@@ -17,7 +17,7 @@
             android:id="@+id/comment_head"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            tools:src="@mipmap/head_default" />
+            tools:src="@mipmap/default_head" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
