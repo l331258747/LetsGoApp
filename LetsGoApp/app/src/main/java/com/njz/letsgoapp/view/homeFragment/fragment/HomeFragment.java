@@ -377,19 +377,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            view_flipper.stopFlipping();
+        }else{
+            if(isflipper)
+                view_flipper.startFlipping();
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         convenientBanner.stopTurning();
-        view_flipper.stopFlipping();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         convenientBanner.startTurning(Constant.BANNER_RUNNING_TIME);
-        if(isflipper)
-            view_flipper.startFlipping();
-
     }
     //----------banner end
 
