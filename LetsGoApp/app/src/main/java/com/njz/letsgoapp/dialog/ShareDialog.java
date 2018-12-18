@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.other.ReportActivity;
 import com.njz.letsgoapp.wxapi.WXHelp;
 
@@ -140,6 +142,10 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
     }
 
     private void report() {
+        if(!MySelfInfo.getInstance().isLogin()){
+            mContext.startActivity(new Intent(mContext, LoginActivity.class));
+            return;
+        }
         Intent intent = new Intent(mContext, ReportActivity.class);
         intent.putExtra("reportId",reportId);
         intent.putExtra("reportClass",reportClass);
