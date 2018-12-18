@@ -391,6 +391,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
             model.setPayingStatus(str.getPayingStatus());
+            model.setLocation(str.getLocation());
         }
         mAdapter.setData(str.getNjzChildOrderVOS());
 

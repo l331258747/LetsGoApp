@@ -151,9 +151,8 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
             ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
 
-            ((DefaultHolder) holder).tv_price.setText("￥" + data.getPrice());
+            ((DefaultHolder) holder).tv_server_name.setText(data.getServerName());
 
-            setNum(data,((DefaultHolder) holder).tv_num);
             ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
 
             if (mOnItemClickListener != null) {
@@ -285,7 +284,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
     public class DefaultHolder extends OrderRefundListAdapter.BaseViewHolder {
         ImageView iv_img;
-        TextView tv_title,btn_cancel,tv_price,tv_num,tv_total_price;
+        TextView tv_title,btn_cancel,tv_server_name,tv_total_price;
         LinearLayout ll_order_item;
 
         DefaultHolder(View itemView) {
@@ -294,8 +293,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             btn_cancel = itemView.findViewById(R.id.btn_cancel);
-            tv_price = itemView.findViewById(R.id.tv_comment);
-            tv_num = itemView.findViewById(R.id.tv_num);
+            tv_server_name = itemView.findViewById(R.id.tv_comment);
             tv_total_price = itemView.findViewById(R.id.tv_total_price);
         }
     }

@@ -190,6 +190,7 @@
                         android:id="@+id/fixed_view_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:login_item_title_color="@color/color_99"
                         app:login_item_title="目的地"
                         app:login_item_title_width="80dp" />

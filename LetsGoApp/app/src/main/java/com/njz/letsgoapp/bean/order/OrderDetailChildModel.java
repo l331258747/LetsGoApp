@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.order;
 
+import com.njz.letsgoapp.constant.Constant;
+
 /**
  * Created by LGQ
  * Time: 2018/9/28
@@ -53,6 +55,65 @@ public class OrderDetailChildModel {
     private int useDay;
     private int payingStatus;
     private int serveId;
+    private String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
+    }
+
+    public String getTimeTitle(){
+        switch (value){
+            case Constant.SERVER_TYPE_GUIDE:
+                return "行程时间";
+            case Constant.SERVER_TYPE_HOTEL:
+                return "入住时间";
+            case Constant.SERVER_TYPE_TICKET:
+                return "日期";
+            case Constant.SERVER_TYPE_CAR:
+                return "出发日期";
+            case Constant.SERVER_TYPE_FEATURE:
+                return "出发日期";
+        }
+        return "";
+    }
+
+    public String getCountContent(){
+        switch (value){
+            case Constant.SERVER_TYPE_GUIDE:
+                return "";
+            case Constant.SERVER_TYPE_HOTEL:
+                return roomNum + "间";
+            case Constant.SERVER_TYPE_TICKET:
+                return ticketNum + "张";
+            case Constant.SERVER_TYPE_CAR:
+                return personNum + "次";
+            case Constant.SERVER_TYPE_FEATURE:
+                return personNum + "次";
+        }
+        return "";
+    }
+
+    public String getServerName() {
+        switch (value){
+            case Constant.SERVER_TYPE_GUIDE:
+                return "向导陪游";
+            case Constant.SERVER_TYPE_FEATURE:
+                return "特色体验";
+            case Constant.SERVER_TYPE_CUSTOM:
+                return "私人定制";
+            case Constant.SERVER_TYPE_HOTEL:
+                return "代订酒店";
+            case Constant.SERVER_TYPE_TICKET:
+                return "代订门票";
+            case Constant.SERVER_TYPE_CAR:
+                return "接送机/站";
+        }
+        return "";
+    }
 
     public int getServeId() {
         return serveId;

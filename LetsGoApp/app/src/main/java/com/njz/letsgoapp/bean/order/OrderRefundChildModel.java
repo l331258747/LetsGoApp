@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.order;
 
+import com.njz.letsgoapp.constant.Constant;
+
 /**
  * Created by LGQ
  * Time: 2018/9/29
@@ -49,6 +51,24 @@ public class OrderRefundChildModel {
     private String value;
     private int useDay;
     private int serveId;
+
+    public String getServerName() {
+        switch (value){
+            case Constant.SERVER_TYPE_GUIDE:
+                return "向导陪游";
+            case Constant.SERVER_TYPE_FEATURE:
+                return "tsty特色体验";
+            case Constant.SERVER_TYPE_CUSTOM:
+                return "私人定制";
+            case Constant.SERVER_TYPE_HOTEL:
+                return "代订酒店";
+            case Constant.SERVER_TYPE_TICKET:
+                return "代订门票";
+            case Constant.SERVER_TYPE_CAR:
+                return "接送机/站";
+        }
+        return "";
+    }
 
     public int getServeId() {
         return serveId;

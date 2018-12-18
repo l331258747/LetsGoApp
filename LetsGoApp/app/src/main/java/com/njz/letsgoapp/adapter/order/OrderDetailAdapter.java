@@ -3,6 +3,7 @@ package com.njz.letsgoapp.adapter.order;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = LayoutInflater.from(context).inflate(R.layout.item_order_submit, parent, false);
+        view = LayoutInflater.from(context).inflate(R.layout.item_order_submit2, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,47 +61,19 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
             GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
             ((ViewHolder) holder).tv_title.setText(data.getTitle());
-            ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
+            ((ViewHolder) holder).tv_server_name.setText(data.getServerName());
+            ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
-            switch (data.getValue()) {
-                case Constant.SERVICE_TYPE_SHORT_CUSTOM:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getPersonNum() + "人");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
-
-                    ((ViewHolder) holder).tv_time_title.setText("行程时间");
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_CAR:
-                case Constant.SERVICE_TYPE_SHORT_GUIDE:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getDayNum() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
-                    ((ViewHolder) holder).tv_count_title.setText("出行人数");
-                    ((ViewHolder) holder).tv_count_content.setText(data.getPersonNum() + "");
-
-                    ((ViewHolder) holder).tv_time_title.setText("出行日期");
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_HOTEL:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getRoomNum() + "间" + "x" +  data.getDayNum() + "天");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
-
-                    ((ViewHolder) holder).tv_time_title.setText("入住时间");
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_TICKET:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getTicketNum() + "张");
-                    ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
-
-                    ((ViewHolder) holder).tv_time_title.setText("日期");
-                    break;
+            ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
+            if(TextUtils.equals(data.getValue(),Constant.SERVER_TYPE_GUIDE)){
+                ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
             }
+            ((ViewHolder) holder).tv_count_content.setText(data.getCountContent());
 
+            ((ViewHolder) holder).tv_time_title.setText(data.getTimeTitle());
             ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
+            ((ViewHolder) holder).tv_location_content.setText(data.getLocation());
+
 
             ((ViewHolder) holder).btn_cancel.setVisibility(View.GONE);
             switch (data.getPayStatus()){
@@ -175,9 +148,9 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     public class ViewHolder extends BaseViewHolder {
 
         ImageView iv_img;
-        TextView tv_title, tv_price_unit, tv_day, tv_price_total;
+        TextView tv_title, tv_server_name, tv_price_total;
         LinearLayout ll_count;
-        TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content,btn_cancel;
+        TextView  tv_count_content, tv_time_title, tv_time_content,btn_cancel,tv_location_content;
         FrameLayout fl_parent;
 
         public ViewHolder(View itemView) {
@@ -185,15 +158,14 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             iv_img = itemView.findViewById(R.id.iv_img);
             fl_parent = itemView.findViewById(R.id.fl_parent);
             tv_title = itemView.findViewById(R.id.tv_title);
-            tv_price_unit = itemView.findViewById(R.id.tv_price_unit);
-            tv_day = itemView.findViewById(R.id.tv_day);
+            tv_server_name = itemView.findViewById(R.id.tv_serverName);
             tv_price_total = itemView.findViewById(R.id.tv_price_total);
             ll_count = itemView.findViewById(R.id.ll_count);
             tv_time_content = itemView.findViewById(R.id.tv_time_content);
             tv_time_title = itemView.findViewById(R.id.tv_time_title);
             tv_count_content = itemView.findViewById(R.id.tv_count_content);
-            tv_count_title = itemView.findViewById(R.id.tv_count_title);
             btn_cancel = itemView.findViewById(R.id.btn_cancel);
+            tv_location_content = itemView.findViewById(R.id.tv_location_content);
 
         }
     }

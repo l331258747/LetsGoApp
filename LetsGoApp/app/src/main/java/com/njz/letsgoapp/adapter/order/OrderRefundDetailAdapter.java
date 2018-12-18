@@ -60,47 +60,22 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
 
             GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
             ((ViewHolder) holder).tv_title.setText(data.getTitle());
-            ((ViewHolder) holder).tv_price_unit.setText("￥" + data.getPrice());
+            ((ViewHolder) holder).tv_server_name.setText(data.getServerName());
             ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
-            switch (data.getValue()) {
-                case Constant.SERVICE_TYPE_SHORT_CUSTOM:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getPersonNum() + "人");
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
-
-                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_custom));
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_CAR:
-                case Constant.SERVICE_TYPE_SHORT_GUIDE:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getDayNum() + "天");
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
-                    ((ViewHolder) holder).tv_count_title.setText("出行人数");
-                    ((ViewHolder) holder).tv_count_content.setText(data.getPersonNum() + "");
-
-                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_car));
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_HOTEL:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getRoomNum() + "间" + "x" +  data.getDayNum() + "天");
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
-
-                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_hotel));
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_TICKET:
-                    ((ViewHolder) holder).tv_day.setText("x" + data.getTicketNum() + "张");
-
-                    ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
-
-                    ((ViewHolder) holder).tv_time_title.setText(context.getResources().getString(R.string.order_item_date_ticket));
-                    break;
+            ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
+            if(TextUtils.equals(data.getValue(),Constant.SERVER_TYPE_GUIDE)){
+                ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
             }
+            ((ViewHolder) holder).tv_count_content.setText(data.getCountContent());
 
+            ((ViewHolder) holder).tv_time_title.setText(data.getTimeTitle());
             ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
+            ((ViewHolder) holder).tv_location_content.setText(data.getLocation());
+
+
             ((ViewHolder) holder).tv_penalty_content.setText("￥"+data.getDefaultMoney());
             ((ViewHolder) holder).tv_refund_price_content.setText("￥"+data.getRefundMoney());
-
 
             ((ViewHolder) holder).ll_travel_going.setVisibility(View.GONE);
 
@@ -143,10 +118,10 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
     public class ViewHolder extends BaseViewHolder {
 
         ImageView iv_img;
-        TextView tv_title, tv_price_unit, tv_day, tv_price_total;
+        TextView tv_title, tv_server_name, tv_price_total;
         LinearLayout ll_count,ll_travel_going;
-        TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content,btn_cancel
-                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content;
+        TextView  tv_count_content, tv_time_title, tv_time_content,btn_cancel
+                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_location_content;
         FrameLayout fl_parent;
 
         TextView tv_penalty_title,tv_penalty_content,tv_refund_price_title,tv_refund_price_content;
@@ -157,14 +132,12 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             ll_travel_going = itemView.findViewById(R.id.ll_travel_going);
-            tv_price_unit = itemView.findViewById(R.id.tv_price_unit);
-            tv_day = itemView.findViewById(R.id.tv_day);
+            tv_server_name = itemView.findViewById(R.id.tv_price_unit);
             tv_price_total = itemView.findViewById(R.id.tv_price_total);
             ll_count = itemView.findViewById(R.id.ll_count);
             tv_time_content = itemView.findViewById(R.id.tv_time_content);
             tv_time_title = itemView.findViewById(R.id.tv_time_title);
             tv_count_content = itemView.findViewById(R.id.tv_count_content);
-            tv_count_title = itemView.findViewById(R.id.tv_count_title);
             btn_cancel = itemView.findViewById(R.id.btn_cancel);
             tv_penalty_title = itemView.findViewById(R.id.tv_penalty_title);
             tv_penalty_content = itemView.findViewById(R.id.tv_penalty_content);
@@ -173,6 +146,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             tv_travel_day_content = itemView.findViewById(R.id.tv_travel_day_content);
             tv_used_price_content = itemView.findViewById(R.id.tv_used_price_content);
             tv_not_travel_day_content = itemView.findViewById(R.id.tv_not_travel_day_content);
+            tv_location_content = itemView.findViewById(R.id.tv_location_content);
 
 
         }
