@@ -562,6 +562,19 @@ public interface HttpService {
             @Part("reportClass") int reportClass,
             @Part List<MultipartBody.Part> files
     );
+
+    @Multipart
+    @POST("report/userReport")
+    Observable<BaseResponse<EmptyModel>> reportUserReport(
+            @Part("reportId") int reportId,//被举报用户id-
+            @Part("reportContent") RequestBody reportContent,//补充说明
+            @Part("reportReason") RequestBody reportReason,//举报原因
+            @Part("originType") int originType,//来源类型4:游客app安卓
+            @Part("coverReportUserType") int coverReportUserType,//被举报用户类型(0：用户，1：导游)
+            @Part("reportContentId") int reportContentId,//举报内容id
+            @Part("reportClass") int reportClass,//举报内容类型（0：导游详情、1：服务详情、2：游客个人主页、3：动态详情）-
+            @Part List<MultipartBody.Part> files
+    );
     //--------other end---------
 
 

@@ -260,7 +260,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
             case R.id.right_iv:
                 if (model == null) return;
                 ShareDialog dialog = new ShareDialog(activity, "", "", "", "");
-                dialog.setReportData(model.getId(), ShareDialog.REPORT_SERVICE);
+                dialog.setReportData(model.getGuideId(), ShareDialog.REPORT_SERVICE,model.getId());
                 dialog.setType(ShareDialog.TYPE_REPORT);
                 dialog.show();
                 break;

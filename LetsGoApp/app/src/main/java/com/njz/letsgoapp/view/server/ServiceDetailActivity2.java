@@ -136,7 +136,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
             case R.id.right_iv:
                 if(serverDetailMedel == null) return;
                 ShareDialog dialog = new ShareDialog(activity,"","","","");
-                dialog.setReportData(serverDetailMedel.getId(), ShareDialog.REPORT_SERVICE);
+                dialog.setReportData(serverDetailMedel.getGuideId(), ShareDialog.REPORT_SERVICE,serverDetailMedel.getId());
                 dialog.setType(ShareDialog.TYPE_REPORT);
                 dialog.show();
                 break;

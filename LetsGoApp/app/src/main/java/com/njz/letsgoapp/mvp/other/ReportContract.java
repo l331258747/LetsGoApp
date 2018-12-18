@@ -13,7 +13,8 @@ import java.util.List;
 public interface ReportContract {
 
     interface Presenter {
-        void upUserReport(int reportId,String reportContent, String reportReason, int reportClass, List<String> files);
+        void upUserReport(int reportId, String reportContent, String reportReason, int coverReportUserType,
+                          int reportContentId,int reportClass, List<String> files);
     }
 
     interface View {

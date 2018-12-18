@@ -26,7 +26,8 @@ public class ReportPresenter implements ReportContract.Presenter {
     }
 
     @Override
-    public void upUserReport(int reportId, String reportContent, String reportReason, int reportClass, List<String> files) {
+    public void upUserReport(int reportId, String reportContent, String reportReason, int coverReportUserType,
+                             int reportContentId,int reportClass, List<String> files) {
         ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override
             public void onSuccess(EmptyModel data) {
@@ -38,6 +39,7 @@ public class ReportPresenter implements ReportContract.Presenter {
                 iView.upUserReportFailed(errorMsg);
             }
         };
-        MethodApi.upUserReport(reportId, reportContent, reportReason, reportClass, files, new OnSuccessAndFaultSub(listener, context, false));
+        MethodApi.reportUserReport(reportId, reportContent, reportReason,coverReportUserType,
+                reportContentId,reportClass, files, new OnSuccessAndFaultSub(listener, context, false));
     }
 }

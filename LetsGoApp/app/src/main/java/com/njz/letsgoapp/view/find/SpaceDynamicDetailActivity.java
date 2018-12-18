@@ -407,7 +407,7 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
                         TextUtils.isEmpty(model.getContent())?"TA发表了一份动态，快去查看吧！":model.getContent(),
                         model.getImgUrl(),
                         URLConstant.SHARE_DYNAMIC+"?friendSterId="+model.getFriendSterId());
-                dialog.setReportData(model.getFriendSterId(), ShareDialog.REPORT_DYNAMIC);
+                dialog.setReportData(model.getUserId(), ShareDialog.REPORT_DYNAMIC,model.getFriendSterId());
                 if(model.getUserId() == MySelfInfo.getInstance().getUserId()){
                     dialog.setType(ShareDialog.TYPE_FRIEND);
                 }else{

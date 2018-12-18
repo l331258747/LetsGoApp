@@ -370,7 +370,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
             case R.id.iv_share:
                 if(data == null) return;
                 ShareDialog dialog = new ShareDialog(activity, "", "", "", "");
-                dialog.setReportData(data.getUserId(), ShareDialog.REPORT_USER);
+                dialog.setReportData(data.getUserId(), ShareDialog.REPORT_USER,data.getUserId());
                 dialog.setType(ShareDialog.TYPE_REPORT);
                 dialog.show();
                 break;

@@ -34,13 +34,18 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
     String imageUrl;
     String url;
 
-    private int reportId;
-    private int reportClass;
+    private int reportId;//被举报用户id-
+    private int reportClass;//举报内容类型（0：导游详情、1：服务详情、2：游客个人主页、3：动态详情）
+    private int coverReportUserType;//被举报用户类型(0：用户，1：导游)
+    private int reportContentId;//举报内容id
 
-    public static final int REPORT_DYNAMIC = 1;
-    public static final int REPORT_GUIDE = 2;
-    public static final int REPORT_SERVICE = 3;
-    public static final int REPORT_USER = 4;
+    public static final int REPORT_USER_TYPE_USER = 0;
+    public static final int REPORT_USER_TYPE_GUIDE = 1;
+
+    public static final int REPORT_GUIDE = 0;
+    public static final int REPORT_SERVICE = 1;
+    public static final int REPORT_USER = 2;
+    public static final int REPORT_DYNAMIC = 3;
 
     public static final int TYPE_REPORT = 1;//只显示举报
     public static final int TYPE_ALL = 0;//全部限制
@@ -98,9 +103,16 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    public void setReportData(int reportId,int reportClass){
+    public void setReportData(int reportId,int reportClass,int reportContentId){
         this.reportId = reportId;
         this.reportClass = reportClass;
+        this.reportContentId = reportContentId;
+
+        if(reportClass == REPORT_SERVICE || reportClass == REPORT_GUIDE){
+            this.coverReportUserType = REPORT_USER_TYPE_GUIDE;
+        }else{
+            this.coverReportUserType = REPORT_USER_TYPE_USER;
+        }
     }
 
     public void setType(int type){
@@ -131,6 +143,8 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
         Intent intent = new Intent(mContext, ReportActivity.class);
         intent.putExtra("reportId",reportId);
         intent.putExtra("reportClass",reportClass);
+        intent.putExtra("coverReportUserType",coverReportUserType);
+        intent.putExtra("reportContentId",reportContentId);
         mContext.startActivity(intent);
     }
 }

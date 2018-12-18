@@ -54,14 +54,18 @@ public class ReportActivity extends BaseActivity implements View.OnClickListener
     private Disposable disposable;
     private ReportPresenter mPresenter;
 
-    private int reportId;
-    private int reportClass;
+    private int reportId;//被举报用户id-
+    private int reportClass;//举报内容类型（0：导游详情、1：服务详情、2：游客个人主页、3：动态详情）
+    private int coverReportUserType;//被举报用户类型(0：用户，1：导游)
+    private int reportContentId;//举报内容id
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         reportId = intent.getIntExtra("reportId",0);
         reportClass = intent.getIntExtra("reportClass",0);
+        coverReportUserType = intent.getIntExtra("coverReportUserType",0);
+        reportContentId = intent.getIntExtra("reportContentId",0);
     }
 
     @Override
@@ -178,7 +182,7 @@ public class ReportActivity extends BaseActivity implements View.OnClickListener
     }
 
     public void submit(){
-        mPresenter.upUserReport(reportId,et_special.getText().toString(),report_select_view.getContent(),reportClass,upLoadPhotos);
+        mPresenter.upUserReport(reportId,et_special.getText().toString(),report_select_view.getContent(),coverReportUserType,reportContentId,reportClass,upLoadPhotos);
     }
 
     @Override
