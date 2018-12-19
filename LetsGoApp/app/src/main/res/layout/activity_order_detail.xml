@@ -226,6 +226,16 @@
                         app:login_item_title="联系方式"
                         app:login_item_title_width="80dp" />
 
+                    <com.njz.letsgoapp.widget.FixedItemEditView
+                        android:id="@+id/login_view_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:login_item_hint="请输入人数"
+                        app:login_item_max_length="11"
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_title="出行人数"
+                        app:login_item_title_width="80dp" />
+
                     <com.njz.letsgoapp.widget.SpecialFixedItemEditView
                         android:id="@+id/et_special"
                         android:layout_width="match_parent"

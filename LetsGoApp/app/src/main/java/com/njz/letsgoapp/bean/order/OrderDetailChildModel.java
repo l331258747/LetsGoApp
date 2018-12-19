@@ -99,6 +99,8 @@ public class OrderDetailChildModel {
 
     public String getCountContent(){
         switch (serveType){
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return serveNum + "";
             case Constant.SERVER_TYPE_HOTEL_ID:
                 return serveNum + "间";
             case Constant.SERVER_TYPE_TICKET_ID:

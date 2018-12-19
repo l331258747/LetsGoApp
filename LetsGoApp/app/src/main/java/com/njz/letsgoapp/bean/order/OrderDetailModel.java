@@ -61,10 +61,15 @@ public class OrderDetailModel {
     private String guideMobile;
     private String startDate;
     private String endDate;
+    private int personNum;
     private int planStatus;
     private List<OrderDetailChildModel> njzChildOrderVOS;
     private int payingStatus;
     private int serveId;
+
+    public int getPersonNum() {
+        return personNum;
+    }
 
     public int getPlanStatus() {
         return planStatus;

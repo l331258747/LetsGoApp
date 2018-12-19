@@ -140,6 +140,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         fixed_view_city.setContent(str.getLocation());
         login_view_name.setContent(str.getName());
         login_view_phone.setContent(str.getMobile());
+        login_view_num.setContent(str.getPersonNum() + "");
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         tv_refund_penalty.setText(str.getDefaultMoney() + "");

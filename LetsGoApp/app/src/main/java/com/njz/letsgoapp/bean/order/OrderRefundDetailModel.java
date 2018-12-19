@@ -56,8 +56,13 @@ public class OrderRefundDetailModel {
     private int id;
     private String applyTime;
     private String guideName;
+    private int personNum;
     private String guideMobile;
     private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
+
+    public int getPersonNum() {
+        return personNum;
+    }
 
     public String getGuideMobile() {
         return guideMobile;

@@ -47,7 +47,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public TextView tv_guide_name, tv_order_status;
 
     public FixedItemTextView fixed_view_city;
-    public FixedItemEditView login_view_name, login_view_phone;
+    public FixedItemEditView login_view_name, login_view_phone,login_view_num;
     public SpecialFixedItemEditView et_special;
 
     public RecyclerView recyclerView;
@@ -100,6 +100,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         ll_order_no = $(R.id.ll_order_no);
         ll_order_create_time = $(R.id.ll_order_create_time);
+        login_view_num = $(R.id.login_view_num);
         ll_order_pay_time = $(R.id.ll_order_pay_time);
         ll_order_pay_method = $(R.id.ll_order_pay_method);
         ll_order_guide_time = $(R.id.ll_order_guide_time);
@@ -148,8 +149,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_call_custom.setVisibility(View.GONE);
         btn_evaluate.setVisibility(View.GONE);
         btn_evaluate_see.setVisibility(View.GONE);
+        btn_see_plan.setVisibility(View.GONE);
 
         login_view_phone.getEtView().setEnabled(false);
+        login_view_num.getEtView().setEnabled(false);
         login_view_name.getEtView().setEnabled(false);
         et_special.getEtView().setEnabled(false);
 
@@ -411,6 +414,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         fixed_view_city.setContent(str.getLocation());
         login_view_name.setContent(str.getName());
         login_view_phone.setContent(str.getMobile());
+        login_view_num.setContent(str.getPersonNum() + "");
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
