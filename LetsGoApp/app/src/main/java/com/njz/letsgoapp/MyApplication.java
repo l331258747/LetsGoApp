@@ -15,6 +15,7 @@ import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.commonsdk.UMConfigure;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -73,6 +74,32 @@ public class MyApplication extends Application{
 
         //sophix 热修复
         SophixManager.getInstance().queryAndLoadNewPatch();
+
+        initYouMeng();
+
+    }
+
+    private void initYouMeng() {
+        /**
+         * 初始化common库
+         * 参数1:上下文，不能为空
+         * 参数2:【友盟+】 AppKey
+         * 参数3:【友盟+】 Channel
+         * qq、baidu、xiaomi、huawei、ali、vivo、oppo、meizu、c360 qq代表应用宝
+         * 参数4:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
+         * 参数5:Push推送业务的secret，需要集成Push功能时必须传入Push的secret，否则传空。
+         */
+        UMConfigure.init(context, "5c1740f6b465f561b40002cc", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+
+        /**
+         * 设置组件化的Log开关
+         * 参数: boolean 默认为false，如需查看LOG设置为true
+         */
+        if(AppUtils.getVersionCodeInt() % 100 == 0){
+            UMConfigure.setLogEnabled(false);
+        }else{
+            UMConfigure.setLogEnabled(true);
+        }
 
     }
 

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
  * Function:
  */
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private int[] mImageIds = new int[]{R.mipmap.welcome1, R.mipmap.welcome2, R.mipmap.welcome3};
@@ -44,13 +45,12 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 强制竖屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         hideBottomUIMenu();
+    }
 
-        //隐藏状态栏
-        setContentView(R.layout.activity_welcome);
-        initView();
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_welcome;
     }
 
     /**
@@ -70,7 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    private void initView() {
+    public void initView() {
         mViewPager = (ViewPager) findViewById(R.id.vp_guide);
         llContainer = (LinearLayout) findViewById(R.id.ll_container);
         ivRedPoint = (ImageView) findViewById(R.id.iv_red);
@@ -87,7 +87,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        initData();
+        initData2();
         GuideAdapter adapter = new GuideAdapter();
 //        //添加动画效果
 //        mViewPager.setPageTransformer(true, new DepthPageTransformer());
@@ -156,7 +156,12 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-    protected void initData() {
+    @Override
+    public void initData() {
+
+    }
+
+    public void initData2() {
         mImageViewList = new ArrayList<>();
         for (int i = 0; i < mImageIds.length; i++) {
             //创建ImageView把mImgaeViewIds放进去

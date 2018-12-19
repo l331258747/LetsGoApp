@@ -22,6 +22,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -81,11 +82,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(this);
+        MobclickAgent.onResume(this);
     }
     @Override
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);
+        MobclickAgent.onPause(this);
     }
 
     /**
