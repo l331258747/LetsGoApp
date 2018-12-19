@@ -236,6 +236,7 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
         submitOrderModel.setName(et_name.getText().toString());
         submitOrderModel.setAdult(adult);
         submitOrderModel.setChildren(children);
+        submitOrderModel.setPersonNum(adult + children);
         submitOrderModel.setBugGet(Integer.valueOf(et_price.getText().toString()));
         submitOrderModel.setSpecialRequire(et_special.getText().toString());
         SubmitOrderChildModel submitOrderChildModel = new SubmitOrderChildModel();
