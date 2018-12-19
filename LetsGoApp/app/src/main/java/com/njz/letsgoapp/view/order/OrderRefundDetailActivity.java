@@ -147,7 +147,6 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
 
         boolean isTravelGoing = false;
         for(int i = 0;i<str.getNjzRefundDetailsChildVOS().size();i++){
-            str.getNjzRefundDetailsChildVOS().get(i).setLocation(str.getLocation());
             if(str.getNjzRefundDetailsChildVOS().get(i).getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
                 isTravelGoing = true;
             }

@@ -231,25 +231,6 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
         }
     }
 
-    //设置数量计算方式
-    public void setNum(OrderRefundChildModel data, TextView tv){
-        switch (data.getValue()){
-            case Constant.SERVICE_TYPE_SHORT_CUSTOM:
-                tv.setText("x"+data.getPersonNum()+"人");
-                break;
-            case Constant.SERVICE_TYPE_SHORT_GUIDE:
-            case Constant.SERVICE_TYPE_SHORT_CAR:
-                tv.setText("x"+data.getDayNum()+"天");
-                break;
-            case Constant.SERVICE_TYPE_SHORT_HOTEL:
-                tv.setText("x"+data.getDayNum()+"天x" + data.getRoomNum()+"间");
-                break;
-            case Constant.SERVICE_TYPE_SHORT_TICKET:
-                tv.setText("x"+data.getTicketNum()+"张");
-                break;
-        }
-    }
-
     @Override
     public int getItemCount() {
         return orderBeanGroups.size();

@@ -56,6 +56,11 @@ public class OrderDetailChildModel {
     private int payingStatus;
     private int serveId;
     private String location;
+    private int serveNum;
+
+    public int getServeNum() {
+        return serveNum;
+    }
 
     public String getLocation() {
         return location;
@@ -66,50 +71,50 @@ public class OrderDetailChildModel {
     }
 
     public String getTimeTitle(){
-        switch (value){
-            case Constant.SERVER_TYPE_GUIDE:
+        switch (serveType){
+            case Constant.SERVER_TYPE_GUIDE_ID:
                 return "行程时间";
-            case Constant.SERVER_TYPE_HOTEL:
+            case Constant.SERVER_TYPE_HOTEL_ID:
                 return "入住时间";
-            case Constant.SERVER_TYPE_TICKET:
+            case Constant.SERVER_TYPE_TICKET_ID:
                 return "日期";
-            case Constant.SERVER_TYPE_CAR:
+            case Constant.SERVER_TYPE_CAR_ID:
                 return "出发日期";
-            case Constant.SERVER_TYPE_FEATURE:
+            case Constant.SERVER_TYPE_FEATURE_ID:
                 return "出发日期";
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "行程时间";
         }
         return "";
     }
 
     public String getCountContent(){
-        switch (value){
-            case Constant.SERVER_TYPE_GUIDE:
-                return "";
-            case Constant.SERVER_TYPE_HOTEL:
-                return roomNum + "间";
-            case Constant.SERVER_TYPE_TICKET:
-                return ticketNum + "张";
-            case Constant.SERVER_TYPE_CAR:
-                return personNum + "次";
-            case Constant.SERVER_TYPE_FEATURE:
-                return personNum + "次";
+        switch (serveType){
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return serveNum + "间";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return serveNum + "张";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return serveNum + "次";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return serveNum + "次";
         }
         return "";
     }
 
     public String getServerName() {
-        switch (value){
-            case Constant.SERVER_TYPE_GUIDE:
+        switch (serveType){
+            case Constant.SERVER_TYPE_GUIDE_ID:
                 return "向导陪游";
-            case Constant.SERVER_TYPE_FEATURE:
+            case Constant.SERVER_TYPE_FEATURE_ID:
                 return "特色体验";
-            case Constant.SERVER_TYPE_CUSTOM:
+            case Constant.SERVER_TYPE_CUSTOM_ID:
                 return "私人定制";
-            case Constant.SERVER_TYPE_HOTEL:
+            case Constant.SERVER_TYPE_HOTEL_ID:
                 return "代订酒店";
-            case Constant.SERVER_TYPE_TICKET:
+            case Constant.SERVER_TYPE_TICKET_ID:
                 return "代订门票";
-            case Constant.SERVER_TYPE_CAR:
+            case Constant.SERVER_TYPE_CAR_ID:
                 return "接送机/站";
         }
         return "";

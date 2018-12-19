@@ -156,14 +156,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             if (data == null) return;
 
             GlideUtil.LoadRoundImage(mContext, data.getTitleImg(), ((DefaultHolder) holder).iv_img, 5);
-
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
+            ((DefaultHolder) holder).tv_server_name.setText(data.getServerName());
+            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
 
 
             ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
-
                     if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
                     }else {
@@ -201,10 +201,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
                     break;
             }
-
-            ((DefaultHolder) holder).tv_server_name.setText(data.getServerName());
-
-            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
 
             if (mOnItemClickListener != null) {
                 ((DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
@@ -356,25 +352,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     mContext.startActivity(intent);
                 }
             });
-        }
-    }
-
-    //设置数量计算方式
-    public void setNum(OrderChildModel data, TextView tv) {
-        switch (data.getValue()) {
-            case Constant.SERVICE_TYPE_SHORT_CUSTOM:
-                tv.setText("x" + data.getPersonNum() + "人");
-                break;
-            case Constant.SERVICE_TYPE_SHORT_GUIDE:
-            case Constant.SERVICE_TYPE_SHORT_CAR:
-                tv.setText("x" + data.getDayNum() + "天");
-                break;
-            case Constant.SERVICE_TYPE_SHORT_HOTEL:
-                tv.setText("x" + data.getDayNum() + "天x" + data.getRoomNum() + "间");
-                break;
-            case Constant.SERVICE_TYPE_SHORT_TICKET:
-                tv.setText("x" + data.getTicketNum() + "张");
-                break;
         }
     }
 

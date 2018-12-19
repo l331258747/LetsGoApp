@@ -41,12 +41,11 @@ public class Constant {
 //    public static final String SERVICE_TYPE_TICKET = "代订门票";
 //    public static final String SERVICE_TYPE_CAR = "车导服务";
 //    public static final String SERVICE_TYPE_GUIDE = "向导陪游";
-
-    public static final String SERVICE_TYPE_SHORT_CUSTOM = "srdz";
-    public static final String SERVICE_TYPE_SHORT_HOTEL = "ddjd";
-    public static final String SERVICE_TYPE_SHORT_TICKET = "ddjdmp";
-    public static final String SERVICE_TYPE_SHORT_CAR = "cdfw";
-    public static final String SERVICE_TYPE_SHORT_GUIDE = "xdpy";
+//    public static final String SERVICE_TYPE_SHORT_CUSTOM = "srdz";
+//    public static final String SERVICE_TYPE_SHORT_HOTEL = "ddjd";
+//    public static final String SERVICE_TYPE_SHORT_TICKET = "ddjdmp";
+//    public static final String SERVICE_TYPE_SHORT_CAR = "cdfw";
+//    public static final String SERVICE_TYPE_SHORT_GUIDE = "xdpy";
 
     //xdpy向导陪游 tsty特色体验 srdz私人定制 ddjd代订酒店 ddmp代订门票 jsjz接送机/站
     public static final String SERVER_TYPE_GUIDE = "xdpy";

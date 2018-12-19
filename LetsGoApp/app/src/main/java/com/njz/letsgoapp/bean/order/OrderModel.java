@@ -180,21 +180,21 @@ public class OrderModel {
         EvaluateTypeModel evaluateTypeModel = new EvaluateTypeModel();
         for (int i = 0; i < njzChildOrderListVOS.size(); i++) {
             OrderChildModel childModel = njzChildOrderListVOS.get(i);
-            if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_CUSTOM)) {
+            if (TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_CUSTOM)) {
                 evaluateTypeModel.setGuide(true);
                 evaluateTypeModel.setCar(true);
                 evaluateTypeModel.setTravel(true);
                 evaluateTypeModel.setTrip(true);
                 break;
-            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_GUIDE)) {
+            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_GUIDE)) {
                 evaluateTypeModel.setGuide(true);
                 evaluateTypeModel.setTravel(true);
-            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_CAR)) {
+            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_CAR)) {
                 evaluateTypeModel.setGuide(true);
                 evaluateTypeModel.setTravel(true);
                 evaluateTypeModel.setCar(true);
-            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_TICKET)
-                    || TextUtils.equals(childModel.getValue(), Constant.SERVICE_TYPE_SHORT_HOTEL)) {
+            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_TICKET)
+                    || TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_HOTEL)) {
                 evaluateTypeModel.setTrip(true);
             }
         }

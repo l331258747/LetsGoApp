@@ -15,6 +15,15 @@ public class PlayChileMedel {
     private int njzGuideServeId;
     private String guideServeFormatName;
     private int id;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public String getNjzGuideServeFormatDic() {
         return njzGuideServeFormatDic;

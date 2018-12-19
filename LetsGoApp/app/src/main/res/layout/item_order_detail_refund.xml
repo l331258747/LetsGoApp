@@ -152,6 +152,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
+                    android:gravity="right"
                     android:layout_toEndOf="@+id/tv_time_title"
                     android:textSize="12sp"
                     tools:text="aeageagwegaadgawegaege" />

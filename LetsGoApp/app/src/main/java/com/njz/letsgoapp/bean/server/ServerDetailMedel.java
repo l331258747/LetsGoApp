@@ -54,7 +54,7 @@ public class ServerDetailMedel implements Parcelable{
      */
 
     private float guideScore;
-    private String titleImg;
+    private String guideServeImg;
     private int gender;
     private int serveType;
     private int guideId;
@@ -92,7 +92,7 @@ public class ServerDetailMedel implements Parcelable{
 
     protected ServerDetailMedel(Parcel in) {
         guideScore = in.readFloat();
-        titleImg = in.readString();
+        guideServeImg = in.readString();
         gender = in.readInt();
         serveType = in.readInt();
         guideId = in.readInt();
@@ -152,7 +152,7 @@ public class ServerDetailMedel implements Parcelable{
     }
 
     public String getTitleImg() {
-        return titleImg;
+        return guideServeImg;
     }
 
     public int getGender() {
@@ -292,7 +292,7 @@ public class ServerDetailMedel implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeFloat(guideScore);
-        dest.writeString(titleImg);
+        dest.writeString(guideServeImg);
         dest.writeInt(gender);
         dest.writeInt(serveType);
         dest.writeInt(guideId);

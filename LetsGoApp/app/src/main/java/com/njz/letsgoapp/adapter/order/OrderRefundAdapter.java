@@ -57,7 +57,6 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
         GlideUtil.LoadRoundImage(context, data.getTitleImg(), holder.iv_img, 5);
         holder.tv_title.setText(data.getTitle());
         holder.tv_one_price.setText("￥" + data.getPrice());
-        holder.setNum(data,holder.tv_num);
         holder.tv_total_price.setText("￥" + data.getOrderPrice());
 
         holder.tv_not_travel_price.setText("￥" + data.getDefaultMoney());
@@ -99,7 +98,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
     public  class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView iv_img;
-        TextView tv_title,tv_one_price,tv_num,tv_total_price,tv_travel_day,tv_travel_price;
+        TextView tv_title,tv_one_price,tv_total_price,tv_travel_day,tv_travel_price;
         TextView tv_not_travel_day,tv_not_travel_price,tv_refund_rule,tv_refund_price;
         RelativeLayout rl_travel_day,rl_travel_price,rl_not_travel_day,rl_not_travel_price,rl_refund_price;
 
@@ -108,7 +107,6 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_one_price = itemView.findViewById(R.id.tv_one_price);
-            tv_num = itemView.findViewById(R.id.tv_num);
             tv_total_price = itemView.findViewById(R.id.tv_total_price);
 
             tv_travel_day = itemView.findViewById(R.id.tv_travel_day);//出行天数
@@ -125,23 +123,5 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             rl_refund_price = itemView.findViewById(R.id.rl_refund_price);
         }
 
-        //设置数量计算方式
-        public void setNum(OrderRefundChildModel data, TextView tv){
-            switch (data.getValue()){
-                case Constant.SERVICE_TYPE_SHORT_CUSTOM:
-                    tv.setText("x"+data.getPersonNum()+"人");
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_GUIDE:
-                case Constant.SERVICE_TYPE_SHORT_CAR:
-                    tv.setText("x"+data.getDayNum()+"天");
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_HOTEL:
-                    tv.setText("x"+data.getDayNum()+"天x" + data.getRoomNum()+"间");
-                    break;
-                case Constant.SERVICE_TYPE_SHORT_TICKET:
-                    tv.setText("x"+data.getTicketNum()+"张");
-                    break;
-            }
-        }
     }
 }

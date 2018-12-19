@@ -32,18 +32,18 @@ public class OrderChildModel {
     private int payingStatus;
 
     public String getServerName() {
-        switch (value){
-            case Constant.SERVER_TYPE_GUIDE:
+        switch (serveType){
+            case Constant.SERVER_TYPE_GUIDE_ID:
                 return "向导陪游";
-            case Constant.SERVER_TYPE_FEATURE:
+            case Constant.SERVER_TYPE_FEATURE_ID:
                 return "tsty特色体验";
-            case Constant.SERVER_TYPE_CUSTOM:
+            case Constant.SERVER_TYPE_CUSTOM_ID:
                 return "私人定制";
-            case Constant.SERVER_TYPE_HOTEL:
+            case Constant.SERVER_TYPE_HOTEL_ID:
                 return "代订酒店";
-            case Constant.SERVER_TYPE_TICKET:
+            case Constant.SERVER_TYPE_TICKET_ID:
                 return "代订门票";
-            case Constant.SERVER_TYPE_CAR:
+            case Constant.SERVER_TYPE_CAR_ID:
                 return "接送机/站";
         }
         return "";

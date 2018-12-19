@@ -120,11 +120,11 @@ public class ServerEvaluateFragment extends BaseFragment {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 value = position == 0 ? ""
-                        : position == 1 ? Constant.SERVICE_TYPE_SHORT_GUIDE
-                        : position == 2 ? Constant.SERVICE_TYPE_SHORT_CUSTOM
-                        : position == 3 ? Constant.SERVICE_TYPE_SHORT_CAR
-                        : position == 4 ? Constant.SERVICE_TYPE_SHORT_HOTEL
-                        : position == 5 ? Constant.SERVICE_TYPE_SHORT_TICKET
+                        : position == 1 ? Constant.SERVER_TYPE_GUIDE
+                        : position == 2 ? Constant.SERVER_TYPE_CUSTOM
+                        : position == 3 ? Constant.SERVER_TYPE_CAR
+                        : position == 4 ? Constant.SERVER_TYPE_HOTEL
+                        : position == 5 ? Constant.SERVER_TYPE_TICKET
                         : "";
                 getRefreshData();
                 return true;

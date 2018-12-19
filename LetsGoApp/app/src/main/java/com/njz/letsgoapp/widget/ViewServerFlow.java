@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.server.PlayChileMedel;
 import com.njz.letsgoapp.bean.server.PriceCalendarChildModel;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
@@ -35,6 +36,7 @@ public class ViewServerFlow extends LinearLayout {
     TagFlowLayout tagFlowLayout;
     boolean isSelectedOne;
     int maxSelectCount;
+    public int selectIndex = -1;
 
     public ViewServerFlow(Context context) {
         this(context, null);
@@ -79,7 +81,7 @@ public class ViewServerFlow extends LinearLayout {
     }
 
     //----------套餐，车型，语言，初始化---------
-    public void initFlow(String title, String title2, List<PlayChileMedel> mVals,final OnTagLinsenerClick onTagLinsenerClick) {
+    public void initFlow(String title, String title2, final List<PlayChileMedel> mVals,final OnTagLinsenerClick onTagLinsenerClick) {
         //标题文字显示
         tv_title.setText(title);
         if (TextUtils.isEmpty(title2)) {
@@ -92,20 +94,16 @@ public class ViewServerFlow extends LinearLayout {
         final LayoutInflater mInflater = LayoutInflater.from(context);
         TagAdapter adapter1 = new TagAdapter<PlayChileMedel>(mVals) {
             @Override
-            public View getView(FlowLayout parent, int position, PlayChileMedel s) {
+            public View getView(FlowLayout parent, final int position, PlayChileMedel s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_server, tagFlowLayout, false);
                 tv.setText(s.getGuideServeFormatName());
-
                 return tv;
             }
             @Override
             public void onSelected(int position, View view) {
                 super.onSelected(position, view);
-
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ffe6d5_solid_r5));
                 ((TextView) view).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
-                onTagLinsenerClick.onTagLinsenerClick(position,true);
-
             }
 
             @Override
@@ -113,23 +111,35 @@ public class ViewServerFlow extends LinearLayout {
                 super.unSelected(position, view);
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ee_solid_r5));
                 ((TextView) view).setTextColor(ContextCompat.getColor(context, R.color.color_88));
-                onTagLinsenerClick.onTagLinsenerClick(position,false);
             }
         };
         tagFlowLayout.setAdapter(adapter1);
+        tagFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                if(maxSelectCount != -2){
+                    onTagLinsenerClick.onTagLinsenerClick(position,true);
+                }else{//主要用来处理车型，可以不选或者选择一个，
+                    if(selectIndex == position){
+                        onTagLinsenerClick.onTagLinsenerClick(position,false);
+                    }else{
+                        onTagLinsenerClick.onTagLinsenerClick(position,true);
+                    }
+                    selectIndex = position;
+                }
+                return false;
+            }
+        });
         if(isSelectedOne){
             adapter1.setSelectedList(getSelectIndex2(mVals));
+            onTagLinsenerClick.onTagLinsenerClick(0,true);
+            selectIndex = 0;
         }
     }
 
-    public interface OnTagLinsenerClick2 {
-        void onTagLinsenerClick2(int position);
-    }
-
     public interface OnTagLinsenerClick {
-        void onTagLinsenerClick(int position,boolean isSelected);
+        void onTagLinsenerClick(int position,boolean isSelect);
     }
-
 
     //---------日期初始化------------
     public void initFlow2(String title, String title2, final List<PriceCalendarChildModel> mVals) {
@@ -175,7 +185,7 @@ public class ViewServerFlow extends LinearLayout {
     }
 
     //---------日期setAdapter------------
-    public void setAdapter(final List<PriceCalendarChildModel> mVals,final OnTagLinsenerClick2 onTagLinsenerClick2){
+    public void setAdapter(final List<PriceCalendarChildModel> mVals,final OnTagLinsenerClick onTagLinsenerClick2){
         final LayoutInflater mInflater = LayoutInflater.from(context);
         final TagAdapter adapter1 = new TagAdapter<PriceCalendarChildModel>(mVals) {
 
@@ -195,7 +205,7 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
 
                 mVals.get(position).setSelect(true);
-                onTagLinsenerClick2.onTagLinsenerClick2(position);
+//                onTagLinsenerClick2.onTagLinsenerClick(position,true);
             }
 
             @Override
@@ -205,10 +215,18 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
 
                 mVals.get(position).setSelect(false);
-                onTagLinsenerClick2.onTagLinsenerClick2(position);
+//                onTagLinsenerClick2.onTagLinsenerClick(position,false);
             }
+
         };
         tagFlowLayout.setAdapter(adapter1);
+        tagFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                onTagLinsenerClick2.onTagLinsenerClick(position,false);
+                return false;
+            }
+        });
         adapter1.setSelectedList(getSelectIndex(mVals));
     }
 

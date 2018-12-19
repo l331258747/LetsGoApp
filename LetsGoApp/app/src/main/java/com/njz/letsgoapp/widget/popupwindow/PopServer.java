@@ -260,7 +260,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             vsf.setSelectedOne(true);
             vsf.initFlow("选择套餐", null, mValsTc, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
-                public void onTagLinsenerClick(int position,boolean isSelected) {
+                public void onTagLinsenerClick(int position,boolean isSelect) {
                     titleTc = mValsTc.get(position).getGuideServeFormatName();
                     priceTc = mValsTc.get(position).getServeDefaultPrice();
                     formatIdTc = mValsTc.get(position).getId();
@@ -282,8 +282,8 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
             vsf.initFlow("选择车型", title2, mValsCx, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
-                public void onTagLinsenerClick(int position,boolean isSelected) {
-                    if(isSelected){
+                public void onTagLinsenerClick(int position,boolean isSelect) {
+                    if(isSelect){
                         titleCar = mValsCx.get(position).getGuideServeFormatName();
                         priceCar = mValsCx.get(position).getServeDefaultPrice();
                         formatIdCar = mValsCx.get(position).getId();
@@ -292,7 +292,6 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                         priceCar = 0f;
                         formatIdCar = 0;
                     }
-
                     setChange();
                 }
             });
@@ -304,7 +303,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             vsf.setSelectedOne(true);
             vsf.initFlow("选择语言", null, mValsYy, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
-                public void onTagLinsenerClick(int position,boolean isSelected) {
+                public void onTagLinsenerClick(int position,boolean isSelect) {
                     titleLanguage = mValsYy.get(position).getGuideServeFormatName();
                     priceLanguage = mValsYy.get(position).getServeDefaultPrice();
                     formatIdLanguage = mValsYy.get(position).getId();
@@ -432,9 +431,9 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             }
         }
         Collections.sort(priceCalendarChildModels); // 按年龄排序
-        pirceVsf.setAdapter(priceCalendarChildModels, new ViewServerFlow.OnTagLinsenerClick2() {
+        pirceVsf.setAdapter(priceCalendarChildModels, new ViewServerFlow.OnTagLinsenerClick() {
             @Override
-            public void onTagLinsenerClick2(int position) {
+            public void onTagLinsenerClick(int position,boolean isSelect) {
                 setPriceChange();
             }
         });
