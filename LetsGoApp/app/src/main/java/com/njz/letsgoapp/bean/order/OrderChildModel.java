@@ -30,6 +30,15 @@ public class OrderChildModel {
     private int payStatus;
     private int childOrderStatus;
     private int payingStatus;
+    private int planStatus;
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
 
     public String getServerName() {
         switch (serveType){

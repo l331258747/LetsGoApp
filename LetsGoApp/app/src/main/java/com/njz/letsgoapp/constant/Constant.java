@@ -72,7 +72,7 @@ public class Constant {
 
     public static final int ORDER_PLAN_GUIDE_WAIT = 0;//导游待确认
     public static final int ORDER_PLAN_PLANING = 1;//方案设计中
-//    public static final int ORDER_PLAN_USER_WAIT = 2;//游客待确认
+    public static final int ORDER_PLAN_USER_WAIT = 2;//游客待确认
 //    public static final int ORDER_PLAN_USER_COMFIRM = 3;//游客已确认
 //    public static final int ORDER_PLAN_GUIDE_REFUND = 4;//导游已拒绝
 

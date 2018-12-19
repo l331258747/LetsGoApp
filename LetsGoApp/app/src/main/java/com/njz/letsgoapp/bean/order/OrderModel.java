@@ -40,7 +40,16 @@ public class OrderModel {
     private String mobile;
     private String name;
     private String guideMobile;
+    private int planStatus;
     private List<OrderChildModel> njzChildOrderListVOS;
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
 
     public int getPayingStatus() {
         return payingStatus;

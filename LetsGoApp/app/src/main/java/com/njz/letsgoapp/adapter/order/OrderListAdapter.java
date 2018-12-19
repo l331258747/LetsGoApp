@@ -89,12 +89,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup.setReviewStatus(orderModel.getReviewStatus());
                 serviceInfoGroup.setPayingStatus(orderModel.getPayingStatus());
+                serviceInfoGroup.setPlanStatus(orderModel.getPlanStatus());
                 serviceInfoGroup.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup);
                 for (int j = 0; j < orderModel.getNjzChildOrderListVOS().size(); j++) {
                     OrderBeanGroup serviceInfoGroup2 = new OrderBeanGroup();
                     OrderChildModel orderChildModel = orderModel.getNjzChildOrderListVOS().get(j);
                     orderChildModel.setPayingStatus(orderModel.getPayingStatus());
+                    orderChildModel.setPlanStatus(orderModel.getPlanStatus());
                     serviceInfoGroup2.setLabelTab(OrderBeanGroup.LABEL_TAB_DEFAULT);
                     serviceInfoGroup2.setOrderChildModel(orderChildModel);
                     serviceInfoGroup2.setId(orderModel.getId());
@@ -115,6 +117,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setUserMobile(orderModel.getMobile());
                 serviceInfoGroup3.setGuideMobile(orderModel.getGuideMobile());
                 serviceInfoGroup3.setPayingStatus(orderModel.getPayingStatus());
+                serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
                 serviceInfoGroup3.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup3);
             }
@@ -158,15 +161,21 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             GlideUtil.LoadRoundImage(mContext, data.getTitleImg(), ((DefaultHolder) holder).iv_img, 5);
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
             ((DefaultHolder) holder).tv_server_name.setText(data.getServerName());
-            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
 
+            if (data.getPayStatus() == Constant.ORDER_PAY_WAIT
+                    && data.getPayingStatus() == Constant.ORDER_WAIT_PAY
+                    && (data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT || data.getPlanStatus() == Constant.ORDER_PLAN_PLANING)) {
+                ((DefaultHolder) holder).tv_total_price.setText("报价待确定");
+            } else {
+                ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
+            }
 
             ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
-                    if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
+                    if (data.getPayingStatus() == Constant.ORDER_WAIT_PAYING) {
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
                         ((DefaultHolder) holder).btn_cancel.setText("取消");
                         ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -181,9 +190,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
                     break;
                 case Constant.ORDER_PAY_ALREADY:
-                    if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
+                    if (data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING) {
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         ((DefaultHolder) holder).btn_cancel.setText("退款");
                         ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -236,24 +245,40 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             final OrderBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((FootHolder) holder).tv_order_price_content.setText("" + data.getOrderPrice());
+            ((FootHolder) holder).tv_order_price_title.setText("合计:");
+
+            if (data.getPayStatus() == Constant.ORDER_PAY_WAIT
+                    && data.getPayingStatus() == Constant.ORDER_WAIT_PAY
+                    && (data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT || data.getPlanStatus() == Constant.ORDER_PLAN_PLANING)) {
+                ((FootHolder) holder).tv_order_price_content.setText("报价待确定");
+            } else {
+                ((FootHolder) holder).tv_order_price_content.setText("￥" + data.getOrderPrice());
+            }
 
             ((FootHolder) holder).setbtn();
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
-                    ((FootHolder) holder).tv_order_price_title.setText("合计:");
-
-                    ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
-                    if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
-                        ((FootHolder) holder).btn_pay.setVisibility(View.GONE);
-                        ((FootHolder) holder).btn_cancel_order.setVisibility(View.GONE);
-                    }else{
-                        ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                    if (data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT
+                            || data.getPlanStatus() == Constant.ORDER_PLAN_PLANING) {//取消订单，联系他
+                        ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                         ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
+                    } else if (data.getPlanStatus() == Constant.ORDER_PLAN_USER_WAIT) {//取消订单，查看方案，付款
+                        ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
+                        ((FootHolder) holder).btn_see_plan.setVisibility(View.VISIBLE);
+                        ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                    } else {
+                        ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
+                        if (data.getPayingStatus() == Constant.ORDER_WAIT_PAYING) {
+                            ((FootHolder) holder).btn_pay.setVisibility(View.GONE);
+                            ((FootHolder) holder).btn_cancel_order.setVisibility(View.GONE);
+                        } else {
+                            ((FootHolder) holder).btn_pay.setVisibility(View.VISIBLE);
+                            ((FootHolder) holder).btn_cancel_order.setVisibility(View.VISIBLE);
+                        }
                     }
+
                     break;
                 case Constant.ORDER_PAY_ALREADY:
-                    ((FootHolder) holder).tv_order_price_title.setText("合计:");
                     switch (data.getOrderStatus()) {
                         case Constant.ORDER_TRAVEL_WAIT:
                         case Constant.ORDER_TRAVEL_NO_GO:
@@ -268,7 +293,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     }
                     break;
                 case Constant.ORDER_PAY_FINISH:
-                    ((FootHolder) holder).tv_order_price_title.setText("合计:");
                     switch (data.getReviewStatus()) {
                         case Constant.ORDER_EVALUATE_NO:
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
@@ -288,7 +312,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mOnEvaluateClickListener != null){
+                    if (mOnEvaluateClickListener != null) {
                         mOnEvaluateClickListener.onClick(data.getIndex());
                     }
                 }
@@ -406,7 +430,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
     public class FootHolder extends OrderListAdapter.BaseViewHolder {
         TextView tv_order_price_content, tv_order_price_title;
-        TextView btn_call_guide, btn_cancel_order, btn_pay, btn_evaluate, btn_delete, btn_call_customer, btn_refund;
+        TextView btn_call_guide, btn_cancel_order, btn_pay, btn_evaluate, btn_delete, btn_call_customer, btn_refund, btn_see_plan;
 
         FootHolder(View itemView) {
             super(itemView);
@@ -414,6 +438,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             tv_order_price_title = itemView.findViewById(R.id.tv_order_price_title);
 
             btn_call_guide = itemView.findViewById(R.id.btn_call_guide);
+            btn_see_plan = itemView.findViewById(R.id.btn_see_plan);
             btn_cancel_order = itemView.findViewById(R.id.btn_cancel_order);
             btn_pay = itemView.findViewById(R.id.btn_pay);
             btn_evaluate = itemView.findViewById(R.id.btn_evaluate);
@@ -430,6 +455,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             btn_delete.setVisibility(View.GONE);
             btn_call_customer.setVisibility(View.GONE);
             btn_refund.setVisibility(View.GONE);
+            btn_see_plan.setVisibility(View.GONE);
         }
     }
 
@@ -460,7 +486,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
         void onClick(int id, List<Integer> childIds, int status, int index);
     }
 
-    public interface OnDeleteClickListener{
+    public interface OnDeleteClickListener {
         void onClick(int id);
     }
 
@@ -476,7 +502,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
         this.mOnRefundClickListenter = onRefundClickListener;
     }
 
-    public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener){
+    public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener) {
         this.mOnDeleteClickListener = onDeleteClickListener;
     }
 

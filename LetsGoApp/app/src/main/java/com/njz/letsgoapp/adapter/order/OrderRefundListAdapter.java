@@ -206,7 +206,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                     break;
             }
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
-            ((FootHolder) holder).tv_order_price_content.setText("" + data.getRefundMoney());
+            ((FootHolder) holder).tv_order_price_content.setText("￥" + data.getRefundMoney());
 
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -282,7 +282,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
     public class FootHolder extends OrderRefundListAdapter.BaseViewHolder {
         TextView tv_order_price_content,tv_order_price_title;
-        TextView btn_call_guide,btn_cancel_order,btn_pay,btn_evaluate,btn_delete,btn_call_customer,btn_refund;
+        TextView btn_call_guide,btn_cancel_order,btn_pay,btn_evaluate,btn_delete,btn_call_customer,btn_refund,btn_see_plan;
         RelativeLayout rl_price;
 
         FootHolder(View itemView) {
@@ -298,6 +298,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             btn_call_customer = itemView.findViewById(R.id.btn_call_customer);
             btn_refund = itemView.findViewById(R.id.btn_refund);
             rl_price = itemView.findViewById(R.id.rl_price);
+            btn_see_plan = itemView.findViewById(R.id.btn_see_plan);
         }
 
         public void setbtn(){
@@ -308,6 +309,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             btn_delete.setVisibility(View.GONE);
             btn_call_customer.setVisibility(View.GONE);
             btn_refund.setVisibility(View.GONE);
+            btn_see_plan.setVisibility(View.GONE);
         }
     }
 

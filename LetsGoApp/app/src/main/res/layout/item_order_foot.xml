@@ -29,13 +29,6 @@
                 android:text="总额：" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="￥"
-                android:textColor="@color/color_red"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/tv_order_price_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,6 +104,16 @@
                 android:gravity="center"
                 android:text="联系客服"
                 android:textColor="@color/color_theme" />
+
+            <TextView
+                android:id="@+id/btn_see_plan"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/btn_2585e7_hollow_r3_p5"
+                android:gravity="center"
+                android:text="查看方案"
+                android:textColor="@color/color_2585e7" />
 
 
             <TextView
