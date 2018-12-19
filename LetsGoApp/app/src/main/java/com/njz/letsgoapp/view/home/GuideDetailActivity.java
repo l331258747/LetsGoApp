@@ -27,6 +27,7 @@ import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.mvp.home.GuideDetailContract;
 import com.njz.letsgoapp.mvp.home.GuideDetailPresenter;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -305,7 +306,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public float getServerPriceTotal(){
         float serverPriceTotal = 0;
         for (int i=0; i < serverItems.size();i++){
-            serverPriceTotal = serverPriceTotal + (serverItems.get(i).getPrice() * serverItems.get(i).getServeNum());
+            serverPriceTotal = DecimalUtil.add(serverPriceTotal, (DecimalUtil.multiply(serverItems.get(i).getPrice(), serverItems.get(i).getServeNum())));
         }
         return serverPriceTotal;
     }

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.PayModel;
@@ -26,7 +27,9 @@ import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.view.calendar.RangeCalendarActivity;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
+import com.njz.letsgoapp.view.pay.PaySuccessActivity;
 import com.njz.letsgoapp.widget.NumberView;
 
 import java.util.ArrayList;
@@ -243,8 +246,10 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void orderCreateOrderSuccess(PayModel model) {
-        finish();
-        PayActivity.startActivity(activity, model);//TODO 订单上传成功，返回单号
+        ActivityCollect.getAppCollect().finishAllNotHome();
+        HomeActivity activity2 = (HomeActivity) ActivityCollect.getAppCollect().findActivity(HomeActivity.class);
+        activity2.setTabIndex(2);
+        activity2.getOrderFragment().setIndex(0);
     }
 
     @Override

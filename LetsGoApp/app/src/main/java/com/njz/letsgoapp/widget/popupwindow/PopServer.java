@@ -25,6 +25,7 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.PriceDateContract;
 import com.njz.letsgoapp.mvp.server.PriceDatePresenter;
 import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -204,7 +205,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         priceTotal = 0;
         for (int i = 0; i < priceCalendarChildModels.size(); i++) {
             if(priceCalendarChildModels.get(i).isSelect()){
-                priceTotal = priceTotal + priceCalendarChildModels.get(i).getAddPrice();
+                priceTotal = DecimalUtil.add(priceTotal , priceCalendarChildModels.get(i).getAddPrice());
             }
         }
         tv_price_total.setText("￥" + (priceTotal * serverNum));
