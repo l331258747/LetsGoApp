@@ -64,7 +64,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
 
             ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
-            if(TextUtils.equals(data.getValue(),Constant.SERVER_TYPE_GUIDE)){
+            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
                 ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
             }
             ((ViewHolder) holder).tv_count_content.setText(data.getCountContent());
