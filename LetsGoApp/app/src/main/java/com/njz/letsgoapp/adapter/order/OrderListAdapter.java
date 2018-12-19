@@ -376,6 +376,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     mContext.startActivity(intent);
                 }
             });
+            ((FootHolder) holder).btn_see_plan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO 查看方案
+                    ToastUtil.showShortToast(mContext,"查看方案");
+                }
+            });
         }
     }
 

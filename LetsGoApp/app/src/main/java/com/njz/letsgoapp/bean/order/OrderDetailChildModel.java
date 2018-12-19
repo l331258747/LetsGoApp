@@ -57,6 +57,15 @@ public class OrderDetailChildModel {
     private int serveId;
     private String location;
     private int serveNum;
+    private int planStatus;
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
 
     public int getServeNum() {
         return serveNum;

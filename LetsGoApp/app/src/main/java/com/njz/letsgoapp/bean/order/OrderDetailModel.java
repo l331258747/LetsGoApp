@@ -61,9 +61,14 @@ public class OrderDetailModel {
     private String guideMobile;
     private String startDate;
     private String endDate;
+    private int planStatus;
     private List<OrderDetailChildModel> njzChildOrderVOS;
     private int payingStatus;
     private int serveId;
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
 
     public int getServeId() {
         return serveId;
@@ -263,6 +268,12 @@ public class OrderDetailModel {
             case Constant.ORDER_PAY_WAIT:
                 switch (payingStatus){
                     case Constant.ORDER_WAIT_PAY:
+                        switch (planStatus){
+                            case Constant.ORDER_PLAN_GUIDE_WAIT:
+                                return "待确认";
+                            case Constant.ORDER_PLAN_PLANING:
+                                return "方案设计中";
+                        }
                         return "待付款";
                     case Constant.ORDER_WAIT_PAYING:
                         return "付款中";

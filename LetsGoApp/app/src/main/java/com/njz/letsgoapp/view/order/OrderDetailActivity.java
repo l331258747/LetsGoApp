@@ -21,6 +21,7 @@ import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
 import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderDetailPresenter;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
@@ -57,7 +58,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public TextView tv_order_no, tv_order_create_time, tv_order_pay_time, tv_order_pay_method, tv_order_guide_time, tv_order_refund_apply,
             tv_order_refund_verify, tv_order_refund_time,tv_order_travel_start,tv_order_travel_end;
 
-    public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate,btn_evaluate_see;
+    public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate,btn_evaluate_see,btn_see_plan;
 
     public OrderDetailPresenter mPresenter;
     public OrderDeletePresenter deletePresenter;
@@ -126,6 +127,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_call_custom = $(R.id.btn_call_custom);
         btn_evaluate = $(R.id.btn_evaluate);
         btn_evaluate_see = $(R.id.btn_evaluate_see);
+        btn_see_plan = $(R.id.btn_see_plan);
 
         btn_cancel_order.setOnClickListener(this);
         btn_call_guide.setOnClickListener(this);
@@ -136,6 +138,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_evaluate.setOnClickListener(this);
         btn_evaluate_see.setOnClickListener(this);
         tv_guide_name.setOnClickListener(this);
+        btn_see_plan.setOnClickListener(this);
 
         btn_cancel_order.setVisibility(View.GONE);
         btn_call_guide.setVisibility(View.GONE);
@@ -251,6 +254,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra(GuideDetailActivity.GUIDEID,model.getGuideId());
                 context.startActivity(intent);
                 break;
+            case R.id.btn_see_plan:
+                //TODO 查看方案
+                showShortToast("查看方案");
+                break;
             case R.id.btn_pay:
                 PayModel payModel = new PayModel();
                 payModel.setTotalAmount(model.getOrderPrice()+"");
@@ -306,14 +313,25 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 tv_order_no.setText(str.getOrderNo());
                 tv_order_create_time.setText(str.getCreateTime());
 
-                btn_call_guide.setVisibility(View.VISIBLE);
-                if(str.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
-                    btn_pay.setVisibility(View.GONE);
-                    btn_cancel_order.setVisibility(View.GONE);
-                }else {
-                    btn_pay.setVisibility(View.VISIBLE);
+                if (str.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT
+                        || str.getPlanStatus() == Constant.ORDER_PLAN_PLANING) {//取消订单，联系他
+                    btn_call_guide.setVisibility(View.VISIBLE);
                     btn_cancel_order.setVisibility(View.VISIBLE);
+                } else if (str.getPlanStatus() == Constant.ORDER_PLAN_USER_WAIT) {//取消订单，查看方案，付款
+                    btn_cancel_order.setVisibility(View.VISIBLE);
+                    btn_see_plan.setVisibility(View.VISIBLE);
+                    btn_pay.setVisibility(View.VISIBLE);
+                } else {
+                    btn_call_guide.setVisibility(View.VISIBLE);
+                    if (str.getPayingStatus() == Constant.ORDER_WAIT_PAYING) {
+                        btn_pay.setVisibility(View.GONE);
+                        btn_cancel_order.setVisibility(View.GONE);
+                    } else {
+                        btn_pay.setVisibility(View.VISIBLE);
+                        btn_cancel_order.setVisibility(View.VISIBLE);
+                    }
                 }
+
                 break;
             case Constant.ORDER_PAY_ALREADY:
                 ll_order_no.setVisibility(View.VISIBLE);
@@ -379,7 +397,13 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             break;
         }
 
-        tv_order_price.setText(str.getOrderPrice() + "");
+        if(str.getPayStatus() == Constant.ORDER_PAY_WAIT
+                && str.getPayingStatus() == Constant.ORDER_WAIT_PAY
+                &&(str.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT || str.getPlanStatus() == Constant.ORDER_PLAN_PLANING)){
+            tv_order_price.setText("报价待确定");
+        }else{
+            tv_order_price.setText(str.getOrderPrice() + "");
+        }
 
         tv_guide_name.setText(str.getGuideName());
         tv_order_status.setText(str.getPayStatusStr());
@@ -391,6 +415,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
             model.setPayingStatus(str.getPayingStatus());
+            model.setPlanStatus(str.getPlanStatus());
         }
         mAdapter.setData(str.getNjzChildOrderVOS());
 
