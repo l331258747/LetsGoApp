@@ -386,7 +386,8 @@ public interface HttpService {
     @GET("orderReviews/findGuideReviews")
     Observable<BaseResponse<BasePageModel<EvaluateModel2>>> orderReviewsFindGuideReviews(
             @Query("guideId") int guideId,
-            @Query("value") String value,
+            @Query("serveId") int serveId,
+            @Query("type") String type,
             @Query("limit") int limit,
             @Query("page") int page
     );

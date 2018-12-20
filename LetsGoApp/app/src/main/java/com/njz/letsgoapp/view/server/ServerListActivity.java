@@ -134,7 +134,7 @@ public class ServerListActivity extends GuideListActivity implements ServerListS
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);
-                intent.putExtra(ServiceDetailActivity.SERVICEID,playAdapter.getData(position).getId());
+                intent.putExtra(ServiceDetailActivity2.SERVICEID,playAdapter.getData(position).getId());
                 startActivity(intent);
             }
         });

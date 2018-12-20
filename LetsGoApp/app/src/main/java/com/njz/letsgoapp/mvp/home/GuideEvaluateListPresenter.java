@@ -25,7 +25,7 @@ public class GuideEvaluateListPresenter implements GuideEvaluateListContract.Pre
     }
 
     @Override
-    public void orderReviewsFindGuideReviews(int guideId,String value, int limit, int page) {
+    public void orderReviewsFindGuideReviews(int guideId,int serveId, String value, int limit, int page) {
         ResponseCallback listener = new ResponseCallback<BasePageModel<EvaluateModel2>>() {
             @Override
             public void onSuccess(BasePageModel<EvaluateModel2> data) {
@@ -37,6 +37,6 @@ public class GuideEvaluateListPresenter implements GuideEvaluateListContract.Pre
                 iView.orderReviewsFindGuideReviewsFailed(errorMsg);
             }
         };
-        MethodApi.orderReviewsFindGuideReviews(guideId,value, limit, page, new OnSuccessAndFaultSub(listener,context,false));
+        MethodApi.orderReviewsFindGuideReviews(guideId,serveId,value, limit, page, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

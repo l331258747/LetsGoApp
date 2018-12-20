@@ -12,7 +12,7 @@ import com.njz.letsgoapp.bean.home.EvaluateModel2;
 public interface GuideEvaluateListContract {
 
     interface Presenter {
-        void orderReviewsFindGuideReviews(int guideId,String value, int limit, int page);
+        void orderReviewsFindGuideReviews(int guideId,int serveId,String value, int limit, int page);
     }
 
     interface View {

@@ -117,7 +117,6 @@
 
         <activity android:name=".view.server.ServiceDetailActivity" />
         <activity android:name=".view.server.ServiceDetailActivity2" />
-        <activity android:name=".view.server.ServiceListActivity" />
 
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />
@@ -135,6 +134,7 @@
         <activity android:name=".view.calendar.PriceCalendarActivity"/>
         <activity android:name=".view.calendar.RangeCalendarActivity"/>
         <activity android:name=".view.server.OrderSubmitActivity"/>
+        <activity android:name=".view.server.CustomPlanActivity"/>
 
         <!-- 订单-->
         <activity

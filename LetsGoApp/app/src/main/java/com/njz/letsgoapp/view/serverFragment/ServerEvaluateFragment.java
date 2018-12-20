@@ -22,6 +22,7 @@ import com.njz.letsgoapp.bean.home.EvaluateServicesModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.GuideEvaluateListContract;
 import com.njz.letsgoapp.mvp.home.GuideEvaluateListPresenter;
+import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
@@ -38,9 +39,10 @@ import java.util.List;
 
 public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluateListContract.View{
 
-    public static final String GUIDEID = "GUIDE_ID";
     private RecyclerView recyclerView;
     private EmptyView2 view_empty;
+    private MyRatingBar myRatingBar;
+    private TextView tv_evaluate_count;
 
     private TagFlowLayout mFlowLayout;
     private TagAdapter<String> mFlowAdapter;
@@ -51,6 +53,9 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
 
     private GuideEvaluateListPresenter mPresenter;
     private int guideId;
+    private int serverId;
+    private float serverScore;
+    private int evaluateCount;
 
     private LoadMoreWrapper loadMoreWrapper;
     private int page;
@@ -59,10 +64,13 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
 
     private String value = "";
 
-    public static Fragment newInstance(int guideId) {
+    public static Fragment newInstance(int guideId,int serverId,float serverScore,int evaluateCount) {
         ServerEvaluateFragment fragment = new ServerEvaluateFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("GUIDE_ID", guideId);
+        bundle.putInt("SERVER_ID", serverId);
+        bundle.putFloat("SERVER_SCORE", serverScore);
+        bundle.putInt("EVALUATE_COUNT", evaluateCount);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -73,6 +81,9 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
         Bundle bundle = getArguments();
         if (bundle != null) {
             guideId = bundle.getInt("GUIDE_ID");
+            serverId = bundle.getInt("SERVER_ID");
+            serverScore = bundle.getFloat("SERVER_SCORE");
+            evaluateCount = bundle.getInt("EVALUATE_COUNT");
         }
     }
 
@@ -85,12 +96,17 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
     public void initView() {
         view_empty = $(R.id.view_empty);
         mFlowLayout = $(R.id.id_flowlayout);
+        myRatingBar = $(R.id.myRatingBar);
+        tv_evaluate_count = $(R.id.tv_evaluate_count);
 
         initRecycler();
     }
 
     @Override
     public void initData() {
+        myRatingBar.setRating((int) serverScore);
+        tv_evaluate_count.setText(evaluateCount + "条点评");
+
         mPresenter = new GuideEvaluateListPresenter(context, this);
 
         initFlow();
@@ -141,13 +157,11 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                value = position == 0 ? ""
-                        : position == 1 ? Constant.SERVER_TYPE_GUIDE
-                        : position == 2 ? Constant.SERVER_TYPE_CUSTOM
-                        : position == 3 ? Constant.SERVER_TYPE_CAR
-                        : position == 4 ? Constant.SERVER_TYPE_HOTEL
-                        : position == 5 ? Constant.SERVER_TYPE_TICKET
-                        : "";
+                value = position == 0 ? "0"
+                        : position == 1 ? "1"
+                        : position == 2 ? "2"
+                        : position == 3 ? "3"
+                        : "0";
                 getRefreshData();
                 return true;
             }
@@ -203,6 +217,6 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
     }
 
     public void getData() {
-        mPresenter.orderReviewsFindGuideReviews(guideId, value, Constant.DEFAULT_LIMIT, page);
+        mPresenter.orderReviewsFindGuideReviews(guideId, serverId,value, Constant.DEFAULT_LIMIT, page);
     }
 }

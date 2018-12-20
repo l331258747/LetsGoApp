@@ -200,7 +200,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public  void initViewPage(GuideDetailModel model){
         mFragments = new ArrayList<>();
         mFragments.add(ServerListFragment.newInstance(model,serverItems));
-        mFragments.add(ServerEvaluateFragment.newInstance(guideId));
+        mFragments.add(ServerEvaluateFragment.newInstance(guideId,0,model.getGuideScore(),model.getCount()));
         mFragments.add(ServerStoryFragment.newInstance(model.getGuideStory()));
         mFragments.add(ServerBookRuleFragment.newInstance());
 

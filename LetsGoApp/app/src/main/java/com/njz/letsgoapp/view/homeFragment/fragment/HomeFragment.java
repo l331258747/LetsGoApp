@@ -38,7 +38,6 @@ import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.other.SearchActivity;
 import com.njz.letsgoapp.view.server.ServerListActivity;
-import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
@@ -280,7 +279,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);
-                intent.putExtra(ServiceDetailActivity.SERVICEID,playAdapter.getData(position).getId());
+                intent.putExtra(ServiceDetailActivity2.SERVICEID,playAdapter.getData(position).getId());
                 startActivity(intent);
 
             }
