@@ -27,7 +27,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.BaseViewHolder> {
+public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.ViewHolder> {
 
     private Context context;
     private List<OrderDetailChildModel> datas;
@@ -44,7 +44,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         view = LayoutInflater.from(context).inflate(R.layout.item_order_submit2, parent, false);
         return new ViewHolder(view);
@@ -52,40 +52,46 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
         if (holder instanceof ViewHolder) {
             final int pos = holder.getAdapterPosition();
             final OrderDetailChildModel data = datas.get(pos);
             if (data == null) return;
 
-            GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
-            ((ViewHolder) holder).tv_title.setText(data.getTitle());
-            ((ViewHolder) holder).tv_server_name.setText(data.getServerName());
+            GlideUtil.LoadRoundImage(context, data.getTitleImg(), holder.iv_img,5);
+            holder.tv_title.setText(data.getTitle());
+            holder.tv_server_name.setText(data.getServerName());
 
-            ((ViewHolder) holder).tv_price_total.setText(data.getOrderPriceStr());
+            holder.tv_price_total.setText(data.getOrderPriceStr());
 
-            ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
+            holder.ll_count.setVisibility(View.VISIBLE);
             if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
-                ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
+                holder.ll_count.setVisibility(View.GONE);
             }
-            ((ViewHolder) holder).tv_count_content.setText(data.getCountContent());
+            holder.tv_count_content.setText(data.getCountContent());
 
-            ((ViewHolder) holder).tv_time_title.setText(data.getTimeTitle());
-            ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
-            ((ViewHolder) holder).tv_location_content.setText(data.getLocation());
+            holder.tv_time_title.setText(data.getTimeTitle());
+            holder.tv_time_content.setText(data.getTravelDate());
+            holder.tv_location_content.setText(data.getLocation());
 
+            if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                holder.ll_bug_get.setVisibility(View.VISIBLE);
+                holder.tv_bug_get.setText(data.getBugGet()+"");
+            }else{
+                holder.ll_bug_get.setVisibility(View.GONE);
+            }
 
-            ((ViewHolder) holder).btn_cancel.setVisibility(View.GONE);
+            holder.btn_cancel.setVisibility(View.GONE);
             switch (data.getPayStatus()){
                 case Constant.ORDER_PAY_WAIT:
 
                     if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
-                        ((ViewHolder) holder).btn_cancel.setVisibility(View.GONE);
+                        holder.btn_cancel.setVisibility(View.GONE);
                     }else{
-                        ((ViewHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
-                        ((ViewHolder) holder).btn_cancel.setText("取消");
-                        ((ViewHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                        holder.btn_cancel.setVisibility(View.VISIBLE);
+                        holder.btn_cancel.setText("取消");
+                        holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if(mOnCancelClickListener != null){
@@ -98,11 +104,11 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                     break;
                 case Constant.ORDER_PAY_ALREADY:
                     if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
-                        ((ViewHolder) holder).btn_cancel.setVisibility(View.GONE);
+                        holder.btn_cancel.setVisibility(View.GONE);
                     }else{
-                        ((ViewHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
-                        ((ViewHolder) holder).btn_cancel.setText("退款");
-                        ((ViewHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
+                        holder.btn_cancel.setVisibility(View.VISIBLE);
+                        holder.btn_cancel.setText("退款");
+                        holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if(mOnRefundClickListener != null){
@@ -117,7 +123,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                     break;
             }
 
-            ((ViewHolder) holder).fl_parent.setOnClickListener(new View.OnClickListener() {
+            holder.fl_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ServiceDetailActivity.class);
@@ -140,18 +146,12 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         return datas.size();
     }
 
-    static class BaseViewHolder extends RecyclerView.ViewHolder {
-        BaseViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public class ViewHolder extends BaseViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_img;
         TextView tv_title, tv_server_name, tv_price_total;
-        LinearLayout ll_count;
-        TextView  tv_count_content, tv_time_title, tv_time_content,btn_cancel,tv_location_content;
+        LinearLayout ll_count,ll_bug_get;
+        TextView  tv_count_content, tv_time_title, tv_time_content,btn_cancel,tv_location_content,tv_bug_get;
         FrameLayout fl_parent;
 
         public ViewHolder(View itemView) {
@@ -167,6 +167,8 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             tv_count_content = itemView.findViewById(R.id.tv_count_content);
             btn_cancel = itemView.findViewById(R.id.btn_cancel);
             tv_location_content = itemView.findViewById(R.id.tv_location_content);
+            tv_bug_get = itemView.findViewById(R.id.tv_bug_get);
+            ll_bug_get = itemView.findViewById(R.id.ll_bug_get);
 
         }
     }

@@ -58,6 +58,11 @@ public class OrderDetailChildModel {
     private String location;
     private int serveNum;
     private int planStatus;
+    private float bugGet;
+
+    public float getBugGet() {
+        return bugGet;
+    }
 
     public int getPlanStatus() {
         return planStatus;

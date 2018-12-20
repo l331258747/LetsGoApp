@@ -40,6 +40,7 @@ public class OrderDetailModel {
 
     private int guideId;
     private String guideSureTime;
+    private String planDesignTime;
     private String lastPayTime;
     private String orderNo;
     private String specialRequire;
@@ -67,12 +68,24 @@ public class OrderDetailModel {
     private int payingStatus;
     private int serveId;
 
+    public String getPlanDesignTime() {
+        return planDesignTime;
+    }
+
     public int getPersonNum() {
         return personNum;
     }
 
     public int getPlanStatus() {
         return planStatus;
+    }
+
+    public void setPlanDesignTime(String planDesignTime) {
+        this.planDesignTime = planDesignTime;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
     }
 
     public int getServeId() {

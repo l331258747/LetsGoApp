@@ -54,9 +54,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public TextView tv_order_price;
 
     public LinearLayout ll_order_no, ll_order_create_time, ll_order_pay_time, ll_order_pay_method, ll_order_guide_time,
-            ll_order_refund_apply, ll_order_refund_verify, ll_order_refund_time,ll_order_travel_start,ll_order_travel_end;
+            ll_order_refund_apply, ll_order_refund_verify, ll_order_refund_time,ll_order_travel_start,ll_order_travel_end,
+            ll_order_plan_confirm,ll_order_plan_up;
     public TextView tv_order_no, tv_order_create_time, tv_order_pay_time, tv_order_pay_method, tv_order_guide_time, tv_order_refund_apply,
-            tv_order_refund_verify, tv_order_refund_time,tv_order_travel_start,tv_order_travel_end;
+            tv_order_refund_verify, tv_order_refund_time,tv_order_travel_start,tv_order_travel_end,
+            tv_order_plan_confirm,tv_order_plan_up;
 
     public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate,btn_evaluate_see,btn_see_plan;
 
@@ -109,6 +111,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ll_order_refund_time = $(R.id.ll_order_refund_time);
         ll_order_travel_start = $(R.id.ll_order_travel_start);
         ll_order_travel_end = $(R.id.ll_order_travel_end);
+        ll_order_plan_confirm = $(R.id.ll_order_plan_confirm);
+        ll_order_plan_up = $(R.id.ll_order_plan_up);
         tv_order_no = $(R.id.tv_order_no);
         tv_order_create_time = $(R.id.tv_order_create_time);
         tv_order_pay_time = $(R.id.tv_order_pay_time);
@@ -119,6 +123,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tv_order_refund_time = $(R.id.tv_order_refund_time);
         tv_order_travel_start = $(R.id.tv_order_travel_start);
         tv_order_travel_end = $(R.id.tv_order_travel_end);
+        tv_order_plan_confirm = $(R.id.tv_order_plan_confirm);
+        tv_order_plan_up = $(R.id.tv_order_plan_up);
 
         btn_cancel_order = $(R.id.btn_cancel_order);
         btn_call_guide = $(R.id.btn_call_guide);
@@ -166,6 +172,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ll_order_refund_time.setVisibility(View.GONE);
         ll_order_travel_start.setVisibility(View.GONE);
         ll_order_travel_end.setVisibility(View.GONE);
+        ll_order_plan_confirm.setVisibility(View.GONE);
+        ll_order_plan_up.setVisibility(View.GONE);
 
         initRecycler();
     }
@@ -320,10 +328,21 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                         || str.getPlanStatus() == Constant.ORDER_PLAN_PLANING) {//取消订单，联系他
                     btn_call_guide.setVisibility(View.VISIBLE);
                     btn_cancel_order.setVisibility(View.VISIBLE);
+
+                    if(str.getPlanStatus() == Constant.ORDER_PLAN_PLANING){
+                        ll_order_plan_confirm.setVisibility(View.VISIBLE);
+                        tv_order_plan_confirm.setText(str.getGuideSureTime());
+                    }
                 } else if (str.getPlanStatus() == Constant.ORDER_PLAN_USER_WAIT) {//取消订单，查看方案，付款
                     btn_cancel_order.setVisibility(View.VISIBLE);
                     btn_see_plan.setVisibility(View.VISIBLE);
                     btn_pay.setVisibility(View.VISIBLE);
+
+                    ll_order_plan_confirm.setVisibility(View.VISIBLE);
+                    tv_order_plan_confirm.setText(str.getGuideSureTime());
+                    ll_order_plan_up.setVisibility(View.VISIBLE);
+                    tv_order_plan_up.setText(str.getPlanDesignTime());
+
                 } else {
                     btn_call_guide.setVisibility(View.VISIBLE);
                     if (str.getPayingStatus() == Constant.ORDER_WAIT_PAYING) {
