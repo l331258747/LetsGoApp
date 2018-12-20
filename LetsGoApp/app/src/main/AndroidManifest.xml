@@ -418,6 +418,12 @@
 
         <!-- bugly 升级 end -->
 
+
+        <!-- 友盟 start-->
+        <meta-data android:value="5c1740f6b465f561b40002cc" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
+        <!-- 友盟 end-->
+
     </application>
 
 </manifest>

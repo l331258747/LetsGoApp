@@ -89,7 +89,8 @@ public class MyApplication extends Application{
          * 参数4:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
          * 参数5:Push推送业务的secret，需要集成Push功能时必须传入Push的secret，否则传空。
          */
-        UMConfigure.init(context, "5c1740f6b465f561b40002cc", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        UMConfigure.init(context, "5c1740f6b465f561b40002cc", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(context, UMConfigure.DEVICE_TYPE_PHONE, "");
 
         /**
          * 设置组件化的Log开关

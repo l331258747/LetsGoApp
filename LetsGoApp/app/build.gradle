@@ -38,16 +38,52 @@ android {
     }
 
     productFlavors {
-        // Define separate dev and prod product flavors.
-        dev {
-            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
-            // to pre-dex each module and produce an APK that can be tested on
-            // Android Lollipop without time consuming dex merging processes.
-            minSdkVersion 19
-        }
+//        // Define separate dev and prod product flavors.
+//        dev {
+//            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+//            // to pre-dex each module and produce an APK that can be tested on
+//            // Android Lollipop without time consuming dex merging processes.
+//            minSdkVersion 19
+//        }
+//        prod {
+//            // The actual minSdkVersion for the application.
+//            minSdkVersion 14
+//        }
+
+        //qq、baidu、xiaomi、huawei、ali、vivo、oppo、meizu、c360 qq代表应用宝
+
         prod {
-            // The actual minSdkVersion for the application.
-            minSdkVersion 14
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "prod"]
+        }
+
+        if(defaultConfig.versionCode % 100 == 0){
+            qq {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
+            }
+            baidu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+            }
+            xiaomi {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+            }
+            huawei {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+            }
+            ali {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
+            }
+            vivo {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+            }
+            oppo {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+            }
+            meizu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+            }
+            c360 {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+            }
         }
     }
 
