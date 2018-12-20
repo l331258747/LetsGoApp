@@ -192,14 +192,16 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
 
     private void submit() {
         //TODO 提交
-//        mPresenter.upUserReview(orderId,
-//                guideId,
-//                ev_guide.getRating(),
-//                ev_car.getRating(),
-//                ev_trip.getRating(),
-//                ev_substituting.getRating(),
-//                et_special.getText().toString(),
-//                upLoadPhotos);
+        mPresenter.upUserReview(orderId,
+                guideId,
+                ev_attitude.getRating(),
+                ev_quality.getRating(),
+                ev_scheduling.getRating(),
+                ev_car_condition.getRating(),
+                ev_plan_design.getRating(),
+                ev_travel_experience.getRating(),
+                et_special.getText().toString(),
+                upLoadPhotos);
     }
 
     private void compressImage() {

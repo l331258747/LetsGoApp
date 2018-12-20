@@ -366,10 +366,12 @@ public interface HttpService {
     Observable<BaseResponse<EmptyModel>> upUserReview(
             @Part("orderId") int orderId,
             @Part("guideId") int guideId,
-            @Part("guideService") int guideService,
-            @Part("carCondition") int carCondition,
-            @Part("buyService") int buyService,
+            @Part("serviceAttitude") int serviceAttitude,
+            @Part("serviceQuality") int serviceQuality,
             @Part("travelArrange") int travelArrange,
+            @Part("carCondition") int carCondition,
+            @Part("offerDesign") int offerDesign,
+            @Part("travelPlay") int travelPlay,
             @Part("userContent") RequestBody userContent,
             @Part List<MultipartBody.Part> files
     );

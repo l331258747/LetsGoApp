@@ -50,10 +50,14 @@ public class EvaluateModel2 {
      */
 
     private String nickname;
-    private float guideService;
-    private float carCondition;
-    private float buyService;
+
+    private float serviceAttitude;
+    private float serviceQuality;
     private float travelArrange;
+    private float carCondition;
+    private float offerDesign;
+    private float travelPlay;
+
     private float score;
     private String userDate;
     private String userContent;
@@ -101,34 +105,6 @@ public class EvaluateModel2 {
     //导游服务,车辆状况,代订服务,行程安排
     //服务态度，服务质量，行程安排，车辆状况，方案定制，行程体验
 
-
-    public float getGuideService() {
-        return guideService;
-    }
-    public String getGuideServiceStr(){
-        return "导游服务" + guideService;
-    }
-
-    public float getCarCondition() {
-        return carCondition;
-    }
-    public String getCarConditionStr() {
-        return "车辆状况" + carCondition;
-    }
-
-    public float getBuyService() {
-        return buyService;
-    }
-    public String getBuyServiceStr() {
-        return "代订服务" + buyService;
-    }
-
-    public float getTravelArrange() {
-        return travelArrange;
-    }
-    public String getTravelArrangeStr() {
-        return "行程安排" + travelArrange;
-    }
 
     public String getScore() {
         return ""+score;
@@ -179,22 +155,6 @@ public class EvaluateModel2 {
         this.imgUrl = imgUrl;
     }
 
-    public void setGuideService(float guideService) {
-        this.guideService = guideService;
-    }
-
-    public void setCarCondition(float carCondition) {
-        this.carCondition = carCondition;
-    }
-
-    public void setBuyService(float buyService) {
-        this.buyService = buyService;
-    }
-
-    public void setTravelArrange(float travelArrange) {
-        this.travelArrange = travelArrange;
-    }
-
     public void setGuideContent(String guideContent) {
         this.guideContent = guideContent;
     }
@@ -209,5 +169,50 @@ public class EvaluateModel2 {
 
     public void setServices(List<EvaluateServicesModel> services) {
         this.services = services;
+    }
+
+    public float getServiceAttitude() {
+        return serviceAttitude;
+    }
+
+    public float getServiceQuality() {
+        return serviceQuality;
+    }
+
+    public float getTravelArrange() {
+        return travelArrange;
+    }
+
+    public float getCarCondition() {
+        return carCondition;
+    }
+
+    public float getOfferDesign() {
+        return offerDesign;
+    }
+
+    public float getTravelPlay() {
+        return travelPlay;
+    }
+    public String getServiceAttitudeStr() {
+        return "服务态度"+serviceAttitude;
+    }
+    public String getServiceQualityStr() {
+        return "服务质量"+serviceQuality;
+    }
+    public String getTravelArrangeStr() {
+        return "行程安排"+travelArrange;
+    }
+
+    public String getCarConditionStr() {
+        return "车辆状况"+carCondition;
+    }
+
+    public String getOfferDesignStr() {
+        return "方案设计"+offerDesign;
+    }
+
+    public String getTravelPlayStr() {
+        return "行程体验"+travelPlay;
     }
 }

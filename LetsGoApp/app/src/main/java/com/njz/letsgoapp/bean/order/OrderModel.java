@@ -41,7 +41,12 @@ public class OrderModel {
     private String name;
     private String guideMobile;
     private int planStatus;
+    private boolean havCar;
     private List<OrderChildModel> njzChildOrderListVOS;
+
+    public boolean isHavCar() {
+        return havCar;
+    }
 
     public int getPlanStatus() {
         return planStatus;
@@ -186,7 +191,8 @@ public class OrderModel {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
                 evaluateTypeModel.setScheduling(true);
-//                evaluateTypeModel.setCarCondition(true);
+                if(havCar)
+                    evaluateTypeModel.setCarCondition(true);
             } else if (childModel.getServeType() == Constant.SERVER_TYPE_CAR_ID) {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);

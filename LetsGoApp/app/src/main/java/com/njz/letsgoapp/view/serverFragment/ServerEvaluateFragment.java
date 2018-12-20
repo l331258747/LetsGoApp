@@ -1,10 +1,14 @@
 package com.njz.letsgoapp.view.serverFragment;
 
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -12,10 +16,13 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.EvaluateAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.home.EvaluateServicesModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.home.GuideEvaluateListContract;
 import com.njz.letsgoapp.mvp.home.GuideEvaluateListPresenter;
+import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
 import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
@@ -29,10 +36,11 @@ import java.util.List;
  * Function:
  */
 
-public class ServerEvaluateFragment extends BaseFragment {
+public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluateListContract.View{
 
     public static final String GUIDEID = "GUIDE_ID";
     private RecyclerView recyclerView;
+    private EmptyView2 view_empty;
 
     private TagFlowLayout mFlowLayout;
     private TagAdapter<String> mFlowAdapter;
@@ -51,10 +59,21 @@ public class ServerEvaluateFragment extends BaseFragment {
 
     private String value = "";
 
-
-    public static Fragment newInstance() {
+    public static Fragment newInstance(int guideId) {
         ServerEvaluateFragment fragment = new ServerEvaluateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("GUIDE_ID", guideId);
+        fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            guideId = bundle.getInt("GUIDE_ID");
+        }
     }
 
     @Override
@@ -64,6 +83,7 @@ public class ServerEvaluateFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        view_empty = $(R.id.view_empty);
         mFlowLayout = $(R.id.id_flowlayout);
 
         initRecycler();
@@ -71,6 +91,8 @@ public class ServerEvaluateFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        mPresenter = new GuideEvaluateListPresenter(context, this);
+
         initFlow();
         getRefreshData();
     }
@@ -148,31 +170,9 @@ public class ServerEvaluateFragment extends BaseFragment {
         getData();
     }
 
-    public void getData(){
-        List<EvaluateModel2> datas = new ArrayList<>();
-        EvaluateModel2 item = new EvaluateModel2();
-        item.setNickname("那就走");
-        item.setGuideService(4.5f);
-        item.setBuyService(4.5f);
-        item.setCarCondition(4.5f);
-        item.setTravelArrange(4.5f);
-        item.setScore(4.6f);
-        item.setUserDate("2018-09-09");
-        item.setUserContent("那就走那就走那就走那就走那就走");
-        item.setImgUrl("");
-        item.setLevel("长沙");
-        item.setGuideContent("哪家时代峻峰");
-        item.setGuideDate("2019-01-01");
-        item.setImageUrls(Constant.TEST_IMG_URL);
-        List<EvaluateServicesModel> ss = new ArrayList<>();
-        EvaluateServicesModel sd = new EvaluateServicesModel(1,"来得及");
-        ss.add(sd);
-        ss.add(sd);
-        ss.add(sd);
-        item.setServices(ss);
-        datas.add(item);
-        datas.add(item);
-        datas.add(item);
+    @Override
+    public void orderReviewsFindGuideReviewsSuccess(BasePageModel<EvaluateModel2> models) {
+        List<EvaluateModel2> datas = models.getList();
 
         if (isLoadType == 1) {
             mAdapter.setData(datas);
@@ -186,5 +186,23 @@ public class ServerEvaluateFragment extends BaseFragment {
             // 显示加载到底的提示
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
+
+        if(mAdapter.getDatas().size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_comment_meto,"空空如也~");
+        }else{
+            view_empty.setVisible(false);
+        }
+    }
+
+    @Override
+    public void orderReviewsFindGuideReviewsFailed(String msg) {
+        showShortToast(msg);
+        isLoad = false;
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+    }
+
+    public void getData() {
+        mPresenter.orderReviewsFindGuideReviews(guideId, value, Constant.DEFAULT_LIMIT, page);
     }
 }

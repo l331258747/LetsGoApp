@@ -81,10 +81,6 @@ public class GuideDetailModel implements Parcelable{
     private int cardViable;
 
     private float guideScore;
-    private float travelArranges;
-    private float buyServices;
-    private float carConditions;
-    private float guideServices;
 
     private String shareImg;
     private String shareContent;
@@ -111,10 +107,6 @@ public class GuideDetailModel implements Parcelable{
         guideViable = in.readInt();
         cardViable = in.readInt();
         guideScore = in.readFloat();
-        travelArranges = in.readFloat();
-        buyServices = in.readFloat();
-        carConditions = in.readFloat();
-        guideServices = in.readFloat();
         shareImg = in.readString();
         shareContent = in.readString();
         shareTitle = in.readString();
@@ -268,29 +260,12 @@ public class GuideDetailModel implements Parcelable{
         this.id = id;
     }
 
-    public float getBuyServices() {
-        return buyServices;
-    }
-
-    public void setBuyServices(float buyServices) {
-        this.buyServices = buyServices;
-    }
-
-
     public float getGuideScore() {
         return guideScore;
     }
 
     public void setGuideScore(float guideScore) {
         this.guideScore = guideScore;
-    }
-
-    public float getCarConditions() {
-        return carConditions;
-    }
-
-    public void setCarConditions(float carConditions) {
-        this.carConditions = carConditions;
     }
 
     public int getDriveViable() {
@@ -310,28 +285,12 @@ public class GuideDetailModel implements Parcelable{
     }
 
 
-    public float getGuideServices() {
-        return guideServices;
-    }
-
-    public void setGuideServices(float guideServices) {
-        this.guideServices = guideServices;
-    }
-
     public int getGuideViable() {
         return guideViable;
     }
 
     public void setGuideViable(int guideViable) {
         this.guideViable = guideViable;
-    }
-
-    public float getTravelArranges() {
-        return travelArranges;
-    }
-
-    public void setTravelArranges(float travelArranges) {
-        this.travelArranges = travelArranges;
     }
 
     public int getCardViable() {
@@ -376,10 +335,6 @@ public class GuideDetailModel implements Parcelable{
         dest.writeInt(guideViable);
         dest.writeInt(cardViable);
         dest.writeFloat(guideScore);
-        dest.writeFloat(travelArranges);
-        dest.writeFloat(buyServices);
-        dest.writeFloat(carConditions);
-        dest.writeFloat(guideServices);
         dest.writeString(shareImg);
         dest.writeString(shareContent);
         dest.writeString(shareTitle);

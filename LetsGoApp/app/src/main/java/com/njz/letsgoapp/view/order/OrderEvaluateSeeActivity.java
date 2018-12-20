@@ -26,7 +26,7 @@ import com.njz.letsgoapp.widget.EvaluateView;
 public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvaluateSeeContract.View {
 
     TextView tv_time,reply_content;
-    EvaluateView ev_guide,ev_car,ev_substituting,ev_trip;
+    EvaluateView ev_attitude,ev_quality,ev_scheduling,ev_car_condition,ev_plan_design,ev_travel_experience;
     TextView tv_special;
     LinearLayout ll_img,ll_reply,ll_content;
     RecyclerView mRecyclerView;
@@ -53,20 +53,24 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
 
         tv_time = $(R.id.tv_time);
         reply_content = $(R.id.reply_content);
-        ev_guide = $(R.id.ev_guide);
-        ev_car = $(R.id.ev_car);
-        ev_substituting = $(R.id.ev_substituting);
-        ev_trip = $(R.id.ev_trip);
+        ev_attitude = $(R.id.ev_attitude);
+        ev_quality = $(R.id.ev_quality);
+        ev_scheduling = $(R.id.ev_scheduling);
+        ev_car_condition = $(R.id.ev_car_condition);
+        ev_plan_design = $(R.id.ev_plan_design);
+        ev_travel_experience = $(R.id.ev_travel_experience);
         tv_special = $(R.id.tv_special);
         ll_img = $(R.id.ll_img);
         ll_content = $(R.id.ll_content);
         ll_reply = $(R.id.ll_reply);
         mRecyclerView = $(R.id.recycler_view);
 
-        ev_guide.getRatingBar().setClick(false);
-        ev_car.getRatingBar().setClick(false);
-        ev_substituting.getRatingBar().setClick(false);
-        ev_trip.getRatingBar().setClick(false);
+        ev_attitude.getRatingBar().setClick(false);
+        ev_quality.getRatingBar().setClick(false);
+        ev_scheduling.getRatingBar().setClick(false);
+        ev_car_condition.getRatingBar().setClick(false);
+        ev_plan_design.getRatingBar().setClick(false);
+        ev_travel_experience.getRatingBar().setClick(false);
     }
 
     @Override
@@ -80,29 +84,41 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
     public void orderReviewsQueryOrderReviewSuccess(final EvaluateModel2 str) {
         if(str == null) return;
         tv_time.setText(str.getUserDate());
-        if(str.getGuideService() < 1){
-            ev_guide.setVisibility(View.GONE);
+        if(str.getServiceAttitude() < 1){
+            ev_attitude.setVisibility(View.GONE);
         }else{
-            ev_guide.setContent((int)str.getGuideService());
-            ev_guide.getRatingBar().setRating((int)str.getGuideService());
+            ev_attitude.setContent((int)str.getServiceAttitude());
+            ev_attitude.getRatingBar().setRating((int)str.getServiceAttitude());
+        }
+        if(str.getServiceQuality() < 1){
+            ev_quality.setVisibility(View.GONE);
+        }else{
+            ev_quality.setContent((int)str.getServiceQuality());
+            ev_quality.getRatingBar().setRating((int)str.getServiceQuality());
         }
         if(str.getCarCondition() < 1){
-            ev_car.setVisibility(View.GONE);
+            ev_car_condition.setVisibility(View.GONE);
         }else{
-            ev_car.setContent((int)str.getCarCondition());
-            ev_car.getRatingBar().setRating((int)str.getCarCondition());
-        }
-        if(str.getBuyService() < 1){
-            ev_substituting.setVisibility(View.GONE);
-        }else{
-            ev_substituting.setContent((int)str.getBuyService());
-            ev_substituting.getRatingBar().setRating((int)str.getBuyService());
+            ev_car_condition.setContent((int)str.getCarCondition());
+            ev_car_condition.getRatingBar().setRating((int)str.getCarCondition());
         }
         if(str.getTravelArrange() < 1){
-            ev_trip.setVisibility(View.GONE);
+            ev_scheduling.setVisibility(View.GONE);
         }else{
-            ev_trip.setContent((int)str.getTravelArrange());
-            ev_trip.getRatingBar().setRating((int)str.getTravelArrange());
+            ev_scheduling.setContent((int)str.getTravelArrange());
+            ev_scheduling.getRatingBar().setRating((int)str.getTravelArrange());
+        }
+        if(str.getOfferDesign() < 1){
+            ev_plan_design.setVisibility(View.GONE);
+        }else{
+            ev_plan_design.setContent((int)str.getOfferDesign());
+            ev_plan_design.getRatingBar().setRating((int)str.getOfferDesign());
+        }
+        if(str.getTravelPlay() < 1){
+            ev_travel_experience.setVisibility(View.GONE);
+        }else{
+            ev_travel_experience.setContent((int)str.getTravelPlay());
+            ev_travel_experience.getRatingBar().setRating((int)str.getTravelPlay());
         }
 
         if(TextUtils.isEmpty(str.getUserContent())){

@@ -70,7 +70,7 @@
         android:paddingTop="3dp">
 
         <TextView
-            android:id="@+id/tv_comment_guide"
+            android:id="@+id/tv_attitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -80,10 +80,23 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:textSize="10sp"
-            tools:text="导游服务 5.0" />
+            tools:text="服务态度 5.0" />
 
         <TextView
-            android:id="@+id/tv_comment_trip"
+            android:id="@+id/tv_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textSize="10sp"
+            tools:text="服务质量 5.0" />
+
+        <TextView
+            android:id="@+id/tv_scheduling"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -96,7 +109,7 @@
             tools:text="行程安排 5.0" />
 
         <TextView
-            android:id="@+id/tv_comment_car"
+            android:id="@+id/tv_car_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -106,10 +119,10 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:textSize="10sp"
-            tools:text="车辆状态 5.0" />
+            tools:text="车辆状况 5.0" />
 
         <TextView
-            android:id="@+id/tv_comment_book"
+            android:id="@+id/tv_plan_design"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
@@ -119,7 +132,20 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:textSize="10sp"
-            tools:text="代订服务 5.0" />
+            tools:text="方案设计 5.0" />
+
+        <TextView
+            android:id="@+id/tv_travel_experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textSize="10sp"
+            tools:text="行程体验 5.0" />
 
     </LinearLayout>
 

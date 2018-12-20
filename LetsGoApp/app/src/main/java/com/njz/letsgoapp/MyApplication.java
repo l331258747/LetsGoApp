@@ -96,12 +96,12 @@ public class MyApplication extends Application{
          * 设置组件化的Log开关
          * 参数: boolean 默认为false，如需查看LOG设置为true
          */
-        if(AppUtils.getVersionCodeInt() % 100 == 0){
-            UMConfigure.setLogEnabled(false);
-        }else{
-            UMConfigure.setLogEnabled(true);
-        }
-
+//        if(AppUtils.getVersionCodeInt() % 100 == 0){
+//            UMConfigure.setLogEnabled(false);
+//        }else{
+//            UMConfigure.setLogEnabled(true);
+//        }
+        UMConfigure.setLogEnabled(false);
     }
 
     private void registToWX() {

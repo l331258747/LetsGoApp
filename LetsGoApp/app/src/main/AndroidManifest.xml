@@ -118,7 +118,6 @@
         <activity android:name=".view.server.ServiceDetailActivity" />
         <activity android:name=".view.server.ServiceDetailActivity2" />
         <activity android:name=".view.server.ServiceListActivity" />
-        <activity android:name=".view.home.EvaluateListActivity" />
 
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />

@@ -61,7 +61,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
     public  void initViewPage(ServerDetailMedel model){
         mFragments = new ArrayList<>();
         mFragments.add(ServerFeatureFragment.newInstance(model));
-        mFragments.add(ServerEvaluateFragment.newInstance());
+        mFragments.add(ServerEvaluateFragment.newInstance(model.getGuideId()));
         mFragments.add(ServerOtherFragment.newInstance(model.getGuideId(),model.getId()));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);

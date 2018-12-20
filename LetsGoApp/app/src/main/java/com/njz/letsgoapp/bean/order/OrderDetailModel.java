@@ -67,6 +67,11 @@ public class OrderDetailModel {
     private List<OrderDetailChildModel> njzChildOrderVOS;
     private int payingStatus;
     private int serveId;
+    private boolean havCar;
+
+    public boolean isHavCar() {
+        return havCar;
+    }
 
     public String getPlanDesignTime() {
         return planDesignTime;
@@ -368,7 +373,8 @@ public class OrderDetailModel {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
                 evaluateTypeModel.setScheduling(true);
-//                evaluateTypeModel.setCarCondition(true);
+                if(havCar)
+                    evaluateTypeModel.setCarCondition(true);
             } else if (childModel.getServeType() == Constant.SERVER_TYPE_CAR_ID) {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);

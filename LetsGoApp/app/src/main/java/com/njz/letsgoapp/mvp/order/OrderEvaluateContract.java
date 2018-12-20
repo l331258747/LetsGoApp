@@ -12,14 +12,8 @@ import java.util.List;
 
 public interface OrderEvaluateContract {
     interface Presenter {
-        void upUserReview(int orderId,
-                          int guideId,
-                          int guideService,
-                          int carCondition,
-                          int buyService,
-                          int travelArrange,
-                          String userContent,
-                          List<String> files);
+        void upUserReview(int orderId, int guideId, int serviceAttitude, int serviceQuality,int travelArrange,int carCondition,int offerDesign,int travelPlay,
+                          String userContent, List<String> files);
     }
 
     interface View {
