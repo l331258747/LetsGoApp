@@ -37,7 +37,7 @@ public class ServerEvaluateFragment extends BaseFragment {
     private TagFlowLayout mFlowLayout;
     private TagAdapter<String> mFlowAdapter;
     private String[] mVals = new String[]
-            {"全部", "有图100", "好评100", "中评100", "差评100"};
+            {"全部", "好评", "中评", "差评"};
 
     private EvaluateAdapter mAdapter;
 

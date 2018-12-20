@@ -72,7 +72,6 @@ public class GuideDetailModel implements Parcelable{
     private String guideStory;
     private String image;
     private String guideAge;
-    private EvaluateModel travelFirstReviewVO;
     private int id;
     private String serviceAge;
     private List<GuideServiceModel> travelGuideServiceInfoVOs;
@@ -244,8 +243,6 @@ public class GuideDetailModel implements Parcelable{
         this.introduce = introduce;
     }
 
-
-
     public String getGuideStory() {
         return guideStory;
     }
@@ -253,15 +250,6 @@ public class GuideDetailModel implements Parcelable{
     public void setGuideStory(String guideStory) {
         this.guideStory = guideStory;
     }
-
-    public EvaluateModel getTravelFirstReviewVO() {
-        return travelFirstReviewVO;
-    }
-
-    public void setTravelFirstReviewVO(EvaluateModel travelFirstReviewVO) {
-        this.travelFirstReviewVO = travelFirstReviewVO;
-    }
-
 
     public String getImage() {
         return image;
@@ -283,9 +271,6 @@ public class GuideDetailModel implements Parcelable{
     public float getBuyServices() {
         return buyServices;
     }
-    public String getBuyServiceStr() {
-        return "代订服务" + buyServices;
-    }
 
     public void setBuyServices(float buyServices) {
         this.buyServices = buyServices;
@@ -302,9 +287,6 @@ public class GuideDetailModel implements Parcelable{
 
     public float getCarConditions() {
         return carConditions;
-    }
-    public String getCarConditionStr() {
-        return "车辆状况" + carConditions;
     }
 
     public void setCarConditions(float carConditions) {
@@ -331,9 +313,6 @@ public class GuideDetailModel implements Parcelable{
     public float getGuideServices() {
         return guideServices;
     }
-    public String getGuideServiceStr(){
-        return "导游服务" + guideServices;
-    }
 
     public void setGuideServices(float guideServices) {
         this.guideServices = guideServices;
@@ -349,9 +328,6 @@ public class GuideDetailModel implements Parcelable{
 
     public float getTravelArranges() {
         return travelArranges;
-    }
-    public String getTravelArrangeStr() {
-        return "行程安排" + travelArranges;
     }
 
     public void setTravelArranges(float travelArranges) {

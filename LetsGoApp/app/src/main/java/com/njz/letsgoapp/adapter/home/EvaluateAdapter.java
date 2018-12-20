@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.SimpleImageAdapter;
-import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.other.BigImageActivity;

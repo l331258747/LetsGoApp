@@ -3,16 +3,10 @@ package com.njz.letsgoapp.mvp.home;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.BasePageModel;
-import com.njz.letsgoapp.bean.home.BannerModel;
-import com.njz.letsgoapp.bean.home.DynamicModel;
-import com.njz.letsgoapp.bean.home.EvaluateModel;
 import com.njz.letsgoapp.bean.home.EvaluateModel2;
-import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
-
-import java.util.List;
 
 /**
  * Created by LGQ

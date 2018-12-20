@@ -51,7 +51,7 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
     private Disposable disposable;
     private LoadingDialog loadingDialog;
 
-    private EvaluateView ev_guide, ev_car, ev_substituting, ev_trip;
+    private EvaluateView ev_attitude, ev_quality, ev_scheduling, ev_car_condition,ev_plan_design,ev_travel_experience;
     private EditText et_special;
 
     private OrderEvaluatePresenter mPresenter;
@@ -78,30 +78,41 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
         showLeftAndTitle("发表评价");
 
         btn_submit = $(R.id.btn_submit);
-        ev_guide = $(R.id.ev_guide);
-        ev_car = $(R.id.ev_car);
-        ev_substituting = $(R.id.ev_substituting);
-        ev_trip = $(R.id.ev_trip);
+        ev_attitude = $(R.id.ev_attitude);//服务态度
+        ev_quality = $(R.id.ev_quality);//服务质量
+        ev_scheduling = $(R.id.ev_scheduling);//行程安排
+        ev_car_condition = $(R.id.ev_car_condition);//车辆状况
+        ev_plan_design = $(R.id.ev_plan_design);//方案设计
+        ev_travel_experience = $(R.id.ev_travel_experience);//行程体验
+
         et_special = $(R.id.et_special);
         btn_submit.setOnClickListener(this);
 
         initAddPhoto();
 
-        if(!evaluateTypeModel.isCar()){
-            ev_car.setVisibility(View.GONE);
-            ev_car.getRatingBar().setRating(0);
+        if(!evaluateTypeModel.isAttitude()){
+            ev_attitude.setVisibility(View.GONE);
+            ev_attitude.getRatingBar().setRating(0);
         }
-        if(!evaluateTypeModel.isGuide()){
-            ev_guide.setVisibility(View.GONE);
-            ev_guide.getRatingBar().setRating(0);
+        if(!evaluateTypeModel.isQuality()){
+            ev_quality.setVisibility(View.GONE);
+            ev_quality.getRatingBar().setRating(0);
         }
-        if(!evaluateTypeModel.isTravel()){
-            ev_substituting.setVisibility(View.GONE);
-            ev_substituting.getRatingBar().setRating(0);
+        if(!evaluateTypeModel.isScheduling()){
+            ev_scheduling.setVisibility(View.GONE);
+            ev_scheduling.getRatingBar().setRating(0);
         }
-        if(!evaluateTypeModel.isTrip()){
-            ev_trip.setVisibility(View.GONE);
-            ev_trip.getRatingBar().setRating(0);
+        if(!evaluateTypeModel.isCarCondition()){
+            ev_car_condition.setVisibility(View.GONE);
+            ev_car_condition.getRatingBar().setRating(0);
+        }
+        if(!evaluateTypeModel.isPlanDesign()){
+            ev_plan_design.setVisibility(View.GONE);
+            ev_plan_design.getRatingBar().setRating(0);
+        }
+        if(!evaluateTypeModel.isTravelExperience()){
+            ev_travel_experience.setVisibility(View.GONE);
+            ev_travel_experience.getRatingBar().setRating(0);
         }
 
     }
@@ -180,10 +191,15 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
     }
 
     private void submit() {
-        mPresenter.upUserReview(orderId, guideId, ev_guide.getRating(),
-                ev_car.getRating(), ev_trip.getRating(),
-                ev_substituting.getRating(), et_special.getText().toString(),
-                upLoadPhotos);
+        //TODO 提交
+//        mPresenter.upUserReview(orderId,
+//                guideId,
+//                ev_guide.getRating(),
+//                ev_car.getRating(),
+//                ev_trip.getRating(),
+//                ev_substituting.getRating(),
+//                et_special.getText().toString(),
+//                upLoadPhotos);
     }
 
     private void compressImage() {

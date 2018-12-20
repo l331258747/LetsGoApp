@@ -11,52 +11,23 @@ import android.os.Parcelable;
 
 public class EvaluateTypeModel implements Parcelable{
 
-    boolean isGuide;
-    boolean isCar;
-    boolean isTrip;
-    boolean isTravel;
+    boolean isAttitude;
+    boolean isQuality;
+    boolean isScheduling;
+    boolean isCarCondition;
+    boolean isPlanDesign;
+    boolean isTravelExperience;
 
     public EvaluateTypeModel() {
     }
 
-    public boolean isGuide() {
-        return isGuide;
-    }
-
-    public void setGuide(boolean guide) {
-        isGuide = guide;
-    }
-
-    public boolean isCar() {
-        return isCar;
-    }
-
-    public void setCar(boolean car) {
-        isCar = car;
-    }
-
-    public boolean isTrip() {
-        return isTrip;
-    }
-
-    public void setTrip(boolean trip) {
-        isTrip = trip;
-    }
-
-    public boolean isTravel() {
-        return isTravel;
-    }
-
-    public void setTravel(boolean travel) {
-        isTravel = travel;
-    }
-
-
     protected EvaluateTypeModel(Parcel in) {
-        isGuide = in.readByte() != 0;
-        isCar = in.readByte() != 0;
-        isTrip = in.readByte() != 0;
-        isTravel = in.readByte() != 0;
+        isAttitude = in.readByte() != 0;
+        isQuality = in.readByte() != 0;
+        isScheduling = in.readByte() != 0;
+        isCarCondition = in.readByte() != 0;
+        isPlanDesign = in.readByte() != 0;
+        isTravelExperience = in.readByte() != 0;
     }
 
     public static final Creator<EvaluateTypeModel> CREATOR = new Creator<EvaluateTypeModel>() {
@@ -71,6 +42,54 @@ public class EvaluateTypeModel implements Parcelable{
         }
     };
 
+    public boolean isAttitude() {
+        return isAttitude;
+    }
+
+    public void setAttitude(boolean attitude) {
+        isAttitude = attitude;
+    }
+
+    public boolean isQuality() {
+        return isQuality;
+    }
+
+    public void setQuality(boolean quality) {
+        isQuality = quality;
+    }
+
+    public boolean isScheduling() {
+        return isScheduling;
+    }
+
+    public void setScheduling(boolean scheduling) {
+        isScheduling = scheduling;
+    }
+
+    public boolean isCarCondition() {
+        return isCarCondition;
+    }
+
+    public void setCarCondition(boolean carCondition) {
+        isCarCondition = carCondition;
+    }
+
+    public boolean isPlanDesign() {
+        return isPlanDesign;
+    }
+
+    public void setPlanDesign(boolean planDesign) {
+        isPlanDesign = planDesign;
+    }
+
+    public boolean isTravelExperience() {
+        return isTravelExperience;
+    }
+
+    public void setTravelExperience(boolean travelExperience) {
+        isTravelExperience = travelExperience;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -78,9 +97,11 @@ public class EvaluateTypeModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte((byte) (isGuide ? 1 : 0));
-        dest.writeByte((byte) (isCar ? 1 : 0));
-        dest.writeByte((byte) (isTrip ? 1 : 0));
-        dest.writeByte((byte) (isTravel ? 1 : 0));
+        dest.writeByte((byte) (isAttitude ? 1 : 0));
+        dest.writeByte((byte) (isQuality ? 1 : 0));
+        dest.writeByte((byte) (isScheduling ? 1 : 0));
+        dest.writeByte((byte) (isCarCondition ? 1 : 0));
+        dest.writeByte((byte) (isPlanDesign ? 1 : 0));
+        dest.writeByte((byte) (isTravelExperience ? 1 : 0));
     }
 }
