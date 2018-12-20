@@ -232,6 +232,16 @@ public class OrderDetailModel {
         return orderPrice;
     }
 
+    public String getOrderPriceStr(){
+        if (payStatus == Constant.ORDER_PAY_WAIT
+                && payingStatus == Constant.ORDER_WAIT_PAY
+                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
+            return ("报价待确定");
+        } else {
+            return ("" + orderPrice);
+        }
+    }
+
     public void setOrderPrice(float orderPrice) {
         this.orderPrice = orderPrice;
     }

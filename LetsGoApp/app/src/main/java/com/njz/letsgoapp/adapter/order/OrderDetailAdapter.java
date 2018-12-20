@@ -63,12 +63,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             ((ViewHolder) holder).tv_title.setText(data.getTitle());
             ((ViewHolder) holder).tv_server_name.setText(data.getServerName());
 
-            if(data.getPayStatus() == Constant.ORDER_PAY_WAIT && data.getPayingStatus() == Constant.ORDER_WAIT_PAY
-                    && data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT || data.getPlanStatus() == Constant.ORDER_PLAN_PLANING){
-                ((ViewHolder) holder).tv_price_total.setText("报价待确定");
-            }else {
-                ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
-            }
+            ((ViewHolder) holder).tv_price_total.setText(data.getOrderPriceStr());
 
             ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
             if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){

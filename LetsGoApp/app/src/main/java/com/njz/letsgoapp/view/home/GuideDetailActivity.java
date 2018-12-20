@@ -61,11 +61,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     ConvenientBanner convenientBanner;
     ImageView iv_head,iv_sex;
-    TextView tv_name, tv_service_num, tv_comment_content, tv_content, tv_back_top, btn_submit,tv_price_total;
+    TextView tv_name, tv_service_num,  tv_content, btn_submit,tv_price_total;
     MyRatingBar my_rating_bar;
     ServiceTagView stv_tag;
 
-//    LinearLayout ll_select_service;
     LinearLayout btn_call,ll_detail,ll_bottom;
 
     GuideLabelView guideLabel;
@@ -78,8 +77,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     int guideId;
     public static final String GUIDEID = "GUIDEID";
-
-//    EmptyView3 view_empty;
 
     public String[] titles = {"TA的服务", "TA的评价","TA的故事","预订须知"};
     public List<Fragment> mFragments;
@@ -130,11 +127,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         guideLabel = $(R.id.guide_label);
         tv_service_num = $(R.id.tv_service_num);
         guide_authentication = $(R.id.guide_authentication);
-        tv_comment_content = $(R.id.tv_comment_content);
-        tv_back_top = $(R.id.tv_back_top);
-
-        tv_back_top.setVisibility(View.GONE);
-        tv_back_top.setOnClickListener(this);
 
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
@@ -246,24 +238,15 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.ll_comment_title:
-                if(guideDetailModel == null) return;
-                intent = new Intent(context, EvaluateListActivity.class);
-                intent.putExtra(EvaluateListActivity.GUIDEID,guideDetailModel.getId());
-                startActivity(intent);
-                break;
             case R.id.btn_call:
                 if(guideDetailModel == null) return;
                 DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile());
                 break;
-            case R.id.ll_select_service:
             case R.id.btn_submit:
                 if (!MySelfInfo.getInstance().isLogin()) {//登录状态
                     startActivity(new Intent(context,LoginActivity.class));
                     return ;
                 }
-//                showPopService();
-                //TODO 结算界面
 
                 if(serverItems.size() == 0){
                     showShortToast("请选择服务");
@@ -287,9 +270,6 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 dialog.setReportData(guideDetailModel.getId(), ShareDialog.REPORT_GUIDE,guideDetailModel.getId());
                 dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
-                break;
-            case R.id.tv_back_top:
-//                scrollView.scrollTo(0, 0);
                 break;
             case R.id.ll_detail:
                 if(serverItems.size() == 0){

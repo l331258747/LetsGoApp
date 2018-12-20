@@ -162,13 +162,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((DefaultHolder) holder).tv_title.setText(data.getTitle());
             ((DefaultHolder) holder).tv_server_name.setText(data.getServerName());
 
-            if (data.getPayStatus() == Constant.ORDER_PAY_WAIT
-                    && data.getPayingStatus() == Constant.ORDER_WAIT_PAY
-                    && (data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT || data.getPlanStatus() == Constant.ORDER_PLAN_PLANING)) {
-                ((DefaultHolder) holder).tv_total_price.setText("报价待确定");
-            } else {
-                ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
-            }
+            ((DefaultHolder) holder).tv_total_price.setText(data.getOrderPriceStr());
 
             ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
             switch (data.getPayStatus()) {
@@ -247,13 +241,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
 
-            if (data.getPayStatus() == Constant.ORDER_PAY_WAIT
-                    && data.getPayingStatus() == Constant.ORDER_WAIT_PAY
-                    && (data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT || data.getPlanStatus() == Constant.ORDER_PLAN_PLANING)) {
-                ((FootHolder) holder).tv_order_price_content.setText("报价待确定");
-            } else {
-                ((FootHolder) holder).tv_order_price_content.setText("￥" + data.getOrderPrice());
-            }
+            ((FootHolder) holder).tv_order_price_content.setText( data.getOrderPriceStr());
 
             ((FootHolder) holder).setbtn();
             switch (data.getPayStatus()) {

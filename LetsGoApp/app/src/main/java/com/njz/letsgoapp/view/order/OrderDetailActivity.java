@@ -400,13 +400,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             break;
         }
 
-        if(str.getPayStatus() == Constant.ORDER_PAY_WAIT
-                && str.getPayingStatus() == Constant.ORDER_WAIT_PAY
-                &&(str.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_WAIT || str.getPlanStatus() == Constant.ORDER_PLAN_PLANING)){
-            tv_order_price.setText("报价待确定");
-        }else{
-            tv_order_price.setText(str.getOrderPrice() + "");
-        }
+        tv_order_price.setText(str.getOrderPriceStr());
 
         tv_guide_name.setText(str.getGuideName());
         tv_order_status.setText(str.getPayStatusStr());

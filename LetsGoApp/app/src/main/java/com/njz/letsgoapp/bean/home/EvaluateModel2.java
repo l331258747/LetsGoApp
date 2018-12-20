@@ -99,6 +99,7 @@ public class EvaluateModel2 {
 
 
     //导游服务,车辆状况,代订服务,行程安排
+    //服务态度，服务质量，行程安排，车辆状况，方案定制，行程体验
 
 
     public float getGuideService() {
