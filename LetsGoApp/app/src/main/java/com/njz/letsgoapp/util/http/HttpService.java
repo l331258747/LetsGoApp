@@ -3,16 +3,14 @@ package com.njz.letsgoapp.util.http;
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
-import com.njz.letsgoapp.bean.home.EvaluateModel2;
-import com.njz.letsgoapp.bean.home.NoticeItem;
-import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
-import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.home.NoticeItem;
 import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
@@ -21,6 +19,7 @@ import com.njz.letsgoapp.bean.mine.FansListModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
+import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
@@ -33,18 +32,14 @@ import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
 import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
-import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 import com.njz.letsgoapp.bean.server.CustomPlanModel;
-import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.bean.server.PriceCalendarModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
 import com.njz.letsgoapp.bean.server.SubmitOrderModel;
-import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -149,28 +144,6 @@ public interface HttpService {
 
 
     //首页 start
-
-    //friend/friendSterTop
-    @GET("friend/friendSterTop")
-    Observable<BaseResponse<DynamicListModel>> friendFriendSterTop(
-            @Query("location") String location,
-            @Query("limit") int limit,
-            @Query("page") int page
-    );
-
-    //首页获取热门导游
-    @GET("orderReviews/sortTop")
-        Observable<BaseResponse<List<GuideModel>>> orderReviewsSortTop(
-            @Query("location") String location
-    );
-
-    //首页获取热动态
-    @GET("region/getSterByLocation")
-    Observable<BaseResponse<DynamicListModel>> regionGetSterByLocation(
-            @Query("location") String location,
-            @Query("limit") int limit,
-            @Query("page") int page
-    );
 
     //获取导游列表
     @GET("guide/sortTop10ByLocation")
@@ -389,12 +362,6 @@ public interface HttpService {
             @Query("type") String type,
             @Query("limit") int limit,
             @Query("page") int page
-    );
-
-    //order/createOrder 创建订单
-    @POST("order/createOrder")
-    Observable<BaseResponse<PayModel>> orderCreateOrder(
-            @Body SendOrderModel data
     );
 
     //orderPay/aliPay 阿里支付

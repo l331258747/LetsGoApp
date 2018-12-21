@@ -67,4 +67,7 @@ public class SubmitOrderModel {
         this.njzGuideServeToOrderDto = njzGuideServeToOrderDto;
     }
 
+    public String getLocation() {
+        return location;
+    }
 }

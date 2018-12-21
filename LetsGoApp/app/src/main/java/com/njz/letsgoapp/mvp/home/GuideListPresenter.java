@@ -41,7 +41,6 @@ public class GuideListPresenter implements GuideListContract.Presenter {
                 iView.guideSortTop10ByLocationFailed(errorMsg);
             }
         };
-        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         MethodApi.guideSortTop10ByLocation(location, type, limit, page, maps,new OnSuccessAndFaultSub(listener,context,false));
     }
 }

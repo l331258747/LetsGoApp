@@ -1,10 +1,11 @@
 package com.njz.letsgoapp.util.http;
 
+import android.text.TextUtils;
+
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
 import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
-import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 import com.njz.letsgoapp.bean.server.SubmitOrderModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -109,18 +110,14 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //friendFriendSterTop 首页动态
-    public static void friendFriendSterTop(String location, int limit,int page, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().friendFriendSterTop(location,limit, page);
-        HttpMethods.getInstance().toSubscribe(observable, subscriber);
-    }
-
     public static void orderReviewsSortTop(String location, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         Observable observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location, Constant.GUIDE_TYPE_SYNTHESIZE, 5, Constant.DEFAULT_PAGE);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     public static void guideSortTop10ByLocation(String location, int type, int limit, int page, Map<String, String> maps, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         Observable observable;
         if (maps == null) {
             observable = HttpMethods.getInstance().getHttpService().guideSortTop10ByLocation(location, type, limit, page);
@@ -132,6 +129,7 @@ public class MethodApi {
     }
 
     public static void guideFindGuideDetails(String location, int guideId, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         Observable observable = HttpMethods.getInstance().getHttpService().guideFindGuideDetails(location, guideId);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
@@ -142,6 +140,8 @@ public class MethodApi {
     }
 
     public static void getServiceList(int guideId, int serveType,String location, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
+
         Observable observable = HttpMethods.getInstance().getHttpService().getServiceList(guideId, serveType,location);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
@@ -159,12 +159,14 @@ public class MethodApi {
 
     //friendFindAll
     public static void friendFindAll(String location, int limit, int page, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit, page,null);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     //friendFindAll
     public static void friendFindAll(String location, int limit, int page,String search, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         Observable observable = HttpMethods.getInstance().getHttpService().friendFindAll(location, limit, page,search);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
@@ -194,8 +196,8 @@ public class MethodApi {
 
     //sendSter
     public static void sendSter(String location, double lon, double lat, String content, List<String> files, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
-
         Observable observable = HttpMethods.getInstance().getHttpService().sendSter(getStringPart(location), lon, lat, getStringPart(content), partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
@@ -329,12 +331,6 @@ public class MethodApi {
     //orderReviewsFindGuideReviews 导游评价列表
     public static void orderReviewsFindGuideReviews(int guideId,int serveId,String value, int limit, int page, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderReviewsFindGuideReviews(guideId,serveId, value,limit, page);
-        HttpMethods.getInstance().toSubscribe(observable, subscriber);
-    }
-
-    //orderCreateOrder 订单创建
-    public static void orderCreateOrder(SendOrderModel data, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderCreateOrder(data);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -533,6 +529,10 @@ public class MethodApi {
 
     //orderCreateOrder 创建订单
     public static void orderCreateOrder(SubmitOrderModel submitOrderModel, DisposableObserver subscriber) {
+        String location = submitOrderModel.getLocation();
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
+        submitOrderModel.setLocation(location);
+
         Observable observable = HttpMethods.getInstance().getHttpService().orderCreateOrder(submitOrderModel);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }

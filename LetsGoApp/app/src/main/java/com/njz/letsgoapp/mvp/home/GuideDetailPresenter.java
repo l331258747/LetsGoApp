@@ -58,7 +58,6 @@ public class GuideDetailPresenter implements GuideDetailContract.Presenter {
                 iView.guideFindGuideDetailsFailed(errorMsg);
             }
         };
-        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         MethodApi.guideFindGuideDetails(location, guideId, new OnSuccessAndFaultSub(listener,context));
     }
 

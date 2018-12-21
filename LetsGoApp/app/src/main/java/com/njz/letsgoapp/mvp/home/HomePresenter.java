@@ -63,7 +63,6 @@ public class HomePresenter implements Presenter {
                 iView.orderReviewsSortTopFailed(errorMsg);
             }
         };
-        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
         MethodApi.orderReviewsSortTop(location, new OnSuccessAndFaultSub(listener,context,false));
     }
 
