@@ -189,7 +189,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
             case R.id.tv_submit:
             case R.id.tv_submit2:
                 if(TextUtils.isEmpty(tv_reason.getText().toString())){
-                    showShortToast("请选择取消原因");
+                    showShortToast("请选择退款原因");
                     return;
                 }
 

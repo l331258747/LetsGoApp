@@ -15,6 +15,7 @@ import android.widget.ViewFlipper;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.adapter.home.HomeServerAdapter;
@@ -36,6 +37,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.other.WebViewActivity;
 import com.njz.letsgoapp.view.server.ServerListActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
@@ -53,7 +55,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View,ServerListContract.View{
+public class HomeFragment extends BaseFragment implements View.OnClickListener,HomeContract.View,ServerListContract.View {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -349,7 +351,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     //----------banner start
-    public void initBanner(List<BannerModel> homeBanners){
+    public void initBanner(final List<BannerModel> homeBanners){
         //开始自动翻页
         convenientBanner.setPages(new CBViewHolderCreator() {
             @Override
@@ -363,6 +365,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 });
             }
         }, homeBanners)
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        if(TextUtils.isEmpty(homeBanners.get(position).getToUrl())) return;
+                        Intent intent = new Intent(context, WebViewActivity.class);
+                        intent.putExtra(Constant.EXTRA_URL,homeBanners.get(position).getToUrl());
+                        startActivity(intent);
+                    }
+                })
                 .setPointViewVisible(true) //设置指示器是否可见
                 .setPageIndicator(new int[]{R.drawable.oval_white_hollow, R.drawable.oval_theme_solid})//设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)//设置指示器的方向（左、中、右）
@@ -489,5 +500,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         }
         showLongToast(msg);
     }
+
 }
 

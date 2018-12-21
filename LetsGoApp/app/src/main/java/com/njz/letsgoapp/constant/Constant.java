@@ -125,4 +125,8 @@ public class Constant {
     public static final String TEST_IMG_URL = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543913738509&di=e287d2a10c4a2d80d4f6c14d16bfbaa2&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D701022721%2C856869386%26fm%3D214%26gp%3D0.jpg";
 
 
+    /**
+     * url 跳转链接
+     **/
+    public static final String EXTRA_URL = "url";
 }
