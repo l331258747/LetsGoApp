@@ -1,6 +1,5 @@
 package com.njz.letsgoapp.view.order;
 
-import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;

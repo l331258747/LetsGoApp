@@ -64,11 +64,11 @@ public class EvaluateModel2 {
     private String guideContent;
     private String imageUrls;
     private String guideDate;
-    private boolean isCustom;
+    private boolean havPirvate;
     private List<EvaluateServicesModel> services;
 
     public boolean isCustom() {
-        return isCustom;
+        return havPirvate;
     }
 
     public List<EvaluateServicesModel> getServices() {
@@ -194,12 +194,12 @@ public class EvaluateModel2 {
         return "服务态度"+serviceAttitude;
     }
     public String getServiceQualityStr() {
-        if(isCustom)
+        if(havPirvate)
             return "方案设计"+serviceQuality;
         return "服务质量"+serviceQuality;
     }
     public String  getTravelArrangeStr() {
-        if(isCustom)
+        if(havPirvate)
             return "行程体验"+serviceQuality;
         return "行程安排"+travelArrange;
     }
