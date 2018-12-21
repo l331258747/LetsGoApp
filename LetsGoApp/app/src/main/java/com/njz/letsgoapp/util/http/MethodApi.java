@@ -309,14 +309,14 @@ public class MethodApi {
 
     //--------订单 start---------
     //sendSter 订单评价
-    public static void upUserReview(int orderId, int guideId, int serviceAttitude, int serviceQuality,int travelArrange,int carCondition,int offerDesign,int travelPlay,
+    public static void upUserReview(int orderId, int guideId, int serviceAttitude, int serviceQuality,int travelArrange,int carCondition,
                                     String userContent, List<String> files,
                                     DisposableObserver subscriber) {
 
         List<MultipartBody.Part> partList = filesToMultipartBodyParts(files);
 
         Observable observable = HttpMethods.getInstance().getHttpService().upUserReview(orderId, guideId, serviceAttitude,
-                serviceQuality, travelArrange, carCondition, offerDesign, travelPlay,getStringPart(userContent), partList);
+                serviceQuality, travelArrange, carCondition, getStringPart(userContent), partList);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -534,6 +534,12 @@ public class MethodApi {
     //orderCreateOrder 创建订单
     public static void orderCreateOrder(SubmitOrderModel submitOrderModel, DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().orderCreateOrder(submitOrderModel);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //order/createOrder/viewPlan 查看方案
+    public static void orderCreateOrderViewPlan(int orderId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderCreateOrderViewPlan(orderId);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

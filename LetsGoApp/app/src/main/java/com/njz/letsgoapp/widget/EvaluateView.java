@@ -91,4 +91,7 @@ public class EvaluateView extends LinearLayout {
         return my_rating_bar.getRating();
     }
 
+    public void setTitle(String str){
+        tv_title.setText(str);
+    }
 }

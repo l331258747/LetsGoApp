@@ -26,7 +26,7 @@ public class OrderEvaluatePresenter implements OrderEvaluateContract.Presenter {
     }
 
     @Override
-    public void upUserReview(int orderId, int guideId, int serviceAttitude, int serviceQuality,int travelArrange,int carCondition,int offerDesign,int travelPlay,
+    public void upUserReview(int orderId, int guideId, int serviceAttitude, int serviceQuality,int travelArrange,int carCondition,
                              String userContent, List<String> files) {
         ResponseCallback listener = new ResponseCallback<EmptyModel>() {
             @Override
@@ -39,7 +39,7 @@ public class OrderEvaluatePresenter implements OrderEvaluateContract.Presenter {
                 iView.upUserReviewFailed(errorMsg);
             }
         };
-        MethodApi.upUserReview(orderId, guideId, serviceAttitude, serviceQuality,travelArrange,carCondition,offerDesign,travelPlay,
+        MethodApi.upUserReview(orderId, guideId, serviceAttitude, serviceQuality,travelArrange,carCondition,
                  userContent, files, new OnSuccessAndFaultSub(listener,context,false));
 
     }

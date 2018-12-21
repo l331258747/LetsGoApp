@@ -79,20 +79,6 @@
             android:layout_marginBottom="15dp"
             app:order_evaluate_title="车辆状况" />
 
-        <com.njz.letsgoapp.widget.EvaluateView
-            android:id="@+id/ev_plan_design"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            app:order_evaluate_title="方案设计" />
-
-        <com.njz.letsgoapp.widget.EvaluateView
-            android:id="@+id/ev_travel_experience"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            app:order_evaluate_title="行程体验" />
-
         <LinearLayout
             android:id="@+id/ll_content"
             android:layout_width="match_parent"

@@ -62,8 +62,6 @@ public class ServerFeatureFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        if (!TextUtils.isEmpty(model.getServeFeature()))
-            webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
 
         if (!TextUtils.isEmpty(model.getRenegePriceThree()))
             price_introduce_content.setText(model.getCostExplain());

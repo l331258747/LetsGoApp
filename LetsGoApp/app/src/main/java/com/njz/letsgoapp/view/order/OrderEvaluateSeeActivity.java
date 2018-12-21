@@ -26,7 +26,7 @@ import com.njz.letsgoapp.widget.EvaluateView;
 public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvaluateSeeContract.View {
 
     TextView tv_time,reply_content;
-    EvaluateView ev_attitude,ev_quality,ev_scheduling,ev_car_condition,ev_plan_design,ev_travel_experience;
+    EvaluateView ev_attitude,ev_quality,ev_scheduling,ev_car_condition;
     TextView tv_special;
     LinearLayout ll_img,ll_reply,ll_content;
     RecyclerView mRecyclerView;
@@ -57,8 +57,6 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
         ev_quality = $(R.id.ev_quality);
         ev_scheduling = $(R.id.ev_scheduling);
         ev_car_condition = $(R.id.ev_car_condition);
-        ev_plan_design = $(R.id.ev_plan_design);
-        ev_travel_experience = $(R.id.ev_travel_experience);
         tv_special = $(R.id.tv_special);
         ll_img = $(R.id.ll_img);
         ll_content = $(R.id.ll_content);
@@ -69,8 +67,6 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
         ev_quality.getRatingBar().setClick(false);
         ev_scheduling.getRatingBar().setClick(false);
         ev_car_condition.getRatingBar().setClick(false);
-        ev_plan_design.getRatingBar().setClick(false);
-        ev_travel_experience.getRatingBar().setClick(false);
     }
 
     @Override
@@ -108,17 +104,10 @@ public class OrderEvaluateSeeActivity extends BaseActivity implements OrderEvalu
             ev_scheduling.setContent((int)str.getTravelArrange());
             ev_scheduling.getRatingBar().setRating((int)str.getTravelArrange());
         }
-        if(str.getOfferDesign() < 1){
-            ev_plan_design.setVisibility(View.GONE);
-        }else{
-            ev_plan_design.setContent((int)str.getOfferDesign());
-            ev_plan_design.getRatingBar().setRating((int)str.getOfferDesign());
-        }
-        if(str.getTravelPlay() < 1){
-            ev_travel_experience.setVisibility(View.GONE);
-        }else{
-            ev_travel_experience.setContent((int)str.getTravelPlay());
-            ev_travel_experience.getRatingBar().setRating((int)str.getTravelPlay());
+
+        if(str.isCustom()){
+            ev_quality.setTitle("方案设计");
+            ev_scheduling.setTitle("行程体验");
         }
 
         if(TextUtils.isEmpty(str.getUserContent())){

@@ -121,32 +121,6 @@
             android:textSize="10sp"
             tools:text="车辆状况 5.0" />
 
-        <TextView
-            android:id="@+id/tv_plan_design"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:textSize="10sp"
-            tools:text="方案设计 5.0" />
-
-        <TextView
-            android:id="@+id/tv_travel_experience"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:textSize="10sp"
-            tools:text="行程体验 5.0" />
-
     </LinearLayout>
 
     <TextView

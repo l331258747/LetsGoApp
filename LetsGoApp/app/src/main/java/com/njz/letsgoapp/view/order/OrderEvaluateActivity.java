@@ -51,7 +51,7 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
     private Disposable disposable;
     private LoadingDialog loadingDialog;
 
-    private EvaluateView ev_attitude, ev_quality, ev_scheduling, ev_car_condition,ev_plan_design,ev_travel_experience;
+    private EvaluateView ev_attitude, ev_quality, ev_scheduling, ev_car_condition;
     private EditText et_special;
 
     private OrderEvaluatePresenter mPresenter;
@@ -82,8 +82,6 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
         ev_quality = $(R.id.ev_quality);//服务质量
         ev_scheduling = $(R.id.ev_scheduling);//行程安排
         ev_car_condition = $(R.id.ev_car_condition);//车辆状况
-        ev_plan_design = $(R.id.ev_plan_design);//方案设计
-        ev_travel_experience = $(R.id.ev_travel_experience);//行程体验
 
         et_special = $(R.id.et_special);
         btn_submit.setOnClickListener(this);
@@ -106,13 +104,10 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
             ev_car_condition.setVisibility(View.GONE);
             ev_car_condition.getRatingBar().setRating(0);
         }
-        if(!evaluateTypeModel.isPlanDesign()){
-            ev_plan_design.setVisibility(View.GONE);
-            ev_plan_design.getRatingBar().setRating(0);
-        }
-        if(!evaluateTypeModel.isTravelExperience()){
-            ev_travel_experience.setVisibility(View.GONE);
-            ev_travel_experience.getRatingBar().setRating(0);
+
+        if(evaluateTypeModel.isCustom()){
+            ev_quality.setTitle("方案设计");
+            ev_scheduling.setTitle("行程体验");
         }
 
     }
@@ -198,8 +193,6 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
                 ev_quality.getRating(),
                 ev_scheduling.getRating(),
                 ev_car_condition.getRating(),
-                ev_plan_design.getRating(),
-                ev_travel_experience.getRating(),
                 et_special.getText().toString(),
                 upLoadPhotos);
     }

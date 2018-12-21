@@ -365,8 +365,9 @@ public class OrderDetailModel {
             OrderDetailChildModel childModel = njzChildOrderVOS.get(i);
             if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {
                 evaluateTypeModel.setAttitude(true);
-                evaluateTypeModel.setTravelExperience(true);
-                evaluateTypeModel.setPlanDesign(true);
+                evaluateTypeModel.setQuality(true);
+                evaluateTypeModel.setScheduling(true);
+                evaluateTypeModel.setCustom(true);
                 break;
             } else if (childModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID
                     || childModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID) {

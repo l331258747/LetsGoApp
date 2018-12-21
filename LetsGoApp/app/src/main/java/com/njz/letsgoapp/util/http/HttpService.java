@@ -35,6 +35,7 @@ import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
+import com.njz.letsgoapp.bean.server.CustomPlanModel;
 import com.njz.letsgoapp.bean.server.PlayModel;
 import com.njz.letsgoapp.bean.server.PriceCalendarModel;
 import com.njz.letsgoapp.bean.server.ServerDetailMedel;
@@ -370,8 +371,6 @@ public interface HttpService {
             @Part("serviceQuality") int serviceQuality,
             @Part("travelArrange") int travelArrange,
             @Part("carCondition") int carCondition,
-            @Part("offerDesign") int offerDesign,
-            @Part("travelPlay") int travelPlay,
             @Part("userContent") RequestBody userContent,
             @Part List<MultipartBody.Part> files
     );
@@ -639,10 +638,16 @@ public interface HttpService {
             @Query("serveId") int serveId
     );
 
-    //order/createOrder
+    //order/createOrder 创建订单
     @POST("order/createOrder")
     Observable<BaseResponse<PayModel>> orderCreateOrder(
             @Body SubmitOrderModel data
+    );
+
+    //order/createOrder/viewPlan 查看方案
+    @GET("order/viewPlanDesign")
+    Observable<BaseResponse<List<CustomPlanModel>>> orderCreateOrderViewPlan(
+            @Query("orderId") int orderId
     );
 
     //-----------end服务---------

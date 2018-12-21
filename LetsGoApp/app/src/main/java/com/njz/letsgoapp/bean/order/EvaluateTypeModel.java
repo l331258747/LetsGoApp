@@ -15,19 +15,18 @@ public class EvaluateTypeModel implements Parcelable{
     boolean isQuality;
     boolean isScheduling;
     boolean isCarCondition;
-    boolean isPlanDesign;
-    boolean isTravelExperience;
+    boolean isCustom;
 
     public EvaluateTypeModel() {
     }
+
 
     protected EvaluateTypeModel(Parcel in) {
         isAttitude = in.readByte() != 0;
         isQuality = in.readByte() != 0;
         isScheduling = in.readByte() != 0;
         isCarCondition = in.readByte() != 0;
-        isPlanDesign = in.readByte() != 0;
-        isTravelExperience = in.readByte() != 0;
+        isCustom = in.readByte() != 0;
     }
 
     public static final Creator<EvaluateTypeModel> CREATOR = new Creator<EvaluateTypeModel>() {
@@ -74,20 +73,12 @@ public class EvaluateTypeModel implements Parcelable{
         isCarCondition = carCondition;
     }
 
-    public boolean isPlanDesign() {
-        return isPlanDesign;
+    public boolean isCustom() {
+        return isCustom;
     }
 
-    public void setPlanDesign(boolean planDesign) {
-        isPlanDesign = planDesign;
-    }
-
-    public boolean isTravelExperience() {
-        return isTravelExperience;
-    }
-
-    public void setTravelExperience(boolean travelExperience) {
-        isTravelExperience = travelExperience;
+    public void setCustom(boolean custom) {
+        isCustom = custom;
     }
 
     @Override
@@ -101,7 +92,6 @@ public class EvaluateTypeModel implements Parcelable{
         dest.writeByte((byte) (isQuality ? 1 : 0));
         dest.writeByte((byte) (isScheduling ? 1 : 0));
         dest.writeByte((byte) (isCarCondition ? 1 : 0));
-        dest.writeByte((byte) (isPlanDesign ? 1 : 0));
-        dest.writeByte((byte) (isTravelExperience ? 1 : 0));
+        dest.writeByte((byte) (isCustom ? 1 : 0));
     }
 }

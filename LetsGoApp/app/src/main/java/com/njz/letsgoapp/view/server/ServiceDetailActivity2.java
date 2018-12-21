@@ -205,7 +205,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
     @Override
     public void serveGuideServeOrderFailed(String msg) {
-        showLeftAndTitle(msg);
+        showShortToast(msg);
     }
 
 }

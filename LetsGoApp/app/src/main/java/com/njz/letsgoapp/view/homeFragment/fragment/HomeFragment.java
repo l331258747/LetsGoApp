@@ -37,6 +37,7 @@ import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.other.SearchActivity;
+import com.njz.letsgoapp.view.server.CustomPlanActivity;
 import com.njz.letsgoapp.view.server.ServerListActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
@@ -69,7 +70,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
 
     private Disposable desDisposable;
 
-    private RelativeLayout rl_guide_title,dynamic_title;
+    private RelativeLayout rl_guide_title;
 
     private ConvenientBanner convenientBanner;
 
@@ -115,10 +116,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         view_empty_guide = $(R.id.view_empty_guide);
         convenientBanner = $(R.id.convenientBanner);
         rl_guide_title = $(R.id.rl_guide_title);
-        dynamic_title = $(R.id.dynamic_title);
 
         rl_guide_title.setOnClickListener(this);
-        dynamic_title.setOnClickListener(this);
         tv_city_pick.setOnClickListener(this);
         tv_search.setOnClickListener(this);
 
@@ -228,9 +227,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             case R.id.tv_search:
                 intent = new Intent(context, SearchActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.dynamic_title:
-                ((HomeActivity)activity).setTabIndex(1);
                 break;
             case R.id.rl_guide_title:
                 intent = new Intent(context,GuideListActivity.class);

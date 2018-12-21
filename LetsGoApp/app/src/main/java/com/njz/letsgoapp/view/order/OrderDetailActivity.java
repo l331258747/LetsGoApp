@@ -26,6 +26,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
+import com.njz.letsgoapp.view.server.CustomPlanActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
 import com.njz.letsgoapp.widget.SpecialFixedItemEditView;
@@ -266,8 +267,9 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 context.startActivity(intent);
                 break;
             case R.id.btn_see_plan:
-                //TODO 查看方案
-                showShortToast("查看方案");
+                intent = new Intent(context, CustomPlanActivity.class);
+                intent.putExtra("ORDER_ID",model.getId());
+                startActivity(intent);
                 break;
             case R.id.btn_pay:
                 PayModel payModel = new PayModel();

@@ -83,15 +83,13 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         holder.tv_quality.setVisibility(View.GONE);
         holder.tv_scheduling.setVisibility(View.GONE);
         holder.tv_car_condition.setVisibility(View.GONE);
-        holder.tv_plan_design.setVisibility(View.GONE);
-        holder.tv_travel_experience.setVisibility(View.GONE);
         if(data.getServiceAttitude() > 0 ){
             holder.tv_attitude.setVisibility(View.VISIBLE);
             holder.tv_attitude.setText(data.getServiceAttitudeStr());
         }
         if(data.getServiceQuality() > 0 ){
             holder.tv_quality.setVisibility(View.VISIBLE);
-            holder.tv_quality.setText(data.getTravelArrangeStr());
+            holder.tv_quality.setText(data.getServiceQualityStr());
         }
         if(data.getTravelArrange() > 0){
             holder.tv_scheduling.setVisibility(View.VISIBLE);
@@ -100,14 +98,6 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         if(data.getCarCondition() > 0){
             holder.tv_car_condition.setVisibility(View.VISIBLE);
             holder.tv_car_condition.setText(data.getCarConditionStr());
-        }
-        if(data.getOfferDesign() > 0){
-            holder.tv_plan_design.setVisibility(View.VISIBLE);
-            holder.tv_plan_design.setText(data.getOfferDesignStr());
-        }
-        if(data.getTravelPlay() > 0){
-            holder.tv_travel_experience.setVisibility(View.VISIBLE);
-            holder.tv_travel_experience.setText(data.getTravelPlayStr());
         }
 
         holder.mRecyclerView.setNestedScrollingEnabled(false);//滑动取消
@@ -159,7 +149,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         TextView commont_name, commont_time, commont_score, tv_comment_content, tv_order, reply_time, reply_content;
         RelativeLayout rl_reply;
         RecyclerView mRecyclerView;
-        TextView tv_attitude,tv_quality,tv_scheduling,tv_car_condition,tv_plan_design,tv_travel_experience;
+        TextView tv_attitude,tv_quality,tv_scheduling,tv_car_condition;
         LinearLayout ll_order,ll_click,ll_photo;
 
         TextView tv_click;
@@ -182,8 +172,6 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
             tv_quality = itemView.findViewById(R.id.tv_quality);
             tv_scheduling = itemView.findViewById(R.id.tv_scheduling);
             tv_car_condition = itemView.findViewById(R.id.tv_car_condition);
-            tv_plan_design = itemView.findViewById(R.id.tv_plan_design);
-            tv_travel_experience = itemView.findViewById(R.id.tv_travel_experience);
             iv_open_service = itemView.findViewById(R.id.iv_open_service);
             tv_click = itemView.findViewById(R.id.tv_click);
             ll_click = itemView.findViewById(R.id.ll_click);

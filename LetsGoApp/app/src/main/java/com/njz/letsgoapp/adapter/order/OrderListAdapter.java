@@ -27,6 +27,7 @@ import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.order.OrderCancelActivity;
 import com.njz.letsgoapp.view.order.OrderRefundActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
+import com.njz.letsgoapp.view.server.CustomPlanActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -367,8 +368,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_see_plan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO 查看方案
-                    ToastUtil.showShortToast(mContext,"查看方案");
+                    Intent intent = new Intent(mContext, CustomPlanActivity.class);
+                    intent.putExtra("ORDER_ID",data.getId());
+                    mContext.startActivity(intent);
                 }
             });
         }

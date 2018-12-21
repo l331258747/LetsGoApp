@@ -55,8 +55,6 @@ public class EvaluateModel2 {
     private float serviceQuality;
     private float travelArrange;
     private float carCondition;
-    private float offerDesign;
-    private float travelPlay;
 
     private float score;
     private String userDate;
@@ -66,7 +64,12 @@ public class EvaluateModel2 {
     private String guideContent;
     private String imageUrls;
     private String guideDate;
+    private boolean isCustom;
     private List<EvaluateServicesModel> services;
+
+    public boolean isCustom() {
+        return isCustom;
+    }
 
     public List<EvaluateServicesModel> getServices() {
         return services;
@@ -187,32 +190,21 @@ public class EvaluateModel2 {
         return carCondition;
     }
 
-    public float getOfferDesign() {
-        return offerDesign;
-    }
-
-    public float getTravelPlay() {
-        return travelPlay;
-    }
     public String getServiceAttitudeStr() {
         return "服务态度"+serviceAttitude;
     }
     public String getServiceQualityStr() {
+        if(isCustom)
+            return "方案设计"+serviceQuality;
         return "服务质量"+serviceQuality;
     }
-    public String getTravelArrangeStr() {
+    public String  getTravelArrangeStr() {
+        if(isCustom)
+            return "行程体验"+serviceQuality;
         return "行程安排"+travelArrange;
     }
 
     public String getCarConditionStr() {
         return "车辆状况"+carCondition;
-    }
-
-    public String getOfferDesignStr() {
-        return "方案设计"+offerDesign;
-    }
-
-    public String getTravelPlayStr() {
-        return "行程体验"+travelPlay;
     }
 }
