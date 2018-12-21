@@ -263,8 +263,9 @@ public class ServerListActivity extends GuideListActivity implements ServerListS
                 finish();
                 break;
             case R.id.tv_search:
-                intent = new Intent(context, SearchActivity.class);
-                startActivity(intent);
+//                intent = new Intent(context, SearchActivity.class);
+//                startActivity(intent);
+                showShortToast("搜索");
                 break;
             case R.id.tv_city_pick:
                 intent = new Intent(context, MyCityPickActivity.class);

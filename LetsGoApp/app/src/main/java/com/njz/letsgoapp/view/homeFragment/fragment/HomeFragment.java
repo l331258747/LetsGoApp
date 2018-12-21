@@ -225,8 +225,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 cityPick();
                 break;
             case R.id.tv_search:
-                intent = new Intent(context, SearchActivity.class);
-                startActivity(intent);
+//                intent = new Intent(context, SearchActivity.class);
+//                startActivity(intent);
+                showShortToast("搜索");
                 break;
             case R.id.rl_guide_title:
                 intent = new Intent(context,GuideListActivity.class);
