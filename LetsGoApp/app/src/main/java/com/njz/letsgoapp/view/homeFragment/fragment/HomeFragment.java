@@ -36,11 +36,8 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
-import com.njz.letsgoapp.view.other.SearchActivity;
-import com.njz.letsgoapp.view.server.CustomPlanActivity;
 import com.njz.letsgoapp.view.server.ServerListActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
-import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 

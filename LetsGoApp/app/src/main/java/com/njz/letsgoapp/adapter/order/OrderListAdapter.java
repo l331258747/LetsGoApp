@@ -370,6 +370,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, CustomPlanActivity.class);
                     intent.putExtra("ORDER_ID",data.getId());
+                    intent.putExtra("GUIDE_PHONE",data.getGuideMobile());
                     mContext.startActivity(intent);
                 }
             });

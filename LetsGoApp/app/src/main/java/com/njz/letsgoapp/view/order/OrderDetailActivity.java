@@ -269,6 +269,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.btn_see_plan:
                 intent = new Intent(context, CustomPlanActivity.class);
                 intent.putExtra("ORDER_ID",model.getId());
+                intent.putExtra("GUIDE_PHONE",model.getGuideMobile());
                 startActivity(intent);
                 break;
             case R.id.btn_pay:

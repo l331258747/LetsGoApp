@@ -90,7 +90,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/btn_theme_solid_r5_p8"
+                    android:background="@drawable/btn_1f92ff_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
                     android:text="查看方案"

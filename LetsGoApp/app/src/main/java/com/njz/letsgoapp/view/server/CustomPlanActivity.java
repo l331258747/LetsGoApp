@@ -1,23 +1,20 @@
 package com.njz.letsgoapp.view.server;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.server.CustomPlanModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.server.CustomPlanContract;
 import com.njz.letsgoapp.mvp.server.CustomPlanPresenter;
 import com.njz.letsgoapp.view.serverFragment.CustomOffersFragment;
 import com.njz.letsgoapp.view.serverFragment.CustomTripFragment;
-import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
-import com.njz.letsgoapp.view.serverFragment.ServerFeatureFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ import java.util.List;
  * Function:
  */
 
-public class CustomPlanActivity extends BaseActivity implements CustomPlanContract.View{
+public class CustomPlanActivity extends BaseActivity implements CustomPlanContract.View, View.OnClickListener {
 
     TextView tv_title,tv_time_content,tv_num,tv_finish_price,tv_phone;
     TabLayout mTabLayout;
@@ -40,11 +37,13 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
     public List<Fragment> mFragments;
 
     int orderId;
+    String guidePhone;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         orderId = intent.getIntExtra("ORDER_ID",0);
+        guidePhone = intent.getStringExtra("GUIDE_PHONE");
     }
 
     @Override
@@ -63,6 +62,8 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
         tv_phone = $(R.id.tv_phone);
         mTabLayout = $(R.id.tablayout);
         mViewPager = $(R.id.viewpager);
+
+        tv_phone.setOnClickListener(this);
     }
 
     @Override
@@ -102,5 +103,14 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
     @Override
     public void orderCreateOrderViewPlanFailed(String msg) {
         showShortToast(msg);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_phone:
+                DialogUtil.getInstance().showGuideMobileDialog(context,guidePhone);
+                break;
+        }
     }
 }
