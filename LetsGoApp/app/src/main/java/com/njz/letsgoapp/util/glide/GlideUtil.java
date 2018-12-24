@@ -93,7 +93,7 @@ public class GlideUtil {
         //只是绘制左上角和右上角圆角
         transformation.setExceptCorner(false, false, true, true);//false表示为圆角
 
-        Glide.with(mContext).load(path).asBitmap().placeholder(R.mipmap.default_head)
+        Glide.with(mContext).load(path).asBitmap().placeholder(R.mipmap.dynamic_default)
                 .transform(new CenterCrop(mContext),transformation)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
 
@@ -121,6 +121,21 @@ public class GlideUtil {
         if(TextUtils.isEmpty(path)) path = "";
         Glide.with(mContext).load(path).asBitmap().centerCrop().placeholder(defultImg).error(defultImg)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+    }
+
+    //加载上边圆角图片
+    public static void LoadTopRoundImage(Context mContext, String path,
+                                         ImageView imageview,int radius,int defultImg) {
+        if(TextUtils.isEmpty(path)) path = "";
+
+        CornerTransform transformation = new CornerTransform(mContext, radius);
+        //只是绘制左上角和右上角圆角
+        transformation.setExceptCorner(false, false, true, true);//false表示为圆角
+
+        Glide.with(mContext).load(path).asBitmap().placeholder(defultImg)
+                .transform(new CenterCrop(mContext),transformation)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+
     }
 
 }
