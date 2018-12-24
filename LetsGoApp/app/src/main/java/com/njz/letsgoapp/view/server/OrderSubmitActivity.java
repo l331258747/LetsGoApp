@@ -20,6 +20,7 @@ import com.njz.letsgoapp.bean.server.SubmitOrderChilderItemModel;
 import com.njz.letsgoapp.bean.server.SubmitOrderModel;
 import com.njz.letsgoapp.mvp.server.CreateOrderContract;
 import com.njz.letsgoapp.mvp.server.CreateOrderPresenter;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
@@ -168,7 +169,8 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     public void getTotalPrice() {
         totalPrice = 0;
         for (ServerItem model : serverItems) {
-            totalPrice = totalPrice + (model.getPrice() * model.getServeNum());
+            float price = DecimalUtil.multiply(model.getPrice() , model.getServeNum());
+            totalPrice = DecimalUtil.add(totalPrice , price);
         }
         tv_total_price.setText("￥" + totalPrice);
     }
