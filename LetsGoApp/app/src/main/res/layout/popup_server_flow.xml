@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingTop="20dp">
+        android:paddingTop="5dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,8 +37,8 @@
             android:id="@+id/tagFlowLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             app:max_select="1" />
 
         <TextView
@@ -46,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/btn_ee_solid_r5"
             android:textColor="@color/blue"
             android:paddingTop="5dp"
