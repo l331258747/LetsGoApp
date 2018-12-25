@@ -142,6 +142,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:orientation="vertical">
 
                     <android.support.design.widget.TabLayout
@@ -150,16 +152,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/white"
+                        android:src="@color/color_d9" />
+
                 </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/white"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:src="@color/color_d9" />
-
 
             </android.support.design.widget.AppBarLayout>
 

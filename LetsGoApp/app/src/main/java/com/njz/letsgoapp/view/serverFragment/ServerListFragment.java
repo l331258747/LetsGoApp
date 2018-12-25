@@ -22,6 +22,8 @@ import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
+import com.njz.letsgoapp.mvp.server.ServerListScreenContract;
+import com.njz.letsgoapp.mvp.server.ServerListScreenPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
@@ -42,13 +44,13 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class ServerListFragment extends BaseFragment implements ServerListContract.View {
+public class ServerListFragment extends BaseFragment implements ServerListScreenContract.View {
     GuideDetailModel model;
     RecyclerView recycler_view1, recycler_view2;
     private ServerListAdapter1 mAdapter1;
     private ServerListAdapter2 mAdapter2;
 
-    ServerListPresenter serverListPresenter;
+    ServerListScreenPresenter serverListPresenter;
 
     private LoadMoreWrapper loadMoreWrapper;
     private int page;
@@ -93,7 +95,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
     @Override
     public void initData() {
-        serverListPresenter = new ServerListPresenter(context, this);
+        serverListPresenter = new ServerListScreenPresenter(context, this);
         initServerList();
 
         serverDetailDisposable = RxBus2.getInstance().toObservable(ServerDetailEvent.class, new Consumer<ServerDetailEvent>() {
@@ -223,11 +225,19 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
 
     public void getData() {
         if (value != 0)
-            serverListPresenter.serveGuideServeOrderList(value, Constant.DEFAULT_LIMIT, page, MySelfInfo.getInstance().getDefaultCity(), 0, model.getId(), 0);
+            serverListPresenter.serveGuideServeFilterList(value,Constant.DEFAULT_LIMIT,page,
+                    MySelfInfo.getInstance().getDefaultCity(),0,model.getId(), 0,Constant.GUIDE_TYPE_COUNT,null);
     }
 
     @Override
-    public void serveGuideServeOrderListSuccess(List<ServerDetailModel> datas) {
+    public void onDestroy() {
+        super.onDestroy();
+        if (serverDetailDisposable != null && !serverDetailDisposable.isDisposed())
+            serverDetailDisposable.dispose();
+    }
+
+    @Override
+    public void serveGuideServeFilterListSuccess(List<ServerDetailModel> datas) {
         for (ServerItem si : serverItems) {
             for (ServerDetailModel data : datas) {
                 if (si.getNjzGuideServeId() == data.getId()) {
@@ -251,16 +261,9 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
     }
 
     @Override
-    public void serveGuideServeOrderListFailed(String msg) {
+    public void serveGuideServeFilterListFailed(String msg) {
         showShortToast(msg);
         isLoad = false;
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (serverDetailDisposable != null && !serverDetailDisposable.isDisposed())
-            serverDetailDisposable.dispose();
     }
 }

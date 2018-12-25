@@ -250,5 +250,7 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
     @Override
     public void serveGuideServeFilterListFailed(String msg) {
         showShortToast(msg);
+        isLoad = false;
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 }

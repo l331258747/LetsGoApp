@@ -489,7 +489,8 @@ public class MethodApi {
     //--------服务 start
     //serveGuideServeOrderList 服务列表
     public static void serveGuideServeOrderList(int serveType, int limit, int page,String address,int mustPlay,int guideId,int guideServeId, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().serveGuideServeOrderList(serveType,limit,page,address,mustPlay,guideId,guideServeId);
+        Observable observable = HttpMethods.getInstance().getHttpService().serveGuideServeFilterList2(serveType,limit,page,address
+                ,mustPlay,guideId,guideServeId,0);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

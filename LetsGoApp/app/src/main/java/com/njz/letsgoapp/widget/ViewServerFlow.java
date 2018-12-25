@@ -122,10 +122,11 @@ public class ViewServerFlow extends LinearLayout {
                 }else{//主要用来处理车型，可以不选或者选择一个，
                     if(selectIndex == position){
                         onTagLinsenerClick.onTagLinsenerClick(position,false);
+                        selectIndex = -1;
                     }else{
                         onTagLinsenerClick.onTagLinsenerClick(position,true);
+                        selectIndex = position;
                     }
-                    selectIndex = position;
                 }
                 return false;
             }

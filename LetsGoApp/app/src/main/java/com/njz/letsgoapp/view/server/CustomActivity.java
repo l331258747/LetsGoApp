@@ -173,10 +173,6 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
                     showShortToast("请选择行程时间");
                     return;
                 }
-                if (TextUtils.isEmpty(et_price.getText().toString())) {
-                    showShortToast("请输入预算");
-                    return;
-                }
                 if (!LoginUtil.verifyName(et_name.getText().toString()))
                     return;
                 if (!LoginUtil.verifyPhone(et_phone.getText().toString()))
@@ -237,7 +233,8 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
         submitOrderModel.setAdult(adult);
         submitOrderModel.setChildren(children);
         submitOrderModel.setPersonNum(adult + children);
-        submitOrderModel.setBugGet(Integer.valueOf(et_price.getText().toString()));
+        String bugget = et_price.getText().toString();
+        submitOrderModel.setBugGet(TextUtils.isEmpty(bugget)?0:Integer.valueOf(bugget));
         submitOrderModel.setSpecialRequire(et_special.getText().toString());
         SubmitOrderChildModel submitOrderChildModel = new SubmitOrderChildModel();
         submitOrderChildModel.setNjzGuideServeToOrderServeDtos(getData());

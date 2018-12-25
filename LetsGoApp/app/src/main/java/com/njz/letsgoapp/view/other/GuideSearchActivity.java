@@ -251,5 +251,7 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
     @Override
     public void guideSortTop10ByLocationFailed(String msg) {
         showShortToast(msg);
+        isLoad = false;
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 }

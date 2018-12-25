@@ -196,7 +196,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 + (formatIdLanguage != 0 ? formatIdLanguage + "," : "");
         formatIds = formatIds.endsWith(",") ? formatIds.substring(0, formatIds.length() - 1) : formatIds;
 
-        priceView.setPrice(priceLanguage + priceCar + priceTc);
+        priceView.setPrice(DecimalUtil.add(DecimalUtil.add(priceLanguage , priceCar) , priceTc));
 
         datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getServeType());
     }
