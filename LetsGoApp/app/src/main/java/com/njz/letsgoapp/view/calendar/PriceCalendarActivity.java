@@ -183,11 +183,12 @@ public class PriceCalendarActivity extends BaseActivity implements OnMonthChange
         calendarView.addDecorator(lunarDecorator);
 
         List<String> noTimes = new ArrayList<>();
-        String item = DateUtil.dateToStr(date);
-        noTimes.add(item);
-//        primeDayDisableDecorator.setNoTimes(noTimes);
-//        calendarView.addDecorator(primeDayDisableDecorator);
+        if(model.getNoTimes() != null && model.getNoTimes().size() > 0){
+            noTimes = model.getNoTimes();
+        }
 
+        primeDayDisableDecorator.setNoTimes(noTimes);
+        calendarView.addDecorator(primeDayDisableDecorator);
 
         calendarView.addDecorator(new DiscardDecorator());
 

@@ -20,7 +20,7 @@ public class URLConstant {
             return "http://www.njzou.net/travel-framework/";
         }else{
 //            return "http://www.njzou.cn/travel-framework";//伪外网
-//            return "http://192.168.100.113:8080/";//本地 //18826420934  //941740
+//            return "http://192.168.100.133:8080/";//本地 //18826420934  //941740
             return "http://192.168.100.246:8088/travel-framework/";//测试地址
 
         }
