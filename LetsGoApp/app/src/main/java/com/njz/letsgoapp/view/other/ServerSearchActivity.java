@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.other.ServerSearchAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -52,6 +54,11 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
     int page = Constant.DEFAULT_PAGE;
     ServerListScreenPresenter mPresenter;
     ServerSearchAdapter mAdapter;
+    LoadMoreWrapper loadMoreWrapper;
+    int isLoadType = 1;//1下拉刷新，2上拉加载
+    boolean isLoad = false;//是否在加载，重复加载问题
+
+    Map<String, String> maps = new HashMap<>();
 
     @Override
     public int getLayoutId() {
@@ -109,9 +116,9 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 et_search.setText(lists.get(position));
                 et_search.setSelection(et_search.getText().toString().length());
-                Map<String, String> maps = new HashMap<>();
+                maps = new HashMap<>();
                 maps.put("keyWords",lists.get(position));
-                mPresenter.serveGuideServeFilterList(0, Constant.DEFAULT_LIMIT,page,"",0,0,0,Constant.GUIDE_TYPE_SYNTHESIZE,maps);
+                getRefreshData();
                 return false;
             }
         });
@@ -129,9 +136,9 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
 
                 MySelfInfo.getInstance().addSearchServer(v.getText().toString());
 
-                Map<String, String> maps = new HashMap<>();
+                maps = new HashMap<>();
                 maps.put("keyWords",v.getText().toString());
-                mPresenter.serveGuideServeFilterList(0, Constant.DEFAULT_LIMIT,page,"",0,0,0,Constant.GUIDE_TYPE_SYNTHESIZE,maps);
+                getRefreshData();
                 return false;
             }
         });
@@ -164,7 +171,8 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new ServerSearchAdapter(activity, new ArrayList<ServerDetailModel>());
-        recyclerView.setAdapter(mAdapter);
+        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
 
         mAdapter.setOnItemClickListener(new ServerSearchAdapter.OnItemClickListener() {
             @Override
@@ -177,6 +185,32 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
             }
         });
 
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                getMoreData();
+            }
+        });
+    }
+
+    private void getRefreshData() {
+        isLoad = true;
+        page = Constant.DEFAULT_PAGE;
+        isLoadType = 1;
+        getData();
+    }
+
+    private void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
+        getData();
+    }
+
+    private void getData(){
+        mPresenter.serveGuideServeFilterList(0, Constant.DEFAULT_LIMIT,page,"",0,0,0,Constant.GUIDE_TYPE_SYNTHESIZE,maps);
     }
 
     @Override
@@ -186,17 +220,31 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
 
     @Override
     public void serveGuideServeFilterListSuccess(List<ServerDetailModel> str) {
-        mAdapter.setDatas(str);
+        List<ServerDetailModel> datas = str;
+
+        if (isLoadType == 1) {
+            mAdapter.setDatas(datas);
+        } else {
+            mAdapter.addDatas(datas);
+        }
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
 
         recyclerView.setVisibility(View.VISIBLE);
         ll_history.setVisibility(View.GONE);
 
         if(mAdapter.getDatas().size() == 0){
             view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_order,"没有搜索到内容哦~");
+            view_empty.setEmptyData(R.mipmap.empty_follow,"空空如也~");
         }else{
             view_empty.setVisible(false);
         }
+
     }
 
     @Override

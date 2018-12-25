@@ -16,11 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.other.GuideSearchAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.GuideListContract;
 import com.njz.letsgoapp.mvp.home.GuideListPresenter;
@@ -53,6 +56,11 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
     private GuideListPresenter mPresenter;
     private GuideSearchAdapter mAdapter;
     private int page = Constant.DEFAULT_PAGE;
+    LoadMoreWrapper loadMoreWrapper;
+    int isLoadType = 1;//1下拉刷新，2上拉加载
+    boolean isLoad = false;//是否在加载，重复加载问题
+
+    Map<String, String> maps = new HashMap<>();
 
     @Override
     public int getLayoutId() {
@@ -110,7 +118,7 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 et_search.setText(lists.get(position));
                 et_search.setSelection(et_search.getText().toString().length());
-                Map<String, String> maps = new HashMap<>();
+                maps = new HashMap<>();
                 maps.put("keyWords",lists.get(position));
                 mPresenter.guideSortTop10ByLocation("", Constant.GUIDE_TYPE_SYNTHESIZE,Constant.DEFAULT_LIMIT,page,maps);
                 return false;
@@ -130,7 +138,7 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
 
                 MySelfInfo.getInstance().addSearchGuide(v.getText().toString());
 
-                Map<String, String> maps = new HashMap<>();
+                maps = new HashMap<>();
                 maps.put("keyWords",v.getText().toString());
                 mPresenter.guideSortTop10ByLocation("", Constant.GUIDE_TYPE_SYNTHESIZE,Constant.DEFAULT_LIMIT,page,maps);
                 return false;
@@ -165,7 +173,8 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new GuideSearchAdapter(activity, new ArrayList<GuideModel>());
-        recyclerView.setAdapter(mAdapter);
+        loadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
 
         mAdapter.setOnItemClickListener(new GuideSearchAdapter.OnItemClickListener() {
             @Override
@@ -178,6 +187,32 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
             }
         });
 
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                getMoreData();
+            }
+        });
+    }
+
+    private void getRefreshData() {
+        isLoad = true;
+        page = Constant.DEFAULT_PAGE;
+        isLoadType = 1;
+        getData();
+    }
+
+    private void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
+        getData();
+    }
+
+    private void getData(){
+        mPresenter.guideSortTop10ByLocation("", Constant.GUIDE_TYPE_SYNTHESIZE,Constant.DEFAULT_LIMIT,page,maps);
     }
 
     @Override
@@ -187,7 +222,20 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
 
     @Override
     public void guideSortTop10ByLocationSuccess(GuideListModel models) {
-        mAdapter.setDatas(models.getList());
+        List<GuideModel> datas = models.getList();
+
+        if (isLoadType == 1) {
+            mAdapter.setDatas(datas);
+        } else {
+            mAdapter.addDatas(datas);
+        }
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
 
         recyclerView.setVisibility(View.VISIBLE);
         ll_history.setVisibility(View.GONE);
