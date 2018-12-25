@@ -3,9 +3,6 @@ package com.njz.letsgoapp.bean.server;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.njz.letsgoapp.bean.order.PayModel;
-import com.njz.letsgoapp.constant.Constant;
-
 import java.util.List;
 
 /**
@@ -14,7 +11,7 @@ import java.util.List;
  * Function:
  */
 
-public class ServerDetailMedel implements Parcelable{
+public class ServerDetailModel implements Parcelable{
 
 
     /**
@@ -90,7 +87,7 @@ public class ServerDetailMedel implements Parcelable{
     private boolean isBook;
 
 
-    protected ServerDetailMedel(Parcel in) {
+    protected ServerDetailModel(Parcel in) {
         guideScore = in.readFloat();
         guideServeImg = in.readString();
         gender = in.readInt();
@@ -127,15 +124,15 @@ public class ServerDetailMedel implements Parcelable{
         isBook = in.readByte() != 0;
     }
 
-    public static final Creator<ServerDetailMedel> CREATOR = new Creator<ServerDetailMedel>() {
+    public static final Creator<ServerDetailModel> CREATOR = new Creator<ServerDetailModel>() {
         @Override
-        public ServerDetailMedel createFromParcel(Parcel in) {
-            return new ServerDetailMedel(in);
+        public ServerDetailModel createFromParcel(Parcel in) {
+            return new ServerDetailModel(in);
         }
 
         @Override
-        public ServerDetailMedel[] newArray(int size) {
-            return new ServerDetailMedel[size];
+        public ServerDetailModel[] newArray(int size) {
+            return new ServerDetailModel[size];
         }
     };
 

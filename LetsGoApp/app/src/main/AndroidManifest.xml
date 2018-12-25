@@ -121,7 +121,12 @@
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />
         <activity android:name=".view.other.MyCityPickActivity" />
-        <activity android:name=".view.other.SearchActivity" />
+        <activity android:name=".view.other.SearchActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.other.GuideSearchActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.other.ServerSearchActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.other.WebViewActivity" />
         <activity android:name=".view.other.BigImageActivity"
             android:theme="@style/welcomeTheme"/>

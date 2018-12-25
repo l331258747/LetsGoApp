@@ -11,7 +11,7 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.HomeServerAdapter;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.mvp.server.ServerListScreenContract;
@@ -20,7 +20,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideListActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
-import com.njz.letsgoapp.view.other.SearchActivity;
+import com.njz.letsgoapp.view.other.ServerSearchActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList2;
 
@@ -125,7 +125,7 @@ public class ServerListActivity extends GuideListActivity implements ServerListS
     public void initRecycler() {
         recyclerView = $(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        playAdapter = new HomeServerAdapter(activity, new ArrayList<ServerDetailMedel>());
+        playAdapter = new HomeServerAdapter(activity, new ArrayList<ServerDetailModel>());
         loadMoreWrapper = new LoadMoreWrapper(playAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         page = Constant.DEFAULT_PAGE;
@@ -232,7 +232,7 @@ public class ServerListActivity extends GuideListActivity implements ServerListS
 
 
     @Override
-    public void serveGuideServeFilterListSuccess(List<ServerDetailMedel> datas) {
+    public void serveGuideServeFilterListSuccess(List<ServerDetailModel> datas) {
         if (isLoadType == 1) {
             playAdapter.setData(datas);
         } else {
@@ -263,9 +263,8 @@ public class ServerListActivity extends GuideListActivity implements ServerListS
                 finish();
                 break;
             case R.id.tv_search:
-//                intent = new Intent(context, SearchActivity.class);
-//                startActivity(intent);
-                showShortToast("搜索");
+                intent = new Intent(context, ServerSearchActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_city_pick:
                 intent = new Intent(context, MyCityPickActivity.class);

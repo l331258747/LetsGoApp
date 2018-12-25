@@ -103,7 +103,8 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
                     break;
                 case Constant.ORDER_PAY_ALREADY:
-                    if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
+                    if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID
+                            && data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
                         holder.btn_cancel.setVisibility(View.GONE);
                     }else{
                         holder.btn_cancel.setVisibility(View.VISIBLE);

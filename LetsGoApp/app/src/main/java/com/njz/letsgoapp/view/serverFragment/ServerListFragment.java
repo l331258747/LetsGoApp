@@ -17,8 +17,7 @@ import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.GuideDetailModel;
 import com.njz.letsgoapp.bean.home.GuideServiceModel;
-import com.njz.letsgoapp.bean.home.ServiceDetailModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
@@ -100,7 +99,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         serverDetailDisposable = RxBus2.getInstance().toObservable(ServerDetailEvent.class, new Consumer<ServerDetailEvent>() {
             @Override
             public void accept(ServerDetailEvent serverDetailEvent) throws Exception {
-                for (ServerDetailMedel data : mAdapter2.getDatas()) {
+                for (ServerDetailModel data : mAdapter2.getDatas()) {
                     data.setBook(false);
                     for (ServerItem si : serverItems) {
                         if (si.getNjzGuideServeId() == data.getId()) {
@@ -135,7 +134,7 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
         recycler_view2 = $(R.id.recycler_view2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recycler_view2.setLayoutManager(linearLayoutManager);
-        mAdapter2 = new ServerListAdapter2(activity, new ArrayList<ServerDetailMedel>());
+        mAdapter2 = new ServerListAdapter2(activity, new ArrayList<ServerDetailModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter2);
         recycler_view2.setAdapter(loadMoreWrapper);
         ((SimpleItemAnimator) recycler_view2.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
@@ -228,9 +227,9 @@ public class ServerListFragment extends BaseFragment implements ServerListContra
     }
 
     @Override
-    public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
+    public void serveGuideServeOrderListSuccess(List<ServerDetailModel> datas) {
         for (ServerItem si : serverItems) {
-            for (ServerDetailMedel data : datas) {
+            for (ServerDetailModel data : datas) {
                 if (si.getNjzGuideServeId() == data.getId()) {
                     data.setBook(true);
                 }

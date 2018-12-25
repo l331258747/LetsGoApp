@@ -19,7 +19,7 @@ import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
@@ -69,7 +69,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 
     public ServerDetailPresenter serverDetailPresenter;
     public BannerPresenter bannerPresenter;
-    public ServerDetailMedel model;
+    public ServerDetailModel model;
 
     public LinearLayout ll_bottom;
 
@@ -90,7 +90,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         }
     }
 
-    public void initViewPage(ServerDetailMedel model) {
+    public void initViewPage(ServerDetailModel model) {
         mFragments = new ArrayList<>();
         mFragments.add(ServerFeatureFragment.newInstance(model));
         mFragments.add(ServerEvaluateFragment.newInstance(model.getGuideId(),model.getId(),model.getGuideScore(),model.getReviewCount()));
@@ -165,7 +165,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 
     }
 
-    public void initDetail(ServerDetailMedel model) {
+    public void initDetail(ServerDetailModel model) {
         tv_title.setText(model.getTitle());
         if (TextUtils.isEmpty(model.getAddress())) {
             tv_destination.setVisibility(View.GONE);
@@ -278,7 +278,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
     }
 
     @Override
-    public void serveGuideServeOrderSuccess(ServerDetailMedel str) {
+    public void serveGuideServeOrderSuccess(ServerDetailModel str) {
         this.model = str;
         initDetail(model);
     }

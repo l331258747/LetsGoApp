@@ -69,7 +69,6 @@ public class MySelfInfo {
         SPUtils.getInstance().putString(SPUtils.SP_CUSTOMER_MOBILE, infoModel.getCustomerMobile());
         SPUtils.getInstance().putString(SPUtils.SP_USER_FREE_LABELS, infoModel.getFreeLabel());
         SPUtils.getInstance().putString(SPUtils.SP_USER_BACKIMG, infoModel.getBackImg());
-
     }
 
     public String getUserBackimg(){
@@ -208,6 +207,61 @@ public class MySelfInfo {
     public void setUserImgUrl(String str){
         SPUtils.getInstance().putString(SPUtils.SP_USER_IMG_URL,str);
     }
+
+    //---------搜索 start
+    public void setSearchGuide(List<String> lists){
+        if(lists == null) return;
+        SPUtils.getInstance().putString(SPUtils.SP_SEARCH_GUIDE, GsonUtil.convertVO2String(lists));
+    }
+
+    public void addSearchGuide(String str){
+        List<String> lists = getSearchGuide();
+        for (String item : lists){
+            if(TextUtils.equals(str,item)){
+                return;
+            }
+        }
+
+        if(lists.size() > 8) {
+            lists.remove(0);
+        }
+        lists.add(str);
+        setSearchGuide(lists);
+    }
+
+    public List<String> getSearchGuide(){
+        if(TextUtils.isEmpty(SPUtils.getInstance().getString(SPUtils.SP_SEARCH_GUIDE)))
+            return new ArrayList<>();
+        return GsonUtil.convertJson2Array(SPUtils.getInstance().getString(SPUtils.SP_SEARCH_GUIDE));
+    }
+
+    public void setSearchServer(List<String> lists){
+        if(lists == null) return;
+        SPUtils.getInstance().putString(SPUtils.SP_SEARCH_SERVER, GsonUtil.convertVO2String(lists));
+    }
+
+    public void addSearchServer(String str){
+        List<String> lists = getSearchServer();
+        for (String item : lists){
+            if(TextUtils.equals(str,item)){
+                return;
+            }
+        }
+
+        if(lists.size() > 8) {
+            lists.remove(0);
+        }
+        lists.add(str);
+        setSearchServer(lists);
+    }
+
+    public List<String> getSearchServer(){
+        if(TextUtils.isEmpty(SPUtils.getInstance().getString(SPUtils.SP_SEARCH_SERVER)))
+            return new ArrayList<>();
+        return GsonUtil.convertJson2Array(SPUtils.getInstance().getString(SPUtils.SP_SEARCH_SERVER));
+    }
+
+    //---------搜索 end
 
 
     public void loginOff() {

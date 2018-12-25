@@ -2,8 +2,7 @@ package com.njz.letsgoapp.mvp.server;
 
 import android.content.Context;
 
-import com.njz.letsgoapp.bean.EmptyModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -26,9 +25,9 @@ public class ServerDetailPresenter implements ServerDetailContract.Presenter {
 
     @Override
     public void serveGuideServeOrder(int id) {
-        ResponseCallback listener = new ResponseCallback<ServerDetailMedel>() {
+        ResponseCallback listener = new ResponseCallback<ServerDetailModel>() {
             @Override
-            public void onSuccess(ServerDetailMedel data) {
+            public void onSuccess(ServerDetailModel data) {
                 iView.serveGuideServeOrderSuccess(data);
             }
 

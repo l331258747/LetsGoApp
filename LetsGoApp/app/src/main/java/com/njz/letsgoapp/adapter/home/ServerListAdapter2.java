@@ -2,7 +2,6 @@ package com.njz.letsgoapp.adapter.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.home.ServiceDetailModel;
-import com.njz.letsgoapp.bean.server.PlayModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView2;
@@ -28,10 +25,10 @@ import java.util.List;
  */
 
 public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.ViewHolder>{
-    List<ServerDetailMedel> datas;
+    List<ServerDetailModel> datas;
     Context context;
 
-    public ServerListAdapter2(Context context,List<ServerDetailMedel> datas) {
+    public ServerListAdapter2(Context context,List<ServerDetailModel> datas) {
         this.datas = datas;
         this.context = context;
     }
@@ -45,7 +42,7 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         if (holder == null) return;
-        ServerDetailMedel data = datas.get(position);
+        ServerDetailModel data = datas.get(position);
         GlideUtil.LoadImage(context,data.getTitleImg(),holder.iv_img);
         holder.tv_location.setText(data.getAddress());
         holder.tv_title.setText(data.getTitle());
@@ -139,21 +136,21 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
 
     }
 
-    public void setDatas(List<ServerDetailMedel> datas){
+    public void setDatas(List<ServerDetailModel> datas){
         this.datas = datas;
         if(datas == null) return;
 
         notifyDataSetChanged();
     }
 
-    public void addDatas(List<ServerDetailMedel> datas){
+    public void addDatas(List<ServerDetailModel> datas){
         this.datas.addAll(datas);
     }
 
-    public ServerDetailMedel getData(int position){
+    public ServerDetailModel getData(int position){
         return this.datas.get(position);
     }
-    public List<ServerDetailMedel> getDatas(){
+    public List<ServerDetailModel> getDatas(){
         return this.datas;
     }
 

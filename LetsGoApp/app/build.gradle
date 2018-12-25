@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1000004
-        versionName "1.0.0.4"
+        versionCode 1000005
+        versionName "1.0.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -52,11 +52,14 @@ android {
 
         //qq、baidu、xiaomi、huawei、ali、vivo、oppo、meizu、c360 qq代表应用宝
 
-        prod {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "prod"]
+        dev {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev"]
         }
 
         if(defaultConfig.versionCode % 100 == 0){
+            prod {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "prod"]
+            }
             qq {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
             }

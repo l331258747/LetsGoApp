@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.util.webview.LWebView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
@@ -26,12 +26,12 @@ public class ServerFeatureFragment extends BaseFragment {
     TextView price_introduce_content, tv_refund_rule_30, tv_refund_rule_50;
     EmptyView3 view_empty;
 
-    ServerDetailMedel model;
+    ServerDetailModel model;
 
-    public static Fragment newInstance(ServerDetailMedel serverDetailMedel) {
+    public static Fragment newInstance(ServerDetailModel serverDetailModel) {
         ServerFeatureFragment fragment = new ServerFeatureFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("serviceDetailModel", serverDetailMedel);
+        bundle.putParcelable("serviceDetailModel", serverDetailModel);
         fragment.setArguments(bundle);
         return fragment;
     }

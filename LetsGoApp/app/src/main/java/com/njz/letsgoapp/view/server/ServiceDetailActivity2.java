@@ -1,7 +1,6 @@
 package com.njz.letsgoapp.view.server;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
@@ -51,14 +50,14 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
     public GuideLabelView guideLabelView;
     public ServiceTagView serviceTagView;
 
-    ServerDetailMedel serverDetailMedel;
+    ServerDetailModel serverDetailModel;
 
     private ServerDetailPresenter serverDetailPresenter;
     private BannerPresenter bannerPresenter;
 
     public String[] titles = {"服务特色", "TA的评价", "其他服务"};
 
-    public  void initViewPage(ServerDetailMedel model){
+    public  void initViewPage(ServerDetailModel model){
         mFragments = new ArrayList<>();
         mFragments.add(ServerFeatureFragment.newInstance(model));
         mFragments.add(ServerEvaluateFragment.newInstance(model.getGuideId(),model.getId(),model.getGuideScore(),model.getReviewCount()));
@@ -90,24 +89,24 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_submit:
-                if(serverDetailMedel == null) return;
+                if(serverDetailModel == null) return;
 
                 if(!MySelfInfo.getInstance().isLogin()){
                     startActivity(new Intent(context,LoginActivity.class));
                     return ;
                 }
 
-                if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                     Intent intent = new Intent(context, CustomActivity.class);
-                    intent.putExtra("LOCATION", serverDetailMedel.getAddress());
-                    intent.putExtra("GUIDE_ID", serverDetailMedel.getGuideId());
-                    intent.putExtra("SERVER_ID", serverDetailMedel.getId());
+                    intent.putExtra("LOCATION", serverDetailModel.getAddress());
+                    intent.putExtra("GUIDE_ID", serverDetailModel.getGuideId());
+                    intent.putExtra("SERVER_ID", serverDetailModel.getId());
 
                     startActivity(intent);
                     return;
                 }
                 if (popServer == null) {
-                    popServer = new PopServer(activity, tv_submit,serverDetailMedel);
+                    popServer = new PopServer(activity, tv_submit, serverDetailModel);
                     popServer.setSubmit(null, new PopServer.SubmitClick() {
                         @Override
                         public void onClick(ServerItem serverItem) {
@@ -115,8 +114,8 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                             serverItems.add(serverItem);
                             Intent intent = new Intent(context,OrderSubmitActivity.class);
                             intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) serverItems);
-                            intent.putExtra("GUIDE_ID",serverDetailMedel.getGuideId());
-                            intent.putExtra("LOCATION",serverDetailMedel.getAddress());
+                            intent.putExtra("GUIDE_ID", serverDetailModel.getGuideId());
+                            intent.putExtra("LOCATION", serverDetailModel.getAddress());
                             startActivity(intent);
                         }
                     });
@@ -124,8 +123,8 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                 popServer.showPopupWindow(tv_submit);
                 break;
             case R.id.tv_phone:
-                if(serverDetailMedel == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context,serverDetailMedel.getMobile());
+                if(serverDetailModel == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context, serverDetailModel.getMobile());
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));
@@ -134,16 +133,16 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 //                scrollView.scrollTo(0, 0);
                 break;
             case R.id.right_iv:
-                if(serverDetailMedel == null) return;
+                if(serverDetailModel == null) return;
                 ShareDialog dialog = new ShareDialog(activity,"","","","");
-                dialog.setReportData(serverDetailMedel.getGuideId(), ShareDialog.REPORT_SERVICE,serverDetailMedel.getId());
+                dialog.setReportData(serverDetailModel.getGuideId(), ShareDialog.REPORT_SERVICE, serverDetailModel.getId());
                 dialog.setType(ShareDialog.TYPE_REPORT);
                 dialog.show();
                 break;
         }
     }
 
-    public void initPersonInfo(ServerDetailMedel model){
+    public void initPersonInfo(ServerDetailModel model){
         rl_person_info = $(R.id.rl_person_info);
         rl_person_info.setVisibility(View.VISIBLE);
 
@@ -172,13 +171,13 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
-                intent.putExtra("GUIDEID",serverDetailMedel.getGuideId());
+                intent.putExtra("GUIDEID", serverDetailModel.getGuideId());
                 startActivity(intent);
             }
         });
     }
 
-    public void initDetail(ServerDetailMedel model) {
+    public void initDetail(ServerDetailModel model) {
         tv_title.setText(model.getTitle());
         if(TextUtils.isEmpty(model.getAddress())){
             tv_destination.setVisibility(View.GONE);
@@ -197,8 +196,8 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
     }
 
     @Override
-    public void serveGuideServeOrderSuccess(ServerDetailMedel str) {
-        serverDetailMedel = str;
+    public void serveGuideServeOrderSuccess(ServerDetailModel str) {
+        serverDetailModel = str;
         initDetail(str);
         initPersonInfo(str);
     }

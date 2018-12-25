@@ -39,8 +39,9 @@ public class SPUtils {
 
     public static final String SP_APP_VERSION = "sp_app_version";
 
-
-
+    //历史搜索
+    public static final String SP_SEARCH_GUIDE = "sp_search_guide";
+    public static final String SP_SEARCH_SERVER = "sp_search_server";
 
     private static SharedPreferences mSharedPreferences;
     private static SPUtils mPreferenceUtils;

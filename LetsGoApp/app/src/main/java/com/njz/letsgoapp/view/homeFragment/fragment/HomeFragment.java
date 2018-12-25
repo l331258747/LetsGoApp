@@ -25,7 +25,7 @@ import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.GuideListModel;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.home.NoticeItem;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.HomeContract;
 import com.njz.letsgoapp.mvp.home.HomePresenter;
@@ -37,6 +37,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.other.ServerSearchActivity;
 import com.njz.letsgoapp.view.other.WebViewActivity;
 import com.njz.letsgoapp.view.server.ServerListActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
@@ -224,9 +225,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 cityPick();
                 break;
             case R.id.tv_search:
-//                intent = new Intent(context, SearchActivity.class);
-//                startActivity(intent);
-                showShortToast("搜索");
+                intent = new Intent(context, ServerSearchActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rl_guide_title:
                 intent = new Intent(context,GuideListActivity.class);
@@ -267,7 +267,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         recyclerView = $(R.id.recycler_view);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        playAdapter = new HomeServerAdapter(activity, new ArrayList<ServerDetailMedel>());
+        playAdapter = new HomeServerAdapter(activity, new ArrayList<ServerDetailModel>());
         recyclerView.setAdapter(playAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -472,7 +472,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     }
 
     @Override
-    public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
+    public void serveGuideServeOrderListSuccess(List<ServerDetailModel> datas) {
 
         isDynamicLoad = true;
         if(isBannerLoad && isDynamicLoad && isGuideLoad){

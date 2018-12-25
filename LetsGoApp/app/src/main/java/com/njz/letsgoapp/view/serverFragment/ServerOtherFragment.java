@@ -12,8 +12,7 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.ServerOtherAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.server.PlayModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
@@ -84,7 +83,7 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
         recyclerView = $(R.id.recycler_view);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new ServerOtherAdapter(activity, new ArrayList<ServerDetailMedel>());
+        mAdapter = new ServerOtherAdapter(activity, new ArrayList<ServerDetailModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
         recyclerView.setNestedScrollingEnabled(false);
@@ -118,7 +117,7 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
     }
 
     @Override
-    public void serveGuideServeOrderListSuccess(List<ServerDetailMedel> datas) {
+    public void serveGuideServeOrderListSuccess(List<ServerDetailModel> datas) {
         mAdapter.setData(datas);
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {

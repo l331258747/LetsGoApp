@@ -1,10 +1,6 @@
 package com.njz.letsgoapp.mvp.server;
 
-import com.njz.letsgoapp.bean.EmptyModel;
-import com.njz.letsgoapp.bean.server.PlayModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
-
-import java.util.List;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 
 /**
  * Created by LGQ
@@ -20,7 +16,7 @@ public interface ServerDetailContract {
     }
 
     interface View {
-        void serveGuideServeOrderSuccess(ServerDetailMedel str);
+        void serveGuideServeOrderSuccess(ServerDetailModel str);
 
         void serveGuideServeOrderFailed(String msg);
 

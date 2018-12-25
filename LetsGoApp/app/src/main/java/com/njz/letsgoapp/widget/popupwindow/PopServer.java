@@ -19,7 +19,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.server.PlayChileMedel;
 import com.njz.letsgoapp.bean.server.PriceCalendarChildModel;
 import com.njz.letsgoapp.bean.server.PriceCalendarModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.PriceDateContract;
@@ -65,7 +65,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     NumberView numberView;
 
 
-    ServerDetailMedel serverDetailMedel;
+    ServerDetailModel serverDetailModel;
 
     String titleLanguage;
     String titleCar;
@@ -92,13 +92,13 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     int serverNum;
 
 
-    public PopServer(final Activity context, View parentView, ServerDetailMedel serverDetailMedel) {
+    public PopServer(final Activity context, View parentView, ServerDetailModel serverDetailModel) {
         super(parentView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         contentView = inflater.inflate(R.layout.popup_server, null);
         this.context = context;
-        this.serverDetailMedel = serverDetailMedel;
+        this.serverDetailModel = serverDetailModel;
 
         initView();
 
@@ -124,7 +124,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         for (int i = 0; i < 3; i++) {
             PriceCalendarChildModel priceCalendarChildModel = new PriceCalendarChildModel();
             priceCalendarChildModel.setSelect(false);
-            priceCalendarChildModel.setAddPrice(serverDetailMedel.getServePrice());
+            priceCalendarChildModel.setAddPrice(serverDetailModel.getServePrice());
             Date date = DateUtil.getDate(i);
             Calendar ca = Calendar.getInstance();
             ca.setTime(date);
@@ -148,12 +148,12 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         guideScoreView2 = contentView.findViewById(R.id.guideScoreView2);
         priceView = contentView.findViewById(R.id.priceView);
 
-        GlideUtil.LoadImage(context, serverDetailMedel.getTitleImg(), iv_img);
-        tv_title.setText(serverDetailMedel.getTitle());
-        title = serverDetailMedel.getTitle();
-        guideScoreView2.setGuideScore(serverDetailMedel.getSellCount(), serverDetailMedel.getScore(), serverDetailMedel.getReviewCount());
-        priceView.setPrice(serverDetailMedel.getServePrice());
-        tv_price_total.setText("￥" + serverDetailMedel.getServePrice());
+        GlideUtil.LoadImage(context, serverDetailModel.getTitleImg(), iv_img);
+        tv_title.setText(serverDetailModel.getTitle());
+        title = serverDetailModel.getTitle();
+        guideScoreView2.setGuideScore(serverDetailModel.getSellCount(), serverDetailModel.getScore(), serverDetailModel.getReviewCount());
+        priceView.setPrice(serverDetailModel.getServePrice());
+        tv_price_total.setText("￥" + serverDetailModel.getServePrice());
 
         tv_pop_close.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
@@ -173,7 +173,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 tv_price_total.setText("￥" + (priceTotal * serverNum));
             }
         });
-        if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
+        if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
             rl_count.setVisibility(View.GONE);
         }
     }
@@ -181,11 +181,11 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     private void initData() {
         datePresenter = new PriceDatePresenter(context, this);
         setPriceData();
-        initFlowDate(serverDetailMedel.getNjzGuideServeFormatEntitys());
+        initFlowDate(serverDetailModel.getNjzGuideServeFormatEntitys());
     }
 
     public void setChange() {
-        tv_title.setText(serverDetailMedel.getTitle() +
+        tv_title.setText(serverDetailModel.getTitle() +
                 (TextUtils.isEmpty(titleTc) ? "" : ("+" + titleTc)) +
                 (TextUtils.isEmpty(titleCar) ? "" : ("+" + titleCar)) +
                 (TextUtils.isEmpty(titleLanguage) ? "" : ("+" + titleLanguage))
@@ -198,7 +198,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
         priceView.setPrice(priceLanguage + priceCar + priceTc);
 
-        datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailMedel.getServeType());
+        datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getServeType());
     }
 
     public void setPriceChange(){
@@ -274,7 +274,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             flow_parent.addView(vsf);
 
             String title2 = "";
-            if(serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CAR_ID){
+            if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_CAR_ID){
                 vsf.setSelectedOne(true);
             }else{
                 title2 = "（自己开车可不选）";
@@ -315,9 +315,9 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
         if (priceCalendarChildModels.size() > 0) {
             pirceVsf = new ViewServerFlow(context);
-            if ((serverDetailMedel.getServeType() == Constant.SERVER_TYPE_CAR_ID)
-                    || (serverDetailMedel.getServeType() == Constant.SERVER_TYPE_TICKET_ID)
-                    || (serverDetailMedel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID)) {
+            if ((serverDetailModel.getServeType() == Constant.SERVER_TYPE_CAR_ID)
+                    || (serverDetailModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID)
+                    || (serverDetailModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID)) {
                 pirceVsf.setMaxSelect(1);
             } else {
                 pirceVsf.setMaxSelect(100);
@@ -331,7 +331,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                     Intent intent = new Intent(context, PriceCalendarActivity.class);
                     intent.putParcelableArrayListExtra("priceCalendarChildModels", (ArrayList<PriceCalendarChildModel>) priceCalendarChildModels);
                     intent.putExtra("formatIds", formatIds);
-                    intent.putExtra("serveId", serverDetailMedel.getId());
+                    intent.putExtra("serveId", serverDetailModel.getId());
                     intent.putExtra("maxSelect", pirceVsf.getMaxSelect());
                     context.startActivity(intent);
 
@@ -344,12 +344,12 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                             }
                             if (priceCalendarEvent.getPriceCalendarChildModels().size() == 0) {
                                 setPriceData();
-                                datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailMedel.getServeType());
+                                datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getServeType());
                                 priceDisposable.dispose();
                                 return;
                             }
                             priceCalendarChildModels = priceCalendarEvent.getPriceCalendarChildModels();
-                            datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailMedel.getServeType());
+                            datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getServeType());
                             priceDisposable.dispose();
                         }
                     });
@@ -359,7 +359,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     }
 
     public void showPopupWindow(View parent) {
-        if (serverDetailMedel == null || serverDetailMedel.getNjzGuideServeFormatEntitys().size() == 0)
+        if (serverDetailModel == null || serverDetailModel.getNjzGuideServeFormatEntitys().size() == 0)
             return;
         if (!this.isShowing()) {
             setDarkStyle(-1);
@@ -404,16 +404,16 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                     }
 
                     ServerItem data = new ServerItem();
-                    data.setImg(serverDetailMedel.getTitleImg());
+                    data.setImg(serverDetailModel.getTitleImg());
                     data.setTitile(tv_title.getText().toString());
                     data.setPrice(priceTotal);
-                    data.setLocation(serverDetailMedel.getAddress());
-                    data.setServiceTypeName(serverDetailMedel.getServeTypeName());
+                    data.setLocation(serverDetailModel.getAddress());
+                    data.setServiceTypeName(serverDetailModel.getServeTypeName());
                     data.setServeNum(serverNum);
                     data.setSelectTimeValueList(getSubmitTravelDates());
-                    data.setNjzGuideServeId(serverDetailMedel.getId());
+                    data.setNjzGuideServeId(serverDetailModel.getId());
                     data.setNjzGuideServeFormatId(formatIds);
-                    data.setServerType(serverDetailMedel.getServeType());
+                    data.setServerType(serverDetailModel.getServeType());
                     onSubmitClick.onClick(data);
                 }
                 dismissPopupWindow();

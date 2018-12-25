@@ -3,7 +3,7 @@ package com.njz.letsgoapp.mvp.server;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
@@ -30,9 +30,9 @@ public class ServerListScreenPresenter  implements ServerListScreenContract.Pres
 
     @Override
     public void serveGuideServeFilterList(int serveType, int limit, int page, String address, int mustPlay, int guideId, int guideServeId, int order,Map<String, String> maps) {
-        ResponseCallback listener = new ResponseCallback<List<ServerDetailMedel>>() {
+        ResponseCallback listener = new ResponseCallback<List<ServerDetailModel>>() {
             @Override
-            public void onSuccess(List<ServerDetailMedel> data) {
+            public void onSuccess(List<ServerDetailModel> data) {
                 iView.serveGuideServeFilterListSuccess(data);
             }
 

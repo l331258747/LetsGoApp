@@ -1,10 +1,6 @@
 package com.njz.letsgoapp.mvp.server;
 
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.server.PriceCalendarModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
-
-import java.util.List;
 
 /**
  * Created by LGQ

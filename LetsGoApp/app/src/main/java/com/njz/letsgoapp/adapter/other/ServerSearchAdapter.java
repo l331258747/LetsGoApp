@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.adapter.home;
+package com.njz.letsgoapp.adapter.other;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideScoreView2;
@@ -19,23 +20,24 @@ import java.util.List;
 
 /**
  * Created by LGQ
- * Time: 2018/12/3
+ * Time: 2018/12/25
  * Function:
  */
 
-public class HomeServerAdapter extends RecyclerView.Adapter<HomeServerAdapter.ViewHolder> {
+public class ServerSearchAdapter extends RecyclerView.Adapter<ServerSearchAdapter.ViewHolder> {
 
     Context context;
     List<ServerDetailModel> datas;
 
-    public HomeServerAdapter(Context context, List<ServerDetailModel> datas) {
+    public ServerSearchAdapter(Context context, List<ServerDetailModel> datas) {
         this.context = context;
         this.datas = datas;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_home_play, parent, false);
+        View view;
+        view = LayoutInflater.from(context).inflate(R.layout.item_server_search, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,19 +47,20 @@ public class HomeServerAdapter extends RecyclerView.Adapter<HomeServerAdapter.Vi
         final ServerDetailModel data = datas.get(position);
         if (data == null) return;
 
-        GlideUtil.LoadTopRoundImage(context, data.getTitleImg(), holder.iv_img,5);
-        holder.tv_title.setText(data.getTitle());
+        GlideUtil.LoadImage(context,data.getTitleImg(),holder.iv_img);
         holder.tv_location.setText(data.getAddress());
+        holder.tv_title.setText(data.getTitle());
+        holder.guideScoreView2.setGuideScore(data.getSellCount(),data.getScore(),data.getReviewCount());
         holder.priceView.setPrice(data.getServePrice());
-        holder.scoreView.setGuideScore(data.getSellCount(),data.getScore(),data.getReviewCount());
-        if (mOnItemClickListener != null) {
-            holder.ll_parent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
+        holder.ll_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnItemClickListener != null){
                     mOnItemClickListener.onClick(position);
                 }
-            });
-        }
+            }
+        });
     }
 
     @Override
@@ -65,12 +68,12 @@ public class HomeServerAdapter extends RecyclerView.Adapter<HomeServerAdapter.Vi
         return datas.size();
     }
 
-    public void setData(List<ServerDetailModel> datas) {
+    public void setDatas(List<ServerDetailModel> datas){
         this.datas = datas;
         notifyDataSetChanged();
     }
 
-    public void addData(List<ServerDetailModel> datas){
+    public void addDatas(List<ServerDetailModel> datas){
         this.datas.addAll(datas);
         notifyDataSetChanged();
     }
@@ -79,21 +82,26 @@ public class HomeServerAdapter extends RecyclerView.Adapter<HomeServerAdapter.Vi
         return this.datas.get(position);
     }
 
+    public List<ServerDetailModel> getDatas(){
+        return this.datas;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         LinearLayout ll_parent;
         ImageView iv_img;
-        TextView tv_title,tv_location;
+        TextView tv_location,tv_title;
+        GuideScoreView2 guideScoreView2;
         PriceView priceView;
-        GuideScoreView2 scoreView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ll_parent = itemView.findViewById(R.id.ll_parent);
             iv_img = itemView.findViewById(R.id.iv_img);
-            tv_title = itemView.findViewById(R.id.tv_title);
             tv_location = itemView.findViewById(R.id.tv_location);
+            tv_title = itemView.findViewById(R.id.tv_title);
+            guideScoreView2 = itemView.findViewById(R.id.guideScoreView2);
             priceView = itemView.findViewById(R.id.priceView);
-            scoreView = itemView.findViewById(R.id.scoreView);
         }
     }
 

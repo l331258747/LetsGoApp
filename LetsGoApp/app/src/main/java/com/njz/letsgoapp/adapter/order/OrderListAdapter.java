@@ -185,9 +185,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
                     break;
                 case Constant.ORDER_PAY_ALREADY:
-                    if (data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING) {
+                    if (data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID
+                            && data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING) {
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
-                    } else {
+                    }else{
                         ((DefaultHolder) holder).btn_cancel.setText("退款");
                         ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -275,7 +276,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_refund.setVisibility(View.VISIBLE);
                             break;
-                        case Constant.ORDER_TRAVEL_GOING:
+                        case Constant.ORDER_TRAVEL_GOING://行程中，不能退整单
                             ((FootHolder) holder).btn_call_customer.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                             break;

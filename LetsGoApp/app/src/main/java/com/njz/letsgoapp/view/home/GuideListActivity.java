@@ -28,6 +28,7 @@ import com.njz.letsgoapp.mvp.other.ConfigPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
+import com.njz.letsgoapp.view.other.GuideSearchActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.view.other.SearchActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
@@ -198,7 +199,6 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
-                LogUtil.e(mAdapter.getDatas().get(position).getGuideId() + "");
                 intent.putExtra(GuideDetailActivity.GUIDEID, mAdapter.getDatas().get(position).getId());
                 startActivity(intent);
             }
@@ -274,9 +274,8 @@ public class GuideListActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.tv_search:
-//                intent = new Intent(context, SearchActivity.class);
-//                startActivity(intent);
-                showShortToast("搜索");
+                intent = new Intent(context, GuideSearchActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_city_pick:
                 intent = new Intent(context, MyCityPickActivity.class);

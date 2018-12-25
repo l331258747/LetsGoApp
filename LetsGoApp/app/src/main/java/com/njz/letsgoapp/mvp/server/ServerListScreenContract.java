@@ -1,6 +1,6 @@
 package com.njz.letsgoapp.mvp.server;
 
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public interface ServerListScreenContract {
     }
 
     interface View {
-        void serveGuideServeFilterListSuccess(List<ServerDetailMedel> str);
+        void serveGuideServeFilterListSuccess(List<ServerDetailModel> str);
 
         void serveGuideServeFilterListFailed(String msg);
 

@@ -35,7 +35,7 @@ import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
 import com.njz.letsgoapp.bean.server.CustomPlanModel;
 import com.njz.letsgoapp.bean.server.PriceCalendarModel;
-import com.njz.letsgoapp.bean.server.ServerDetailMedel;
+import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.bean.server.SubmitOrderModel;
 
 import java.util.List;
@@ -548,7 +548,7 @@ public interface HttpService {
     //-----------start服务---------
     //serve/guideServeOrderList 服务列表
     @GET("serve/guideServeOrderList")
-    Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeOrderList(
+    Observable<BaseResponse<List<ServerDetailModel>>> serveGuideServeOrderList(
             @Query("serveType") int serveType,
             @Query("limit") int limit,
             @Query("page") int page,
@@ -560,12 +560,12 @@ public interface HttpService {
 
     //serve/guideServeOrder 服务详情
     @GET("serve/guideServeOrder")
-    Observable<BaseResponse<ServerDetailMedel>> serveGuideServeOrder(
+    Observable<BaseResponse<ServerDetailModel>> serveGuideServeOrder(
             @Query("id") int id
     );
 
     @GET("serve/guideServeFilterList")
-    Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeFilterList(
+    Observable<BaseResponse<List<ServerDetailModel>>> serveGuideServeFilterList(
             @Query("serveType") int serveType,
             @Query("limit") int limit,
             @Query("page") int page,
@@ -577,7 +577,7 @@ public interface HttpService {
             @QueryMap Map<String, String> maps
     );
     @GET("serve/guideServeFilterList")
-    Observable<BaseResponse<List<ServerDetailMedel>>> serveGuideServeFilterList2(
+    Observable<BaseResponse<List<ServerDetailModel>>> serveGuideServeFilterList2(
             @Query("serveType") int serveType,
             @Query("limit") int limit,
             @Query("page") int page,
