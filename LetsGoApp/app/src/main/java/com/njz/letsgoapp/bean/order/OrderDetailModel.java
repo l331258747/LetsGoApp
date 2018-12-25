@@ -202,9 +202,9 @@ public class OrderDetailModel {
     }
 
     public String getPayType() {
-        if(TextUtils.equals(payType,"WxPay")){
+        if (TextUtils.equals(payType, "WxPay")) {
             return "微信支付";
-        }else if(TextUtils.equals(payType,"AliPay")){
+        } else if (TextUtils.equals(payType, "AliPay")) {
             return "支付宝支付";
         }
         return payType;
@@ -250,7 +250,7 @@ public class OrderDetailModel {
         return orderPrice;
     }
 
-    public String getOrderPriceStr(){
+    public String getOrderPriceStr() {
         if (payStatus == Constant.ORDER_PAY_WAIT
                 && payingStatus == Constant.ORDER_WAIT_PAY
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
@@ -299,9 +299,9 @@ public class OrderDetailModel {
     public String getPayStatusStr() {
         switch (payStatus) {
             case Constant.ORDER_PAY_WAIT:
-                switch (payingStatus){
+                switch (payingStatus) {
                     case Constant.ORDER_WAIT_PAY:
-                        switch (planStatus){
+                        switch (planStatus) {
                             case Constant.ORDER_PLAN_GUIDE_WAIT:
                                 return "待确认";
                             case Constant.ORDER_PLAN_PLANING:
@@ -329,7 +329,7 @@ public class OrderDetailModel {
                         return "";
                 }
             case Constant.ORDER_PAY_FINISH:
-                switch (reviewStatus){
+                switch (reviewStatus) {
                     case Constant.ORDER_EVALUATE_NO:
                         return "未点评";
                     case Constant.ORDER_EVALUATE_YES:
@@ -374,14 +374,14 @@ public class OrderDetailModel {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
                 evaluateTypeModel.setScheduling(true);
-                if(havCar)
+                if (havCar)
                     evaluateTypeModel.setCarCondition(true);
             } else if (childModel.getServeType() == Constant.SERVER_TYPE_CAR_ID) {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
                 evaluateTypeModel.setCarCondition(true);
-            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_TICKET)
-                    || TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_HOTEL)) {
+            } else if (childModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID
+                    || childModel.getServeType() == Constant.SERVER_TYPE_HOTEL_ID) {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
             }

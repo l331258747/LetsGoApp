@@ -198,8 +198,8 @@ public class OrderModel {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
                 evaluateTypeModel.setCarCondition(true);
-            } else if (TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_TICKET)
-                    || TextUtils.equals(childModel.getValue(), Constant.SERVER_TYPE_HOTEL)) {
+            } else if(childModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID
+                    || childModel.getServeType() == Constant.SERVER_TYPE_HOTEL_ID){
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
             }

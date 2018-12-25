@@ -79,7 +79,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
 
             ((ViewHolder) holder).ll_travel_going.setVisibility(View.GONE);
 
-            if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING && !TextUtils.equals(data.getValue(),Constant.SERVER_TYPE_TICKET)){
+            if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING && data.getServeType() != Constant.SERVER_TYPE_TICKET_ID){
                 ((ViewHolder) holder).ll_travel_going.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).tv_travel_day_content.setText(data.getUseDay()+"天");
                 ((ViewHolder) holder).tv_not_travel_day_content.setText(data.getUnUseDay()+"天");
