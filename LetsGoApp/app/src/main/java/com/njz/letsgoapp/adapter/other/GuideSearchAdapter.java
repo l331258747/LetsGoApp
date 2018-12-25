@@ -14,6 +14,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.home.GuideModel;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.widget.GuideLabelView;
+import com.njz.letsgoapp.widget.GuideScoreView;
 import com.njz.letsgoapp.widget.MyRatingBar;
 import com.njz.letsgoapp.widget.ServiceTagView;
 
@@ -52,10 +53,10 @@ public class GuideSearchAdapter extends RecyclerView.Adapter<GuideSearchAdapter.
         GlideUtil.LoadCircleImage(context,data.getGuideImg(),holder.iv_head);
         holder.iv_sex.setImageDrawable(ContextCompat.getDrawable(context,data.getGuideGender() == 2?R.mipmap.icon_girl:R.mipmap.icon_boy));
         holder.tv_name.setText(data.getGuideName());
-        holder.tv_service_num.setText("服务" + data.getServiceCounts() + "次");
         holder.myRatingBar.setRating((int) data.getGuideScore());
-        holder.guideLabelView.setTabel(new ArrayList<String>());
-        holder.serviceTagView.setServiceTag(new ArrayList<String>());
+        holder.tv_content.setText(data.getIntroduce());
+        holder.ll_times.setGuideScore(data.getServiceCounts(),data.getGuideScore(),data.getCount());
+        holder.tv_service_item.setServiceTag(data.getServiceTags());
 
         holder.ll_parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,11 +94,12 @@ public class GuideSearchAdapter extends RecyclerView.Adapter<GuideSearchAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_head,iv_sex;
-        TextView tv_name,tv_service_num;
+        TextView tv_name,tv_content;
         MyRatingBar myRatingBar;
-        GuideLabelView guideLabelView;
-        ServiceTagView serviceTagView;
         LinearLayout ll_parent;
+
+        GuideScoreView ll_times;
+        ServiceTagView tv_service_item;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -105,11 +107,11 @@ public class GuideSearchAdapter extends RecyclerView.Adapter<GuideSearchAdapter.
             iv_head = itemView.findViewById(R.id.iv_head);
             iv_sex = itemView.findViewById(R.id.iv_sex);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_service_num = itemView.findViewById(R.id.tv_service_num);
             myRatingBar = itemView.findViewById(R.id.my_rating_bar);
-            guideLabelView = itemView.findViewById(R.id.guide_label);
-            serviceTagView = itemView.findViewById(R.id.stv_tag);
             ll_parent = itemView.findViewById(R.id.ll_parent);
+            tv_content = itemView.findViewById(R.id.tv_content);
+            ll_times = itemView.findViewById(R.id.ll_times);
+            tv_service_item = itemView.findViewById(R.id.tv_service_item);
         }
     }
 
