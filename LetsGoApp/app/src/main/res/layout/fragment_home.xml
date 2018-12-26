@@ -164,7 +164,7 @@
                             android:drawablePadding="15dp"
                             android:layout_height="wrap_content"
                             android:drawableTop="@mipmap/grid_car"
-                            android:text="接送机/站"/>
+                            android:text="包车接送"/>
 
                         <TextView
                             android:id="@+id/tv_grid_feature"

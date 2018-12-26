@@ -53,7 +53,7 @@ public class OrderChildModel {
             case Constant.SERVER_TYPE_TICKET_ID:
                 return "代订门票";
             case Constant.SERVER_TYPE_CAR_ID:
-                return "接送机/站";
+                return "包车接送";
         }
         return "";
     }
