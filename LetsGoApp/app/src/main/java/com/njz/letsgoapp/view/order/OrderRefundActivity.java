@@ -225,6 +225,11 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         if(str.getOrderStatus() != Constant.ORDER_TRAVEL_WAIT){
             tv_minus_price.setText("" + str.getDefaultMoney());
             tv_last_price.setText("" + str.getRefundMoney());
+
+            if(str.getRefundMoney() <= 0){
+                tv_submit2.setEnabled(false);
+                tv_submit2.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_99_solid_r40));
+            }
         }
     }
 

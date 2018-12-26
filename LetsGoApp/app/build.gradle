@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1000006
-        versionName "1.0.0.6"
+        versionCode 1000201
+        versionName "1.0.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -60,33 +60,33 @@ android {
             prod {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "prod"]
             }
-            qq {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
-            }
-            baidu {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
-            }
-            xiaomi {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
-            }
-            huawei {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
-            }
-            ali {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
-            }
-            vivo {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
-            }
-            oppo {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
-            }
-            meizu {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
-            }
-            c360 {
-                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
-            }
+//            qq {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
+//            }
+//            baidu {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+//            }
+//            xiaomi {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+//            }
+//            huawei {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+//            }
+//            ali {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
+//            }
+//            vivo {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+//            }
+//            oppo {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+//            }
+//            meizu {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+//            }
+//            c360 {
+//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+//            }
         }
     }
 
