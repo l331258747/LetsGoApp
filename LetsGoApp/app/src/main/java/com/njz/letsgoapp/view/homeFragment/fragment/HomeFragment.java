@@ -137,7 +137,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         notice_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goNotice();
+//                goNotice();
             }
         });
     }
