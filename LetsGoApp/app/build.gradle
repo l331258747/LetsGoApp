@@ -52,10 +52,6 @@ android {
 
         //qq、baidu、xiaomi、huawei、ali、vivo、oppo、meizu、c360 qq代表应用宝
 
-        dev {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev"]
-        }
-
         if(defaultConfig.versionCode % 100 == 0){
             prod {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "prod"]
@@ -87,6 +83,10 @@ android {
 //            c360 {
 //                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
 //            }
+        } else{
+            dev {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev"]
+            }
         }
     }
 

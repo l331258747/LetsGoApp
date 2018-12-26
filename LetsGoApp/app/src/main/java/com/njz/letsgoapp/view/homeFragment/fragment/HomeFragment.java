@@ -316,7 +316,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 serverListPresenter.serveGuideServeOrderList(0,5,1,city,1,0,0);
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
-                mPresenter.orderCarouselOrder();
             }
         });
     }
