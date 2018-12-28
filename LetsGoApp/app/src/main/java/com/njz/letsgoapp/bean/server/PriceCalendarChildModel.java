@@ -29,9 +29,7 @@ public class PriceCalendarChildModel implements Parcelable, Comparable<PriceCale
     private int dateInt;
     private float addPrice;
     private boolean isSelect;
-
-    public PriceCalendarChildModel() {
-    }
+    private boolean isEnable;
 
     protected PriceCalendarChildModel(Parcel in) {
         monthInt = in.readInt();
@@ -39,6 +37,7 @@ public class PriceCalendarChildModel implements Parcelable, Comparable<PriceCale
         dateInt = in.readInt();
         addPrice = in.readFloat();
         isSelect = in.readByte() != 0;
+        isEnable = in.readByte() != 0;
     }
 
     public static final Creator<PriceCalendarChildModel> CREATOR = new Creator<PriceCalendarChildModel>() {
@@ -52,6 +51,18 @@ public class PriceCalendarChildModel implements Parcelable, Comparable<PriceCale
             return new PriceCalendarChildModel[size];
         }
     };
+
+    public boolean isEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(boolean enable) {
+        isEnable = enable;
+    }
+
+    public PriceCalendarChildModel() {
+    }
+
 
     public void setMonthInt(int monthInt) {
         this.monthInt = monthInt;
@@ -133,6 +144,14 @@ public class PriceCalendarChildModel implements Parcelable, Comparable<PriceCale
         return DateUtil.str2Date(getTime());
     }
 
+
+    @Override
+    public int compareTo(@NonNull PriceCalendarChildModel o) {
+        return Integer.valueOf(getTime("")) - Integer.valueOf(o.getTime(""));
+        //自定义比较方法，如果认为此实体本身大则返回1，否则返回-1
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -145,12 +164,6 @@ public class PriceCalendarChildModel implements Parcelable, Comparable<PriceCale
         dest.writeInt(dateInt);
         dest.writeFloat(addPrice);
         dest.writeByte((byte) (isSelect ? 1 : 0));
-    }
-
-    @Override
-    public int compareTo(@NonNull PriceCalendarChildModel o) {
-        return Integer.valueOf(getTime("")) - Integer.valueOf(o.getTime(""));
-        //自定义比较方法，如果认为此实体本身大则返回1，否则返回-1
-
+        dest.writeByte((byte) (isEnable ? 1 : 0));
     }
 }

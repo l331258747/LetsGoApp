@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/selector_server"
+    android:background="@drawable/btn_ee_solid_r5"
     android:gravity="center"
     android:orientation="vertical"
     android:minWidth="70dp"

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.server.PlayChileMedel;
 import com.njz.letsgoapp.bean.server.PriceCalendarChildModel;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
 import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
@@ -200,6 +201,8 @@ public class ViewServerFlow extends LinearLayout {
 
             @Override
             public void onSelected(int position, View view) {
+                if(mVals.get(position).isEnable())
+                    return;
                 super.onSelected(position, view);
 
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ffe6d5_solid_r5));
@@ -210,7 +213,10 @@ public class ViewServerFlow extends LinearLayout {
 
             @Override
             public void unSelected(int position, View view) {
+                if(mVals.get(position).isEnable())
+                    return;
                 super.unSelected(position, view);
+
                 view.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_ee_solid_r5));
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
 
@@ -222,6 +228,11 @@ public class ViewServerFlow extends LinearLayout {
         tagFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
+                if(mVals.get(position).isEnable()){
+                    ToastUtil.showShortToast(context,"不能选择非空闲时间");
+                    return false;
+                }
+
                 onTagLinsenerClick2.onTagLinsenerClick(position,false);
                 return false;
             }

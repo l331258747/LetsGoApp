@@ -360,12 +360,12 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                             }
                             if (priceCalendarEvent.getPriceCalendarChildModels().size() == 0) {
                                 setPriceData();
-                                datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getServeType());
+                                datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getId());
                                 priceDisposable.dispose();
                                 return;
                             }
                             priceCalendarChildModels = priceCalendarEvent.getPriceCalendarChildModels();
-                            datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getServeType());
+                            datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getId());
                             priceDisposable.dispose();
                         }
                     });
@@ -447,6 +447,18 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 }
             }
         }
+        for (int i = 0; i < model.getNoTimes().size(); i++) {
+            for (int j = 0; j < priceCalendarChildModels.size(); j++) {
+                if (TextUtils.equals(model.getNoTimes().get(i), priceCalendarChildModels.get(j).getTime())) {
+                    priceCalendarChildModels.get(j).setAddPrice(model.getNjzGuideServeFormatOnlyPriceVOList().get(i).getAddPrice());
+                    priceCalendarChildModels.get(j).setEnable(true);
+                    priceCalendarChildModels.get(j).setSelect(false);
+                    break;
+                }
+            }
+        }
+
+
         Collections.sort(priceCalendarChildModels); // 按年龄排序
         pirceVsf.setAdapter(priceCalendarChildModels, new ViewServerFlow.OnTagLinsenerClick() {
             @Override
