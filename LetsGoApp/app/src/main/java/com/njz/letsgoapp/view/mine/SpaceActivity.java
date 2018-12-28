@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -77,6 +78,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     private SpacePresenter mPresenter;
     private FollowPresenter followPresenter;
     private RelativeLayout rl_title_parent;
+    private LinearLayout ll_fans;
 
     private NestedScrollView scrollView;
 
@@ -117,6 +119,7 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
 
         hideTitleLayout();
 
+        ll_fans = $(R.id.ll_fans);
         iv_backimg = $(R.id.iv_backimg);
         view_title_line = $(R.id.view_title_line);
         rl_title_parent = $(R.id.rl_title_parent);
@@ -263,9 +266,11 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
         if(data.getUserId() == MySelfInfo.getInstance().getUserId()){
             iv_backimg.setOnClickListener(this);
             iv_share.setVisibility(View.GONE);
+            ll_fans.setVisibility(View.GONE);
         }else{
             iv_backimg.setOnClickListener(null);
             iv_share.setVisibility(View.VISIBLE);
+            ll_fans.setVisibility(View.VISIBLE);
         }
     }
 

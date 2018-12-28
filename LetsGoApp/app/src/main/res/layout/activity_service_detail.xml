@@ -102,20 +102,26 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/rl_person_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rl_title"
-                        android:layout_marginTop="10dp"
                         android:background="@color/white"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
+                        android:orientation="vertical"
+                        tools:visibility="visible"
                         android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/color_d9"/>
 
                         <include layout="@layout/service_personal_info2" />
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
 
                 </RelativeLayout>

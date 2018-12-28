@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ import java.util.List;
  */
 
 public class ServiceDetailActivity2 extends ServiceDetailActivity implements ServerDetailContract.View,BannerContract.View{
-    public RelativeLayout rl_person_info;
+    public LinearLayout rl_person_info;
     public ImageView iv_head,iv_sex;
     public TextView tv_name;
     public MyRatingBar myRatingBar;

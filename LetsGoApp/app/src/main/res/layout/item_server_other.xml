@@ -41,20 +41,22 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:layout_marginTop="5dp"
-        android:lines="2"
+        android:lines="1"
+        android:textSize="12sp"
+        android:ellipsize="end"
         android:gravity="center_vertical"
-        android:text="那就走"
+        tools:text="那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走那就走"
         android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="3dp"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -71,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:text="已售900"/>
 
     </RelativeLayout>

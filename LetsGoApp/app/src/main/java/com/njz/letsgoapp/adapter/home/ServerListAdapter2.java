@@ -46,7 +46,7 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
         GlideUtil.LoadImage(context,data.getTitleImg(),holder.iv_img);
         holder.tv_location.setText(data.getAddress());
         holder.tv_title.setText(data.getTitle());
-        holder.guideScoreView2.setGuideScore(data.getSellCount(),data.getScore(),data.getReviewCount());
+        holder.guideScoreView2.setGuideScore2(data.getSellCount(),data.getScore(),data.getReviewCount());
         holder.priceView.setPrice(data.getServePrice());
 
         holder.setBtnVisible();

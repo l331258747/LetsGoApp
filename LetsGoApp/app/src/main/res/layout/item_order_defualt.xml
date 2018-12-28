@@ -48,8 +48,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignBottom="@+id/iv_img"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_toEndOf="@+id/iv_img">
 
 
@@ -58,9 +59,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                tools:text="￥260"
-                android:textStyle="bold"
-                android:textColor="@color/color_theme"/>
+                tools:text="代订酒店"
+                android:textColor="@color/color_99"/>
 
             <TextView
                 android:id="@+id/tv_total_price"

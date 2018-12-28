@@ -158,7 +158,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        hideTitleLayout();
     }
 
     public void initData2() {

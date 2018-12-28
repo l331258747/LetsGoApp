@@ -151,7 +151,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         GlideUtil.LoadImage(context, serverDetailModel.getTitleImg(), iv_img);
         tv_title.setText(serverDetailModel.getTitle());
         title = serverDetailModel.getTitle();
-        guideScoreView2.setGuideScore(serverDetailModel.getSellCount(), serverDetailModel.getScore(), serverDetailModel.getReviewCount());
+        guideScoreView2.setGuideScore2(serverDetailModel.getSellCount(), serverDetailModel.getScore(), serverDetailModel.getReviewCount());
         priceView.setPrice(serverDetailModel.getServePrice());
         tv_price_total.setText("￥" + serverDetailModel.getServePrice());
 
@@ -198,6 +198,10 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
         priceView.setPrice(DecimalUtil.add(DecimalUtil.add(priceLanguage , priceCar) , priceTc));
 
+        if(TextUtils.isEmpty(formatIds)){
+            ToastUtil.showShortToast(context,"套餐不能为空~");
+            return;
+        }
         datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getId());
     }
 
@@ -301,13 +305,25 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         if (mValsYy.size() > 0) {
             ViewServerFlow vsf = new ViewServerFlow(context);
             flow_parent.addView(vsf);
-            vsf.setSelectedOne(true);
+
+            if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID){
+                vsf.setMaxSelect(-2);
+            }else{
+                vsf.setSelectedOne(true);
+            }
+
             vsf.initFlow("选择语言", null, mValsYy, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
                 public void onTagLinsenerClick(int position,boolean isSelect) {
-                    titleLanguage = mValsYy.get(position).getGuideServeFormatName();
-                    priceLanguage = mValsYy.get(position).getServeDefaultPrice();
-                    formatIdLanguage = mValsYy.get(position).getId();
+                    if(isSelect){
+                        titleLanguage = mValsYy.get(position).getGuideServeFormatName();
+                        priceLanguage = mValsYy.get(position).getServeDefaultPrice();
+                        formatIdLanguage = mValsYy.get(position).getId();
+                    }else{
+                        titleLanguage = "";
+                        priceLanguage = 0f;
+                        formatIdLanguage = 0;
+                    }
                     setChange();
                 }
             });

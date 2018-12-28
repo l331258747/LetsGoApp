@@ -68,9 +68,19 @@ public class GuideScoreView2 extends LinearLayout {
         guideScoreComment.setText("(" + comment + "条点评)");
     }
 
+    public void setGuideScoreComment2(int comment) {
+        guideScoreComment.setText("|  " + comment + "条点评");
+    }
+
     public void setGuideScore(int service,float score,int comment){
         setGuideScoreService(service);
         setGuideScoreScore(score);
         setGuideScoreComment(comment);
+    }
+
+    public void setGuideScore2(int service,float score,int comment){
+        setGuideScoreService(service);
+        setGuideScoreScore(score);
+        setGuideScoreComment2(comment);
     }
 }

@@ -55,7 +55,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        hideTitleLayout();
     }
 
     @Override
