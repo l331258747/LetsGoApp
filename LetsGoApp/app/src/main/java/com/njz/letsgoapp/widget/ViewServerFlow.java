@@ -206,7 +206,6 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_theme));
 
                 mVals.get(position).setSelect(true);
-//                onTagLinsenerClick2.onTagLinsenerClick(position,true);
             }
 
             @Override
@@ -216,7 +215,6 @@ public class ViewServerFlow extends LinearLayout {
                 ((TextView) view.findViewById(R.id.tv_txt1)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
 
                 mVals.get(position).setSelect(false);
-//                onTagLinsenerClick2.onTagLinsenerClick(position,false);
             }
 
         };
