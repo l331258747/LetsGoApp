@@ -170,7 +170,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             @Override
             public void onClick(int num) {
                 serverNum = num;
-                tv_price_total.setText("￥" + (priceTotal * serverNum));
+                tv_price_total.setText("￥" + (DecimalUtil.multiply(priceTotal,serverNum)));
             }
         });
         if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
@@ -198,7 +198,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
         priceView.setPrice(DecimalUtil.add(DecimalUtil.add(priceLanguage , priceCar) , priceTc));
 
-        datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getServeType());
+        datePresenter.serveGetPrice(formatIds, getTravelDates(), serverDetailModel.getId());
     }
 
     public void setPriceChange(){
@@ -208,7 +208,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 priceTotal = DecimalUtil.add(priceTotal , priceCalendarChildModels.get(i).getAddPrice());
             }
         }
-        tv_price_total.setText("￥" + (priceTotal * serverNum));
+        tv_price_total.setText("￥" + (DecimalUtil.multiply(priceTotal,serverNum)));
     }
 
     public String getTravelDates() {

@@ -93,7 +93,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
     public void initViewPage(ServerDetailModel model) {
         mFragments = new ArrayList<>();
         mFragments.add(ServerFeatureFragment.newInstance(model));
-        mFragments.add(ServerEvaluateFragment.newInstance(model.getGuideId(),model.getId(),model.getGuideScore(),model.getReviewCount()));
+        mFragments.add(ServerEvaluateFragment.newInstance(model.getGuideId(),model.getId(),model.getScore(),model.getReviewCount()));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);

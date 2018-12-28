@@ -72,7 +72,7 @@ public class ServerDetailModel implements Parcelable{
     private int serveMinNum;
     private int serveMaxNum;
     private String customSign;
-    private String name;
+    private String guideName;
     private int sellCount;
     private int commentId;
     private String serviceAge;
@@ -110,7 +110,7 @@ public class ServerDetailModel implements Parcelable{
         serveMinNum = in.readInt();
         serveMaxNum = in.readInt();
         customSign = in.readString();
-        name = in.readString();
+        guideName = in.readString();
         sellCount = in.readInt();
         commentId = in.readInt();
         serviceAge = in.readString();
@@ -233,7 +233,7 @@ public class ServerDetailModel implements Parcelable{
     }
 
     public String getName() {
-        return name;
+        return guideName;
     }
 
     public int getSellCount() {
@@ -310,7 +310,7 @@ public class ServerDetailModel implements Parcelable{
         dest.writeInt(serveMinNum);
         dest.writeInt(serveMaxNum);
         dest.writeString(customSign);
-        dest.writeString(name);
+        dest.writeString(guideName);
         dest.writeInt(sellCount);
         dest.writeInt(commentId);
         dest.writeString(serviceAge);

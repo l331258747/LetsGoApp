@@ -45,6 +45,8 @@ public class ConvenientBanner<T> extends LinearLayout {
     private boolean canTurn = false;
     private boolean manualPageable = true;
     private boolean canLoop = true;
+    private Context context;
+
     public enum PageIndicatorAlign{
         ALIGN_PARENT_LEFT,ALIGN_PARENT_RIGHT,CENTER_HORIZONTAL
     }
@@ -82,6 +84,7 @@ public class ConvenientBanner<T> extends LinearLayout {
     }
 
     private void init(Context context) {
+        this.context = context;
         View hView = LayoutInflater.from(context).inflate(
                 R.layout.include_viewpager, this, true);
         viewPager = (CBLoopViewPager) hView.findViewById(R.id.cbLoopViewPager);
@@ -157,7 +160,7 @@ public class ConvenientBanner<T> extends LinearLayout {
         for (int count = 0; count < mDatas.size(); count++) {
             // 翻页指示的点
             ImageView pointView = new ImageView(getContext());
-            pointView.setPadding(10, 0, 10, 0);
+            pointView.setPadding(dip2px(3), 0, dip2px(3), 0);
             if (mPointViews.isEmpty())
                 pointView.setImageResource(page_indicatorId[1]);
             else
@@ -172,6 +175,11 @@ public class ConvenientBanner<T> extends LinearLayout {
         if(onPageChangeListener != null)pageChangeListener.setOnPageChangeListener(onPageChangeListener);
 
         return this;
+    }
+
+    public int dip2px(float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     /**

@@ -68,7 +68,7 @@ public class Constant {
     public static final int ORDER_PAY_REFUND = 4;//退款单
 
     public static final int ORDER_WAIT_PAY = 0;//待付款
-    public static final int ORDER_WAIT_PAYING = 1;//付款中
+    public static final int ORDER_WAIT_PAYING = 1;//付款中-
 
     public static final int ORDER_PLAN_GUIDE_WAIT = 0;//导游待确认
     public static final int ORDER_PLAN_PLANING = 1;//方案设计中
