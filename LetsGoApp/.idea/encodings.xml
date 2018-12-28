@@ -7,8 +7,10 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/njz/letsgoapp/wxapi/WXPayEntryActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/evaluate_comment_bg.9.png" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/evaluate_comment_bg.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/shape_base_title_tv_tools.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/card_view_bg_10_2.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/card_view_bg_10_bottom.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/card_view_bg_10_middle.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/card_view_bg_10_top.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_base.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pay_fail.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pay_success.xml" charset="UTF-8" />

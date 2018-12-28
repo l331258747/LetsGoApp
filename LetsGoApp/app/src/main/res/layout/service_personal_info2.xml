@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingBottom="25dp"
-    android:paddingTop="25dp">
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp">
 
     <FrameLayout
         android:id="@+id/fl_head"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_centerVertical="true">
 
         <ImageView
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             tools:text="那就走"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <com.njz.letsgoapp.widget.MyRatingBar
             android:id="@+id/my_rating_bar"
@@ -79,6 +79,7 @@
         android:layout_below="@+id/guide_label"
         android:maxLines="1"
         android:inputType="text"
+        android:textSize="12sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/fl_head" />

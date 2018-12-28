@@ -74,8 +74,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
                     app:tabIndicatorColor="@color/color_theme"
                     app:tabMode="scrollable"
                     app:tabLineOffset="20dp"

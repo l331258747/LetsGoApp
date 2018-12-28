@@ -32,7 +32,7 @@ public class ServiceTagView extends TextView {
     public ServiceTagView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+//        setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
 //        setTextColor(ContextCompat.getColor(AppUtils.getContext(), R.color.white));
 //        setCompoundDrawables();
 

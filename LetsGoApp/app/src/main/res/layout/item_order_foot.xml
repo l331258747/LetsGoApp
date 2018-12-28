@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
-    android:background="@drawable/btn_white_r5_bottom"
+    android:background="@drawable/card_view_bg_10_bottom"
     android:orientation="vertical">
 
     <RelativeLayout

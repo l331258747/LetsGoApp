@@ -42,7 +42,7 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
     private RecyclerView recyclerView;
     private EmptyView2 view_empty;
     private MyRatingBar myRatingBar;
-    private TextView tv_evaluate_count;
+    private TextView tv_evaluate_count,tv_score;
 
     private TagFlowLayout mFlowLayout;
     private TagAdapter<String> mFlowAdapter;
@@ -98,6 +98,7 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
         mFlowLayout = $(R.id.id_flowlayout);
         myRatingBar = $(R.id.myRatingBar);
         tv_evaluate_count = $(R.id.tv_evaluate_count);
+        tv_score = $(R.id.tv_score);
 
         initRecycler();
     }
@@ -105,6 +106,7 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
     @Override
     public void initData() {
         myRatingBar.setRating((int) serverScore);
+        tv_score.setText(serverScore + "分");
         tv_evaluate_count.setText(evaluateCount + "条点评");
 
         mPresenter = new GuideEvaluateListPresenter(context, this);

@@ -16,8 +16,8 @@
 
         <FrameLayout
             android:id="@+id/fl_head"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerVertical="true">
 
             <ImageView
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 tools:text="那就走"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <com.njz.letsgoapp.widget.MyRatingBar
                 android:id="@+id/my_rating_bar"

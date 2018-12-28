@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -49,6 +50,7 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
     RecyclerView recycler_view1, recycler_view2;
     private ServerListAdapter1 mAdapter1;
     private ServerListAdapter2 mAdapter2;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     ServerListScreenPresenter serverListPresenter;
 
@@ -116,6 +118,9 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
 
     //初始化recyclerview
     private void initRecycler1() {
+        swipeRefreshLayout = $(R.id.swipe_refresh_layout2);
+        swipeRefreshLayout.setColorSchemeColors(getResColor(R.color.color_theme));
+
         recycler_view1 = $(R.id.recycler_view1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recycler_view1.setLayoutManager(linearLayoutManager);
@@ -202,6 +207,7 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
     }
 
     private void getRefreshData() {
+        swipeRefreshLayout.setRefreshing(true);
         isLoad = true;
         page = Constant.DEFAULT_PAGE;
         isLoadType = 1;
@@ -258,6 +264,7 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
             // 显示加载到底的提示
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -265,5 +272,6 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
         showShortToast(msg);
         isLoad = false;
         loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

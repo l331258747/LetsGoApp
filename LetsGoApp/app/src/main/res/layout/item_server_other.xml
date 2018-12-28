@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
@@ -29,6 +30,7 @@
             android:layout_alignBottom="@+id/iv_img"
             android:background="@color/black_66"
             android:gravity="center"
+            android:textSize="12sp"
             android:padding="5dp"
             android:text="私人定制"
             android:textColor="@color/white" />
@@ -39,19 +41,21 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:lines="2"
         android:gravity="center_vertical"
         android:text="那就走"
-        android:textSize="16sp"
         android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -59,13 +63,15 @@
             android:id="@+id/preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:priceView_suffix="/次" />
+            app:priceView_size="12"
+            />
 
         <TextView
             android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:textSize="12sp"
             android:text="已售900"/>
 
     </RelativeLayout>

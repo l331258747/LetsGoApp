@@ -55,7 +55,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/iv_img"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
                 android:layout_toEndOf="@+id/iv_img">
 
 
@@ -63,9 +65,8 @@
                     android:id="@+id/tv_price_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_theme"
-                    android:textStyle="bold"
-                    tools:text="￥270" />
+                    tools:text="向导陪游"
+                    android:textColor="@color/color_99" />
 
 
                 <TextView

@@ -12,8 +12,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:text="服务流程"
-        android:textSize="16sp" />
+        android:text="服务流程" />
 
     <ImageView
         android:layout_width="match_parent"

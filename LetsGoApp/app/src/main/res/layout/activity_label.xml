@@ -18,19 +18,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="气质"-->
-            <!--android:textSize="16sp" />-->
-
-            <!--<com.njz.letsgoapp.widget.flowlayout.TagFlowLayout-->
-            <!--android:id="@+id/flowlayout_2"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="10dp"-->
-            <!--app:max_select="-1" />-->
-
         </LinearLayout>
 
         <LinearLayout

@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.serverFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
+import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +96,15 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
                 if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
                 loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
                 getMoreData();
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new ServerOtherAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(context, ServiceDetailActivity2.class);
+                intent.putExtra(ServiceDetailActivity2.SERVICEID,mAdapter.getData(position).getId());
+                startActivity(intent);
             }
         });
     }

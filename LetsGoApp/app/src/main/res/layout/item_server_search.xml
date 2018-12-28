@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:layout_width="80dp"
-            android:layout_height="80dp">
+            android:layout_height="70dp">
 
             <ImageView
                 android:id="@+id/iv_img"
@@ -40,7 +40,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
@@ -51,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:lines="2"
                 android:maxLines="2"
-                tools:text="那就走那就走走那就走那就走" />
+                android:textSize="12sp"
+                tools:text="那就走那就走走那就走那就走那就走那就走走那就走那就走" />
 
             <com.njz.letsgoapp.widget.GuideScoreView2
                 android:id="@+id/guideScoreView2"

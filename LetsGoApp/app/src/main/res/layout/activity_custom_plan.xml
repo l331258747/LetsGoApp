@@ -149,6 +149,7 @@
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tablayout"
                         style="@style/CommonTabLayoutStyle"
+                        app:tabTextAppearance="@style/TabLayoutStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"/>

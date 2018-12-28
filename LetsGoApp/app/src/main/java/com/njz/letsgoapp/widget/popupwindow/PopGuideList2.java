@@ -337,7 +337,7 @@ public class PopGuideList2 extends BackgroundDarkPopupWindow implements View.OnC
             setDarkStyle(-1);
             setDarkColor(Color.parseColor("#a0000000"));
             resetDarkPosition();
-            darkAbove(parent);
+            darkFillScreen();
             showAsDropDown(parent, 0, 0);
         }
     }

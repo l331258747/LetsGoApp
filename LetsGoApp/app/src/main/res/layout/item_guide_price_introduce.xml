@@ -12,8 +12,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:text="费用说明"
-        android:textSize="16sp" />
+        android:text="费用说明"/>
 
 
     <TextView
