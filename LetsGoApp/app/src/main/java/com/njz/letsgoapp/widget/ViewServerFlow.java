@@ -196,6 +196,11 @@ public class ViewServerFlow extends LinearLayout {
                 LinearLayout ll = (LinearLayout) mInflater.inflate(R.layout.item_flow_server2, tagFlowLayout, false);
                 ((TextView) ll.findViewById(R.id.tv_txt1)).setText(s.getTimeMD());
                 ((TextView) ll.findViewById(R.id.tv_txt2)).setText("￥" + s.getAddPrice());
+
+                if(s.isEnable()){
+                    ((TextView) ll.findViewById(R.id.tv_txt2)).setTextColor(ContextCompat.getColor(context, R.color.color_88));
+                }
+
                 return ll;
             }
 

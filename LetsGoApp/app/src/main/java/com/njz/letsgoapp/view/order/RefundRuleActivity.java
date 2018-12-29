@@ -48,6 +48,7 @@ public class RefundRuleActivity extends BaseActivity implements ServiceRefundRul
 
     @Override
     public void orderRefundFindRefundRuleSuccess(ServiceRefundRuleModel str) {
+        if(str == null) return;
         tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),str.getRenegePriceThree().replace(",","-")));
         tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),str.getRenegePriceFive().replace(",","-")));
     }
