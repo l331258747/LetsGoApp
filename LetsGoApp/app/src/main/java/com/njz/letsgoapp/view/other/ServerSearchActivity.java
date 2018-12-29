@@ -117,7 +117,7 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
         TagAdapter adapter1 = new TagAdapter<String>(lists) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_space, flowlayout_history, false);
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_search, flowlayout_history, false);
                 tv.setText(s);
                 return tv;
             }
