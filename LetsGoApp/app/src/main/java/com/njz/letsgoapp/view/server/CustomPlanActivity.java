@@ -77,7 +77,7 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
         tv_title.setText(model.getTitle());
         tv_time_content.setText(model.getTravelDate());
         tv_num.setText(model.getPersonNum());
-        tv_finish_price.setText("￥" + model.getBugGet());
+        tv_finish_price.setText("￥" + model.getServePrice());
     }
 
     public void initViewPage(CustomPlanModel model) {
