@@ -25,6 +25,7 @@ import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListScreenContract;
 import com.njz.letsgoapp.mvp.server.ServerListScreenPresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
@@ -35,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by LGQ
@@ -97,6 +100,15 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
         initFlow();
 
         initRecycler();
+
+        //显示软键盘
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                AppUtils.ShowKeyboard(et_search);
+            }
+        }, 200);
     }
 
     public void initFlow() {

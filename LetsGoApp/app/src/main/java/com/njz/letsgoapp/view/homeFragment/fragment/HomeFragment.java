@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.homeFragment.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,9 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.adapter.base.EndLessScrollOnScrollListener;
+import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
+import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.adapter.home.HomeServerAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
@@ -63,10 +67,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private RecyclerView recycler_view_h;
     private HomeGuideAdapter guideAdapter;
     private HomeServerAdapter playAdapter;
+    private LoadMoreWrapper loadMoreWrapper;
     private LinearLayoutManager linearLayoutManager;
     private LinearLayout notice_ll;
     private ViewFlipper view_flipper;
     private TextView tv_grid_guide,tv_grid_car,tv_grid_feature,tv_grid_custom,tv_grid_hotel,tv_grid_ticket;
+    private NestedScrollView scrollView;
 
     private Disposable desDisposable;
 
@@ -82,6 +88,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     private String city;
 
     private boolean isLoad = false;
+    private int page;
+    private int isLoadType;
     private boolean isBannerLoad,isDynamicLoad,isGuideLoad;
 
     public EmptyView2 view_empty,view_empty_guide;
@@ -97,6 +105,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
     @Override
     public void initView() {
 
+        scrollView = $(R.id.scrollView);
         tv_search = $(R.id.tv_search);
         tv_grid_guide = $(R.id.tv_grid_guide);
         tv_grid_car = $(R.id.tv_grid_car);
@@ -254,7 +263,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         isDynamicLoad =false;
         isBannerLoad = false;
         isGuideLoad = false;
-        serverListPresenter.serveGuideServeOrderList(0,5,1,city,1,0,0);
+        getRefreshData();
         mPresenter.orderReviewsSortTop(city);
         mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
         mPresenter.orderCarouselOrder();
@@ -268,7 +277,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         playAdapter = new HomeServerAdapter(activity, new ArrayList<ServerDetailModel>());
-        recyclerView.setAdapter(playAdapter);
+        loadMoreWrapper = new LoadMoreWrapper(playAdapter);
+        recyclerView.setAdapter(loadMoreWrapper);
         recyclerView.setNestedScrollingEnabled(false);
 
         playAdapter.setOnItemClickListener(new HomeServerAdapter.OnItemClickListener() {
@@ -277,9 +287,40 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);
                 intent.putExtra(ServiceDetailActivity2.SERVICEID,playAdapter.getData(position).getId());
                 startActivity(intent);
+            }
+        });
+
+        scrollView.setOnScrollChangeListener(new EndLessScrollOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (isLoad || loadMoreWrapper.getLoadState() == LoadMoreWrapper.LOADING_END) return;
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
+                getMoreData();
+            }
+
+            @Override
+            public void onScrollChange(int scrollY) {
 
             }
         });
+    }
+
+    private void getRefreshData() {
+        isLoad = true;
+        page = Constant.DEFAULT_PAGE;
+        isLoadType = 1;
+        getServerListData();
+    }
+
+    private void getMoreData() {
+        isLoad = true;
+        page = page + 1;
+        isLoadType = 2;
+        getServerListData();
+    }
+
+    private void getServerListData(){
+        serverListPresenter.serveGuideServeOrderList(0,Constant.DEFAULT_LIMIT,page,city,1,0,0);
     }
 
     private void intRecyclerH(){
@@ -313,7 +354,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isDynamicLoad = false;
                 isGuideLoad = false;
 
-                serverListPresenter.serveGuideServeOrderList(0,5,1,city,1,0,0);
+                getRefreshData();
                 mPresenter.orderReviewsSortTop(city);
                 mPresenter.bannerFindByType(Constant.BANNER_HOME,0);
             }
@@ -341,7 +382,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 isBannerLoad = true;
                 isGuideLoad = false;
 
-                serverListPresenter.serveGuideServeOrderList(0,5,1,city,1,0,0);
+                getRefreshData();
                 mPresenter.orderReviewsSortTop(city);
 
                 swipeRefreshLayout.setRefreshing(true);
@@ -479,7 +520,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             isLoad = false;
         }
 
-        playAdapter.setData(datas);
+        if (isLoadType == 1) {
+            playAdapter.setData(datas);
+        } else {
+            playAdapter.addData(datas);
+        }
+
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
 
         if(datas.size() == 0){
             view_empty.setVisible(true);
@@ -488,6 +540,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
         }else{
             view_empty.setVisible(false);
         }
+
     }
 
     @Override
@@ -497,6 +550,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             swipeRefreshLayout.setRefreshing(false);
             isLoad = false;
         }
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+
         showLongToast(msg);
     }
 

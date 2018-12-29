@@ -27,6 +27,7 @@ import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.home.GuideListContract;
 import com.njz.letsgoapp.mvp.home.GuideListPresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
@@ -37,6 +38,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by LGQ
@@ -99,6 +102,16 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
         initFlow();
 
         initRecycler();
+
+        //显示软键盘
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                AppUtils.ShowKeyboard(et_search);
+            }
+        }, 200);
+
     }
 
     public void initFlow() {
