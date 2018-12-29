@@ -102,13 +102,13 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
         initRecycler();
 
         //显示软键盘
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                AppUtils.ShowKeyboard(et_search);
-            }
-        }, 200);
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                AppUtils.ShowKeyboard(et_search);
+//            }
+//        }, 200);
     }
 
     public void initFlow() {

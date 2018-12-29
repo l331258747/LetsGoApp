@@ -104,13 +104,13 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
         initRecycler();
 
         //显示软键盘
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                AppUtils.ShowKeyboard(et_search);
-            }
-        }, 200);
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                AppUtils.ShowKeyboard(et_search);
+//            }
+//        }, 200);
 
     }
 
