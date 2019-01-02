@@ -18,6 +18,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -95,6 +96,11 @@ public class SplashActivity extends BaseActivity {
 
     private void toHome() {
 
+        if(AppUtils.getManifestValue("UMENG_CHANNEL").equalsIgnoreCase("xiaomi") && Build.MANUFACTURER.equalsIgnoreCase("Xiaomi")){
+            SPUtils.getInstance().putBoolean(SPUtils.FIRST_OPENED, true);
+            SPUtils.getInstance().putInt(SPUtils.SP_APP_VERSION,AppUtils.getVersionCodeInt());
+        }
+
         // 判断是否是第一次开启应用
         boolean isFirstOpened = SPUtils.getInstance().getBoolean(SPUtils.FIRST_OPENED, false);
         int appVersion = SPUtils.getInstance().getInt(SPUtils.SP_APP_VERSION,0);
@@ -111,10 +117,6 @@ public class SplashActivity extends BaseActivity {
         }
 
         Intent intent = new Intent(this, HomeActivity.class);
-
-//        Intent intent = new Intent(this, GuideDetailActivity.class);
-//        intent.putExtra(GuideDetailActivity.GUIDEID, 4);
-
         startActivity(intent);
 
         this.finish();

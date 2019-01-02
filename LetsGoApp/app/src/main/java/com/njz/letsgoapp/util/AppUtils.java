@@ -3,6 +3,7 @@ package com.njz.letsgoapp.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -12,6 +13,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.inputmethod.InputMethodManager;
+
+import com.njz.letsgoapp.util.log.LogUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -225,6 +228,25 @@ public class AppUtils {
     public static void ShowKeyboard(View v) {
         InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(v, InputMethodManager.SHOW_FORCED);
+    }
+
+    public static String getManifestValue(String manifestName) {
+        String manifestValue = "";
+        ApplicationInfo appInfo = null;
+        try {
+            appInfo = context.getApplicationContext().getPackageManager().getApplicationInfo(getPakgeName(), PackageManager.GET_META_DATA);
+            if (appInfo != null && appInfo.metaData != null) {
+                manifestValue = appInfo.metaData.getString(manifestName);
+            } else {
+                LogUtil.e("需要在AndroidManifest.xml中配置" + manifestName + " meta数据");
+                manifestValue = "";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            manifestValue = "";
+        }
+        LogUtil.e("manifestValue:" + manifestValue);
+        return manifestValue;
     }
 
 }
