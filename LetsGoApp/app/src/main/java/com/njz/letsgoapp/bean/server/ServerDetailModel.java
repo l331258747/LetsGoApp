@@ -84,6 +84,7 @@ public class ServerDetailModel implements Parcelable{
     private List<String> languages;
     private List<PlayChileMedel> njzGuideServeFormatEntitys;
     private String mobile;
+    private String titleImg;
     private boolean isBook;
 
 
@@ -121,6 +122,7 @@ public class ServerDetailModel implements Parcelable{
         signs = in.createStringArrayList();
         languages = in.createStringArrayList();
         mobile = in.readString();
+        titleImg = in.readString();
         isBook = in.readByte() != 0;
     }
 
@@ -150,6 +152,9 @@ public class ServerDetailModel implements Parcelable{
 
     public String getTitleImg() {
         return guideServeImg;
+    }
+    public String getTitleImg2() {
+        return titleImg;
     }
 
     public int getGender() {
@@ -321,6 +326,7 @@ public class ServerDetailModel implements Parcelable{
         dest.writeStringList(signs);
         dest.writeStringList(languages);
         dest.writeString(mobile);
+        dest.writeString(titleImg);
         dest.writeByte((byte) (isBook ? 1 : 0));
     }
 }

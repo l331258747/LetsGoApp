@@ -148,7 +148,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         guideScoreView2 = contentView.findViewById(R.id.guideScoreView2);
         priceView = contentView.findViewById(R.id.priceView);
 
-        GlideUtil.LoadImage(context, serverDetailModel.getTitleImg(), iv_img);
+        GlideUtil.LoadImage(context, serverDetailModel.getTitleImg2(), iv_img);
         tv_title.setText(serverDetailModel.getTitle());
         title = serverDetailModel.getTitle();
         guideScoreView2.setGuideScore2(serverDetailModel.getSellCount(), serverDetailModel.getScore(), serverDetailModel.getReviewCount());
