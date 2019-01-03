@@ -2,6 +2,7 @@ package com.njz.letsgoapp.widget.popupwindow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.server.PopServerDetailAdapter;
 import com.njz.letsgoapp.bean.server.ServerItem;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
@@ -79,10 +81,16 @@ public class PopServerDetail extends BackgroundDarkPopupWindow {
         tv_empty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                serverItems.clear();
-                RxBus2.getInstance().post(new ServerDetailEvent());
-                RxBus2.getInstance().post(new ServerPriceTotalEvent());
-                dismissPopupWindow();
+                DialogUtil.getInstance().getDefaultDialog(context, "是否确认清除明细？", new DialogUtil.DialogCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog) {
+                        serverItems.clear();
+                        RxBus2.getInstance().post(new ServerDetailEvent());
+                        RxBus2.getInstance().post(new ServerPriceTotalEvent());
+                        dismissPopupWindow();
+                        alterDialog.dismiss();
+                    }
+                }).show();
             }
         });
     }

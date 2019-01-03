@@ -43,6 +43,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     LoginPresenter mPresenter;
 
+    String loginPhone;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        loginPhone = intent.getStringExtra("LOGIN_PHONE");
+    }
 
     @Override
     public int getLayoutId() {
@@ -57,6 +64,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         iv_change_url = $(R.id.iv_change_url);
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
+        if(!TextUtils.isEmpty(loginPhone))
+            loginViewPhone.getEtView().setText(loginPhone);
         loginViewPassword = $(R.id.login_view_password);
         loginViewPassword.setEtInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 

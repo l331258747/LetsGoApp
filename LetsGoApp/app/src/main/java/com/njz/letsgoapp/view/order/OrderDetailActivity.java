@@ -390,6 +390,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     btn_call_guide.setVisibility(View.VISIBLE);
                 }
 
+                if(str.isCustom()){
+                    btn_see_plan.setVisibility(View.VISIBLE);
+                    btn_call_custom.setVisibility(View.GONE);
+                }
+
                 break;
             case Constant.ORDER_PAY_FINISH:
                 ll_order_no.setVisibility(View.VISIBLE);
@@ -417,6 +422,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                         btn_call_guide.setVisibility(View.VISIBLE);
                         btn_evaluate_see.setVisibility(View.VISIBLE);
                         break;
+                }
+
+                if(str.isCustom()){
+                    btn_see_plan.setVisibility(View.VISIBLE);
+                    btn_call_custom.setVisibility(View.GONE);
                 }
 
             break;

@@ -3,6 +3,8 @@ package com.njz.letsgoapp.bean.server;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.njz.letsgoapp.constant.Constant;
+
 import java.util.List;
 
 /**
@@ -328,5 +330,25 @@ public class ServerDetailModel implements Parcelable{
         dest.writeString(mobile);
         dest.writeString(titleImg);
         dest.writeByte((byte) (isBook ? 1 : 0));
+    }
+
+    public String getCountTitle(){
+        if(serveType == Constant.SERVER_TYPE_CAR_ID){
+            return "次数";
+        }
+        return "数量";
+    }
+
+    public String getDateTitle(){
+        if(serveType == Constant.SERVER_TYPE_CAR_ID){
+            return "选择出发日期";
+        }else if(serveType == Constant.SERVER_TYPE_FEATURE_ID){
+            return "选择出发日期";
+        }else if(serveType == Constant.SERVER_TYPE_HOTEL_ID){
+            return "选择入住时间";
+        }else if(serveType == Constant.SERVER_TYPE_TICKET_ID){
+            return "选择日期";
+        }
+        return "选择行程时间";
     }
 }

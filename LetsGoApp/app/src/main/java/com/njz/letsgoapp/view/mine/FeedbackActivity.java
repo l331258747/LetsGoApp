@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.other.FeedBackContract;
 import com.njz.letsgoapp.mvp.other.FeedBackPresenter;
 import com.njz.letsgoapp.util.accessory.ImageUtils;
@@ -193,5 +195,17 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
     public void upUserIdeaFailed(String msg) {
         loadingDialog.dismiss();
         showShortToast(msg);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DialogUtil.getInstance().getDefaultDialog(context, "是否确认退出？", new DialogUtil.DialogCallBack() {
+            @Override
+            public void exectEvent(DialogInterface alterDialog) {
+                FeedbackActivity.super.onBackPressed();
+                alterDialog.dismiss();
+            }
+        }).show();
+
     }
 }

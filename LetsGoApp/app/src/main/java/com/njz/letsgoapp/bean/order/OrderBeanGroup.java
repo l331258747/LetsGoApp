@@ -31,7 +31,16 @@ public class OrderBeanGroup {
     private int payingStatus;
     private int index;
     private int planStatus;
+    private boolean isCustom;
     private OrderChildModel orderChildModel;
+
+    public boolean isCustom() {
+        return isCustom;
+    }
+
+    public void setCustom(boolean custom) {
+        isCustom = custom;
+    }
 
     public int getPlanStatus() {
         return planStatus;

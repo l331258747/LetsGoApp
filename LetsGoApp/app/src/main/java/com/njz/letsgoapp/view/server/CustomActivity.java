@@ -30,6 +30,7 @@ import com.njz.letsgoapp.view.calendar.RangeCalendarActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.view.pay.PaySuccessActivity;
+import com.njz.letsgoapp.widget.NumberEtView;
 import com.njz.letsgoapp.widget.NumberView;
 
 import java.util.ArrayList;
@@ -152,13 +153,17 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
                 View view = LayoutInflater.from(context).inflate(R.layout.dialog_custom_count, null);
                 builder.setView(view);
                 final AlertDialog dialog = builder.show();
-                final NumberView numberView_adult = view.findViewById(R.id.numberView_adult);
+                final NumberEtView numberView_adult = view.findViewById(R.id.numberView_adult);
                 numberView_adult.setMinNum(1);
                 numberView_adult.setNum(adult);
-                final NumberView numberView_child = view.findViewById(R.id.numberView_child);
+                final NumberEtView numberView_child = view.findViewById(R.id.numberView_child);
                 view.findViewById(R.id.tv_submit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(numberView_adult.getNum() == 0){
+                            showShortToast("必须有成人人数");
+                            return;
+                        }
                         dialog.dismiss();
                         tv_count.setText(numberView_adult.getNum() + "成人" + numberView_child.getNum() + "儿童");
                         adult = numberView_adult.getNum();

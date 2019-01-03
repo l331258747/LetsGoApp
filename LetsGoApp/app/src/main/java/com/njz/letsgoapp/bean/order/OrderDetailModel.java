@@ -69,6 +69,13 @@ public class OrderDetailModel {
     private int serveId;
     private boolean havCar;
 
+    public boolean isCustom() {
+        if(njzChildOrderVOS !=null && njzChildOrderVOS.size()==1 && njzChildOrderVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            return true;
+        }
+        return false;
+    }
+
     public boolean isHavCar() {
         return havCar;
     }

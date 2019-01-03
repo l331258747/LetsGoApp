@@ -194,6 +194,10 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
         initViewPage(model);
 
+        if(model.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            tv_submit.setText("立即定制");
+        }
+
     }
 
     @Override

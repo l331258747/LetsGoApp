@@ -57,7 +57,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     private Activity context;
 
     ImageView iv_img;
-    TextView tv_title, tv_pop_close, tv_price_total, tv_submit;
+    TextView tv_title, tv_pop_close, tv_price_total, tv_submit,tv_count_title;
     GuideScoreView2 guideScoreView2;
     PriceView priceView;
     LinearLayout flow_parent;
@@ -147,6 +147,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         tv_submit = contentView.findViewById(R.id.tv_submit);
         guideScoreView2 = contentView.findViewById(R.id.guideScoreView2);
         priceView = contentView.findViewById(R.id.priceView);
+        tv_count_title = contentView.findViewById(R.id.tv_count_title);
 
         GlideUtil.LoadImage(context, serverDetailModel.getTitleImg2(), iv_img);
         tv_title.setText(serverDetailModel.getTitle());
@@ -154,6 +155,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         guideScoreView2.setGuideScore2(serverDetailModel.getSellCount(), serverDetailModel.getScore(), serverDetailModel.getReviewCount());
         priceView.setPrice(serverDetailModel.getServePrice());
         tv_price_total.setText("￥" + serverDetailModel.getServePrice());
+        tv_count_title.setText(serverDetailModel.getCountTitle());
 
         tv_pop_close.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
@@ -340,7 +342,8 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             }
 
             flow_parent.addView(pirceVsf);
-            pirceVsf.initFlow2("选择行程时间", null, priceCalendarChildModels);
+
+            pirceVsf.initFlow2(serverDetailModel.getDateTitle(), null, priceCalendarChildModels);
             pirceVsf.setMore(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

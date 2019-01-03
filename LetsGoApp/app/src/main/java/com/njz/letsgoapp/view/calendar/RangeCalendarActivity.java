@@ -50,6 +50,8 @@ public class RangeCalendarActivity extends BaseActivity implements OnRangeSelect
 
     @Override
     public void initView() {
+        showLeftAndTitle("日历");
+
         calendarView = $(R.id.calendarView);
         textView = $(R.id.textView);
 

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="成人" />
 
-        <com.njz.letsgoapp.widget.NumberView
+        <com.njz.letsgoapp.widget.NumberEtView
             android:id="@+id/numberView_adult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="儿童" />
 
-        <com.njz.letsgoapp.widget.NumberView
+        <com.njz.letsgoapp.widget.NumberEtView
             android:id="@+id/numberView_child"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -436,6 +436,11 @@ public class SpaceDynamicDetailActivity extends BaseActivity implements DynamicD
     public void userFocusOffSuccess(EmptyModel models) {
         model.setFocus(!model.isFocus());
         setFollow(model.isFocus());
+        if(model.isFocus()){
+            showShortToast("关注成功");
+        }else {
+            showShortToast("取消成功");
+        }
     }
 
     @Override

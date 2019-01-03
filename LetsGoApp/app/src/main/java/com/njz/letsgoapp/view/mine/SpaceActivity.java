@@ -386,6 +386,11 @@ public class SpaceActivity extends BaseActivity implements SpaceContract.View, V
     public void userFocusOffSuccess(EmptyModel models) {
         data.setFocus(!data.isFocus());
         setFollow(data.isFocus());
+        if(data.isFocus()){
+            showShortToast("关注成功");
+        }else {
+            showShortToast("取消成功");
+        }
     }
 
     @Override

@@ -119,6 +119,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setGuideMobile(orderModel.getGuideMobile());
                 serviceInfoGroup3.setPayingStatus(orderModel.getPayingStatus());
                 serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
+                if(orderModel.getNjzChildOrderListVOS()!= null
+                        && orderModel.getNjzChildOrderListVOS().size() == 1
+                        && orderModel.getNjzChildOrderListVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                    serviceInfoGroup3.setCustom(true);
+                }
                 serviceInfoGroup3.setIndex(i);
                 orderBeanGroups.add(serviceInfoGroup3);
             }
@@ -281,6 +286,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                             break;
                     }
+                    if(data.isCustom()){
+                        ((FootHolder) holder).btn_see_plan.setVisibility(View.VISIBLE);
+                        ((FootHolder) holder).btn_call_customer.setVisibility(View.GONE);
+                    }
                     break;
                 case Constant.ORDER_PAY_FINISH:
                     switch (data.getReviewStatus()) {
@@ -292,6 +301,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                             ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
                             break;
+                    }
+                    if(data.isCustom()){
+                        ((FootHolder) holder).btn_see_plan.setVisibility(View.VISIBLE);
+                        ((FootHolder) holder).btn_call_customer.setVisibility(View.GONE);
                     }
                     break;
                 case Constant.ORDER_PAY_REFUND:

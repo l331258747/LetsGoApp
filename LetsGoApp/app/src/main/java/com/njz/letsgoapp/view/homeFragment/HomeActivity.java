@@ -206,10 +206,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
                 setTitleSingle(false, getResString(R.string.home_find));
                 break;
             case 2:
-                setTitleSingle(false, getResString(R.string.home_order));
+                setTitleSingle(true, getResString(R.string.home_order_2));
                 break;
             case 3:
-                setTitleSingle(true, getResString(R.string.home_notify));
+                setTitleSingle(true, getResString(R.string.home_notify_2));
                 RxBus2.getInstance().post(new NotifyEvent(false));
                 break;
             case 4:

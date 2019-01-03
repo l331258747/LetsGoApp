@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.mine;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.bean.mine.MyInfoData;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.mine.MyInfoContract;
 import com.njz.letsgoapp.mvp.mine.MyInfoPresenter;
 import com.njz.letsgoapp.util.AppUtils;
@@ -426,6 +428,17 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
     public void upUploadFailed(String msg) {
         loadingDialog.dismiss();
         showShortToast(msg);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DialogUtil.getInstance().getDefaultDialog(context, "是否确认退出？", new DialogUtil.DialogCallBack() {
+            @Override
+            public void exectEvent(DialogInterface alterDialog) {
+                MyInfoActivity.super.onBackPressed();
+                alterDialog.dismiss();
+            }
+        }).show();
     }
 
     //----------------end 拍照
