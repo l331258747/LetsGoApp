@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
@@ -16,12 +17,15 @@ import com.njz.letsgoapp.mvp.login.VerifyLoginContract;
 import com.njz.letsgoapp.mvp.login.VerifyLoginPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
 
+import cn.jpush.android.api.JPushInterface;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -170,8 +174,13 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void msgCheckLoginSuccess(LoginModel str) {
         MySelfInfo.getInstance().setData(str);
+
+        LogUtil.e("getRegistrationID:"+ JPushInterface.getRegistrationID(context));
+        JpushAliasUtil.setTagAndAlias();
+
         startActivity(new Intent(context, HomeActivity.class));
         finish();
+        ActivityCollect.getAppCollect().finishActivity(LoginActivity.class);
     }
 
     @Override

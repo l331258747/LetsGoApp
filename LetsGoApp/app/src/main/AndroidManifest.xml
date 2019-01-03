@@ -398,7 +398,7 @@
         <!-- Required. AppKey copied from Portal -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="96f0ffb632a8f496014075d1" />
+            android:value="f0a3f70bdf4d17226075ee9f" />
 
 
         <!-- jpush end-->
