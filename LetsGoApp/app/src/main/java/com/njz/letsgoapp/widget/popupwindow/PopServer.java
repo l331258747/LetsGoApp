@@ -118,7 +118,6 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
         this.setFocusable(true);
 
-
     }
 
     public void setPriceData() {

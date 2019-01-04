@@ -221,6 +221,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void orderRefundRefundAnalysisSuccess(OrderRefundModel str) {
         mAdapter.setData(str.getNjzChildOrderToRefundVOS());
+        mAdapter.setOrderId(str.getOrderId());
 
         if(str.getOrderStatus() != Constant.ORDER_TRAVEL_WAIT){
             tv_minus_price.setText("" + str.getDefaultMoney());

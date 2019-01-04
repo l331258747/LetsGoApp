@@ -31,6 +31,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
 
     Context context;
     List<OrderRefundChildModel> datas;
+    int orderId;
 
     public OrderRefundAdapter(Context context,List<OrderRefundChildModel> datas) {
         this.context = context;
@@ -40,6 +41,10 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
     public void setData(List<OrderRefundChildModel> datas){
         this.datas = datas;
         notifyDataSetChanged();
+    }
+
+    public void setOrderId(int orderId){
+        this.orderId = orderId;
     }
 
     @Override
@@ -66,7 +71,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             public void onClick(View v) {
                 Intent intent = new Intent(context,RefundRuleActivity.class);
                 intent.putExtra("serviceId",data.getServeId());
-                intent.putExtra("orderId",data.getChildOrderId());
+                intent.putExtra("orderId",orderId);
                 context.startActivity(intent);
             }
         });
