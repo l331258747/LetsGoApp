@@ -138,9 +138,9 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                 if (serverDetailModel == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
                         serverDetailModel.getAddress()+serverDetailModel.getServerName() + "服务",
-                        serverDetailModel.getName(),
+                        serverDetailModel.getTitle(),
                         serverDetailModel.getTitleImg2(),
-                        URLConstant.SHARE_SERVER+"?serverId="+serverDetailModel.getId());
+                        URLConstant.SHARE_SERVER+"?id="+serverDetailModel.getId());
                 dialog.setReportData(model.getGuideId(), ShareDialog.REPORT_SERVICE,model.getId());
                 dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();

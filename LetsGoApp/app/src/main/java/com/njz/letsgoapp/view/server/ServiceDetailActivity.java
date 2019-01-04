@@ -263,9 +263,9 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
                 if (model == null) return;
                 ShareDialog dialog = new ShareDialog(activity,
                         model.getAddress()+model.getServerName() + "服务",
-                        model.getName(),
+                        model.getTitle(),
                         model.getTitleImg2(),
-                        URLConstant.SHARE_SERVER+"?serverId="+model.getId());
+                        URLConstant.SHARE_SERVER+"?id="+model.getId());
                 dialog.setReportData(model.getGuideId(), ShareDialog.REPORT_SERVICE,model.getId());
                 dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();

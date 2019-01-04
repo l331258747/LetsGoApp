@@ -266,7 +266,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                         guideDetailModel.getGuideName()+"向导",
                         TextUtils.isEmpty(guideDetailModel.getIntroduce())?"赶快约TA一起体验当地的风土人情吧！":guideDetailModel.getIntroduce(),
                         guideDetailModel.getGuideImg(),
-                        URLConstant.SHARE_GUIDE+"?location="+MySelfInfo.getInstance().getDefaultCity()+"&guideId="+guideDetailModel.getId());
+                        URLConstant.SHARE_GUIDE+"?guideId="+guideDetailModel.getId());
                 dialog.setReportData(guideDetailModel.getId(), ShareDialog.REPORT_GUIDE,guideDetailModel.getId());
                 dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
