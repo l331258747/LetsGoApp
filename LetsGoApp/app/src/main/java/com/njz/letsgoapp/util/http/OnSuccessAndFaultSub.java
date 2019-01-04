@@ -140,7 +140,7 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
                 }).show();
             }else if(t.getErrno() == 401){
                 MySelfInfo.getInstance().loginOff();
-                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
+                DialogUtil.getInstance().getDefaultDialog(context, t.getErrmsg(), "去登录", new DialogUtil.DialogCallBack() {
                     @Override
                     public void exectEvent(DialogInterface alterDialog) {
                         Intent intent = new Intent(new Intent(context, LoginActivity.class));

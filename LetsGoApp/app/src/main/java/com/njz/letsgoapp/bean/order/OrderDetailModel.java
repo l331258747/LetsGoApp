@@ -68,6 +68,16 @@ public class OrderDetailModel {
     private int payingStatus;
     private int serveId;
     private boolean havCar;
+    private int children;
+    private int adult;
+
+    public int getChildren() {
+        return children;
+    }
+
+    public int getAdult() {
+        return adult;
+    }
 
     public boolean isCustom() {
         if(njzChildOrderVOS !=null && njzChildOrderVOS.size()==1 && njzChildOrderVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
@@ -84,8 +94,11 @@ public class OrderDetailModel {
         return planDesignTime;
     }
 
-    public int getPersonNum() {
-        return personNum;
+    public String getPersonNum() {
+        if(isCustom()){
+            return adult+"成人"+children+"儿童";
+        }
+        return personNum + "";
     }
 
     public int getPlanStatus() {

@@ -209,12 +209,17 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
     public void setPriceChange(){
         priceTotal = 0;
+        int dateCount = 0;
         for (int i = 0; i < priceCalendarChildModels.size(); i++) {
             if(priceCalendarChildModels.get(i).isSelect()){
                 priceTotal = DecimalUtil.add(priceTotal , priceCalendarChildModels.get(i).getAddPrice());
+                dateCount = dateCount + 1;
             }
         }
         tv_price_total.setText("￥" + (DecimalUtil.multiply(priceTotal,serverNum)));
+        if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_HOTEL_ID
+                || serverDetailModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID)
+            pirceVsf.setPriceTitle2("（共"+ dateCount+"天）");
     }
 
     public String getTravelDates() {

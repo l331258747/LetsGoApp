@@ -9,10 +9,12 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.server.CustomPlanModel;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.server.CustomPlanContract;
 import com.njz.letsgoapp.mvp.server.CustomPlanPresenter;
+import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.view.serverFragment.CustomOffersFragment;
 import com.njz.letsgoapp.view.serverFragment.CustomTripFragment;
 
@@ -27,7 +29,7 @@ import java.util.List;
 
 public class CustomPlanActivity extends BaseActivity implements CustomPlanContract.View, View.OnClickListener {
 
-    TextView tv_title,tv_time_content,tv_num,tv_finish_price,tv_phone;
+    TextView tv_title,tv_time_content,tv_num,tv_finish_price,tv_phone,tv_pay;
     TabLayout mTabLayout;
     ViewPager mViewPager;
 
@@ -38,12 +40,16 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
 
     int orderId;
     String guidePhone;
+    boolean showPay;
+    PayModel payModel;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         orderId = intent.getIntExtra("ORDER_ID",0);
         guidePhone = intent.getStringExtra("GUIDE_PHONE");
+        showPay = intent.getBooleanExtra("SHOW_PAY",false);
+        payModel = intent.getParcelableExtra("PAY_MODEL");
     }
 
     @Override
@@ -62,8 +68,15 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
         tv_phone = $(R.id.tv_phone);
         mTabLayout = $(R.id.tablayout);
         mViewPager = $(R.id.viewpager);
+        tv_pay = $(R.id.tv_pay);
 
         tv_phone.setOnClickListener(this);
+        tv_pay.setOnClickListener(this);
+
+        if(showPay)
+            tv_pay.setVisibility(View.VISIBLE);
+        else
+            tv_pay.setVisibility(View.GONE);
     }
 
     @Override
@@ -110,6 +123,11 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
         switch (v.getId()){
             case R.id.tv_phone:
                 DialogUtil.getInstance().showGuideMobileDialog(context,guidePhone);
+                break;
+            case R.id.tv_pay:
+                if(payModel == null)
+                    showShortToast("payModel == null");
+                PayActivity.startActivity(context, payModel);
                 break;
         }
     }

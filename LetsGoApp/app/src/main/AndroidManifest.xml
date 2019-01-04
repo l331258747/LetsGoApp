@@ -139,7 +139,8 @@
         <activity android:name=".view.server.CustomActivity"/>
         <activity android:name=".view.calendar.PriceCalendarActivity"/>
         <activity android:name=".view.calendar.RangeCalendarActivity"/>
-        <activity android:name=".view.server.OrderSubmitActivity"/>
+        <activity android:name=".view.server.OrderSubmitActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.server.CustomPlanActivity"/>
 
         <!-- 订单-->

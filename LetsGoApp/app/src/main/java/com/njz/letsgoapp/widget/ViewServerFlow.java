@@ -144,6 +144,11 @@ public class ViewServerFlow extends LinearLayout {
     }
 
     //---------日期初始化------------
+    public void setPriceTitle2(String title2){
+        tv_title2.setVisibility(VISIBLE);
+        tv_title2.setText(title2);
+    }
+
     public void initFlow2(String title, String title2, final List<PriceCalendarChildModel> mVals) {
         tv_title.setText(title);
         if (TextUtils.isEmpty(title2)) {

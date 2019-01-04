@@ -270,16 +270,15 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 intent = new Intent(context, CustomPlanActivity.class);
                 intent.putExtra("ORDER_ID",model.getId());
                 intent.putExtra("GUIDE_PHONE",model.getGuideMobile());
+                if(model.getPayStatus() == Constant.ORDER_PAY_WAIT
+                        && model.getPlanStatus() == Constant.ORDER_PLAN_USER_WAIT){
+                    intent.putExtra("SHOW_PAY",true);
+                    intent.putExtra("PAY_MODEL",getPayModel(model));
+                }
                 startActivity(intent);
                 break;
             case R.id.btn_pay:
-                PayModel payModel = new PayModel();
-                payModel.setTotalAmount(model.getOrderPrice()+"");
-                payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
-                payModel.setOutTradeNo(model.getOrderNo());
-                payModel.setLastPayTime(model.getLastPayTime());
-                payModel.setOrderId(model.getId());
-                PayActivity.startActivity(context, payModel);
+                PayActivity.startActivity(context, getPayModel(model));
                 break;
             case R.id.btn_refund:
                 intent = new Intent(context,OrderRefundActivity.class);
@@ -314,7 +313,16 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
         }
+    }
 
+    public PayModel getPayModel(OrderDetailModel model){
+        PayModel payModel = new PayModel();
+        payModel.setTotalAmount(model.getOrderPrice()+"");
+        payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
+        payModel.setOutTradeNo(model.getOrderNo());
+        payModel.setLastPayTime(model.getLastPayTime());
+        payModel.setOrderId(model.getId());
+        return payModel;
     }
 
     @Override

@@ -5,11 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.webview.LWebView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
@@ -25,6 +28,7 @@ public class ServerFeatureFragment extends BaseFragment {
     NestedScrollView scrollView;
     TextView price_introduce_content, tv_refund_rule_30, tv_refund_rule_50;
     EmptyView3 view_empty;
+    LinearLayout ll_refund_rule;
 
     ServerDetailModel model;
 
@@ -58,18 +62,23 @@ public class ServerFeatureFragment extends BaseFragment {
         price_introduce_content = $(R.id.price_introduce_content);
         tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
         tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
+        ll_refund_rule = $(R.id.ll_refund_rule);
     }
 
     @Override
     public void initData() {
 
+        if(model.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            ll_refund_rule.setVisibility(View.GONE);
+        }else{
+            if (!TextUtils.isEmpty(model.getRenegePriceThree()))
+                tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30), model.getRenegePriceThree().replace(",", "-")));
+            if (!TextUtils.isEmpty(model.getRenegePriceFive()))
+                tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50), model.getRenegePriceFive().replace(",", "-")));
+        }
+
         if (!TextUtils.isEmpty(model.getRenegePriceThree()))
             price_introduce_content.setText(model.getCostExplain());
-        if (!TextUtils.isEmpty(model.getRenegePriceThree()))
-            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30), model.getRenegePriceThree().replace(",", "-")));
-        if (!TextUtils.isEmpty(model.getRenegePriceFive()))
-            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50), model.getRenegePriceFive().replace(",", "-")));
-
         if (!TextUtils.isEmpty(model.getServeFeature())) {
             webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
             view_empty.setVisible(false);

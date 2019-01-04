@@ -59,9 +59,21 @@ public class OrderRefundDetailModel {
     private int personNum;
     private String guideMobile;
     private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
+    private int children;
+    private int adult;
 
-    public int getPersonNum() {
-        return personNum;
+    public boolean isCustom() {
+        if(njzRefundDetailsChildVOS !=null && njzRefundDetailsChildVOS.size()==1 && njzRefundDetailsChildVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            return true;
+        }
+        return false;
+    }
+
+    public String getPersonNum() {
+        if(isCustom()){
+            return adult+"成人"+children+"儿童";
+        }
+        return personNum + "";
     }
 
     public String getGuideMobile() {

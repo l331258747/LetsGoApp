@@ -80,7 +80,7 @@
                             android:textColor="@color/color_99" />
 
 
-                        <com.njz.letsgoapp.widget.NumberView
+                        <com.njz.letsgoapp.widget.NumberEtView
                             android:id="@+id/numberView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

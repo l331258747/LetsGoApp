@@ -60,13 +60,13 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
         holder.tv_total_price.setText("￥" + data.getOrderPrice());
 
         holder.tv_not_travel_price.setText("￥" + data.getDefaultMoney());
+
         holder.tv_refund_rule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,RefundRuleActivity.class);
                 intent.putExtra("serviceId",data.getServeId());
                 context.startActivity(intent);
-
             }
         });
         holder.tv_refund_price.setText("￥" + data.getRefundMoney());

@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1020006
-        versionName "1.2.0.6"
+        versionCode 1020007
+        versionName "1.2.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.OrderChildModel;
+import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -119,6 +120,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setGuideMobile(orderModel.getGuideMobile());
                 serviceInfoGroup3.setPayingStatus(orderModel.getPayingStatus());
                 serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
+                serviceInfoGroup3.setLastPayTime(orderModel.getLastPayTime());
                 if(orderModel.getNjzChildOrderListVOS()!= null
                         && orderModel.getNjzChildOrderListVOS().size() == 1
                         && orderModel.getNjzChildOrderListVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
@@ -339,13 +341,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PayModel payModel = new PayModel();
-                    payModel.setTotalAmount(data.getOrderPrice() + "");
-                    payModel.setSubject(data.getLocation() + data.getGuideName() + "导游为您服务！");
-                    payModel.setOutTradeNo(data.getOrderNo());
-                    payModel.setLastPayTime("2018-01-01 12:00");
-                    payModel.setOrderId(data.getId());
-                    PayActivity.startActivity(mContext, payModel);//TODO 订单上传成功，返回单号
+                    PayActivity.startActivity(mContext, getPayModel(data));//TODO 订单上传成功，返回单号
                 }
             });
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -385,10 +381,25 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                     Intent intent = new Intent(mContext, CustomPlanActivity.class);
                     intent.putExtra("ORDER_ID",data.getId());
                     intent.putExtra("GUIDE_PHONE",data.getGuideMobile());
+                    if(data.getPayStatus() == Constant.ORDER_PAY_WAIT
+                            && data.getPlanStatus() == Constant.ORDER_PLAN_USER_WAIT){
+                        intent.putExtra("SHOW_PAY",true);
+                        intent.putExtra("PAY_MODEL",getPayModel(data));
+                    }
                     mContext.startActivity(intent);
                 }
             });
         }
+    }
+
+    public PayModel getPayModel(OrderBeanGroup model){
+        PayModel payModel = new PayModel();
+        payModel.setTotalAmount(model.getOrderPrice()+"");
+        payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
+        payModel.setOutTradeNo(model.getOrderNo());
+        payModel.setLastPayTime(model.getLastPayTime());
+        payModel.setOrderId(model.getId());
+        return payModel;
     }
 
     @Override

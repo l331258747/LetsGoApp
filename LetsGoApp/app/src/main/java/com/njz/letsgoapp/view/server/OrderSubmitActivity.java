@@ -27,6 +27,7 @@ import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
+import com.njz.letsgoapp.widget.NumberEtView;
 import com.njz.letsgoapp.widget.NumberView;
 import com.njz.letsgoapp.widget.SpecialFixedItemEditView;
 
@@ -50,7 +51,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     SpecialFixedItemEditView et_special;
     RecyclerView recyclerView;
     TextView tv_contract, tv_submit,tv_total_price;
-    NumberView numberView;
+    NumberEtView numberView;
 
     CreateOrderPresenter mPresenter;
 
@@ -161,6 +162,10 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
                     return;
                 if(!LoginUtil.verifyPhone(login_view_phone.getEtContent()))
                     return;
+                if(numberView.getNum() == 0){
+                    showShortToast("请输入人数");
+                    return;
+                }
                 mPresenter.orderCreateOrder(getOrderData());
                 break;
         }

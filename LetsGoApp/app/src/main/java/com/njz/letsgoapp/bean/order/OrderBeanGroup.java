@@ -32,7 +32,16 @@ public class OrderBeanGroup {
     private int index;
     private int planStatus;
     private boolean isCustom;
+    private String lastPayTime;
     private OrderChildModel orderChildModel;
+
+    public String getLastPayTime() {
+        return lastPayTime;
+    }
+
+    public void setLastPayTime(String lastPayTime) {
+        this.lastPayTime = lastPayTime;
+    }
 
     public boolean isCustom() {
         return isCustom;

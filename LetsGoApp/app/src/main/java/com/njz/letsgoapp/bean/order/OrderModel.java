@@ -40,9 +40,14 @@ public class OrderModel {
     private String mobile;
     private String name;
     private String guideMobile;
+    private String lastPayTime;
     private int planStatus;
     private boolean havCar;
     private List<OrderChildModel> njzChildOrderListVOS;
+
+    public String getLastPayTime() {
+        return lastPayTime;
+    }
 
     public boolean isHavCar() {
         return havCar;
