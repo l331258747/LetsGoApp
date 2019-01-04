@@ -21,11 +21,13 @@ public class RefundRuleActivity extends BaseActivity implements ServiceRefundRul
     ServiceRefundRulePresenter mPresenter;
 
     int serviceId;
+    int orderId;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         serviceId = intent.getIntExtra("serviceId",0);
+        orderId = intent.getIntExtra("orderId",0);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class RefundRuleActivity extends BaseActivity implements ServiceRefundRul
     @Override
     public void initData() {
         mPresenter = new ServiceRefundRulePresenter(context,this);
-        mPresenter.orderRefundFindRefundRule(serviceId,true);
+        mPresenter.orderRefundFindRefundRule(serviceId,orderId,true);
     }
 
     @Override

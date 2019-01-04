@@ -443,7 +443,8 @@ public interface HttpService {
     //orderRefund/findRefundRule 退订规则
     @GET("orderRefund/findRefundRule")
     Observable<BaseResponse<ServiceRefundRuleModel>> orderRefundFindRefundRule(
-            @Query("serveId") int serveId
+            @Query("serveId") int serveId,
+            @Query("orderId") int orderId
     );
 
     //-------订单 end---------

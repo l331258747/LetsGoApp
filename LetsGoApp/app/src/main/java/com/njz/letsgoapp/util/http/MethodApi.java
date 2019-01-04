@@ -402,8 +402,8 @@ public class MethodApi {
     }
 
     //orderRefundFindRefundRule 退订规则
-    public static void orderRefundFindRefundRule(int serveId, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundFindRefundRule(serveId);
+    public static void orderRefundFindRefundRule(int serveId, int orderId,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderRefundFindRefundRule(serveId, orderId);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

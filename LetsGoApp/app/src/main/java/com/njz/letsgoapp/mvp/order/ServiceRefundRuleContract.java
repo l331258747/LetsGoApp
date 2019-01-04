@@ -11,7 +11,7 @@ import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
 public interface ServiceRefundRuleContract {
 
     interface Presenter {
-        void orderRefundFindRefundRule(int serveId,boolean showDialog);
+        void orderRefundFindRefundRule(int serveId,int orderId,boolean showDialog);
     }
 
     interface View{

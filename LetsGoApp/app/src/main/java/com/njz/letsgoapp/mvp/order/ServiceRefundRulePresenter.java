@@ -25,7 +25,7 @@ public class ServiceRefundRulePresenter implements ServiceRefundRuleContract.Pre
     }
 
     @Override
-    public void orderRefundFindRefundRule(int serveId,boolean showDialog) {
+    public void orderRefundFindRefundRule(int serveId,int orderId,boolean showDialog) {
         ResponseCallback listener = new ResponseCallback<ServiceRefundRuleModel>() {
             @Override
             public void onSuccess(ServiceRefundRuleModel data) {
@@ -38,6 +38,6 @@ public class ServiceRefundRulePresenter implements ServiceRefundRuleContract.Pre
             }
         };
 
-        MethodApi.orderRefundFindRefundRule(serveId,new OnSuccessAndFaultSub(listener, context,showDialog));
+        MethodApi.orderRefundFindRefundRule(serveId,orderId,new OnSuccessAndFaultSub(listener, context,showDialog));
     }
 }
