@@ -84,11 +84,8 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             holder.tv_travel_day.setText(data.getUseDay() + "天");
             holder.tv_travel_price.setText("￥" + data.getUseMoney());
             holder.tv_not_travel_day.setText(data.getUnUseDay() + "天");
-
         }
-
     }
-
 
 
     @Override

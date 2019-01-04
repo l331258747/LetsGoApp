@@ -15,6 +15,7 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
@@ -134,10 +135,14 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 //                scrollView.scrollTo(0, 0);
                 break;
             case R.id.right_iv:
-                if(serverDetailModel == null) return;
-                ShareDialog dialog = new ShareDialog(activity,"","","","");
-                dialog.setReportData(serverDetailModel.getGuideId(), ShareDialog.REPORT_SERVICE, serverDetailModel.getId());
-                dialog.setType(ShareDialog.TYPE_REPORT);
+                if (serverDetailModel == null) return;
+                ShareDialog dialog = new ShareDialog(activity,
+                        serverDetailModel.getAddress()+serverDetailModel.getServerName() + "服务",
+                        serverDetailModel.getName(),
+                        serverDetailModel.getTitleImg2(),
+                        URLConstant.SHARE_SERVER+"?serverId="+serverDetailModel.getId());
+                dialog.setReportData(model.getGuideId(), ShareDialog.REPORT_SERVICE,model.getId());
+                dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
                 break;
         }

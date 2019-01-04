@@ -167,6 +167,24 @@ public class ServerDetailModel implements Parcelable{
         return serveType;
     }
 
+    public String getServerName() {
+        switch (serveType){
+            case Constant.SERVER_TYPE_GUIDE_ID:
+                return "向导陪游";
+            case Constant.SERVER_TYPE_FEATURE_ID:
+                return "特色体验";
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "私人定制";
+            case Constant.SERVER_TYPE_HOTEL_ID:
+                return "代订酒店";
+            case Constant.SERVER_TYPE_TICKET_ID:
+                return "代订门票";
+            case Constant.SERVER_TYPE_CAR_ID:
+                return "包车接送";
+        }
+        return "";
+    }
+
     public int getGuideId() {
         return guideId;
     }

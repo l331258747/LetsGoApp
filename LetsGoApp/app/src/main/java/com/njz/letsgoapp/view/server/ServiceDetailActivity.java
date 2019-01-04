@@ -17,10 +17,12 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.dialog.ShareDialog;
 import com.njz.letsgoapp.map.MapActivity;
@@ -259,9 +261,13 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
                 break;
             case R.id.right_iv:
                 if (model == null) return;
-                ShareDialog dialog = new ShareDialog(activity, "", "", "", "");
+                ShareDialog dialog = new ShareDialog(activity,
+                        model.getAddress()+model.getServerName() + "服务",
+                        model.getName(),
+                        model.getTitleImg2(),
+                        URLConstant.SHARE_SERVER+"?serverId="+model.getId());
                 dialog.setReportData(model.getGuideId(), ShareDialog.REPORT_SERVICE,model.getId());
-                dialog.setType(ShareDialog.TYPE_REPORT);
+                dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
                 break;
         }
