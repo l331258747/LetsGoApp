@@ -45,7 +45,7 @@ public class OrderChildModel {
             case Constant.SERVER_TYPE_GUIDE_ID:
                 return "向导陪游";
             case Constant.SERVER_TYPE_FEATURE_ID:
-                return "tsty特色体验";
+                return "特色体验";
             case Constant.SERVER_TYPE_CUSTOM_ID:
                 return "私人定制";
             case Constant.SERVER_TYPE_HOTEL_ID:
