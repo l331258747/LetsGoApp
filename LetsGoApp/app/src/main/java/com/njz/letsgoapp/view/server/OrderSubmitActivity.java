@@ -28,7 +28,6 @@ import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
 import com.njz.letsgoapp.widget.FixedItemTextView;
 import com.njz.letsgoapp.widget.NumberEtView;
-import com.njz.letsgoapp.widget.NumberView;
 import com.njz.letsgoapp.widget.SpecialFixedItemEditView;
 
 import java.util.ArrayList;

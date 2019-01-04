@@ -19,7 +19,6 @@ import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.bean.server.SubmitOrderChildModel;
 import com.njz.letsgoapp.bean.server.SubmitOrderChilderItemModel;
 import com.njz.letsgoapp.bean.server.SubmitOrderModel;
-import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.server.CreateOrderContract;
 import com.njz.letsgoapp.mvp.server.CreateOrderPresenter;
 import com.njz.letsgoapp.util.DateUtil;
@@ -28,10 +27,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CalendarEvent;
 import com.njz.letsgoapp.view.calendar.RangeCalendarActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
-import com.njz.letsgoapp.view.pay.PayActivity;
-import com.njz.letsgoapp.view.pay.PaySuccessActivity;
 import com.njz.letsgoapp.widget.NumberEtView;
-import com.njz.letsgoapp.widget.NumberView;
 
 import java.util.ArrayList;
 import java.util.Calendar;

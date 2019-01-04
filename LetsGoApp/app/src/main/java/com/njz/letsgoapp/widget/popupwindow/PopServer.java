@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +34,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.PriceCalendarEvent;
 import com.njz.letsgoapp.view.calendar.PriceCalendarActivity;
 import com.njz.letsgoapp.widget.GuideScoreView2;
-import com.njz.letsgoapp.widget.NumberView;
+import com.njz.letsgoapp.widget.NumberEtView;
 import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.ViewServerFlow;
 
@@ -62,7 +64,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     PriceView priceView;
     LinearLayout flow_parent;
     RelativeLayout rl_count;
-    NumberView numberView;
+    NumberEtView numberView;
 
 
     ServerDetailModel serverDetailModel;
@@ -168,7 +170,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         serverNum = 1;
         numberView.setNum(1);
         numberView.setMinNum(1);
-        numberView.setCallback(new NumberView.OnItemClickListener() {
+        numberView.setCallback(new NumberEtView.OnItemClickListener() {
             @Override
             public void onClick(int num) {
                 serverNum = num;
@@ -178,6 +180,31 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
             rl_count.setVisibility(View.GONE);
         }
+
+        numberView.getEtNum().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(TextUtils.isEmpty(s.toString())){
+                    serverNum = 0;
+                    tv_price_total.setText("￥" + (DecimalUtil.multiply(priceTotal,serverNum)));
+                }else{
+                    serverNum = Integer.valueOf(s.toString());
+                    tv_price_total.setText("￥" + (DecimalUtil.multiply(priceTotal,serverNum)));
+                }
+
+
+            }
+        });
     }
 
     private void initData() {
@@ -424,6 +451,11 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                     }
                     if(TextUtils.isEmpty(getSubmitTravelDates())){
                         ToastUtil.showShortToast(context,"请选择时间");
+                        return;
+                    }
+
+                    if(serverNum == 0){
+                        ToastUtil.showShortToast(context,"请输入" + serverDetailModel.getCountTitle());
                         return;
                     }
 

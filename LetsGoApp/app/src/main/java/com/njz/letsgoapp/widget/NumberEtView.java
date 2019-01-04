@@ -56,7 +56,7 @@ public class NumberEtView extends LinearLayout implements View.OnClickListener {
         et_num.setSelection(et_num.getText().toString().length());
         if(onItemClickListener == null)
             return;
-        onItemClickListener.onClick(num);
+        onItemClickListener.onClick(getNum());
     }
 
     public int getNum(){
@@ -68,6 +68,10 @@ public class NumberEtView extends LinearLayout implements View.OnClickListener {
 
     public void setMinNum(int minNum){
         this.minNum = minNum;
+    }
+
+    public EditText getEtNum(){
+        return et_num;
     }
 
 

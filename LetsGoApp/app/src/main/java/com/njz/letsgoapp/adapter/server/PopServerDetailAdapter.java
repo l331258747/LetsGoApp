@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.find.DynamicCommentAdapter;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.widget.NumberView;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class PopServerDetailAdapter extends RecyclerView.Adapter<PopServerDetail
             if (data == null) return;
 
             holder.tv_title.setText(data.getTitile());
-            holder.tv_price.setText("￥" + (data.getPrice() * data.getServeNum()));
+            holder.tv_price.setText("￥" + DecimalUtil.multiply(data.getPrice(), data.getServeNum()));
 
             if(data.getServerType() == Constant.SERVER_TYPE_GUIDE_ID){
                 holder.tv_cancel.setVisibility(View.VISIBLE);
@@ -74,7 +73,7 @@ public class PopServerDetailAdapter extends RecyclerView.Adapter<PopServerDetail
                     if(mOnItemClickListener != null){
                         mOnItemClickListener.onNumClick(pos,num);
                     }
-                    holder.tv_price.setText("￥" + (data.getPrice() * num));
+                    holder.tv_price.setText("￥" + DecimalUtil.multiply(data.getPrice(), num));
                 }
             });
 

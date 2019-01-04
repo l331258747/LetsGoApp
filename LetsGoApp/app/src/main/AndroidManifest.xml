@@ -115,8 +115,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.home.GuideContractActivity" />
 
-        <activity android:name=".view.server.ServiceDetailActivity" />
-        <activity android:name=".view.server.ServiceDetailActivity2" />
+        <activity android:name=".view.server.ServiceDetailActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.server.ServiceDetailActivity2"
+            android:windowSoftInputMode="adjustPan"/>
 
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />
