@@ -140,7 +140,7 @@ public class PopServerDetail extends BackgroundDarkPopupWindow {
             resetDarkPosition();
             darkAbove(parent);
 
-            showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, AppUtils.getNavigationBarHeight() + AppUtils.dip2px(50));
+            showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, AppUtils.getNavigationBarHeight(context) + AppUtils.dip2px(50));
         }
     }
 

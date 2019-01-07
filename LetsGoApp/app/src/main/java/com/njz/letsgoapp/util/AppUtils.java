@@ -8,6 +8,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
@@ -112,99 +114,43 @@ public class AppUtils {
         return (int) (spValue * fontScale + 0.5f);
     }
 
-    //获取状态栏高度
-    public static int getStateBar() {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
+    /**
+     * 获取屏幕尺寸，但是不包括虚拟功能高度
+     *
+     * @return
+     */
+    public static int getNoHasVirtualKey(Activity activity) {
+        int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+        return height;
     }
 
-    //通过反射获取状态栏高度
-    public static int getStatusBarHeight() {
+    /**
+     * 通过反射，获取包含虚拟键的整体屏幕高度
+     *
+     * @return
+     */
+    private static int getHasVirtualKey(Activity activity) {
+        int dpi = 0;
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics dm = new DisplayMetrics();
+        @SuppressWarnings("rawtypes")
+        Class c;
         try {
-            Class<?> c = Class.forName("com.android.internal.R$dimen");
-            Object obj = c.newInstance();
-            Field field = c.getField("status_bar_height");
-            int x = Integer.parseInt(field.get(obj).toString());
-            return context.getResources().getDimensionPixelSize(x);
+            c = Class.forName("android.view.Display");
+            @SuppressWarnings("unchecked")
+            Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+            method.invoke(display, dm);
+            dpi = dm.heightPixels;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return dpi;
     }
 
     //底部虚拟按钮 高度
-    public static int getNavigationBarHeight() {
-        int result = 0;
-        if (hasNavBar(context)) {
-            int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result = context.getResources().getDimensionPixelSize(resourceId);
-            }
-        }
-
-        return result;
+    public static int getNavigationBarHeight(Activity activity) {
+        return getNoHasVirtualKey(activity) - getHasVirtualKey(activity);
     }
-
-    /**
-     * 检查是否存在虚拟按键栏
-     */
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    public static boolean hasNavBar(Context context) {
-        Resources res = context.getResources();
-        int resourceId = res.getIdentifier("config_showNavigationBar", "bool", "android");
-        if (resourceId != 0) {
-            boolean hasNav = res.getBoolean(resourceId);
-            // check override flag
-            String sNavBarOverride = getNavBarOverride();
-            if ("1".equals(sNavBarOverride)) {
-                hasNav = false;
-            } else if ("0".equals(sNavBarOverride)) {
-                hasNav = true;
-                hasNav = checkDeviceHasNavigationBar2(context);
-            }
-
-            return hasNav;
-        } else { // fallback
-            return !ViewConfiguration.get(context).hasPermanentMenuKey();
-        }
-    }
-
-    /**
-     * 判断虚拟按键栏是否重写
-     */
-    private static String getNavBarOverride() {
-        String sNavBarOverride = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            try {
-                Class c = Class.forName("android.os.SystemProperties");
-                Method m = c.getDeclaredMethod("get", String.class);
-                m.setAccessible(true);
-                sNavBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
-            } catch (Throwable e) {
-            }
-        }
-        return sNavBarOverride;
-    }
-
-    public static boolean checkDeviceHasNavigationBar2(Context activity) {
-        //通过判断设备是否有返回键、菜单键(不是虚拟键,是手机屏幕外的按键)来确定是否有navigation bar
-        boolean hasMenuKey = ViewConfiguration.get(activity)
-                .hasPermanentMenuKey();
-        boolean hasBackKey = KeyCharacterMap
-                .deviceHasKey(KeyEvent.KEYCODE_BACK);
-
-        if (!hasMenuKey && !hasBackKey) {
-            // 做任何你需要做的,这个设备有一个导航栏
-            return true;
-        }
-        return false;
-    }
-
-
 
     //获取屏幕宽度
     public static int getDisplayWidth() {
