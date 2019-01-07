@@ -141,7 +141,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                         serverDetailModel.getTitle(),
                         serverDetailModel.getTitleImg2(),
                         URLConstant.SHARE_SERVER+"?id="+serverDetailModel.getId());
-                dialog.setReportData(model.getGuideId(), ShareDialog.REPORT_SERVICE,model.getId());
+                dialog.setReportData(serverDetailModel.getGuideId(), ShareDialog.REPORT_SERVICE,serverDetailModel.getId());
                 dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
                 break;

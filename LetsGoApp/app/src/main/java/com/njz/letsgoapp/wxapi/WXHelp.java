@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import com.njz.letsgoapp.MyApplication;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
@@ -41,7 +42,7 @@ public class WXHelp {
 
     // flag 0好友，1朋友圈
     public void wxShare(Context context, int flag, String title, String content, String imageUrl, String url) {
-
+        LogUtil.e("wxShare url:" + url);
         if (!MyApplication.mWxApi.isWXAppInstalled()) {
             ToastUtil.showShortToast(context, "您还未安装微信客户端");
             return;
