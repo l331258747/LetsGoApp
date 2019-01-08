@@ -16,7 +16,7 @@ public interface FindContract {
     interface Presenter {
         void friendFindAll(String location,int limit,int page,String str);
         void friendFriendSter(int limit,int page);
-        void friendSterSortByLikeAndReview(String location,int limit,int page);
+        void friendSterSortByLikeAndReview(String location,int limit,int page,String content);
     }
 
     interface View {

@@ -62,7 +62,7 @@ public class FindPresenter implements FindContract.Presenter {
     }
 
     @Override
-    public void friendSterSortByLikeAndReview(String location, int limit, int page) {
+    public void friendSterSortByLikeAndReview(String location, int limit, int page, String content) {
         ResponseCallback listener = new ResponseCallback<BasePageModel<DynamicModel>>() {
             @Override
             public void onSuccess(BasePageModel<DynamicModel> data) {
@@ -74,6 +74,6 @@ public class FindPresenter implements FindContract.Presenter {
                 iView.friendSterSortByLikeAndReviewFailed(errorMsg);
             }
         };
-        MethodApi.friendSterSortByLikeAndReview(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
+        MethodApi.friendSterSortByLikeAndReview(location,limit,page,content, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

@@ -220,7 +220,8 @@ public interface HttpService {
     Observable<BaseResponse<BasePageModel<DynamicModel>>> friendSterSortByLikeAndReview(
             @Query("location") String location,
             @Query("limit") int limit,
-            @Query("page") int page
+            @Query("page") int page,
+            @Query("content") String content
     );
 
     //sys/oss/sendSter 发布动态

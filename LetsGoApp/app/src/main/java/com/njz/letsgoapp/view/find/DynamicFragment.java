@@ -44,7 +44,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     public static final int DYNAMIC_ALL = 0;
     public static final int DYNAMIC_FOLLOW = 1;
-    public static final int DYNAMIC_HOTL = 2;
+    public static final int DYNAMIC_HOT = 2;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -62,7 +62,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     private String city = Constant.DEFAULT_CITY;
     private boolean isViewCreated;
     private boolean hidden;
-    private String search;
+    private String search="";
 
     public EmptyView view_empty;
     public boolean isGoLogin;
@@ -228,12 +228,16 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     }
 
     public void setSearch(String str){
-        if(dynamicTYpe == DYNAMIC_ALL && getUserVisibleHint()) {
+        if((dynamicTYpe == DYNAMIC_ALL || dynamicTYpe == DYNAMIC_HOT) && getUserVisibleHint()) {
             search = str;
             getRefreshData();
         }else {
-            showShortToast("请在最新进行搜索!");
+            showShortToast("关注不能进行搜索!");
         }
+    }
+
+    public void setSearchStr(String str){
+        search = str;
     }
 
     private void getRefreshData() {
@@ -243,8 +247,8 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoadType = 1;
         if(dynamicTYpe == DYNAMIC_FOLLOW){
             mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
-        }else if(dynamicTYpe == DYNAMIC_HOTL){
-            mPresenter.friendSterSortByLikeAndReview(city,Constant.DEFAULT_LIMIT, page);
+        }else if(dynamicTYpe == DYNAMIC_HOT){
+            mPresenter.friendSterSortByLikeAndReview(city,Constant.DEFAULT_LIMIT, page,search);
         }else{
             mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page,search);
         }
@@ -256,8 +260,8 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoadType = 2;
         if(dynamicTYpe == DYNAMIC_FOLLOW){
             mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
-        }else if(dynamicTYpe == DYNAMIC_HOTL){
-            mPresenter.friendSterSortByLikeAndReview(city,Constant.DEFAULT_LIMIT, page);
+        }else if(dynamicTYpe == DYNAMIC_HOT){
+            mPresenter.friendSterSortByLikeAndReview(city,Constant.DEFAULT_LIMIT, page,search);
         }else{
             mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page,search);
         }

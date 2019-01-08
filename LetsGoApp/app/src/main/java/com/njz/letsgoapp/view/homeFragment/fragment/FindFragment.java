@@ -71,7 +71,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    setSearch(v.getText().toString());
+                    setSearch(mViewPager.getCurrentItem(),v.getText().toString());
                     AppUtils.HideKeyboard(tvSearch);
                     return true;
                 }
@@ -84,7 +84,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initData() {
         mFragments = new ArrayList<>();
-        dynamicHot = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_HOTL);
+        dynamicHot = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_HOT);
         dynamicAll = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_ALL);
         dynamicFollow = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_FOLLOW);
         mFragments.add(dynamicHot);
@@ -95,6 +95,25 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setSearchStr(position,"");
+                tvSearch.setText("");
+                AppUtils.HideKeyboard(tvSearch);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -110,9 +129,24 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    public void setSearchStr(int position ,String str){
+        if(position == 0){
+            dynamicHot.setSearchStr(str);
+        }else if(position == 1){
+            dynamicAll.setSearchStr(str);
+        }else if(position == 2){
+            dynamicFollow.setSearchStr(str);
+        }
+    }
 
-    public void setSearch(String str) {
-        dynamicAll.setSearch(str);
+    public void setSearch(int position, String str) {
+        if(position == 0){
+            dynamicHot.setSearch(str);
+        }else if(position == 1){
+            dynamicAll.setSearch(str);
+        }else if(position == 2){
+            dynamicFollow.setSearch(str);
+        }
     }
 
     @Override

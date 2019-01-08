@@ -178,9 +178,9 @@ public class MethodApi {
     }
 
     //friendSterSortByLikeAndReview
-    public static void friendSterSortByLikeAndReview(String location, int limit, int page, DisposableObserver subscriber) {
+    public static void friendSterSortByLikeAndReview(String location, int limit, int page, String content,DisposableObserver subscriber) {
         location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
-        Observable observable = HttpMethods.getInstance().getHttpService().friendSterSortByLikeAndReview(location, limit, page);
+        Observable observable = HttpMethods.getInstance().getHttpService().friendSterSortByLikeAndReview(location, limit, page,content);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
