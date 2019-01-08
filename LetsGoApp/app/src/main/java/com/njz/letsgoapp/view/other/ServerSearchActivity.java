@@ -128,6 +128,7 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 et_search.setText(lists.get(position));
                 et_search.setSelection(et_search.getText().toString().length());
+                MySelfInfo.getInstance().addSearchServer(lists.get(position));
                 maps = new HashMap<>();
                 maps.put("keyWords",lists.get(position));
                 getRefreshData();

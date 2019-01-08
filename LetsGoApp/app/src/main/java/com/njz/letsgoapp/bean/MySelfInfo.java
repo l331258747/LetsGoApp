@@ -220,7 +220,8 @@ public class MySelfInfo {
         List<String> lists = getSearchCity();
         for (String item : lists){
             if(TextUtils.equals(str,item)){
-                return;
+                lists.remove(item);
+                break;
             }
         }
         if(lists.size() > 5) {
@@ -250,12 +251,13 @@ public class MySelfInfo {
         List<String> lists = getSearchGuide();
         for (String item : lists){
             if(TextUtils.equals(str,item)){
-                return;
+                lists.remove(item);
+                break;
             }
         }
 
         if(lists.size() > 8) {
-            lists.remove(0);
+            lists.remove(lists.size() - 1);
         }
 
         results.add(str);
@@ -281,12 +283,13 @@ public class MySelfInfo {
         List<String> lists = getSearchServer();
         for (String item : lists){
             if(TextUtils.equals(str,item)){
-                return;
+                lists.remove(item);
+                break;
             }
         }
 
         if(lists.size() > 8) {
-            lists.remove(0);
+            lists.remove(lists.size() - 1);
         }
 
         results.add(str);

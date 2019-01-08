@@ -131,6 +131,7 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 et_search.setText(lists.get(position));
                 et_search.setSelection(et_search.getText().toString().length());
+                MySelfInfo.getInstance().addSearchGuide(lists.get(position));
                 maps = new HashMap<>();
                 maps.put("keyWords",lists.get(position));
                 getRefreshData();

@@ -161,6 +161,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 city = lists.get(position);
                 RxBus2.getInstance().post(new CityPickEvent(city));
+                MySelfInfo.getInstance().addSearchCity(city);
                 finish();
                 return false;
             }
