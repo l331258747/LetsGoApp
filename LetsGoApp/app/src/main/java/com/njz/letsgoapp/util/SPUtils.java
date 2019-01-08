@@ -42,6 +42,7 @@ public class SPUtils {
     //历史搜索
     public static final String SP_SEARCH_GUIDE = "sp_search_guide";
     public static final String SP_SEARCH_SERVER = "sp_search_server";
+    public static final String SP_SEARCH_CITY = "sp_search_city";
 
     private static SharedPreferences mSharedPreferences;
     private static SPUtils mPreferenceUtils;

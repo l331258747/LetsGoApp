@@ -51,8 +51,10 @@ public class CityPickProvinceAdapter extends RecyclerView.Adapter<CityPickProvin
 
         if(isClicks.get(position)){
             holder.tv_name.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
+            holder.tv_name.setBackground(ContextCompat.getDrawable(context,R.drawable.view_city_pick_select));
         }else{
             holder.tv_name.setTextColor(ContextCompat.getColor(context,R.color.color_text));
+            holder.tv_name.setBackground(ContextCompat.getDrawable(context,R.drawable.view_city_pick));
         }
 
         if(mOnItemClickListener != null){

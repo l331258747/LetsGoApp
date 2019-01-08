@@ -78,7 +78,8 @@
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -178,53 +179,80 @@
                     </LinearLayout>
 
 
-                    <RelativeLayout
+                    <android.support.v4.widget.NestedScrollView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="5">
 
                         <RelativeLayout
-                            android:id="@+id/ll_location"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:background="@color/white"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:layout_height="match_parent">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:id="@+id/ll_location"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:text="当前定位" />
+                                android:background="@color/white"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/tv_location_city"
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="当前定位" />
+
+                                <TextView
+                                    android:id="@+id/tv_location_city"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/btn_ee_solid_r5_p5"
+                                    android:textSize="12sp"
+                                    android:text="张家界" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_history"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:background="@drawable/btn_ee_solid_r5_p5"
-                                android:text="张家界" />
+                                android:layout_below="@+id/ll_location"
+                                android:layout_marginTop="15dp"
+                                android:background="@color/white"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="历史" />
+
+                                <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
+                                    android:id="@+id/flowlayout_history"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </LinearLayout>
+
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycler_view_city"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/ll_history"
+                                android:layout_weight="5"
+                                android:overScrollMode="never" />
+
+                            <com.njz.letsgoapp.widget.emptyView.EmptyView2
+                                android:id="@+id/view_empty_city"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/ll_history"
+                                android:visibility="gone" />
 
                         </RelativeLayout>
 
+                    </android.support.v4.widget.NestedScrollView>
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recycler_view_city"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/ll_location"
-                            android:layout_weight="5"
-                            android:overScrollMode="never" />
-
-                        <com.njz.letsgoapp.widget.emptyView.EmptyView
-                            android:id="@+id/view_empty_city"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_below="@+id/ll_location"
-                            android:visibility="gone" />
-
-                    </RelativeLayout>
 
                 </LinearLayout>
 

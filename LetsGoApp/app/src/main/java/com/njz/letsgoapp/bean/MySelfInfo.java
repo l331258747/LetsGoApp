@@ -209,12 +209,44 @@ public class MySelfInfo {
     }
 
     //---------搜索 start
+    public void setSearchCity(List<String> lists){
+        if(lists == null) return;
+        SPUtils.getInstance().putString(SPUtils.SP_SEARCH_CITY, GsonUtil.convertVO2String(lists));
+    }
+
+    public void addSearchCity(String str){
+        List<String> results = new ArrayList<>();
+
+        List<String> lists = getSearchCity();
+        for (String item : lists){
+            if(TextUtils.equals(str,item)){
+                return;
+            }
+        }
+        if(lists.size() > 5) {
+            lists.remove(lists.size() - 1);
+        }
+
+        results.add(str);
+        results.addAll(lists);
+        setSearchCity(results);
+    }
+
+    public List<String> getSearchCity(){
+        if(TextUtils.isEmpty(SPUtils.getInstance().getString(SPUtils.SP_SEARCH_CITY)))
+            return new ArrayList<>();
+        return GsonUtil.convertJson2Array(SPUtils.getInstance().getString(SPUtils.SP_SEARCH_CITY));
+    }
+
+
     public void setSearchGuide(List<String> lists){
         if(lists == null) return;
         SPUtils.getInstance().putString(SPUtils.SP_SEARCH_GUIDE, GsonUtil.convertVO2String(lists));
     }
 
     public void addSearchGuide(String str){
+        List<String> results = new ArrayList<>();
+
         List<String> lists = getSearchGuide();
         for (String item : lists){
             if(TextUtils.equals(str,item)){
@@ -225,8 +257,11 @@ public class MySelfInfo {
         if(lists.size() > 8) {
             lists.remove(0);
         }
-        lists.add(str);
-        setSearchGuide(lists);
+
+        results.add(str);
+        results.addAll(lists);
+
+        setSearchGuide(results);
     }
 
     public List<String> getSearchGuide(){
@@ -241,6 +276,8 @@ public class MySelfInfo {
     }
 
     public void addSearchServer(String str){
+        List<String> results = new ArrayList<>();
+
         List<String> lists = getSearchServer();
         for (String item : lists){
             if(TextUtils.equals(str,item)){
@@ -251,8 +288,11 @@ public class MySelfInfo {
         if(lists.size() > 8) {
             lists.remove(0);
         }
-        lists.add(str);
-        setSearchServer(lists);
+
+        results.add(str);
+        results.addAll(lists);
+
+        setSearchServer(results);
     }
 
     public List<String> getSearchServer(){

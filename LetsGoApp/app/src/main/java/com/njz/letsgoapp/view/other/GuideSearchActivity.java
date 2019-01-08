@@ -133,7 +133,7 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
                 et_search.setSelection(et_search.getText().toString().length());
                 maps = new HashMap<>();
                 maps.put("keyWords",lists.get(position));
-                mPresenter.guideSortTop10ByLocation("", Constant.GUIDE_TYPE_SYNTHESIZE,Constant.DEFAULT_LIMIT,page,maps);
+                getRefreshData();
                 return false;
             }
         });
@@ -153,7 +153,7 @@ public class GuideSearchActivity extends BaseActivity implements GuideListContra
 
                 maps = new HashMap<>();
                 maps.put("keyWords",v.getText().toString());
-                mPresenter.guideSortTop10ByLocation("", Constant.GUIDE_TYPE_SYNTHESIZE,Constant.DEFAULT_LIMIT,page,maps);
+                getRefreshData();
                 return false;
             }
         });

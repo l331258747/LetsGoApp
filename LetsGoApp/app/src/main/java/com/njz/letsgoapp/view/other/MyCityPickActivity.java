@@ -6,10 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -17,6 +19,7 @@ import com.njz.letsgoapp.adapter.order.CityPickCityAdapter;
 import com.njz.letsgoapp.adapter.order.CityPickProvinceAdapter;
 import com.njz.letsgoapp.adapter.other.SearchAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.other.CityModel;
 import com.njz.letsgoapp.bean.other.LocationModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
@@ -32,8 +35,13 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
+import com.njz.letsgoapp.widget.emptyView.EmptyView2;
+import com.njz.letsgoapp.widget.flowlayout.FlowLayout;
+import com.njz.letsgoapp.widget.flowlayout.TagAdapter;
+import com.njz.letsgoapp.widget.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,6 +57,8 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     TextView tv_search, tv_location_city;
     ImageView ivLeft;
     RecyclerView recycler_view_province, recycler_view_city,searchRecyclerView;
+    LinearLayout ll_history;
+    TagFlowLayout flowlayout_history;
 
     MyCityPickPresenter mPresenter;
 
@@ -66,7 +76,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
     SearchAdapter searchAdapter;
 
     EmptyView view_empty;
-    EmptyView view_empty_city;
+    EmptyView2 view_empty_city;
 
     TextView tv_default;
 
@@ -91,6 +101,9 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         view_empty = $(R.id.view_empty);
         view_empty_city = $(R.id.view_empty_city);
 
+        ll_history = $(R.id.ll_history);
+        flowlayout_history = $(R.id.flowlayout_history);
+
         ivLeft = $(R.id.iv_left);
         tv_default = $(R.id.tv_default);
         tv_location_city = $(R.id.tv_location_city);
@@ -105,6 +118,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         initProvinceRecycler();
         initCityRecycler();
         initRecycler();
+        initFlow();
 
         tv_search = $(R.id.tv_search);
 
@@ -125,12 +139,41 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         initDefault();
     }
 
+    public void initFlow() {
+        final List<String> lists = MySelfInfo.getInstance().getSearchCity();
+        if(lists.size() == 0){
+            ll_history.setVisibility(View.GONE);
+            return;
+        }
+
+        final LayoutInflater mInflater = LayoutInflater.from(activity);
+        TagAdapter adapter1 = new TagAdapter<String>(lists) {
+            @Override
+            public View getView(FlowLayout parent, int position, String s) {
+                TextView tv = (TextView) mInflater.inflate(R.layout.item_flow_search_city, flowlayout_history, false);
+                tv.setText(s);
+                return tv;
+            }
+        };
+        flowlayout_history.setAdapter(adapter1);
+        flowlayout_history.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                city = lists.get(position);
+                RxBus2.getInstance().post(new CityPickEvent(city));
+                finish();
+                return false;
+            }
+        });
+    }
+
     private void initDefault(){
         tv_default.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 city = Constant.DEFAULT_CITY;
                 RxBus2.getInstance().post(new CityPickEvent(city));
+                MySelfInfo.getInstance().setSearchCity(new ArrayList<String>());
                 finish();
             }
         });
@@ -142,11 +185,13 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         searchAdapter = new SearchAdapter(activity, new ArrayList<SearchCityModel>());
         searchRecyclerView.setAdapter(searchAdapter);
+        searchRecyclerView.setNestedScrollingEnabled(false);
 
         searchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 city = searchAdapter.getItem(position).getName();
+                MySelfInfo.getInstance().addSearchCity(city);
                 RxBus2.getInstance().post(new CityPickEvent(city));
                 finish();
             }
@@ -167,6 +212,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             public void onClick(View v) {
                 if(locationIsOk){
                     city = tv_location_city.getText().toString();
+                    MySelfInfo.getInstance().addSearchCity(city);
                     RxBus2.getInstance().post(new CityPickEvent(city));
                     finish();
                 }else{
@@ -242,6 +288,7 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
                     city = cityName;
                     if(city.endsWith("市"))
                         city = city.substring(0,city.length() - 1);
+                    MySelfInfo.getInstance().addSearchCity(city);
                     RxBus2.getInstance().post(new CityPickEvent(city));
                     finish();
                 }
