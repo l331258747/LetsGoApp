@@ -227,13 +227,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     }
 
-    public void setCityChange(String city) {
-        this.city = city;
-        if(dynamicTYpe == DYNAMIC_ALL && getUserVisibleHint()) {
-            getRefreshData();
-        }
-    }
-
     public void setSearch(String str){
         if(dynamicTYpe == DYNAMIC_ALL && getUserVisibleHint()) {
             search = str;

@@ -63,7 +63,7 @@
                 android:background="@color/transparent"
                 android:drawableLeft="@mipmap/ic_search"
                 android:drawablePadding="10dp"
-                android:hint="搜索关键字"
+                android:hint="请输入目的地"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLength="15"
