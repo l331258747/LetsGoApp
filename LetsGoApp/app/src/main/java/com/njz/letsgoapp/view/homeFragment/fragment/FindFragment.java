@@ -43,18 +43,13 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    //    private TextView tvCityPick;
     private TextView tvSearch;
     private ImageView ivRelease;
 
-
-    private Disposable desDisposable;
-
     private List<Fragment> mFragments;
-    private String[] titles = {"全部", "关注"};
+    private String[] titles = {"热门" ,"最新", "关注"};
 
-    private String city = MySelfInfo.getInstance().getDefaultCity();
-
+    DynamicFragment dynamicHot;
     DynamicFragment dynamicAll;
     DynamicFragment dynamicFollow;
 
@@ -88,26 +83,23 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initData() {
-//        tvCityPick.setText(city);
-
         mFragments = new ArrayList<>();
+        dynamicHot = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_HOTL);
         dynamicAll = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_ALL);
         dynamicFollow = (DynamicFragment) DynamicFragment.newInstance(DynamicFragment.DYNAMIC_FOLLOW);
+        mFragments.add(dynamicHot);
         mFragments.add(dynamicAll);
         mFragments.add(dynamicFollow);
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.tv_city_pick:
-//                cityPick();
-//                break;
             case R.id.iv_release:
                 if (!MySelfInfo.getInstance().isLogin()) {//登录状态
                     startActivity(new Intent(context, LoginActivity.class));
@@ -119,29 +111,6 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-    //城市选择
-//    private void cityPick(){
-//        Intent intent = new Intent(context, MyCityPickActivity.class);
-//        intent.putExtra(MyCityPickActivity.LOCATION,tvCityPick.getText().toString());
-//        startActivity(intent);
-//        desDisposable = RxBus2.getInstance().toObservable(CityPickEvent.class, new Consumer<CityPickEvent>() {
-//            @Override
-//            public void accept(CityPickEvent cityPickEvent) throws Exception {
-//                desDisposable.dispose();
-//                if(TextUtils.isEmpty(cityPickEvent.getCity()))
-//                    return;
-//                tvCityPick.setText(cityPickEvent.getCity());
-//                city = cityPickEvent.getCity();
-//                setCityChange();
-//
-//            }
-//        });
-//    }
-
-    public void setCityChange() {
-        dynamicAll.setCityChange(city);
-    }
-
     public void setSearch(String str) {
         dynamicAll.setSearch(str);
     }
@@ -149,6 +118,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        dynamicHot.setHidden(hidden);
         dynamicAll.setHidden(hidden);
         dynamicFollow.setHidden(hidden);
     }

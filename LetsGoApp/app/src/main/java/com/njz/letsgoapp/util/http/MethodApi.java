@@ -177,6 +177,13 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //friendSterSortByLikeAndReview
+    public static void friendSterSortByLikeAndReview(String location, int limit, int page, DisposableObserver subscriber) {
+        location = TextUtils.equals(Constant.DEFAULT_CITY,location)?"":location;
+        Observable observable = HttpMethods.getInstance().getHttpService().friendSterSortByLikeAndReview(location, limit, page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
 
     private static List<MultipartBody.Part> filesToMultipartBodyParts(List<String> files) {
         List<MultipartBody.Part> parts = new ArrayList<>(files.size());

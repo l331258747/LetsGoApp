@@ -173,7 +173,6 @@ public class MyCityPickActivity extends BaseActivity implements MyCityPickContra
             public void onClick(View v) {
                 city = Constant.DEFAULT_CITY;
                 RxBus2.getInstance().post(new CityPickEvent(city));
-                MySelfInfo.getInstance().setSearchCity(new ArrayList<String>());
                 finish();
             }
         });

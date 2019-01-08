@@ -25,6 +25,7 @@ import com.njz.letsgoapp.mvp.find.DynamicNiceContract;
 import com.njz.letsgoapp.mvp.find.DynamicNicePresenter;
 import com.njz.letsgoapp.mvp.find.FindContract;
 import com.njz.letsgoapp.mvp.find.FindPresenter;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
@@ -43,6 +44,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     public static final int DYNAMIC_ALL = 0;
     public static final int DYNAMIC_FOLLOW = 1;
+    public static final int DYNAMIC_HOTL = 2;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -57,7 +59,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
     int page;
     int isLoadType = 1;//1下拉刷新，2上拉加载
     boolean isLoad = false;//是否在加载，重复加载问题
-    private String city = MySelfInfo.getInstance().getDefaultCity();
+    private String city = Constant.DEFAULT_CITY;
     private boolean isViewCreated;
     private boolean hidden;
     private String search;
@@ -94,7 +96,6 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
         initRecycler();
         initSwipeLayout();
-
     }
 
     @Override
@@ -238,7 +239,7 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
             search = str;
             getRefreshData();
         }else {
-            showShortToast("请在全部进行搜索!");
+            showShortToast("请在最新进行搜索!");
         }
     }
 
@@ -249,6 +250,8 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoadType = 1;
         if(dynamicTYpe == DYNAMIC_FOLLOW){
             mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
+        }else if(dynamicTYpe == DYNAMIC_HOTL){
+            mPresenter.friendSterSortByLikeAndReview(city,Constant.DEFAULT_LIMIT, page);
         }else{
             mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page,search);
         }
@@ -260,6 +263,8 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
         isLoadType = 2;
         if(dynamicTYpe == DYNAMIC_FOLLOW){
             mPresenter.friendFriendSter(Constant.DEFAULT_LIMIT, page);
+        }else if(dynamicTYpe == DYNAMIC_HOTL){
+            mPresenter.friendSterSortByLikeAndReview(city,Constant.DEFAULT_LIMIT, page);
         }else{
             mPresenter.friendFindAll(city, Constant.DEFAULT_LIMIT, page,search);
         }
@@ -352,6 +357,51 @@ public class DynamicFragment extends BaseFragment implements FindContract.View, 
 
     @Override
     public void friendFriendSterFailed(String msg) {
+        showShortToast(msg);
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+
+        if(msg.startsWith("-")){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
+                @Override
+                public void onClick() {
+                    getRefreshData();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void friendSterSortByLikeAndReviewSuccess(List<DynamicModel> models) {
+        List<DynamicModel> datas = models;
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
+        swipeRefreshLayout.setRefreshing(false);
+
+        if(mAdapter.getDatas().size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_follow,"空空如也~");
+        }else{
+            view_empty.setVisible(false);
+        }
+    }
+
+    @Override
+    public void friendSterSortByLikeAndReviewFailed(String msg) {
         showShortToast(msg);
         isLoad = false;
         swipeRefreshLayout.setRefreshing(false);

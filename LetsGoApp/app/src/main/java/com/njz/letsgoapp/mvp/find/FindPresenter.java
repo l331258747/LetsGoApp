@@ -2,9 +2,11 @@ package com.njz.letsgoapp.mvp.find;
 
 import android.content.Context;
 
+import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
 import com.njz.letsgoapp.bean.home.DynamicModel;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -57,5 +59,21 @@ public class FindPresenter implements FindContract.Presenter {
             }
         };
         MethodApi.friendFriendSter(limit,page, new OnSuccessAndFaultSub(listener,context,false));
+    }
+
+    @Override
+    public void friendSterSortByLikeAndReview(String location, int limit, int page) {
+        ResponseCallback listener = new ResponseCallback<BasePageModel<DynamicModel>>() {
+            @Override
+            public void onSuccess(BasePageModel<DynamicModel> data) {
+                iView.friendSterSortByLikeAndReviewSuccess(data.getList());
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                iView.friendSterSortByLikeAndReviewFailed(errorMsg);
+            }
+        };
+        MethodApi.friendSterSortByLikeAndReview(location,limit,page, new OnSuccessAndFaultSub(listener,context,false));
     }
 }

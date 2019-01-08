@@ -215,6 +215,13 @@ public interface HttpService {
             @Query("page") int page
     );
 
+    //friend/friendSterSortByLikeAndReview
+    @GET("friend/friendSterSortByLikeAndReview")
+    Observable<BaseResponse<BasePageModel<DynamicModel>>> friendSterSortByLikeAndReview(
+            @Query("location") String location,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
 
     //sys/oss/sendSter 发布动态
     @Multipart
