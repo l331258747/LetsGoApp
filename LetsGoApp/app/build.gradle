@@ -166,4 +166,6 @@ dependencies {
     compile project(':PriceCalendarLib')
     compile files('libs/umeng-analytics-7.5.4.jar')
     compile files('libs/umeng-common-1.5.4.jar')
+
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }

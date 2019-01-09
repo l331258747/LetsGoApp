@@ -22,11 +22,19 @@ import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.http.HttpMethods;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
+import com.njz.letsgoapp.util.jpushim.HandleResponseCode;
+import com.njz.letsgoapp.util.jpushim.SharePreferenceManager;
+import com.njz.letsgoapp.util.jpushim.UserEntry;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
+import java.io.File;
+
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * Created by LGQ
@@ -150,6 +158,94 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void loginSuccess(LoginModel loginModel) {
+
+        final String userId = loginViewPhone.getEtContent();
+        final String password = loginViewPassword.getEtContent();
+
+        JMessageClient.login(userId, password, new BasicCallback() {
+            @Override
+            public void gotResult(int responseCode, String responseMessage) {
+                if (responseCode == 0) {
+                    JGApplication.registerOrLogin = 1;
+                    String username = JMessageClient.getMyInfo().getUserName();
+                    String appKey = JMessageClient.getMyInfo().getAppKey();
+                    UserEntry user = UserEntry.getUser(username, appKey);
+                    if (null == user) {
+                        user = new UserEntry(username, appKey);
+                        user.save();
+                    }
+
+                    String nickName = mNickNameEt.getText().toString();
+
+                    UserInfo myUserInfo = JMessageClient.getMyInfo();
+                    if (myUserInfo != null) {
+                        myUserInfo.setNickname(nickName);
+                    }
+                    //注册时候更新昵称
+                    JMessageClient.updateMyInfo(UserInfo.Field.nickname, myUserInfo, new BasicCallback() {
+                        @Override
+                        public void gotResult(final int status, String desc) {
+                            //更新跳转标志
+                            SharePreferenceManager.setCachedFixProfileFlag(false);
+                            mDialog.dismiss();
+                            if (status == 0) {
+                                goToActivity(FinishRegisterActivity.this, MainActivity.class);
+                            }
+                        }
+                    });
+                    //注册时更新头像
+                    final String avatarPath = SharePreferenceManager.getRegisterAvatarPath();
+                    if (avatarPath != null) {
+                        ThreadUtil.runInThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JMessageClient.updateUserAvatar(new File(avatarPath), new BasicCallback() {
+                                    @Override
+                                    public void gotResult(int responseCode, String responseMessage) {
+                                        if (responseCode == 0) {
+                                            SharePreferenceManager.setCachedAvatarPath(avatarPath);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        SharePreferenceManager.setCachedAvatarPath(null);
+                    }
+                }
+            }
+        });
+
+
+
+
+        JMessageClient.login(userId, password, new BasicCallback() {
+            @Override
+            public void gotResult(int responseCode, String responseMessage) {
+                if (responseCode == 0) {
+                    SharePreferenceManager.setCachedPsw(password);
+                    UserInfo myInfo = JMessageClient.getMyInfo();
+                    File avatarFile = myInfo.getAvatarFile();
+                    //登陆成功,如果用户有头像就把头像存起来,没有就设置null
+                    if (avatarFile != null) {
+                        SharePreferenceManager.setCachedAvatarPath(avatarFile.getAbsolutePath());
+                    } else {
+                        SharePreferenceManager.setCachedAvatarPath(null);
+                    }
+                    String username = myInfo.getUserName();
+                    String appKey = myInfo.getAppKey();
+                    UserEntry user = UserEntry.getUser(username, appKey);
+                    if (null == user) {
+                        user = new UserEntry(username, appKey);
+                        user.save();
+                    }
+                    LogUtil.e("jpushim 登陆成功");
+                } else {
+                    LogUtil.e("jpushim 登陆失败");
+                }
+            }
+        });
+
 
         MySelfInfo.getInstance().setData(loginModel);
         LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
