@@ -75,6 +75,10 @@ public class HomeServerAdapter extends RecyclerView.Adapter<HomeServerAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public List<ServerDetailModel> getDatas(){
+        return this.datas;
+    }
+
     public ServerDetailModel getData(int position){
         return this.datas.get(position);
     }
