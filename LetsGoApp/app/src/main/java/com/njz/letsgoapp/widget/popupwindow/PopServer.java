@@ -489,7 +489,6 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         for (int i = 0; i < model.getNoTimes().size(); i++) {
             for (int j = 0; j < priceCalendarChildModels.size(); j++) {
                 if (TextUtils.equals(model.getNoTimes().get(i), priceCalendarChildModels.get(j).getTime())) {
-                    priceCalendarChildModels.get(j).setAddPrice(model.getNjzGuideServeFormatOnlyPriceVOList().get(i).getAddPrice());
                     priceCalendarChildModels.get(j).setEnable(true);
                     priceCalendarChildModels.get(j).setSelect(false);
                     break;
