@@ -23,6 +23,7 @@ import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.http.HttpMethods;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.jpushim.HandleResponseCode;
+import com.njz.letsgoapp.util.jpushim.JpushImUtil;
 import com.njz.letsgoapp.util.jpushim.SharePreferenceManager;
 import com.njz.letsgoapp.util.jpushim.UserEntry;
 import com.njz.letsgoapp.util.log.LogUtil;
@@ -159,38 +160,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSuccess(LoginModel loginModel) {
 
-        final String userId = loginViewPhone.getEtContent();
-        final String password = loginViewPassword.getEtContent();
-
-        JMessageClient.login(userId, password, new BasicCallback() {
-            @Override
-            public void gotResult(int responseCode, String responseMessage) {
-                if (responseCode == 0) {
-                    String username = JMessageClient.getMyInfo().getUserName();
-                    String appKey = JMessageClient.getMyInfo().getAppKey();
-                    UserEntry user = UserEntry.getUser(username, appKey);
-                    if (null == user) {
-                        user = new UserEntry(username, appKey);
-                        user.save();
-                    }
-
-                    String nickName = MySelfInfo.getInstance().getUserNickname();
-
-                    UserInfo myUserInfo = JMessageClient.getMyInfo();
-                    if (myUserInfo != null) {
-                        myUserInfo.setNickname(nickName);
-                    }
-                    LogUtil.e("jpushim 登陆成功");
-                }else {
-                    LogUtil.e("jpushim 登陆失败");
-                }
-            }
-        });
+        JpushImUtil.login(loginViewPhone.getEtContent(),loginViewPassword.getEtContent());
 
         MySelfInfo.getInstance().setData(loginModel);
-        LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
-//        startActivity(new Intent(context,HomeActivity.class));
 
+        LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
         JpushAliasUtil.setTagAndAlias();
 
         finish();

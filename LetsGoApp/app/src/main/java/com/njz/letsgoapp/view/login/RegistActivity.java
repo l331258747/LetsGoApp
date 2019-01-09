@@ -184,22 +184,21 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void msgCheckRegisterSuccess(String str) {
 
-        final String userId = loginViewPhone.getEtContent();
-        final String password = loginViewPassword.getEtContent();
-
-        JMessageClient.register(userId, password, new BasicCallback() {
-            @Override
-            public void gotResult(int i, String s) {
-                if (i == 0) {
-                    SharePreferenceManager.setRegisterName(userId);
-                    SharePreferenceManager.setRegistePass(password);
-                    LogUtil.e("jpushim 注册成功");
-                } else {
-                    HandleResponseCode.onHandle(context, i, false);
-                    LogUtil.e("jpushim 注册失败");
-                }
-            }
-        });
+//        final String userId = loginViewPhone.getEtContent();
+//        final String password = loginViewPassword.getEtContent();
+//        JMessageClient.register(userId, password, new BasicCallback() {
+//            @Override
+//            public void gotResult(int i, String s) {
+//                if (i == 0) {
+//                    SharePreferenceManager.setRegisterName(userId);
+//                    SharePreferenceManager.setRegistePass(password);
+//                    LogUtil.e("jpushim 注册成功");
+//                } else {
+//                    HandleResponseCode.onHandle(context, i, false);
+//                    LogUtil.e("jpushim 注册失败");
+//                }
+//            }
+//        });
 
         showShortToast("注册成功");
         finish();
