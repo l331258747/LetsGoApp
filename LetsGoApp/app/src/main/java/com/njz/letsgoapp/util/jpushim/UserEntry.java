@@ -28,8 +28,7 @@ public class UserEntry extends Model {
     }
 
     public static UserEntry getUser(String username, String appKey) {
-        return new Select().from(UserEntry.class).where("Username = ?", username)
-                .where("AppKey = ?", appKey).executeSingle();
+        return new Select().from(UserEntry.class).where("Username = ?", username).where("AppKey = ?", appKey).executeSingle();
     }
 
     public List<FriendRecommendEntry> getRecommends() {

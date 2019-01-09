@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.activeandroid.ActiveAndroid;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.SPUtils;
@@ -83,8 +84,17 @@ public class MyApplication extends Application{
     }
 
     private void initJPushIm() {
+        ActiveAndroid.initialize(this);
+
         JMessageClient.setDebugMode(true);
         JMessageClient.init(context,true);//true 设置消息记录漫游
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        //清理
+        ActiveAndroid.dispose();
     }
 
     private void initYouMeng() {

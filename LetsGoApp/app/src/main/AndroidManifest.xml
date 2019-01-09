@@ -437,6 +437,17 @@
                 tools:replace="name,resource" />
         </provider>
 
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="jchat.db"/>
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.njz.letsgoapp.util.jpushim.UserEntry, com.njz.letsgoapp.util.jpushim.FriendEntry,
+             com.njz.letsgoapp.util.jpushim.FriendRecommendEntry,com.njz.letsgoapp.util.jpushim.ConversationEntry"/>
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="4"/>
+
         <!-- bugly 升级 end -->
 
 
