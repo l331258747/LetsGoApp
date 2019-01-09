@@ -404,6 +404,19 @@
             android:value="f0a3f70bdf4d17226075ee9f" />
 
 
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.im.android.helpers.IMReceiver"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <!-- Required since JMessage 2.7.0 SDK 核心功能-->
+        <provider
+            android:name="cn.jpush.im.android.helpers.ipc.IMProvider"
+            android:authorities="com.njz.letsgoapp.IMProvider"
+            android:exported="false" />
+
+
         <!-- jpush end-->
 
         <!-- bugly 升级 start -->

@@ -18,6 +18,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.commonsdk.UMConfigure;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * Created by LGQ
@@ -77,6 +78,13 @@ public class MyApplication extends Application{
 
         initYouMeng();
 
+        initJPushIm();
+
+    }
+
+    private void initJPushIm() {
+        JMessageClient.setDebugMode(true);
+        JMessageClient.init(context,true);//true 设置消息记录漫游
     }
 
     private void initYouMeng() {
