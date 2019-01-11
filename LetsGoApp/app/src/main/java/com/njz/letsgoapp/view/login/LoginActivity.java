@@ -22,20 +22,11 @@ import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.http.HttpMethods;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
-import com.njz.letsgoapp.util.jpushim.HandleResponseCode;
-import com.njz.letsgoapp.util.jpushim.JpushImUtil;
-import com.njz.letsgoapp.util.jpushim.SharePreferenceManager;
-import com.njz.letsgoapp.util.jpushim.UserEntry;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
-import java.io.File;
-
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.model.UserInfo;
-import cn.jpush.im.api.BasicCallback;
 
 /**
  * Created by LGQ
@@ -160,11 +151,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSuccess(LoginModel loginModel) {
 
-        JpushImUtil.login(loginViewPhone.getEtContent(),loginViewPassword.getEtContent());
-
         MySelfInfo.getInstance().setData(loginModel);
-
         LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
+//        startActivity(new Intent(context,HomeActivity.class));
+
         JpushAliasUtil.setTagAndAlias();
 
         finish();

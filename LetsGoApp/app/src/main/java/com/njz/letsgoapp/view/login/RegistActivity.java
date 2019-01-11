@@ -12,15 +12,10 @@ import com.njz.letsgoapp.mvp.login.RegistContract;
 import com.njz.letsgoapp.mvp.login.RegistPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
-import com.njz.letsgoapp.util.jpushim.HandleResponseCode;
-import com.njz.letsgoapp.util.jpushim.SharePreferenceManager;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
 
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.api.BasicCallback;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -183,23 +178,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void msgCheckRegisterSuccess(String str) {
-
-//        final String userId = loginViewPhone.getEtContent();
-//        final String password = loginViewPassword.getEtContent();
-//        JMessageClient.register(userId, password, new BasicCallback() {
-//            @Override
-//            public void gotResult(int i, String s) {
-//                if (i == 0) {
-//                    SharePreferenceManager.setRegisterName(userId);
-//                    SharePreferenceManager.setRegistePass(password);
-//                    LogUtil.e("jpushim 注册成功");
-//                } else {
-//                    HandleResponseCode.onHandle(context, i, false);
-//                    LogUtil.e("jpushim 注册失败");
-//                }
-//            }
-//        });
-
         showShortToast("注册成功");
         finish();
     }

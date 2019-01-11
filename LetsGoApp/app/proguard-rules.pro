@@ -327,13 +327,3 @@
 -keep public class com.njz.letsgoapp.R$*{
     public static final int *;
 }
-
-# 极光im
--keepclassmembers class ** {
-    public void onEvent*(**);
-}
--dontwarn com.google.**
--keep class com.google.gson.** {*;}
--keep class com.google.protobuf.** {*;}
--dontwarn cn.jmessage.**
--keep class cn.jmessage.**{*;}
