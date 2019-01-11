@@ -533,7 +533,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
 
-        if(playAdapter.getDatas().size() == 0){
+        if(datas.size() == 0){
             view_empty.setVisible(true);
             view_empty.setEmptyData(R.mipmap.empty_follow,"这里还是空空哒~");
             view_empty.setEmptyBackground(R.color.white);
