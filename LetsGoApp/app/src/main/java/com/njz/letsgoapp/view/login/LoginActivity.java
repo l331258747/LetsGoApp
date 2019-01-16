@@ -159,19 +159,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
         JpushAliasUtil.setTagAndAlias();
 
-        try {
-            EMClient.getInstance().createAccount("U_"+MySelfInfo.getInstance().getUserId(), loginViewPassword.getEtContent());
-            LogUtil.e("im 注册成功");
-        } catch (HyphenateException e) {
-            e.printStackTrace();
-            int errorCode = e.getErrorCode();
-            String message = e.getMessage();
-            LogUtil.e("im 注册失败");
-            LogUtil.e("errorCode:" + errorCode);
-            LogUtil.e("message:" + message);
+        if(AppUtils.getVersionCodeInt() % 100 != 0){
+            try {
+                EMClient.getInstance().createAccount("U_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD);
+                LogUtil.e("im 注册成功");
+            } catch (HyphenateException e) {
+                e.printStackTrace();
+                int errorCode = e.getErrorCode();
+                String message = e.getMessage();
+                LogUtil.e("im 注册失败");
+                LogUtil.e("errorCode:" + errorCode);
+                LogUtil.e("message:" + message);
+            }
         }
 
-        EMClient.getInstance().login("U_"+MySelfInfo.getInstance().getUserId(), loginViewPassword.getEtContent(), new EMCallBack() {
+        EMClient.getInstance().login("U_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD, new EMCallBack() {
             @Override
             public void onSuccess() {
                 // 加载所有会话到内存

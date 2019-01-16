@@ -129,4 +129,10 @@ public class Constant {
      * url 跳转链接
      **/
     public static final String EXTRA_URL = "url";
+
+
+    //im 密码
+    public static final String IM_PASSWORD = "najiuzou@im";
+
+
 }

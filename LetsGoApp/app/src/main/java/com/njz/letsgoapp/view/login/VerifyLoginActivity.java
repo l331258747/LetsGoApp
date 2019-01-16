@@ -7,14 +7,19 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.login.VerifyLoginContract;
 import com.njz.letsgoapp.mvp.login.VerifyLoginPresenter;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
@@ -177,6 +182,50 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
 
         LogUtil.e("getRegistrationID:"+ JPushInterface.getRegistrationID(context));
         JpushAliasUtil.setTagAndAlias();
+
+
+        if(AppUtils.getVersionCodeInt() % 100 != 0){
+            try {
+                EMClient.getInstance().createAccount("U_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD);
+                LogUtil.e("im 注册成功");
+            } catch (HyphenateException e) {
+                e.printStackTrace();
+                int errorCode = e.getErrorCode();
+                String message = e.getMessage();
+                LogUtil.e("im 注册失败");
+                LogUtil.e("errorCode:" + errorCode);
+                LogUtil.e("message:" + message);
+            }
+        }
+
+        EMClient.getInstance().login("U_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                // 加载所有会话到内存
+                EMClient.getInstance().chatManager().loadAllConversations();
+                LogUtil.e("im 登录成功");
+
+                MySelfInfo.getInstance().setImLogin(true);
+            }
+
+            @Override
+            public void onError(final int i, final String s) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtil.e("im 登录失败 code: " + i + ",message: " + s);
+                        LogUtil.e("code: " + i + ",message: " + s);
+                        MySelfInfo.getInstance().setImLogin(false);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
+
 
         startActivity(new Intent(context, HomeActivity.class));
         finish();
