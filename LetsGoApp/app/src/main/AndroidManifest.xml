@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.njz.letsgoapp">
 
+
+
+    <!-- 环信-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <!-- jpush start -->
     <!-- Required -->
     <permission
@@ -184,6 +191,11 @@
         <activity android:name=".view.mine.MyCommentActivity" />
         <activity android:name=".view.mine.SpaceActivity" />
         <activity android:name=".view.find.SpaceDynamicDetailActivity" />
+
+
+        <!--IM-->
+        <activity android:name=".view.im.ChatActivity" />
+        <activity android:name=".view.im.ChatListActivity" />
 
         <!--登录-->
         <activity android:name=".view.login.LoginActivity"
@@ -431,6 +443,34 @@
         <meta-data android:value="5c1740f6b465f561b40002cc" android:name="UMENG_APPKEY"/>
         <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
         <!-- 友盟 end-->
+
+        <!--环信 start-->
+        <meta-data android:name="EASEMOB_APPKEY"  android:value="1115190114107956#letsgoapp" />
+        <!-- 声明SDK所需的service SDK核心功能-->
+        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>
+        <service android:name="com.hyphenate.chat.EMJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"
+            />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <!--环信 end-->
+
 
     </application>
 

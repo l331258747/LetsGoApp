@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -156,6 +159,48 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 //        startActivity(new Intent(context,HomeActivity.class));
 
         JpushAliasUtil.setTagAndAlias();
+
+//        try {
+//            EMClient.getInstance().createAccount(loginViewPhone.getEtContent(), loginViewPassword.getEtContent());
+//            LogUtil.e("im 注册成功");
+//        } catch (HyphenateException e) {
+//            e.printStackTrace();
+//            int errorCode = e.getErrorCode();
+//            String message = e.getMessage();
+//            LogUtil.e("im 注册失败");
+//            LogUtil.e("errorCode:" + errorCode);
+//            LogUtil.e("message:" + message);
+//        }
+
+
+
+        EMClient.getInstance().login(loginViewPhone.getEtContent(), loginViewPassword.getEtContent(), new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                // 加载所有会话到内存
+                EMClient.getInstance().chatManager().loadAllConversations();
+                LogUtil.e("im 登录成功");
+//                ECMainActivity.show(mContext);
+                finish();
+            }
+
+            @Override
+            public void onError(final int i, final String s) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtil.e("im 登录失败 code: " + i + ",message: " + s);
+                        LogUtil.e("code: " + i + ",message: " + s);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
+
 
         finish();
     }

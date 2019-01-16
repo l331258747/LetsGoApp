@@ -2,9 +2,12 @@ package com.njz.letsgoapp.view.login;
 
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.login.VerifyModel;
@@ -12,6 +15,7 @@ import com.njz.letsgoapp.mvp.login.RegistContract;
 import com.njz.letsgoapp.mvp.login.RegistPresenter;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
@@ -178,6 +182,18 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void msgCheckRegisterSuccess(String str) {
+        try {
+            EMClient.getInstance().createAccount(loginViewPhone.getEtContent(), loginViewPassword.getEtContent());
+            LogUtil.e("im 注册成功");
+        } catch (HyphenateException e) {
+            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            String message = e.getMessage();
+            LogUtil.e("im 注册失败");
+            LogUtil.e("errorCode:" + errorCode);
+            LogUtil.e("message:" + message);
+        }
+
         showShortToast("注册成功");
         finish();
     }

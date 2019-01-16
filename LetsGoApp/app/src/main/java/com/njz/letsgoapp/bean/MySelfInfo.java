@@ -4,12 +4,15 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.mine.LabelItemModel;
 import com.njz.letsgoapp.util.GsonUtil;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
+import com.njz.letsgoapp.util.log.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -310,5 +313,23 @@ public class MySelfInfo {
     public void loginOff() {
         SPUtils.getInstance().logoff();
         JpushAliasUtil.cancleTagAndAlias();
+
+        EMClient.getInstance().logout(false, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                LogUtil.e("im 退出成功");
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                LogUtil.e("im 退出失败 logout error" + i + s);
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
+
     }
 }

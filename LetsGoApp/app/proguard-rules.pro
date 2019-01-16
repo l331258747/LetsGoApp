@@ -327,3 +327,7 @@
 -keep public class com.njz.letsgoapp.R$*{
     public static final int *;
 }
+
+#环信
+-keep class com.hyphenate.** {*;}
+-dontwarn  com.hyphenate.**
