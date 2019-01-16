@@ -183,7 +183,7 @@ public class SplashActivity extends BaseActivity {
         switch (requestCode) {
             case PERMISSION_REQ_ID_CAMERA: {
                 if (grantResults.length > 0) {
-                    boolean ischeck0 = checkSelfPermission(Manifest.permission
+                    boolean ischeck0 = checkSelfPermission(android.Manifest.permission
                             .RECORD_AUDIO, PERMISSION_REQ_ID_ACCESS_COARSE_AUDIO);
                     boolean ischeck = checkSelfPermission(android.Manifest.permission
                             .ACCESS_COARSE_LOCATION, PERMISSION_REQ_ID_ACCESS_COARSE_LOCATION);

@@ -185,20 +185,25 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
 
 
         if(AppUtils.getVersionCodeInt() % 100 != 0){
-            try {
-                EMClient.getInstance().createAccount("U_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD);
-                LogUtil.e("im 注册成功");
-            } catch (HyphenateException e) {
-                e.printStackTrace();
-                int errorCode = e.getErrorCode();
-                String message = e.getMessage();
-                LogUtil.e("im 注册失败");
-                LogUtil.e("errorCode:" + errorCode);
-                LogUtil.e("message:" + message);
-            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        EMClient.getInstance().createAccount("u_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD);
+                        LogUtil.e("im 注册成功");
+                    } catch (HyphenateException e) {
+                        e.printStackTrace();
+                        int errorCode = e.getErrorCode();
+                        String message = e.getMessage();
+                        LogUtil.e("im 注册失败");
+                        LogUtil.e("errorCode:" + errorCode);
+                        LogUtil.e("message:" + message);
+                    }
+                }
+            }).start();
         }
 
-        EMClient.getInstance().login("U_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD, new EMCallBack() {
+        EMClient.getInstance().login("u_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD, new EMCallBack() {
             @Override
             public void onSuccess() {
                 // 加载所有会话到内存

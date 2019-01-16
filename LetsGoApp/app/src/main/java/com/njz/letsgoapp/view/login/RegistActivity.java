@@ -182,18 +182,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void msgCheckRegisterSuccess(String str) {
-        try {
-            EMClient.getInstance().createAccount(loginViewPhone.getEtContent(), loginViewPassword.getEtContent());
-            LogUtil.e("im 注册成功");
-        } catch (HyphenateException e) {
-            e.printStackTrace();
-            int errorCode = e.getErrorCode();
-            String message = e.getMessage();
-            LogUtil.e("im 注册失败");
-            LogUtil.e("errorCode:" + errorCode);
-            LogUtil.e("message:" + message);
-        }
-
         showShortToast("注册成功");
         finish();
     }
