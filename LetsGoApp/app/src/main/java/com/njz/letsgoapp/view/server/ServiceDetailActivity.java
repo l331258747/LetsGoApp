@@ -55,7 +55,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
     public static final String SERVICEITEMS = "SERVICEITEMS";
 
     public ConvenientBanner convenientBanner;
-    public TextView tv_title, tv_sell, tv_submit, tv_phone, tv_back_top, tv_float_call;
+    public TextView tv_title, tv_sell, tv_submit, tv_phone, tv_back_top, tv_float_call,tv_consult;
     public TextView tv_destination, tv_destination2;
     public PriceView pv_price;
     public ViewPager mViewPager;
@@ -111,6 +111,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
         getRightIv().setOnClickListener(this);
 
+        tv_consult = $(R.id.tv_consult);
         mViewPager = $(R.id.viewpager);
         tv_float_call = $(R.id.tv_float_call);
         mTabLayout = $(R.id.tablayout);

@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -32,6 +35,7 @@ import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
+import com.njz.letsgoapp.view.im.ChatActivity;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.server.OrderSubmitActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerBookRuleFragment;
@@ -61,7 +65,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     ConvenientBanner convenientBanner;
     ImageView iv_head,iv_sex;
-    TextView tv_name, tv_service_num,  tv_content, btn_submit,tv_price_total;
+    TextView tv_name, tv_service_num,  tv_content, btn_submit,tv_price_total,btn_consult;
     MyRatingBar my_rating_bar;
     ServiceTagView stv_tag;
 
@@ -110,6 +114,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         getRightIv().setImageDrawable(ContextCompat.getDrawable(AppUtils.getContext(), R.mipmap.icon_share));
         getRightIv().setOnClickListener(this);
 
+        btn_consult = $(R.id.btn_consult);
         mViewPager = $(R.id.viewpager);
         tv_price_total = $(R.id.tv_price_total);
         mTabLayout = $(R.id.tablayout);
@@ -131,6 +136,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         btn_call.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
         ll_detail.setOnClickListener(this);
+        btn_consult.setOnClickListener(this);
     }
 
 
@@ -278,6 +284,24 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 }
                 popServerDetail = new PopServerDetail(activity, ll_bottom,serverItems);
                 popServerDetail.showPopupWindow(ll_bottom);
+                break;
+            case R.id.btn_consult:
+                if(guideDetailModel == null) return;
+                String name = guideDetailModel.getMobile();
+                String myName = EMClient.getInstance().getCurrentUser();
+                if (!TextUtils.isEmpty(name)) {
+                    if (name.equals(myName)) {
+                        showShortToast("不能和自己聊天");
+                        return;
+                    }
+                    Intent chat = new Intent(context, ChatActivity.class);
+                    chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
+                    chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                    startActivity(chat);
+
+                } else {
+                    showShortToast("导游还未注册即时通讯，请使用电话联系TA");
+                }
                 break;
 
         }

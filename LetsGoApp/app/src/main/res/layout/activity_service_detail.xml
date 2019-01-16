@@ -193,16 +193,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/white"
             android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_theme_hollow_r5_p8"
                 android:gravity="center">
@@ -214,19 +215,30 @@
                     android:drawableLeft="@mipmap/ic_phone"
                     android:drawablePadding="10dp"
                     android:gravity="center"
-                    android:text="联系导游"
+                    android:text="电话"
                     android:textColor="@color/color_theme" />
 
             </LinearLayout>
 
 
             <TextView
+                android:id="@+id/tv_consult"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_2585e7_solid_r5"
+                android:gravity="center"
+                android:text="咨询TA"
+                android:textColor="@color/white" />
+
+            <TextView
                 android:id="@+id/tv_submit"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/btn_theme_solid_r5_p8"
+                android:background="@drawable/btn_theme_solid_r5"
                 android:gravity="center"
                 android:text="立即预订"
                 android:textColor="@color/white" />

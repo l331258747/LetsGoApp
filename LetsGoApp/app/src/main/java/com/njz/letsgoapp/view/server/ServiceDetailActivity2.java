@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.bean.MySelfInfo;
@@ -26,6 +29,7 @@ import com.njz.letsgoapp.mvp.server.ServerDetailPresenter;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.im.ChatActivity;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerFeatureFragment;
@@ -133,6 +137,24 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                 break;
             case R.id.tv_back_top:
 //                scrollView.scrollTo(0, 0);
+                break;
+            case R.id.tv_consult:
+                if(serverDetailModel == null) return;
+                String name = serverDetailModel.getMobile();
+                String myName = EMClient.getInstance().getCurrentUser();
+                if (!TextUtils.isEmpty(name)) {
+                    if (name.equals(myName)) {
+                        showShortToast("不能和自己聊天");
+                        return;
+                    }
+                    Intent chat = new Intent(context, ChatActivity.class);
+                    chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
+                    chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                    startActivity(chat);
+
+                } else {
+                    showShortToast("导游还未注册即时通讯，请使用电话联系TA");
+                }
                 break;
             case R.id.right_iv:
                 if (serverDetailModel == null) return;
