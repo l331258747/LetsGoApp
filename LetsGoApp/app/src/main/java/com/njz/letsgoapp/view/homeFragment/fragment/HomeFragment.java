@@ -286,6 +286,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);
                 intent.putExtra(ServiceDetailActivity2.SERVICEID,playAdapter.getData(position).getId());
+                if(playAdapter.getData(position).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID)
+                    intent.putExtra("isCustom",true);
                 startActivity(intent);
             }
         });

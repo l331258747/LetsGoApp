@@ -15,13 +15,13 @@ import java.util.List;
 public interface GuideDetailContract {
 
     interface Presenter {
-        void bannerFindByType(int type, int id);
+//        void bannerFindByType(int type, int id);
         void guideFindGuideDetails(String location, int guideId);
     }
 
     interface View {
-        void bannerFindByTypeSuccess(List<BannerModel> models);
-        void bannerFindByTypeFailed(String msg);
+//        void bannerFindByTypeSuccess(List<BannerModel> models);
+//        void bannerFindByTypeFailed(String msg);
 
         void guideFindGuideDetailsSuccess(GuideDetailModel models);
         void guideFindGuideDetailsFailed(String msg);

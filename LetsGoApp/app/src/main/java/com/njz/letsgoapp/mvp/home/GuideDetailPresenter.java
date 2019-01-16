@@ -29,21 +29,21 @@ public class GuideDetailPresenter implements GuideDetailContract.Presenter {
         this.iView = iView;
     }
 
-    @Override
-    public void bannerFindByType(int type, int guideId) {
-        ResponseCallback listener = new ResponseCallback<List<BannerModel>>() {
-            @Override
-            public void onSuccess(List<BannerModel> data) {
-                iView.bannerFindByTypeSuccess(data);
-            }
-
-            @Override
-            public void onFault(String errorMsg) {
-                iView.bannerFindByTypeFailed(errorMsg);
-            }
-        };
-        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener,context,false));
-    }
+//    @Override
+//    public void bannerFindByType(int type, int guideId) {
+//        ResponseCallback listener = new ResponseCallback<List<BannerModel>>() {
+//            @Override
+//            public void onSuccess(List<BannerModel> data) {
+//                iView.bannerFindByTypeSuccess(data);
+//            }
+//
+//            @Override
+//            public void onFault(String errorMsg) {
+//                iView.bannerFindByTypeFailed(errorMsg);
+//            }
+//        };
+//        MethodApi.bannerFindByType(type, guideId, new OnSuccessAndFaultSub(listener,context,false));
+//    }
 
     @Override
     public void guideFindGuideDetails(String location, int guideId) {

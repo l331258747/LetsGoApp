@@ -158,7 +158,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
         mPresenter = new GuideDetailPresenter(context, this);
         mPresenter.guideFindGuideDetails(MySelfInfo.getInstance().getDefaultCity(), guideId);
-        mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
+//        mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
         serverItems = new ArrayList<>();
 
@@ -218,16 +218,16 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     //banner
-    public void initBanner(List<BannerModel> banners) {
+    public void initBanner(List<String> banners) {
         //开始自动翻页
         convenientBanner.setPages(new CBViewHolderCreator() {
             @Override
             public Object createHolder() {
-                return new LocalImageHolderView(new LocalImageHolderView.BannerListener<BannerModel>() {
+                return new LocalImageHolderView(new LocalImageHolderView.BannerListener<String>() {
 
                     @Override
-                    public void bannerListener(Context context, int position, BannerModel data, ImageView view) {
-                        GlideUtil.LoadImage(context, data.getImgUrl(), view);
+                    public void bannerListener(Context context, int position, String data, ImageView view) {
+                        GlideUtil.LoadImage(context, data, view);
                     }
                 });
             }
@@ -326,20 +326,21 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         return serverPriceTotal;
     }
 
-    @Override
-    public void bannerFindByTypeSuccess(List<BannerModel> models) {
-        initBanner(models);
-    }
-
-    @Override
-    public void bannerFindByTypeFailed(String msg) {
-        showShortToast(msg);
-    }
+//    @Override
+//    public void bannerFindByTypeSuccess(List<BannerModel> models) {
+//        initBanner(models);
+//    }
+//
+//    @Override
+//    public void bannerFindByTypeFailed(String msg) {
+//        showShortToast(msg);
+//    }
 
     @Override
     public void guideFindGuideDetailsSuccess(GuideDetailModel model) {
         guideDetailModel = model;
         initInfo(model);
+        initBanner(model.getImage());
     }
 
     @Override

@@ -104,6 +104,8 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);
                 intent.putExtra(ServiceDetailActivity2.SERVICEID,mAdapter.getData(position).getId());
+                if(mAdapter.getData(position).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID)
+                    intent.putExtra("isCustom",true);
                 startActivity(intent);
             }
         });

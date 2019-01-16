@@ -193,6 +193,8 @@ public class ServerSearchActivity extends BaseActivity implements ServerListScre
                 //TODO 进入详情
                 Intent intent = new Intent(context, ServiceDetailActivity2.class);
                 intent.putExtra("SERVICEID",mAdapter.getData(position).getId());
+                if(mAdapter.getData(position).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID)
+                    intent.putExtra("isCustom",true);
                 startActivity(intent);
                 finish();
             }

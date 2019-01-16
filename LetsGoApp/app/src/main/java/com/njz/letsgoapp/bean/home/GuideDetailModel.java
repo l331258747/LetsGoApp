@@ -4,7 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.njz.letsgoapp.util.GsonUtil;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -243,8 +246,12 @@ public class GuideDetailModel implements Parcelable{
         this.guideStory = guideStory;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> getImage() {
+        if(TextUtils.isEmpty(image))
+            return new ArrayList<>();
+        String[] strs = image.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        return lists;
     }
 
     public void setImage(String image) {

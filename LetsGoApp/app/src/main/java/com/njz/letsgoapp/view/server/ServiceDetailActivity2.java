@@ -63,6 +63,14 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
     public String[] titles = {"服务特色", "TA的评价", "其他服务"};
 
+    boolean isCustom;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        isCustom = intent.getBooleanExtra("isCustom",false);
+    }
+
     public  void initViewPage(ServerDetailModel model){
         mFragments = new ArrayList<>();
         mFragments.add(ServerFeatureFragment.newInstance(model));
@@ -78,6 +86,10 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
     @Override
     public void initData() {
+        if(isCustom){
+            tv_submit.setText("立即定制");
+        }
+
         bannerPresenter = new BannerPresenter(context,this);
         serverDetailPresenter = new ServerDetailPresenter(context, this);
 
@@ -220,10 +232,6 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
         pv_price.setPrice(model.getServePrice());
 
         initViewPage(model);
-
-        if(model.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
-            tv_submit.setText("立即定制");
-        }
 
     }
 

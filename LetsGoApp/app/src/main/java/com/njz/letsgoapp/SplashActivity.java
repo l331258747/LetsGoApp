@@ -129,6 +129,7 @@ public class SplashActivity extends BaseActivity {
     public static final int PERMISSION_REQ_ID_CAMERA = BASE_VALUE_PERMISSION + 1;
     public static final int PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE = BASE_VALUE_PERMISSION + 2;
     public static final int PERMISSION_REQ_ID_ACCESS_COARSE_LOCATION = BASE_VALUE_PERMISSION + 3;
+    public static final int PERMISSION_REQ_ID_ACCESS_COARSE_AUDIO = BASE_VALUE_PERMISSION + 4;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -158,10 +159,9 @@ public class SplashActivity extends BaseActivity {
      */
     private boolean checkSelfPermissions() {
         return checkSelfPermission(android.Manifest.permission.CAMERA, PERMISSION_REQ_ID_CAMERA)
-                && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                PERMISSION_REQ_ID_ACCESS_COARSE_LOCATION)
-                && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE);
+                && checkSelfPermission(android.Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_ACCESS_COARSE_AUDIO)
+                && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION, PERMISSION_REQ_ID_ACCESS_COARSE_LOCATION)
+                && checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE);
     }
 
     public boolean checkSelfPermission(String permission, int requestCode) {
@@ -183,12 +183,24 @@ public class SplashActivity extends BaseActivity {
         switch (requestCode) {
             case PERMISSION_REQ_ID_CAMERA: {
                 if (grantResults.length > 0) {
+                    boolean ischeck0 = checkSelfPermission(Manifest.permission
+                            .RECORD_AUDIO, PERMISSION_REQ_ID_ACCESS_COARSE_AUDIO);
+                    boolean ischeck = checkSelfPermission(android.Manifest.permission
+                            .ACCESS_COARSE_LOCATION, PERMISSION_REQ_ID_ACCESS_COARSE_LOCATION);
+                    if (ischeck0 && ischeck)
+                        checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE);
+                }
+                break;
+            }
+            case PERMISSION_REQ_ID_ACCESS_COARSE_AUDIO:{
+                if (grantResults.length > 0) {
                     boolean ischeck = checkSelfPermission(android.Manifest.permission
                             .ACCESS_COARSE_LOCATION, PERMISSION_REQ_ID_ACCESS_COARSE_LOCATION);
                     if (ischeck)
                         checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE);
-                }
+                    }
                 break;
             }
             case PERMISSION_REQ_ID_ACCESS_COARSE_LOCATION: {
