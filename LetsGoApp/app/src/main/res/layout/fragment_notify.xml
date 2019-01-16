@@ -2,52 +2,58 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:hyphenate="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:hyphenate="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-            
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
+            android:layout_height="match_parent"
+            >
 
-            <com.njz.letsgoapp.widget.NotifyItemView
-                android:id="@+id/view_notify_interaction"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:notify_item_title="旅友互动"
-                app:notify_item_line = "true"
-                app:notify_item_img="@mipmap/notify_interaction"/>
+                android:orientation="vertical">
 
-            <com.njz.letsgoapp.widget.NotifyItemView
-                android:id="@+id/view_notify_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:notify_item_title="消息提醒"
-                app:notify_item_line = "true"
-                app:notify_item_img="@mipmap/notify_message"/>
+                <com.njz.letsgoapp.widget.NotifyItemView
+                    android:id="@+id/view_notify_interaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:notify_item_img="@mipmap/notify_interaction"
+                    app:notify_item_line="true"
+                    app:notify_item_title="旅友互动" />
 
-            <com.hyphenate.easeui.widget.EaseConversationList
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:cacheColorHint="#00000000"
-                android:divider="@null"
-                hyphenate:cvsListPrimaryTextSize="16sp"/>
+                <com.njz.letsgoapp.widget.NotifyItemView
+                    android:id="@+id/view_notify_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:notify_item_img="@mipmap/notify_message"
+                    app:notify_item_line="true"
+                    app:notify_item_title="消息提醒" />
 
-        </LinearLayout>
+                <com.hyphenate.easeui.widget.EaseConversationList
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                    hyphenate:cvsListPrimaryTextSize="16sp" />
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -55,7 +61,7 @@
         android:id="@+id/view_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
 </RelativeLayout>

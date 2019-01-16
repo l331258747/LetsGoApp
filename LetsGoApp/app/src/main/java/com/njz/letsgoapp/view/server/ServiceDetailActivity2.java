@@ -140,7 +140,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                 break;
             case R.id.tv_consult:
                 if(serverDetailModel == null) return;
-                String name = serverDetailModel.getMobile();
+                String name = "G_"+ serverDetailModel.getGuideId();
                 String myName = EMClient.getInstance().getCurrentUser();
                 if (!TextUtils.isEmpty(name)) {
                     if (name.equals(myName)) {

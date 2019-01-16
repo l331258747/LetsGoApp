@@ -8,8 +8,12 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderRefundDetailAdapter;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderRefundDetailModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -18,6 +22,8 @@ import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderRefundDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderRefundDetailPresenter;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.im.ChatActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -93,9 +99,31 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
                 DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
             case R.id.tv_guide_name:
-//                intent = new Intent(context, GuideDetailActivity.class);
-//                intent.putExtra(GuideDetailActivity.GUIDEID,refundModel.getGuideId());
-//                startActivity(intent);
+                intent = new Intent(context, GuideDetailActivity.class);
+                intent.putExtra(GuideDetailActivity.GUIDEID,refundModel.getGuideId());
+                startActivity(intent);
+                break;
+            case R.id.btn_consult:
+                if(!MySelfInfo.getInstance().getImLogin()){
+                    showShortToast("用户未注册到im");
+                    return;
+                }
+                if(refundModel == null) return;
+                String name = "G_"+ refundModel.getGuideId();
+                String myName = EMClient.getInstance().getCurrentUser();
+                if (!TextUtils.isEmpty(name)) {
+                    if (name.equals(myName)) {
+                        showShortToast("不能和自己聊天");
+                        return;
+                    }
+                    Intent chat = new Intent(context, ChatActivity.class);
+                    chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
+                    chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                    startActivity(chat);
+
+                } else {
+                    showShortToast("导游还未注册即时通讯，请使用电话联系TA");
+                }
                 break;
         }
 

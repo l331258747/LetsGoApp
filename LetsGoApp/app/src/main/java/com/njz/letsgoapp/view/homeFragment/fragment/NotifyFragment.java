@@ -160,32 +160,11 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
                 setNotifyItemEmpty(view_notify_message);
                 intent = new Intent(context,InteractionMsgActivity.class);
                 startActivity(intent);
-
-                //TODO
-//                String name = "13211111111";
-//                String myName = EMClient.getInstance().getCurrentUser();
-//                if (!TextUtils.isEmpty(name)) {
-//                    if (name.equals(myName)) {
-//                        showShortToast("不能和自己聊天");
-//                        return;
-//                    }
-//                    Intent chat = new Intent(context, ChatActivity.class);
-//                    chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
-//                    chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
-//                    startActivity(chat);
-//
-//                } else {
-//                    showShortToast("用户名不可为空");
-//                }
-
                 break;
             case R.id.view_notify_message:
                 setNotifyItemEmpty(view_notify_interaction);
                 intent = new Intent(context,SystemMsgActivity.class);
                 startActivity(intent);
-
-//                intent = new Intent(context, ChatListActivity.class);
-//                startActivity(intent);
                 break;
         }
     }

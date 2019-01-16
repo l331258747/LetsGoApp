@@ -35,19 +35,20 @@
 
                 <TextView
                     android:id="@+id/btn_cancel_order"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13dp"
                     android:background="@drawable/btn_cc_solid_r5_p8"
                     android:gravity="center"
                     android:text="取消订单"
-                    tools:visibility="gone"
                     android:textColor="@color/white" />
                 <TextView
                     android:id="@+id/btn_refund"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
+                    android:textSize="13dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_cc_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -55,9 +56,10 @@
                     android:textColor="@color/white" />
                 <TextView
                     android:id="@+id/btn_delete"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_cc_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -66,19 +68,33 @@
 
                 <TextView
                     android:id="@+id/btn_call_guide"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
+                    android:textSize="13dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_1f92ff_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
                     android:text="联系导游"
                     android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/btn_consult"
+                    android:layout_width="75dp"
+                    android:textSize="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/btn_1f92ff_solid_r5_p8"
+                    android:gravity="center"
+                    android:text="咨询TA"
+                    android:textColor="@color/white" />
+
                 <TextView
                     android:id="@+id/btn_call_custom"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
+                    android:textSize="13dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_theme_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -87,9 +103,10 @@
 
                 <TextView
                     android:id="@+id/btn_see_plan"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
+                    android:textSize="13dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_1f92ff_solid_r5_p8"
                     android:gravity="center"
                     tools:visibility="gone"
@@ -98,9 +115,10 @@
 
                 <TextView
                     android:id="@+id/btn_pay"
-                    android:layout_width="100dp"
+                    android:textSize="13dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_theme_solid_r5_p8"
                     android:gravity="center"
                     android:text="付款"
@@ -108,9 +126,10 @@
 
                 <TextView
                     android:id="@+id/btn_evaluate"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
+                    android:textSize="13dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_theme_solid_r5_p8"
                     android:gravity="center"
                     android:text="评价"
@@ -118,9 +137,10 @@
 
                 <TextView
                     android:id="@+id/btn_evaluate_see"
-                    android:layout_width="100dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13dp"
                     android:visibility="gone"
                     android:background="@drawable/btn_theme_solid_r5_p8"
                     android:gravity="center"

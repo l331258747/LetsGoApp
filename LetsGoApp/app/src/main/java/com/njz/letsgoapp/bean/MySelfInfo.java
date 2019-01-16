@@ -74,6 +74,14 @@ public class MySelfInfo {
         SPUtils.getInstance().putString(SPUtils.SP_USER_BACKIMG, infoModel.getBackImg());
     }
 
+    public void setImLogin(boolean isLogin) {
+        SPUtils.getInstance().putBoolean(SPUtils.SP_IM_LOGIN, isLogin);
+    }
+
+    public boolean getImLogin(){
+        return SPUtils.getInstance().getBoolean(SPUtils.SP_IM_LOGIN);
+    }
+
     public String getUserBackimg(){
         return SPUtils.getInstance().getString(SPUtils.SP_USER_BACKIMG);
     }
@@ -318,6 +326,7 @@ public class MySelfInfo {
             @Override
             public void onSuccess() {
                 LogUtil.e("im 退出成功");
+                MySelfInfo.getInstance().setImLogin(false);
             }
 
             @Override

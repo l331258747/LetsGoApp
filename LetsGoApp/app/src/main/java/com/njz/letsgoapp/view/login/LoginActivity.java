@@ -156,32 +156,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
         MySelfInfo.getInstance().setData(loginModel);
         LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
-//        startActivity(new Intent(context,HomeActivity.class));
 
         JpushAliasUtil.setTagAndAlias();
 
-//        try {
-//            EMClient.getInstance().createAccount(loginViewPhone.getEtContent(), loginViewPassword.getEtContent());
-//            LogUtil.e("im 注册成功");
-//        } catch (HyphenateException e) {
-//            e.printStackTrace();
-//            int errorCode = e.getErrorCode();
-//            String message = e.getMessage();
-//            LogUtil.e("im 注册失败");
-//            LogUtil.e("errorCode:" + errorCode);
-//            LogUtil.e("message:" + message);
-//        }
+        try {
+            EMClient.getInstance().createAccount("U_"+MySelfInfo.getInstance().getUserId(), loginViewPassword.getEtContent());
+            LogUtil.e("im 注册成功");
+        } catch (HyphenateException e) {
+            e.printStackTrace();
+            int errorCode = e.getErrorCode();
+            String message = e.getMessage();
+            LogUtil.e("im 注册失败");
+            LogUtil.e("errorCode:" + errorCode);
+            LogUtil.e("message:" + message);
+        }
 
-
-
-        EMClient.getInstance().login(loginViewPhone.getEtContent(), loginViewPassword.getEtContent(), new EMCallBack() {
+        EMClient.getInstance().login("U_"+MySelfInfo.getInstance().getUserId(), loginViewPassword.getEtContent(), new EMCallBack() {
             @Override
             public void onSuccess() {
                 // 加载所有会话到内存
                 EMClient.getInstance().chatManager().loadAllConversations();
                 LogUtil.e("im 登录成功");
-//                ECMainActivity.show(mContext);
-                finish();
+
+                MySelfInfo.getInstance().setImLogin(true);
             }
 
             @Override
@@ -191,6 +188,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     public void run() {
                         LogUtil.e("im 登录失败 code: " + i + ",message: " + s);
                         LogUtil.e("code: " + i + ",message: " + s);
+                        MySelfInfo.getInstance().setImLogin(false);
                     }
                 });
             }
@@ -200,7 +198,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
             }
         });
-
 
         finish();
     }

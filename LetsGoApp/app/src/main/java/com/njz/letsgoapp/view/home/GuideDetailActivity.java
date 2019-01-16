@@ -286,8 +286,19 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 popServerDetail.showPopupWindow(ll_bottom);
                 break;
             case R.id.btn_consult:
+                if (!MySelfInfo.getInstance().isLogin()) {//登录状态
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+
+                if(!MySelfInfo.getInstance().getImLogin()){
+                    showShortToast("用户未注册到im");
+                    return;
+                }
+
+
                 if(guideDetailModel == null) return;
-                String name = guideDetailModel.getMobile();
+                String name = "G_"+guideDetailModel.getId();
                 String myName = EMClient.getInstance().getCurrentUser();
                 if (!TextUtils.isEmpty(name)) {
                     if (name.equals(myName)) {

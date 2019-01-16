@@ -8,10 +8,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderDetailAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.PayModel;
@@ -25,6 +29,8 @@ import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.im.ChatActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.view.server.CustomPlanActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
@@ -59,7 +65,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             ll_order_plan_confirm,ll_order_plan_up;
     public TextView tv_order_no, tv_order_create_time, tv_order_pay_time, tv_order_pay_method, tv_order_guide_time, tv_order_refund_apply,
             tv_order_refund_verify, tv_order_refund_time,tv_order_travel_start,tv_order_travel_end,
-            tv_order_plan_confirm,tv_order_plan_up;
+            tv_order_plan_confirm,tv_order_plan_up,btn_consult;
 
     public TextView btn_cancel_order, btn_call_guide, btn_pay, btn_refund, btn_delete, btn_call_custom, btn_evaluate,btn_evaluate_see,btn_see_plan;
 
@@ -102,6 +108,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tv_order_price = $(R.id.tv_order_price);
 
         ll_order_no = $(R.id.ll_order_no);
+        btn_consult = $(R.id.btn_consult);
         ll_order_create_time = $(R.id.ll_order_create_time);
         login_view_num = $(R.id.login_view_num);
         ll_order_pay_time = $(R.id.ll_order_pay_time);
@@ -147,6 +154,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         btn_evaluate_see.setOnClickListener(this);
         tv_guide_name.setOnClickListener(this);
         btn_see_plan.setOnClickListener(this);
+        btn_consult.setOnClickListener(this);
 
         btn_cancel_order.setVisibility(View.GONE);
         btn_call_guide.setVisibility(View.GONE);
@@ -311,6 +319,30 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 intent = new Intent(context,OrderEvaluateSeeActivity.class);
                 intent.putExtra("ORDER_ID",model.getId());
                 startActivity(intent);
+                break;
+            case R.id.btn_consult:
+
+                if(!MySelfInfo.getInstance().getImLogin()){
+                    showShortToast("用户未注册到im");
+                    return;
+                }
+
+                if(model == null) return;
+                String name = "G_"+ model.getGuideId();
+                String myName = EMClient.getInstance().getCurrentUser();
+                if (!TextUtils.isEmpty(name)) {
+                    if (name.equals(myName)) {
+                        showShortToast("不能和自己聊天");
+                        return;
+                    }
+                    Intent chat = new Intent(context, ChatActivity.class);
+                    chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
+                    chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                    startActivity(chat);
+
+                } else {
+                    showShortToast("导游还未注册即时通讯，请使用电话联系TA");
+                }
                 break;
         }
     }

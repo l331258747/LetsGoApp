@@ -61,6 +61,11 @@ public class OrderRefundDetailModel {
     private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
     private int children;
     private int adult;
+    private String guideId;
+
+    public String getGuideId() {
+        return guideId;
+    }
 
     public boolean isCustom() {
         if(njzRefundDetailsChildVOS !=null && njzRefundDetailsChildVOS.size()==1 && njzRefundDetailsChildVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
