@@ -110,7 +110,11 @@ public class MyApplication extends Application{
          */
         EMOptions options = new EMOptions();
         // 设置Appkey，如果配置文件已经配置，这里可以不用设置
-        // options.setAppKey("lzan13#hxsdkdemo");
+        if(AppUtils.getVersionCodeInt() % 100 == 0){
+            options.setAppKey("1121190111010133#najiuzouim");
+        }else{
+            options.setAppKey("1101190116107839#najiuzou");
+        }
         // 设置自动登录
         options.setAutoLogin(true);
         // 设置是否需要发送已读回执
