@@ -216,10 +216,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void loginSuccess(LoginModel loginModel) {
+        setLoginData(loginModel);
+    }
 
+    public void setLoginData(LoginModel loginModel){
         MySelfInfo.getInstance().setData(loginModel);
-        LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
 
+        LogUtil.e("getRegistrationID:"+JPushInterface.getRegistrationID(context));
         JpushAliasUtil.setTagAndAlias();
 
         if(AppUtils.getVersionCodeInt() % 100 != 0){
@@ -280,60 +283,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void msgCheckLoginSuccess(LoginModel str) {
-        MySelfInfo.getInstance().setData(str);
-
-        LogUtil.e("getRegistrationID:"+ JPushInterface.getRegistrationID(context));
-        JpushAliasUtil.setTagAndAlias();
-
-
-        if(AppUtils.getVersionCodeInt() % 100 != 0){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        EMClient.getInstance().createAccount("u_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD);
-                        LogUtil.e("im 注册成功");
-                    } catch (HyphenateException e) {
-                        e.printStackTrace();
-                        int errorCode = e.getErrorCode();
-                        String message = e.getMessage();
-                        LogUtil.e("im 注册失败");
-                        LogUtil.e("errorCode:" + errorCode);
-                        LogUtil.e("message:" + message);
-                    }
-                }
-            }).start();
-        }
-
-        EMClient.getInstance().login("u_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD, new EMCallBack() {
-            @Override
-            public void onSuccess() {
-                // 加载所有会话到内存
-                EMClient.getInstance().chatManager().loadAllConversations();
-                LogUtil.e("im 登录成功");
-
-                MySelfInfo.getInstance().setImLogin(true);
-            }
-
-            @Override
-            public void onError(final int i, final String s) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtil.e("im 登录失败 code: " + i + ",message: " + s);
-                        LogUtil.e("code: " + i + ",message: " + s);
-                        MySelfInfo.getInstance().setImLogin(false);
-                    }
-                });
-            }
-
-            @Override
-            public void onProgress(int i, String s) {
-
-            }
-        });
-
-        finish();
+        setLoginData(str);
     }
 
     @Override
