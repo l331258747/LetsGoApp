@@ -89,4 +89,9 @@
 
     </declare-styleable>
 
+    <declare-styleable name="login_tab">
+        <attr name="login_tab_title" format="string"/>
+        <attr name="login_tab_line" format="boolean"/>
+    </declare-styleable>
+
 </resources>

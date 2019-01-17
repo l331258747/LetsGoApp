@@ -4,84 +4,171 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_change_url"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:scaleType="fitCenter"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
+        android:scaleType="fitCenter"
         android:src="@mipmap/ic_logo_hollow" />
 
-    <com.njz.letsgoapp.widget.LoginItemView2
-        android:id="@+id/login_view_phone"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:login_item_hint="请输入手机号"
-        app:login_item_max_length="11" />
-
-
-    <com.njz.letsgoapp.widget.LoginItemView2
-        android:id="@+id/login_view_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:login_item_hint="请输入登录密码"
-        app:login_item_max_length="16"
-        app:login_item_right_text="忘记密码" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <TextView
-            android:id="@+id/tv_verify_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="5dp"
-            android:text="动态码登录"
-            android:textColor="@color/color_68" />
-
-        <TextView
-            android:id="@+id/tv_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:padding="5dp"
-            android:text="立即注册"
-            android:textColor="@color/color_68" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/btn_theme_solid_r40"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:padding="8dp"
-        android:text="登录"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:orientation="horizontal">
+
+        <com.njz.letsgoapp.widget.LoginTabView
+            android:id="@+id/tabview_verify_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:login_tab_line="true"
+            app:login_tab_title="动态码登录" />
+
+        <com.njz.letsgoapp.widget.LoginTabView
+            android:id="@+id/tabview_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:login_tab_line="false"
+            app:login_tab_title="账号密码登录" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:orientation="vertical">
+
+        <com.njz.letsgoapp.widget.LoginItemView2
+            android:id="@+id/login_view_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:login_item_hint="请输入手机号"
+            app:login_item_max_length="11" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.njz.letsgoapp.widget.LoginItemView2
+                android:id="@+id/login_view_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_hint="请输入登录密码"
+                app:login_item_max_length="16"
+                app:login_item_right_text="忘记密码?" />
+
+            <com.njz.letsgoapp.widget.LoginItemView2
+                android:id="@+id/login_view_verify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:login_item_hint="请输短信动态码"
+                app:login_item_max_length="6"
+                app:login_item_right_text="获取动态码" />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_theme_solid_r40"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_theme_hollow_r40"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="注册"
+            android:textColor="@color/color_theme"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="30dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/multim_group">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@mipmap/login_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="第三方登录"
+                android:textColor="@color/color_99" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/multim_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_user_agreement"
+            android:layout_centerHorizontal="true">
+
+
+            <ImageView
+                android:id="@+id/wx_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:src="@mipmap/login_wx" />
+
+            <ImageView
+                android:id="@+id/qq_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:src="@mipmap/login_qq" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_user_agreement"
@@ -90,7 +177,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:textSize="12sp"
-            tools:text="@string/login_user_agreement"/>
+            tools:text="@string/login_user_agreement" />
 
     </RelativeLayout>
 

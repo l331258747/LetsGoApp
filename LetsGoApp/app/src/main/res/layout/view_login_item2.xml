@@ -3,44 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginTop="10dp"
-    android:background="@drawable/btn_99_bottom_line_p8"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/login_item_et"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="@color/transparent"
-        android:hint="请输入手机号"
-        android:inputType="number"
-        android:maxLines="1"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:textColorHint="@color/color_99" />
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:paddingTop="10dp">
 
-    <ImageView
-        android:id="@+id/login_item_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center" />
+        <EditText
+            android:id="@+id/login_item_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textColorHint="@color/color_99" />
 
-    <TextView
-        android:id="@+id/login_item_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/color_68"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:text="aaaa"
-        android:layout_gravity="center" />
+        <ImageView
+            android:id="@+id/login_item_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/login_item_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="aaaa"
+            android:textColor="@color/color_68"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_d9" />
 
 </LinearLayout>
+
