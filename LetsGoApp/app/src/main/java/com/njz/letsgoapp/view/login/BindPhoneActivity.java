@@ -1,10 +1,9 @@
 package com.njz.letsgoapp.view.login;
 
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hyphenate.EMCallBack;
@@ -13,19 +12,25 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
-import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.bean.other.WXInfoModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.login.LoginByWxContract;
+import com.njz.letsgoapp.mvp.login.LoginByWxPresenter;
+import com.njz.letsgoapp.mvp.login.LoginByWxVerifyContract;
+import com.njz.letsgoapp.mvp.login.LoginByWxVerifyPresenter;
+import com.njz.letsgoapp.mvp.login.VerifyCodeContract;
+import com.njz.letsgoapp.mvp.login.VerifyCodePresenter;
 import com.njz.letsgoapp.mvp.login.VerifyLoginContract;
 import com.njz.letsgoapp.mvp.login.VerifyLoginPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.LoginUtil;
 import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
-import com.njz.letsgoapp.view.home.GuideContractActivity;
-import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
@@ -40,89 +45,94 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by LGQ
- * Time: 2018/8/10
+ * Time: 2019/1/17
  * Function:
  */
 
-public class VerifyLoginActivity extends BaseActivity implements View.OnClickListener,VerifyLoginContract.View {
+public class BindPhoneActivity extends BaseActivity implements View.OnClickListener,VerifyCodeContract.View,LoginByWxContract.View{
+    ImageView iv_head;
+    TextView tv_name,btn_submit,tvVerify;
+    LoginItemView2 loginViewPhone,loginViewVerify;
 
-    LoginItemView2 loginViewPhone, loginViewVerify;
-    TextView btnLogin,tv_user_agreement;
+    VerifyCodePresenter verifyCodePresenter;
+    LoginByWxPresenter loginByWxPresenter;
 
     Disposable disposable;
 
-    VerifyLoginPresenter mPresenter;
-
-    TextView tvVerify;
-
-    String loginPhone;
+    WXInfoModel wxInfoModel;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
-        loginPhone = intent.getStringExtra("LOGIN_PHONE");
+        wxInfoModel = intent.getParcelableExtra("WX_INFO");
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_verify_login;
+        return R.layout.activity_bind_phone;
     }
 
     @Override
     public void initView() {
+        showLeftAndTitle("绑定手机号码");
 
-        showLeftAndTitle("动态码登录");
-        showLeftIcon();
+        iv_head = $(R.id.iv_head);
+        tv_name = $(R.id.tv_name);
+        btn_submit = $(R.id.btn_submit);
+
         loginViewPhone = $(R.id.login_view_phone);
         loginViewPhone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
-        if(!TextUtils.isEmpty(loginPhone))
-            loginViewPhone.getEtView().setText(loginPhone);
         loginViewVerify = $(R.id.login_view_verify);
         loginViewVerify.setEtInputType(InputType.TYPE_CLASS_NUMBER);
         tvVerify = loginViewVerify.getRightText();
         tvVerify.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-        btnLogin = $(R.id.btn_login);
-
-        btnLogin.setOnClickListener(this);
         tvVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
-                mPresenter.userSmsSend(loginViewPhone.getEtContent(),"login");
+                verifyCodePresenter.userSmsSend(loginViewPhone.getEtContent(),"loginByThird");
             }
         });
 
-
-        tv_user_agreement = $(R.id.tv_user_agreement);
-        StringUtils.setHtml(tv_user_agreement, getResources().getString(R.string.login_user_agreement));
-        tv_user_agreement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GuideContractActivity.class);
-                intent.putExtra("CONTRACT_TYPE",1);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
     public void initData() {
-        mPresenter = new VerifyLoginPresenter(context,this);
+        GlideUtil.LoadCircleImage(context, wxInfoModel.getFaceImage(), iv_head);
+        tv_name.setText(wxInfoModel.getUserName());
+
+        btn_submit.setOnClickListener(this);
+
+        verifyCodePresenter = new VerifyCodePresenter(context,this);
+        loginByWxPresenter = new LoginByWxPresenter(context,this);
+
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_login:
-                if(!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
+        switch (v.getId()){
+            case R.id.btn_submit:
+                if (!LoginUtil.verifyPhone(loginViewPhone.getEtContent()))
                     return;
                 if (!LoginUtil.verifyVerify(loginViewVerify.getEtContent()))
                     return;
-                mPresenter.msgCheckLogin(loginViewPhone.getEtContent(),loginViewVerify.getEtContent());
+                wxInfoModel.setMobile(loginViewPhone.getEtContent());
+                wxInfoModel.setMsgCode(loginViewVerify.getEtContent());
+                loginByWxPresenter.loginByWeixin(wxInfoModel,true);
                 break;
 
         }
+    }
+
+    @Override
+    public void userSmsSendSuccess(String str) {
+        verifyEvent();
+    }
+
+    @Override
+    public void userSmsSendFailed(String msg) {
+        showShortToast(msg);
     }
 
     public void verifyEvent() {
@@ -176,13 +186,14 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
             disposable.dispose();
     }
 
-    @Override
-    public void msgCheckLoginSuccess(LoginModel str) {
-        MySelfInfo.getInstance().setData(str);
+    /**
+     * 登录成功后数据处理
+     */
+    public void setLoginData(LoginModel loginModel){
+        MySelfInfo.getInstance().setData(loginModel);
 
         LogUtil.e("getRegistrationID:"+ JPushInterface.getRegistrationID(context));
         JpushAliasUtil.setTagAndAlias();
-
 
         if(AppUtils.getVersionCodeInt() % 100 != 0){
             new Thread(new Runnable() {
@@ -235,18 +246,14 @@ public class VerifyLoginActivity extends BaseActivity implements View.OnClickLis
         ActivityCollect.getAppCollect().finishActivity(LoginActivity.class);
     }
 
+
     @Override
-    public void msgCheckLoginFailed(String msg) {
-        showShortToast(msg);
+    public void loginByWeixinSuccess(LoginModel model) {
+        setLoginData(model);
     }
 
     @Override
-    public void userSmsSendSuccess(String str) {
-        verifyEvent();
-    }
-
-    @Override
-    public void userSmsSendFailed(String msg) {
+    public void loginByWeixinFailed(String msg) {
         showShortToast(msg);
     }
 }

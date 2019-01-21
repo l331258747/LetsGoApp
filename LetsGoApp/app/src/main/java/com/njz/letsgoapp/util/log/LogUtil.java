@@ -29,7 +29,7 @@ public class LogUtil {
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
         String tag = "%s.%s(L:%d)";
 //        tag = String.format(tag, new Object[]{callerClazzName, stackTraceElement.getMethodName(), Integer.valueOf(stackTraceElement.getLineNumber())});
-        tag = String.format(tag, new Object[]{"----LOG-----", stackTraceElement.getMethodName(), Integer.valueOf(stackTraceElement.getLineNumber())});
+        tag = String.format(tag, new Object[]{"----LOG-----" + callerClazzName, stackTraceElement.getMethodName(), Integer.valueOf(stackTraceElement.getLineNumber())});
         //给tag设置前缀
         tag = TextUtils.isEmpty(tagPrefix) ? tag : tagPrefix + ":" + tag;
         return tag;

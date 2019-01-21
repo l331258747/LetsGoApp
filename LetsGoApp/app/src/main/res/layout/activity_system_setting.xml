@@ -67,11 +67,13 @@
 
     </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/btn_loginoff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="8dp"
         android:layout_margin="10dp"
         android:background="@drawable/btn_theme_solid_r40"
         android:text="退出登录"

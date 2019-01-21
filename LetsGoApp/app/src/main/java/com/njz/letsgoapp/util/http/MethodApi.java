@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.bean.order.AliPay;
+import com.njz.letsgoapp.bean.other.WXInfoModel;
 import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
@@ -99,6 +100,15 @@ public class MethodApi {
     //userLogout
     public static void userLogout(DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().userLogout(0); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    public static void loginByWeixin(WXInfoModel model, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().loginByWeixin(model); //在HttpServer中
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+    public static void checkOpenId(String platUid,String platCode, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().checkOpenId(platUid,platCode); //在HttpServer中
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 

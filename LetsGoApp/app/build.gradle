@@ -167,4 +167,5 @@ dependencies {
     compile project(':easeui')
     compile files('libs/umeng-analytics-7.5.4.jar')
     compile files('libs/umeng-common-1.5.4.jar')
+    compile files('libs/open_sdk_r6019_lite.jar')
 }

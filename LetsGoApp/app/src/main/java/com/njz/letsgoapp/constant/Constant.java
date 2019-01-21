@@ -9,6 +9,11 @@ package com.njz.letsgoapp.constant;
 public class Constant {
     //微信
     public static final String WEIXIN_APP_ID = "wxef1b5eeb18b9ea8b";
+    public static final String WEIXIN_APP_KRY = "d69aa8110651bb0732665e0698efea98";
+
+    //QQ
+    public static final String QQ_APP_ID = "101541305";
+    public static final String QQ_APP_KEY = "206df1ab8faa4eb49aa22535ed185430";
 
 
     //文件路径

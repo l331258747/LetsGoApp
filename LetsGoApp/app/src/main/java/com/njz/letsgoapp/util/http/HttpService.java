@@ -30,6 +30,7 @@ import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
 import com.njz.letsgoapp.bean.other.ConfigModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
+import com.njz.letsgoapp.bean.other.WXInfoModel;
 import com.njz.letsgoapp.bean.send.SendNotifyMainModel;
 import com.njz.letsgoapp.bean.send.SendOrderCancelModel;
 import com.njz.letsgoapp.bean.send.SendOrderRefundModel;
@@ -137,6 +138,17 @@ public interface HttpService {
     @POST("user/logout")
     Observable<BaseResponse<EmptyModel>> userLogout(
             @Field("loginType") int loginType
+    );
+
+    @POST("loginByWeixin")
+    Observable<BaseResponse<LoginModel>> loginByWeixin(
+            @Body WXInfoModel data
+    );
+
+    @GET("checkOpenId")
+    Observable<BaseResponse<Integer>> checkOpenId(
+            @Query("platUid") String platUid,
+            @Query("platCode") String platCode
     );
 
 
@@ -551,6 +563,7 @@ public interface HttpService {
             @Part("reportClass") int reportClass,//举报内容类型（0：导游详情、1：服务详情、2：游客个人主页、3：动态详情）-
             @Part List<MultipartBody.Part> files
     );
+
     //--------other end---------
 
 

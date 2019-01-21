@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.wxapi;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import com.njz.letsgoapp.MyApplication;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
@@ -39,6 +41,17 @@ public class WXHelp {
         return wxHelp;
     }
 
+    public void wxLogin(Activity activity) {
+        if (!MyApplication.mWxApi.isWXAppInstalled()) {
+            ToastUtil.showShortToast(activity, "您还未安装微信客户端");
+            return;
+        }
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "letsgoapp_wx_login";
+        //sendReq是第三方app主动发送消息给微信，发送完成之后会切回到第三方app界面。
+        MyApplication.mWxApi.sendReq(req);
+    }
 
     // flag 0好友，1朋友圈
     public void wxShare(Context context, int flag, String title, String content, String imageUrl, String url) {

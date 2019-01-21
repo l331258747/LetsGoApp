@@ -18,6 +18,7 @@ import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.Tencent;
 import com.umeng.commonsdk.UMConfigure;
 
 import cn.jpush.android.api.JPushInterface;
@@ -35,6 +36,8 @@ public class MyApplication extends Application{
     private static Context context;
 
     public static IWXAPI mWxApi;
+
+    public static Tencent mTencent;
 
     /**
      * 屏幕尺寸
@@ -176,6 +179,8 @@ public class MyApplication extends Application{
         mWxApi = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID, false);
         // 将该app注册到微信
         mWxApi.registerApp(Constant.WEIXIN_APP_ID);
+
+        mTencent = Tencent.createInstance(Constant.QQ_APP_ID, this);
 
     }
 

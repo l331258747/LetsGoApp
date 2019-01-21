@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.njz.letsgoapp">
 
-
-
     <!-- 环信-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -199,7 +197,9 @@
 
         <!--登录-->
         <activity android:name=".view.login.LoginActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTop"
+            />
         <activity android:name=".view.login.VerifyLoginActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.login.RegistActivity"
@@ -209,6 +209,8 @@
         <activity android:name=".view.login.ModifyPasswordActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.login.ModifyPhoneActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".view.login.BindPhoneActivity"
             android:windowSoftInputMode="adjustPan"/>
 
         <!-- 图片选择 start-->
@@ -469,6 +471,27 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
         <!--环信 end-->
+
+        <!-- QQ start-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent101541305" />
+                <!-- 这地方需要用你在开放平台申请的appid:tencent+appid -->
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- QQ end-->
 
 
     </application>

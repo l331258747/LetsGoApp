@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.mine;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -36,7 +37,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
 
     LoadingDialog loadingDialog;
 
-    Button btnLoginoff;
+    TextView btnLoginoff;
 
     LogoutPresenter mPresenter;
 
