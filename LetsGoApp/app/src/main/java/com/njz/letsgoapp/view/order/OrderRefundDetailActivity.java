@@ -109,7 +109,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
                     return;
                 }
                 if(refundModel == null) return;
-                String name = "G_"+ refundModel.getGuideId();
+                String name = "g_"+ refundModel.getGuideId();
                 String myName = EMClient.getInstance().getCurrentUser();
                 if (!TextUtils.isEmpty(name)) {
                     if (name.equals(myName)) {

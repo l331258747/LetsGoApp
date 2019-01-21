@@ -298,7 +298,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
 
                 if(guideDetailModel == null) return;
-                String name = "G_"+guideDetailModel.getId();
+                String name = "g_"+guideDetailModel.getId();
                 String myName = EMClient.getInstance().getCurrentUser();
                 if (!TextUtils.isEmpty(name)) {
                     if (name.equals(myName)) {

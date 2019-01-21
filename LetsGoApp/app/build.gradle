@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1020302
-        versionName "1.2.3.2"
+        versionCode 1020303
+        versionName "1.2.3.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -106,6 +106,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debugConfig
         }
+    }
+
+    lintOptions {
+        //build release 版本 时 开启lint 检测
+        checkReleaseBuilds false
+        //lint 遇到 error 时继续 构建
+        abortOnError false
     }
 
 }

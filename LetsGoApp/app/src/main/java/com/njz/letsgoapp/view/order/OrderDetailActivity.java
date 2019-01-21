@@ -328,7 +328,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 if(model == null) return;
-                String name = "G_"+ model.getGuideId();
+                String name = "g_"+ model.getGuideId();
                 String myName = EMClient.getInstance().getCurrentUser();
                 if (!TextUtils.isEmpty(name)) {
                     if (name.equals(myName)) {

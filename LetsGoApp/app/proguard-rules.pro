@@ -329,5 +329,24 @@
 }
 
 #环信
+-keep class org.xmlpull.** {*;}
 -keep class com.hyphenate.** {*;}
+-keep class com.hyphenate.chat.** {*;}
 -dontwarn  com.hyphenate.**
+-keep class org.jivesoftware.** {*;}
+-keep class org.apache.** {*;}
+#2.0.9后加入语音通话功能，如需使用此功能的api，加入以下keep
+-keep class net.java.sip.** {*;}
+-keep class org.webrtc.voiceengine.** {*;}
+-keep class org.bitlet.** {*;}
+-keep class org.slf4j.** {*;}
+-keep class ch.imvs.** {*;}
+-keep class com.superrtc.** { *; }
+-keep class org.apache.http.** { *; }
+-keep class android.net.http.** { *; }
+-dontwarn org.apache.http.**
+-dontwarn android.net.http.**
+
+#QQ 登录
+-dontwarn com.tencent.**
+-keep class com.tencent.** {*;}
