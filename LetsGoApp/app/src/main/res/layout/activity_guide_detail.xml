@@ -198,7 +198,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_2585e7_solid_r5"
                     android:gravity="center"
-                    android:text="质询TA"
+                    android:text="咨询TA"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/white" />

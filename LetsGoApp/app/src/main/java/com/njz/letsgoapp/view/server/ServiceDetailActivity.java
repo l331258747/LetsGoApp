@@ -132,6 +132,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         tv_phone.setOnClickListener(this);
         tv_back_top.setOnClickListener(this);
         tv_float_call.setOnClickListener(this);
+        tv_consult.setOnClickListener(this);
 
         if (isHideBottom) {
             tv_submit.setVisibility(View.INVISIBLE);
