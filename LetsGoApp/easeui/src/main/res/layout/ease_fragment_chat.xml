@@ -31,11 +31,41 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_alert_kicked_off"
+        android:background="@drawable/ease_alert_click_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="为保障您的利益，请勿私下联系或交易。如产生纠纷，以平台订单记录为准。"
+            android:textColor="#ff0707"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_tip_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/edit_cancel" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input_menu"
-        android:layout_below="@id/layout_alert_kicked_off">
+        android:layout_below="@id/ll_tip">
 
         <com.hyphenate.easeui.widget.EaseChatMessageList
             android:id="@+id/message_list"
