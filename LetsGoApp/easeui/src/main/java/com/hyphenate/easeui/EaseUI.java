@@ -2,12 +2,19 @@ package com.hyphenate.easeui;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.domain.EaseAvatarOptions;
@@ -16,6 +23,7 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
+import com.hyphenate.util.EMLog;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,7 +37,7 @@ public final class EaseUI {
      * the global EaseUI instance
      */
     private static EaseUI instance = null;
-    
+
     /**
      * user profile provider
      */
@@ -116,14 +124,36 @@ public final class EaseUI {
         }
         
         initNotifier();
+        initConnection();
         registerMessageListener();
-        
+
         if(settingsProvider == null){
             settingsProvider = new DefaultSettingsProvider();
         }
         
         sdkInited = true;
         return true;
+    }
+
+    private void initConnection() {
+        EMConnectionListener connectionListener = new EMConnectionListener() {
+            @Override
+            public void onConnected() {
+                Log.e("im","环信 连接成功");
+            }
+
+            @Override
+            public void onDisconnected(int i) {
+                if (i == EMError.USER_REMOVED) {
+                    Log.e("im","环信 账号被移除");
+                } else if (i == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                    Log.e("im","环信 账号在别的设备登录");
+                }
+
+            }
+        };
+        //注册连接监听
+        EMClient.getInstance().addConnectionListener(connectionListener);
     }
 
 
@@ -144,17 +174,64 @@ public final class EaseUI {
     void initNotifier(){
         notifier = new EaseNotifier(appContext);
     }
-    
-    private void registerMessageListener() {
+
+
+    public void registerMessageListener() {
+
         EMClient.getInstance().chatManager().addMessageListener(new EMMessageListener() {
-            
+            private BroadcastReceiver broadCastReceiver;
+
             @Override
             public void onMessageReceived(List<EMMessage> messages) {
-                EaseAtMessageHelper.get().parseMessages(messages);
+                Log.e("im","onMessageReceived");
+
+                for (EMMessage message : messages) {
+                    EMLog.d("EaseuiHelper", "onMessageReceived id : " + message.getMsgId());
+                    //应用在后台，不需要刷新UI,通知栏提示新消息
+                    if (!EaseUI.getInstance().hasForegroundActivies()) {
+                        notifier.notify(message);
+                    }
+                    EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
+                }
+            }
+
+            @Override
+            public void onCmdMessageReceived(List<EMMessage> messages) {
+                Log.e("im","onCmdMessageReceived");
+                for (EMMessage message : messages) {
+                    EMLog.d("EaseuiHelper", "收到透传消息");
+                    //获取消息body
+                    EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) message.getBody();
+                    final String action = cmdMsgBody.action();//获取自定义action
+
+                    //获取扩展属性 此处省略
+                    //message.getStringAttribute("");
+                    EMLog.d("EaseuiHelper", String.format("透传消息：action:%s,message:%s", action, message.toString()));
+                    final String str = appContext.getString(com.hyphenate.easeui.R.string.receive_the_passthrough);
+
+                    final String CMD_TOAST_BROADCAST = "hyphenate.demo.cmd.toast";
+                    IntentFilter cmdFilter = new IntentFilter(CMD_TOAST_BROADCAST);
+
+                    if (broadCastReceiver == null) {
+                        broadCastReceiver = new BroadcastReceiver() {
+
+                            @Override
+                            public void onReceive(Context context, Intent intent) {
+                                Toast.makeText(appContext, intent.getStringExtra("cmd_value"), Toast.LENGTH_SHORT).show();
+                            }
+                        };
+
+                        //注册广播接收者
+                        appContext.registerReceiver(broadCastReceiver, cmdFilter);
+                    }
+
+                    Intent broadcastIntent = new Intent(CMD_TOAST_BROADCAST);
+                    broadcastIntent.putExtra("cmd_value", str + action);
+                    appContext.sendBroadcast(broadcastIntent, null);
+                }
             }
             @Override
             public void onMessageRead(List<EMMessage> messages) {
-                
             }
             @Override
             public void onMessageDelivered(List<EMMessage> messages) {
@@ -162,19 +239,10 @@ public final class EaseUI {
 
             @Override
             public void onMessageRecalled(List<EMMessage> messages) {
-
             }
 
             @Override
             public void onMessageChanged(EMMessage message, Object change) {
-                
-            }
-            @Override
-            public void onCmdMessageReceived(List<EMMessage> messages) {
-                for (EMMessage message : messages) {
-                    // To handle group-ack msg.
-                    EaseDingMessageHelper.get().handleAckMessage(message);
-                }
             }
         });
     }
@@ -198,7 +266,6 @@ public final class EaseUI {
     
     /**
      * set user profile provider
-     * @param provider
      */
     public void setUserProfileProvider(EaseUserProfileProvider userProvider){
         this.userProvider = userProvider;

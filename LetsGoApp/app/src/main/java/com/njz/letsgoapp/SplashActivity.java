@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.hyphenate.chat.EMClient;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.SPUtils;
@@ -57,6 +58,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void initView() {
         hideTitleLayout();
+        EMClient.getInstance().chatManager().loadAllConversations();
     }
 
     @Override

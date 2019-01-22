@@ -119,6 +119,7 @@ public class ChatHelp {
     }
 
     public void refresh() {
+        if(conversationList == null) return;
         conversationList.clear();
         conversationList.addAll(loadConversationList());
         conversationListView.refresh();

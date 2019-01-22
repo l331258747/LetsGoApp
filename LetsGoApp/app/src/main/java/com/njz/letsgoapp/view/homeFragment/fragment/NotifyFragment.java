@@ -10,13 +10,16 @@ import android.widget.AdapterView;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.hyphenate.easeui.widget.EaseConversationList;
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.notify.NotifyMainModel;
@@ -24,6 +27,8 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.notify.NotifyMainContract;
 import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
 import com.njz.letsgoapp.view.im.ChatActivity;
 import com.njz.letsgoapp.view.im.ChatListActivity;
 import com.njz.letsgoapp.view.im.ChatHelp;
@@ -136,6 +141,11 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         isGoLogin = false;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+    }
 
     @Override
     public void initData() {
@@ -144,6 +154,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             getData();
             setUpView();
         }
+        EMClient.getInstance().chatManager().addMessageListener(msgListener);
     }
 
     public void getData() {
@@ -158,12 +169,12 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         switch (v.getId()) {
             case R.id.view_notify_interaction:
                 setNotifyItemEmpty(view_notify_message);
-                intent = new Intent(context,InteractionMsgActivity.class);
+                intent = new Intent(context, InteractionMsgActivity.class);
                 startActivity(intent);
                 break;
             case R.id.view_notify_message:
                 setNotifyItemEmpty(view_notify_interaction);
-                intent = new Intent(context,SystemMsgActivity.class);
+                intent = new Intent(context, SystemMsgActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -242,6 +253,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
 
     //-----------------------------------------环信
 
+    boolean isMessageListInited;
     private ChatHelp chatHelp;
     protected EaseConversationList conversationListView;
     protected boolean isConflict;
@@ -289,6 +301,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
                         handler.sendEmptyMessage(1);
                     }
                 });
+        isMessageListInited = true;
     }
 
     @Override
@@ -310,4 +323,41 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             handler.sendEmptyMessage(ChatHelp.MSG_REFRESH);
         }
     }
+
+    //--------------提醒
+    EMMessageListener msgListener = new EMMessageListener() {
+
+        @Override
+        public void onMessageReceived(List<EMMessage> messages) {
+            if (!hidden && !isConflict && setLogin()) {
+                chatHelp.refresh();
+            }else if(setLogin()) {
+                RxBus2.getInstance().post(new NotifyEvent(true));
+            }
+        }
+
+        @Override
+        public void onCmdMessageReceived(List<EMMessage> messages) {
+
+        }
+
+        @Override
+        public void onMessageRead(List<EMMessage> list) {
+        }
+
+        @Override
+        public void onMessageDelivered(List<EMMessage> list) {
+        }
+
+        @Override
+        public void onMessageRecalled(List<EMMessage> list) {
+        }
+
+
+        @Override
+        public void onMessageChanged(EMMessage message, Object change) {
+        }
+    };
+
+
 }

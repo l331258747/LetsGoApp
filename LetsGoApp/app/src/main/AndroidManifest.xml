@@ -104,6 +104,7 @@
 
         <!--首页-->
         <activity android:name=".view.homeFragment.HomeActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"/>
 
         <activity android:name=".map.MapActivity" />
