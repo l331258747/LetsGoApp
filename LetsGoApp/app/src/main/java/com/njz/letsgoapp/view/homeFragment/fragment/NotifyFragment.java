@@ -283,19 +283,21 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             @Override
             public void loadCallback(List<EMConversation> list) {
                 for (EMConversation item : list) {
-                    ResponseCallback listener = new ResponseCallback<IMUserModel>() {
-                        @Override
-                        public void onSuccess(IMUserModel datas) {
-                            if (datas == null) return;
-                            UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
-                        }
+                    if(UserCacheManager.notExistedOrExpired(item.conversationId())){
+                        ResponseCallback listener = new ResponseCallback<IMUserModel>() {
+                            @Override
+                            public void onSuccess(IMUserModel datas) {
+                                if (datas == null) return;
+                                UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
+                            }
 
-                        @Override
-                        public void onFault(String errorMsg) {
-                            LogUtil.e(errorMsg);
-                        }
-                    };
-                    MethodApi.getUserByIMUsername(item.conversationId(), new OnSuccessAndFaultSub(listener, null, false));
+                            @Override
+                            public void onFault(String errorMsg) {
+                                LogUtil.e(errorMsg);
+                            }
+                        };
+                        MethodApi.getUserByIMUsername(item.conversationId(), new OnSuccessAndFaultSub(listener, null, false));
+                    }
                 }
             }
         });

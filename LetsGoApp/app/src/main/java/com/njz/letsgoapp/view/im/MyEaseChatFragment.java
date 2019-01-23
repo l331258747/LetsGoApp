@@ -44,21 +44,23 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 //            }
 //        }
 
-        ResponseCallback listener = new ResponseCallback<IMUserModel>() {
-            @Override
-            public void onSuccess(IMUserModel datas) {
-                if (datas == null) return;
-                UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
-                titleBar.setTitle(datas.getName());
+        if(UserCacheManager.notExistedOrExpired(toChatUsername)){
+            ResponseCallback listener = new ResponseCallback<IMUserModel>() {
+                @Override
+                public void onSuccess(IMUserModel datas) {
+                    if (datas == null) return;
+                    UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
+                    titleBar.setTitle(datas.getName());
 
-            }
+                }
 
-            @Override
-            public void onFault(String errorMsg) {
-                LogUtil.e(errorMsg);
-            }
-        };
-        MethodApi.getUserByIMUsername(toChatUsername, new OnSuccessAndFaultSub(listener, null, false));
+                @Override
+                public void onFault(String errorMsg) {
+                    LogUtil.e(errorMsg);
+                }
+            };
+            MethodApi.getUserByIMUsername(toChatUsername, new OnSuccessAndFaultSub(listener, null, false));
+        }
 
         super.setUpView();
     }
