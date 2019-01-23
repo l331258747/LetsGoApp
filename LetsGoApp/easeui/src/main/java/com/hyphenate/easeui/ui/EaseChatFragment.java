@@ -168,9 +168,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     LinearLayout ll_tip;
     ImageView iv_tip_delete;
     protected void initTip() {
-        ll_tip.setVisibility(View.VISIBLE);
         iv_tip_delete =  getView().findViewById(R.id.iv_tip_delete);
         ll_tip =  getView().findViewById(R.id.ll_tip);
+        ll_tip.setVisibility(View.VISIBLE);
 
         iv_tip_delete.setOnClickListener(new OnClickListener() {
             @Override
