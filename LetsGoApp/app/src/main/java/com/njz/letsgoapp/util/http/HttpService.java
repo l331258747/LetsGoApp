@@ -644,7 +644,7 @@ public interface HttpService {
 
     //im/getUserByIMUsername
     @GET("im/getUserByIMUsername")
-    Observable<BaseResponse<IMUserModel>> getUserByIMUsername(
+    Observable<BaseResponse<String>> getUserByIMUsername(
             @Query("username") String username
     );
 

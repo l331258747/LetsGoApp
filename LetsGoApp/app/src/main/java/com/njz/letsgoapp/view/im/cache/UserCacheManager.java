@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.im.cache;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -8,6 +9,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.j256.ormlite.dao.Dao;
 import com.njz.letsgoapp.bean.other.IMUserModel;
+import com.njz.letsgoapp.util.GsonUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -58,10 +60,16 @@ public class UserCacheManager {
         // 如果本地缓存不存在或者过期，则从存储服务器获取
         if (notExistedOrExpired(userId)){
             //交互 TODO
-            ResponseCallback listener = new ResponseCallback<IMUserModel>() {
+            ResponseCallback listener = new ResponseCallback<String>() {
                 @Override
-                public void onSuccess(IMUserModel datas) {
-                    save("g_"+datas.getId(),datas.getName(),datas.getUserImg());
+                public void onSuccess(String datas) {
+                    LogUtil.e(datas.toString());
+
+                    if(TextUtils.equals(datas,"null") || TextUtils.isEmpty(datas))
+                        return;
+
+                    IMUserModel model = GsonUtil.convertString2Object(datas,IMUserModel.class);
+                    save("g_"+model.getId(),model.getName(),model.getUserImg());
                 }
 
                 @Override
