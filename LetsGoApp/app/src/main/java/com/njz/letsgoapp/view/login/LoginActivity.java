@@ -42,6 +42,7 @@ import com.njz.letsgoapp.util.http.HttpMethods;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
+import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 import com.njz.letsgoapp.widget.LoginItemView2;
 import com.njz.letsgoapp.widget.LoginTabView;
 import com.njz.letsgoapp.wxapi.WXHelp;
@@ -420,6 +421,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
      */
     public void setLoginData(LoginModel loginModel) {
         MySelfInfo.getInstance().setData(loginModel);
+
+        UserCacheManager.save("u_"+MySelfInfo.getInstance().getUserId(),MySelfInfo.getInstance().getUserNickname(),MySelfInfo.getInstance().getUserImgUrl());
 
         LogUtil.e("getRegistrationID:" + JPushInterface.getRegistrationID(context));
         JpushAliasUtil.setTagAndAlias();

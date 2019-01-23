@@ -194,7 +194,6 @@
 
         <!--IM-->
         <activity android:name=".view.im.ChatActivity" />
-        <activity android:name=".view.im.ChatListActivity" />
 
         <!--登录-->
         <activity android:name=".view.login.LoginActivity"

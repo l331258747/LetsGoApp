@@ -561,6 +561,11 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    public static void getUserByIMUsername(String username, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().getUserByIMUsername(username);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
     //--------服务 end
 
 }

@@ -28,6 +28,7 @@ import com.njz.letsgoapp.bean.order.OrderRefundModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
 import com.njz.letsgoapp.bean.other.ConfigModel;
+import com.njz.letsgoapp.bean.other.IMUserModel;
 import com.njz.letsgoapp.bean.other.ProvinceModel;
 import com.njz.letsgoapp.bean.other.SearchCityModel;
 import com.njz.letsgoapp.bean.other.WXInfoModel;
@@ -641,5 +642,10 @@ public interface HttpService {
 
     //-----------end服务---------
 
+    //im/getUserByIMUsername
+    @GET("im/getUserByIMUsername")
+    Observable<BaseResponse<IMUserModel>> getUserByIMUsername(
+            @Query("username") String username
+    );
 
 }

@@ -25,7 +25,7 @@ public class ChatActivity extends BaseActivity {
     public void initView() {
         hideTitleLayout();
 
-        EaseChatFragment easeChatFragment = new EaseChatFragment();  //环信聊天界面
+        MyEaseChatFragment easeChatFragment = new MyEaseChatFragment();  //环信聊天界面
         easeChatFragment.setArguments(getIntent().getExtras()); //需要的参数
         getSupportFragmentManager().beginTransaction().add(R.id.layout_chat,easeChatFragment).commit();  //Fragment切换
     }

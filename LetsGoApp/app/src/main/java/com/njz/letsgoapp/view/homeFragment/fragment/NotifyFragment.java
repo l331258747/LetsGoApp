@@ -30,7 +30,6 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
 import com.njz.letsgoapp.view.im.ChatActivity;
-import com.njz.letsgoapp.view.im.ChatListActivity;
 import com.njz.letsgoapp.view.im.ChatHelp;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.notify.InteractionMsgActivity;

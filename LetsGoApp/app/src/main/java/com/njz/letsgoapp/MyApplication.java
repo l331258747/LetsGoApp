@@ -12,6 +12,7 @@ import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.im.HxEaseuiHelper;
 import com.njz.letsgoapp.wxapi.UpgradeDialogListener;
 import com.taobao.sophix.SophixManager;
 import com.tencent.bugly.Bugly;
@@ -106,44 +107,7 @@ public class MyApplication extends Application{
             return ;
         }
 
-        /**
-         * SDK初始化的一些配置
-         * 关于 EMOptions 可以参考官方的 API 文档
-         * http://www.easemob.com/apidoc/android/chat3.0/classcom_1_1hyphenate_1_1chat_1_1_e_m_options.html
-         */
-        EMOptions options = new EMOptions();
-        // 设置Appkey，如果配置文件已经配置，这里可以不用设置
-        if(AppUtils.getVersionCodeInt() % 100 == 0){
-            options.setAppKey("1121190111010133#najiuzouim");
-        }else{
-            options.setAppKey("1101190116107839#najiuzou");
-        }
-        // 设置自动登录
-        options.setAutoLogin(true);
-        // 设置是否需要发送已读回执
-        options.setRequireAck(true);
-        // 设置是否需要发送回执，TODO 这个暂时有bug，上层收不到发送回执
-        options.setRequireDeliveryAck(true);
-        // 设置是否需要服务器收到消息确认
-        options.setAutoTransferMessageAttachments(true);
-        // 收到好友申请是否自动同意，如果是自动同意就不会收到好友请求的回调，因为sdk会自动处理，默认为true
-        options.setAcceptInvitationAlways(false);
-        // 设置是否自动接收加群邀请，如果设置了当收到群邀请会自动同意加入
-        options.setAutoAcceptGroupInvitation(false);
-        // 设置（主动或被动）退出群组时，是否删除群聊聊天记录
-        options.setDeleteMessagesAsExitGroup(false);
-        // 设置是否允许聊天室的Owner 离开并删除聊天室的会话
-        options.allowChatroomOwnerLeave(true);
-        // 设置google GCM推送id，国内可以不用设置
-        // options.setGCMNumber(MLConstants.ML_GCM_NUMBER);
-        // 设置集成小米推送的appid和appkey
-        // options.setMipushConfig(MLConstants.ML_MI_APP_ID, MLConstants.ML_MI_APP_KEY);
-
-        // 调用初始化方法初始化sdk
-        EaseUI.getInstance().init(this, options);
-
-        // 设置开启debug模式
-        EMClient.getInstance().setDebugMode(true);
+        HxEaseuiHelper.getInstance().init(context);
 
         // 设置初始化已经完成
         isInit = true;

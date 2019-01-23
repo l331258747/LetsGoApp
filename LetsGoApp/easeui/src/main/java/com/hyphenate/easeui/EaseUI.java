@@ -124,7 +124,6 @@ public final class EaseUI {
         }
         
         initNotifier();
-        initConnection();
         registerMessageListener();
 
         if(settingsProvider == null){
@@ -134,28 +133,6 @@ public final class EaseUI {
         sdkInited = true;
         return true;
     }
-
-    private void initConnection() {
-        EMConnectionListener connectionListener = new EMConnectionListener() {
-            @Override
-            public void onConnected() {
-                Log.e("im","环信 连接成功");
-            }
-
-            @Override
-            public void onDisconnected(int i) {
-                if (i == EMError.USER_REMOVED) {
-                    Log.e("im","环信 账号被移除");
-                } else if (i == EMError.USER_LOGIN_ANOTHER_DEVICE) {
-                    Log.e("im","环信 账号在别的设备登录");
-                }
-
-            }
-        };
-        //注册连接监听
-        EMClient.getInstance().addConnectionListener(connectionListener);
-    }
-
 
     protected EMOptions initChatOptions(){
         Log.d(TAG, "init HuanXin Options");
@@ -179,56 +156,14 @@ public final class EaseUI {
     public void registerMessageListener() {
 
         EMClient.getInstance().chatManager().addMessageListener(new EMMessageListener() {
-            private BroadcastReceiver broadCastReceiver;
 
             @Override
             public void onMessageReceived(List<EMMessage> messages) {
-                Log.e("im","onMessageReceived");
-
-                for (EMMessage message : messages) {
-                    EMLog.d("EaseuiHelper", "onMessageReceived id : " + message.getMsgId());
-                    //应用在后台，不需要刷新UI,通知栏提示新消息
-                    if (!EaseUI.getInstance().hasForegroundActivies()) {
-                        notifier.notify(message);
-                    }
-                    EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
-                }
+                EaseAtMessageHelper.get().parseMessages(messages);
             }
 
             @Override
             public void onCmdMessageReceived(List<EMMessage> messages) {
-                Log.e("im","onCmdMessageReceived");
-                for (EMMessage message : messages) {
-                    EMLog.d("EaseuiHelper", "收到透传消息");
-                    //获取消息body
-                    EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) message.getBody();
-                    final String action = cmdMsgBody.action();//获取自定义action
-
-                    //获取扩展属性 此处省略
-                    //message.getStringAttribute("");
-                    EMLog.d("EaseuiHelper", String.format("透传消息：action:%s,message:%s", action, message.toString()));
-                    final String str = appContext.getString(com.hyphenate.easeui.R.string.receive_the_passthrough);
-
-                    final String CMD_TOAST_BROADCAST = "hyphenate.demo.cmd.toast";
-                    IntentFilter cmdFilter = new IntentFilter(CMD_TOAST_BROADCAST);
-
-                    if (broadCastReceiver == null) {
-                        broadCastReceiver = new BroadcastReceiver() {
-
-                            @Override
-                            public void onReceive(Context context, Intent intent) {
-                                Toast.makeText(appContext, intent.getStringExtra("cmd_value"), Toast.LENGTH_SHORT).show();
-                            }
-                        };
-
-                        //注册广播接收者
-                        appContext.registerReceiver(broadCastReceiver, cmdFilter);
-                    }
-
-                    Intent broadcastIntent = new Intent(CMD_TOAST_BROADCAST);
-                    broadcastIntent.putExtra("cmd_value", str + action);
-                    appContext.sendBroadcast(broadcastIntent, null);
-                }
             }
             @Override
             public void onMessageRead(List<EMMessage> messages) {
