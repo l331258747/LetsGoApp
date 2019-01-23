@@ -40,6 +40,14 @@ public class ChatHelp {
 
     }
 
+    public loadCallBack callBack;
+    public void setLoadCallback(loadCallBack callBack){
+        this.callBack = callBack;
+    }
+    public interface loadCallBack{
+        void loadCallback(List<EMConversation> list);
+    }
+
     public void setConversationListItemClickListener(EaseConversationListItemClickListener listener1,
                                                      EMConnectionListener listener2) {
         this.listItemClickListener = listener1;
@@ -80,6 +88,10 @@ public class ChatHelp {
         for (Pair<Long, EMConversation> sortItem : sortList) {
             list.add(sortItem.second);
         }
+
+        if(callBack != null)
+            callBack.loadCallback(list);
+
         return list;
     }
 

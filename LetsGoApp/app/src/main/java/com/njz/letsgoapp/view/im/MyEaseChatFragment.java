@@ -6,8 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.njz.letsgoapp.bean.other.IMUserModel;
+import com.njz.letsgoapp.util.http.MethodApi;
+import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
+import com.njz.letsgoapp.util.http.ResponseCallback;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 
 import java.util.Map;
@@ -37,6 +43,23 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 //                isRobot = true;
 //            }
 //        }
+
+        ResponseCallback listener = new ResponseCallback<IMUserModel>() {
+            @Override
+            public void onSuccess(IMUserModel datas) {
+                if (datas == null) return;
+                UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
+                titleBar.setTitle(datas.getName());
+
+            }
+
+            @Override
+            public void onFault(String errorMsg) {
+                LogUtil.e(errorMsg);
+            }
+        };
+        MethodApi.getUserByIMUsername(toChatUsername, new OnSuccessAndFaultSub(listener, null, false));
+
         super.setUpView();
     }
 

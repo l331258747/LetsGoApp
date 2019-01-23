@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.util.http;
 
+import android.widget.ImageView;
+
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
@@ -644,7 +646,7 @@ public interface HttpService {
 
     //im/getUserByIMUsername
     @GET("im/getUserByIMUsername")
-    Observable<BaseResponse<String>> getUserByIMUsername(
+    Observable<BaseResponse<IMUserModel>> getUserByIMUsername(
             @Query("username") String username
     );
 

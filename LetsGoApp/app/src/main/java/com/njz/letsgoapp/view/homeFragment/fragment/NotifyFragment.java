@@ -15,22 +15,24 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
-import com.hyphenate.easeui.EaseUI;
-import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.hyphenate.easeui.widget.EaseConversationList;
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.notify.NotifyMainModel;
+import com.njz.letsgoapp.bean.other.IMUserModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.notify.NotifyMainContract;
 import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
+import com.njz.letsgoapp.util.http.MethodApi;
+import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
+import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
 import com.njz.letsgoapp.view.im.ChatActivity;
 import com.njz.letsgoapp.view.im.ChatHelp;
+import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.notify.InteractionMsgActivity;
 import com.njz.letsgoapp.view.notify.SystemMsgActivity;
@@ -38,7 +40,6 @@ import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 import com.njz.letsgoapp.widget.NotifyItemView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -278,6 +279,26 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
 
     protected void setUpView() {
         chatHelp = new ChatHelp(conversationListView);
+        chatHelp.setLoadCallback(new ChatHelp.loadCallBack() {
+            @Override
+            public void loadCallback(List<EMConversation> list) {
+                for (EMConversation item : list) {
+                    ResponseCallback listener = new ResponseCallback<IMUserModel>() {
+                        @Override
+                        public void onSuccess(IMUserModel datas) {
+                            if (datas == null) return;
+                            UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
+                        }
+
+                        @Override
+                        public void onFault(String errorMsg) {
+                            LogUtil.e(errorMsg);
+                        }
+                    };
+                    MethodApi.getUserByIMUsername(item.conversationId(), new OnSuccessAndFaultSub(listener, null, false));
+                }
+            }
+        });
 
         chatHelp.setConversationListItemClickListener(
                 new ChatHelp.EaseConversationListItemClickListener() {
@@ -330,7 +351,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         public void onMessageReceived(List<EMMessage> messages) {
             if (!hidden && !isConflict && setLogin()) {
                 chatHelp.refresh();
-            }else if(setLogin()) {
+            } else if (setLogin()) {
                 RxBus2.getInstance().post(new NotifyEvent(true));
             }
         }

@@ -176,6 +176,7 @@
 #    public *** is*();
 #}
 -keep public class com.njz.letsgoapp.bean.** { *; }
+-keep public class com.njz.letsgoapp.view.im** { *; }
 
 
 
@@ -350,3 +351,12 @@
 #QQ 登录
 -dontwarn com.tencent.**
 -keep class com.tencent.** {*;}
+
+#ormlite
+-keep class com.j256.**{*;}
+-keepclassmembers class com.j256.** { *; }
+-keep enum com.j256.**{*;}
+-keepclassmembers enum com.j256.** { *; }
+-keep interface com.j256.**{*;}
+-keepclassmembers interface com.j256.** { *; }
+-dontwarn com.j256.**

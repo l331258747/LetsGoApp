@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.im.cache;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
@@ -58,27 +59,23 @@ public class UserCacheManager {
         UserCacheInfo info = null;
 
         // 如果本地缓存不存在或者过期，则从存储服务器获取
-        if (notExistedOrExpired(userId)){
-            //交互 TODO
-            ResponseCallback listener = new ResponseCallback<String>() {
-                @Override
-                public void onSuccess(String datas) {
-                    LogUtil.e(datas.toString());
-
-                    if(TextUtils.equals(datas,"null") || TextUtils.isEmpty(datas))
-                        return;
-
-                    IMUserModel model = GsonUtil.convertString2Object(datas,IMUserModel.class);
-                    save("g_"+model.getId(),model.getName(),model.getUserImg());
-                }
-
-                @Override
-                public void onFault(String errorMsg) {
-                }
-            };
-
-            MethodApi.getUserByIMUsername(userId, new OnSuccessAndFaultSub(listener,null,false));
-        }
+//        if (notExistedOrExpired(userId)){
+//            //交互 TODO
+//            ResponseCallback listener = new ResponseCallback<IMUserModel>() {
+//                @Override
+//                public void onSuccess(IMUserModel datas) {
+//                    if(datas == null) return;
+//                    save("g_"+datas.getId(),datas.getName(),datas.getUserImg());
+//                }
+//
+//                @Override
+//                public void onFault(String errorMsg) {
+//                    LogUtil.e(errorMsg);
+//                }
+//            };
+//
+//            MethodApi.getUserByIMUsername(userId, new OnSuccessAndFaultSub(listener,null,false));
+//        }
 
         // 从本地缓存中获取用户数据
         info = getFromCache(userId);
@@ -290,6 +287,8 @@ public class UserCacheManager {
         if(msg == null) return;
 
         UserCacheInfo user = getMyInfo();
+        if(user == null) return;
+
         msg.setAttribute(kChatUserId, user.getUserId());
         msg.setAttribute(kChatUserNick, user.getNickName());
         msg.setAttribute(kChatUserPic, user.getAvatarUrl());
