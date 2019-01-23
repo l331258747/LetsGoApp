@@ -562,6 +562,7 @@ public class MethodApi {
     }
 
     public static void getUserByIMUsername(String username, DisposableObserver subscriber) {
+        if(TextUtils.equals(username,"admin")) return;
         Observable observable = HttpMethods.getInstance().getHttpService().getUserByIMUsername(username);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
