@@ -4,6 +4,6 @@
     android:id="@+id/simple_image"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:layout_margin="1dp"
+    android:layout_margin="0.5dp"
     android:scaleType="centerCrop"
     tools:src="@mipmap/background" />

@@ -15,7 +15,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:background="@color/color_d9" />
@@ -43,7 +43,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:background="@color/color_d9" />
@@ -71,7 +71,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:background="@color/color_d9" />
@@ -99,7 +99,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:background="@color/color_d9" />
@@ -127,7 +127,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:background="@color/color_d9" />
@@ -155,7 +155,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:background="@color/color_d9" />

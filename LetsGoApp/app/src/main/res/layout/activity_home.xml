@@ -18,7 +18,7 @@
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_above="@id/cus_tab_layout"
         android:background="@color/line_color_d8"/>
 

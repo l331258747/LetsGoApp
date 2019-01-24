@@ -9,7 +9,7 @@
 
     <!-- 主体背景颜色值 -->
     <item
-        android:top="1dp">
+        android:top="0.5dp">
         <shape>
             <solid android:color="@color/white" />
         </shape>

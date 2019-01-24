@@ -30,7 +30,7 @@
                 android:id="@+id/iv_left2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="0.5dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 tools:src="@mipmap/background" />
@@ -42,7 +42,7 @@
             android:id="@+id/ll_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="0.5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -58,7 +58,7 @@
                 android:id="@+id/iv_right2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="0.5dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:visibility="gone"
@@ -73,7 +73,7 @@
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="0.5dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -90,7 +90,7 @@
             android:id="@+id/iv_bottom2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="0.5dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
             android:visibility="gone"
@@ -100,7 +100,7 @@
             android:id="@+id/iv_bottom3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="0.5dp"
             android:layout_weight="1"
             android:scaleType="centerCrop"
             android:visibility="gone"
