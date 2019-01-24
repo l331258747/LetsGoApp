@@ -137,7 +137,9 @@ public class SplashActivity extends BaseActivity {
     //im登录
     public void setImLodin(){
 
-        if(MySelfInfo.getInstance().isLogin() && MySelfInfo.getInstance().getImLogin()) return;
+
+        if(!MySelfInfo.getInstance().isLogin() || MySelfInfo.getInstance().getImLogin()) return;
+        //只有app登录，im未登录才进入下面im登录流程
 
         UserCacheManager.save(MySelfInfo.getInstance().getImId(),MySelfInfo.getInstance().getUserNickname(),MySelfInfo.getInstance().getUserImgUrl());
 
