@@ -22,13 +22,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.SPUtils;
+import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 import com.umeng.analytics.MobclickAgent;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by LGQ
@@ -98,6 +106,8 @@ public class SplashActivity extends BaseActivity {
 
     private void toHome() {
 
+        setImLodin();
+
         if(AppUtils.getManifestValue("UMENG_CHANNEL").equalsIgnoreCase("xiaomi") && Build.MANUFACTURER.equalsIgnoreCase("Xiaomi")){
             SPUtils.getInstance().putBoolean(SPUtils.FIRST_OPENED, true);
             SPUtils.getInstance().putInt(SPUtils.SP_APP_VERSION,AppUtils.getVersionCodeInt());
@@ -122,6 +132,64 @@ public class SplashActivity extends BaseActivity {
         startActivity(intent);
 
         this.finish();
+    }
+
+    //im登录
+    public void setImLodin(){
+
+        if(MySelfInfo.getInstance().isLogin() && MySelfInfo.getInstance().getImLogin()) return;
+
+        UserCacheManager.save(MySelfInfo.getInstance().getImId(),MySelfInfo.getInstance().getUserNickname(),MySelfInfo.getInstance().getUserImgUrl());
+
+        LogUtil.e("getRegistrationID:" + JPushInterface.getRegistrationID(context));
+        JpushAliasUtil.setTagAndAlias();
+
+        if (AppUtils.getVersionCodeInt() % 100 != 0) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        EMClient.getInstance().createAccount(MySelfInfo.getInstance().getImId(), Constant.IM_PASSWORD);
+                        LogUtil.e("im 注册成功");
+                    } catch (HyphenateException e) {
+                        e.printStackTrace();
+                        int errorCode = e.getErrorCode();
+                        String message = e.getMessage();
+                        LogUtil.e("im 注册失败");
+                        LogUtil.e("errorCode:" + errorCode);
+                        LogUtil.e("message:" + message);
+                    }
+                }
+            }).start();
+        }
+
+        EMClient.getInstance().login(MySelfInfo.getInstance().getImId(), Constant.IM_PASSWORD, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                // 加载所有会话到内存
+                EMClient.getInstance().chatManager().loadAllConversations();
+                LogUtil.e("im 登录成功");
+
+                MySelfInfo.getInstance().setImLogin(true);
+            }
+
+            @Override
+            public void onError(final int i, final String s) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtil.e("im 登录失败 code: " + i + ",message: " + s);
+                        LogUtil.e("code: " + i + ",message: " + s);
+                        MySelfInfo.getInstance().setImLogin(false);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
     }
 
 

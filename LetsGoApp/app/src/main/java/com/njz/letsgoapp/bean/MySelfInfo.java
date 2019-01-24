@@ -118,6 +118,10 @@ public class MySelfInfo {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_ID);
     }
 
+    public String getImId(){
+        return "u_"+SPUtils.getInstance().getInt(SPUtils.SP_USER_ID);
+    }
+
     public void setLabels(List<LabelItemModel> labels) {
         SPUtils.getInstance().putString(SPUtils.SP_USER_LABELS, GsonUtil.convertVO2String(labels));
     }

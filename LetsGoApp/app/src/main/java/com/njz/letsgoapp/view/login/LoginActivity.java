@@ -422,7 +422,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void setLoginData(LoginModel loginModel) {
         MySelfInfo.getInstance().setData(loginModel);
 
-        UserCacheManager.save("u_"+MySelfInfo.getInstance().getUserId(),MySelfInfo.getInstance().getUserNickname(),MySelfInfo.getInstance().getUserImgUrl());
+        UserCacheManager.save(MySelfInfo.getInstance().getImId(),MySelfInfo.getInstance().getUserNickname(),MySelfInfo.getInstance().getUserImgUrl());
 
         LogUtil.e("getRegistrationID:" + JPushInterface.getRegistrationID(context));
         JpushAliasUtil.setTagAndAlias();
@@ -432,7 +432,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 @Override
                 public void run() {
                     try {
-                        EMClient.getInstance().createAccount("u_" + MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD);
+                        EMClient.getInstance().createAccount(MySelfInfo.getInstance().getImId(), Constant.IM_PASSWORD);
                         LogUtil.e("im 注册成功");
                     } catch (HyphenateException e) {
                         e.printStackTrace();
@@ -446,7 +446,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             }).start();
         }
 
-        EMClient.getInstance().login("u_" + MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD, new EMCallBack() {
+        EMClient.getInstance().login(MySelfInfo.getInstance().getImId(), Constant.IM_PASSWORD, new EMCallBack() {
             @Override
             public void onSuccess() {
                 // 加载所有会话到内存

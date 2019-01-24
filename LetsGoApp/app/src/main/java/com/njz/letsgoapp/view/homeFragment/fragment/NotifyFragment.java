@@ -288,7 +288,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
                             @Override
                             public void onSuccess(IMUserModel datas) {
                                 if (datas == null) return;
-                                UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
+                                UserCacheManager.save(datas.getImId(), datas.getName(), datas.getUserImg());
                             }
 
                             @Override

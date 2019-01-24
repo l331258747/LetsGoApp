@@ -45,6 +45,10 @@ public class IMUserModel {
     private int id;
     private int status;
 
+    public String getImId(){
+        return "g_"+id;
+    }
+
     public String getMyStory() {
         return myStory;
     }

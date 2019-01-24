@@ -49,7 +49,7 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
                 @Override
                 public void onSuccess(IMUserModel datas) {
                     if (datas == null) return;
-                    UserCacheManager.save("g_" + datas.getId(), datas.getName(), datas.getUserImg());
+                    UserCacheManager.save(datas.getImId(), datas.getName(), datas.getUserImg());
                     titleBar.setTitle(datas.getName());
 
                 }

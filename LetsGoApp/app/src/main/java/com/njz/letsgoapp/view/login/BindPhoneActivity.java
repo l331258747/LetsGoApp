@@ -31,6 +31,7 @@ import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 import com.njz.letsgoapp.widget.LoginItemView2;
 
 import java.util.concurrent.TimeUnit;
@@ -191,6 +192,7 @@ public class BindPhoneActivity extends BaseActivity implements View.OnClickListe
      */
     public void setLoginData(LoginModel loginModel){
         MySelfInfo.getInstance().setData(loginModel);
+        UserCacheManager.save(MySelfInfo.getInstance().getImId(),MySelfInfo.getInstance().getUserNickname(),MySelfInfo.getInstance().getUserImgUrl());
 
         LogUtil.e("getRegistrationID:"+ JPushInterface.getRegistrationID(context));
         JpushAliasUtil.setTagAndAlias();
@@ -200,7 +202,7 @@ public class BindPhoneActivity extends BaseActivity implements View.OnClickListe
                 @Override
                 public void run() {
                     try {
-                        EMClient.getInstance().createAccount("u_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD);
+                        EMClient.getInstance().createAccount(MySelfInfo.getInstance().getImId(), Constant.IM_PASSWORD);
                         LogUtil.e("im 注册成功");
                     } catch (HyphenateException e) {
                         e.printStackTrace();
@@ -214,7 +216,7 @@ public class BindPhoneActivity extends BaseActivity implements View.OnClickListe
             }).start();
         }
 
-        EMClient.getInstance().login("u_"+MySelfInfo.getInstance().getUserId(), Constant.IM_PASSWORD, new EMCallBack() {
+        EMClient.getInstance().login(MySelfInfo.getInstance().getImId(), Constant.IM_PASSWORD, new EMCallBack() {
             @Override
             public void onSuccess() {
                 // 加载所有会话到内存
