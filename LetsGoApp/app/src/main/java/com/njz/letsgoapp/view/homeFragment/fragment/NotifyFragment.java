@@ -120,9 +120,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         if (!hidden) {
             if (setLogin()) {
                 getData();
-                if (!isConflict) {
-                    refresh();
-                }
+                refresh();
             }
         }
     }
@@ -144,6 +142,8 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if(chatHelp != null)
+            chatHelp.removeConnectionListener();
         EMClient.getInstance().chatManager().removeMessageListener(msgListener);
     }
 
@@ -268,6 +268,8 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
                     LogUtil.e("im 1");
                     break;
                 case ChatHelp.MSG_REFRESH: {
+                    if(chatHelp == null) return;
+
                     chatHelp.refresh();
                     break;
                 }
@@ -327,12 +329,6 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        chatHelp.removeConnectionListener();
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (isConflict) {
@@ -341,6 +337,9 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void refresh() {
+        if (isConflict) return;
+        if(chatHelp == null) return;
+
         if (!handler.hasMessages(ChatHelp.MSG_REFRESH)) {
             handler.sendEmptyMessage(ChatHelp.MSG_REFRESH);
         }
