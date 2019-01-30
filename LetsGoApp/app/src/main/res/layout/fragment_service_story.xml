@@ -37,7 +37,7 @@
                     android:orientation="vertical"
                     android:scrollbars="none" />
 
-                <com.njz.letsgoapp.widget.emptyView.EmptyView3
+                <com.njz.letsgoapp.widget.emptyView.EmptyView2
                     android:id="@+id/view_empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

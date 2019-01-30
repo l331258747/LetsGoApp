@@ -66,8 +66,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:textSize="12sp"
-                                tools:text="2019-122" />
+                                tools:text="2019-12-01 共21天 2020-01-01" />
 
                         </LinearLayout>
 

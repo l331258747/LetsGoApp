@@ -45,10 +45,8 @@ import io.reactivex.functions.Consumer;
 public class CustomActivity extends BaseActivity implements View.OnClickListener, CreateOrderContract.View {
 
     EditText et_price, et_name, et_phone, et_special;
-    TextView tv_time, tv_count, tv_submit, tv_location, tv_time_start, tv_time_count, tv_time_end;
+    TextView tv_time, tv_count, tv_submit, tv_location;
     ImageView iv_name_cancel, iv_phone_cancel, iv_special_cancel;
-
-    LinearLayout ll_time;
 
     String location;
     int guideId;
@@ -81,10 +79,6 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
 
         showLeftAndTitle("私人定制");
 
-        ll_time = $(R.id.ll_time);
-        tv_time_start = $(R.id.tv_time_start);
-        tv_time_count = $(R.id.tv_time_count);
-        tv_time_end = $(R.id.tv_time_end);
         tv_location = $(R.id.tv_location);
         et_price = $(R.id.et_price);
         et_name = $(R.id.et_name);
@@ -99,7 +93,6 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
 
         tv_time.setOnClickListener(this);
         tv_count.setOnClickListener(this);
-        ll_time.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
         iv_name_cancel.setOnClickListener(this);
         iv_phone_cancel.setOnClickListener(this);
@@ -122,7 +115,6 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
         Intent intent;
         switch (v.getId()) {
             case R.id.tv_time:
-            case R.id.ll_time:
                 intent = new Intent(context, RangeCalendarActivity.class);
                 intent.putExtra("startTime", startTime);
                 intent.putExtra("endTime", endTime);
@@ -132,12 +124,9 @@ public class CustomActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void accept(CalendarEvent calendarEvent) throws Exception {
                         if (!TextUtils.isEmpty(calendarEvent.getStartTime())) {
-                            ll_time.setVisibility(View.VISIBLE);
-                            tv_time.setVisibility(View.GONE);
-                            tv_time_start.setText(startTime = calendarEvent.getStartTime());
-                            tv_time_end.setText(endTime = calendarEvent.getEndTime());
-                            tv_time_count.setText(calendarEvent.getDays());
-
+                            startTime = calendarEvent.getStartTime();
+                            endTime = calendarEvent.getEndTime();
+                            tv_time.setText(startTime + " " + calendarEvent.getDays() + " " + endTime);
                         }
                         calendarDisposable.dispose();
                     }

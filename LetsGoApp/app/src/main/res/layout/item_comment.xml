@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:maxLines="4"
-        tools:text="行程很好行程很好行程很好行程很\n好行程很好\n行程很好行程很好行程很好\n行程很好行程很好\n行程很好行程很好" />
+        tools:text="无" />
 
     <LinearLayout
         android:id="@+id/ll_photo"

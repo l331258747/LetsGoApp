@@ -3,6 +3,7 @@ package com.njz.letsgoapp.adapter.home;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,14 @@ public class GuideListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             GlideUtil.LoadTopRoundImage(mContext, data.getTitleImg(), ((GuideViewHolder) holder).iv_backimg,5);
             ((GuideViewHolder) holder).tv_name.setText(data.getGuideName());
             ((GuideViewHolder) holder).rating_bar_route.setRating((int)data.getGuideScore());
-            ((GuideViewHolder) holder).tv_content.setText(data.getIntroduce());
+
+            if(TextUtils.isEmpty(data.getIntroduce())){
+                ((GuideViewHolder) holder).tv_content.setVisibility(View.GONE);
+            }else{
+                ((GuideViewHolder) holder).tv_content.setVisibility(View.VISIBLE);
+                ((GuideViewHolder) holder).tv_content.setText(data.getIntroduce());
+            }
+
             ((GuideViewHolder) holder).tv_service_item.setServiceTag(data.getServiceTags());
             ((GuideViewHolder) holder).ll_times.setGuideScore(data.getServiceCounts(),data.getGuideScore(),data.getCount());
             if (mOnItemClickListener != null) {

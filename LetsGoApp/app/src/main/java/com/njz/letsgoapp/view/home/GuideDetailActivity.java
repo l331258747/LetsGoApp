@@ -197,7 +197,10 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         guideLabel.setTabel(model.getSign());
         stv_tag.setServiceTag(model.getServiceTag());
         guide_authentication.setAuthentication(getViable(model));
-        tv_content.setText(model.getIntroduce());
+        if(TextUtils.isEmpty(model.getIntroduce())){
+            tv_content.setVisibility(View.GONE);
+        }else
+            tv_content.setText(model.getIntroduce());
 
         initViewPage(model);
 

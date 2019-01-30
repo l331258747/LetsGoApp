@@ -61,7 +61,7 @@ public class EvaluateAdapter extends RecyclerView.Adapter<EvaluateAdapter.ViewHo
         holder.commont_name.setText(data.getNickname());
         holder.commont_time.setText(data.getUserDate());
         holder.commont_score.setText(data.getScore());
-        holder.tv_comment_content.setText(data.getUserContent());
+        holder.tv_comment_content.setText(TextUtils.isEmpty(data.getUserContent())?"  无":data.getUserContent());
 
         if(TextUtils.isEmpty(data.getGuideContent())){
             holder.rl_reply.setVisibility(View.GONE);

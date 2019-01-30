@@ -383,6 +383,10 @@ public class OrderDetailModel {
         EvaluateTypeModel evaluateTypeModel = new EvaluateTypeModel();
         for (int i = 0; i < njzChildOrderVOS.size(); i++) {
             OrderDetailChildModel childModel = njzChildOrderVOS.get(i);
+
+            if(childModel.getPayStatus() != Constant.ORDER_WAIT_PAY)
+                continue;
+
             if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {
                 evaluateTypeModel.setAttitude(true);
                 evaluateTypeModel.setQuality(true);
