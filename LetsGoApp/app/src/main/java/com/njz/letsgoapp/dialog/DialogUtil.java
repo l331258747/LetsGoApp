@@ -144,7 +144,7 @@ public class DialogUtil {
 
     //联系客服对话框
     public void showCustomerMobileDialog(final Context context){
-        showMobileDialog(context,MySelfInfo.getInstance().getCustomerMobile(),"暂无客服联系方式");
+        showMobileDialog(context,"400-117-7169","暂无客服联系方式");
 
     }
 

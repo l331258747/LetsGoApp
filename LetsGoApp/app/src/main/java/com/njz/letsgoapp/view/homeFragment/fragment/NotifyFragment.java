@@ -168,12 +168,12 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         Intent intent;
         switch (v.getId()) {
             case R.id.view_notify_interaction:
-                setNotifyItemEmpty(view_notify_message);
+                setNotifyItemEmpty(view_notify_interaction);
                 intent = new Intent(context, InteractionMsgActivity.class);
                 startActivity(intent);
                 break;
             case R.id.view_notify_message:
-                setNotifyItemEmpty(view_notify_interaction);
+                setNotifyItemEmpty(view_notify_message);
                 intent = new Intent(context, SystemMsgActivity.class);
                 startActivity(intent);
                 break;
