@@ -1,6 +1,6 @@
 package com.njz.letsgoapp.view.homeFragment;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,9 +9,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -21,15 +18,19 @@ import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.notify.NotifyMainContract;
 import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
-import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
+import com.njz.letsgoapp.view.find.DynamicDetailActivity;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.HomeFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.MyFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.NotifyFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.OrderFragment;
+import com.njz.letsgoapp.view.mine.SpaceActivity;
+import com.njz.letsgoapp.view.order.OrderDetailActivity;
+import com.njz.letsgoapp.view.order.OrderRefundDetailActivity;
 import com.njz.letsgoapp.widget.tab.TabItem;
 import com.njz.letsgoapp.widget.tab.TabLayout;
 import com.njz.letsgoapp.widget.tab.TabView;
@@ -61,6 +62,11 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
 
     private NotifyMainPresenter mPresenter;
 
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+    }
+
     //----------沉浸式 start ----------
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +83,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
 //            params.height = statusHeight;
 //            linear_bar.setLayoutParams(params);
 //        }
+        getNewIntent();
     }
 
 //    public void setMystatusViewShow(boolean isShow) {
@@ -269,5 +276,66 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     @Override
     public void msgPushGetSendMsgListFailed(String msg) {
         LogUtil.e(msg);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtil.e("onNewIntent");
+        setIntent(intent);
+        getNewIntent();
+    }
+
+    private void getNewIntent(){
+        Intent intent = getIntent(); //use the data received here
+        int key = intent.getIntExtra("key", -1);
+        String skip = intent.getStringExtra("skip");
+
+        LogUtil.e("key:" + key);
+        LogUtil.e("skip:" + skip);
+
+        setSkip(skip,key);
+    }
+
+    public void setSkip(final String skip, final int correlationId){
+        if(correlationId == -1){
+            LogUtil.e("不能进行跳转correlationId");
+            return;
+        }
+        if(TextUtils.isEmpty(skip)){
+            LogUtil.e("不能进行跳转skip 空");
+            return;
+        }
+        Intent intent;
+        switch (skip){
+            case Constant.NOTIFY_SKIP_FSD:
+                intent = new Intent(context, DynamicDetailActivity.class);
+                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,correlationId);
+                startActivity(intent);
+                break;
+            case Constant.NOTIFY_SKIP_GD:
+                intent = new Intent(context, GuideDetailActivity.class);
+                intent.putExtra(GuideDetailActivity.GUIDEID,correlationId);
+                startActivity(intent);
+                break;
+            case Constant.NOTIFY_SKIP_OD:
+                intent = new Intent(context, OrderDetailActivity.class);
+                intent.putExtra("ORDER_ID",correlationId);
+                startActivity(intent);
+                break;
+            case Constant.NOTIFY_SKIP_UD:
+                intent = new Intent(context, SpaceActivity.class);
+                intent.putExtra(SpaceActivity.USER_ID,correlationId);
+                startActivity(intent);
+                break;
+            case Constant.NOTIFY_SKIP_ORD:
+                intent = new Intent(context, OrderRefundDetailActivity.class);
+                intent.putExtra("ORDER_ID",correlationId);
+                startActivity(intent);
+                break;
+            default:
+                LogUtil.e("不能进行跳转skip：" + skip);
+                break;
+        }
     }
 }

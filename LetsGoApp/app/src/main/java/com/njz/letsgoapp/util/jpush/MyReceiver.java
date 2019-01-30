@@ -13,9 +13,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
+import com.njz.letsgoapp.view.find.DynamicDetailActivity;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.mine.SpaceActivity;
+import com.njz.letsgoapp.view.order.OrderDetailActivity;
+import com.njz.letsgoapp.view.order.OrderRefundDetailActivity;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
@@ -82,30 +89,44 @@ public class MyReceiver extends BroadcastReceiver {
     }
     private void openMsg(Context context, Bundle bundle) {
         String s = bundle.getString(JPushInterface.EXTRA_EXTRA);
-        String id = "";
-        String url = "";
+        LogUtil.e("openMsg:" + s);
+        String key = "";
+        String skip = "";
         try {
             JSONObject obj = new JSONObject(s);
             String other = obj.getString("other");
             obj = new JSONObject(other);
-            id = obj.getString("id");
-            url = obj.getString("url");
+            key = obj.getString("key");
+            skip = obj.getString("skip");
         } catch (JSONException e) {
             LogUtil.e("JSONException:" + e);
-//            return;
+            return;
         }
 
-        LogUtil.e("id:" + id);
-        LogUtil.e("url:" + url);
+        LogUtil.e("key:" + key);
+        LogUtil.e("skip:" + skip);
 
-//        Intent i = new Intent(context, HomeActivity.class);
-//        Bundle bundle2 = new Bundle();
-//        bundle2.putString("id", id);
-//        bundle2.putString("url", url);
-//        i.putExtras(bundle2);
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        context.startActivity(i);
+        if(TextUtils.isEmpty(key) || TextUtils.isEmpty(skip))
+            return;
 
+        int keyId = getKeyId(key);
+        if(keyId == -1){
+            return;
+        }
+
+        Intent i = new Intent(context, HomeActivity.class);
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt("key", keyId);
+        bundle2.putString("skip", skip);
+        i.putExtras(bundle2);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(i);
+    }
+
+    public int getKeyId(String key) {
+        if(TextUtils.isEmpty(key))
+            return -1;
+        return Integer.valueOf(key);
     }
 
 
