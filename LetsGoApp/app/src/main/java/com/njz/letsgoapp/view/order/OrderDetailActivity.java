@@ -338,6 +338,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     Intent chat = new Intent(context, ChatActivity.class);
                     chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
                     chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                    chat.putExtra(EaseConstant.EXTRA_USER_NAME, model.getGuideName());
                     startActivity(chat);
 
                 } else {

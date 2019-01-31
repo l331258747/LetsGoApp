@@ -138,6 +138,8 @@ public class Constant {
 
     //im 密码
     public static final String IM_PASSWORD = "najiuzou@im";
+    //欢迎语
+    public static final String IM_WELCOME = "welcom_msg";
 
 
 }

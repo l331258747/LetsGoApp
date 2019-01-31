@@ -1,21 +1,29 @@
 package com.njz.letsgoapp.view.im;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hyphenate.chat.EMChatManager;
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.other.IMUserModel;
+import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +36,7 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
 //    private boolean isRobot;
     private boolean isRobot = true;
+    String name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +72,36 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
         }
 
         super.setUpView();
+
+        setWelcomMsg();
+    }
+
+
+    public void setWelcomMsg(){
+
+        String msgtime0 = DateUtil.longToStr(System.currentTimeMillis(),"yyyyMMddHH");
+        String msgtime;
+
+        name = fragmentArgs.getString(EaseConstant.EXTRA_USER_NAME, "");
+
+        List<EMMessage> msgs = conversation.getAllMessages();
+        for (EMMessage msg : msgs){
+            msgtime = DateUtil.longToStr(msg.getMsgTime(),"yyyyMMddHH");
+            if(TextUtils.equals(msg.getMsgId(),Constant.IM_WELCOME+toChatUsername) && Integer.valueOf(msgtime0) - Integer.valueOf(msgtime) < 24){
+                return;
+            }
+        }
+
+        EMMessage emMessage = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
+        emMessage.setFrom(toChatUsername);//发送人
+        emMessage.addBody(new EMTextMessageBody("您好，我是当地向导" + name + "，很高兴为您服务!"));//创建消息
+        emMessage.setUnread(true);//是否已读
+        emMessage.setChatType(EMMessage.ChatType.Chat);//聊天类型
+        emMessage.setMsgTime(System.currentTimeMillis());//消息时间
+        emMessage.setTo(MySelfInfo.getInstance().getImId());//发送给
+        emMessage.setMsgId(Constant.IM_WELCOME+toChatUsername);
+
+        EMClient.getInstance().chatManager().saveMessage(emMessage);
     }
 
     @Override

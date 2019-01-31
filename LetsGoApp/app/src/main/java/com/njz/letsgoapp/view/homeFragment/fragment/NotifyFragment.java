@@ -308,7 +308,14 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
                 new ChatHelp.EaseConversationListItemClickListener() {
                     @Override
                     public void onListItemClicked(EMConversation conversation) {
-                        startActivity(new Intent(context, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId()));
+//                        startActivity(new Intent(context, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId()));
+
+                        Intent chat = new Intent(context, ChatActivity.class);
+                        chat.putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId());  //对方账号
+                        chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                        chat.putExtra(EaseConstant.EXTRA_USER_NAME, UserCacheManager.get(conversation.conversationId()).getNickName());
+                        startActivity(chat);
+
                     }
                 }, new EMConnectionListener() {
                     @Override

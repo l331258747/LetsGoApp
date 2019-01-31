@@ -162,6 +162,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                     Intent chat = new Intent(context, ChatActivity.class);
                     chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
                     chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                    chat.putExtra(EaseConstant.EXTRA_USER_NAME, serverDetailModel.getName());
                     startActivity(chat);
 
                 } else {
