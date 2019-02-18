@@ -97,6 +97,16 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
                 }
             }
         });
+        holder.tv_selected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnItemClickListener !=null){
+                    mOnItemClickListener.onSelectedClick(position);
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -160,6 +170,7 @@ public class ServerListAdapter2 extends RecyclerView.Adapter<ServerListAdapter2.
         void onCancelClick(int position);
         void onBookClick(int position);
         void onCustemClick(int position);
+        void onSelectedClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

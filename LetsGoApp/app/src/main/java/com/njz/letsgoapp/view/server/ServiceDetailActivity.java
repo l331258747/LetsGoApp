@@ -242,7 +242,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 //                finish();
 
                 if (popServer == null) {
-                    popServer = new PopServer(activity, tv_submit, model);
+                    popServer = new PopServer(activity, tv_submit, model,null);
                 }
                 popServer.showPopupWindow(tv_submit);
 

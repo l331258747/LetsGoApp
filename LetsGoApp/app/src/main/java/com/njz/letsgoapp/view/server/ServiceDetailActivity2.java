@@ -124,7 +124,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                     return;
                 }
                 if (popServer == null) {
-                    popServer = new PopServer(activity, tv_submit, serverDetailModel);
+                    popServer = new PopServer(activity, tv_submit, serverDetailModel,null);
                     popServer.setSubmit(null, new PopServer.SubmitClick() {
                         @Override
                         public void onClick(ServerItem serverItem) {

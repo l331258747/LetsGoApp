@@ -35,6 +35,7 @@ import com.njz.letsgoapp.util.rxbus.busEvent.PriceCalendarEvent;
 import com.njz.letsgoapp.view.calendar.PriceCalendarActivity;
 import com.njz.letsgoapp.widget.GuideScoreView2;
 import com.njz.letsgoapp.widget.NumberEtView;
+import com.njz.letsgoapp.widget.NumberView;
 import com.njz.letsgoapp.widget.PriceView;
 import com.njz.letsgoapp.widget.ViewServerFlow;
 
@@ -68,6 +69,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
 
     ServerDetailModel serverDetailModel;
+    ServerItem serverItem;
 
     String titleLanguage;
     String titleCar;
@@ -94,13 +96,14 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     int serverNum;
 
 
-    public PopServer(final Activity context, View parentView, ServerDetailModel serverDetailModel) {
+    public PopServer(final Activity context, View parentView, ServerDetailModel serverDetailModel,ServerItem serverItem) {
         super(parentView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         contentView = inflater.inflate(R.layout.popup_server, null);
         this.context = context;
         this.serverDetailModel = serverDetailModel;
+        this.serverItem = serverItem;
 
         initView();
 
@@ -120,6 +123,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
 
     }
 
+    //默认3天的未选中的时间。
     public void setPriceData() {
         priceCalendarChildModels = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -134,7 +138,50 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             priceCalendarChildModel.setDateInt(ca.get(Calendar.DAY_OF_MONTH));
             priceCalendarChildModels.add(priceCalendarChildModel);
         }
+    }
 
+    //已选后，时间
+    private void setSelectedPriceData() {
+        priceCalendarChildModels.clear();
+        if (pirceVsf.getMaxSelect() == 1) {
+            if (serverItem.getSelectTimeValueList2().size() > 0) {
+                //如果是maxSelect只能选择一天，需要展示第一天被选中，展示后面2天不被选中的ui
+                PriceCalendarChildModel priceCalendarChildModel = new PriceCalendarChildModel();
+                Calendar ca = Calendar.getInstance();
+                ca.setTime(DateUtil.str2Date(serverItem.getSelectTimeValueList2().get(0)));
+                priceCalendarChildModel.setYearInt(ca.get(Calendar.YEAR));
+                priceCalendarChildModel.setMonthInt(ca.get(Calendar.MONTH) + 1);
+                priceCalendarChildModel.setDateInt(ca.get(Calendar.DAY_OF_MONTH));
+                priceCalendarChildModel.setSelect(true);
+                priceCalendarChildModels.add(priceCalendarChildModel);
+                for (int i = 1; i < 3; i++) {
+                    PriceCalendarChildModel priceCalendarChildModel2 = new PriceCalendarChildModel();
+                    Date date = priceCalendarChildModel.getDate();
+
+                    Calendar ca2 = Calendar.getInstance();
+                    ca2.setTime(date);
+                    ca2.add(Calendar.DATE, i); //向后走一天
+
+                    priceCalendarChildModel2.setYearInt(ca2.get(Calendar.YEAR));
+                    priceCalendarChildModel2.setMonthInt(ca2.get(Calendar.MONTH) + 1);
+                    priceCalendarChildModel2.setDateInt(ca2.get(Calendar.DAY_OF_MONTH));
+                    priceCalendarChildModel2.setSelect(false);
+                    priceCalendarChildModels.add(priceCalendarChildModel2);
+                }
+            }
+
+        } else {
+            for (int i = 0; i < serverItem.getSelectTimeValueList2().size(); i++) {
+                PriceCalendarChildModel priceCalendarChildModel = new PriceCalendarChildModel();
+                Calendar ca = Calendar.getInstance();
+                ca.setTime(DateUtil.str2Date(serverItem.getSelectTimeValueList2().get(i)));
+                priceCalendarChildModel.setYearInt(ca.get(Calendar.YEAR));
+                priceCalendarChildModel.setMonthInt(ca.get(Calendar.MONTH) + 1);
+                priceCalendarChildModel.setDateInt(ca.get(Calendar.DAY_OF_MONTH));
+                priceCalendarChildModel.setSelect(true);
+                priceCalendarChildModels.add(priceCalendarChildModel);
+            }
+        }
     }
 
     public void initView() {
@@ -169,6 +216,12 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         serverNum = 1;
         numberView.setNum(1);
         numberView.setMinNum(1);
+
+        if(serverItem !=null){
+            serverNum = serverItem.getServeNum();
+            numberView.setNum(serverNum);
+        }
+
         numberView.setCallback(new NumberEtView.OnItemClickListener() {
             @Override
             public void onClick(int num) {
@@ -200,16 +253,29 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                     serverNum = Integer.valueOf(s.toString());
                     tv_price_total.setText("￥" + (DecimalUtil.multiply(priceTotal,serverNum)));
                 }
-
-
             }
         });
     }
 
     private void initData() {
         datePresenter = new PriceDatePresenter(context, this);
+        initPriceFlowDate();
         setPriceData();
+        if(serverItem != null){
+            setSelectedPriceData();
+        }
         initFlowDate(serverDetailModel.getNjzGuideServeFormatEntitys());
+    }
+
+    private void initPriceFlowDate() {
+        pirceVsf = new ViewServerFlow(context);
+        if ((serverDetailModel.getServeType() == Constant.SERVER_TYPE_CAR_ID)
+                || (serverDetailModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID)
+                || (serverDetailModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID)) {
+            pirceVsf.setMaxSelect(1);
+        } else {
+            pirceVsf.setMaxSelect(100);
+        }
     }
 
     public void setChange() {
@@ -295,7 +361,14 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         if (mValsTc.size() > 0) {
             ViewServerFlow vsf = new ViewServerFlow(context);
             flow_parent.addView(vsf);
-            vsf.setSelectedOne(true);
+            vsf.setSelectedIndex(0);
+
+            if(serverItem != null){
+                int index = getTypeIndex(mValsTc);
+                if(index != -1)
+                    vsf.setSelectedIndex(index);
+            }
+
             vsf.initFlow("选择套餐", null, mValsTc, new ViewServerFlow.OnTagLinsenerClick() {
                 @Override
                 public void onTagLinsenerClick(int position,boolean isSelect) {
@@ -306,16 +379,23 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 }
             });
         }
+
         if (mValsCx.size() > 0) {
             ViewServerFlow vsf = new ViewServerFlow(context);
             flow_parent.addView(vsf);
 
             String title2 = "";
             if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_CAR_ID){
-                vsf.setSelectedOne(true);
+                vsf.setSelectedIndex(0);
             }else{
                 title2 = "（自己开车可不选）";
                 vsf.setMaxSelect(-2);
+            }
+
+            if(serverItem != null){
+                int index = getTypeIndex(mValsCx);
+                if(index != -1)
+                    vsf.setSelectedIndex(index);
             }
 
             vsf.initFlow("选择车型", title2, mValsCx, new ViewServerFlow.OnTagLinsenerClick() {
@@ -342,7 +422,13 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID){
                 vsf.setMaxSelect(-2);
             }else{
-                vsf.setSelectedOne(true);
+                vsf.setSelectedIndex(0);
+            }
+
+            if(serverItem != null){
+                int index = getTypeIndex(mValsYy);
+                if(index != -1)
+                    vsf.setSelectedIndex(index);
             }
 
             vsf.initFlow("选择语言", null, mValsYy, new ViewServerFlow.OnTagLinsenerClick() {
@@ -363,15 +449,6 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         }
 
         if (priceCalendarChildModels.size() > 0) {
-            pirceVsf = new ViewServerFlow(context);
-            if ((serverDetailModel.getServeType() == Constant.SERVER_TYPE_CAR_ID)
-                    || (serverDetailModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID)
-                    || (serverDetailModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID)) {
-                pirceVsf.setMaxSelect(1);
-            } else {
-                pirceVsf.setMaxSelect(100);
-            }
-
             flow_parent.addView(pirceVsf);
 
             pirceVsf.initFlow2(serverDetailModel.getDateTitle(), null, priceCalendarChildModels);
@@ -406,6 +483,17 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
                 }
             });
         }
+    }
+
+    public int getTypeIndex(List<PlayChileMedel> mVals){
+        for (int i =0; i < serverItem.getNjzGuideServeFormatId2().size();i++){
+            for (int j =0;j<mVals.size();j++){
+                if(serverItem.getNjzGuideServeFormatId2().get(i).equals(mVals.get(j).getId()+"")){
+                    return j;
+                }
+            }
+        }
+        return -1;
     }
 
     public void showPopupWindow(View parent) {

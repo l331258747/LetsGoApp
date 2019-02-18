@@ -7,6 +7,10 @@ import android.view.View;
 import com.njz.letsgoapp.adapter.server.OrderSubmitAdapter;
 import com.njz.letsgoapp.constant.Constant;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by LGQ
  * Time: 2018/12/13
@@ -66,6 +70,12 @@ public class ServerItem implements Parcelable {
         return selectTimeValueList;
     }
 
+    public List<String> getSelectTimeValueList2(){
+        String[] strs = selectTimeValueList.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        return lists;
+    }
+
     public void setSelectTimeValueList(String selectTimeValueList) {
         this.selectTimeValueList = selectTimeValueList;
     }
@@ -80,6 +90,12 @@ public class ServerItem implements Parcelable {
 
     public String getNjzGuideServeFormatId() {
         return njzGuideServeFormatId;
+    }
+
+    public List<String> getNjzGuideServeFormatId2(){
+        String[] strs = njzGuideServeFormatId.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        return lists;
     }
 
     public void setNjzGuideServeFormatId(String njzGuideServeFormatId) {

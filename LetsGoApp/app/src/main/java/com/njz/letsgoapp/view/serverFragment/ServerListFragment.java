@@ -178,7 +178,7 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
 
             @Override
             public void onBookClick(final int position) {
-                popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position));
+                popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position),null);
                 popServer.setSubmit("选好了", new PopServer.SubmitClick() {
                     @Override
                     public void onClick(ServerItem serverItem) {
@@ -203,8 +203,52 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
                 intent.putExtra("SERVER_ID", mAdapter2.getData(position).getId());
                 startActivity(intent);
             }
+
+            @Override
+            public void onSelectedClick(final int position) {
+                ServerItem serverItem = getServerItem(mAdapter2.getData(position));
+                if(serverItem == null) return;
+
+                popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position),serverItem);
+                popServer.setSubmit("选好了", new PopServer.SubmitClick() {
+                    @Override
+                    public void onClick(ServerItem serverItem) {
+                        int index = getServerItemsPosition(serverItem);
+                        if(index == -1) return;
+
+                        serverItems.set(index,serverItem);
+                        mAdapter2.getData(position).setBook(true);
+                        loadMoreWrapper.notifyItemChanged(position);
+                        RxBus2.getInstance().post(new ServerPriceTotalEvent());
+                    }
+                });
+                popServer.showPopupWindow(recycler_view2);
+            }
         });
     }
+
+    //--------------已选 start -------------
+    //用来找到serverItem
+    private ServerItem getServerItem(ServerDetailModel sdm){
+        for (int i = 0;i<serverItems.size();i++){
+            if(serverItems.get(i).getNjzGuideServeId() == sdm.getId()){
+                return serverItems.get(i);
+            }
+        }
+        return null;
+    }
+
+
+    //获取serverItem在serverItems中的position
+    private int getServerItemsPosition(ServerItem serverItem){
+        for (int i = 0;i<serverItems.size();i++){
+            if(serverItems.get(i).getNjzGuideServeId() == serverItem.getNjzGuideServeId()){
+                return i;
+            }
+        }
+        return -1;
+    }
+    //--------------已选 end -------------
 
     private void getRefreshData() {
         swipeRefreshLayout.setRefreshing(true);
