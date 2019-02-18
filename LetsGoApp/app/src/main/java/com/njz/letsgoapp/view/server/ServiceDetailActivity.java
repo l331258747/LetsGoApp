@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -21,6 +24,7 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.ServiceItem;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
+import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.constant.URLConstant;
 import com.njz.letsgoapp.dialog.DialogUtil;
@@ -34,6 +38,12 @@ import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerSelectedEvent;
+import com.njz.letsgoapp.view.im.ChatActivity;
+import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.serverFragment.ServerEvaluateFragment;
 import com.njz.letsgoapp.view.serverFragment.ServerFeatureFragment;
 import com.njz.letsgoapp.widget.PriceView;
@@ -52,7 +62,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 
     public static final String TITLE = "TITLE";
     public static final String SERVICEID = "SERVICEID";
-    public static final String SERVICEITEMS = "SERVICEITEMS";
+    public static final String SERVER_ITEM = "SERVER_ITEM";
 
     public ConvenientBanner convenientBanner;
     public TextView tv_title, tv_sell, tv_submit, tv_phone, tv_back_top, tv_float_call,tv_consult;
@@ -66,7 +76,8 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 
     public String title;
     public int serviceId;
-    public List<ServiceItem> serviceItems;
+    public ServerItem serverItem;
+    public boolean isCustom;
     public boolean isHideBottom;
 
     public ServerDetailPresenter serverDetailPresenter;
@@ -85,7 +96,9 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         super.getIntentData();
         title = intent.getStringExtra(TITLE);
         serviceId = intent.getIntExtra(SERVICEID, 0);
-        serviceItems = intent.getParcelableArrayListExtra(SERVICEITEMS);
+        serverItem = intent.getParcelableExtra(SERVER_ITEM);
+
+        isCustom = intent.getBooleanExtra("isCustom",false);
         isHideBottom = intent.getBooleanExtra("isHideBottom", false);
         if (TextUtils.isEmpty(title)) {
             title = "";
@@ -143,8 +156,8 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
     }
 
     public void initBottom(){
-        ll_bottom.setVisibility(View.GONE);
-        tv_float_call.setVisibility(View.VISIBLE);
+        ll_bottom.setVisibility(View.VISIBLE);
+        tv_float_call.setVisibility(View.GONE);
     }
 
     @Override
@@ -161,6 +174,10 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
 
     @Override
     public void initData() {
+        if(isCustom){
+            tv_submit.setText("立即定制");
+        }
+
         serverDetailPresenter = new ServerDetailPresenter(context, this);
         bannerPresenter = new BannerPresenter(context, this);
 
@@ -188,19 +205,8 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
         //预订(￥0)
 //        tv_submit.setText("预订(￥" + model.getServePrice() +")");
 
-        setServiceSelected();
     }
 
-    public void setServiceSelected() {
-        if (serviceItems == null) return;
-        for (ServiceItem item : serviceItems) {
-            if (item.getId() == model.getId()) {
-                tv_submit.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_cc_solid_r5_p8));
-                tv_submit.setTextColor(ContextCompat.getColor(context, R.color.color_text));
-                tv_submit.setEnabled(false);
-            }
-        }
-    }
 
     public void initBanner(List<BannerModel> models) {
         //开始自动翻页
@@ -228,24 +234,40 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+//            case R.id.tv_submit:
+//                if (popServer == null) {
+//                    popServer = new PopServer(activity, tv_submit, model,null);
+//                }
+//                popServer.showPopupWindow(tv_submit);
+//                break;
             case R.id.tv_submit:
-//                ServiceItem data = new ServiceItem();
-//                data.setServiceType(model.getServiceType());
-//                data.setValue(model.getValue());
-//                data.setServeType(model.getServeType());
-//                data.setId(model.getId());
-//                data.setTitile(model.getTitle());
-//                data.setPrice(model.getServePrice());
-//                data.setImg(model.getTitleImg());
-//                RxBus2.getInstance().post(data);
-//                RxBus2.getInstance().post(new ServiceDetailCloseEvent());
-//                finish();
+                if(model == null) return;
 
+                if(!MySelfInfo.getInstance().isLogin()){
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+
+                if(model.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                    Intent intent = new Intent(context, CustomActivity.class);
+                    intent.putExtra("LOCATION", model.getAddress());
+                    intent.putExtra("GUIDE_ID", model.getGuideId());
+                    intent.putExtra("SERVER_ID", model.getId());
+
+                    startActivity(intent);
+                    return;
+                }
                 if (popServer == null) {
-                    popServer = new PopServer(activity, tv_submit, model,null);
+                    popServer = new PopServer(activity, tv_submit, model, serverItem);
+                    popServer.setSubmit("选好了", new PopServer.SubmitClick() {
+                        @Override
+                        public void onClick(ServerItem serverItem) {
+                            RxBus2.getInstance().post(new ServerSelectedEvent(serverItem));
+                            finish();
+                        }
+                    });
                 }
                 popServer.showPopupWindow(tv_submit);
-
                 break;
             case R.id.tv_phone:
                 if (model == null) return;
@@ -271,6 +293,25 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
                 dialog.setReportData(model.getGuideId(), ShareDialog.REPORT_SERVICE,model.getId());
                 dialog.setType(ShareDialog.TYPE_ALL);
                 dialog.show();
+                break;
+            case R.id.tv_consult:
+                if(model == null) return;
+                String name = "g_"+ model.getGuideId();
+                String myName = EMClient.getInstance().getCurrentUser();
+                if (!TextUtils.isEmpty(name)) {
+                    if (name.equals(myName)) {
+                        showShortToast("不能和自己聊天");
+                        return;
+                    }
+                    Intent chat = new Intent(context, ChatActivity.class);
+                    chat.putExtra(EaseConstant.EXTRA_USER_ID, name);  //对方账号
+                    chat.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EMMessage.ChatType.Chat); //单聊模式
+                    chat.putExtra(EaseConstant.EXTRA_USER_NAME, model.getName());
+                    startActivity(chat);
+
+                } else {
+                    showShortToast("导游还未注册即时通讯，请使用电话联系TA");
+                }
                 break;
         }
     }

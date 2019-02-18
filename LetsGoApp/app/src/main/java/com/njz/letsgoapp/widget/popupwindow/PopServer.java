@@ -278,7 +278,7 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
         }
     }
 
-    public void setChange() {
+    public synchronized void setChange() {
         tv_title.setText(serverDetailModel.getTitle() +
                 (TextUtils.isEmpty(titleTc) ? "" : ("+" + titleTc)) +
                 (TextUtils.isEmpty(titleCar) ? "" : ("+" + titleCar)) +

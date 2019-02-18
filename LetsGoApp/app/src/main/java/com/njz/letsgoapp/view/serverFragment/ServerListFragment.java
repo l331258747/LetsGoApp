@@ -2,6 +2,7 @@ package com.njz.letsgoapp.view.serverFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,13 +22,12 @@ import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.mvp.server.ServerListContract;
-import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.mvp.server.ServerListScreenContract;
 import com.njz.letsgoapp.mvp.server.ServerListScreenPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerSelectedEvent;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.server.CustomActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
@@ -64,6 +64,7 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
 
     List<ServerItem> serverItems;
     Disposable serverDetailDisposable;
+    public Disposable serverSelectedDisposable;
 
     public static Fragment newInstance(GuideDetailModel guideDetailModel, List<ServerItem> serverItems) {
         ServerListFragment fragment = new ServerListFragment();
@@ -114,6 +115,22 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
                 loadMoreWrapper.notifyDataSetChanged();
             }
         });
+
+        serverSelectedDisposable = RxBus2.getInstance().toObservable(ServerSelectedEvent.class, new Consumer<ServerSelectedEvent>() {
+            @Override
+            public void accept(ServerSelectedEvent serverSelectedEvent) throws Exception {
+                ServerItem serverItem = serverSelectedEvent.getServerItem();
+
+                int index = getServerItemsPosition(serverItem);
+                if(index == -1){
+                    serverItems.add(serverItem);
+                }else{
+                    serverItems.set(getServerItemsPosition(serverItem),serverItem);
+                }
+                RxBus2.getInstance().post(new ServerDetailEvent());
+                RxBus2.getInstance().post(new ServerPriceTotalEvent());
+            }
+        });
     }
 
     //初始化recyclerview
@@ -160,6 +177,9 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity.class);
                 intent.putExtra(ServiceDetailActivity.SERVICEID, mAdapter2.getData(position).getId());
+                intent.putExtra(ServiceDetailActivity.SERVER_ITEM, getServerItem(mAdapter2.getData(position)));
+                if(mAdapter2.getData(position).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID)
+                    intent.putExtra("isCustom",true);
                 startActivity(intent);
             }
 
@@ -284,6 +304,8 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
         super.onDestroy();
         if (serverDetailDisposable != null && !serverDetailDisposable.isDisposed())
             serverDetailDisposable.dispose();
+        if (serverSelectedDisposable != null && !serverSelectedDisposable.isDisposed())
+            serverSelectedDisposable.dispose();
     }
 
     @Override
