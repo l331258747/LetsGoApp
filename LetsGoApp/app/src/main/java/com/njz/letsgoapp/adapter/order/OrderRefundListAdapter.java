@@ -171,7 +171,6 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             final OrderRefundBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((TitleHolder) holder).tv_order.setText(data.getOrderNo());
             ((TitleHolder) holder).tv_status.setText(data.getPayStatusStr());
             ((TitleHolder) holder).tv_name.setText(data.getGuideName());
 
@@ -189,6 +188,8 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             final int pos = holder.getAdapterPosition();
             final OrderRefundBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
+
+            ((FootHolder) holder).tv_order.setText(data.getOrderNo());
 
             ((FootHolder) holder).setbtn();
             switch (data.getPayStatus()){
@@ -244,12 +245,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
     }
 
     public class TitleHolder extends OrderRefundListAdapter.BaseViewHolder implements View.OnClickListener {
-        TextView tv_order,tv_status,tv_name;
+        TextView tv_status,tv_name;
         RelativeLayout rl_status;
 
         TitleHolder(View itemView) {
             super(itemView);
-            tv_order = itemView.findViewById(R.id.tv_order);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_status = itemView.findViewById(R.id.tv_status);
             rl_status = itemView.findViewById(R.id.rl_status);
@@ -281,7 +281,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
 
     public class FootHolder extends OrderRefundListAdapter.BaseViewHolder {
-        TextView tv_order_price_content,tv_order_price_title;
+        TextView tv_order_price_content,tv_order_price_title,tv_order;
         TextView btn_call_guide,btn_cancel_order,btn_pay,btn_evaluate,btn_delete,btn_call_customer,btn_refund,btn_see_plan;
         RelativeLayout rl_price;
 
@@ -299,6 +299,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
             btn_refund = itemView.findViewById(R.id.btn_refund);
             rl_price = itemView.findViewById(R.id.rl_price);
             btn_see_plan = itemView.findViewById(R.id.btn_see_plan);
+            tv_order = itemView.findViewById(R.id.tv_order);
         }
 
         public void setbtn(){
