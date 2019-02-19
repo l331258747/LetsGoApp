@@ -239,7 +239,8 @@ public class MySelfInfo {
                 break;
             }
         }
-        if(lists.size() > 5) {
+        
+        while (lists.size() > 5){
             lists.remove(lists.size() - 1);
         }
 
@@ -271,7 +272,7 @@ public class MySelfInfo {
             }
         }
 
-        if(lists.size() > 8) {
+        while (lists.size() > 5){
             lists.remove(lists.size() - 1);
         }
 
@@ -303,7 +304,7 @@ public class MySelfInfo {
             }
         }
 
-        if(lists.size() > 8) {
+        while (lists.size() > 5){
             lists.remove(lists.size() - 1);
         }
 

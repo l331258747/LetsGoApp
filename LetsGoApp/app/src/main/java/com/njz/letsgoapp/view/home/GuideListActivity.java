@@ -25,12 +25,10 @@ import com.njz.letsgoapp.mvp.home.GuideListContract;
 import com.njz.letsgoapp.mvp.home.GuideListPresenter;
 import com.njz.letsgoapp.mvp.other.ConfigContract;
 import com.njz.letsgoapp.mvp.other.ConfigPresenter;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.other.GuideSearchActivity;
 import com.njz.letsgoapp.view.other.MyCityPickActivity;
-import com.njz.letsgoapp.view.other.SearchActivity;
 import com.njz.letsgoapp.widget.MyGuideTab;
 import com.njz.letsgoapp.widget.popupwindow.PopGuideList2;
 

@@ -140,6 +140,16 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 //                scrollView.scrollTo(0, 0);
                 break;
             case R.id.tv_consult:
+                if (!MySelfInfo.getInstance().isLogin()) {//登录状态
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+
+                if(!MySelfInfo.getInstance().getImLogin()){
+                    showShortToast("用户未注册到im");
+                    return;
+                }
+
                 if(serverDetailModel == null) return;
                 String name = "g_"+ serverDetailModel.getGuideId();
                 String myName = EMClient.getInstance().getCurrentUser();

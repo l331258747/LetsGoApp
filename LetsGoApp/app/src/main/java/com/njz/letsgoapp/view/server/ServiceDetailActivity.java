@@ -295,6 +295,16 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
                 dialog.show();
                 break;
             case R.id.tv_consult:
+                if (!MySelfInfo.getInstance().isLogin()) {//登录状态
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+
+                if(!MySelfInfo.getInstance().getImLogin()){
+                    showShortToast("用户未注册到im");
+                    return;
+                }
+
                 if(model == null) return;
                 String name = "g_"+ model.getGuideId();
                 String myName = EMClient.getInstance().getCurrentUser();

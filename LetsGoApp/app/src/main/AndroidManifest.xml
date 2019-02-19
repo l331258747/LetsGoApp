@@ -129,8 +129,6 @@
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />
         <activity android:name=".view.other.MyCityPickActivity" />
-        <activity android:name=".view.other.SearchActivity"
-            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.other.GuideSearchActivity"
             android:windowSoftInputMode="adjustPan|stateVisible"/>
         <activity android:name=".view.other.ServerSearchActivity"
