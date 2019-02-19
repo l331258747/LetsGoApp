@@ -172,7 +172,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/reply_time"
             android:layout_marginTop="10dp"
-            android:maxLines="4"
             tools:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容" />
 
     </RelativeLayout>
