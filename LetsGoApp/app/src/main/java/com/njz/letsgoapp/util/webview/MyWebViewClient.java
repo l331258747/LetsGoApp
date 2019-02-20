@@ -43,7 +43,7 @@ public class MyWebViewClient extends WebViewClient {
                 "for(var i=0;i<objs.length;i++)  " +
                 "{"
                 + "var img = objs[i];   " +
-                "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
+                "    img.style.width = '100%'; img.style.height = 'auto';  " +
                 "}" +
                 "})()");
     }
