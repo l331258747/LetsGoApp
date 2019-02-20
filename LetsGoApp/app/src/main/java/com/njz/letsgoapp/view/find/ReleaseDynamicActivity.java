@@ -256,4 +256,18 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if(!TextUtils.isEmpty(etContent.getText().toString()) || selectedPhotos.size() > 0){
+            DialogUtil.getInstance().getDefaultDialog(context, "您是否确认退出?", new DialogUtil.DialogCallBack() {
+                @Override
+                public void exectEvent(DialogInterface alterDialog) {
+                    ReleaseDynamicActivity.super.onBackPressed();
+                }
+            }).show();
+        }else{
+            super.onBackPressed();
+        }
+    }
 }

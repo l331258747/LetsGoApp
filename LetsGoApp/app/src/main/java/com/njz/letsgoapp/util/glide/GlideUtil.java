@@ -69,7 +69,7 @@ public class GlideUtil {
                                        ImageView imageview) {
         if(TextUtils.isEmpty(path)) path = "";
         Glide.with(mContext).load(path).centerCrop().error(R.mipmap.default_head)
-                .transform(new GlideCircleTransform(mContext,2,mContext.getResources().getColor(R.color.white)))
+                .transform(new GlideCircleTransform(mContext,0,mContext.getResources().getColor(R.color.white)))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
 
     }
