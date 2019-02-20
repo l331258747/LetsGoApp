@@ -63,10 +63,16 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
 
         mAdapter.setOnItemClickListener(new OrderRefundListAdapter.OnItemClickListener() {
             @Override
-            public void onClick(int orderId) {
-                Intent intent = new Intent(context, OrderRefundDetailActivity.class);
-                intent.putExtra("ORDER_ID",orderId);
-                startActivity(intent);
+            public void onClick(int orderId,int status) {
+                if(status == 0){
+                    Intent intent = new Intent(context, OrderDetailActivity.class);
+                    intent.putExtra("ORDER_ID",orderId);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(context, OrderRefundDetailActivity.class);
+                    intent.putExtra("ORDER_ID",orderId);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -81,8 +87,8 @@ public class OrderRefundListFragment extends OrderListFragment implements OrderR
 
         mAdapter.setOnDeleteClickListener(new OrderRefundListAdapter.OnDeleteClickListener() {
             @Override
-            public void onClick(int id) {
-                deletePresenter.orderDeleteOrder(id,1);
+            public void onClick(int id, int statues) {
+                deletePresenter.orderDeleteOrder(id,statues);
             }
         });
     }

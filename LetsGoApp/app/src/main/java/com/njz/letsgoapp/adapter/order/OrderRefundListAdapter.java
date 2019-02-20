@@ -79,23 +79,27 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 serviceInfoGroup.setOrderNo(orderModel.getOrderNo());
                 serviceInfoGroup.setId(orderModel.getId());
                 serviceInfoGroup.setGuideName(orderModel.getGuideName());
-                serviceInfoGroup.setPayStatus(Constant.ORDER_PAY_REFUND);
+                serviceInfoGroup.setPayStatus(orderModel.getPayStatus());
                 serviceInfoGroup.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup.setReviewStatus(Constant.ORDER_EVALUATE_NO);
                 serviceInfoGroup.setRefundStatus(orderModel.getRefundStatus());
+                serviceInfoGroup.setPlanStatus(orderModel.getPlanStatus());
+                serviceInfoGroup.setOrderId(orderModel.getOrderId());
                 orderBeanGroups.add(serviceInfoGroup);
                 for (int j = 0; j<orderModel.getNjzChildOrderToRefundVOS().size();j++){
                     OrderRefundBeanGroup serviceInfoGroup2 = new OrderRefundBeanGroup();
                     OrderRefundChildModel orderChildModel = orderModel.getNjzChildOrderToRefundVOS().get(j);
                     serviceInfoGroup2.setLabelTab(OrderRefundBeanGroup.LABEL_TAB_DEFAULT);
                     serviceInfoGroup2.setOrderChildModel(orderChildModel);
+                    serviceInfoGroup2.setOrderId(orderModel.getOrderId());
                     serviceInfoGroup2.setId(orderModel.getId());
+                    serviceInfoGroup2.setPayStatus(orderModel.getPayStatus());
                     orderBeanGroups.add(serviceInfoGroup2);
                 }
                 OrderRefundBeanGroup serviceInfoGroup3 = new OrderRefundBeanGroup();
                 serviceInfoGroup3.setLabelTab(OrderRefundBeanGroup.LABEL_TAB_FOOT);
-                serviceInfoGroup3.setPayStatus(Constant.ORDER_PAY_REFUND);
-                serviceInfoGroup3.setOrderPrice(orderModel.getRefundMoney());
+                serviceInfoGroup3.setPayStatus(orderModel.getPayStatus());
+                serviceInfoGroup3.setOrderPrice(orderModel.getMoney());
                 serviceInfoGroup3.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup3.setReviewStatus(Constant.ORDER_EVALUATE_NO);
                 serviceInfoGroup3.setGuideName(orderModel.getGuideName());
@@ -103,8 +107,9 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 serviceInfoGroup3.setRefundStatus(orderModel.getRefundStatus());
                 serviceInfoGroup3.setOrderNo(orderModel.getOrderNo());
                 serviceInfoGroup3.setLocation(orderModel.getLocation());
-                serviceInfoGroup3.setRefundMoney(orderModel.getRefundMoney());
                 serviceInfoGroup3.setGuideMobile(orderModel.getGuideMobile());
+                serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
+                serviceInfoGroup3.setOrderId(orderModel.getOrderId());
                 orderBeanGroups.add(serviceInfoGroup3);
             }
         }
@@ -159,7 +164,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 ((DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getId());
+                    if(orderBeanGroups.get(pos).getPayStatus() == Constant.ORDER_PAY_REFUND){
+                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getId(),1);
+                    }else{
+                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getOrderId(),0);
+                    }
                     }
                 });
             }
@@ -178,7 +187,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 ((TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOnItemClickListener.onClick(data.getId());
+                    if(data.getPayStatus() == Constant.ORDER_PAY_REFUND){
+                        mOnItemClickListener.onClick(data.getId(),1);
+                    }else{
+                        mOnItemClickListener.onClick(data.getOrderId(),0);
+                    }
                     }
                 });
             }
@@ -205,9 +218,17 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                             break;
                     }
                     break;
+                case Constant.ORDER_PAY_CANCEL:
+                    ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
+                    break;
+                case Constant.ORDER_PAY_WAIT:
+                    if(data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_REFUND){
+                        ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
+                    }
+                    break;
             }
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
-            ((FootHolder) holder).tv_order_price_content.setText("￥" + data.getRefundMoney());
+            ((FootHolder) holder).tv_order_price_content.setText("￥" + data.getOrderPrice());
 
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -219,7 +240,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 @Override
                 public void onClick(View v) {
                     if (mOnDeleteClickListener != null) {
-                        mOnDeleteClickListener.onClick(data.getId());
+                        if(data.getPayStatus() == Constant.ORDER_PAY_REFUND){
+                            mOnDeleteClickListener.onClick(data.getId(),1);
+                        }else{
+                            mOnDeleteClickListener.onClick(data.getOrderId(),0);
+                        }
                     }
                 }
             });
@@ -319,11 +344,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
     OnDeleteClickListener mOnDeleteClickListener;
 
     public interface OnDeleteClickListener{
-        void onClick(int id);
+        void onClick(int id,int statues);
     }
 
     public interface OnItemClickListener {
-        void onClick(int orderId);
+        void onClick(int orderId,int status);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

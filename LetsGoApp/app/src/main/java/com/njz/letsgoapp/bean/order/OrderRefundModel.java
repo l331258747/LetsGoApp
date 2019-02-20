@@ -56,6 +56,21 @@ public class OrderRefundModel {
     private String guideMobile;
     private List<OrderRefundChildModel> njzChildOrderToRefundVOS;
     private int id;
+    private int payStatus;
+    private int planStatus;
+    private float orderPrice;
+
+    public float getOrderPrice() {
+        return orderPrice;
+    }
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public int getPayStatus() {
+        return payStatus;
+    }
 
     public String getGuideMobile() {
         return guideMobile;
@@ -151,6 +166,13 @@ public class OrderRefundModel {
 
     public float getRefundMoney() {
         return refundMoney;
+    }
+
+    public float getMoney(){
+        if(payStatus == 4){
+            return refundMoney;
+        }
+        return orderPrice;
     }
 
     public void setRefundMoney(float refundMoney) {

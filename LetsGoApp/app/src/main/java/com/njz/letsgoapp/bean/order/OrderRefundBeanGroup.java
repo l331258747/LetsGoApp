@@ -29,6 +29,24 @@ public class OrderRefundBeanGroup {
     private String guideName;
     private String guideMobile;
     private OrderRefundChildModel orderChildModel;
+    private int planStatus;
+    private int orderId;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
 
     public String getGuideMobile() {
         return guideMobile;
@@ -36,14 +54,6 @@ public class OrderRefundBeanGroup {
 
     public void setGuideMobile(String guideMobile) {
         this.guideMobile = guideMobile;
-    }
-
-    public float getRefundMoney() {
-        return refundMoney;
-    }
-
-    public void setRefundMoney(float refundMoney) {
-        this.refundMoney = refundMoney;
     }
 
     public int getRefundStatus() {
@@ -125,6 +135,9 @@ public class OrderRefundBeanGroup {
     public String getPayStatusStr(){
         switch (payStatus){
             case Constant.ORDER_PAY_WAIT:
+                if(planStatus == Constant.ORDER_PLAN_GUIDE_REFUND){
+                    return "已取消";
+                }
                 return "待付款";
             case Constant.ORDER_PAY_ALREADY:
                 switch (orderStatus){
@@ -160,6 +173,8 @@ public class OrderRefundBeanGroup {
                         return "已退款";
                 }
                 return "退款";
+            case Constant.ORDER_PAY_CANCEL:
+                return "已取消";
         }
         return "";
     }
