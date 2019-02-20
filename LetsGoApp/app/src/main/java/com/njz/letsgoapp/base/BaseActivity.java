@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -19,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.StatusBarUtil;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.umeng.analytics.MobclickAgent;
@@ -68,6 +69,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         contentLayout = (FrameLayout) findViewById(R.id.base_content_layout);
 
         setContentView(getLayoutId());  /// 此处设置内容布局
+
+        StatusBarUtil.setStatusBar(this, Color.WHITE);
 
         /////////////////
         getIntentData();

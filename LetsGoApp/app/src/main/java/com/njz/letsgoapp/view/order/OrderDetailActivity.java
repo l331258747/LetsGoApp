@@ -196,6 +196,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ll_order_travel_end.setVisibility(View.GONE);
         ll_order_plan_confirm.setVisibility(View.GONE);
         ll_order_plan_up.setVisibility(View.GONE);
+        ll_order_cancel_time.setVisibility(View.GONE);
 
         initRecycler();
     }
