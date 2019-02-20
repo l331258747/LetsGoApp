@@ -70,6 +70,21 @@ public class OrderDetailModel {
     private boolean havCar;
     private int children;
     private int adult;
+    private String cancelReason;
+    private String cancelExplain;
+    private String cancelTime;
+
+    public String getCancelTime() {
+        return cancelTime;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public String getCancelExplain() {
+        return cancelExplain;
+    }
 
     public int getChildren() {
         return children;

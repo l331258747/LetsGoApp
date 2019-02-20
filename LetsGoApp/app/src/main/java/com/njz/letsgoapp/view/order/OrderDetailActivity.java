@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -80,6 +81,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     Disposable disposable;
 
+    FrameLayout cv_refund_reason;
+    LinearLayout ll_order_cancel_time;
+    TextView tv_refund_reason_title,tv_refund_explain_title,tv_refund_reason,tv_refund_explain,tv_order_cancel_time;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -106,6 +111,14 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         recyclerView = $(R.id.recycler_view);
 
         tv_order_price = $(R.id.tv_order_price);
+
+        cv_refund_reason = $(R.id.cv_refund_reason);
+        tv_refund_reason_title = $(R.id.tv_refund_reason_title);
+        tv_refund_explain_title = $(R.id.tv_refund_explain_title);
+        tv_refund_reason = $(R.id.tv_refund_reason);
+        tv_refund_explain = $(R.id.tv_refund_explain);
+        ll_order_cancel_time = $(R.id.ll_order_cancel_time);
+        tv_order_cancel_time = $(R.id.tv_order_cancel_time);
 
         ll_order_no = $(R.id.ll_order_no);
         btn_consult = $(R.id.btn_consult);
@@ -363,6 +376,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         model = str;
         switch (str.getPayStatus()) {
             case Constant.ORDER_PAY_WAIT:
+                if(str.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_REFUND){
+                    setCancelView(str);
+                    return;
+                }
                 ll_order_no.setVisibility(View.VISIBLE);
                 ll_order_create_time.setVisibility(View.VISIBLE);
                 tv_order_no.setText(str.getOrderNo());
@@ -469,8 +486,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     btn_see_plan.setVisibility(View.VISIBLE);
                     btn_call_custom.setVisibility(View.GONE);
                 }
-
-            break;
+                break;
+            case Constant.ORDER_PAY_CANCEL:
+                setCancelView(str);
+                break;
         }
 
         tv_order_price.setText(str.getOrderPriceStr());
@@ -490,6 +509,36 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         }
         mAdapter.setData(str.getNjzChildOrderVOS());
 
+    }
+
+    //refuse:true 拒绝接单：私人定制
+    private void setCancelView(OrderDetailModel str) {
+        cv_refund_reason.setVisibility(View.VISIBLE);
+        tv_refund_reason_title.setText("取消原因");
+        tv_refund_explain_title.setText("取消说明");
+        tv_refund_reason.setText(str.getCancelReason());
+        tv_refund_explain.setText(str.getCancelExplain());
+
+        btn_delete.setVisibility(View.VISIBLE);
+
+        ll_order_no.setVisibility(View.VISIBLE);
+        ll_order_create_time.setVisibility(View.VISIBLE);
+        tv_order_no.setText(str.getOrderNo());
+        tv_order_create_time.setText(str.getCreateTime());
+        ll_order_cancel_time.setVisibility(View.VISIBLE);
+        tv_order_cancel_time.setText(str.getCancelTime());
+
+        if(str.isCustom()){
+            //私人定制,拒绝接单
+            if(!TextUtils.isEmpty(str.getGuideSureTime())){
+                ll_order_plan_confirm.setVisibility(View.VISIBLE);
+                tv_order_plan_confirm.setText(str.getGuideSureTime());
+            }
+            if(!TextUtils.isEmpty(str.getPlanDesignTime())){
+                ll_order_plan_up.setVisibility(View.VISIBLE);
+                tv_order_plan_up.setText(str.getPlanDesignTime());
+            }
+        }
     }
 
     @Override
