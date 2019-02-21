@@ -212,6 +212,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
             public void onClick(View v) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
                 intent.putExtra("GUIDEID", serverDetailModel.getGuideId());
+                intent.putExtra("LOCATION", serverDetailModel.getAddress());
                 startActivity(intent);
             }
         });
