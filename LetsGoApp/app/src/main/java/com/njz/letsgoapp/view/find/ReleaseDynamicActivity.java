@@ -129,7 +129,7 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     private void initAddPhoto(){
         //------------附件
         mPhotoRecyclerView = $(R.id.recycler_view);
-        photoAdapter = new PhotoAdapter(context, selectedPhotos);
+        photoAdapter = new PhotoAdapter(context, selectedPhotos,true);
         mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL));
         mPhotoRecyclerView.setAdapter(photoAdapter);
         mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,

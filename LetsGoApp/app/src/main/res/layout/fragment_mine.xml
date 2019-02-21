@@ -157,7 +157,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rl_head"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="vertical">
 
                 <com.njz.letsgoapp.widget.MineItemView2
@@ -168,29 +169,47 @@
                     app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
                     app:home_my_item2_title="绑定手机" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/color_d9"/>
+
                 <com.njz.letsgoapp.widget.MineItemView2
                     android:id="@+id/mine_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:home_my_item2_left_drawable="@mipmap/ic_mine_info"
                     app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
                     app:home_my_item2_title="个人资料" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/color_d9"/>
 
                 <com.njz.letsgoapp.widget.MineItemView2
                     android:id="@+id/mine_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:home_my_item2_left_drawable="@mipmap/ic_mine_password"
                     app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
                     app:home_my_item2_title="修改密码" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/color_d9"/>
 
                 <com.njz.letsgoapp.widget.MineItemView2
                     android:id="@+id/mine_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:home_my_item2_left_drawable="@mipmap/ic_mine_comment"
                     app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
                     app:home_my_item2_title="我的评论" />
@@ -208,23 +227,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rl_head"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="vertical">
 
                 <com.njz.letsgoapp.widget.MineItemView2
                     android:id="@+id/mine_customer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:home_my_item2_left_drawable="@mipmap/ic_mine_phone"
                     app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
                     app:home_my_item2_title="联系客服" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/color_d9"/>
 
                 <com.njz.letsgoapp.widget.MineItemView2
                     android:id="@+id/mine_setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:home_my_item2_left_drawable="@mipmap/ic_mine_setting"
                     app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
                     app:home_my_item2_title="设置" />

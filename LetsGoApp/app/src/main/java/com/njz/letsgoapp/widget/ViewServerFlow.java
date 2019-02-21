@@ -33,7 +33,8 @@ public class ViewServerFlow extends LinearLayout {
 
     Context context;
 
-    TextView tv_title, tv_title2,tv_date_more;
+    LinearLayout tv_date_more;
+    TextView tv_title, tv_title2;
     TagFlowLayout tagFlowLayout;
     int maxSelectCount;
     public int selectIndex = -1;

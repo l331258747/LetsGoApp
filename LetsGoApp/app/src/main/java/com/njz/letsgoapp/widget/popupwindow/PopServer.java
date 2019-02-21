@@ -59,8 +59,8 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
     private View contentView;
     private Activity context;
 
-    ImageView iv_img;
-    TextView tv_title, tv_pop_close, tv_price_total, tv_submit,tv_count_title;
+    ImageView iv_img,tv_pop_close;
+    TextView tv_title, tv_price_total, tv_submit,tv_count_title;
     GuideScoreView2 guideScoreView2;
     PriceView priceView;
     LinearLayout flow_parent;

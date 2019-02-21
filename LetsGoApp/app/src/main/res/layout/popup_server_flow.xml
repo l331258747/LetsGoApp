@@ -41,24 +41,40 @@
             android:layout_marginTop="5dp"
             app:max_select="1" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/tv_date_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_ee_solid_r5"
-            android:textColor="@color/blue"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:minWidth="70dp"
+            android:paddingBottom="4dp"
             android:visibility="gone"
-            android:text="更多日期 >"
-            android:textSize="12sp">
+            android:paddingTop="4dp">
 
-        </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更多\n日期"
+                android:textColor="@color/blue"
+                android:lineSpacingExtra="2dp"
+                android:textSize="10sp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" >"
+                android:textColor="@color/color_theme"
+                android:textSize="14sp">
+
+            </TextView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

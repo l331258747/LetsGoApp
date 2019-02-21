@@ -33,11 +33,20 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
   public final static int MAX_4 = 4;
   private int type = 0;
 
-  public PhotoAdapter(Context mContext, ArrayList<String> photoPaths) {
+  private boolean imageChange;
+
+  public PhotoAdapter(Context mContext, ArrayList<String> photoPaths,boolean imageChange) {
     this.photoPaths = photoPaths;
     this.mContext = mContext;
     inflater = LayoutInflater.from(mContext);
+    this.imageChange = imageChange;
+  }
 
+  public PhotoAdapter(Context mContext, ArrayList<String> photoPaths) {
+//    this.photoPaths = photoPaths;
+//    this.mContext = mContext;
+//    inflater = LayoutInflater.from(mContext);
+    this(mContext,photoPaths,false);
   }
 
   public PhotoAdapter(Context mContext, ArrayList<String> photoPaths, int type) {
@@ -53,7 +62,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     View itemView = null;
     switch (viewType) {
       case TYPE_ADD:
-        itemView = inflater.inflate(com.njz.letsgoapp.R.layout.item_add, parent, false);
+        if(imageChange){
+          itemView = inflater.inflate(com.njz.letsgoapp.R.layout.item_add2, parent, false);
+        }else{
+          itemView = inflater.inflate(com.njz.letsgoapp.R.layout.item_add, parent, false);
+        }
         break;
       case TYPE_PHOTO:
         itemView = inflater.inflate(me.iwf.photopicker.R.layout.__picker_item_photo, parent, false);

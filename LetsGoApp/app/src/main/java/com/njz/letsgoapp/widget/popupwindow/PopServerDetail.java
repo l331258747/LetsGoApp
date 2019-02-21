@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,7 +36,8 @@ public class PopServerDetail extends BackgroundDarkPopupWindow {
     private View contentView;
     private Activity context;
 
-    TextView tv_pop_close,tv_empty;
+    ImageView tv_pop_close;
+    TextView tv_empty;
     RecyclerView recyclerView;
 
     PopServerDetailAdapter mAdapter;
