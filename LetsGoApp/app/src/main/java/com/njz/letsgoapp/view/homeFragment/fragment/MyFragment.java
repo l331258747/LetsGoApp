@@ -24,6 +24,7 @@ import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
+import com.njz.letsgoapp.view.mine.CouponActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.MyCommentActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
@@ -39,7 +40,7 @@ import com.njz.letsgoapp.widget.MineItemView2;
 
 public class MyFragment extends BaseFragment implements View.OnClickListener,MyMainContract.View {
 
-    MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting;
+    MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting,mine_coupon;
 
     ImageView iv_head,iv_backimg;
     TextView tv_name,tv_follow,tv_fans,tv_login,tv_space;
@@ -71,6 +72,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
         tv_follow = $(R.id.tv_follow);
         ll_info = $(R.id.ll_info);
         tv_login = $(R.id.tv_login);
+        mine_coupon = $(R.id.mine_coupon);
 
         tv_space = $(R.id.tv_space);
 
@@ -86,6 +88,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
         tv_name.setOnClickListener(this);
         tv_login.setOnClickListener(this);
         tv_space.setOnClickListener(this);
+        mine_coupon.setOnClickListener(this);
 
     }
 
@@ -198,6 +201,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
                 Intent intentSpace = new Intent(context, SpaceActivity.class);
                 intentSpace.putExtra(SpaceActivity.USER_ID,MySelfInfo.getInstance().getUserId());
                 startActivity(intentSpace);
+                break;
+            case R.id.mine_coupon:
+                if(!isLogin()) return;
+                Intent intentCoupon = new Intent(context, CouponActivity.class);
+                startActivity(intentCoupon);
                 break;
 
         }

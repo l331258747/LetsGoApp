@@ -207,6 +207,21 @@
                     android:background="@color/color_d9"/>
 
                 <com.njz.letsgoapp.widget.MineItemView2
+                    android:id="@+id/mine_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:home_my_item2_left_drawable="@mipmap/ic_mine_password"
+                    app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
+                    app:home_my_item2_title="我的优惠卷" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/color_d9"/>
+
+                <com.njz.letsgoapp.widget.MineItemView2
                     android:id="@+id/mine_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
