@@ -569,4 +569,13 @@ public class MethodApi {
 
     //--------服务 end
 
+
+    //----------start 优惠卷
+    //userCouponList 我的优惠券
+    public static void userCouponList(String useStatus,int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userCouponList(useStatus,limit,page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+    //----------end 优惠卷
+
 }

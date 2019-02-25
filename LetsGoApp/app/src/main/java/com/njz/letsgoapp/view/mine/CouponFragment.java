@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,12 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.mine.CouponAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.mine.CouponData;
+import com.njz.letsgoapp.bean.mine.CouponModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.coupon.CouponContract;
+import com.njz.letsgoapp.mvp.coupon.CouponPresenter;
+import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
@@ -26,7 +31,7 @@ import java.util.List;
  * Function:
  */
 
-public class CouponFragment extends BaseFragment {
+public class CouponFragment extends BaseFragment implements CouponContract.View {
 
 
     private LoadMoreWrapper loadMoreWrapper;
@@ -38,12 +43,12 @@ public class CouponFragment extends BaseFragment {
     private CouponAdapter mAdapter;
 
     private int type = 1;
-
-    //    MyCommentPresenter mPresenter;
     private boolean isViewCreated;
     boolean isLoad = false;
 
     public EmptyView view_empty;
+
+    CouponPresenter mPresenter;
 
     public static Fragment newInstance(int type) {
         CouponFragment fragment = new CouponFragment();
@@ -87,68 +92,12 @@ public class CouponFragment extends BaseFragment {
     }
 
     public void getData(int type) {
-//        mPresenter.friendMyDiscuss(type);
-        List<CouponData> datas = new ArrayList<>();
-        if (type == 1) {
-            datas = new ArrayList<>();
-            CouponData data = new CouponData();
-            data.setTitle("100元优惠卷【新用户注册】");
-            data.setPrice(100);
-            data.setLimit(1000);
-            data.setExpire("2019-05-05");
-            data.setRule("规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则");
-            data.setType(0);
-            data.setExpire(true);
-            datas.add(data);
-            datas.add(data);
-            datas.add(data);
-        } else if (type == 2) {
-            datas = new ArrayList<>();
-            CouponData data = new CouponData();
-            data.setTitle("100元优惠卷【新用户注册】");
-            data.setPrice(100);
-            data.setLimit(1000);
-            data.setExpire("2019-05-05");
-            data.setRule("规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则");
-            data.setType(1);
-            data.setExpire(false);
-            datas.add(data);
-            datas.add(data);
-            datas.add(data);
-        } else if (type == 3) {
-            datas = new ArrayList<>();
-            CouponData data = new CouponData();
-            data.setTitle("100元优惠卷【新用户注册】");
-            data.setPrice(100);
-            data.setLimit(1000);
-            data.setExpire("2019-05-05");
-            data.setRule("规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则");
-            data.setType(2);
-            data.setExpire(false);
-            datas.add(data);
-            datas.add(data);
-            datas.add(data);
-        }
-
-        swipeRefreshLayout.setRefreshing(false);
-
-        if (isLoadType == 1) {
-            mAdapter.setData(datas);
-        } else {
-            mAdapter.addData(datas);
-        }
-        isLoad = false;
-        if (datas.size() >= Constant.DEFAULT_LIMIT) {
-            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
-        } else {
-            // 显示加载到底的提示
-            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
-        }
+        mPresenter.userCouponList(type, Constant.DEFAULT_LIMIT, page);
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_my_comment;
+        return R.layout.fragment_coupon;
     }
 
     @Override
@@ -164,10 +113,10 @@ public class CouponFragment extends BaseFragment {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new CouponAdapter(activity, new ArrayList<CouponData>());
+        mAdapter = new CouponAdapter(activity, new ArrayList<CouponModel>(), type);
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
-        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
@@ -184,6 +133,13 @@ public class CouponFragment extends BaseFragment {
                 for (int position : positions) {
                     loadMoreWrapper.notifyItemChanged(position);
                 }
+            }
+        });
+
+        mAdapter.setOnUserClickListener(new CouponAdapter.OnUserClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                startActivity(new Intent(context, GuideListActivity.class));
             }
         });
     }
@@ -204,48 +160,57 @@ public class CouponFragment extends BaseFragment {
 
     @Override
     public void initData() {
-//        mPresenter = new MyCommentPresenter(context, this);
+        mPresenter = new CouponPresenter(context, this);
+
         if (getUserVisibleHint()) {
             getRefreshData();
         }
     }
 
-//    @Override
-//    public void friendMyDiscussSuccess(List<MyCommentModel> data) {
-//        List<MyCommentModel> datas = data;
-//        isLoad = false;
-//        swipeRefreshLayout.setRefreshing(false);
-//        mAdapter.setData(datas);
-//
-//        if(data.size() == 0){
-//            if(type == 1){
-//                view_empty.setVisible(true);
-//                view_empty.setEmptyData(R.mipmap.empty_comment_tome,"空空如也，请勤劳发帖！");
-//            }else {
-//                view_empty.setVisible(true);
-//                view_empty.setEmptyData(R.mipmap.empty_comment_meto,"与人互动，心自徜徉");
-//            }
-//
-//        }else{
-//            view_empty.setVisible(false);
-//        }
-//    }
-//
-//    @Override
-//    public void friendMyDiscussFailed(String msg) {
-//        showShortToast(msg);
-//        isLoad = false;
-//        swipeRefreshLayout.setRefreshing(false);
-//
-//        if(msg.startsWith("-")){
-//            view_empty.setVisible(true);
-//            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
-//            view_empty.setBtnClickLisener(new EmptyClickLisener() {
-//                @Override
-//                public void onClick() {
-//                    getRefreshData();
-//                }
-//            });
-//        }
-//    }
+    @Override
+    public void userCouponListSuccess(List<CouponModel> models) {
+        List<CouponModel> datas = models;
+
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
+
+        isLoad = false;
+        if (datas.size() >= Constant.DEFAULT_LIMIT) {
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
+        } else {
+            // 显示加载到底的提示
+            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+        }
+        swipeRefreshLayout.setRefreshing(false);
+
+        if (datas.size() == 0) {
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_follow, "空空如也");
+        } else {
+            view_empty.setVisible(false);
+        }
+
+    }
+
+    @Override
+    public void userCouponListFailed(String msg) {
+        showShortToast(msg);
+        isLoad = false;
+        swipeRefreshLayout.setRefreshing(false);
+
+        if (msg.startsWith("-")) {
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_network, "网络竟然崩溃了", "别紧张，试试看刷新页面~", "点击刷新");
+            view_empty.setBtnClickLisener(new EmptyClickLisener() {
+                @Override
+                public void onClick() {
+                    getRefreshData();
+                }
+            });
+        }
+    }
+
 }

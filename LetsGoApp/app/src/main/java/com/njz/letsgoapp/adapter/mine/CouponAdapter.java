@@ -12,8 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.mine.CouponData;
-import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.bean.mine.CouponModel;
 
 import java.util.List;
 
@@ -25,16 +24,18 @@ import java.util.List;
 
 public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder>{
     Context mContext;
-    List<CouponData> datas;
+    List<CouponModel> datas;
+    int type;
 
     /**
      * 标记展开的item
      */
     private int opened = -1;
 
-    public CouponAdapter(Context mContext, List<CouponData> datas) {
+    public CouponAdapter(Context mContext, List<CouponModel> datas,int type) {
         this.mContext = mContext;
         this.datas = datas;
+        this.type = type;
     }
 
     @Override
@@ -45,25 +46,25 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         if (holder == null) return;
-        final CouponData data = datas.get(position);
+        final CouponModel data = datas.get(position);
         if (data == null) return;
 
-        holder.tv_price.setText("￥" + data.getPrice());
+        holder.tv_price.setText("￥" + data.getTypeMoney());
         holder.tv_title.setText(data.getTitle());
-        holder.tv_limit.setText("满" + data.getLimit()+"元可用");
-        holder.tv_rule_content.setText(data.getRule());
+        holder.tv_limit.setText("满" + data.getFillMoney()+"元可用");
+        holder.tv_rule_content.setText(data.getInstructions());
 
-        if(data.isExpire()){
+        if(data.getExpireStatus() == 1){
             String content1 = "<font color='red'>(快过期)</font>有效期至";
-            holder.tv_expire.setText(Html.fromHtml(content1 + data.getExpire()));
+            holder.tv_expire.setText(Html.fromHtml(content1 + data.getUseEndDateStr()));
         }else{
-            holder.tv_expire.setText("有效期至" + data.getExpire());
+            holder.tv_expire.setText("有效期至" + data.getUseEndDateStr());
         }
 
 
-        if(data.getType() == 0){
+        if(type == 0){
             holder.ll_price.setBackground(ContextCompat.getDrawable(mContext,R.drawable.ic_coupon_select_bg));
             holder.tv_use.setVisibility(View.VISIBLE);
             holder.iv_label.setVisibility(View.GONE);
@@ -72,9 +73,9 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
             holder.tv_use.setVisibility(View.INVISIBLE);
             holder.iv_label.setVisibility(View.VISIBLE);
 
-            if(data.getType() == 1){
+            if(type == 1){
                 holder.iv_label.setImageDrawable(ContextCompat.getDrawable(mContext,R.mipmap.ic_coupon_used));
-            }else if(data.getType() == 2){
+            }else if(type == -1){
                 holder.iv_label.setImageDrawable(ContextCompat.getDrawable(mContext,R.mipmap.ic_coupon_expire));
             }
         }
@@ -82,20 +83,22 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         holder.tv_use.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShortToast(mContext,"使用");
+                if(mOnUserClickListener != null){
+                    mOnUserClickListener.onItemClick(position);
+                }
             }
         });
 
         holder.bindView(position);
     }
 
-    public void setData(List<CouponData> datas) {
+    public void setData(List<CouponModel> datas) {
         this.datas = datas;
         opened = -1;
         notifyDataSetChanged();
     }
 
-    public void addData(List<CouponData> datas){
+    public void addData(List<CouponModel> datas){
         this.datas.addAll(datas);
         notifyDataSetChanged();
     }
@@ -165,5 +168,13 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+    }
+
+    OnUserClickListener mOnUserClickListener;
+    public interface OnUserClickListener {
+        void onItemClick(int position);
+    }
+    public void setOnUserClickListener(OnUserClickListener mOnUserClickListener) {
+        this.mOnUserClickListener = mOnUserClickListener;
     }
 }

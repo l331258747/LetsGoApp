@@ -17,6 +17,7 @@ import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
+import com.njz.letsgoapp.bean.mine.CouponModel;
 import com.njz.letsgoapp.bean.mine.FansListModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
@@ -649,5 +650,15 @@ public interface HttpService {
     Observable<BaseResponse<IMUserModel>> getUserByIMUsername(
             @Query("username") String username
     );
+
+    //-----------start 优惠卷-----
+    //userCoupon/list 我的优惠券
+    @GET("userCoupon/list")
+    Observable<BaseResponse<List<CouponModel>>> userCouponList(
+            @Query("useStatus") String useStatus,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+    //-----------end 优惠卷-------
 
 }

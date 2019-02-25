@@ -54,9 +54,9 @@ public class CouponActivity extends BaseActivity {
     @Override
     public void initData() {
         mFragments = new ArrayList<>();
+        mFragments.add(CouponFragment.newInstance(0));
         mFragments.add(CouponFragment.newInstance(1));
-        mFragments.add(CouponFragment.newInstance(2));
-        mFragments.add(CouponFragment.newInstance(3));
+        mFragments.add(CouponFragment.newInstance(-1));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(adapter);
