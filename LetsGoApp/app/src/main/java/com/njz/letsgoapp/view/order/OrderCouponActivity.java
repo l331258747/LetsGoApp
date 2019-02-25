@@ -3,6 +3,7 @@ package com.njz.letsgoapp.view.order;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -86,6 +87,7 @@ public class OrderCouponActivity extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new OrderCouponAdapter(activity, new ArrayList<CouponData>());
         recyclerView.setAdapter(mAdapter);
+        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
         mAdapter.setOnItemClickListener(new OrderCouponAdapter.OnItemClickListener() {
             @Override

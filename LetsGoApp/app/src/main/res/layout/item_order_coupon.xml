@@ -17,6 +17,7 @@
         android:background="@drawable/ic_coupon_select_bg"
         android:gravity="center">
 
+
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
@@ -35,14 +36,13 @@
         android:layout_toRightOf="@+id/ll_price"
         android:background="@drawable/ic_coupon_bg_up"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingRight="10dp"
         android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:text="100元优惠卷【新用户注册】" />
 
         <RelativeLayout
@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -59,7 +60,16 @@
                 android:layout_height="wrap_content"
                 android:text="满1000元可用"
                 android:textColor="@color/color_99"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_expire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="(快过期)有效期至2019-01-13"
+                android:textColor="@color/color_99"
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
@@ -67,29 +77,76 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_expire"
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_d9" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="有效期至2019-01-13"
-                android:textColor="@color/color_99"
-                android:textSize="12sp" />
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tv_rule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableRight="@mipmap/ic_arrow_down"
+                    android:gravity="center"
+                    android:text="查看规则"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/iv_select"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/oval_f7_99_r40" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
-
-        <ImageView
-            android:id="@+id/iv_select"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/oval_f7_99_r40" />
+        <View
+            android:id="@+id/view_line"
+            android:layerType="software"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@drawable/shape_dash_line"/>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_rule_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_price"
+        android:visibility="gone"
+        android:background="@drawable/ic_coupon_bg_down">
+
+        <TextView
+            android:id="@+id/tv_rule_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/color_f7"
+            android:lineSpacingExtra="5dp"
+            android:padding="10dp"
+            tools:text="你好你好\n你好你好\n你好你好"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
