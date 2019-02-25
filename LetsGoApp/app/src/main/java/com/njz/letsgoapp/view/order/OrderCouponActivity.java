@@ -11,7 +11,9 @@ import android.widget.RelativeLayout;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.order.OrderCouponAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.mine.CouponData;
+import com.njz.letsgoapp.bean.mine.CouponModel;
+import com.njz.letsgoapp.mvp.coupon.OrderCouponContract;
+import com.njz.letsgoapp.mvp.coupon.OrderCouponPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderCouponActivity extends BaseActivity {
+public class OrderCouponActivity extends BaseActivity implements OrderCouponContract.View{
 
     RelativeLayout rl_nonuse;
     ImageView iv_nonuse;
@@ -30,14 +32,19 @@ public class OrderCouponActivity extends BaseActivity {
 
     OrderCouponAdapter mAdapter;
 
-    List<CouponData> datas;
+    List<CouponModel> datas;
 
     int positon;
+
+    OrderCouponPresenter mPresenter;
+
+    float totalOrderPrice;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         positon = intent.getIntExtra("position",-1);
+        totalOrderPrice = intent.getFloatExtra("totalOrderPrice",-1);
     }
 
     @Override
@@ -76,7 +83,8 @@ public class OrderCouponActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        getData();
+        mPresenter = new OrderCouponPresenter(context,this);
+        getData(totalOrderPrice);
     }
 
 
@@ -85,7 +93,7 @@ public class OrderCouponActivity extends BaseActivity {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new OrderCouponAdapter(activity, new ArrayList<CouponData>());
+        mAdapter = new OrderCouponAdapter(activity, new ArrayList<CouponModel>());
         recyclerView.setAdapter(mAdapter);
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);//itemChanged 闪烁问题
 
@@ -97,21 +105,34 @@ public class OrderCouponActivity extends BaseActivity {
         });
     }
 
-    public void getData() {
-        datas = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            CouponData data = new CouponData();
-            data.setTitle("100元优惠卷【新用户注册】");
-            data.setPrice(100);
-            data.setLimit(1000);
-            data.setExpire("2019-05-05");
-            data.setRule("规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则");
-            data.setType(0);
-            data.setExpire(true);
-            datas.add(data);
-        }
-        mAdapter.setData(datas);
+    public void getData(float totalOrderPrice) {
+        mPresenter.userCouponChooseCoupon(totalOrderPrice);
+//        datas = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            CouponData data = new CouponData();
+//            data.setTitle("100元优惠卷【新用户注册】");
+//            data.setPrice(100);
+//            data.setLimit(1000);
+//            data.setExpire("2019-05-05");
+//            data.setRule("规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则");
+//            data.setType(0);
+//            data.setExpire(true);
+//            datas.add(data);
+//        }
+//        mAdapter.setData(datas);
+//
+//        setNonuse(positon);
+    }
 
+    @Override
+    public void userCouponChooseCouponSuccess(List<CouponModel> models) {
+        this.datas = models;
+        mAdapter.setData(this.datas);
         setNonuse(positon);
+    }
+
+    @Override
+    public void userCouponChooseCouponFailed(String msg) {
+        showShortToast(msg);
     }
 }

@@ -43,7 +43,10 @@ public class CouponActivity extends BaseActivity {
         getRightTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, OrderCouponActivity.class));
+                Intent intent = new Intent(context, OrderCouponActivity.class);
+                intent.putExtra("position",-1);
+                intent.putExtra("totalOrderPrice",50f);
+                startActivity(intent);
             }
         });
 

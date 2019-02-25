@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.mine.CouponData;
+import com.njz.letsgoapp.bean.mine.CouponModel;
 
 import java.util.List;
 
@@ -25,14 +25,14 @@ import java.util.List;
 public class OrderCouponAdapter extends RecyclerView.Adapter<OrderCouponAdapter.ViewHolder> {
 
     Context mContext;
-    List<CouponData> datas;
+    List<CouponModel> datas;
 
     /**
      * 标记展开的item
      */
     private int opened = -1;
 
-    public OrderCouponAdapter(Context mContext, List<CouponData> datas) {
+    public OrderCouponAdapter(Context mContext, List<CouponModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -47,34 +47,41 @@ public class OrderCouponAdapter extends RecyclerView.Adapter<OrderCouponAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (holder == null) return;
-        final CouponData data = datas.get(position);
+        final CouponModel data = datas.get(position);
         if (data == null) return;
 
-        holder.tv_price.setText("￥" + data.getPrice());
+        holder.tv_price.setText("￥" + data.getTypeMoney());
         holder.tv_title.setText(data.getTitle());
-        holder.tv_limit.setText("满" + data.getLimit()+"元可用");
-        holder.tv_expire.setText("有效期至" + data.getExpire());
-        holder.tv_rule_content.setText(data.getRule());
+        holder.tv_limit.setText("满" + data.getFillMoney()+"元可用");
+        holder.tv_expire.setText("有效期至" + data.getUseEndDateStr());
+        holder.tv_rule_content.setText(data.getInstructions());
 
         holder.rl_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mOnItemClickListener != null){
+                if(mOnItemClickListener != null && data.getCouponFlag() == 1){
                     mOnItemClickListener.onItemClick(position);
                 }
             }
         });
 
-        if(data.isSelected()){
-            holder.iv_select.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.oval_f7_theme_r40));
-        }else{
-            holder.iv_select.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.oval_f7_99_r40));
+        if(data.getCouponFlag() == 1){
+            holder.iv_select.setVisibility(View.VISIBLE);
+            if(data.isSelected()){
+                holder.iv_select.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.oval_f7_theme_r40));
+            }else{
+                holder.iv_select.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.oval_f7_99_r40));
+            }
+            holder.ll_price.setBackground(ContextCompat.getDrawable(mContext,R.drawable.ic_coupon_select_bg));
+        }else if(data.getCouponFlag() == 0){
+            holder.iv_select.setVisibility(View.GONE);
+            holder.ll_price.setBackground(ContextCompat.getDrawable(mContext,R.drawable.ic_coupon_select_un_bg));
         }
 
         holder.bindView(position);
     }
 
-    public void setData(List<CouponData> datas) {
+    public void setData(List<CouponModel> datas) {
         this.datas = datas;
         opened = -1;
         notifyDataSetChanged();
@@ -90,7 +97,7 @@ public class OrderCouponAdapter extends RecyclerView.Adapter<OrderCouponAdapter.
         ImageView iv_select;
         RelativeLayout rl_parent;
         View view_line;
-        LinearLayout ll_rule_content;
+        LinearLayout ll_rule_content,ll_price;
 
 
         public ViewHolder(View itemView) {
@@ -106,6 +113,7 @@ public class OrderCouponAdapter extends RecyclerView.Adapter<OrderCouponAdapter.
             tv_rule_content = itemView.findViewById(R.id.tv_rule_content);
             view_line = itemView.findViewById(R.id.view_line);
             ll_rule_content = itemView.findViewById(R.id.ll_rule_content);
+            ll_price = itemView.findViewById(R.id.ll_price);
 
             tv_rule.setOnClickListener(this);
         }

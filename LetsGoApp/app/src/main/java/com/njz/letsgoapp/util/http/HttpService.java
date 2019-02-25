@@ -659,6 +659,12 @@ public interface HttpService {
             @Query("limit") int limit,
             @Query("page") int page
     );
+
+    //userCoupon/chooseCoupon 订单优惠券
+    @GET("userCoupon/chooseCoupon")
+    Observable<BaseResponse<List<CouponModel>>> userCouponChooseCoupon(
+            @Query("totalOrderPrice") float totalOrderPrice
+    );
     //-----------end 优惠卷-------
 
 }
