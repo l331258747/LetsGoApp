@@ -135,6 +135,7 @@
         <activity android:name=".view.other.WebViewActivity" />
         <activity android:name=".view.other.BigImageActivity"
             android:theme="@style/welcomeTheme"/>
+        <activity android:name=".view.other.CouponReceiveActivity"/>
 
         <!--发现-->
         <activity android:name=".view.find.ReleaseDynamicActivity"/>

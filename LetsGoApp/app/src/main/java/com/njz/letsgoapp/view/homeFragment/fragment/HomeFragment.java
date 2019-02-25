@@ -41,6 +41,7 @@ import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.other.CouponReceiveActivity;
 import com.njz.letsgoapp.view.other.ServerSearchActivity;
 import com.njz.letsgoapp.view.other.WebViewActivity;
 import com.njz.letsgoapp.view.server.ServerListActivity;
@@ -410,10 +411,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        if(TextUtils.isEmpty(homeBanners.get(position).getToUrl())) return;
-                        Intent intent = new Intent(context, WebViewActivity.class);
-                        intent.putExtra(Constant.EXTRA_URL,homeBanners.get(position).getToUrl());
-                        startActivity(intent);
+                        startActivity(new Intent(context, CouponReceiveActivity.class));
+                        //TODO
+//                        if(TextUtils.isEmpty(homeBanners.get(position).getToUrl())) return;
+//                        Intent intent = new Intent(context, WebViewActivity.class);
+//                        intent.putExtra(Constant.EXTRA_URL,homeBanners.get(position).getToUrl());
+//                        startActivity(intent);
                     }
                 })
                 .setPointViewVisible(true) //设置指示器是否可见
