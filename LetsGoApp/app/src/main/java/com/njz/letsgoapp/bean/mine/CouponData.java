@@ -15,6 +15,15 @@ public class CouponData {
     String rule;
     int type;
     boolean isExpire;
+    boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public boolean isExpire() {
         return isExpire;

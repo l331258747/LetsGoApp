@@ -12,14 +12,9 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.mine.CouponAdapter;
-import com.njz.letsgoapp.adapter.mine.MyCommentAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.mine.CouponData;
-import com.njz.letsgoapp.bean.mine.MyCommentModel;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.mvp.mine.MyCommentContract;
-import com.njz.letsgoapp.mvp.mine.MyCommentPresenter;
-import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
