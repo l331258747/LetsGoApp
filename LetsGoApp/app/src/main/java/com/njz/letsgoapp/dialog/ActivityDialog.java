@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.coupon.CouponReceiveActivity;
 
 /**
@@ -29,6 +31,7 @@ public class ActivityDialog extends Dialog implements View.OnClickListener {
     ImageView iv_img;
     TextView tv_close;
     RelativeLayout layout_parent;
+    String imgurl;
 
     public ActivityDialog(Context context) {
         super(context);
@@ -54,9 +57,17 @@ public class ActivityDialog extends Dialog implements View.OnClickListener {
 
         iv_img = layout.findViewById(R.id.iv_img);
         layout_parent = layout.findViewById(R.id.layout_parent);
+        tv_close = layout.findViewById(R.id.tv_close);
 
         iv_img.setOnClickListener(this);
         layout_parent.setOnClickListener(this);
+        tv_close.setOnClickListener(this);
+
+        GlideUtil.LoadImageFitCenter(context,imgurl,iv_img);
+    }
+
+    public void setImg(String imgurl){
+        this.imgurl = imgurl;
     }
 
     @Override
@@ -64,6 +75,7 @@ public class ActivityDialog extends Dialog implements View.OnClickListener {
         Intent intent;
         switch (view.getId()) {
             case R.id.layout_parent:
+            case R.id.tv_close:
                 dismiss();
                 break;
             case R.id.iv_img:

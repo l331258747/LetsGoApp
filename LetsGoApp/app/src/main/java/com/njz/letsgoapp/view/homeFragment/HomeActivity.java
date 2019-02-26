@@ -7,15 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.coupon.ActivityPopModel;
 import com.njz.letsgoapp.bean.notify.NotifyMainModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.dialog.ActivityDialog;
+import com.njz.letsgoapp.mvp.coupon.ActivityPopContract;
+import com.njz.letsgoapp.mvp.coupon.ActivityPopPresenter;
 import com.njz.letsgoapp.mvp.notify.NotifyMainContract;
 import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
@@ -47,7 +50,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickListener,NotifyMainContract.View {
+public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickListener, NotifyMainContract.View, ActivityPopContract.View {
 
 
     private TabLayout tabLayout;
@@ -61,39 +64,19 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     Disposable notifyDisposable;
 
     private NotifyMainPresenter mPresenter;
+    private ActivityPopPresenter activityPopPresenter;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
     }
 
-    //----------沉浸式 start ----------
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//
-//            linear_bar = (LinearLayout) findViewById(R.id.ll_bar);
-//            //获取到状态栏的高度
-//            int statusHeight = AppUtils.getStateBar();
-//            //动态的设置隐藏布局的高度
-//            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear_bar.getLayoutParams();
-//            params.height = statusHeight;
-//            linear_bar.setLayoutParams(params);
-//        }
         getNewIntent();
     }
-
-//    public void setMystatusViewShow(boolean isShow) {
-//        if (linear_bar == null)
-//            return;
-//        linear_bar.setVisibility(isShow ? View.VISIBLE : View.GONE);
-//    }
-
-    //----------沉浸式 end ----------
-
 
     @Override
     public int getLayoutId() {
@@ -103,7 +86,6 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     @Override
     public void initView() {
         tabLayout = $(R.id.cus_tab_layout);
-
     }
 
     @Override
@@ -114,7 +96,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         int densityDpi = metric.densityDpi;
         LogUtil.e("density=" + density + ",densityDpi=" + densityDpi);
 
-        MySelfInfo.getInstance().setDefaultCity(TextUtils.isEmpty(MySelfInfo.getInstance().getDefaultCity())?Constant.DEFAULT_CITY : MySelfInfo.getInstance().getDefaultCity());
+        MySelfInfo.getInstance().setDefaultCity(TextUtils.isEmpty(MySelfInfo.getInstance().getDefaultCity()) ? Constant.DEFAULT_CITY : MySelfInfo.getInstance().getDefaultCity());
 
 
         // 初始化页面
@@ -151,21 +133,24 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         notifyDisposable = RxBus2.getInstance().toObservable(NotifyEvent.class, new Consumer<NotifyEvent>() {
             @Override
             public void accept(NotifyEvent notifyEvent) throws Exception {
-                changeTabBadge(notifyEvent.isShowTips()?-1:0);
+                changeTabBadge(notifyEvent.isShowTips() ? -1 : 0);
             }
         });
 
-        mPresenter = new NotifyMainPresenter(context,this);
-        if(MySelfInfo.getInstance().isLogin()){
+        mPresenter = new NotifyMainPresenter(context, this);
+        if (MySelfInfo.getInstance().isLogin()) {
             mPresenter.msgPushGetSendMsgList();
         }
+
+        activityPopPresenter = new ActivityPopPresenter(context, this);
+        activityPopPresenter.orderPopup();
     }
 
-    public void setTabIndex(int i){
+    public void setTabIndex(int i) {
         onTabItemClick(tabItems.get(i));
     }
 
-    public OrderFragment getOrderFragment(){
+    public OrderFragment getOrderFragment() {
         return (OrderFragment) fragments[2];
     }
 
@@ -247,28 +232,21 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            Intent intent = new Intent(Intent.ACTION_MAIN);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            intent.addCategory(Intent.CATEGORY_HOME);
-//            startActivity(intent);
-//            return true;
-//        }
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(notifyDisposable !=null && !notifyDisposable.isDisposed())
+        if (notifyDisposable != null && !notifyDisposable.isDisposed())
             notifyDisposable.dispose();
     }
 
     @Override
     public void msgPushGetSendMsgListSuccess(List<NotifyMainModel> data) {
-        if(data == null || data.size() == 0){
+        if (data == null || data.size() == 0) {
             RxBus2.getInstance().post(new NotifyEvent(false));
-        }else{
+        } else {
             RxBus2.getInstance().post(new NotifyEvent(true));
         }
     }
@@ -286,7 +264,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         getNewIntent();
     }
 
-    private void getNewIntent(){
+    private void getNewIntent() {
         Intent intent = getIntent(); //use the data received here
         int key = intent.getIntExtra("key", -1);
         String skip = intent.getStringExtra("skip");
@@ -294,48 +272,63 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         LogUtil.e("key:" + key);
         LogUtil.e("skip:" + skip);
 
-        setSkip(skip,key);
+        setSkip(skip, key);
     }
 
-    public void setSkip(final String skip, final int correlationId){
-        if(correlationId == -1){
+    public void setSkip(final String skip, final int correlationId) {
+        if (correlationId == -1) {
             LogUtil.e("不能进行跳转correlationId");
             return;
         }
-        if(TextUtils.isEmpty(skip)){
+        if (TextUtils.isEmpty(skip)) {
             LogUtil.e("不能进行跳转skip 空");
             return;
         }
         Intent intent;
-        switch (skip){
+        switch (skip) {
             case Constant.NOTIFY_SKIP_FSD:
                 intent = new Intent(context, DynamicDetailActivity.class);
-                intent.putExtra(DynamicDetailActivity.FRIENDSTERID,correlationId);
+                intent.putExtra(DynamicDetailActivity.FRIENDSTERID, correlationId);
                 startActivity(intent);
                 break;
             case Constant.NOTIFY_SKIP_GD:
                 intent = new Intent(context, GuideDetailActivity.class);
-                intent.putExtra(GuideDetailActivity.GUIDEID,correlationId);
+                intent.putExtra(GuideDetailActivity.GUIDEID, correlationId);
                 startActivity(intent);
                 break;
             case Constant.NOTIFY_SKIP_OD:
                 intent = new Intent(context, OrderDetailActivity.class);
-                intent.putExtra("ORDER_ID",correlationId);
+                intent.putExtra("ORDER_ID", correlationId);
                 startActivity(intent);
                 break;
             case Constant.NOTIFY_SKIP_UD:
                 intent = new Intent(context, SpaceActivity.class);
-                intent.putExtra(SpaceActivity.USER_ID,correlationId);
+                intent.putExtra(SpaceActivity.USER_ID, correlationId);
                 startActivity(intent);
                 break;
             case Constant.NOTIFY_SKIP_ORD:
                 intent = new Intent(context, OrderRefundDetailActivity.class);
-                intent.putExtra("ORDER_ID",correlationId);
+                intent.putExtra("ORDER_ID", correlationId);
                 startActivity(intent);
                 break;
             default:
                 LogUtil.e("不能进行跳转skip：" + skip);
                 break;
         }
+    }
+
+    @Override
+    public void orderPopupSuccess(ActivityPopModel model) {
+        if (model.getIsRemind() == 0) return;//是否弹框1：提醒 0:不提醒
+        if (model.showDialog()) {
+            ActivityDialog activityDialog = new ActivityDialog(context);
+            activityDialog.setImg(model.getPopoutImage());
+            activityDialog.show();
+        }
+    }
+
+    @Override
+    public void orderPopupFailed(String msg) {
+        LogUtil.e(msg);
     }
 }

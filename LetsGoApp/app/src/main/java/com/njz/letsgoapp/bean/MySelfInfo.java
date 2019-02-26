@@ -322,6 +322,31 @@ public class MySelfInfo {
 
     //---------搜索 end
 
+    //--------活动弹窗 start
+    public int getActivityUserId() {
+        return SPUtils.getInstance().getInt(SPUtils.SP_ACTIVITY_USERID,0);
+    }
+
+    public void setActivityUserId(int userId){
+        SPUtils.getInstance().putInt(SPUtils.SP_ACTIVITY_USERID,userId);
+    }
+    public long getActivityTime() {
+        return SPUtils.getInstance().getLong(SPUtils.SP_ACTIVITY_TIME,0);
+    }
+
+    public void setActivityTime(long time){
+        SPUtils.getInstance().putLong(SPUtils.SP_ACTIVITY_TIME,time);
+    }
+    public int getActivityId() {
+        return SPUtils.getInstance().getInt(SPUtils.SP_ACTIVITY_ID,0);
+    }
+
+    public void setActivityId(int userId){
+        SPUtils.getInstance().putInt(SPUtils.SP_ACTIVITY_ID,userId);
+    }
+
+    //--------活动弹窗 end
+
 
     public void loginOff() {
         SPUtils.getInstance().logoff();

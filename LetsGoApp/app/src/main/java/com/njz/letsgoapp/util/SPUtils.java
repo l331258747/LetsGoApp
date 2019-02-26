@@ -45,11 +45,19 @@ public class SPUtils {
     public static final String SP_SEARCH_SERVER = "sp_search_server";
     public static final String SP_SEARCH_CITY = "sp_search_city";
 
+    //活动弹窗
+    public static final String SP_ACTIVITY_USERID = "sp_activity_userId";
+    public static final String SP_ACTIVITY_TIME = "sp_activity_time";
+    public static final String SP_ACTIVITY_ID = "sp_activity_id";
+
+
     private static SharedPreferences mSharedPreferences;
     private static SPUtils mPreferenceUtils;
     private static SharedPreferences.Editor editor;
 
     public static final String PREFERENCE_NAME = "com.njz.letsgo_preferences";
+
+
 
 
     public static synchronized void init(Context cxt) {

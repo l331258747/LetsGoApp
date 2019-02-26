@@ -3,6 +3,7 @@ package com.njz.letsgoapp.util.http;
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.coupon.ActivityPopModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
@@ -662,6 +663,11 @@ public interface HttpService {
     @GET("userCoupon/chooseCoupon")
     Observable<BaseResponse<List<CouponModel>>> userCouponChooseCoupon(
             @Query("totalOrderPrice") float totalOrderPrice
+    );
+
+    //活动弹窗
+    @GET("order/popup")
+    Observable<BaseResponse<ActivityPopModel>> orderPopup(
     );
     //-----------end 优惠卷-------
 

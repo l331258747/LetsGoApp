@@ -582,6 +582,14 @@ public class MethodApi {
         Observable observable = HttpMethods.getInstance().getHttpService().userCouponChooseCoupon(totalOrderPrice);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
+
+    //活动弹窗
+    public static void orderPopup(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPopup();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
     //----------end 优惠卷
 
 }
