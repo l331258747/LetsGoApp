@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.mine;
+package com.njz.letsgoapp.view.coupon;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -10,7 +10,6 @@ import android.view.View;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.BaseFragmentAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.view.order.OrderCouponActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +38,13 @@ public class CouponActivity extends BaseActivity {
         showLeftAndTitle("我的优惠卷");
         showRightTv();
         getRightTv().setText("订单优惠卷");
-        getRightTv().setTextColor(ContextCompat.getColor(context,R.color.black));
+        getRightTv().setTextColor(ContextCompat.getColor(context, R.color.black));
         getRightTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderCouponActivity.class);
-                intent.putExtra("position",-1);
-                intent.putExtra("totalOrderPrice",50f);
+                intent.putExtra("position", -1);
+                intent.putExtra("totalOrderPrice", 50f);
                 startActivity(intent);
             }
         });

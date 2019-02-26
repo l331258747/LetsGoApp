@@ -135,7 +135,6 @@
         <activity android:name=".view.other.WebViewActivity" />
         <activity android:name=".view.other.BigImageActivity"
             android:theme="@style/welcomeTheme"/>
-        <activity android:name=".view.other.CouponReceiveActivity"/>
 
         <!--发现-->
         <activity android:name=".view.find.ReleaseDynamicActivity"/>
@@ -169,8 +168,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.order.RefundRuleActivity" />
-        <activity
-            android:name=".view.order.OrderCouponActivity" />
 
 
         <!-- 消息 -->
@@ -189,9 +186,12 @@
         <activity android:name=".view.mine.LabelActivity" />
         <activity android:name=".view.mine.MyCommentActivity" />
         <activity android:name=".view.mine.SpaceActivity" />
-        <activity android:name=".view.mine.CouponActivity" />
         <activity android:name=".view.find.SpaceDynamicDetailActivity" />
 
+        <!--优惠卷-->
+        <activity android:name=".view.coupon.CouponActivity" />
+        <activity android:name=".view.coupon.OrderCouponActivity" />
+        <activity android:name=".view.coupon.CouponReceiveActivity"/>
 
         <!--IM-->
         <activity android:name=".view.im.ChatActivity" />

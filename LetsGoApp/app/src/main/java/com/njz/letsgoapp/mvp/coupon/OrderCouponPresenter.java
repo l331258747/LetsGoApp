@@ -2,7 +2,7 @@ package com.njz.letsgoapp.mvp.coupon;
 
 import android.content.Context;
 
-import com.njz.letsgoapp.bean.mine.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;

@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.adapter.other;
+package com.njz.letsgoapp.adapter.coupon;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.mine.CouponData;
+import com.njz.letsgoapp.bean.coupon.CouponData;
 
 import java.util.List;
 

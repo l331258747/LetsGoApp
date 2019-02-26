@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.mine;
+package com.njz.letsgoapp.view.coupon;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.support.v7.widget.SimpleItemAnimator;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
-import com.njz.letsgoapp.adapter.mine.CouponAdapter;
+import com.njz.letsgoapp.adapter.coupon.CouponAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
-import com.njz.letsgoapp.bean.mine.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.coupon.CouponContract;
 import com.njz.letsgoapp.mvp.coupon.CouponPresenter;

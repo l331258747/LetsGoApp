@@ -1,7 +1,5 @@
 package com.njz.letsgoapp.util.http;
 
-import android.widget.ImageView;
-
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
@@ -17,7 +15,7 @@ import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
-import com.njz.letsgoapp.bean.mine.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
 import com.njz.letsgoapp.bean.mine.FansListModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;

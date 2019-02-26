@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.bean.mine;
+package com.njz.letsgoapp.bean.coupon;
 
 /**
  * Created by LGQ

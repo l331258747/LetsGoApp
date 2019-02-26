@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.view.other.CouponReceiveActivity;
+import com.njz.letsgoapp.view.coupon.CouponReceiveActivity;
 
 /**
  * Created by LGQ

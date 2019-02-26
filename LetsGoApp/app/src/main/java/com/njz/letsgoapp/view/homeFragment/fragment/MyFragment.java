@@ -1,8 +1,6 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,13 +16,11 @@ import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.mine.MyMainContract;
 import com.njz.letsgoapp.mvp.mine.MyMainPresenter;
 import com.njz.letsgoapp.util.StringUtils;
-import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
-import com.njz.letsgoapp.view.mine.CouponActivity;
+import com.njz.letsgoapp.view.coupon.CouponActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.MyCommentActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;

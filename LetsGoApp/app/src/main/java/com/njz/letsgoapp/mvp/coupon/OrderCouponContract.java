@@ -1,6 +1,6 @@
 package com.njz.letsgoapp.mvp.coupon;
 
-import com.njz.letsgoapp.bean.mine.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.njz.letsgoapp.view.order;
+package com.njz.letsgoapp.view.coupon;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.adapter.order.OrderCouponAdapter;
+import com.njz.letsgoapp.adapter.coupon.OrderCouponAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.mine.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponContract;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponPresenter;
 
