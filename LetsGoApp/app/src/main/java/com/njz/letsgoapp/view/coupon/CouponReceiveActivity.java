@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.coupon;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +11,20 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.coupon.CouponReceiveAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.coupon.CouponData;
-import com.njz.letsgoapp.dialog.ActivityDialog;
+import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponReceiveModel;
+import com.njz.letsgoapp.constant.URLConstant;
+import com.njz.letsgoapp.dialog.ShareDialog;
+import com.njz.letsgoapp.mvp.coupon.ActivityReceiveContract;
+import com.njz.letsgoapp.mvp.coupon.ActivityReceivePresenter;
+import com.njz.letsgoapp.mvp.coupon.ActivityReceiveSubmitContract;
+import com.njz.letsgoapp.mvp.coupon.ActivityReceiveSubmitPresenter;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.glide.GlideUtil;
+import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by LGQ
@@ -23,15 +32,24 @@ import java.util.List;
  * Function:
  */
 
-public class CouponReceiveActivity extends BaseActivity {
+public class CouponReceiveActivity extends BaseActivity implements ActivityReceiveContract.View,ActivityReceiveSubmitContract.View{
 
-    TextView tv_time, tv_rule, tv_limit, tv_tip, tv_submit;
+    TextView tv_rule, tv_submit;
     RecyclerView recyclerView;
     ImageView iv_img;
 
     CouponReceiveAdapter mAdapter;
-    List<CouponData> datas;
+    ActivityReceivePresenter mPresenter;
+    ActivityReceiveSubmitPresenter submitPresenter;
 
+    int eventId;
+    CouponReceiveModel model;
+
+    @Override
+    public void getIntentData() {
+        super.getIntentData();
+        eventId = intent.getIntExtra("eventId",0);
+    }
 
     @Override
     public int getLayoutId() {
@@ -46,23 +64,36 @@ public class CouponReceiveActivity extends BaseActivity {
         getRightIv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityDialog dialog = new ActivityDialog(activity);
+                if(model ==null) return;
+                ShareDialog dialog = new ShareDialog(activity,model.getTitle(),model.getRule(), model.getImage()
+                        , URLConstant.SHARE_ACTIVITY+"?eventId="+model.getId());
+                dialog.setType(ShareDialog.TYPE_FRIEND);
                 dialog.show();
             }
         });
 
-        tv_time = $(R.id.tv_time);
         tv_rule = $(R.id.tv_rule);
-        tv_limit = $(R.id.tv_limit);
-        tv_tip = $(R.id.tv_tip);
         tv_submit = $(R.id.tv_submit);
         iv_img = $(R.id.iv_img);
+
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!MySelfInfo.getInstance().isLogin()){
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+                submitPresenter.userCouponPublish(eventId);
+            }
+        });
 
         initRecycler();
     }
 
     @Override
     public void initData() {
+        mPresenter = new ActivityReceivePresenter(context,this);
+        submitPresenter = new ActivityReceiveSubmitPresenter(context,this);
         getData();
     }
 
@@ -71,26 +102,45 @@ public class CouponReceiveActivity extends BaseActivity {
         recyclerView = $(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new CouponReceiveAdapter(activity, new ArrayList<CouponData>());
+        mAdapter = new CouponReceiveAdapter(activity, new ArrayList<CouponModel>());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(mAdapter);
     }
 
     public void getData() {
-        datas = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            CouponData data = new CouponData();
-            data.setTitle("100元优惠卷【新用户注册】");
-            data.setPrice(100);
-            data.setLimit(1000);
-            data.setExpire("2019-05-05");
-            data.setRule("规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则");
-            data.setType(0);
-            data.setExpire(true);
-            datas.add(data);
-        }
-        mAdapter.setData(datas);
+        mPresenter.userCouponInfo(eventId);
+    }
 
-        iv_img.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_coupon_activity));
+    @Override
+    public void userCouponInfoSuccess(CouponReceiveModel model) {
+        if(model == null) return;
+        this.model = model;
+        mAdapter.setData(model.getCouponList());
+        GlideUtil.LoadImage(context,model.getImage(),iv_img);
+        tv_rule.setText(model.getRule());
+
+        if(model.getIsShare() == 0){
+            getRightIv().setVisibility(View.GONE);
+        }else{
+            getRightIv().setVisibility(View.VISIBLE);
+        }
+        showLeftAndTitle(model.getTitle());
+    }
+
+    @Override
+    public void userCouponInfoFailed(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void userCouponPublishSuccess(String str) {
+        showShortToast(str);
+        tv_submit.setEnabled(false);
+        tv_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_gray_solid_r5));
+    }
+
+    @Override
+    public void userCouponPublishFailed(String msg) {
+        showShortToast(msg);
     }
 }

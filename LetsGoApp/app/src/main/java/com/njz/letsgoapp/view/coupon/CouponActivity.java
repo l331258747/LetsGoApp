@@ -36,18 +36,6 @@ public class CouponActivity extends BaseActivity {
     @Override
     public void initView() {
         showLeftAndTitle("我的优惠卷");
-        showRightTv();
-        getRightTv().setText("订单优惠卷");
-        getRightTv().setTextColor(ContextCompat.getColor(context, R.color.black));
-        getRightTv().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, OrderCouponActivity.class);
-                intent.putExtra("position", -1);
-                intent.putExtra("totalOrderPrice", 50f);
-                startActivity(intent);
-            }
-        });
 
         mTabLayout = $(R.id.tabs);
         mViewPager = $(R.id.viewpager);

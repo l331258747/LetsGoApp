@@ -32,6 +32,7 @@ public class ActivityDialog extends Dialog implements View.OnClickListener {
     TextView tv_close;
     RelativeLayout layout_parent;
     String imgurl;
+    int eventId;
 
     public ActivityDialog(Context context) {
         super(context);
@@ -66,8 +67,9 @@ public class ActivityDialog extends Dialog implements View.OnClickListener {
         GlideUtil.LoadImageFitCenter(context,imgurl,iv_img);
     }
 
-    public void setImg(String imgurl){
+    public void setData(String imgurl,int eventId){
         this.imgurl = imgurl;
+        this.eventId = eventId;
     }
 
     @Override
@@ -80,6 +82,7 @@ public class ActivityDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.iv_img:
                 intent = new Intent(context, CouponReceiveActivity.class);
+                intent.putExtra("eventId",eventId);
                 context.startActivity(intent);
                 dismiss();
                 break;

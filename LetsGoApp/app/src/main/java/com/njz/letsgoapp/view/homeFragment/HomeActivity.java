@@ -322,7 +322,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         if (model.getIsRemind() == 0) return;//是否弹框1：提醒 0:不提醒
         if (model.showDialog()) {
             ActivityDialog activityDialog = new ActivityDialog(context);
-            activityDialog.setImg(model.getPopoutImage());
+            activityDialog.setData(model.getPopoutImage(),model.getId());
             activityDialog.show();
         }
     }

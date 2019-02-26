@@ -55,67 +55,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="【活动时间】" />
-
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="2019年01月01日-2019年12月30号" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="【领取规则】" />
-
 
                 <TextView
                     android:id="@+id/tv_rule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="即日起首次安装那就走app，且登录账号为2018年新注册会员，登陆后可领取1000元新手红包优惠卷，一台手机设备、一个会员账号仅可领取一次。" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="【使用范围】" />
-
-                <TextView
-                    android:id="@+id/tv_limit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="在平台购买任何服务都可使用。" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="【温馨提示】" />
-
-                <TextView
-                    android:id="@+id/tv_tip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="1.1000元红包为系统判断发放，登录后可获得；\n2.您可以在那就走app-“我的”-“优惠卷”中查看。" />
+                    android:lineSpacingExtra="3dp"
+                    tools:text="即日起首次安装那就走app，且登录账号为2018年新注册会员，登陆后可领取1000元新手红包优惠卷，一台手机设备、一个会员账号仅可领取一次。" />
 
             </LinearLayout>
 

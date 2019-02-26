@@ -589,6 +589,18 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
+    //优惠活动详情页
+    public static void userCouponInfo(int eventId,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userCouponInfo(eventId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //领取优惠券
+    public static void userCouponPublish(int eventId,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userCouponPublish(eventId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
 
     //----------end 优惠卷
 

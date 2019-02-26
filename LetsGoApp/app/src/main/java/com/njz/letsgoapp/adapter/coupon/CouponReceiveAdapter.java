@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
-import com.njz.letsgoapp.bean.coupon.CouponData;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ import java.util.List;
 public class CouponReceiveAdapter extends RecyclerView.Adapter<CouponReceiveAdapter.ViewHolder> {
 
     Context mContext;
-    List<CouponData> datas;
+    List<CouponModel> datas;
 
-    public CouponReceiveAdapter(Context mContext, List<CouponData> datas) {
+    public CouponReceiveAdapter(Context mContext, List<CouponModel> datas) {
         this.mContext = mContext;
         this.datas = datas;
     }
@@ -38,17 +38,17 @@ public class CouponReceiveAdapter extends RecyclerView.Adapter<CouponReceiveAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder == null) return;
-        final CouponData data = datas.get(position);
+        final CouponModel data = datas.get(position);
         if (data == null) return;
 
-        holder.tv_price.setText("￥" + data.getPrice());
+        holder.tv_price.setText("￥" + data.getTypeMoney());
         holder.tv_title.setText(data.getTitle());
-        holder.tv_limit.setText("满" + data.getLimit()+"元可用");
-        holder.tv_expire.setText("有效期至" + data.getExpire());
+        holder.tv_limit.setText("满" + data.getFillMoney()+"元可用");
+        holder.tv_expire.setText("有效期至" + data.getUseEndDateStr());
 
     }
 
-    public void setData(List<CouponData> datas) {
+    public void setData(List<CouponModel> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }

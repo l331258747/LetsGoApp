@@ -1,7 +1,6 @@
 package com.njz.letsgoapp.bean.coupon;
 
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.dialog.ActivityDialog;
 import com.njz.letsgoapp.util.DateUtil;
 
 /**

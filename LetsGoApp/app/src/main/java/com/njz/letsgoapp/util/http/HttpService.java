@@ -4,6 +4,8 @@ import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.coupon.ActivityPopModel;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponReceiveModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
@@ -16,7 +18,6 @@ import com.njz.letsgoapp.bean.home.ServiceDetailModel;
 import com.njz.letsgoapp.bean.home.ServiceListModel;
 import com.njz.letsgoapp.bean.login.LoginInfoModel;
 import com.njz.letsgoapp.bean.login.LoginModel;
-import com.njz.letsgoapp.bean.coupon.CouponModel;
 import com.njz.letsgoapp.bean.mine.FansListModel;
 import com.njz.letsgoapp.bean.mine.LabelModel;
 import com.njz.letsgoapp.bean.mine.MyCommentModel;
@@ -668,6 +669,19 @@ public interface HttpService {
     //活动弹窗
     @GET("order/popup")
     Observable<BaseResponse<ActivityPopModel>> orderPopup(
+    );
+
+
+    //优惠活动详情页
+    @GET("userCoupon/info")
+    Observable<BaseResponse<CouponReceiveModel>> userCouponInfo(
+            @Query("eventId") int eventId
+    );
+
+    //领取优惠券
+    @GET("userCoupon/publish")
+    Observable<BaseResponse<String>> userCouponPublish(
+            @Query("eventId") int eventId
     );
     //-----------end 优惠卷-------
 
