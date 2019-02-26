@@ -70,7 +70,7 @@ public class Constant {
     public static final int ORDER_PAY_WAIT = 0;//待付款
     public static final int ORDER_PAY_ALREADY = 1;//已支付
     public static final int ORDER_PAY_FINISH = 2;//已完成
-    public static final int ORDER_PAY_CANCEL = 3;//已完成
+    public static final int ORDER_PAY_CANCEL = 3;//已取消
     public static final int ORDER_PAY_REFUND = 4;//退款单
 
     public static final int ORDER_WAIT_PAY = 0;//待付款
