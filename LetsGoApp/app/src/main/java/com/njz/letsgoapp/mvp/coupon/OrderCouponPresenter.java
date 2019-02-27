@@ -3,6 +3,7 @@ package com.njz.letsgoapp.mvp.coupon;
 import android.content.Context;
 
 import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.bean.coupon.OrderCouponModel;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -27,9 +28,9 @@ public class OrderCouponPresenter implements OrderCouponContract.Presenter {
 
     @Override
     public void userCouponChooseCoupon(float totalOrderPrice) {
-        ResponseCallback listener = new ResponseCallback<List<CouponModel>>() {
+        ResponseCallback listener = new ResponseCallback<OrderCouponModel>() {
             @Override
-            public void onSuccess(List<CouponModel> data) {
+            public void onSuccess(OrderCouponModel data) {
                 iView.userCouponChooseCouponSuccess(data);
             }
 

@@ -21,6 +21,12 @@ public class SubmitOrderModel {
     int adult;
     int bugGet;
 
+    List<Integer> userCouponIds;
+
+    public void setUserCouponIds(List<Integer> userCouponIds) {
+        this.userCouponIds = userCouponIds;
+    }
+
     public void setChildren(int children) {
         this.children = children;
     }

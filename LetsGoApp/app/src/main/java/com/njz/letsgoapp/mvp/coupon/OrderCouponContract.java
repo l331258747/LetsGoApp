@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.mvp.coupon;
 
 import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.bean.coupon.OrderCouponModel;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface OrderCouponContract {
     }
 
     interface View {
-        void userCouponChooseCouponSuccess(List<CouponModel> models);
+        void userCouponChooseCouponSuccess(OrderCouponModel model);
 
         void userCouponChooseCouponFailed(String msg);
     }

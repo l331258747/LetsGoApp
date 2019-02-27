@@ -13,8 +13,11 @@ import com.njz.letsgoapp.adapter.coupon.OrderCouponAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.bean.coupon.OrderCouponModel;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponContract;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponPresenter;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.OrderCouponEvent;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
 
     List<CouponModel> datas;
 
-    int positon;
+    int couponId;
 
     OrderCouponPresenter mPresenter;
 
@@ -47,7 +50,7 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
     @Override
     public void getIntentData() {
         super.getIntentData();
-        positon = intent.getIntExtra("position",-1);
+        couponId = intent.getIntExtra("couponId",-1);
         totalOrderPrice = intent.getFloatExtra("totalOrderPrice",-1);
     }
 
@@ -69,6 +72,8 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
             @Override
             public void onClick(View v) {
                 setNonuse(-1);
+                RxBus2.getInstance().post(new OrderCouponEvent(-1,0));
+                finish();
             }
         });
     }
@@ -106,6 +111,8 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
             @Override
             public void onItemClick(int position) {
                 setNonuse(position);
+                RxBus2.getInstance().post(new OrderCouponEvent(datas.get(position).getId(),datas.get(position).getTypeMoney()));
+                finish();
             }
         });
     }
@@ -115,17 +122,22 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
     }
 
     @Override
-    public void userCouponChooseCouponSuccess(List<CouponModel> models) {
+    public void userCouponChooseCouponSuccess(OrderCouponModel models) {
         if(models == null) return;
-        this.datas = models;
-        mAdapter.setData(this.datas);
-        setNonuse(positon);
+        datas = models.getUserCouponVo();
+        mAdapter.setData(datas);
 
-        if(models.size() == 0){
-            view_empty.setVisible(false);
-        }else{
+        for (int i=0;i<datas.size();i++){
+            if(datas.get(i).getId() == couponId){
+                setNonuse(i);
+            }
+        }
+
+        if(datas.size() == 0){
             view_empty.setVisible(true);
-            view_empty.setEmptyData(R.mipmap.empty_discount,"您还没有优惠卷~");
+            view_empty.setEmptyData(R.mipmap.empty_discount,"暂无可用优惠卷~");
+        }else{
+            view_empty.setVisible(false);
         }
     }
 

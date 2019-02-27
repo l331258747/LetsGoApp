@@ -56,7 +56,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
         holder.tv_limit.setText("满" + data.getFillMoney()+"元可用");
         holder.tv_rule_content.setText(data.getInstructions());
 
-        if(data.getExpireStatus() == 1){
+        if(data.getExpireStatus() == 1 && type == 0){
             String content1 = "<font color='red'>(快过期)</font>有效期至";
             holder.tv_expire.setText(Html.fromHtml(content1 + data.getUseEndDateStr()));
         }else{
