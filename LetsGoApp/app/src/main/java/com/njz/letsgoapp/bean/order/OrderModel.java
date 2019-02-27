@@ -187,7 +187,7 @@ public class OrderModel {
         for (int i = 0; i < njzChildOrderListVOS.size(); i++) {
             OrderChildModel childModel = njzChildOrderListVOS.get(i);
 
-            if(childModel.getPayStatus() != Constant.ORDER_WAIT_PAY)
+            if(childModel.getPayStatus() != Constant.ORDER_PAY_FINISH)
                 continue;
 
             if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {

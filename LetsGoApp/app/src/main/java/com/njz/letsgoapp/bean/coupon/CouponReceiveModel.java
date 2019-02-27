@@ -54,7 +54,12 @@ public class CouponReceiveModel {
     private String endDateStr;
     private String startDate;
     private String createDate;
+    private int receiveStatus;
     private List<CouponModel> couponList;
+
+    public int getReceiveStatus() {
+        return receiveStatus;
+    }
 
     public String getImage() {
         return image;

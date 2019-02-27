@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * Function:
  */
 
-public class CouponReceiveActivity extends BaseActivity implements ActivityReceiveContract.View,ActivityReceiveSubmitContract.View{
+public class CouponReceiveActivity extends BaseActivity implements ActivityReceiveContract.View, ActivityReceiveSubmitContract.View {
 
     TextView tv_rule, tv_submit;
     RecyclerView recyclerView;
@@ -48,7 +48,7 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
     @Override
     public void getIntentData() {
         super.getIntentData();
-        eventId = intent.getIntExtra("eventId",0);
+        eventId = intent.getIntExtra("eventId", 0);
     }
 
     @Override
@@ -64,9 +64,9 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
         getRightIv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(model ==null) return;
-                ShareDialog dialog = new ShareDialog(activity,model.getTitle(),model.getRule(), model.getImage()
-                        , URLConstant.SHARE_ACTIVITY+"?eventId="+model.getId());
+                if (model == null) return;
+                ShareDialog dialog = new ShareDialog(activity, model.getTitle(), model.getRule(), model.getImage()
+                        , URLConstant.SHARE_ACTIVITY + "?eventId=" + model.getId());
                 dialog.setType(ShareDialog.TYPE_FRIEND);
                 dialog.show();
             }
@@ -79,9 +79,9 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!MySelfInfo.getInstance().isLogin()){
-                    startActivity(new Intent(context,LoginActivity.class));
-                    return ;
+                if (!MySelfInfo.getInstance().isLogin()) {
+                    startActivity(new Intent(context, LoginActivity.class));
+                    return;
                 }
                 submitPresenter.userCouponPublish(eventId);
             }
@@ -92,8 +92,13 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
 
     @Override
     public void initData() {
-        mPresenter = new ActivityReceivePresenter(context,this);
-        submitPresenter = new ActivityReceiveSubmitPresenter(context,this);
+        mPresenter = new ActivityReceivePresenter(context, this);
+        submitPresenter = new ActivityReceiveSubmitPresenter(context, this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getData();
     }
 
@@ -113,18 +118,32 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
 
     @Override
     public void userCouponInfoSuccess(CouponReceiveModel model) {
-        if(model == null) return;
+        if (model == null) return;
         this.model = model;
         mAdapter.setData(model.getCouponList());
-        GlideUtil.LoadImage(context,model.getImage(),iv_img);
+        GlideUtil.LoadImage(context, model.getImage(), iv_img);
         tv_rule.setText(model.getRule());
 
-        if(model.getIsShare() == 0){
+        if (model.getIsShare() == 0) {
             getRightIv().setVisibility(View.GONE);
-        }else{
+        } else {
             getRightIv().setVisibility(View.VISIBLE);
         }
         showLeftAndTitle(model.getTitle());
+
+        setSubmit(model.getReceiveStatus() == 1 ? true : false);
+    }
+
+    public void setSubmit(boolean b) {
+        if (b) {
+            tv_submit.setText("已领取");
+            tv_submit.setEnabled(false);
+            tv_submit.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_gray_solid_r5));
+        } else {
+            tv_submit.setText("立即领取");
+            tv_submit.setEnabled(true);
+            tv_submit.setBackground(ContextCompat.getDrawable(context, R.drawable.btn_theme_solid_r5));
+        }
     }
 
     @Override
@@ -135,8 +154,7 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
     @Override
     public void userCouponPublishSuccess(String str) {
         showShortToast(str);
-        tv_submit.setEnabled(false);
-        tv_submit.setBackground(ContextCompat.getDrawable(context,R.drawable.btn_gray_solid_r5));
+        setSubmit(true);
     }
 
     @Override
