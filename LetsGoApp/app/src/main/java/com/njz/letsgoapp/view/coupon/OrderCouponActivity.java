@@ -11,9 +11,11 @@ import android.widget.RelativeLayout;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.coupon.OrderCouponAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.coupon.CouponModel;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponContract;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponPresenter;
+import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,8 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
 
     float totalOrderPrice;
 
+    EmptyView view_empty;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
@@ -57,6 +61,7 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
         showLeftAndTitle("我的优惠卷");
         rl_nonuse = $(R.id.rl_nonuse);
         iv_nonuse = $(R.id.iv_nonuse);
+        view_empty = $(R.id.view_empty);
 
         initRecycler();
 
@@ -107,28 +112,21 @@ public class OrderCouponActivity extends BaseActivity implements OrderCouponCont
 
     public void getData(float totalOrderPrice) {
         mPresenter.userCouponChooseCoupon(totalOrderPrice);
-//        datas = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            CouponData data = new CouponData();
-//            data.setTitle("100元优惠卷【新用户注册】");
-//            data.setPrice(100);
-//            data.setLimit(1000);
-//            data.setExpire("2019-05-05");
-//            data.setRule("规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则");
-//            data.setType(0);
-//            data.setExpire(true);
-//            datas.add(data);
-//        }
-//        mAdapter.setData(datas);
-//
-//        setNonuse(positon);
     }
 
     @Override
     public void userCouponChooseCouponSuccess(List<CouponModel> models) {
+        if(models == null) return;
         this.datas = models;
         mAdapter.setData(this.datas);
         setNonuse(positon);
+
+        if(models.size() == 0){
+            view_empty.setVisible(false);
+        }else{
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_discount,"您还没有优惠卷~");
+        }
     }
 
     @Override
