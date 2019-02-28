@@ -74,10 +74,10 @@ public class OrderDetailModel {
     private String cancelExplain;
     private String cancelTime;
 
-    private float couponPrice;
+    private float typeMoney;
 
     public float getCouponPrice() {
-        return couponPrice;
+        return typeMoney;
     }
 
     public String getCancelTime() {

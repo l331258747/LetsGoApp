@@ -17,13 +17,19 @@ import com.njz.letsgoapp.adapter.order.OrderListAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.bean.order.OrderBeanGroup;
+import com.njz.letsgoapp.bean.order.OrderChildModel;
+import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
+import com.njz.letsgoapp.bean.order.PayModel;
+import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
 import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderListContract;
 import com.njz.letsgoapp.mvp.order.OrderListPresenter;
 import com.njz.letsgoapp.view.login.LoginActivity;
+import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
@@ -228,6 +234,25 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             }
         });
 
+        mAdapter.setOnPayClickListener(new OrderListAdapter.OnPayClickListener() {
+            @Override
+            public void onClick(int index) {
+                OrderModel model = mAdapter.getData().get(index);
+                if(model.isCustom()){
+                    Intent intent = new Intent(context,CustomSubmitActivity.class);
+                    intent.putExtra("name",model.getName());
+                    intent.putExtra("tel",model.getMobile());
+                    intent.putExtra("personNum",model.getPersonNum());
+                    intent.putExtra("special",model.getSpecialRequire());
+                    intent.putExtra("PAY_MODEL",getPayModel(model));
+                    intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) getServerItems(model.getNjzChildOrderListVOS().get(0)));
+                    startActivity(intent);
+                }else{
+                    PayActivity.startActivity(context, getPayModel(model));
+                }
+            }
+        });
+
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {
@@ -236,6 +261,32 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 getMoreData();
             }
         });
+    }
+
+    public PayModel getPayModel(OrderModel model){
+        PayModel payModel = new PayModel();
+        payModel.setTotalAmount(model.getOrderPrice()+"");
+        payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
+        payModel.setOutTradeNo(model.getOrderNo());
+        payModel.setLastPayTime(model.getLastPayTime());
+        payModel.setOrderId(model.getId());
+        return payModel;
+    }
+
+    public List<ServerItem> getServerItems(OrderChildModel model){
+        List<ServerItem> items = new ArrayList<>();
+        ServerItem item = new ServerItem();
+        item.setServeNum(1);
+        item.setSelectTimeValueList(model.getTravelDate());
+        item.setNjzGuideServeId(model.getId());
+        item.setTitile(model.getTitle());
+        item.setImg(model.getTitleImg());
+        item.setPrice(model.getOrderPrice());
+        item.setServiceTypeName(model.getServerName());
+        item.setServerType(model.getServeType());
+        item.setLocation(model.getLocation());
+        items.add(item);
+        return items;
     }
 
     //初始化SwipeLayout

@@ -58,7 +58,7 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             holder.tv_price_total.setText("￥" + DecimalUtil.multiply(data.getPrice(), data.getServeNum()));
 
             holder.ll_count.setVisibility(View.VISIBLE);
-            if(data.getServerType() == Constant.SERVER_TYPE_GUIDE_ID){
+            if(data.getServerType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServerType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 holder.ll_count.setVisibility(View.GONE);
             }
             holder.tv_count_content.setText(data.getCountContent());

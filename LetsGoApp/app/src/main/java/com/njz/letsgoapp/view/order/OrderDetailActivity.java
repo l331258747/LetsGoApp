@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.order;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.PayModel;
+import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
@@ -302,7 +304,18 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.btn_pay:
-                PayActivity.startActivity(context, getPayModel(model));
+                if(model.isCustom()){
+                    intent = new Intent(context,CustomSubmitActivity.class);
+                    intent.putExtra("name",model.getName());
+                    intent.putExtra("tel",model.getMobile());
+                    intent.putExtra("personNum",model.getPersonNum());
+                    intent.putExtra("special",model.getSpecialRequire());
+                    intent.putExtra("PAY_MODEL",getPayModel(model));
+                    intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) getServerItems(model.getNjzChildOrderVOS().get(0)));
+                    startActivity(intent);
+                }else{
+                    PayActivity.startActivity(context, getPayModel(model));
+                }
                 break;
             case R.id.btn_refund:
                 intent = new Intent(context,OrderRefundActivity.class);
@@ -362,6 +375,22 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
         }
+    }
+
+    public List<ServerItem> getServerItems(OrderDetailChildModel model){
+        List<ServerItem> items = new ArrayList<>();
+        ServerItem item = new ServerItem();
+        item.setServeNum(model.getServeNum());
+        item.setSelectTimeValueList(model.getTravelDate());
+        item.setNjzGuideServeId(model.getId());
+        item.setTitile(model.getTitle());
+        item.setImg(model.getTitleImg());
+        item.setPrice(model.getOrderPrice());
+        item.setServiceTypeName(model.getServerName());
+        item.setServerType(model.getServeType());
+        item.setLocation(model.getLocation());
+        items.add(item);
+        return items;
     }
 
     public PayModel getPayModel(OrderDetailModel model){

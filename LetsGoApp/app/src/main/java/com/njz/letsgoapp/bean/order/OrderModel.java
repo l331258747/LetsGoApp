@@ -45,6 +45,29 @@ public class OrderModel {
     private boolean havCar;
     private List<OrderChildModel> njzChildOrderListVOS;
 
+    private int children;
+    private int adult;
+    private int personNum;
+    private String SpecialRequire;
+
+    public String getSpecialRequire() {
+        return SpecialRequire;
+    }
+
+    public String getPersonNum() {
+//        if(isCustom()){
+//            return adult+"成人"+children+"儿童";
+//        }
+        return personNum + "";
+    }
+
+    public boolean isCustom() {
+        if(njzChildOrderListVOS !=null && njzChildOrderListVOS.size()==1 && njzChildOrderListVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            return true;
+        }
+        return false;
+    }
+
     public String getLastPayTime() {
         return lastPayTime;
     }

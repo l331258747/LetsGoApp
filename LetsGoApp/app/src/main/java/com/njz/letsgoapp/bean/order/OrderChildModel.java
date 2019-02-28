@@ -31,6 +31,16 @@ public class OrderChildModel {
     private int childOrderStatus;
     private int payingStatus;
     private int planStatus;
+    private String location;
+    private String travelDate;
+
+    public String getTravelDate() {
+        return travelDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 
     public int getPlanStatus() {
         return planStatus;

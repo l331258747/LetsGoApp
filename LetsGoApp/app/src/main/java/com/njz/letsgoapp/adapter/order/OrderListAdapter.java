@@ -342,7 +342,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PayActivity.startActivity(mContext, getPayModel(data));//TODO 订单上传成功，返回单号
+                    if (mOnPayClickListener != null) {
+                        mOnPayClickListener.onClick(data.getIndex());
+                    }
                 }
             });
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -489,6 +491,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     OnRefundClickListenter mOnRefundClickListenter;
     OnDeleteClickListener mOnDeleteClickListener;
     OnEvaluateClickListener mOnEvaluateClickListener;
+    OnPayClickListener mOnPayClickListener;
+
+    public interface OnPayClickListener {
+        void onClick(int index);
+    }
+
+    public void setOnPayClickListener(OnPayClickListener onPayClickListener) {
+        this.mOnPayClickListener = onPayClickListener;
+    }
 
     public interface OnEvaluateClickListener {
         void onClick(int index);

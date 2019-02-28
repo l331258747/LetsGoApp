@@ -152,6 +152,8 @@ public class ServerItem implements Parcelable {
 
     public String getTimeTitle(){
         switch (serverType){
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "行程时间";
             case Constant.SERVER_TYPE_GUIDE_ID:
                 return "行程时间";
             case Constant.SERVER_TYPE_HOTEL_ID:
@@ -168,8 +170,10 @@ public class ServerItem implements Parcelable {
 
     public String getCountContent(){
         switch (serverType){
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return serveNum + "";
             case Constant.SERVER_TYPE_GUIDE_ID:
-                return "";
+                return serveNum + "";
             case Constant.SERVER_TYPE_HOTEL_ID:
                 return serveNum + "间";
             case Constant.SERVER_TYPE_TICKET_ID:

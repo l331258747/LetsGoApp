@@ -168,6 +168,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.order.RefundRuleActivity" />
+        <activity
+            android:name=".view.order.CustomSubmitActivity" />
 
 
         <!-- 消息 -->

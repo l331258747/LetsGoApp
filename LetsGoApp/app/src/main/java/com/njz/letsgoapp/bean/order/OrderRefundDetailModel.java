@@ -62,10 +62,10 @@ public class OrderRefundDetailModel {
     private int children;
     private int adult;
     private String guideId;
-    private float couponPrice;
+    private float typeMoney;
 
     public float getCouponPrice() {
-        return couponPrice;
+        return typeMoney;
     }
 
     public String getGuideId() {
