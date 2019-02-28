@@ -62,6 +62,11 @@ public class OrderRefundDetailModel {
     private int children;
     private int adult;
     private String guideId;
+    private float couponPrice;
+
+    public float getCouponPrice() {
+        return couponPrice;
+    }
 
     public String getGuideId() {
         return guideId;

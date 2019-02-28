@@ -74,6 +74,12 @@ public class OrderDetailModel {
     private String cancelExplain;
     private String cancelTime;
 
+    private float couponPrice;
+
+    public float getCouponPrice() {
+        return couponPrice;
+    }
+
     public String getCancelTime() {
         return cancelTime;
     }
@@ -290,8 +296,10 @@ public class OrderDetailModel {
                 && payingStatus == Constant.ORDER_WAIT_PAY
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
-        } else {
+        } else if(payStatus == Constant.ORDER_PAY_CANCEL){
             return ("" + orderPrice);
+        }else {
+            return ("" + payPrice);
         }
     }
 
@@ -374,6 +382,8 @@ public class OrderDetailModel {
                 }
             case Constant.ORDER_PAY_REFUND:
                 return "退款";
+            case Constant.ORDER_PAY_CANCEL:
+                return "已取消";
         }
         return "";
     }

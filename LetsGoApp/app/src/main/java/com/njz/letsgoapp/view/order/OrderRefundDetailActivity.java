@@ -1,7 +1,9 @@
 package com.njz.letsgoapp.view.order;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -186,6 +188,18 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
             tv_refund_used_price.setText(str.getUseMoney()+"");
         }else{
             rl_refund_used_price.setVisibility(View.GONE);
+        }
+
+        if(str.getCouponPrice() > 0){
+            tv_order_coupon.setText("￥"+str.getCouponPrice());
+            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
+            tv_order_coupon.getPaint().setFakeBoldText(true);
+            tv_order_coupon.postInvalidate();
+        }else{
+            tv_order_coupon.setText("未使用优惠卷");
+            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_99));
+            tv_order_coupon.getPaint().setFakeBoldText(false);
+            tv_order_coupon.postInvalidate();
         }
 
         tv_refund_reason.setText(str.getRefundReason());

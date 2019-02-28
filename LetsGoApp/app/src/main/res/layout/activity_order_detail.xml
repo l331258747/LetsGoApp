@@ -307,7 +307,7 @@
                             android:layout_marginLeft="10dp"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:text="agaegaeg" />
+                            tools:text="agaegaeg" />
 
                     </LinearLayout>
 
@@ -333,7 +333,7 @@
                             android:layout_marginLeft="10dp"
                             android:maxLines="3"
                             android:minLines="1"
-                            android:text="agaegaegagaaegaeg" />
+                            tools:text="agaegaegagaaegaeg" />
 
                     </LinearLayout>
 
@@ -353,6 +353,43 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <RelativeLayout
+                        android:id="@+id/rl_order_coupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_99"
+                            android:text="优惠金额" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_order_coupon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥0"
+                                android:textColor="@color/color_theme" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layerType="software"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/shape_dash_line"/>
 
                     <RelativeLayout
                         android:id="@+id/rl_order_price"

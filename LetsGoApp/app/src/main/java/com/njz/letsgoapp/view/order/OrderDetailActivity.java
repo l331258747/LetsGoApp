@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.view.order;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -59,7 +60,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public SpecialFixedItemEditView et_special;
 
     public RecyclerView recyclerView;
-    public TextView tv_order_price;
+    public TextView tv_order_price,tv_order_coupon;
 
     public LinearLayout ll_order_no, ll_order_create_time, ll_order_pay_time, ll_order_pay_method, ll_order_guide_time,
             ll_order_refund_apply, ll_order_refund_verify, ll_order_refund_time,ll_order_travel_start,ll_order_travel_end,
@@ -111,6 +112,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         recyclerView = $(R.id.recycler_view);
 
         tv_order_price = $(R.id.tv_order_price);
+        tv_order_coupon = $(R.id.tv_order_coupon);
 
         cv_refund_reason = $(R.id.cv_refund_reason);
         tv_refund_reason_title = $(R.id.tv_refund_reason_title);
@@ -364,7 +366,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     public PayModel getPayModel(OrderDetailModel model){
         PayModel payModel = new PayModel();
-        payModel.setTotalAmount(model.getOrderPrice()+"");
+        payModel.setTotalAmount(model.getPayPrice()+"");
         payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
         payModel.setOutTradeNo(model.getOrderNo());
         payModel.setLastPayTime(model.getLastPayTime());
@@ -494,6 +496,18 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         tv_order_price.setText(str.getOrderPriceStr());
+
+        if(str.getCouponPrice() > 0){
+            tv_order_coupon.setText("￥"+str.getCouponPrice());
+            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
+            tv_order_coupon.getPaint().setFakeBoldText(true);
+            tv_order_coupon.postInvalidate();
+        }else{
+            tv_order_coupon.setText("未使用优惠卷");
+            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_99));
+            tv_order_coupon.getPaint().setFakeBoldText(false);
+            tv_order_coupon.postInvalidate();
+        }
 
         tv_guide_name.setText(str.getGuideName());
         tv_order_status.setText(str.getPayStatusStr());

@@ -108,7 +108,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 OrderBeanGroup serviceInfoGroup3 = new OrderBeanGroup();
                 serviceInfoGroup3.setLabelTab(OrderBeanGroup.LABEL_TAB_FOOT);
                 serviceInfoGroup3.setPayStatus(orderModel.getPayStatus());
-                serviceInfoGroup3.setOrderPrice(orderModel.getOrderPrice());
+                serviceInfoGroup3.setOrderPrice(orderModel.getPayPrice());
                 serviceInfoGroup3.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup3.setReviewStatus(orderModel.getReviewStatus());
                 serviceInfoGroup3.setGuideName(orderModel.getGuideName());
