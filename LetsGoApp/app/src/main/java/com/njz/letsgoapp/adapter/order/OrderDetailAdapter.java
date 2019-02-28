@@ -66,7 +66,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             holder.tv_price_total.setText(data.getOrderPriceStr());
 
             holder.ll_count.setVisibility(View.VISIBLE);
-            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
+            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 holder.ll_count.setVisibility(View.GONE);
             }
             holder.tv_count_content.setText(data.getCountContent());
