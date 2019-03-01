@@ -56,10 +56,14 @@ public class ActivityPopModel {
     }
 
     public boolean showDialog() {
+
         long currentTime = System.currentTimeMillis();
-//        if (MySelfInfo.getInstance().getActivityId() != getId()
-//                || MySelfInfo.getInstance().getActivityUserId() != MySelfInfo.getInstance().getUserId()
-//                || MySelfInfo.getInstance().getActivityTime() < currentTime) {
+
+        if(remindScheme == 5){
+            saveActivityPopData(currentTime);
+            return true;
+        }
+
         if (MySelfInfo.getInstance().getActivityId() != getId()){
             saveActivityPopData(currentTime);
             return true;
