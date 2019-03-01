@@ -264,6 +264,9 @@ public class OrderDetailModel {
     }
 
     public float getPayPrice() {
+        if(isCustom()){
+            return orderPrice;
+        }
         return payPrice;
     }
 

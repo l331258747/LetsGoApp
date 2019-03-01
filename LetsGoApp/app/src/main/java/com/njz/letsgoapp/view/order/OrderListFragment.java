@@ -265,7 +265,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     public PayModel getPayModel(OrderModel model){
         PayModel payModel = new PayModel();
-        payModel.setTotalAmount(model.getOrderPrice()+"");
+        payModel.setTotalAmount(model.getPayPrice()+"");
         payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
         payModel.setOutTradeNo(model.getOrderNo());
         payModel.setLastPayTime(model.getLastPayTime());

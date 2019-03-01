@@ -84,6 +84,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
             holder.btn_cancel.setVisibility(View.GONE);
             switch (data.getPayStatus()){
+                case Constant.ORDER_PAY_CANCEL:
+                    holder.btn_cancel.setVisibility(View.VISIBLE);
+                    holder.btn_cancel.setText("已取消");
+                    break;
                 case Constant.ORDER_PAY_WAIT:
 
                     if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
