@@ -298,6 +298,8 @@ public class OrderDetailModel {
             return ("报价待确定");
         } else if(payStatus == Constant.ORDER_PAY_CANCEL){
             return ("" + orderPrice);
+        } else if(isCustom()){
+            return ("" + orderPrice);
         }else {
             return ("" + payPrice);
         }

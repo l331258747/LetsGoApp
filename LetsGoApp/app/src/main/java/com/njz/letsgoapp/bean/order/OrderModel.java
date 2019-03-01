@@ -149,6 +149,9 @@ public class OrderModel {
     }
 
     public float getPayPrice() {
+        if(isCustom()){
+            return orderPrice;
+        }
         return payPrice;
     }
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.util.StringUtils;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
         if(data.getExpireStatus() == 1 && type == 0){
             String content1 = "<font color='red'>(快过期)</font>有效期至";
-            holder.tv_expire.setText(Html.fromHtml(content1 + data.getUseEndDateStr()));
+            StringUtils.setHtml(holder.tv_expire,content1 + data.getUseEndDateStr());
         }else{
             holder.tv_expire.setText("有效期至" + data.getUseEndDateStr());
         }

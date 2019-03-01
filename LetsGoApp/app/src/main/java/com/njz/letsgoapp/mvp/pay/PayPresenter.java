@@ -21,6 +21,7 @@ import com.njz.letsgoapp.view.pay.PayResultModel;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
@@ -46,7 +47,7 @@ public class PayPresenter implements PayContract.Presenter {
     }
 
     @Override
-    public void getAliOrderInfo(String orderId) {
+    public void getAliOrderInfo(String orderId,List<Integer> userCouponIds) {
         LogUtil.e("orderId:" + orderId);
         ResponseCallback getTopListener = new ResponseCallback<String>() {
             @Override
@@ -61,11 +62,11 @@ public class PayPresenter implements PayContract.Presenter {
                 iView.getAliOrderInfoFailed(errorMsg);
             }
         };
-        MethodApi.orderPayAliPay(orderId,new OnSuccessAndFaultSub(getTopListener,activity));
+        MethodApi.orderPayAliPay(orderId,userCouponIds,new OnSuccessAndFaultSub(getTopListener,activity));
     }
 
     @Override
-    public void getWxOrderInfo(String orderId) {
+    public void getWxOrderInfo(String orderId,List<Integer> userCouponIds) {
         ResponseCallback getTopListener = new ResponseCallback<String>() {
             @Override
             public void onSuccess(String t) {
@@ -79,7 +80,7 @@ public class PayPresenter implements PayContract.Presenter {
                 iView.getWxOrderInfoFailed(errorMsg);
             }
         };
-        MethodApi.orderPayWxPay(orderId,new OnSuccessAndFaultSub(getTopListener,activity));
+        MethodApi.orderPayWxPay(orderId,userCouponIds,new OnSuccessAndFaultSub(getTopListener,activity));
     }
 
 

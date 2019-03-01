@@ -180,7 +180,8 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.tv_submit:
-                PayActivity.startActivity(context, payModel);
+                payModel.setTotalAmount(payPrice+"");
+                PayActivity.startActivity(context, payModel,getCouponIds());
                 break;
         }
     }

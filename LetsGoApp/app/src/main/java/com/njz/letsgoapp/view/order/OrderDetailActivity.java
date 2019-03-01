@@ -395,7 +395,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     public PayModel getPayModel(OrderDetailModel model){
         PayModel payModel = new PayModel();
-        payModel.setTotalAmount(model.getPayPrice()+"");
+        payModel.setTotalAmount(model.getOrderPrice()+"");
         payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
         payModel.setOutTradeNo(model.getOrderNo());
         payModel.setLastPayTime(model.getLastPayTime());

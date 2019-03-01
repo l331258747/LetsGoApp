@@ -400,7 +400,8 @@ public interface HttpService {
     @POST("orderPay/appPay")
     Observable<BaseResponse<String>> orderPayAppPay(
             @Field("outTradeNo") String toutTradeNo,
-            @Field("type") String type
+            @Field("type") String type,
+            @Field("userCouponIds") List<Integer> userCouponIds
 
     );
 
