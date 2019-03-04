@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingTop="15dp">
+        android:paddingTop="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -66,8 +66,8 @@
             android:id="@+id/id_flowlayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             app:max_select="1" />
 
 
