@@ -593,6 +593,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void orderDeleteOrderSuccess(EmptyModel str) {
         showShortToast("删除成功");
+        RxBus2.getInstance().post(new OrderCancelEvent(1));
         finish();
     }
 

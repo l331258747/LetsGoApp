@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
@@ -17,9 +16,7 @@ import com.njz.letsgoapp.adapter.order.OrderListAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.order.OrderBeanGroup;
 import com.njz.letsgoapp.bean.order.OrderChildModel;
-import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
 import com.njz.letsgoapp.bean.order.OrderModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
@@ -28,6 +25,8 @@ import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
 import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderListContract;
 import com.njz.letsgoapp.mvp.order.OrderListPresenter;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
@@ -35,6 +34,9 @@ import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -162,8 +164,27 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 getRefreshData();
             }
         }
+
+        initRefreshDisposable();
     }
 
+    Disposable refreshDisposable;
+    private void initRefreshDisposable() {
+        refreshDisposable = RxBus2.getInstance().toObservable(OrderCancelEvent.class, new Consumer<OrderCancelEvent>() {
+            @Override
+            public void accept(OrderCancelEvent refreshOrderListEvent) throws Exception {
+                getRefreshData();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(refreshDisposable !=null && !refreshDisposable.isDisposed()){
+            refreshDisposable.dispose();
+        }
+    }
 
     //初始化recyclerview
     public void initRecycler() {
