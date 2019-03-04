@@ -30,7 +30,7 @@ public class MyWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         // 不重写会调用系统浏览器
-        view.loadUrl(url);
+//        view.loadUrl(url);//跳转
         return true;
     }
 

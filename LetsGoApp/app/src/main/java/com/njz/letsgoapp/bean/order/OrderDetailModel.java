@@ -300,11 +300,11 @@ public class OrderDetailModel {
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
         } else if(payStatus == Constant.ORDER_PAY_CANCEL){
-            return ("" + orderPrice);
+            return ("￥" + orderPrice);
         } else if(isCustom()){
-            return ("" + orderPrice);
+            return ("￥" + orderPrice);
         }else {
-            return ("" + payPrice);
+            return ("￥" + payPrice);
         }
     }
 

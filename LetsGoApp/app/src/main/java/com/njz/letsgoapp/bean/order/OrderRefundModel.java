@@ -173,11 +173,14 @@ public class OrderRefundModel {
         return refundMoney;
     }
 
-    public float getMoney(){
+    public String getMoney(){
         if(getPayStatus() == Constant.ORDER_PAY_REFUND){
-            return refundMoney;
+            return "￥"+refundMoney;
         }
-        return orderPrice;
+        if ((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
+            return ("报价待确定");
+        }
+        return "￥"+orderPrice ;
     }
 
     public void setRefundMoney(float refundMoney) {

@@ -24,6 +24,7 @@ import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
+import com.njz.letsgoapp.view.coupon.CouponActivity;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.homeFragment.fragment.FindFragment;
@@ -269,6 +270,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         int key = intent.getIntExtra("key", -1);
         String skip = intent.getStringExtra("skip");
 
+        if(TextUtils.equals(skip,Constant.NOTIFY_SKIP_CL)){
+            key = 0;
+        }
+
         LogUtil.e("key:" + key);
         LogUtil.e("skip:" + skip);
 
@@ -309,6 +314,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
             case Constant.NOTIFY_SKIP_ORD:
                 intent = new Intent(context, OrderRefundDetailActivity.class);
                 intent.putExtra("ORDER_ID", correlationId);
+                startActivity(intent);
+                break;
+            case Constant.NOTIFY_SKIP_CL:
+                intent = new Intent(context, CouponActivity.class);
                 startActivity(intent);
                 break;
             default:

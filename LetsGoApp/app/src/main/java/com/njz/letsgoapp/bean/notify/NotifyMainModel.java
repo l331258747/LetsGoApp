@@ -2,6 +2,7 @@ package com.njz.letsgoapp.bean.notify;
 
 import android.text.TextUtils;
 
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.GsonUtil;
 
@@ -127,6 +128,9 @@ public class NotifyMainModel {
     }
 
     public int getCorrelationId() {
+        if(TextUtils.equals(skip, Constant.NOTIFY_SKIP_CL)){
+            return 0;
+        }
         if(TextUtils.isEmpty(correlationId))
             return -1;
         return Integer.valueOf(correlationId);

@@ -174,8 +174,8 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         login_view_num.setContent(str.getPersonNum() + "");
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
-        tv_refund_penalty.setText(str.getDefaultMoney() + "");
-        tv_refund_price.setText(str.getRefundMoney() + "");
+        tv_refund_penalty.setText("￥" + str.getDefaultMoney());
+        tv_refund_price.setText("￥" + str.getRefundMoney());
 
         boolean isTravelGoing = false;
         for(int i = 0;i<str.getNjzRefundDetailsChildVOS().size();i++){
@@ -185,7 +185,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         }
         if(isTravelGoing){
             rl_refund_used_price.setVisibility(View.VISIBLE);
-            tv_refund_used_price.setText(str.getUseMoney()+"");
+            tv_refund_used_price.setText("￥"+str.getUseMoney());
         }else{
             rl_refund_used_price.setVisibility(View.GONE);
         }

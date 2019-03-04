@@ -69,7 +69,6 @@
                 tools:text="￥1260"
                 android:textStyle="bold"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/color_theme"/>
 

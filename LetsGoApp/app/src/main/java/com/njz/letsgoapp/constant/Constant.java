@@ -125,6 +125,7 @@ public class Constant {
     public static final String NOTIFY_SKIP_ORD = "ORD";//退款单详情
     public static final String NOTIFY_SKIP_UD = "UD";//用户详情
     public static final String NOTIFY_SKIP_GD = "GD";//导游详情
+    public static final String NOTIFY_SKIP_CL = "CL";//优惠卷详情
 
     //------消息 end-------
 

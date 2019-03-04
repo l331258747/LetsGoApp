@@ -1,10 +1,12 @@
 package com.njz.letsgoapp.view.coupon;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.njz.letsgoapp.mvp.coupon.ActivityReceivePresenter;
 import com.njz.letsgoapp.mvp.coupon.ActivityReceiveSubmitContract;
 import com.njz.letsgoapp.mvp.coupon.ActivityReceiveSubmitPresenter;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 
@@ -37,6 +40,7 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
     TextView tv_rule, tv_submit;
     RecyclerView recyclerView;
     ImageView iv_img;
+    FrameLayout fl_parent;
 
     CouponReceiveAdapter mAdapter;
     ActivityReceivePresenter mPresenter;
@@ -75,6 +79,7 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
         tv_rule = $(R.id.tv_rule);
         tv_submit = $(R.id.tv_submit);
         iv_img = $(R.id.iv_img);
+        fl_parent = $(R.id.fl_parent);
 
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +127,7 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
         this.model = model;
         mAdapter.setData(model.getCouponList());
         GlideUtil.LoadImage(context, model.getImage(), iv_img);
-        tv_rule.setText(model.getRule());
+        StringUtils.setHtml(tv_rule,model.getRule());
 
         if (model.getIsShare() == 0) {
             getRightIv().setVisibility(View.GONE);
@@ -132,6 +137,10 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
         showLeftAndTitle(model.getTitle());
 
         setSubmit(model.getReceiveStatus() == 1 ? true : false);
+
+        if(!model.getBackground().isEmpty()){
+            fl_parent.setBackgroundColor(Color.parseColor(model.getBackground()));
+        }
     }
 
     public void setSubmit(boolean b) {

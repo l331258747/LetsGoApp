@@ -20,7 +20,7 @@ public class OrderRefundBeanGroup {
     private float payPrice;
     private int orderStatus;
     private String location;
-    private float orderPrice;
+    private String orderPrice;
     private float refundMoney;
     private int reviewStatus;
     private int refundStatus;
@@ -42,6 +42,15 @@ public class OrderRefundBeanGroup {
 
     public int getPlanStatus() {
         return planStatus;
+    }
+
+    public boolean isCustomNoPrice(){
+        if(payStatus == Constant.ORDER_PAY_CANCEL
+                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
+                || payStatus == Constant.ORDER_PLAN_PLANING)){
+            return true;
+        }
+        return false;
     }
 
     public void setPlanStatus(int planStatus) {
@@ -112,11 +121,11 @@ public class OrderRefundBeanGroup {
         this.location = location;
     }
 
-    public float getOrderPrice() {
+    public String getOrderPrice() {
         return orderPrice;
     }
 
-    public void setOrderPrice(float orderPrice) {
+    public void setOrderPrice(String orderPrice) {
         this.orderPrice = orderPrice;
     }
 

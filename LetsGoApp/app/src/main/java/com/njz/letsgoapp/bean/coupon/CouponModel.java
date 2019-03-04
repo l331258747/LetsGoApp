@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.coupon;
 
+import com.njz.letsgoapp.util.StringUtils;
+
 /**
  * Created by LGQ
  * Time: 2019/2/21
@@ -26,7 +28,7 @@ public class CouponModel {
      * useEndDateStr : 2019-02-28
      */
 
-    private int fillMoney;
+    private float fillMoney;
     private int eventId;
     private int expireDays;
     private String instructions;
@@ -34,7 +36,7 @@ public class CouponModel {
     private String useEndDate;
     private int couponId;
     private String title;
-    private int typeMoney;
+    private float typeMoney;
     private int couponType;
     private int expireStatus;
     private int id;
@@ -50,11 +52,11 @@ public class CouponModel {
         isSelected = selected;
     }
 
-    public int getFillMoney() {
+    public float getFillMoney() {
         return fillMoney;
     }
 
-    public void setFillMoney(int fillMoney) {
+    public void setFillMoney(float fillMoney) {
         this.fillMoney = fillMoney;
     }
 
@@ -114,11 +116,15 @@ public class CouponModel {
         this.title = title;
     }
 
-    public int getTypeMoney() {
+    public float getTypeMoney() {
         return typeMoney;
     }
 
-    public void setTypeMoney(int typeMoney) {
+    public String getTypeMoneyStr(){
+        return StringUtils.getStringNum(typeMoney);
+    }
+
+    public void setTypeMoney(float typeMoney) {
         this.typeMoney = typeMoney;
     }
 

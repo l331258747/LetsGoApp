@@ -94,6 +94,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                     serviceInfoGroup2.setOrderId(orderModel.getOrderId());
                     serviceInfoGroup2.setId(orderModel.getId());
                     serviceInfoGroup2.setPayStatus(orderModel.getPayStatus());
+                    serviceInfoGroup2.setPlanStatus(orderModel.getPlanStatus());
                     orderBeanGroups.add(serviceInfoGroup2);
                 }
                 OrderRefundBeanGroup serviceInfoGroup3 = new OrderRefundBeanGroup();
@@ -158,7 +159,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
 
             ((DefaultHolder) holder).tv_server_name.setText(data.getServerName());
 
-            ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
+            if (orderBeanGroups.get(pos).isCustomNoPrice()) {
+                ((DefaultHolder) holder).tv_total_price.setText("报价待确定");
+            }else{
+                ((DefaultHolder) holder).tv_total_price.setText("￥" + data.getOrderPrice());
+            }
 
             if (mOnItemClickListener != null) {
                 ((DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
@@ -228,7 +233,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                     break;
             }
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
-            ((FootHolder) holder).tv_order_price_content.setText("￥" + data.getOrderPrice());
+            ((FootHolder) holder).tv_order_price_content.setText(data.getOrderPrice());
 
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override

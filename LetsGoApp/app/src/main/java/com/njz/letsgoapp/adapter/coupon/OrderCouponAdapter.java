@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.util.StringUtils;
 
 import java.util.List;
 
@@ -50,11 +51,11 @@ public class OrderCouponAdapter extends RecyclerView.Adapter<OrderCouponAdapter.
         final CouponModel data = datas.get(position);
         if (data == null) return;
 
-        holder.tv_price.setText("￥" + data.getTypeMoney());
+        holder.tv_price.setText("￥" + data.getTypeMoneyStr());
         holder.tv_title.setText(data.getTitle());
         holder.tv_limit.setText("满" + data.getFillMoney()+"元可用");
         holder.tv_expire.setText("有效期至" + data.getUseEndDateStr());
-        holder.tv_rule_content.setText(data.getInstructions());
+        StringUtils.setHtml(holder.tv_rule_content,data.getInstructions());
 
         holder.rl_parent.setOnClickListener(new View.OnClickListener() {
             @Override
