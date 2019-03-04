@@ -506,10 +506,12 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     case Constant.ORDER_EVALUATE_NO:
                         btn_call_guide.setVisibility(View.VISIBLE);
                         btn_evaluate.setVisibility(View.VISIBLE);
+                        btn_evaluate_see.setVisibility(View.GONE);
                         break;
                     case Constant.ORDER_EVALUATE_YES:
                         btn_delete.setVisibility(View.VISIBLE);
                         btn_call_guide.setVisibility(View.VISIBLE);
+                        btn_evaluate.setVisibility(View.GONE);
                         btn_evaluate_see.setVisibility(View.VISIBLE);
                         break;
                 }
