@@ -72,6 +72,10 @@ public class ServerOtherAdapter extends RecyclerView.Adapter<ServerOtherAdapter.
         this.datas = datas;
     }
 
+    public List<ServerDetailModel> getDatas(){
+        return this.datas;
+    }
+
     public void addData(List<ServerDetailModel> datas){
         this.datas.addAll(datas);
     }

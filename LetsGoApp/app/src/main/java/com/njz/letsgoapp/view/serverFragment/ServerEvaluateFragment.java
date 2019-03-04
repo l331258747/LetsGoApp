@@ -123,7 +123,6 @@ public class ServerEvaluateFragment extends BaseFragment implements GuideEvaluat
         mAdapter = new EvaluateAdapter(activity, new ArrayList<EvaluateModel2>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
-        recyclerView.setNestedScrollingEnabled(false);
 
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
