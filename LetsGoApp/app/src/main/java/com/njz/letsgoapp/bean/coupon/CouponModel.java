@@ -56,6 +56,10 @@ public class CouponModel {
         return fillMoney;
     }
 
+    public String getFillMoneyStr(){
+        return StringUtils.getStringNum(fillMoney);
+    }
+
     public void setFillMoney(float fillMoney) {
         this.fillMoney = fillMoney;
     }

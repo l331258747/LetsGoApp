@@ -53,7 +53,7 @@ public class OrderCouponAdapter extends RecyclerView.Adapter<OrderCouponAdapter.
 
         holder.tv_price.setText("￥" + data.getTypeMoneyStr());
         holder.tv_title.setText(data.getTitle());
-        holder.tv_limit.setText("满" + data.getFillMoney()+"元可用");
+        holder.tv_limit.setText("满" + data.getFillMoneyStr()+"元可用");
         holder.tv_expire.setText("有效期至" + data.getUseEndDateStr());
         StringUtils.setHtml(holder.tv_rule_content,data.getInstructions());
 

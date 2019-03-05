@@ -54,7 +54,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.ViewHolder
 
         holder.tv_price.setText("￥" + data.getTypeMoneyStr());
         holder.tv_title.setText(data.getTitle());
-        holder.tv_limit.setText("满" + data.getFillMoney()+"元可用");
+        holder.tv_limit.setText("满" + data.getFillMoneyStr()+"元可用");
         StringUtils.setHtml(holder.tv_rule_content,data.getInstructions());
 
         if(data.getExpireStatus() == 1 && type == 0){
