@@ -19,8 +19,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_window_background"
+                android:fitsSystemWindows="true"
                 app:elevation="0dp"
-                android:fitsSystemWindows="true">
+                app:layout_behavior="com.njz.letsgoapp.util.behavior.FixAppBarLayoutBehavior">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -36,10 +37,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="190dp"
                         android:background="@drawable/btn_white_r10_top"
+                        android:paddingBottom="10dp"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp">
+                        android:paddingTop="10dp">
 
                         <TextView
                             android:id="@+id/tv_title"
@@ -84,8 +85,8 @@
                             android:layout_alignParentBottom="true"
                             android:layout_below="@+id/tv_title"
                             android:layout_marginRight="20dp"
-                            app:priceView_size="12"
-                            android:layout_toStartOf="@+id/tv_score" />
+                            android:layout_toStartOf="@+id/tv_score"
+                            app:priceView_size="12" />
 
                         <TextView
                             android:id="@+id/tv_score"
@@ -95,9 +96,9 @@
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="5dp"
-                            tools:text="已售: 11"
                             android:textColor="@color/color_99"
-                            android:textSize="11sp" />
+                            android:textSize="11sp"
+                            tools:text="已售: 11" />
 
 
                     </RelativeLayout>
@@ -108,16 +109,16 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rl_title"
                         android:background="@color/white"
+                        android:orientation="vertical"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:orientation="vertical"
-                        tools:visibility="visible"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:background="@color/color_d9"/>
+                            android:background="@color/color_d9" />
 
                         <include layout="@layout/service_personal_info2" />
 
@@ -134,25 +135,25 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
                     android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
                     android:paddingRight="15dp">
 
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tablayout"
+                        style="@style/CommonTabLayoutStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        style="@style/CommonTabLayoutStyle"
-                        app:tabTextAppearance="@style/TabLayoutStyle"/>
+                        app:tabTextAppearance="@style/TabLayoutStyle" />
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/white"
-                        android:src="@color/color_d9"/>
+                        android:src="@color/color_d9" />
 
                 </LinearLayout>
 
@@ -193,10 +194,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:background="@color/white"
             android:gravity="center"
             android:orientation="horizontal">
@@ -249,21 +250,21 @@
         android:id="@+id/tv_back_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
         android:layout_marginBottom="60dp"
         android:layout_marginRight="15dp"
-        android:visibility="gone"
-        android:background="@mipmap/ic_back_top" />
+        android:background="@mipmap/ic_back_top"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_float_call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
         android:layout_marginBottom="60dp"
         android:layout_marginRight="15dp"
         android:background="@mipmap/float_call" />
