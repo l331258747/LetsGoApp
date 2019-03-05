@@ -18,6 +18,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.view.login.LoginActivity;
 
 /**
  * Created by LGQ
@@ -149,6 +150,10 @@ public class DialogUtil {
     }
 
     public void showGuideMobileDialog(final Context context,final String mobil){
+        if(!MySelfInfo.getInstance().isLogin()){
+            context.startActivity(new Intent(context,LoginActivity.class));
+            return;
+        }
         showMobileDialog(context,mobil,"暂无导游联系方式");
     }
 
