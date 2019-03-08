@@ -44,7 +44,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class OrderListFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener,OrderDeleteContract.View {
+public class OrderListFragment extends BaseFragment implements OrderListContract.View, OrderDeleteContract.View {
 
     public RecyclerView recyclerView;
     public SwipeRefreshLayout swipeRefreshLayout;
@@ -173,7 +173,11 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         refreshDisposable = RxBus2.getInstance().toObservable(OrderCancelEvent.class, new Consumer<OrderCancelEvent>() {
             @Override
             public void accept(OrderCancelEvent refreshOrderListEvent) throws Exception {
-                getRefreshData();
+                if(getUserVisibleHint()){
+                    if(setLogin()){
+                        getRefreshData();
+                    }
+                }
             }
         });
     }
@@ -387,10 +391,6 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 }
             });
         }
-    }
-
-    @Override
-    public void onClick(View v) {
     }
 
     @Override

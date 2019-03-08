@@ -45,9 +45,13 @@ public class OrderRefundBeanGroup {
     }
 
     public boolean isCustomNoPrice(){
-        if(payStatus == Constant.ORDER_PAY_CANCEL
-                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
-                || payStatus == Constant.ORDER_PLAN_PLANING)){
+//        if(payStatus == Constant.ORDER_PAY_CANCEL
+//                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
+//                || payStatus == Constant.ORDER_PLAN_PLANING)){
+//            return true;
+//        }
+        if(planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
+                || payStatus == Constant.ORDER_PLAN_PLANING){
             return true;
         }
         return false;
@@ -144,9 +148,6 @@ public class OrderRefundBeanGroup {
     public String getPayStatusStr(){
         switch (payStatus){
             case Constant.ORDER_PAY_WAIT:
-                if(planStatus == Constant.ORDER_PLAN_GUIDE_REFUND){
-                    return "已取消";
-                }
                 return "待付款";
             case Constant.ORDER_PAY_ALREADY:
                 switch (orderStatus){
@@ -180,10 +181,12 @@ public class OrderRefundBeanGroup {
                         return "退款中";
                     case Constant.ORDER_REFUND_FINISH:
                         return "已退款";
+                    case Constant.ORDER_REFUND_CANCEL:
+                        return "已取消";
                 }
                 return "退款";
-            case Constant.ORDER_PAY_CANCEL:
-                return "已取消";
+//            case Constant.ORDER_PAY_CANCEL:
+//                return "已取消";
         }
         return "";
     }

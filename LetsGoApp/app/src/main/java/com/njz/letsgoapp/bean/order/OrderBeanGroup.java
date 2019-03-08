@@ -157,7 +157,7 @@ public class OrderBeanGroup {
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
         } else {
-            return ("￥" + orderPrice);
+            return ("￥" + orderPrice);//orderPrice通过setOrderPrice传入可能为orderprice可能为payprice
         }
     }
 

@@ -408,10 +408,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         model = str;
         switch (str.getPayStatus()) {
             case Constant.ORDER_PAY_WAIT:
-                if(str.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_REFUND){
-                    setCancelView(str);
-                    return;
-                }
                 ll_order_no.setVisibility(View.VISIBLE);
                 ll_order_create_time.setVisibility(View.VISIBLE);
                 tv_order_no.setText(str.getOrderNo());
@@ -521,9 +517,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     btn_call_custom.setVisibility(View.GONE);
                 }
                 break;
-            case Constant.ORDER_PAY_CANCEL:
-                setCancelView(str);
-                break;
         }
 
         tv_order_price.setText(str.getOrderPriceStr());
@@ -546,7 +539,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         fixed_view_city.setContent(str.getLocation());
         login_view_name.setContent(str.getName());
         login_view_phone.setContent(str.getMobile());
-        login_view_num.setContent(str.getPersonNum() + "");
+        login_view_num.setContent(str.getPersonNum());
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
@@ -555,36 +548,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         }
         mAdapter.setData(str.getNjzChildOrderVOS());
 
-    }
-
-    //refuse:true 拒绝接单：私人定制
-    private void setCancelView(OrderDetailModel str) {
-        cv_refund_reason.setVisibility(View.VISIBLE);
-        tv_refund_reason_title.setText("取消原因");
-        tv_refund_explain_title.setText("取消说明");
-        tv_refund_reason.setText(str.getCancelReason());
-        tv_refund_explain.setText(str.getCancelExplain());
-
-        btn_delete.setVisibility(View.VISIBLE);
-
-        ll_order_no.setVisibility(View.VISIBLE);
-        ll_order_create_time.setVisibility(View.VISIBLE);
-        tv_order_no.setText(str.getOrderNo());
-        tv_order_create_time.setText(str.getCreateTime());
-        ll_order_cancel_time.setVisibility(View.VISIBLE);
-        tv_order_cancel_time.setText(str.getCancelTime());
-
-        if(str.isCustom()){
-            //私人定制,拒绝接单
-            if(!TextUtils.isEmpty(str.getGuideSureTime())){
-                ll_order_plan_confirm.setVisibility(View.VISIBLE);
-                tv_order_plan_confirm.setText(str.getGuideSureTime());
-            }
-            if(!TextUtils.isEmpty(str.getPlanDesignTime())){
-                ll_order_plan_up.setVisibility(View.VISIBLE);
-                tv_order_plan_up.setText(str.getPlanDesignTime());
-            }
-        }
     }
 
     @Override

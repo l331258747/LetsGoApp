@@ -62,7 +62,22 @@ public class OrderRefundDetailModel {
     private int children;
     private int adult;
     private String guideId;
+    private String createTime;
+    private String guideSureTime;
+    private String planDesignTime;
     private float typeMoney;
+
+    public String getPlanDesignTime() {
+        return planDesignTime;
+    }
+
+    public String getGuideSureTime() {
+        return guideSureTime;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
 
     public float getCouponPrice() {
         return typeMoney;
@@ -254,6 +269,8 @@ public class OrderRefundDetailModel {
                 return "退款中";
             case Constant.ORDER_REFUND_FINISH:
                 return "已退款";
+            case Constant.ORDER_REFUND_CANCEL:
+                return "已取消";
         }
         return "退款";
     }

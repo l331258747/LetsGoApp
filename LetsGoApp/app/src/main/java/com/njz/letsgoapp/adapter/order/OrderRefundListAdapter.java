@@ -223,14 +223,14 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                             break;
                     }
                     break;
-                case Constant.ORDER_PAY_CANCEL:
-                    ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
-                    break;
-                case Constant.ORDER_PAY_WAIT:
-                    if(data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_REFUND){
-                        ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
-                    }
-                    break;
+//                case Constant.ORDER_PAY_CANCEL:
+//                    ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
+//                    break;
+//                case Constant.ORDER_PAY_WAIT:
+//                    if(data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_REFUND){
+//                        ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
+//                    }
+//                    break;
             }
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
             ((FootHolder) holder).tv_order_price_content.setText(data.getOrderPrice());

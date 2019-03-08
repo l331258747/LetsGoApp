@@ -70,7 +70,7 @@ public class Constant {
     public static final int ORDER_PAY_WAIT = 0;//待付款
     public static final int ORDER_PAY_ALREADY = 1;//已支付
     public static final int ORDER_PAY_FINISH = 2;//已完成
-    public static final int ORDER_PAY_CANCEL = 3;//已取消
+//    public static final int ORDER_PAY_CANCEL = 3;//已取消
     public static final int ORDER_PAY_REFUND = 4;//退款单
 
     public static final int ORDER_WAIT_PAY = 0;//待付款
@@ -80,7 +80,7 @@ public class Constant {
     public static final int ORDER_PLAN_PLANING = 1;//方案设计中
     public static final int ORDER_PLAN_USER_WAIT = 2;//游客待确认
 //    public static final int ORDER_PLAN_USER_COMFIRM = 3;//游客已确认
-    public static final int ORDER_PLAN_GUIDE_REFUND = 4;//导游已拒绝
+//    public static final int ORDER_PLAN_GUIDE_REFUND = 4;//导游已拒绝
 
     public static final int ORDER_TRAVEL_WAIT = 0;//导游待确认
     public static final int ORDER_TRAVEL_NO_GO = 1;//未出行
@@ -94,6 +94,8 @@ public class Constant {
     public static final int ORDER_REFUND_WAIT = 0;//导游待审核
     public static final int ORDER_REFUND_PROCESS = 1;//退款中
     public static final int ORDER_REFUND_FINISH = 2;//已退款
+    public static final int ORDER_REFUND_CANCEL = 3;//已取消
+    public static final int ORDER_REFUND_PLAN_REFUSE = 4;//私人定制，导游拒绝
 
     //--------配置 start-------------
     public static final String CONFIG_XB = "xb";//导游性别

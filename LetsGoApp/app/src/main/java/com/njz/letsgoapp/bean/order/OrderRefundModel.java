@@ -71,9 +71,9 @@ public class OrderRefundModel {
     }
 
     public int getPayStatus() {
-        if(refundId == 0)
-            return Constant.ORDER_PAY_CANCEL;
-        else
+//        if(refundId == 0)
+//            return Constant.ORDER_PAY_CANCEL;
+//        else
             return Constant.ORDER_PAY_REFUND;
     }
 

@@ -264,7 +264,7 @@ public class OrderDetailModel {
     }
 
     public float getPayPrice() {
-        if(isCustom()){
+        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
             return orderPrice;
         }
         return payPrice;
@@ -299,9 +299,7 @@ public class OrderDetailModel {
                 && payingStatus == Constant.ORDER_WAIT_PAY
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
-        } else if(payStatus == Constant.ORDER_PAY_CANCEL){
-            return ("￥" + orderPrice);
-        } else if(isCustom()){
+        } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
             return ("￥" + orderPrice);
         }else {
             return ("￥" + payPrice);
@@ -387,8 +385,6 @@ public class OrderDetailModel {
                 }
             case Constant.ORDER_PAY_REFUND:
                 return "退款";
-            case Constant.ORDER_PAY_CANCEL:
-                return "已取消";
         }
         return "";
     }

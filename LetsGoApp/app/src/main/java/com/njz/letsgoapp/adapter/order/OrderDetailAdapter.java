@@ -84,12 +84,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
             holder.btn_cancel.setVisibility(View.GONE);
             switch (data.getPayStatus()){
-                case Constant.ORDER_PAY_CANCEL:
-                    holder.btn_cancel.setVisibility(View.VISIBLE);
-                    holder.btn_cancel.setText("已取消");
-                    break;
                 case Constant.ORDER_PAY_WAIT:
-
                     if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
                         holder.btn_cancel.setVisibility(View.GONE);
                     }else{
@@ -104,7 +99,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                             }
                         });
                     }
-
                     break;
                 case Constant.ORDER_PAY_ALREADY:
                     if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID
@@ -124,7 +118,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                             }
                         });
                     }
-
                     break;
             }
 

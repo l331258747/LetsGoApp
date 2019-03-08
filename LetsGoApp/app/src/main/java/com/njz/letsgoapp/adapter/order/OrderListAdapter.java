@@ -172,12 +172,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
             ((DefaultHolder) holder).tv_total_price.setText(data.getOrderPriceStr());
 
-            ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
+            ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
             switch (data.getPayStatus()) {
-                case Constant.ORDER_PAY_CANCEL:
-                    ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
-                    ((DefaultHolder) holder).btn_cancel.setText("已取消");
-                    break;
                 case Constant.ORDER_PAY_WAIT:
                     if (data.getPayingStatus() == Constant.ORDER_WAIT_PAYING) {
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
@@ -212,9 +208,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                             }
                         });
                     }
-                    break;
-                default:
-                    ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
                     break;
             }
 
@@ -255,7 +248,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
 
-            ((FootHolder) holder).tv_order_price_content.setText( data.getOrderPriceStr());
+            ((FootHolder) holder).tv_order_price_content.setText(data.getOrderPriceStr());
 
             ((FootHolder) holder).setbtn();
             switch (data.getPayStatus()) {
@@ -313,9 +306,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                         ((FootHolder) holder).btn_see_plan.setVisibility(View.VISIBLE);
                         ((FootHolder) holder).btn_call_customer.setVisibility(View.GONE);
                     }
-                    break;
-                case Constant.ORDER_PAY_REFUND:
-
                     break;
             }
 

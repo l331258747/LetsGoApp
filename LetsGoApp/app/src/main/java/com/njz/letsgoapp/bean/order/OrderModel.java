@@ -149,7 +149,7 @@ public class OrderModel {
     }
 
     public float getPayPrice() {
-        if(isCustom()){
+        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
             return orderPrice;
         }
         return payPrice;

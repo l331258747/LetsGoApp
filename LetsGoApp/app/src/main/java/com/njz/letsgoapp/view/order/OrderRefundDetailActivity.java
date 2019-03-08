@@ -152,6 +152,9 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
                 ll_order_refund_time.setVisibility(View.VISIBLE);
                 tv_order_refund_time.setText(str.getRefundTime());
                 break;
+//            case Constant.ORDER_PAY_CANCEL:
+//                setCancelView(str);
+//                break;
         }
 
         switch (str.getRefundStatus()){
@@ -212,4 +215,67 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
     public void orderRefundQueryOrderRefundDetailsFailed(String msg) {
         showShortToast(msg);
     }
+
+
+    //refuse:true 拒绝接单：私人定制
+    public void setCancelView(OrderRefundDetailModel str) {
+        cv_refund_reason.setVisibility(View.VISIBLE);
+        tv_refund_reason_title.setText("取消原因");
+        tv_refund_explain_title.setText("取消说明");
+        tv_refund_reason.setText(str.getRefundReason());
+        tv_refund_explain.setText(str.getRefundContent());
+
+        btn_delete.setVisibility(View.VISIBLE);
+
+        ll_order_no.setVisibility(View.VISIBLE);
+        ll_order_create_time.setVisibility(View.VISIBLE);
+        tv_order_no.setText(str.getOrderNo());
+        tv_order_create_time.setText(str.getCreateTime());
+        ll_order_cancel_time.setVisibility(View.VISIBLE);
+        tv_order_cancel_time.setText(str.getRefundTime());
+
+        if(str.isCustom()){
+            //私人定制,拒绝接单
+            if(!TextUtils.isEmpty(str.getGuideSureTime())){
+                ll_order_plan_confirm.setVisibility(View.VISIBLE);
+                tv_order_plan_confirm.setText(str.getGuideSureTime());
+            }
+            if(!TextUtils.isEmpty(str.getPlanDesignTime())){
+                ll_order_plan_up.setVisibility(View.VISIBLE);
+                tv_order_plan_up.setText(str.getPlanDesignTime());
+            }
+        }
+    }
+
+    /*
+    //refuse:true 拒绝接单：私人定制
+    private void setCancelView(OrderDetailModel str) {
+        cv_refund_reason.setVisibility(View.VISIBLE);
+        tv_refund_reason_title.setText("取消原因");
+        tv_refund_explain_title.setText("取消说明");
+        tv_refund_reason.setText(str.getCancelReason());
+        tv_refund_explain.setText(str.getCancelExplain());
+
+        btn_delete.setVisibility(View.VISIBLE);
+
+        ll_order_no.setVisibility(View.VISIBLE);
+        ll_order_create_time.setVisibility(View.VISIBLE);
+        tv_order_no.setText(str.getOrderNo());
+        tv_order_create_time.setText(str.getCreateTime());
+        ll_order_cancel_time.setVisibility(View.VISIBLE);
+        tv_order_cancel_time.setText(str.getCancelTime());
+
+        if(str.isCustom()){
+            //私人定制,拒绝接单
+            if(!TextUtils.isEmpty(str.getGuideSureTime())){
+                ll_order_plan_confirm.setVisibility(View.VISIBLE);
+                tv_order_plan_confirm.setText(str.getGuideSureTime());
+            }
+            if(!TextUtils.isEmpty(str.getPlanDesignTime())){
+                ll_order_plan_up.setVisibility(View.VISIBLE);
+                tv_order_plan_up.setText(str.getPlanDesignTime());
+            }
+        }
+    }
+     */
 }
