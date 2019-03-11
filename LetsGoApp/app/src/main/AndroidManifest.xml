@@ -139,6 +139,7 @@
         <!--发现-->
         <activity android:name=".view.find.ReleaseDynamicActivity"/>
         <activity android:name=".view.find.DynamicDetailActivity"/>
+        <activity android:name=".view.find.SpaceDynamicDetailActivity" />
 
         <!--服务-->
         <activity android:name=".view.server.CustomActivity"/>
@@ -188,7 +189,8 @@
         <activity android:name=".view.mine.LabelActivity" />
         <activity android:name=".view.mine.MyCommentActivity" />
         <activity android:name=".view.mine.SpaceActivity" />
-        <activity android:name=".view.find.SpaceDynamicDetailActivity" />
+        <activity android:name=".view.mine.ContactUsActivity" />
+        <activity android:name=".view.mine.ContactUsContentActivity" />
 
         <!--优惠卷-->
         <activity android:name=".view.coupon.CouponActivity" />

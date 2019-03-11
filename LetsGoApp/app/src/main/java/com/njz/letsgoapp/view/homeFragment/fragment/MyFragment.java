@@ -21,6 +21,7 @@ import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
 import com.njz.letsgoapp.view.coupon.CouponActivity;
+import com.njz.letsgoapp.view.mine.ContactUsActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.MyCommentActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
@@ -171,7 +172,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
                 break;
             case R.id.mine_customer:
                 if(!isLogin()) return;
-                DialogUtil.getInstance().showCustomerMobileDialog(context);
+                startActivity(new Intent(context, ContactUsActivity.class));
                 break;
             case R.id.mine_setting:
                 startActivity(new Intent(context,SystemSettingActivity.class));
