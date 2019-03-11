@@ -12,10 +12,14 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.server.OrderSubmitAdapter;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.coupon.OrderCouponModel;
+import com.njz.letsgoapp.bean.order.OrderDetailChildModel;
+import com.njz.letsgoapp.bean.order.OrderDetailModel;
 import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponContract;
 import com.njz.letsgoapp.mvp.coupon.OrderCouponPresenter;
+import com.njz.letsgoapp.mvp.order.OrderDetailContract;
+import com.njz.letsgoapp.mvp.order.OrderDetailPresenter;
 import com.njz.letsgoapp.util.DecimalUtil;
 import com.njz.letsgoapp.util.StringUtils;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
@@ -38,7 +42,7 @@ import io.reactivex.functions.Consumer;
  * Function:
  */
 
-public class CustomSubmitActivity extends BaseActivity implements View.OnClickListener,OrderCouponContract.View {
+public class CustomSubmitActivity extends BaseActivity implements View.OnClickListener,OrderDetailContract.View,OrderCouponContract.View {
 
     FixedItemEditView login_view_name,login_view_phone,login_view_num;
     SpecialFixedItemEditView et_special;
@@ -47,6 +51,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
     TextView tv_coupon,tv_total_price,tv_contract,tv_submit;
 
     OrderCouponPresenter couponPresenter;
+    OrderDetailPresenter detailPresenter;
     Disposable orderCouponDisposable;
 
     int couponId = -1;
@@ -54,22 +59,14 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
     float payPrice = 0;
     float totalPrice;
 
-    List<ServerItem> serverItems;
+    int orderId;
     PayModel payModel;
-    String name;
-    String tel;
-    String personNum;
-    String special;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
-        serverItems = intent.getParcelableArrayListExtra("SERVICEMODEL");
+        orderId = intent.getIntExtra("order_id",0);
         payModel = intent.getParcelableExtra("PAY_MODEL");
-        name = intent.getStringExtra("name");
-        tel = intent.getStringExtra("tel");
-        personNum = intent.getStringExtra("personNum");
-        special = intent.getStringExtra("special");
     }
 
     @Override
@@ -104,21 +101,8 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initData() {
-
-        login_view_name.setContent(name);
-        login_view_phone.setContent(tel);
-        login_view_num.setContent(personNum);
-        et_special.setContent(TextUtils.isEmpty(special)?"无":special);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        OrderSubmitAdapter mAdapter = new OrderSubmitAdapter(context, serverItems);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setNestedScrollingEnabled(false);
-
-        getTotalPrice();
-
-        StringUtils.setHtml(tv_contract, getResources().getString(R.string.guide_service_contract));
+        detailPresenter = new OrderDetailPresenter(context,this);
+        detailPresenter.orderQueryOrder(orderId);
 
         couponPresenter = new OrderCouponPresenter(context,this);
         couponPresenter.userCouponChooseCoupon(totalPrice);
@@ -146,12 +130,8 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
         tv_total_price.setText("￥" + payPrice);
     }
 
-    public void getTotalPrice() {
-        totalPrice = 0;
-        for (ServerItem model : serverItems) {
-            float price = DecimalUtil.multiply(model.getPrice() , model.getServeNum());
-            totalPrice = DecimalUtil.add(totalPrice , price);
-        }
+    public void getTotalPrice(OrderDetailChildModel model) {
+        totalPrice = model.getOrderPrice();
         getPayPrice(0);
     }
 
@@ -180,6 +160,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.tv_submit:
+                if(payModel == null) return;
                 payModel.setTotalAmount(payPrice+"");
                 PayActivity.startActivity(context, payModel,getCouponIds());
                 break;
@@ -207,5 +188,48 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
         super.onDestroy();
         if (orderCouponDisposable != null && !orderCouponDisposable.isDisposed())
             orderCouponDisposable.dispose();
+    }
+
+    @Override
+    public void orderQueryOrderSuccess(OrderDetailModel str) {
+        initDetail(str);
+    }
+
+    private void initDetail(OrderDetailModel str) {
+        login_view_name.setContent(str.getName());
+        login_view_phone.setContent(str.getMobile());
+        login_view_num.setContent(str.getPersonNum());
+        et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        OrderSubmitAdapter mAdapter = new OrderSubmitAdapter(context, getServerItems(str.getNjzChildOrderVOS().get(0)));
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        getTotalPrice(str.getNjzChildOrderVOS().get(0));
+
+        StringUtils.setHtml(tv_contract, getResources().getString(R.string.guide_service_contract));
+    }
+
+    public List<ServerItem> getServerItems(OrderDetailChildModel model){
+        List<ServerItem> items = new ArrayList<>();
+        ServerItem item = new ServerItem();
+        item.setServeNum(model.getServeNum());
+        item.setSelectTimeValueList(model.getTravelDate());
+        item.setNjzGuideServeId(model.getId());
+        item.setTitile(model.getTitle());
+        item.setImg(model.getTitleImg());
+        item.setPrice(model.getOrderPrice());
+        item.setServiceTypeName(model.getServerName());
+        item.setServerType(model.getServeType());
+        item.setLocation(model.getLocation());
+        items.add(item);
+        return items;
+    }
+
+    @Override
+    public void orderQueryOrderFailed(String msg) {
+        showShortToast(msg);
     }
 }
