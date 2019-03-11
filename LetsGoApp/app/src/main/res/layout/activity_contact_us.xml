@@ -31,7 +31,7 @@
             android:background="@color/color_d9" />
 
         <com.njz.letsgoapp.widget.MineItemView2
-            android:id="@+id/mine_wx"
+            android:id="@+id/mine_wxgzh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:home_my_item2_left_drawable="@mipmap/ic_mine_wx"

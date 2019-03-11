@@ -18,7 +18,7 @@ import com.njz.letsgoapp.widget.MineItemView2;
 
 public class ContactUsActivity extends BaseActivity implements View.OnClickListener {
 
-    MineItemView2 mine_customer,mine_wx,mine_wxxcx,mine_network,mine_guide;
+    MineItemView2 mine_customer, mine_wxgzh,mine_wxxcx,mine_network,mine_guide;
 
     @Override
     public int getLayoutId() {
@@ -30,13 +30,13 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
         showLeftAndTitle("联系我们");
 
         mine_customer = $(R.id.mine_customer);
-        mine_wx = $(R.id.mine_wx);
+        mine_wxgzh = $(R.id.mine_wxgzh);
         mine_wxxcx = $(R.id.mine_wxxcx);
         mine_network = $(R.id.mine_network);
         mine_guide = $(R.id.mine_guide);
 
         mine_customer.setOnClickListener(this);
-        mine_wx.setOnClickListener(this);
+        mine_wxgzh.setOnClickListener(this);
         mine_wxxcx.setOnClickListener(this);
         mine_network.setOnClickListener(this);
         mine_guide.setOnClickListener(this);
@@ -53,8 +53,8 @@ public class ContactUsActivity extends BaseActivity implements View.OnClickListe
             case R.id.mine_customer:
                 DialogUtil.getInstance().showCustomerMobileDialog(context);
                 break;
-            case R.id.mine_wx:
-                startContent(ContactUsContentActivity.CODE_WX);
+            case R.id.mine_wxgzh:
+                startContent(ContactUsContentActivity.CODE_WXGZH);
                 break;
             case R.id.mine_wxxcx:
                 startContent(ContactUsContentActivity.CODE_WXXCX);
