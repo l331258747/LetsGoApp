@@ -158,16 +158,6 @@
                             android:text="向导陪游" />
 
                         <TextView
-                            android:id="@+id/tv_grid_car"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawablePadding="10dp"
-                            android:drawableTop="@mipmap/grid_car"
-                            android:gravity="center"
-                            android:text="包车接送" />
-
-                        <TextView
                             android:id="@+id/tv_grid_feature"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -176,14 +166,6 @@
                             android:drawableTop="@mipmap/grid_feature"
                             android:gravity="center"
                             android:text="特色体验" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tv_grid_custom"
@@ -195,15 +177,23 @@
                             android:gravity="center"
                             android:text="私人定制" />
 
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:id="@+id/tv_grid_hotel"
+                            android:id="@+id/tv_grid_car"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
-                            android:drawableTop="@mipmap/grid_hotel"
+                            android:drawableTop="@mipmap/grid_car"
                             android:gravity="center"
-                            android:text="代订酒店" />
+                            android:text="包车接送" />
 
                         <TextView
                             android:id="@+id/tv_grid_ticket"
@@ -214,6 +204,16 @@
                             android:drawableTop="@mipmap/grid_ticket"
                             android:gravity="center"
                             android:text="代订门票" />
+
+                        <TextView
+                            android:id="@+id/tv_grid_hotel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:drawableTop="@mipmap/grid_hotel"
+                            android:gravity="center"
+                            android:text="代订酒店" />
 
                     </LinearLayout>
 
