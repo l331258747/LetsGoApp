@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.im;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 
 import java.util.List;
@@ -127,7 +129,13 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
     @Override
     public void onAvatarClick(String username) {
-
+        if(TextUtils.equals(username,MySelfInfo.getInstance().getImId())
+                || TextUtils.isEmpty(username))
+            return;
+        Intent intent = new Intent(getContext(), GuideDetailActivity.class);
+        int guideId = Integer.valueOf(username.split("_")[1]);
+        intent.putExtra(GuideDetailActivity.GUIDEID, guideId);
+        getContext().startActivity(intent);
     }
 
     @Override
