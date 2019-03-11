@@ -45,11 +45,6 @@ public class OrderRefundBeanGroup {
     }
 
     public boolean isCustomNoPrice(){
-//        if(payStatus == Constant.ORDER_PAY_CANCEL
-//                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
-//                || payStatus == Constant.ORDER_PLAN_PLANING)){
-//            return true;
-//        }
         if(planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
                 || payStatus == Constant.ORDER_PLAN_PLANING){
             return true;
@@ -126,7 +121,7 @@ public class OrderRefundBeanGroup {
     }
 
     public String getOrderPrice() {
-        return orderPrice;
+        return orderPrice;//orderPrice 是通过setOrderPrice获得的数据
     }
 
     public void setOrderPrice(String orderPrice) {
@@ -182,11 +177,10 @@ public class OrderRefundBeanGroup {
                     case Constant.ORDER_REFUND_FINISH:
                         return "已退款";
                     case Constant.ORDER_REFUND_CANCEL:
+                    case Constant.ORDER_REFUND_PLAN_REFUSE:
                         return "已取消";
                 }
                 return "退款";
-//            case Constant.ORDER_PAY_CANCEL:
-//                return "已取消";
         }
         return "";
     }

@@ -61,7 +61,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             GlideUtil.LoadRoundImage(context, data.getTitleImg(), ((ViewHolder) holder).iv_img,5);
             ((ViewHolder) holder).tv_title.setText(data.getTitle());
             ((ViewHolder) holder).tv_server_name.setText(data.getServerName());
-            ((ViewHolder) holder).tv_price_total.setText("￥" + data.getOrderPrice());
+            ((ViewHolder) holder).tv_price_total.setText(data.getOrderPrice());
 
             ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
             if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
@@ -73,17 +73,20 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             ((ViewHolder) holder).tv_time_content.setText(data.getTravelDate());
             ((ViewHolder) holder).tv_location_content.setText(data.getLocation());
 
-
-            ((ViewHolder) holder).tv_penalty_content.setText("￥"+data.getDefaultMoney());
-            ((ViewHolder) holder).tv_refund_price_content.setText("￥"+data.getRefundMoney());
+            if(data.getRefundStatus() == Constant.ORDER_REFUND_CANCEL ||  data.getRefundStatus() == Constant.ORDER_REFUND_PLAN_REFUSE){
+                ((ViewHolder) holder).ll_refund_price.setVisibility(View.GONE);
+            }else{
+                ((ViewHolder) holder).ll_refund_price.setVisibility(View.VISIBLE);
+                ((ViewHolder) holder).tv_penalty_content.setText(data.getDefaultMoney());
+                ((ViewHolder) holder).tv_refund_price_content.setText(data.getRefundMoney());
+            }
 
             ((ViewHolder) holder).ll_travel_going.setVisibility(View.GONE);
-
             if(data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING && data.getServeType() != Constant.SERVER_TYPE_TICKET_ID){
                 ((ViewHolder) holder).ll_travel_going.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).tv_travel_day_content.setText(data.getUseDay()+"天");
-                ((ViewHolder) holder).tv_not_travel_day_content.setText(data.getUnUseDay()+"天");
-                ((ViewHolder) holder).tv_used_price_content.setText("￥" + data.getUseMoney());
+                ((ViewHolder) holder).tv_travel_day_content.setText(data.getUseDay());
+                ((ViewHolder) holder).tv_not_travel_day_content.setText(data.getUnUseDay());
+                ((ViewHolder) holder).tv_used_price_content.setText(data.getUseMoney());
             }
 
             ((ViewHolder) holder).fl_parent.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +122,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
 
         ImageView iv_img;
         TextView tv_title, tv_server_name, tv_price_total;
-        LinearLayout ll_count,ll_travel_going;
+        LinearLayout ll_count,ll_travel_going,ll_refund_price;
         TextView  tv_count_content, tv_time_title, tv_time_content,btn_cancel
                 ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_location_content;
         FrameLayout fl_parent;
@@ -132,6 +135,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_title = itemView.findViewById(R.id.tv_title);
             ll_travel_going = itemView.findViewById(R.id.ll_travel_going);
+            ll_refund_price = itemView.findViewById(R.id.ll_refund_price);
             tv_server_name = itemView.findViewById(R.id.tv_price_unit);
             tv_price_total = itemView.findViewById(R.id.tv_price_total);
             ll_count = itemView.findViewById(R.id.ll_count);

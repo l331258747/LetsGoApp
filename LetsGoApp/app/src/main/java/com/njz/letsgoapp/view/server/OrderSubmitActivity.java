@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -62,6 +63,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     RecyclerView recyclerView;
     TextView tv_contract, tv_submit,tv_total_price,tv_coupon;
     NumberEtView numberView;
+    RelativeLayout rl_coupon;
 
     CreateOrderPresenter mPresenter;
     OrderCouponPresenter couponPresenter;
@@ -120,6 +122,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
         fixed_view_city.setVisibility(View.GONE);
 
         recyclerView = $(R.id.recycler_view);
+        rl_coupon = $(R.id.rl_coupon);
         tv_coupon = $(R.id.tv_coupon);
         tv_contract = $(R.id.tv_contract);
         tv_total_price = $(R.id.tv_total_price);
@@ -136,7 +139,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
 
         tv_contract.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
-        tv_coupon.setOnClickListener(this);
+        rl_coupon.setOnClickListener(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -192,7 +195,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.tv_coupon:
+            case R.id.rl_coupon:
                 intent = new Intent(context, OrderCouponActivity.class);
                 intent.putExtra("couponId",couponId);
                 intent.putExtra("totalOrderPrice",totalPrice);

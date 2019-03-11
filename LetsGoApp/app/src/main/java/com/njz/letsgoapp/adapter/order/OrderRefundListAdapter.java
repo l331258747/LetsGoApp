@@ -169,11 +169,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 ((DefaultHolder) holder).ll_order_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    if(orderBeanGroups.get(pos).getPayStatus() == Constant.ORDER_PAY_REFUND){
-                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getId(),1);
-                    }else{
-                        mOnItemClickListener.onClick(orderBeanGroups.get(pos).getOrderId(),0);
-                    }
+                    mOnItemClickListener.onClick(orderBeanGroups.get(pos).getId());
                     }
                 });
             }
@@ -192,11 +188,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 ((TitleHolder) holder).rl_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    if(data.getPayStatus() == Constant.ORDER_PAY_REFUND){
-                        mOnItemClickListener.onClick(data.getId(),1);
-                    }else{
-                        mOnItemClickListener.onClick(data.getOrderId(),0);
-                    }
+                        mOnItemClickListener.onClick(data.getId());
                     }
                 });
             }
@@ -221,16 +213,12 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                         case Constant.ORDER_REFUND_FINISH:
                             ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
                             break;
+                        case Constant.ORDER_REFUND_CANCEL:
+                        case Constant.ORDER_REFUND_PLAN_REFUSE:
+                            ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
+                            break;
                     }
                     break;
-//                case Constant.ORDER_PAY_CANCEL:
-//                    ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
-//                    break;
-//                case Constant.ORDER_PAY_WAIT:
-//                    if(data.getPlanStatus() == Constant.ORDER_PLAN_GUIDE_REFUND){
-//                        ((FootHolder) holder).btn_delete.setVisibility(View.VISIBLE);
-//                    }
-//                    break;
             }
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
             ((FootHolder) holder).tv_order_price_content.setText(data.getOrderPrice());
@@ -245,11 +233,7 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
                 @Override
                 public void onClick(View v) {
                     if (mOnDeleteClickListener != null) {
-                        if(data.getPayStatus() == Constant.ORDER_PAY_REFUND){
-                            mOnDeleteClickListener.onClick(data.getId(),1);
-                        }else{
-                            mOnDeleteClickListener.onClick(data.getOrderId(),0);
-                        }
+                        mOnDeleteClickListener.onClick(data.getId());
                     }
                 }
             });
@@ -349,11 +333,11 @@ public class OrderRefundListAdapter extends RecyclerView.Adapter<OrderRefundList
     OnDeleteClickListener mOnDeleteClickListener;
 
     public interface OnDeleteClickListener{
-        void onClick(int id,int statues);
+        void onClick(int id);
     }
 
     public interface OnItemClickListener {
-        void onClick(int orderId,int status);
+        void onClick(int orderId);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

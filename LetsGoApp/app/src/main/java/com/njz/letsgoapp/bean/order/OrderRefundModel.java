@@ -71,10 +71,7 @@ public class OrderRefundModel {
     }
 
     public int getPayStatus() {
-//        if(refundId == 0)
-//            return Constant.ORDER_PAY_CANCEL;
-//        else
-            return Constant.ORDER_PAY_REFUND;
+        return Constant.ORDER_PAY_REFUND;
     }
 
     public String getGuideMobile() {
@@ -174,13 +171,14 @@ public class OrderRefundModel {
     }
 
     public String getMoney(){
-        if(getPayStatus() == Constant.ORDER_PAY_REFUND){
+        if(refundStatus == Constant.ORDER_REFUND_CANCEL || refundStatus == Constant.ORDER_REFUND_PLAN_REFUSE){
+            if ((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
+                return ("报价待确定");
+            }
+            return "￥"+orderPrice ;
+        }else{
             return "￥"+refundMoney;
         }
-        if ((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
-            return ("报价待确定");
-        }
-        return "￥"+orderPrice ;
     }
 
     public void setRefundMoney(float refundMoney) {

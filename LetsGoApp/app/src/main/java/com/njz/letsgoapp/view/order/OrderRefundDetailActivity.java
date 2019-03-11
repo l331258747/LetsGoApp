@@ -69,10 +69,6 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         tv_refund_reason = $(R.id.tv_refund_reason);
         tv_refund_explain = $(R.id.tv_refund_explain);
 
-        rl_order_price.setVisibility(View.GONE);
-        rl_refund_used_price.setVisibility(View.GONE);
-        rl_refund_price.setVisibility(View.VISIBLE);
-        rl_refund_penalty.setVisibility(View.VISIBLE);
         cv_refund_reason.setVisibility(View.VISIBLE);
 
     }
@@ -136,25 +132,28 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
     public void orderRefundQueryOrderRefundDetailsSuccess(OrderRefundDetailModel str) {
         refundModel = str;
 
-        ll_order_no.setVisibility(View.VISIBLE);
+        ll_order_no.setVisibility(View.VISIBLE);//单号
         tv_order_no.setText(str.getOrderNo());
-        ll_order_refund_apply.setVisibility(View.VISIBLE);
-        tv_order_refund_apply.setText(str.getApplyTime());
 
         switch (str.getRefundStatus()){
             case Constant.ORDER_REFUND_PROCESS:
-                ll_order_refund_verify.setVisibility(View.VISIBLE);
+                ll_order_refund_verify.setVisibility(View.VISIBLE);//导游退款审核时间
                 tv_order_refund_verify.setText(str.getGuideCheckTime());
+                ll_order_refund_apply.setVisibility(View.VISIBLE);//申请退款时间
+                tv_order_refund_apply.setText(str.getApplyTime());
                 break;
             case Constant.ORDER_REFUND_FINISH:
-                ll_order_refund_verify.setVisibility(View.VISIBLE);
+                ll_order_refund_verify.setVisibility(View.VISIBLE);//导游退款审核时间
                 tv_order_refund_verify.setText(str.getGuideCheckTime());
-                ll_order_refund_time.setVisibility(View.VISIBLE);
+                ll_order_refund_time.setVisibility(View.VISIBLE);//退款时间
                 tv_order_refund_time.setText(str.getRefundTime());
+                ll_order_refund_apply.setVisibility(View.VISIBLE);//申请退款时间
+                tv_order_refund_apply.setText(str.getApplyTime());
                 break;
-//            case Constant.ORDER_PAY_CANCEL:
-//                setCancelView(str);
-//                break;
+            case Constant.ORDER_REFUND_CANCEL:
+            case Constant.ORDER_REFUND_PLAN_REFUSE:
+                setCancelView(str);
+                break;
         }
 
         switch (str.getRefundStatus()){
@@ -177,22 +176,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         login_view_num.setContent(str.getPersonNum() + "");
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
-        tv_refund_penalty.setText("￥" + str.getDefaultMoney());
-        tv_refund_price.setText("￥" + str.getRefundMoney());
-
-        boolean isTravelGoing = false;
-        for(int i = 0;i<str.getNjzRefundDetailsChildVOS().size();i++){
-            if(str.getNjzRefundDetailsChildVOS().get(i).getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
-                isTravelGoing = true;
-            }
-        }
-        if(isTravelGoing){
-            rl_refund_used_price.setVisibility(View.VISIBLE);
-            tv_refund_used_price.setText("￥"+str.getUseMoney());
-        }else{
-            rl_refund_used_price.setVisibility(View.GONE);
-        }
-
+        //优惠卷
         if(str.getCouponPrice() > 0){
             tv_order_coupon.setText("￥"+str.getCouponPrice());
             tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
@@ -203,6 +187,42 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
             tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_99));
             tv_order_coupon.getPaint().setFakeBoldText(false);
             tv_order_coupon.postInvalidate();
+        }
+
+        if(str.getRefundStatus() == Constant.ORDER_REFUND_CANCEL || str.getRefundStatus() == Constant.ORDER_REFUND_PLAN_REFUSE){
+            rl_order_price.setVisibility(View.VISIBLE);
+            rl_refund_used_price.setVisibility(View.GONE);
+            rl_refund_price.setVisibility(View.GONE);
+            rl_refund_penalty.setVisibility(View.GONE);
+
+            tv_order_price.setText(str.getOrderPrice());
+        }else{
+            rl_order_price.setVisibility(View.GONE);
+            rl_refund_price.setVisibility(View.VISIBLE);
+            rl_refund_penalty.setVisibility(View.VISIBLE);
+
+            tv_refund_penalty.setText("￥" + str.getDefaultMoney());
+            tv_refund_price.setText("￥" + str.getRefundMoney());
+        }
+
+        //设置子单状态 判断是否在行程中。
+        boolean isTravelGoing = false;
+        for(int i = 0;i<str.getNjzRefundDetailsChildVOS().size();i++){
+
+            //设置子单状态
+            str.getNjzRefundDetailsChildVOS().get(i).setRefundStatus(str.getRefundStatus());//处理子单，显示退款ui，还是显示取消ui
+            str.getNjzRefundDetailsChildVOS().get(i).setPlanStatus(str.getPlanStatus());//处理价待确定
+
+            //判断是否在行程中
+            if(str.getNjzRefundDetailsChildVOS().get(i).getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING){
+                isTravelGoing = true;
+            }
+        }
+        if(isTravelGoing){//已消费金额
+            rl_refund_used_price.setVisibility(View.VISIBLE);
+            tv_refund_used_price.setText("￥"+str.getUseMoney());
+        }else{
+            rl_refund_used_price.setVisibility(View.GONE);
         }
 
         tv_refund_reason.setText(str.getRefundReason());
@@ -219,63 +239,26 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
 
     //refuse:true 拒绝接单：私人定制
     public void setCancelView(OrderRefundDetailModel str) {
-        cv_refund_reason.setVisibility(View.VISIBLE);
         tv_refund_reason_title.setText("取消原因");
         tv_refund_explain_title.setText("取消说明");
-        tv_refund_reason.setText(str.getRefundReason());
-        tv_refund_explain.setText(str.getRefundContent());
 
         btn_delete.setVisibility(View.VISIBLE);
 
-        ll_order_no.setVisibility(View.VISIBLE);
-        ll_order_create_time.setVisibility(View.VISIBLE);
-        tv_order_no.setText(str.getOrderNo());
+        ll_order_create_time.setVisibility(View.VISIBLE);//创建时间
         tv_order_create_time.setText(str.getCreateTime());
-        ll_order_cancel_time.setVisibility(View.VISIBLE);
+        ll_order_cancel_time.setVisibility(View.VISIBLE);//取消时间
         tv_order_cancel_time.setText(str.getRefundTime());
 
         if(str.isCustom()){
             //私人定制,拒绝接单
             if(!TextUtils.isEmpty(str.getGuideSureTime())){
-                ll_order_plan_confirm.setVisibility(View.VISIBLE);
+                ll_order_plan_confirm.setVisibility(View.VISIBLE);//导游私人定制确认时间
                 tv_order_plan_confirm.setText(str.getGuideSureTime());
             }
             if(!TextUtils.isEmpty(str.getPlanDesignTime())){
-                ll_order_plan_up.setVisibility(View.VISIBLE);
+                ll_order_plan_up.setVisibility(View.VISIBLE);//导游私人定制方案上传时间
                 tv_order_plan_up.setText(str.getPlanDesignTime());
             }
         }
     }
-
-    /*
-    //refuse:true 拒绝接单：私人定制
-    private void setCancelView(OrderDetailModel str) {
-        cv_refund_reason.setVisibility(View.VISIBLE);
-        tv_refund_reason_title.setText("取消原因");
-        tv_refund_explain_title.setText("取消说明");
-        tv_refund_reason.setText(str.getCancelReason());
-        tv_refund_explain.setText(str.getCancelExplain());
-
-        btn_delete.setVisibility(View.VISIBLE);
-
-        ll_order_no.setVisibility(View.VISIBLE);
-        ll_order_create_time.setVisibility(View.VISIBLE);
-        tv_order_no.setText(str.getOrderNo());
-        tv_order_create_time.setText(str.getCreateTime());
-        ll_order_cancel_time.setVisibility(View.VISIBLE);
-        tv_order_cancel_time.setText(str.getCancelTime());
-
-        if(str.isCustom()){
-            //私人定制,拒绝接单
-            if(!TextUtils.isEmpty(str.getGuideSureTime())){
-                ll_order_plan_confirm.setVisibility(View.VISIBLE);
-                tv_order_plan_confirm.setText(str.getGuideSureTime());
-            }
-            if(!TextUtils.isEmpty(str.getPlanDesignTime())){
-                ll_order_plan_up.setVisibility(View.VISIBLE);
-                tv_order_plan_up.setText(str.getPlanDesignTime());
-            }
-        }
-    }
-     */
 }

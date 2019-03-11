@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -49,6 +50,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
     RecyclerView recyclerView;
 
     TextView tv_coupon,tv_total_price,tv_contract,tv_submit;
+    RelativeLayout rl_coupon;
 
     OrderCouponPresenter couponPresenter;
     OrderDetailPresenter detailPresenter;
@@ -87,6 +89,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
         tv_total_price = $(R.id.tv_total_price);
         tv_contract = $(R.id.tv_contract);
         tv_submit = $(R.id.tv_submit);
+        rl_coupon = $(R.id.rl_coupon);
 
         login_view_name.getEtView().setEnabled(false);
         login_view_phone.getEtView().setEnabled(false);
@@ -95,7 +98,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
 
         tv_contract.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
-        tv_coupon.setOnClickListener(this);
+        rl_coupon.setOnClickListener(this);
 
     }
 
@@ -148,7 +151,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.tv_coupon:
+            case R.id.rl_coupon:
                 intent = new Intent(context, OrderCouponActivity.class);
                 intent.putExtra("couponId",couponId);
                 intent.putExtra("totalOrderPrice",totalPrice);

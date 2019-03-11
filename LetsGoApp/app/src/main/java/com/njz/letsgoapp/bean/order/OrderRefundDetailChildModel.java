@@ -58,6 +58,24 @@ public class OrderRefundDetailChildModel {
     private int serveId;
     private String location;
     private int serveNum;
+    private int refundStatus;
+    private int planStatus;
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
+
+    public int getRefundStatus() {
+        return refundStatus;
+    }
+
+    public void setRefundStatus(int refundStatus) {
+        this.refundStatus = refundStatus;
+    }
 
     public String getLocation() {
         return location;
@@ -125,8 +143,8 @@ public class OrderRefundDetailChildModel {
         return serveId;
     }
 
-    public float getDefaultMoney() {
-        return defaultMoney;
+    public String getDefaultMoney() {
+        return "￥"+defaultMoney;
     }
 
     public void setDefaultMoney(float defaultMoney) {
@@ -165,16 +183,16 @@ public class OrderRefundDetailChildModel {
         this.serveType = serveType;
     }
 
-    public int getUnUseDay() {
-        return unUseDay;
+    public String getUnUseDay() {
+        return unUseDay+"天";
     }
 
     public void setUnUseDay(int unUseDay) {
         this.unUseDay = unUseDay;
     }
 
-    public float getRefundMoney() {
-        return refundMoney;
+    public String getRefundMoney() {
+        return "￥"+refundMoney;
     }
 
     public void setRefundMoney(float refundMoney) {
@@ -245,16 +263,19 @@ public class OrderRefundDetailChildModel {
         this.dayNum = dayNum;
     }
 
-    public float getUseMoney() {
-        return useMoney;
+    public String getUseMoney() {
+        return "￥" + useMoney;
     }
 
     public void setUseMoney(float useMoney) {
         this.useMoney = useMoney;
     }
 
-    public float getOrderPrice() {
-        return orderPrice;
+    public String getOrderPrice() {
+        if((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) && orderPrice == 0){
+            return ("报价待确定");
+        }
+        return "￥" + orderPrice;
     }
 
     public void setOrderPrice(float orderPrice) {
@@ -285,8 +306,8 @@ public class OrderRefundDetailChildModel {
         this.value = value;
     }
 
-    public int getUseDay() {
-        return useDay;
+    public String getUseDay() {
+        return useDay +"天";
     }
 
     public void setUseDay(int useDay) {
