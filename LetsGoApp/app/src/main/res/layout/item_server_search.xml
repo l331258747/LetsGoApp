@@ -52,7 +52,19 @@
                 android:lines="2"
                 android:maxLines="2"
                 android:textSize="12sp"
-                tools:text="那就走那就走走那就走那就走那就走那就走走那就走那就走" />
+                android:layout_toStartOf="@+id/tv_serverType"
+                android:layout_alignParentLeft="true"
+                tools:text="那就走那就走走走那就走" />
+
+            <TextView
+                android:id="@+id/tv_serverType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/color_99"
+                android:text="私人定制"/>
 
             <com.njz.letsgoapp.widget.GuideScoreView2
                 android:id="@+id/guideScoreView2"
