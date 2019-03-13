@@ -196,6 +196,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                             && data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING) {
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
                     }else{
+                        ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
                         ((DefaultHolder) holder).btn_cancel.setText("退款");
                         ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
