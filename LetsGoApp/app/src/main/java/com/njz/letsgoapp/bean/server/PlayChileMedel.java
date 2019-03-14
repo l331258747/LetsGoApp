@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.server;
 
+import java.util.List;
+
 /**
  * Created by LGQ
  * Time: 2018/12/5
@@ -14,8 +16,13 @@ public class PlayChileMedel {
     private String formatUnit;
     private int njzGuideServeId;
     private String guideServeFormatName;
+    private PlayChile2Medel njzGuideFormatDicNumVo;
     private int id;
     private boolean isSelect;
+
+    public PlayChile2Medel getNjzGuideFormatDicNumVo() {
+        return njzGuideFormatDicNumVo;
+    }
 
     public boolean isSelect() {
         return isSelect;

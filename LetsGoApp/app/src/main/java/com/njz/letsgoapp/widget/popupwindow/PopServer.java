@@ -385,11 +385,20 @@ public class PopServer extends BackgroundDarkPopupWindow implements View.OnClick
             flow_parent.addView(vsf);
 
             String title2 = "";
-            if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_CAR_ID){
-                vsf.setSelectedIndex(0);
+            if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){//向导陪游需要判断车型是否必选
+                if(mValsCx.get(0).getNjzGuideFormatDicNumVo() != null && mValsCx.get(0).getNjzGuideFormatDicNumVo().getCanSelectMinNum() == 0){
+                    title2 = "（自己开车可不选）";
+                    vsf.setMaxSelect(-2);
+                }else{
+                    vsf.setSelectedIndex(0);
+                }
             }else{
-                title2 = "（自己开车可不选）";
-                vsf.setMaxSelect(-2);
+                if(serverDetailModel.getServeType() == Constant.SERVER_TYPE_CAR_ID){
+                    vsf.setSelectedIndex(0);
+                }else{
+                    title2 = "（自己开车可不选）";
+                    vsf.setMaxSelect(-2);
+                }
             }
 
             if(serverItem != null){

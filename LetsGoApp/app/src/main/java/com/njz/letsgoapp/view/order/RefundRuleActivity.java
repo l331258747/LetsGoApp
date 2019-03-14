@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.order;
 
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
@@ -7,6 +8,10 @@ import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
 import com.njz.letsgoapp.mvp.order.ServiceRefundRuleContract;
 import com.njz.letsgoapp.mvp.order.ServiceRefundRulePresenter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by LGQ
@@ -51,12 +56,35 @@ public class RefundRuleActivity extends BaseActivity implements ServiceRefundRul
     @Override
     public void orderRefundFindRefundRuleSuccess(ServiceRefundRuleModel str) {
         if(str == null) return;
-        tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),str.getRenegePriceThree().replace(",","-")));
-        tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),str.getRenegePriceFive().replace(",","-")));
+
+        if (!TextUtils.isEmpty(str.getRenegePriceThree())) {
+            List<String> lists = getValue(str.getRenegePriceThree());
+            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),
+                    lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+        }
+        if (!TextUtils.isEmpty(str.getRenegePriceFive())) {
+            List<String> lists = getValue(str.getRenegePriceFive());
+            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),
+                    lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+        }
     }
 
     @Override
     public void orderRefundFindRefundRuleFailed(String msg) {
         showShortToast(msg);
+    }
+
+    public String getProportion(String str){
+        int value = (int) (Float.valueOf(str) * 100);
+        return value + "";
+    }
+
+    public List<String> getValue(String str) {
+        String[] strs = str.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        if (lists.size() != 3) {
+            lists.add("0");
+        }
+        return lists;
     }
 }

@@ -10,6 +10,10 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.util.webview.LWebView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by LGQ
  * Time: 2018/12/21
@@ -63,10 +67,16 @@ public class CustomTripFragment extends BaseFragment {
     }
 
     public void initInfo(){
-        if (!TextUtils.isEmpty(renegePriceThree))
-            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30), renegePriceThree.replace(",", "-")));
-        if (!TextUtils.isEmpty(renegePriceFive))
-            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50), renegePriceFive.replace(",", "-")));
+        if (!TextUtils.isEmpty(renegePriceThree)) {
+            List<String> lists = getValue(renegePriceThree);
+            tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),
+                    lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+        }
+        if (!TextUtils.isEmpty(renegePriceThree)) {
+            List<String> lists = getValue(renegePriceThree);
+            tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),
+                    lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+        }
 
         if (!TextUtils.isEmpty(travelDesign)) {
             webView.loadDataWithBaseURL(null, travelDesign, "text/html", "utf-8", null);
@@ -80,5 +90,19 @@ public class CustomTripFragment extends BaseFragment {
         webView.loadUrl("about:blank");
         webView.clearCache(false);
         webView.destroy();
+    }
+
+    public String getProportion(String str){
+        int value = (int) (Float.valueOf(str) * 100);
+        return value + "";
+    }
+
+    public List<String> getValue(String str) {
+        String[] strs = str.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        if (lists.size() != 3) {
+            lists.add("0");
+        }
+        return lists;
     }
 }
