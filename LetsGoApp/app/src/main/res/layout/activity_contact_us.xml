@@ -65,8 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:home_my_item2_left_drawable="@mipmap/ic_mine_network"
-            app:home_my_item2_right_drawable="@mipmap/ic_arrow_right"
-            app:home_my_item2_title="网址：www.njzou.com" />
+            app:home_my_item2_title="官网：www.njzou.com" />
 
         <View
             android:layout_width="match_parent"

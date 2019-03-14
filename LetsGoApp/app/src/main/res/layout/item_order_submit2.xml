@@ -32,9 +32,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/iv_img"
                 android:layout_toStartOf="@+id/btn_cancel"
-                android:layout_marginTop="5dp"
                 android:maxLines="2"
                 tools:text="那就走标题那就标题标题那就走标题那就标题标题" />
 
@@ -42,21 +42,21 @@
                 android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_99_hollow_r2_p3"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_99_hollow_r2_p3"
+                android:text="取消"
                 android:textSize="12sp"
-                android:visibility="gone"
-                android:text="取消"/>
+                android:visibility="gone" />
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/iv_img"
-                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/iv_img">
 
 
@@ -65,19 +65,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    tools:text="向导陪游"
-                    android:textColor="@color/color_99" />
+                    android:textColor="@color/color_99"
+                    tools:text="向导陪游" />
 
 
                 <TextView
                     android:id="@+id/tv_price_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/color_price"
                     android:textStyle="bold"
-                    tools:text="￥1080"
-                    android:textColor="@color/color_price" />
+                    tools:text="￥1080" />
 
             </RelativeLayout>
 
@@ -144,18 +144,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_99"
-                    android:text="出行日期" />
+                    android:text="出行日期"
+                    android:textColor="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_time_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@+id/tv_time_title"
+                    android:gravity="right"
                     android:textSize="12sp"
                     tools:text="aeageagwegaadgawegaege" />
 
@@ -185,8 +185,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_99"
-                    android:text="目的地" />
+                    android:text="目的地"
+                    android:textColor="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_location_content"
@@ -206,8 +206,8 @@
             android:id="@+id/ll_bug_get"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -225,8 +225,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_99"
-                    android:text="预估人均预算" />
+                    android:text="预估人均预算"
+                    android:textColor="@color/color_99" />
 
                 <TextView
                     android:id="@+id/tv_bug_get"
