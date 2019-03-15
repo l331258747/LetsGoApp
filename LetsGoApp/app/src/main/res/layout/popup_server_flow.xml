@@ -58,21 +58,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text=" >"
+                android:textColor="@color/color_theme"
+                android:visibility="invisible"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="更多\n日期"
                 android:textColor="@color/blue"
                 android:lineSpacingExtra="2dp"
-                android:textSize="10sp">
-
-            </TextView>
+                android:textSize="10sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" >"
                 android:textColor="@color/color_theme"
-                android:textSize="14sp">
-
-            </TextView>
+                android:textSize="14sp"/>
 
         </LinearLayout>
 
