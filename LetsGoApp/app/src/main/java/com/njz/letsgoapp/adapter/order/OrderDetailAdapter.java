@@ -77,7 +77,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
             if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 holder.ll_bug_get.setVisibility(View.VISIBLE);
-                holder.tv_bug_get.setText(data.getBugGet()+"");
+                holder.tv_bug_get.setText("￥"+data.getBugGet());
             }else{
                 holder.ll_bug_get.setVisibility(View.GONE);
             }
