@@ -62,7 +62,7 @@
                             android:layout_marginBottom="10dp"
                             android:ellipsize="end"
                             android:maxLines="3"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             tools:text="阿尔噶尔阿哥噶尔噶啊噶诶\n玩过阿尔噶围观按个发\n文稿啊哥哥艾尔" />
 
                     </LinearLayout>
