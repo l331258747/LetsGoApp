@@ -281,7 +281,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 context.startActivity(intent);
                 break;
             case R.id.btn_call_guide:
-                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile(),model.getId(),0,model.getGuideId());
                 break;
             case R.id.tv_guide_name:
                 intent = new Intent(context, GuideDetailActivity.class);

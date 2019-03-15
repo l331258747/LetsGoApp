@@ -34,6 +34,15 @@ public class OrderBeanGroup {
     private boolean isCustom;
     private String lastPayTime;
     private OrderChildModel orderChildModel;
+    private int guideId;
+
+    public int getGuideId() {
+        return guideId;
+    }
+
+    public void setGuideId(int guideId) {
+        this.guideId = guideId;
+    }
 
     public String getLastPayTime() {
         return lastPayTime;

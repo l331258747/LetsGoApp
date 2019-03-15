@@ -88,7 +88,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_call_guide:
-                DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getGuideMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context,refundModel.getGuideMobile(),refundModel.getId(),0,refundModel.getGuideId());
                 break;
             case R.id.btn_delete:
                 deletePresenter.orderDeleteOrder(refundModel.getId(),1);

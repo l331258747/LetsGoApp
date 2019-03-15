@@ -56,7 +56,7 @@ public class DecimalUtil {
         String v2 = Float.toString(f2);
         BigDecimal b1 = new BigDecimal(v1);
         BigDecimal b2 = new BigDecimal(v2);
-        float value = b1.add(b2).floatValue();
+        float value = b1.divide(b2).floatValue();
         return value;
     }
 

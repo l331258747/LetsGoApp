@@ -214,7 +214,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     public  void initViewPage(GuideDetailModel model){
         mFragments = new ArrayList<>();
-        mFragments.add(ServerListFragment.newInstance(model,serverItems));
+        mFragments.add(ServerListFragment.newInstance(model,serverItems,location));
         mFragments.add(ServerEvaluateFragment.newInstance(guideId,0,model.getGuideScore(),model.getCount()));
         mFragments.add(ServerStoryFragment.newInstance(model.getGuideStory()));
         mFragments.add(ServerBookRuleFragment.newInstance());
@@ -255,7 +255,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_call:
                 if(guideDetailModel == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile(),0,0,guideDetailModel.getId());
                 break;
             case R.id.btn_submit:
                 if (!MySelfInfo.getInstance().isLogin()) {//登录状态

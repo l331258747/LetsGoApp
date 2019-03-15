@@ -108,7 +108,6 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
         detailPresenter.orderQueryOrder(orderId);
 
         couponPresenter = new OrderCouponPresenter(context,this);
-        couponPresenter.userCouponChooseCoupon(totalPrice);
 
         orderCouponDisposable = RxBus2.getInstance().toObservable(OrderCouponEvent.class, new Consumer<OrderCouponEvent>() {
             @Override
@@ -213,6 +212,8 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
         getTotalPrice(str.getNjzChildOrderVOS().get(0));
 
         StringUtils.setHtml(tv_contract, getResources().getString(R.string.guide_service_contract));
+
+        couponPresenter.userCouponChooseCoupon(totalPrice);
     }
 
     public List<ServerItem> getServerItems(OrderDetailChildModel model){

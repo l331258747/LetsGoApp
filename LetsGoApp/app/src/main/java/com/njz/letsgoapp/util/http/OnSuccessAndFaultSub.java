@@ -101,21 +101,6 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
         LogUtil.e("msg:"+t.getMsg());
         LogUtil.e("data:"+t.getData());
 
-//        if(t.getCode()==0){
-//            mResponseCallback.onSuccess(t.getData());
-//        }else{
-//            mResponseCallback.onFault(t.getMsg());
-//
-//            if(t.getCode() == 401){
-//                DialogUtil.getInstance().getDefaultDialog(context, t.getMsg(), "去登录", new DialogUtil.DialogCallBack() {
-//                    @Override
-//                    public void exectEvent(DialogInterface alterDialog) {
-//                        context.startActivity(new Intent(context, LoginActivity.class));
-//                    }
-//                }).show();
-//            }
-//        }
-
         if(t.getCode()==0 && t.getErrno() == 0){
             mResponseCallback.onSuccess(t.getData());
         }else{

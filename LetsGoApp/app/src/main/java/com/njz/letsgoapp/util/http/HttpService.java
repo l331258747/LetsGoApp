@@ -570,6 +570,14 @@ public interface HttpService {
             @Part List<MultipartBody.Part> files
     );
 
+    //游客拨打电话记录 phoneRecord/insertNjzPhoneRecord
+    @GET("phoneRecord/insertNjzPhoneRecord")
+    Observable<BaseResponse<String>> wiretapping(
+            @Query("orderId") int orderId,
+            @Query("serveId") int serveId,
+            @Query("guideId") int guideId
+    );
+
     //--------other end---------
 
 

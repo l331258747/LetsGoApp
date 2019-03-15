@@ -271,7 +271,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
                 break;
             case R.id.tv_phone:
                 if (model == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile(),0,model.getId(),model.getGuideId());
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));
@@ -281,7 +281,7 @@ public class ServiceDetailActivity extends BaseActivity implements ServerDetailC
                 break;
             case R.id.tv_float_call:
                 if (model == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context, model.getMobile(),0,model.getId(),model.getGuideId());
                 break;
             case R.id.right_iv:
                 if (model == null) return;

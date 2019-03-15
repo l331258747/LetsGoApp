@@ -449,7 +449,7 @@ public class MethodApi {
 
 
 
-    //--------城市选择 start
+    //--------other start
     public static void regionFindProAndCity(DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().regionFindProAndCity();
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
@@ -501,7 +501,13 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //--------城市选择 end
+    //电话监听 wiretapping
+    public static void wiretapping(int orderId, int serveId, int guideId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().wiretapping(orderId,serveId,guideId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //--------other end
 
     //--------服务 start
     //serveGuideServeOrderList 服务列表
@@ -523,8 +529,6 @@ public class MethodApi {
                     address,mustPlay,guideId,guideServeId,order,maps);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }
-
-
     }
 
     //serveGuideServeOrder 服务详情

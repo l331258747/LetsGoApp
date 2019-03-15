@@ -131,7 +131,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                 break;
             case R.id.tv_phone:
                 if(serverDetailModel == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context, serverDetailModel.getMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context, serverDetailModel.getMobile(),0,serverDetailModel.getId(),serverDetailModel.getGuideId());
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));

@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.text.TextUtils;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
@@ -65,12 +66,14 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
     List<ServerItem> serverItems;
     Disposable serverDetailDisposable;
     public Disposable serverSelectedDisposable;
+    String location;
 
-    public static Fragment newInstance(GuideDetailModel guideDetailModel, List<ServerItem> serverItems) {
+    public static Fragment newInstance(GuideDetailModel guideDetailModel, List<ServerItem> serverItems,String location) {
         ServerListFragment fragment = new ServerListFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("GuideDetailModel", guideDetailModel);
         bundle.putParcelableArrayList("serverItems", (ArrayList<ServerItem>) serverItems);
+        bundle.putString("location", location);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -82,6 +85,10 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
         if (bundle != null) {
             model = bundle.getParcelable("GuideDetailModel");
             serverItems = bundle.getParcelableArrayList("serverItems");
+            location = bundle.getString("location");
+            if(TextUtils.isEmpty(location)){
+                location = MySelfInfo.getInstance().getDefaultCity();
+            }
         }
     }
 
@@ -296,7 +303,7 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
     public void getData() {
         if (value != 0)
             serverListPresenter.serveGuideServeFilterList(value,Constant.DEFAULT_LIMIT,page,
-                    MySelfInfo.getInstance().getDefaultCity(),0,model.getId(), 0,Constant.GUIDE_TYPE_COUNT,null);
+                    location,0,model.getId(), 0,Constant.GUIDE_TYPE_COUNT,null);
     }
 
     @Override

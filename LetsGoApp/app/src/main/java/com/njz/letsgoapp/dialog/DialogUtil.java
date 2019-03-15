@@ -18,6 +18,10 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.ToastUtil;
+import com.njz.letsgoapp.util.http.MethodApi;
+import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
+import com.njz.letsgoapp.util.http.ResponseCallback;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 
 /**
@@ -147,6 +151,30 @@ public class DialogUtil {
     public void showCustomerMobileDialog(final Context context){
         showMobileDialog(context,"400-117-7169","暂无客服联系方式");
 
+    }
+
+    public void showGuideMobileDialog(final Context context,final String mobil,
+                                      int orderId,int serveId,int guideId){
+        if(!MySelfInfo.getInstance().isLogin()){
+            context.startActivity(new Intent(context,LoginActivity.class));
+            return;
+        }
+        showMobileDialog(context,mobil,"暂无导游联系方式");
+
+        if(!TextUtils.isEmpty(mobil)){
+            ResponseCallback listener = new ResponseCallback<String>() {
+                @Override
+                public void onSuccess(String datas) {
+                    LogUtil.e(datas);
+                }
+
+                @Override
+                public void onFault(String errorMsg) {
+                    LogUtil.e(errorMsg);
+                }
+            };
+            MethodApi.wiretapping(orderId, serveId,guideId,new OnSuccessAndFaultSub(listener, null, false));
+        }
     }
 
     public void showGuideMobileDialog(final Context context,final String mobil){

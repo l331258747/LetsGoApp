@@ -121,6 +121,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setPayingStatus(orderModel.getPayingStatus());
                 serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
                 serviceInfoGroup3.setLastPayTime(orderModel.getLastPayTime());
+                serviceInfoGroup3.setGuideId(orderModel.getGuideId());
                 if(orderModel.getNjzChildOrderListVOS()!= null
                         && orderModel.getNjzChildOrderListVOS().size() == 1
                         && orderModel.getNjzChildOrderListVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
@@ -321,7 +322,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().showGuideMobileDialog(mContext, data.getGuideMobile());
+                    DialogUtil.getInstance().showGuideMobileDialog(mContext, data.getGuideMobile(),data.getId(),0,data.getGuideId());
                 }
             });
             ((FootHolder) holder).btn_cancel_order.setOnClickListener(new View.OnClickListener() {

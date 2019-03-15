@@ -61,7 +61,7 @@ public class OrderRefundDetailModel {
     private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
     private int children;
     private int adult;
-    private String guideId;
+    private int guideId;
     private String createTime;
     private String guideSureTime;
     private String planDesignTime;
@@ -96,7 +96,7 @@ public class OrderRefundDetailModel {
         return typeMoney;
     }
 
-    public String getGuideId() {
+    public int getGuideId() {
         return guideId;
     }
 
