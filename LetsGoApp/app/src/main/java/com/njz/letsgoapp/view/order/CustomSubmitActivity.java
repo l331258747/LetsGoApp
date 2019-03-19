@@ -128,7 +128,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
     }
 
     public void getPayPrice(float couponPrice){
-        payPrice = DecimalUtil.divide(totalPrice, couponPrice);
+        payPrice = DecimalUtil.subtract(totalPrice, couponPrice);
         tv_total_price.setText("￥" + payPrice);
     }
 

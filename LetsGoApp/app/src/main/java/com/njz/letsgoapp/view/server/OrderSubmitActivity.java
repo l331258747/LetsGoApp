@@ -221,7 +221,7 @@ public class OrderSubmitActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void getPayPrice(float couponPrice){
-        payPrice = DecimalUtil.divide(totalPrice, couponPrice);
+        payPrice = DecimalUtil.subtract(totalPrice, couponPrice);
         tv_total_price.setText("￥" + payPrice);
     }
 
