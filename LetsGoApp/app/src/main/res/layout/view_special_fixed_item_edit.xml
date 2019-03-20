@@ -26,6 +26,7 @@
         android:background="@color/transparent"
         android:gravity="top"
         android:hint="请输入其他需求。（选填）"
+        android:textColor="@drawable/text_color_fixed_item_edit"
         android:maxLength="100"
         android:maxLines="3"
         android:minLines="1" />

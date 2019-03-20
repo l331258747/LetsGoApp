@@ -70,6 +70,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
         ll_info = $(R.id.ll_info);
         tv_login = $(R.id.tv_login);
         mine_coupon = $(R.id.mine_coupon);
+        mine_coupon.getContentView().setTextColor(ContextCompat.getColor(context,R.color.color_theme));
 
         tv_space = $(R.id.tv_space);
 
@@ -121,6 +122,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
             StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFans()));
             StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFocus()));
             mine_bind.setContent(StringUtils.hidePhone(MySelfInfo.getInstance().getUserMoble()));
+            mine_coupon.setContent(MySelfInfo.getInstance().getUserCouponNum()+"张");
 
             GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImgUrl(), iv_head);
             if(TextUtils.isEmpty(MySelfInfo.getInstance().getUserBackimg())){
@@ -129,13 +131,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
                 GlideUtil.LoadImage(context, MySelfInfo.getInstance().getUserBackimg(), iv_backimg);
             }
 
-
-
         } else {
             ll_info.setVisibility(View.GONE);
             tv_login.setVisibility(View.VISIBLE);
 
             mine_bind.setContent("");
+            mine_coupon.setContent("");
             GlideUtil.LoadCircleImage(context, "", iv_head);
             iv_backimg.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.bg_home_my));
         }
@@ -220,6 +221,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
     public void userViewZoneSuccess(LoginInfoModel data) {
         MySelfInfo.getInstance().setUserFocus(data.getFocusCount());
         MySelfInfo.getInstance().setUserFans(data.getFansCount());
+        MySelfInfo.getInstance().setUserCouponNum(data.getCouponNumber());
+        mine_coupon.setContent(MySelfInfo.getInstance().getUserCouponNum()+"张");
         StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFans()));
         StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFocus()));
     }

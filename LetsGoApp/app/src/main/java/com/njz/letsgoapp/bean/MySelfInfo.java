@@ -143,6 +143,14 @@ public class MySelfInfo {
         SPUtils.getInstance().putInt(SPUtils.SP_USER_FANS, fans);
     }
 
+    public int getUserCouponNum() {
+        return SPUtils.getInstance().getInt(SPUtils.SP_USER_COUPON_NUM);
+    }
+
+    public void setUserCouponNum(int num){
+        SPUtils.getInstance().putInt(SPUtils.SP_USER_COUPON_NUM, num);
+    }
+
     public int getUserFocus() {
         return SPUtils.getInstance().getInt(SPUtils.SP_USER_FOCUS);
     }

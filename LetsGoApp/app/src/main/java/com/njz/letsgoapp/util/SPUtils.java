@@ -18,6 +18,7 @@ public class SPUtils {
 
     public static final String SP_USER_TOKEN = "sp_user_token";
     public static final String SP_USER_FANS = "sp_user_fans";
+    public static final String SP_USER_COUPON_NUM = "sp_user_coupon_num";
     public static final String SP_USER_FOCUS = "sp_user_focus";
     public static final String SP_USER_GENDER = "sp_user_gender";
     public static final String SP_USER_BIRTHDAY = "sp_user_birthday";

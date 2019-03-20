@@ -183,7 +183,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         tv_order_total.setText(str.getOrderPrice());
         //优惠卷
         if(str.getCouponPrice() > 0){
-            tv_order_coupon.setText("￥"+str.getCouponPrice());
+            tv_order_coupon.setText("-￥"+str.getCouponPrice());
             tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
             tv_order_coupon.getPaint().setFakeBoldText(true);
             tv_order_coupon.postInvalidate();
@@ -206,7 +206,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
             rl_refund_price.setVisibility(View.VISIBLE);
             rl_refund_penalty.setVisibility(View.VISIBLE);
 
-            tv_refund_penalty.setText("￥" + str.getDefaultMoney());
+            tv_refund_penalty.setText("-￥" + str.getDefaultMoney());
             tv_refund_price.setText("￥" + str.getRefundMoney());
         }
 
@@ -225,7 +225,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         }
         if(isTravelGoing){//已消费金额
             rl_refund_used_price.setVisibility(View.VISIBLE);
-            tv_refund_used_price.setText("￥"+str.getUseMoney());
+            tv_refund_used_price.setText("-￥"+str.getUseMoney());
         }else{
             rl_refund_used_price.setVisibility(View.GONE);
         }

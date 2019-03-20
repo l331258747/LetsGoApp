@@ -76,6 +76,10 @@ public class MineItemView2 extends LinearLayout {
         tv_content.setText(content);
     }
 
+    public TextView getContentView(){
+        return tv_content;
+    }
+
     public String getContent(){
         return tv_content.getText().toString();
     }

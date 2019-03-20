@@ -57,6 +57,12 @@ public class LoginInfoModel {
     private String imgUrl;
     private String customerMobile;
     private String freeLabel;
+    private int couponNumber;
+
+    public int getCouponNumber() {
+        return couponNumber;
+    }
+
     /**
      * registerIp :
      * registerTime : null
@@ -67,6 +73,8 @@ public class LoginInfoModel {
      * lastLoginTime : null
      * status : 0
      */
+
+
 
     private boolean focus;
     private String backImg;

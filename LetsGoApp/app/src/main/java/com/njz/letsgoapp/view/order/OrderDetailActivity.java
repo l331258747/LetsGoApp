@@ -501,7 +501,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tv_order_total.setText(str.getOrderPriceStr2());
 
         if(str.getCouponPrice() > 0){
-            tv_order_coupon.setText("￥"+str.getCouponPrice());
+            tv_order_coupon.setText("-￥"+str.getCouponPrice());
             tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
             tv_order_coupon.getPaint().setFakeBoldText(true);
             tv_order_coupon.postInvalidate();

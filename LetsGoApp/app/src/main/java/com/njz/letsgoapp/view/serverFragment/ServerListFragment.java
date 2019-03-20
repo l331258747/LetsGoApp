@@ -205,6 +205,10 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
 
             @Override
             public void onBookClick(final int position) {
+                if(!MySelfInfo.getInstance().isLogin()){
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
                 popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position),null);
                 popServer.setSubmit("选好了", new PopServer.SubmitClick() {
                     @Override
