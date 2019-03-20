@@ -58,7 +58,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public SpecialFixedItemEditView et_special;
 
     public RecyclerView recyclerView;
-    public TextView tv_order_price,tv_order_coupon;
+    public TextView tv_order_price,tv_order_coupon,tv_order_total;
 
     public LinearLayout ll_order_no, ll_order_create_time, ll_order_pay_time, ll_order_pay_method, ll_order_guide_time,
             ll_order_refund_apply, ll_order_refund_verify, ll_order_refund_time,ll_order_travel_start,ll_order_travel_end,
@@ -111,6 +111,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         tv_order_price = $(R.id.tv_order_price);
         tv_order_coupon = $(R.id.tv_order_coupon);
+        tv_order_total = $(R.id.tv_order_total);
 
         cv_refund_reason = $(R.id.cv_refund_reason);
         tv_refund_reason_title = $(R.id.tv_refund_reason_title);
@@ -497,6 +498,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         }
 
         tv_order_price.setText(str.getOrderPriceStr());
+        tv_order_total.setText(str.getOrderPriceStr2());
 
         if(str.getCouponPrice() > 0){
             tv_order_coupon.setText("￥"+str.getCouponPrice());

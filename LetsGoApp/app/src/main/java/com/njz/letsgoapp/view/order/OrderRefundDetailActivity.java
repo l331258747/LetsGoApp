@@ -137,14 +137,18 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
 
         switch (str.getRefundStatus()){
             case Constant.ORDER_REFUND_PROCESS:
-                ll_order_refund_verify.setVisibility(View.VISIBLE);//导游退款审核时间
-                tv_order_refund_verify.setText(str.getGuideCheckTime());
+                if(!TextUtils.isEmpty(str.getGuideCheckTime())){
+                    ll_order_refund_verify.setVisibility(View.VISIBLE);//导游退款审核时间
+                    tv_order_refund_verify.setText(str.getGuideCheckTime());
+                }
                 ll_order_refund_apply.setVisibility(View.VISIBLE);//申请退款时间
                 tv_order_refund_apply.setText(str.getApplyTime());
                 break;
             case Constant.ORDER_REFUND_FINISH:
-                ll_order_refund_verify.setVisibility(View.VISIBLE);//导游退款审核时间
-                tv_order_refund_verify.setText(str.getGuideCheckTime());
+                if(!TextUtils.isEmpty(str.getGuideCheckTime())){
+                    ll_order_refund_verify.setVisibility(View.VISIBLE);//导游退款审核时间
+                    tv_order_refund_verify.setText(str.getGuideCheckTime());
+                }
                 ll_order_refund_time.setVisibility(View.VISIBLE);//退款时间
                 tv_order_refund_time.setText(str.getRefundTime());
                 ll_order_refund_apply.setVisibility(View.VISIBLE);//申请退款时间
@@ -176,6 +180,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         login_view_num.setContent(str.getPersonNum() + "");
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
+        tv_order_total.setText(str.getOrderPrice());
         //优惠卷
         if(str.getCouponPrice() > 0){
             tv_order_coupon.setText("￥"+str.getCouponPrice());
