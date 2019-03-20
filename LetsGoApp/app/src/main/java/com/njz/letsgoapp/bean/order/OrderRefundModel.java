@@ -61,6 +61,11 @@ public class OrderRefundModel {
     private int planStatus;
     private float orderPrice;
     private int refundId;
+    private float typeMoney;
+
+    public float getTypeMoney() {
+        return typeMoney;
+    }
 
     public float getOrderPrice() {
         return orderPrice;

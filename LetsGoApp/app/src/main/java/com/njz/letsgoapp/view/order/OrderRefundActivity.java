@@ -48,11 +48,11 @@ import java.util.List;
 public class OrderRefundActivity extends BaseActivity implements View.OnClickListener,OrderRefundContract.View,ConfigContract.View{
 
     private RecyclerView recyclerView;
-    private TextView tv_tips, tv_reason, tv_submit, tv_submit2, tv_minus_price, tv_last_price;
+    private TextView tv_tips, tv_reason, tv_submit;
     private LinearLayout ll_reason, ll_call_custom, ll_call_guide;
     private EditText et_special;
     private FixedItemEditViewNoLine view_name, view_phone;
-    private RelativeLayout rl_price;
+    private TextView tv_minus_price,tv_coupon_price,tv_last_price;
 
     private List<String> reasons;
 
@@ -91,6 +91,8 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
     public void initView() {
         showLeftAndTitle("申请退款");
 
+        tv_coupon_price = $(R.id.tv_coupon_price);
+
         tv_tips = $(R.id.tv_tips);
         tv_reason = $(R.id.tv_reason);
         ll_reason = $(R.id.ll_reason);
@@ -99,10 +101,8 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         et_special = $(R.id.et_special);
         view_name = $(R.id.view_name);
         view_phone = $(R.id.view_phone);
-        tv_submit2 = $(R.id.tv_submit2);
         tv_minus_price = $(R.id.tv_minus_price);
         tv_last_price = $(R.id.tv_last_price);
-        rl_price = $(R.id.rl_price);
         tv_submit = $(R.id.tv_submit);
         view_phone.setEtInputType(InputType.TYPE_CLASS_NUMBER);
 
@@ -111,7 +111,6 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         ll_call_guide.setOnClickListener(this);
 
         tv_submit.setOnClickListener(this);
-        tv_submit2.setOnClickListener(this);
 
         initRecycler();
 
@@ -131,18 +130,12 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
 
         if(status == Constant.ORDER_TRAVEL_WAIT){
             tv_tips.setVisibility(View.GONE);
-            tv_submit.setVisibility(View.VISIBLE);
-            rl_price.setVisibility(View.GONE);
-
         }else{
             //TODO 退款分析
             tv_tips.setVisibility(View.VISIBLE);
-            tv_submit.setVisibility(View.GONE);
-            rl_price.setVisibility(View.VISIBLE);
-
-            mPresenter.orderRefundRefundAnalysis(id,childIds);
-
         }
+
+        mPresenter.orderRefundRefundAnalysis(id,childIds);
 
         List<String> values = new ArrayList<>();
         values.add(Constant.CONFIG_TKYY);
@@ -187,7 +180,6 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
                 DialogUtil.getInstance().showGuideMobileDialog(context,guideMobile);
                 break;
             case R.id.tv_submit:
-            case R.id.tv_submit2:
                 if(TextUtils.isEmpty(tv_reason.getText().toString())){
                     showShortToast("请选择退款原因");
                     return;
@@ -223,10 +215,9 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         mAdapter.setData(str.getNjzChildOrderToRefundVOS());
         mAdapter.setOrderId(str.getOrderId());
 
-        if(str.getOrderStatus() != Constant.ORDER_TRAVEL_WAIT){
-            tv_minus_price.setText("￥" + str.getDefaultMoney());
-            tv_last_price.setText("￥" + str.getRefundMoney());
-        }
+        tv_minus_price.setText("-￥" + str.getDefaultMoney());
+        tv_coupon_price.setText("-￥" + str.getTypeMoney());
+        tv_last_price.setText("￥" + str.getRefundMoney());
     }
 
     @Override

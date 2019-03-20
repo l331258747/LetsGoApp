@@ -64,7 +64,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
         holder.tv_one_price.setText(data.getServerName());
         holder.tv_total_price.setText("￥" + data.getOrderPrice());
 
-        holder.tv_not_travel_price.setText("￥" + data.getDefaultMoney());
+        holder.tv_not_travel_price.setText("-￥" + data.getDefaultMoney());
 
         holder.tv_refund_rule.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +88,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             holder.rl_not_travel_day.setVisibility(View.VISIBLE);
 
             holder.tv_travel_day.setText(data.getUseDay() + "天");
-            holder.tv_travel_price.setText("￥" + data.getUseMoney());
+            holder.tv_travel_price.setText("-￥" + data.getUseMoney());
             holder.tv_not_travel_day.setText(data.getUnUseDay() + "天");
         }
     }

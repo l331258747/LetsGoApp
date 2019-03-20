@@ -144,7 +144,7 @@ public class OrderRefundDetailChildModel {
     }
 
     public String getDefaultMoney() {
-        return "￥"+defaultMoney;
+        return "-￥"+defaultMoney;
     }
 
     public void setDefaultMoney(float defaultMoney) {
@@ -264,7 +264,7 @@ public class OrderRefundDetailChildModel {
     }
 
     public String getUseMoney() {
-        return "￥" + useMoney;
+        return "-￥" + useMoney;
     }
 
     public void setUseMoney(float useMoney) {
