@@ -33,6 +33,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 支付界面
  * Created by llt on 2017/12/4.
@@ -41,6 +44,7 @@ import org.json.JSONObject;
 public class PayActivity extends BaseActivity implements View.OnClickListener,PayContract.View{
 
     public static final String ORDER_ID = "ORDER_ID";
+    public static final String COUPON_ID = "COUPON_ID";
 
     private static final int SDK_PAY_FLAG = 1;
 
@@ -52,15 +56,24 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
 
     private double price;
     private PayModel payModel;
+    private List<Integer> couponId;
     private int payIndex = 1;
 
     private IWXAPI api;
 
     PayContract.Presenter mPresenter;
 
+    public static void startActivity(Context activity, PayModel orderId, List<Integer> couponId) {
+        Intent intent = new Intent(activity, PayActivity.class);
+        intent.putExtra(ORDER_ID, orderId);
+        intent.putIntegerArrayListExtra(COUPON_ID, (ArrayList<Integer>) couponId);
+        activity.startActivity(intent);
+    }
+
     public static void startActivity(Context activity, PayModel orderId) {
         Intent intent = new Intent(activity, PayActivity.class);
         intent.putExtra(ORDER_ID, orderId);
+        intent.putIntegerArrayListExtra(COUPON_ID, null);
         activity.startActivity(intent);
     }
 
@@ -139,6 +152,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
         });
 
         payModel = getIntent().getParcelableExtra(ORDER_ID);
+        couponId = getIntent().getIntegerArrayListExtra(COUPON_ID);
 
         tvPrice = $(R.id.tv_price_all);
         ivWX = $(R.id.iv_sel_weixin);
@@ -207,9 +221,9 @@ public class PayActivity extends BaseActivity implements View.OnClickListener,Pa
                         ToastUtil.showShortToast(context, "您还未安装微信客户端");
                         return;
                     }
-                    mPresenter.getWxOrderInfo(payModel.getOutTradeNo());
+                    mPresenter.getWxOrderInfo(payModel.getOutTradeNo(),couponId);
                 } else {
-                    mPresenter.getAliOrderInfo(payModel.getOutTradeNo());
+                    mPresenter.getAliOrderInfo(payModel.getOutTradeNo(),couponId);
                 }
                 break;
         }

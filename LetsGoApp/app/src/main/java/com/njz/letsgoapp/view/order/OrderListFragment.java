@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
@@ -18,17 +17,24 @@ import com.njz.letsgoapp.base.BaseFragment;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.order.OrderModel;
+import com.njz.letsgoapp.bean.order.PayModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
 import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderListContract;
 import com.njz.letsgoapp.mvp.order.OrderListPresenter;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.login.LoginActivity;
+import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyClickLisener;
 import com.njz.letsgoapp.widget.emptyView.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by LGQ
@@ -36,7 +42,7 @@ import java.util.List;
  * Function:
  */
 
-public class OrderListFragment extends BaseFragment implements OrderListContract.View, View.OnClickListener,OrderDeleteContract.View {
+public class OrderListFragment extends BaseFragment implements OrderListContract.View, OrderDeleteContract.View {
 
     public RecyclerView recyclerView;
     public SwipeRefreshLayout swipeRefreshLayout;
@@ -156,8 +162,31 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 getRefreshData();
             }
         }
+
+        initRefreshDisposable();
     }
 
+    Disposable refreshDisposable;
+    private void initRefreshDisposable() {
+        refreshDisposable = RxBus2.getInstance().toObservable(OrderCancelEvent.class, new Consumer<OrderCancelEvent>() {
+            @Override
+            public void accept(OrderCancelEvent refreshOrderListEvent) throws Exception {
+                if(getUserVisibleHint()){
+                    if(setLogin()){
+                        getRefreshData();
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(refreshDisposable !=null && !refreshDisposable.isDisposed()){
+            refreshDisposable.dispose();
+        }
+    }
 
     //初始化recyclerview
     public void initRecycler() {
@@ -228,6 +257,21 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             }
         });
 
+        mAdapter.setOnPayClickListener(new OrderListAdapter.OnPayClickListener() {
+            @Override
+            public void onClick(int index) {
+                OrderModel model = mAdapter.getData().get(index);
+                if(model.isCustom()){
+                    Intent intent = new Intent(context,CustomSubmitActivity.class);
+                    intent.putExtra("order_id",model.getId());
+                    intent.putExtra("PAY_MODEL",getPayModel(model));
+                    startActivity(intent);
+                }else{
+                    PayActivity.startActivity(context, getPayModel(model));
+                }
+            }
+        });
+
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {
@@ -236,6 +280,16 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 getMoreData();
             }
         });
+    }
+
+    public PayModel getPayModel(OrderModel model){
+        PayModel payModel = new PayModel();
+        payModel.setTotalAmount(model.getPayPrice()+"");
+        payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
+        payModel.setOutTradeNo(model.getOrderNo());
+        payModel.setLastPayTime(model.getLastPayTime());
+        payModel.setOrderId(model.getId());
+        return payModel;
     }
 
     //初始化SwipeLayout
@@ -315,10 +369,6 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 }
             });
         }
-    }
-
-    @Override
-    public void onClick(View v) {
     }
 
     @Override

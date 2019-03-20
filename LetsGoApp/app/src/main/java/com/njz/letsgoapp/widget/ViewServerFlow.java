@@ -33,9 +33,9 @@ public class ViewServerFlow extends LinearLayout {
 
     Context context;
 
-    TextView tv_title, tv_title2,tv_date_more;
+    LinearLayout tv_date_more;
+    TextView tv_title, tv_title2;
     TagFlowLayout tagFlowLayout;
-    boolean isSelectedOne;
     int maxSelectCount;
     public int selectIndex = -1;
 
@@ -71,9 +71,8 @@ public class ViewServerFlow extends LinearLayout {
         return maxSelectCount;
     }
 
-    //用来判断默认首个元素是否被选中
-    public void setSelectedOne(boolean isSelectedOne){
-        this.isSelectedOne = isSelectedOne;
+    public void setSelectedIndex(int index){
+        this.selectIndex = index;
     }
 
     public void setMore(View.OnClickListener click){
@@ -132,10 +131,9 @@ public class ViewServerFlow extends LinearLayout {
                 return false;
             }
         });
-        if(isSelectedOne){
-            adapter1.setSelectedList(getSelectIndex2(mVals));
-            onTagLinsenerClick.onTagLinsenerClick(0,true);
-            selectIndex = 0;
+        if(selectIndex != -1){
+            adapter1.setSelectedList(getSelectIndex2(mVals,selectIndex));
+            onTagLinsenerClick.onTagLinsenerClick(selectIndex,true);
         }
     }
 
@@ -259,10 +257,10 @@ public class ViewServerFlow extends LinearLayout {
         }
         return ints;
     }
-    public Set<Integer> getSelectIndex2(List<PlayChileMedel> sVals) {
+    public Set<Integer> getSelectIndex2(List<PlayChileMedel> sVals,int index) {
         Set<Integer> ints = new HashSet<>();
         if(sVals.size() > 0){
-            ints.add(0);
+            ints.add(index);
         }
         return ints;
     }

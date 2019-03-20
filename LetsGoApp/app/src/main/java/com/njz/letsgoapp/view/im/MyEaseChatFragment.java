@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.im;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.other.IMUserModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -21,6 +23,7 @@ import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 
 import java.util.List;
@@ -87,7 +90,9 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
         List<EMMessage> msgs = conversation.getAllMessages();
         for (EMMessage msg : msgs){
             msgtime = DateUtil.longToStr(msg.getMsgTime(),"yyyyMMddHH");
-            if(TextUtils.equals(msg.getMsgId(),Constant.IM_WELCOME+toChatUsername) && Integer.valueOf(msgtime0) - Integer.valueOf(msgtime) < 24){
+            String attributeId = msg.getStringAttribute("attribute_id","");
+
+            if(TextUtils.equals(attributeId,Constant.IM_WELCOME+toChatUsername) && Integer.valueOf(msgtime0) - Integer.valueOf(msgtime) < 24){
                 return;
             }
         }
@@ -99,7 +104,7 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
         emMessage.setChatType(EMMessage.ChatType.Chat);//聊天类型
         emMessage.setMsgTime(System.currentTimeMillis());//消息时间
         emMessage.setTo(MySelfInfo.getInstance().getImId());//发送给
-        emMessage.setMsgId(Constant.IM_WELCOME+toChatUsername);
+        emMessage.setAttribute("attribute_id",Constant.IM_WELCOME+toChatUsername);
 
         EMClient.getInstance().chatManager().saveMessage(emMessage);
     }
@@ -124,7 +129,13 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
     @Override
     public void onAvatarClick(String username) {
-
+        if(TextUtils.equals(username,MySelfInfo.getInstance().getImId())
+                || TextUtils.isEmpty(username))
+            return;
+        Intent intent = new Intent(getContext(), GuideDetailActivity.class);
+        int guideId = Integer.valueOf(username.split("_")[1]);
+        intent.putExtra(GuideDetailActivity.GUIDEID, guideId);
+        getContext().startActivity(intent);
     }
 
     @Override

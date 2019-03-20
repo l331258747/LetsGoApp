@@ -1,104 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="15dp">
+            android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_centerVertical="true"
+                android:text="综合评价："
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="综合评价："
-                    android:textStyle="bold" />
-
-                <com.njz.letsgoapp.widget.MyRatingBar
-                    android:id="@+id/myRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toEndOf="@+id/tv_title"
-                    android:gravity="center_vertical" />
-
-
-                <TextView
-                    android:id="@+id/tv_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toEndOf="@+id/myRatingBar"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/color_theme"
-                    tools:text="5.0分" />
-
-                <TextView
-                    android:id="@+id/tv_evaluate_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="960条点评"
-                    android:textSize="12sp" />
-
-            </RelativeLayout>
-
-
-            <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
-                android:id="@+id/id_flowlayout"
-                android:layout_width="fill_parent"
+            <com.njz.letsgoapp.widget.MyRatingBar
+                android:id="@+id/myRatingBar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                app:max_select="1" />
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/tv_title"
+                android:gravity="center_vertical" />
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/color_d9" />
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/myRatingBar"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_theme"
+                tools:text="5.0分" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_evaluate_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="960条点评"
+                android:textSize="12sp" />
 
-        <FrameLayout
+        </RelativeLayout>
+
+
+        <com.njz.letsgoapp.widget.flowlayout.TagFlowLayout
+            android:id="@+id/id_flowlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            app:max_select="1" />
+
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include layout="@layout/base_recycler_view_layout" />
-
-            <com.njz.letsgoapp.widget.emptyView.EmptyView2
-                android:id="@+id/view_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-        </FrameLayout>
+            android:layout_height="0.5dp"
+            android:background="@color/color_d9" />
 
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.v4.widget.NestedScrollView>
+        <include layout="@layout/base_recycler_view_layout" />
+
+        <com.njz.letsgoapp.widget.emptyView.EmptyView2
+            android:id="@+id/view_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+</LinearLayout>
+
+
 
 
 

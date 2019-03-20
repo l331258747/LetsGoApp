@@ -5,6 +5,8 @@ import android.widget.TextView;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 
+import java.util.List;
+
 /**
  * Created by LGQ
  * Time: 2018/8/3
@@ -14,9 +16,9 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 public interface PayContract {
 
     interface Presenter {
-        void getAliOrderInfo(String orderId);
+        void getAliOrderInfo(String orderId,List<Integer> userCouponIds);
 
-        void getWxOrderInfo(String orderId);
+        void getWxOrderInfo(String orderId,List<Integer> userCouponIds);
 
         void getAliPay(String orderInfo);
 

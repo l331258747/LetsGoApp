@@ -13,11 +13,13 @@ import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.ServerOtherAdapter;
 import com.njz.letsgoapp.base.BaseFragment;
+import com.njz.letsgoapp.bean.home.EvaluateModel2;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.server.ServerListContract;
 import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
+import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ import java.util.List;
 public class ServerOtherFragment extends BaseFragment implements ServerListContract.View{
 
     private RecyclerView recyclerView;
+    private EmptyView2 view_empty;
 
     private ServerOtherAdapter mAdapter;
 
@@ -69,6 +72,7 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
 
     @Override
     public void initView() {
+        view_empty = $(R.id.view_empty);
         initRecycler();
     }
 
@@ -88,7 +92,6 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
         mAdapter = new ServerOtherAdapter(activity, new ArrayList<ServerDetailModel>());
         loadMoreWrapper = new LoadMoreWrapper(mAdapter);
         recyclerView.setAdapter(loadMoreWrapper);
-        recyclerView.setNestedScrollingEnabled(false);
 
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
@@ -131,7 +134,11 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
 
     @Override
     public void serveGuideServeOrderListSuccess(List<ServerDetailModel> datas) {
-        mAdapter.setData(datas);
+        if (isLoadType == 1) {
+            mAdapter.setData(datas);
+        } else {
+            mAdapter.addData(datas);
+        }
         isLoad = false;
         if (datas.size() >= Constant.DEFAULT_LIMIT) {
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
@@ -139,10 +146,19 @@ public class ServerOtherFragment extends BaseFragment implements ServerListContr
             // 显示加载到底的提示
             loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
         }
+
+        if(mAdapter.getDatas().size() == 0){
+            view_empty.setVisible(true);
+            view_empty.setEmptyData(R.mipmap.empty_comment_meto,"空空如也~");
+        }else{
+            view_empty.setVisible(false);
+        }
     }
 
     @Override
     public void serveGuideServeOrderListFailed(String msg) {
         showShortToast(msg);
+        isLoad = false;
+        loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
     }
 }

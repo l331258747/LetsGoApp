@@ -20,7 +20,7 @@ public class OrderRefundBeanGroup {
     private float payPrice;
     private int orderStatus;
     private String location;
-    private float orderPrice;
+    private String orderPrice;
     private float refundMoney;
     private int reviewStatus;
     private int refundStatus;
@@ -29,6 +29,32 @@ public class OrderRefundBeanGroup {
     private String guideName;
     private String guideMobile;
     private OrderRefundChildModel orderChildModel;
+    private int planStatus;
+    private int orderId;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public boolean isCustomNoPrice(){
+        if(planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
+                || payStatus == Constant.ORDER_PLAN_PLANING){
+            return true;
+        }
+        return false;
+    }
+
+    public void setPlanStatus(int planStatus) {
+        this.planStatus = planStatus;
+    }
 
     public String getGuideMobile() {
         return guideMobile;
@@ -36,14 +62,6 @@ public class OrderRefundBeanGroup {
 
     public void setGuideMobile(String guideMobile) {
         this.guideMobile = guideMobile;
-    }
-
-    public float getRefundMoney() {
-        return refundMoney;
-    }
-
-    public void setRefundMoney(float refundMoney) {
-        this.refundMoney = refundMoney;
     }
 
     public int getRefundStatus() {
@@ -102,11 +120,11 @@ public class OrderRefundBeanGroup {
         this.location = location;
     }
 
-    public float getOrderPrice() {
-        return orderPrice;
+    public String getOrderPrice() {
+        return orderPrice;//orderPrice 是通过setOrderPrice获得的数据
     }
 
-    public void setOrderPrice(float orderPrice) {
+    public void setOrderPrice(String orderPrice) {
         this.orderPrice = orderPrice;
     }
 
@@ -158,6 +176,9 @@ public class OrderRefundBeanGroup {
                         return "退款中";
                     case Constant.ORDER_REFUND_FINISH:
                         return "已退款";
+                    case Constant.ORDER_REFUND_CANCEL:
+                    case Constant.ORDER_REFUND_PLAN_REFUSE:
+                        return "已取消";
                 }
                 return "退款";
         }

@@ -2,10 +2,11 @@ package com.njz.letsgoapp.bean.server;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.View;
-
-import com.njz.letsgoapp.adapter.server.OrderSubmitAdapter;
 import com.njz.letsgoapp.constant.Constant;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by LGQ
@@ -25,9 +26,7 @@ public class ServerItem implements Parcelable {
     String serviceTypeName;//服务名称
     int serverType;
     String location;
-
-    public ServerItem() {
-    }
+    float bugGet;
 
     protected ServerItem(Parcel in) {
         serveNum = in.readInt();
@@ -40,6 +39,7 @@ public class ServerItem implements Parcelable {
         serviceTypeName = in.readString();
         serverType = in.readInt();
         location = in.readString();
+        bugGet = in.readFloat();
     }
 
     public static final Creator<ServerItem> CREATOR = new Creator<ServerItem>() {
@@ -54,6 +54,18 @@ public class ServerItem implements Parcelable {
         }
     };
 
+    public float getBugGet() {
+        return bugGet;
+    }
+
+    public void setBugGet(float bugGet) {
+        this.bugGet = bugGet;
+    }
+
+    public ServerItem() {
+    }
+
+
     public int getServeNum() {
         return serveNum;
     }
@@ -64,6 +76,12 @@ public class ServerItem implements Parcelable {
 
     public String getSelectTimeValueList() {
         return selectTimeValueList;
+    }
+
+    public List<String> getSelectTimeValueList2(){
+        String[] strs = selectTimeValueList.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        return lists;
     }
 
     public void setSelectTimeValueList(String selectTimeValueList) {
@@ -80,6 +98,12 @@ public class ServerItem implements Parcelable {
 
     public String getNjzGuideServeFormatId() {
         return njzGuideServeFormatId;
+    }
+
+    public List<String> getNjzGuideServeFormatId2(){
+        String[] strs = njzGuideServeFormatId.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        return lists;
     }
 
     public void setNjzGuideServeFormatId(String njzGuideServeFormatId) {
@@ -136,6 +160,8 @@ public class ServerItem implements Parcelable {
 
     public String getTimeTitle(){
         switch (serverType){
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return "行程时间";
             case Constant.SERVER_TYPE_GUIDE_ID:
                 return "行程时间";
             case Constant.SERVER_TYPE_HOTEL_ID:
@@ -152,8 +178,10 @@ public class ServerItem implements Parcelable {
 
     public String getCountContent(){
         switch (serverType){
+            case Constant.SERVER_TYPE_CUSTOM_ID:
+                return serveNum + "";
             case Constant.SERVER_TYPE_GUIDE_ID:
-                return "";
+                return serveNum + "";
             case Constant.SERVER_TYPE_HOTEL_ID:
                 return serveNum + "间";
             case Constant.SERVER_TYPE_TICKET_ID:
@@ -184,5 +212,6 @@ public class ServerItem implements Parcelable {
         dest.writeString(serviceTypeName);
         dest.writeInt(serverType);
         dest.writeString(location);
+        dest.writeFloat(bugGet);
     }
 }

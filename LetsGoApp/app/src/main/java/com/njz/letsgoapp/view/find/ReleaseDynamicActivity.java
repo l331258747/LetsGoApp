@@ -129,7 +129,7 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
     private void initAddPhoto(){
         //------------附件
         mPhotoRecyclerView = $(R.id.recycler_view);
-        photoAdapter = new PhotoAdapter(context, selectedPhotos);
+        photoAdapter = new PhotoAdapter(context, selectedPhotos,true);
         mPhotoRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL));
         mPhotoRecyclerView.setAdapter(photoAdapter);
         mPhotoRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,
@@ -254,6 +254,20 @@ public class ReleaseDynamicActivity extends BaseActivity implements View.OnClick
                         "需要到设置页面手动授权开启【定位】权限，才能发布动态。");
                 return;
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!TextUtils.isEmpty(etContent.getText().toString()) || selectedPhotos.size() > 0){
+            DialogUtil.getInstance().getDefaultDialog(context, "您是否确认退出?", new DialogUtil.DialogCallBack() {
+                @Override
+                public void exectEvent(DialogInterface alterDialog) {
+                    ReleaseDynamicActivity.super.onBackPressed();
+                }
+            }).show();
+        }else{
+            super.onBackPressed();
         }
     }
 }

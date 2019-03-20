@@ -66,7 +66,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             holder.tv_price_total.setText(data.getOrderPriceStr());
 
             holder.ll_count.setVisibility(View.VISIBLE);
-            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID){
+            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 holder.ll_count.setVisibility(View.GONE);
             }
             holder.tv_count_content.setText(data.getCountContent());
@@ -77,7 +77,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
             if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 holder.ll_bug_get.setVisibility(View.VISIBLE);
-                holder.tv_bug_get.setText(data.getBugGet()+"");
+                holder.tv_bug_get.setText("￥"+data.getBugGet());
             }else{
                 holder.ll_bug_get.setVisibility(View.GONE);
             }
@@ -85,7 +85,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             holder.btn_cancel.setVisibility(View.GONE);
             switch (data.getPayStatus()){
                 case Constant.ORDER_PAY_WAIT:
-
                     if(data.getPayingStatus() == Constant.ORDER_WAIT_PAYING){
                         holder.btn_cancel.setVisibility(View.GONE);
                     }else{
@@ -100,7 +99,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                             }
                         });
                     }
-
                     break;
                 case Constant.ORDER_PAY_ALREADY:
                     if(data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID
@@ -120,7 +118,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                             }
                         });
                     }
-
                     break;
             }
 

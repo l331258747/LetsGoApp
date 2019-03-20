@@ -152,7 +152,7 @@ public class AppUtils {
 
     //底部虚拟按钮 高度
     public static int getNavigationBarHeight(Activity activity) {
-        return getNoHasVirtualKey(activity) - getHasVirtualKey(activity);
+        return getHasVirtualKey(activity) - getNoHasVirtualKey(activity);
     }
 
     //获取屏幕宽度

@@ -352,14 +352,14 @@ public class MethodApi {
     }
 
     //orderPayAliPay 阿里支付
-    public static void orderPayAliPay(String outTradeNo, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAppPay(outTradeNo,"AliPay");
+    public static void orderPayAliPay(String outTradeNo, List<Integer> userCouponIds,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAppPay(outTradeNo,"AliPay",userCouponIds);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
     //orderPayAliPay 微信支付
-    public static void orderPayWxPay(String outTradeNo, DisposableObserver subscriber) {
-        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAppPay(outTradeNo,"WxPay");
+    public static void orderPayWxPay(String outTradeNo, List<Integer> userCouponIds,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPayAppPay(outTradeNo,"WxPay",userCouponIds);
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
@@ -449,7 +449,7 @@ public class MethodApi {
 
 
 
-    //--------城市选择 start
+    //--------other start
     public static void regionFindProAndCity(DisposableObserver subscriber) {
         Observable observable = HttpMethods.getInstance().getHttpService().regionFindProAndCity();
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
@@ -501,7 +501,13 @@ public class MethodApi {
         HttpMethods.getInstance().toSubscribe(observable, subscriber);
     }
 
-    //--------城市选择 end
+    //电话监听 wiretapping
+    public static void wiretapping(int orderId, int serveId, int guideId, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().wiretapping(orderId,serveId,guideId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //--------other end
 
     //--------服务 start
     //serveGuideServeOrderList 服务列表
@@ -523,8 +529,6 @@ public class MethodApi {
                     address,mustPlay,guideId,guideServeId,order,maps);
             HttpMethods.getInstance().toSubscribe(observable, subscriber);
         }
-
-
     }
 
     //serveGuideServeOrder 服务详情
@@ -568,5 +572,40 @@ public class MethodApi {
     }
 
     //--------服务 end
+
+
+    //----------start 优惠卷
+    //userCouponList 我的优惠券
+    public static void userCouponList(String useStatus,int limit,int page, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userCouponList(useStatus,limit,page);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //userCoupon/chooseCoupon 订单优惠券
+    public static void userCouponChooseCoupon(float totalOrderPrice, DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userCouponChooseCoupon(totalOrderPrice);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //活动弹窗
+    public static void orderPopup(DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().orderPopup();
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //优惠活动详情页
+    public static void userCouponInfo(int eventId,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userCouponInfo(eventId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //领取优惠券
+    public static void userCouponPublish(int eventId,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().userCouponPublish(eventId);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+
+    //----------end 优惠卷
 
 }

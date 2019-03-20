@@ -19,7 +19,6 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndLessScrollOnScrollListener;
-import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
 import com.njz.letsgoapp.adapter.base.LoadMoreWrapper;
 import com.njz.letsgoapp.adapter.home.HomeGuideAdapter;
 import com.njz.letsgoapp.adapter.home.HomeServerAdapter;
@@ -39,13 +38,14 @@ import com.njz.letsgoapp.util.banner.LocalImageHolderView;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CityPickEvent;
+import com.njz.letsgoapp.view.coupon.CouponReceiveActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.home.GuideListActivity;
+import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.view.other.ServerSearchActivity;
 import com.njz.letsgoapp.view.other.WebViewActivity;
 import com.njz.letsgoapp.view.server.ServerListActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity2;
-import com.njz.letsgoapp.view.other.MyCityPickActivity;
 import com.njz.letsgoapp.widget.emptyView.EmptyView2;
 
 import java.util.ArrayList;
@@ -410,6 +410,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,H
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
+                        if(homeBanners.get(position).getLinkType() == 2){
+                            //eventId
+                            Intent intent = new Intent(context, CouponReceiveActivity.class);
+                            intent.putExtra("eventId",homeBanners.get(position).getParams());
+                            startActivity(intent);
+                            return;
+                        }
+
                         if(TextUtils.isEmpty(homeBanners.get(position).getToUrl())) return;
                         Intent intent = new Intent(context, WebViewActivity.class);
                         intent.putExtra(Constant.EXTRA_URL,homeBanners.get(position).getToUrl());

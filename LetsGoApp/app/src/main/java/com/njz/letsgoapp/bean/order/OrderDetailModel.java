@@ -70,6 +70,27 @@ public class OrderDetailModel {
     private boolean havCar;
     private int children;
     private int adult;
+    private String cancelReason;
+    private String cancelExplain;
+    private String cancelTime;
+
+    private float typeMoney;
+
+    public float getCouponPrice() {
+        return typeMoney;
+    }
+
+    public String getCancelTime() {
+        return cancelTime;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public String getCancelExplain() {
+        return cancelExplain;
+    }
 
     public int getChildren() {
         return children;
@@ -243,6 +264,9 @@ public class OrderDetailModel {
     }
 
     public float getPayPrice() {
+        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+            return orderPrice;
+        }
         return payPrice;
     }
 
@@ -270,13 +294,27 @@ public class OrderDetailModel {
         return orderPrice;
     }
 
-    public String getOrderPriceStr() {
+    public String getOrderPriceStr() {//实付金额
         if (payStatus == Constant.ORDER_PAY_WAIT
                 && payingStatus == Constant.ORDER_WAIT_PAY
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
-        } else {
-            return ("" + orderPrice);
+        } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+            return ("￥" + orderPrice);
+        }else {
+            return ("￥" + payPrice);
+        }
+    }
+
+    public String getOrderPriceStr2() {//订单总金额
+        if (payStatus == Constant.ORDER_PAY_WAIT
+                && payingStatus == Constant.ORDER_WAIT_PAY
+                && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
+            return ("报价待确定");
+        } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+            return ("￥" + orderPrice);
+        }else {
+            return ("￥" + orderPrice);
         }
     }
 
@@ -384,7 +422,7 @@ public class OrderDetailModel {
         for (int i = 0; i < njzChildOrderVOS.size(); i++) {
             OrderDetailChildModel childModel = njzChildOrderVOS.get(i);
 
-            if(childModel.getPayStatus() != Constant.ORDER_WAIT_PAY)
+            if(childModel.getPayStatus() != Constant.ORDER_PAY_FINISH)
                 continue;
 
             if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {

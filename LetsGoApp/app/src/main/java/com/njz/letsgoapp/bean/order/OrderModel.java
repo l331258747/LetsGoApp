@@ -45,6 +45,29 @@ public class OrderModel {
     private boolean havCar;
     private List<OrderChildModel> njzChildOrderListVOS;
 
+    private int children;
+    private int adult;
+    private int personNum;
+    private String SpecialRequire;
+
+    public String getSpecialRequire() {
+        return SpecialRequire;
+    }
+
+    public String getPersonNum() {
+//        if(isCustom()){
+//            return adult+"成人"+children+"儿童";
+//        }
+        return personNum + "";
+    }
+
+    public boolean isCustom() {
+        if(njzChildOrderListVOS !=null && njzChildOrderListVOS.size()==1 && njzChildOrderListVOS.get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+            return true;
+        }
+        return false;
+    }
+
     public String getLastPayTime() {
         return lastPayTime;
     }
@@ -126,6 +149,9 @@ public class OrderModel {
     }
 
     public float getPayPrice() {
+        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+            return orderPrice;
+        }
         return payPrice;
     }
 
@@ -187,7 +213,7 @@ public class OrderModel {
         for (int i = 0; i < njzChildOrderListVOS.size(); i++) {
             OrderChildModel childModel = njzChildOrderListVOS.get(i);
 
-            if(childModel.getPayStatus() != Constant.ORDER_WAIT_PAY)
+            if(childModel.getPayStatus() != Constant.ORDER_PAY_FINISH)
                 continue;
 
             if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {

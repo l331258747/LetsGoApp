@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_view_bg_10"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.njz.letsgoapp.widget.FixedItemEditView
+                        android:id="@+id/login_view_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:login_item_hint="请输入联系人"
+                        app:login_item_max_length="5"
+                        app:login_item_title="联系人"
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_title_width="80dp" />
+
+                    <com.njz.letsgoapp.widget.FixedItemEditView
+                        android:id="@+id/login_view_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:login_item_hint="请输入联系方式"
+                        app:login_item_max_length="11"
+                        app:login_item_title="联系方式"
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_title_width="80dp" />
+
+
+                    <com.njz.letsgoapp.widget.FixedItemEditView
+                        android:id="@+id/login_view_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:login_item_hint="请输入人数"
+                        app:login_item_max_length="11"
+                        app:login_item_title="出行人数"
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_title_width="80dp" />
+
+                    <com.njz.letsgoapp.widget.SpecialFixedItemEditView
+                        android:id="@+id/et_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:login_item_hint="请输入其他需求。（选填）"
+                        app:login_item_max_length="200"
+                        app:login_item_title="特殊要求"
+                        app:login_item_title_color="@color/color_99"
+                        app:login_item_title_width="80dp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/base_recycler_view_layout" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_order_coupon_bg"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="优惠卷"
+                        android:textColor="@color/color_99" />
+
+                    <TextView
+                        android:id="@+id/tv_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/ic_right_theme"
+                        android:gravity="center_vertical"
+                        android:text="-￥0"
+                        android:textColor="@color/color_theme" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_dash_line"
+                    android:layerType="software" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="应付金额"
+                        android:textColor="@color/color_99" />
+
+                    <TextView
+                        android:id="@+id/tv_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="￥0"
+                        android:textColor="@color/color_theme" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_contract"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/ic_register_read"
+                    android:drawablePadding="3dp"
+                    android:padding="5dp"
+                    android:text="@string/guide_service_contract" />
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/frame_bottom"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_d9" />
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_theme_solid_r5"
+            android:gravity="center"
+            android:text="确认并支付"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+</FrameLayout>
+
+
+

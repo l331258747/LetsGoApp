@@ -2,12 +2,14 @@ package com.njz.letsgoapp.view.serverFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.text.TextUtils;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.adapter.base.EndlessRecyclerOnScrollListener;
@@ -21,13 +23,12 @@ import com.njz.letsgoapp.bean.home.GuideServiceModel;
 import com.njz.letsgoapp.bean.server.ServerDetailModel;
 import com.njz.letsgoapp.bean.server.ServerItem;
 import com.njz.letsgoapp.constant.Constant;
-import com.njz.letsgoapp.mvp.server.ServerListContract;
-import com.njz.letsgoapp.mvp.server.ServerListPresenter;
 import com.njz.letsgoapp.mvp.server.ServerListScreenContract;
 import com.njz.letsgoapp.mvp.server.ServerListScreenPresenter;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerDetailEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.ServerPriceTotalEvent;
+import com.njz.letsgoapp.util.rxbus.busEvent.ServerSelectedEvent;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.server.CustomActivity;
 import com.njz.letsgoapp.view.server.ServiceDetailActivity;
@@ -64,12 +65,15 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
 
     List<ServerItem> serverItems;
     Disposable serverDetailDisposable;
+    public Disposable serverSelectedDisposable;
+    String location;
 
-    public static Fragment newInstance(GuideDetailModel guideDetailModel, List<ServerItem> serverItems) {
+    public static Fragment newInstance(GuideDetailModel guideDetailModel, List<ServerItem> serverItems,String location) {
         ServerListFragment fragment = new ServerListFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("GuideDetailModel", guideDetailModel);
         bundle.putParcelableArrayList("serverItems", (ArrayList<ServerItem>) serverItems);
+        bundle.putString("location", location);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -81,6 +85,10 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
         if (bundle != null) {
             model = bundle.getParcelable("GuideDetailModel");
             serverItems = bundle.getParcelableArrayList("serverItems");
+            location = bundle.getString("location");
+            if(TextUtils.isEmpty(location)){
+                location = MySelfInfo.getInstance().getDefaultCity();
+            }
         }
     }
 
@@ -112,6 +120,22 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
                     }
                 }
                 loadMoreWrapper.notifyDataSetChanged();
+            }
+        });
+
+        serverSelectedDisposable = RxBus2.getInstance().toObservable(ServerSelectedEvent.class, new Consumer<ServerSelectedEvent>() {
+            @Override
+            public void accept(ServerSelectedEvent serverSelectedEvent) throws Exception {
+                ServerItem serverItem = serverSelectedEvent.getServerItem();
+
+                int index = getServerItemsPosition(serverItem);
+                if(index == -1){
+                    serverItems.add(serverItem);
+                }else{
+                    serverItems.set(getServerItemsPosition(serverItem),serverItem);
+                }
+                RxBus2.getInstance().post(new ServerDetailEvent());
+                RxBus2.getInstance().post(new ServerPriceTotalEvent());
             }
         });
     }
@@ -160,6 +184,9 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
             public void onClick(int position) {
                 Intent intent = new Intent(context, ServiceDetailActivity.class);
                 intent.putExtra(ServiceDetailActivity.SERVICEID, mAdapter2.getData(position).getId());
+                intent.putExtra(ServiceDetailActivity.SERVER_ITEM, getServerItem(mAdapter2.getData(position)));
+                if(mAdapter2.getData(position).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID)
+                    intent.putExtra("isCustom",true);
                 startActivity(intent);
             }
 
@@ -178,7 +205,11 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
 
             @Override
             public void onBookClick(final int position) {
-                popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position));
+                if(!MySelfInfo.getInstance().isLogin()){
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+                popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position),null);
                 popServer.setSubmit("选好了", new PopServer.SubmitClick() {
                     @Override
                     public void onClick(ServerItem serverItem) {
@@ -203,8 +234,52 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
                 intent.putExtra("SERVER_ID", mAdapter2.getData(position).getId());
                 startActivity(intent);
             }
+
+            @Override
+            public void onSelectedClick(final int position) {
+                ServerItem serverItem = getServerItem(mAdapter2.getData(position));
+                if(serverItem == null) return;
+
+                popServer = new PopServer(activity, recycler_view2, mAdapter2.getData(position),serverItem);
+                popServer.setSubmit("选好了", new PopServer.SubmitClick() {
+                    @Override
+                    public void onClick(ServerItem serverItem) {
+                        int index = getServerItemsPosition(serverItem);
+                        if(index == -1) return;
+
+                        serverItems.set(index,serverItem);
+                        mAdapter2.getData(position).setBook(true);
+                        loadMoreWrapper.notifyItemChanged(position);
+                        RxBus2.getInstance().post(new ServerPriceTotalEvent());
+                    }
+                });
+                popServer.showPopupWindow(recycler_view2);
+            }
         });
     }
+
+    //--------------已选 start -------------
+    //用来找到serverItem
+    private ServerItem getServerItem(ServerDetailModel sdm){
+        for (int i = 0;i<serverItems.size();i++){
+            if(serverItems.get(i).getNjzGuideServeId() == sdm.getId()){
+                return serverItems.get(i);
+            }
+        }
+        return null;
+    }
+
+
+    //获取serverItem在serverItems中的position
+    private int getServerItemsPosition(ServerItem serverItem){
+        for (int i = 0;i<serverItems.size();i++){
+            if(serverItems.get(i).getNjzGuideServeId() == serverItem.getNjzGuideServeId()){
+                return i;
+            }
+        }
+        return -1;
+    }
+    //--------------已选 end -------------
 
     private void getRefreshData() {
         swipeRefreshLayout.setRefreshing(true);
@@ -232,7 +307,7 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
     public void getData() {
         if (value != 0)
             serverListPresenter.serveGuideServeFilterList(value,Constant.DEFAULT_LIMIT,page,
-                    MySelfInfo.getInstance().getDefaultCity(),0,model.getId(), 0,Constant.GUIDE_TYPE_COUNT,null);
+                    location,0,model.getId(), 0,Constant.GUIDE_TYPE_COUNT,null);
     }
 
     @Override
@@ -240,6 +315,8 @@ public class ServerListFragment extends BaseFragment implements ServerListScreen
         super.onDestroy();
         if (serverDetailDisposable != null && !serverDetailDisposable.isDisposed())
             serverDetailDisposable.dispose();
+        if (serverSelectedDisposable != null && !serverSelectedDisposable.isDisposed())
+            serverSelectedDisposable.dispose();
     }
 
     @Override

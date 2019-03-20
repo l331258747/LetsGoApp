@@ -23,6 +23,16 @@ public class BannerModel {
     private String toUrl;
     private int type;
     private Object guideId;
+    private int linkType;
+    private int params;
+
+    public int getParams() {
+        return params;
+    }
+
+    public int getLinkType() {
+        return linkType;
+    }
 
     public int getId() {
         return id;

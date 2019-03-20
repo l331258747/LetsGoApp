@@ -42,6 +42,7 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
     String guidePhone;
     boolean showPay;
     PayModel payModel;
+    CustomPlanModel customPlanModel;
 
     @Override
     public void getIntentData() {
@@ -95,7 +96,7 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
 
     public void initViewPage(CustomPlanModel model) {
         mFragments = new ArrayList<>();
-        mFragments.add(CustomTripFragment.newInstance(model.getTravelDesign(),model.getRenegePriceThree(),model.getRenegePriceFive()));
+        mFragments.add(CustomTripFragment.newInstance(model.getTravelDesign(),model.getRenegePriceThree(),model.getRenegePriceFive(),model.getServeType()));
         mFragments.add(CustomOffersFragment.newInstance(model.getOfferDetail()));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);
@@ -110,6 +111,7 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
         if(model != null && model.size() == 1){
             initInfo(model.get(0));
             initViewPage(model.get(0));
+            customPlanModel = model.get(0);
         }
     }
 
@@ -122,7 +124,8 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_phone:
-                DialogUtil.getInstance().showGuideMobileDialog(context,guidePhone);
+                if(customPlanModel == null) return;
+                DialogUtil.getInstance().showGuideMobileDialog(context,guidePhone,customPlanModel.getOrderId(),0,customPlanModel.getGuideId());
                 break;
             case R.id.tv_pay:
                 if(payModel == null)

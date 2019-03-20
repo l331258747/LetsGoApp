@@ -38,7 +38,6 @@ import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
 import com.njz.letsgoapp.util.thread.MyThreadPool;
-import com.njz.letsgoapp.widget.MineItemView;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -16,6 +16,10 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.webview.LWebView;
 import com.njz.letsgoapp.widget.emptyView.EmptyView3;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by LGQ
  * Time: 2018/12/3
@@ -26,7 +30,7 @@ public class ServerFeatureFragment extends BaseFragment {
 
     LWebView webView;
     NestedScrollView scrollView;
-    TextView price_introduce_content, tv_refund_rule_30, tv_refund_rule_50;
+    TextView price_introduce_content, tv_refund_rule_30, tv_refund_rule_50,tv_refund_100;
     EmptyView3 view_empty;
     LinearLayout ll_refund_rule;
 
@@ -62,6 +66,7 @@ public class ServerFeatureFragment extends BaseFragment {
         price_introduce_content = $(R.id.price_introduce_content);
         tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
         tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
+        tv_refund_100 = $(R.id.tv_refund_100);
         ll_refund_rule = $(R.id.ll_refund_rule);
     }
 
@@ -71,13 +76,23 @@ public class ServerFeatureFragment extends BaseFragment {
         if(model.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
             ll_refund_rule.setVisibility(View.GONE);
         }else{
-            if (!TextUtils.isEmpty(model.getRenegePriceThree()))
-                tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30), model.getRenegePriceThree().replace(",", "-")));
-            if (!TextUtils.isEmpty(model.getRenegePriceFive()))
-                tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50), model.getRenegePriceFive().replace(",", "-")));
+            if (!TextUtils.isEmpty(model.getRenegePriceThree())) {
+                List<String> lists = getValue(model.getRenegePriceThree(),"0.3");
+                tv_refund_rule_30.setText(String.format(getResources().getString(R.string.refund_rule_30),
+                        lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+            }
+            if (!TextUtils.isEmpty(model.getRenegePriceFive())) {
+                List<String> lists = getValue(model.getRenegePriceFive(),"0.5");
+                tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),
+                        lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+            }
+
+            if(model.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                tv_refund_100.setText("私人定制订单不支持行程中退款；");
+            }
         }
 
-        if (!TextUtils.isEmpty(model.getRenegePriceThree()))
+        if (!TextUtils.isEmpty(model.getCostExplain()))
             price_introduce_content.setText(model.getCostExplain());
         if (!TextUtils.isEmpty(model.getServeFeature())) {
             webView.loadDataWithBaseURL(null, model.getServeFeature(), "text/html", "utf-8", null);
@@ -95,5 +110,23 @@ public class ServerFeatureFragment extends BaseFragment {
         webView.loadUrl("about:blank");
         webView.clearCache(false);
         webView.destroy();
+    }
+
+    public String getProportion(String str){
+        int value = (int) (Float.valueOf(str) * 100);
+        return value + "";
+    }
+
+    public List<String> getValue(String str,String def) {
+        String[] strs = str.split(",");
+        List<String> lists = new ArrayList<>(Arrays.asList(strs));
+        if (lists.size() != 3) {
+            lists.add(def);
+        }else{
+            if(Float.valueOf(lists.get(2)) <= 0){
+                lists.set(2,def);
+            }
+        }
+        return lists;
     }
 }

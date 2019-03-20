@@ -60,6 +60,8 @@ public class MineItemView2 extends LinearLayout {
             int rightDrawable = attributes.getResourceId(R.styleable.home_my_item2_home_my_item2_right_drawable, -1);
             if (rightDrawable != -1) {
                 iv_right_img.setImageDrawable(ContextCompat.getDrawable(context,rightDrawable));
+            }else{
+                iv_right_img.setVisibility(GONE);
             }
 
             int leftDrawable = attributes.getResourceId(R.styleable.home_my_item2_home_my_item2_left_drawable, -1);
@@ -72,6 +74,10 @@ public class MineItemView2 extends LinearLayout {
 
     public void setContent(String content){
         tv_content.setText(content);
+    }
+
+    public TextView getContentView(){
+        return tv_content;
     }
 
     public String getContent(){

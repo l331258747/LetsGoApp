@@ -1,10 +1,12 @@
 package com.njz.letsgoapp.util.http;
 
-import android.widget.ImageView;
-
 import com.njz.letsgoapp.bean.BasePageModel;
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.EmptyModel;
+import com.njz.letsgoapp.bean.coupon.ActivityPopModel;
+import com.njz.letsgoapp.bean.coupon.CouponModel;
+import com.njz.letsgoapp.bean.coupon.CouponReceiveModel;
+import com.njz.letsgoapp.bean.coupon.OrderCouponModel;
 import com.njz.letsgoapp.bean.find.DynamicCommentModel;
 import com.njz.letsgoapp.bean.home.BannerModel;
 import com.njz.letsgoapp.bean.home.DynamicListModel;
@@ -398,7 +400,8 @@ public interface HttpService {
     @POST("orderPay/appPay")
     Observable<BaseResponse<String>> orderPayAppPay(
             @Field("outTradeNo") String toutTradeNo,
-            @Field("type") String type
+            @Field("type") String type,
+            @Field("userCouponIds") List<Integer> userCouponIds
 
     );
 
@@ -567,6 +570,14 @@ public interface HttpService {
             @Part List<MultipartBody.Part> files
     );
 
+    //游客拨打电话记录 phoneRecord/insertNjzPhoneRecord
+    @GET("phoneRecord/insertNjzPhoneRecord")
+    Observable<BaseResponse<String>> wiretapping(
+            @Query("orderId") int orderId,
+            @Query("serveId") int serveId,
+            @Query("guideId") int guideId
+    );
+
     //--------other end---------
 
 
@@ -649,5 +660,39 @@ public interface HttpService {
     Observable<BaseResponse<IMUserModel>> getUserByIMUsername(
             @Query("username") String username
     );
+
+    //-----------start 优惠卷-----
+    //userCoupon/list 我的优惠券
+    @GET("userCoupon/list")
+    Observable<BaseResponse<List<CouponModel>>> userCouponList(
+            @Query("useStatus") String useStatus,
+            @Query("limit") int limit,
+            @Query("page") int page
+    );
+
+    //userCoupon/chooseCoupon 订单优惠券
+    @GET("userCoupon/chooseCoupon")
+    Observable<BaseResponse<OrderCouponModel>> userCouponChooseCoupon(
+            @Query("totalOrderPrice") float totalOrderPrice
+    );
+
+    //活动弹窗
+    @GET("order/popup")
+    Observable<BaseResponse<ActivityPopModel>> orderPopup(
+    );
+
+
+    //优惠活动详情页
+    @GET("userCoupon/info")
+    Observable<BaseResponse<CouponReceiveModel>> userCouponInfo(
+            @Query("eventId") int eventId
+    );
+
+    //领取优惠券
+    @GET("userCoupon/publish")
+    Observable<BaseResponse<String>> userCouponPublish(
+            @Query("eventId") int eventId
+    );
+    //-----------end 优惠卷-------
 
 }

@@ -1,8 +1,6 @@
 package com.njz.letsgoapp.view.homeFragment.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,12 +16,12 @@ import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.mine.MyMainContract;
 import com.njz.letsgoapp.mvp.mine.MyMainPresenter;
 import com.njz.letsgoapp.util.StringUtils;
-import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.login.ModifyPasswordActivity;
 import com.njz.letsgoapp.view.login.ModifyPhoneActivity;
+import com.njz.letsgoapp.view.coupon.CouponActivity;
+import com.njz.letsgoapp.view.mine.ContactUsActivity;
 import com.njz.letsgoapp.view.mine.FansListActivity;
 import com.njz.letsgoapp.view.mine.MyCommentActivity;
 import com.njz.letsgoapp.view.mine.MyInfoActivity;
@@ -39,7 +37,7 @@ import com.njz.letsgoapp.widget.MineItemView2;
 
 public class MyFragment extends BaseFragment implements View.OnClickListener,MyMainContract.View {
 
-    MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting;
+    MineItemView2 mine_bind, mine_info, mine_modify, mine_comment, mine_custom, mine_setting,mine_coupon;
 
     ImageView iv_head,iv_backimg;
     TextView tv_name,tv_follow,tv_fans,tv_login,tv_space;
@@ -71,6 +69,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
         tv_follow = $(R.id.tv_follow);
         ll_info = $(R.id.ll_info);
         tv_login = $(R.id.tv_login);
+        mine_coupon = $(R.id.mine_coupon);
+        mine_coupon.getContentView().setTextColor(ContextCompat.getColor(context,R.color.color_theme));
 
         tv_space = $(R.id.tv_space);
 
@@ -86,6 +86,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
         tv_name.setOnClickListener(this);
         tv_login.setOnClickListener(this);
         tv_space.setOnClickListener(this);
+        mine_coupon.setOnClickListener(this);
 
     }
 
@@ -121,6 +122,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
             StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFans()));
             StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFocus()));
             mine_bind.setContent(StringUtils.hidePhone(MySelfInfo.getInstance().getUserMoble()));
+            mine_coupon.setContent(MySelfInfo.getInstance().getUserCouponNum()+"张");
 
             GlideUtil.LoadCircleImage(context, MySelfInfo.getInstance().getUserImgUrl(), iv_head);
             if(TextUtils.isEmpty(MySelfInfo.getInstance().getUserBackimg())){
@@ -129,13 +131,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
                 GlideUtil.LoadImage(context, MySelfInfo.getInstance().getUserBackimg(), iv_backimg);
             }
 
-
-
         } else {
             ll_info.setVisibility(View.GONE);
             tv_login.setVisibility(View.VISIBLE);
 
             mine_bind.setContent("");
+            mine_coupon.setContent("");
             GlideUtil.LoadCircleImage(context, "", iv_head);
             iv_backimg.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.bg_home_my));
         }
@@ -172,7 +173,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
                 break;
             case R.id.mine_customer:
                 if(!isLogin()) return;
-                DialogUtil.getInstance().showCustomerMobileDialog(context);
+                startActivity(new Intent(context, ContactUsActivity.class));
                 break;
             case R.id.mine_setting:
                 startActivity(new Intent(context,SystemSettingActivity.class));
@@ -199,6 +200,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
                 intentSpace.putExtra(SpaceActivity.USER_ID,MySelfInfo.getInstance().getUserId());
                 startActivity(intentSpace);
                 break;
+            case R.id.mine_coupon:
+                if(!isLogin()) return;
+                Intent intentCoupon = new Intent(context, CouponActivity.class);
+                startActivity(intentCoupon);
+                break;
 
         }
     }
@@ -215,6 +221,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener,MyM
     public void userViewZoneSuccess(LoginInfoModel data) {
         MySelfInfo.getInstance().setUserFocus(data.getFocusCount());
         MySelfInfo.getInstance().setUserFans(data.getFansCount());
+        MySelfInfo.getInstance().setUserCouponNum(data.getCouponNumber());
+        mine_coupon.setContent(MySelfInfo.getInstance().getUserCouponNum()+"张");
         StringUtils.setHtml(tv_fans,String.format(getResources().getString(R.string.mine_fans),MySelfInfo.getInstance().getUserFans()));
         StringUtils.setHtml(tv_follow,String.format(getResources().getString(R.string.mine_follow),MySelfInfo.getInstance().getUserFocus()));
     }

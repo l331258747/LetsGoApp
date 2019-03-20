@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.view.mine;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.login.LogoutContract;
 import com.njz.letsgoapp.mvp.login.LogoutPresenter;
 import com.njz.letsgoapp.util.AppUtils;
@@ -139,7 +141,12 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                 startActivity(new Intent(context, AboutActivity.class));
                 break;
             case R.id.btn_loginoff:
-                mPresenter.userLogout();
+                DialogUtil.getInstance().getDefaultDialog(context, "您是否确认退出?", new DialogUtil.DialogCallBack() {
+                    @Override
+                    public void exectEvent(DialogInterface alterDialog) {
+                        mPresenter.userLogout();
+                    }
+                }).show();
                 break;
             case R.id.system_setting_upload:
                 Beta.checkUpgrade();

@@ -22,6 +22,7 @@ import com.njz.letsgoapp.util.accessory.RecyclerItemClickListener;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.photo.TackPicturesUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.util.rxbus.busEvent.UpLoadPhotos;
 import com.njz.letsgoapp.util.thread.MyThreadPool;
 import com.njz.letsgoapp.widget.EvaluateView;
@@ -221,6 +222,7 @@ public class OrderEvaluateActivity extends BaseActivity implements View.OnClickL
     public void upUserReviewSuccess(EmptyModel str) {
         loadingDialog.dismiss();
         showShortToast("评价成功");
+        RxBus2.getInstance().post(new OrderCancelEvent(0));
         finish();
     }
 

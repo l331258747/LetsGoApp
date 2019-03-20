@@ -61,9 +61,42 @@ public class OrderRefundDetailModel {
     private List<OrderRefundDetailChildModel> njzRefundDetailsChildVOS;
     private int children;
     private int adult;
-    private String guideId;
+    private int guideId;
+    private String createTime;
+    private String guideSureTime;
+    private String planDesignTime;
+    private float typeMoney;
+    private float orderPrice;
+    private int planStatus;
 
-    public String getGuideId() {
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public String getOrderPrice() {
+        if((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING) && orderPrice == 0){
+            return ("报价待确定");
+        }
+        return "￥"+orderPrice;
+    }
+
+    public String getPlanDesignTime() {
+        return planDesignTime;
+    }
+
+    public String getGuideSureTime() {
+        return guideSureTime;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public float getCouponPrice() {
+        return typeMoney;
+    }
+
+    public int getGuideId() {
         return guideId;
     }
 
@@ -75,7 +108,7 @@ public class OrderRefundDetailModel {
     }
 
     public String getPersonNum() {
-        if(isCustom()){
+        if(isCustom() && (adult>0 || children > 0)){
             return adult+"成人"+children+"儿童";
         }
         return personNum + "";
@@ -249,6 +282,9 @@ public class OrderRefundDetailModel {
                 return "退款中";
             case Constant.ORDER_REFUND_FINISH:
                 return "已退款";
+            case Constant.ORDER_REFUND_CANCEL:
+            case Constant.ORDER_REFUND_PLAN_REFUSE:
+                return "已取消";
         }
         return "退款";
     }

@@ -18,6 +18,7 @@ import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.glide.GlideUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.view.coupon.CouponActivity;
 import com.njz.letsgoapp.view.find.DynamicDetailActivity;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
@@ -102,6 +103,10 @@ public class SystemMsgAdapter extends RecyclerView.Adapter<SystemMsgAdapter.View
                     case Constant.NOTIFY_SKIP_ORD:
                         intent = new Intent(mContext, OrderRefundDetailActivity.class);
                         intent.putExtra("ORDER_ID",correlationId);
+                        mContext.startActivity(intent);
+                        break;
+                    case Constant.NOTIFY_SKIP_CL:
+                        intent = new Intent(mContext, CouponActivity.class);
                         mContext.startActivity(intent);
                         break;
                     default:

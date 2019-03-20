@@ -169,5 +169,21 @@ public class DateUtil {
 
         return (int) ((toCalendar.getTime().getTime() - fromCalendar.getTime().getTime()) / (1000 * 60 * 60 * 24)) + 1;
     }
+
+    //计算time2减去time1的差值 差值只设置 几天 几个小时 或 几分钟 根据差值返回多长之间前或多长时间后
+
+    public static int getDistanceTime(long time1, long time2) {
+        long day;
+        long diff;
+
+        if (time1 < time2) {
+            diff = time2 - time1;
+        } else {
+            diff = time1 - time2;
+        }
+        day = diff / (24 * 60 * 60 * 1000);
+
+        return (int) day;
+    }
 }
 

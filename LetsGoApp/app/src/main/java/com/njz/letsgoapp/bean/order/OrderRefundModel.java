@@ -1,5 +1,7 @@
 package com.njz.letsgoapp.bean.order;
 
+import com.njz.letsgoapp.constant.Constant;
+
 import java.util.List;
 
 /**
@@ -56,6 +58,26 @@ public class OrderRefundModel {
     private String guideMobile;
     private List<OrderRefundChildModel> njzChildOrderToRefundVOS;
     private int id;
+    private int planStatus;
+    private float orderPrice;
+    private int refundId;
+    private float typeMoney;
+
+    public float getTypeMoney() {
+        return typeMoney;
+    }
+
+    public float getOrderPrice() {
+        return orderPrice;
+    }
+
+    public int getPlanStatus() {
+        return planStatus;
+    }
+
+    public int getPayStatus() {
+        return Constant.ORDER_PAY_REFUND;
+    }
 
     public String getGuideMobile() {
         return guideMobile;
@@ -151,6 +173,17 @@ public class OrderRefundModel {
 
     public float getRefundMoney() {
         return refundMoney;
+    }
+
+    public String getMoney(){
+        if(refundStatus == Constant.ORDER_REFUND_CANCEL || refundStatus == Constant.ORDER_REFUND_PLAN_REFUSE){
+            if ((planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
+                return ("报价待确定");
+            }
+            return "￥"+orderPrice ;
+        }else{
+            return "￥"+refundMoney;
+        }
     }
 
     public void setRefundMoney(float refundMoney) {

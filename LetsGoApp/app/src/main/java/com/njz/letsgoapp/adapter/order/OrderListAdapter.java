@@ -108,7 +108,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 OrderBeanGroup serviceInfoGroup3 = new OrderBeanGroup();
                 serviceInfoGroup3.setLabelTab(OrderBeanGroup.LABEL_TAB_FOOT);
                 serviceInfoGroup3.setPayStatus(orderModel.getPayStatus());
-                serviceInfoGroup3.setOrderPrice(orderModel.getOrderPrice());
+                serviceInfoGroup3.setOrderPrice(orderModel.getPayPrice());
                 serviceInfoGroup3.setOrderStatus(orderModel.getOrderStatus());
                 serviceInfoGroup3.setReviewStatus(orderModel.getReviewStatus());
                 serviceInfoGroup3.setGuideName(orderModel.getGuideName());
@@ -121,6 +121,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                 serviceInfoGroup3.setPayingStatus(orderModel.getPayingStatus());
                 serviceInfoGroup3.setPlanStatus(orderModel.getPlanStatus());
                 serviceInfoGroup3.setLastPayTime(orderModel.getLastPayTime());
+                serviceInfoGroup3.setGuideId(orderModel.getGuideId());
                 if(orderModel.getNjzChildOrderListVOS()!= null
                         && orderModel.getNjzChildOrderListVOS().size() == 1
                         && orderModel.getNjzChildOrderListVOS().get(0).getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
@@ -172,7 +173,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
             ((DefaultHolder) holder).tv_total_price.setText(data.getOrderPriceStr());
 
-            ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
+            ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
             switch (data.getPayStatus()) {
                 case Constant.ORDER_PAY_WAIT:
                     if (data.getPayingStatus() == Constant.ORDER_WAIT_PAYING) {
@@ -196,6 +197,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                             && data.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING) {
                         ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
                     }else{
+                        ((DefaultHolder) holder).btn_cancel.setVisibility(View.VISIBLE);
                         ((DefaultHolder) holder).btn_cancel.setText("退款");
                         ((DefaultHolder) holder).btn_cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -208,9 +210,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                             }
                         });
                     }
-                    break;
-                default:
-                    ((DefaultHolder) holder).btn_cancel.setVisibility(View.GONE);
                     break;
             }
 
@@ -229,7 +228,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             final OrderBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
-            ((TitleHolder) holder).tv_order.setText(data.getOrderNo());
             ((TitleHolder) holder).tv_status.setText(data.getPayStatusStr());
             ((TitleHolder) holder).tv_name.setText(data.getGuideName());
 
@@ -248,9 +246,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             final OrderBeanGroup data = orderBeanGroups.get(pos);
             if (data == null) return;
 
+            ((FootHolder) holder).tv_order.setText(data.getOrderNo());
+
             ((FootHolder) holder).tv_order_price_title.setText("合计:");
 
-            ((FootHolder) holder).tv_order_price_content.setText( data.getOrderPriceStr());
+            ((FootHolder) holder).tv_order_price_content.setText(data.getOrderPriceStr());
 
             ((FootHolder) holder).setbtn();
             switch (data.getPayStatus()) {
@@ -309,9 +309,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                         ((FootHolder) holder).btn_call_customer.setVisibility(View.GONE);
                     }
                     break;
-                case Constant.ORDER_PAY_REFUND:
-
-                    break;
             }
 
             ((FootHolder) holder).btn_evaluate.setOnClickListener(new View.OnClickListener() {
@@ -325,7 +322,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_call_guide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtil.getInstance().showGuideMobileDialog(mContext, data.getGuideMobile());
+                    DialogUtil.getInstance().showGuideMobileDialog(mContext, data.getGuideMobile(),data.getId(),0,data.getGuideId());
                 }
             });
             ((FootHolder) holder).btn_cancel_order.setOnClickListener(new View.OnClickListener() {
@@ -341,7 +338,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             ((FootHolder) holder).btn_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PayActivity.startActivity(mContext, getPayModel(data));//TODO 订单上传成功，返回单号
+                    if (mOnPayClickListener != null) {
+                        mOnPayClickListener.onClick(data.getIndex());
+                    }
                 }
             });
             ((FootHolder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -415,12 +414,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     }
 
     public class TitleHolder extends OrderListAdapter.BaseViewHolder implements View.OnClickListener {
-        TextView tv_order, tv_status, tv_name;
+        TextView tv_status, tv_name;
         RelativeLayout rl_status;
 
         TitleHolder(View itemView) {
             super(itemView);
-            tv_order = itemView.findViewById(R.id.tv_order);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_status = itemView.findViewById(R.id.tv_status);
             rl_status = itemView.findViewById(R.id.rl_status);
@@ -452,7 +450,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
 
 
     public class FootHolder extends OrderListAdapter.BaseViewHolder {
-        TextView tv_order_price_content, tv_order_price_title;
+        TextView tv_order_price_content, tv_order_price_title,tv_order;
         TextView btn_call_guide, btn_cancel_order, btn_pay, btn_evaluate, btn_delete, btn_call_customer, btn_refund, btn_see_plan;
 
         FootHolder(View itemView) {
@@ -468,6 +466,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
             btn_delete = itemView.findViewById(R.id.btn_delete);
             btn_call_customer = itemView.findViewById(R.id.btn_call_customer);
             btn_refund = itemView.findViewById(R.id.btn_refund);
+            tv_order = itemView.findViewById(R.id.tv_order);
         }
 
         public void setbtn() {
@@ -488,6 +487,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
     OnRefundClickListenter mOnRefundClickListenter;
     OnDeleteClickListener mOnDeleteClickListener;
     OnEvaluateClickListener mOnEvaluateClickListener;
+    OnPayClickListener mOnPayClickListener;
+
+    public interface OnPayClickListener {
+        void onClick(int index);
+    }
+
+    public void setOnPayClickListener(OnPayClickListener onPayClickListener) {
+        this.mOnPayClickListener = onPayClickListener;
+    }
 
     public interface OnEvaluateClickListener {
         void onClick(int index);

@@ -63,13 +63,6 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
     public String[] titles = {"服务特色", "TA的评价", "其他服务"};
 
-    boolean isCustom;
-
-    @Override
-    public void getIntentData() {
-        super.getIntentData();
-        isCustom = intent.getBooleanExtra("isCustom",false);
-    }
 
     public  void initViewPage(ServerDetailModel model){
         mFragments = new ArrayList<>();
@@ -86,10 +79,6 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 
     @Override
     public void initData() {
-        if(isCustom){
-            tv_submit.setText("立即定制");
-        }
-
         bannerPresenter = new BannerPresenter(context,this);
         serverDetailPresenter = new ServerDetailPresenter(context, this);
 
@@ -124,7 +113,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                     return;
                 }
                 if (popServer == null) {
-                    popServer = new PopServer(activity, tv_submit, serverDetailModel);
+                    popServer = new PopServer(activity, tv_submit, serverDetailModel,null);
                     popServer.setSubmit(null, new PopServer.SubmitClick() {
                         @Override
                         public void onClick(ServerItem serverItem) {
@@ -142,7 +131,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
                 break;
             case R.id.tv_phone:
                 if(serverDetailModel == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context, serverDetailModel.getMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context, serverDetailModel.getMobile(),0,serverDetailModel.getId(),serverDetailModel.getGuideId());
                 break;
             case R.id.tv_destination2:
                 startActivity(new Intent(context, MapActivity.class));
@@ -151,6 +140,16 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
 //                scrollView.scrollTo(0, 0);
                 break;
             case R.id.tv_consult:
+                if (!MySelfInfo.getInstance().isLogin()) {//登录状态
+                    startActivity(new Intent(context,LoginActivity.class));
+                    return ;
+                }
+
+                if(!MySelfInfo.getInstance().getImLogin()){
+                    showShortToast("用户未注册到im");
+                    return;
+                }
+
                 if(serverDetailModel == null) return;
                 String name = "g_"+ serverDetailModel.getGuideId();
                 String myName = EMClient.getInstance().getCurrentUser();
@@ -213,6 +212,7 @@ public class ServiceDetailActivity2 extends ServiceDetailActivity implements Ser
             public void onClick(View v) {
                 Intent intent = new Intent(context, GuideDetailActivity.class);
                 intent.putExtra("GUIDEID", serverDetailModel.getGuideId());
+                intent.putExtra("LOCATION", serverDetailModel.getAddress());
                 startActivity(intent);
             }
         });

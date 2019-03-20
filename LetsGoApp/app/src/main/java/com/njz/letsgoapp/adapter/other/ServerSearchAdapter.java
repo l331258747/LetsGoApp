@@ -52,6 +52,7 @@ public class ServerSearchAdapter extends RecyclerView.Adapter<ServerSearchAdapte
         holder.tv_title.setText(data.getTitle());
         holder.guideScoreView2.setGuideScore(data.getSellCount(),data.getScore(),data.getReviewCount());
         holder.priceView.setPrice(data.getServePrice());
+        holder.tv_serverType.setText(data.getServerName());
 
         holder.ll_parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +91,7 @@ public class ServerSearchAdapter extends RecyclerView.Adapter<ServerSearchAdapte
 
         LinearLayout ll_parent;
         ImageView iv_img;
-        TextView tv_location,tv_title;
+        TextView tv_location,tv_title,tv_serverType;
         GuideScoreView2 guideScoreView2;
         PriceView priceView;
 
@@ -100,6 +101,7 @@ public class ServerSearchAdapter extends RecyclerView.Adapter<ServerSearchAdapte
             iv_img = itemView.findViewById(R.id.iv_img);
             tv_location = itemView.findViewById(R.id.tv_location);
             tv_title = itemView.findViewById(R.id.tv_title);
+            tv_serverType = itemView.findViewById(R.id.tv_serverType);
             guideScoreView2 = itemView.findViewById(R.id.guideScoreView2);
             priceView = itemView.findViewById(R.id.priceView);
         }

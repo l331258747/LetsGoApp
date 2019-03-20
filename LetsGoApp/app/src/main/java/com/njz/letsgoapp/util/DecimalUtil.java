@@ -51,6 +51,18 @@ public class DecimalUtil {
     /**
      * 金钱除法
      */
+    public static float divide(float f1, float f2) {
+        String v1 = Float.toString(f1);
+        String v2 = Float.toString(f2);
+        BigDecimal b1 = new BigDecimal(v1);
+        BigDecimal b2 = new BigDecimal(v2);
+        float value = b1.divide(b2).floatValue();
+        return value;
+    }
+
+    /**
+     * 金钱除法
+     */
     public static String divide(String v1, String v2) {
         BigDecimal b1 = new BigDecimal(v1);
         BigDecimal b2 = new BigDecimal(v2);
@@ -97,5 +109,17 @@ public class DecimalUtil {
         BigDecimal b2 = new BigDecimal(v2);
 
         return b1.subtract(b2).toString();
+    }
+
+    /**
+     * 金钱减法
+     */
+    public static float subtract(float f1, float f2) {
+        String v1 = Float.toString(f1);
+        String v2 = Float.toString(f2);
+        BigDecimal b1 = new BigDecimal(v1);
+        BigDecimal b2 = new BigDecimal(v2);
+        float value = b1.subtract(b2).floatValue();
+        return value;
     }
 }

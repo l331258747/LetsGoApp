@@ -305,8 +305,12 @@ public class StringUtils {
         }
     }
 
-    public static void getStringComma(){
-
+    public static String getStringNum(float f){
+        if((f * 100) % 100 == 0){
+            return ((int) f) + "";
+        }else{
+            return f+"";
+        }
     }
 
 }

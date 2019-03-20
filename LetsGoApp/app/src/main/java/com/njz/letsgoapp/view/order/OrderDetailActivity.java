@@ -1,10 +1,12 @@
 package com.njz.letsgoapp.view.order;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,12 +27,10 @@ import com.njz.letsgoapp.mvp.order.OrderDeleteContract;
 import com.njz.letsgoapp.mvp.order.OrderDeletePresenter;
 import com.njz.letsgoapp.mvp.order.OrderDetailContract;
 import com.njz.letsgoapp.mvp.order.OrderDetailPresenter;
-import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.OrderCancelEvent;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.im.ChatActivity;
-import com.njz.letsgoapp.view.login.LoginActivity;
 import com.njz.letsgoapp.view.pay.PayActivity;
 import com.njz.letsgoapp.view.server.CustomPlanActivity;
 import com.njz.letsgoapp.widget.FixedItemEditView;
@@ -58,7 +58,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     public SpecialFixedItemEditView et_special;
 
     public RecyclerView recyclerView;
-    public TextView tv_order_price;
+    public TextView tv_order_price,tv_order_coupon,tv_order_total;
 
     public LinearLayout ll_order_no, ll_order_create_time, ll_order_pay_time, ll_order_pay_method, ll_order_guide_time,
             ll_order_refund_apply, ll_order_refund_verify, ll_order_refund_time,ll_order_travel_start,ll_order_travel_end,
@@ -79,6 +79,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     OrderDetailModel model;
 
     Disposable disposable;
+
+    FrameLayout cv_refund_reason;
+    LinearLayout ll_order_cancel_time;
+    TextView tv_refund_reason_title,tv_refund_explain_title,tv_refund_reason,tv_refund_explain,tv_order_cancel_time;
 
     @Override
     public void getIntentData() {
@@ -106,6 +110,16 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         recyclerView = $(R.id.recycler_view);
 
         tv_order_price = $(R.id.tv_order_price);
+        tv_order_coupon = $(R.id.tv_order_coupon);
+        tv_order_total = $(R.id.tv_order_total);
+
+        cv_refund_reason = $(R.id.cv_refund_reason);
+        tv_refund_reason_title = $(R.id.tv_refund_reason_title);
+        tv_refund_explain_title = $(R.id.tv_refund_explain_title);
+        tv_refund_reason = $(R.id.tv_refund_reason);
+        tv_refund_explain = $(R.id.tv_refund_explain);
+        ll_order_cancel_time = $(R.id.ll_order_cancel_time);
+        tv_order_cancel_time = $(R.id.tv_order_cancel_time);
 
         ll_order_no = $(R.id.ll_order_no);
         btn_consult = $(R.id.btn_consult);
@@ -183,6 +197,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         ll_order_travel_end.setVisibility(View.GONE);
         ll_order_plan_confirm.setVisibility(View.GONE);
         ll_order_plan_up.setVisibility(View.GONE);
+        ll_order_cancel_time.setVisibility(View.GONE);
 
         initRecycler();
     }
@@ -208,7 +223,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(disposable != null && disposable.isDisposed()){
+        if(disposable != null && !disposable.isDisposed()){
             disposable.dispose();
         }
     }
@@ -267,7 +282,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 context.startActivity(intent);
                 break;
             case R.id.btn_call_guide:
-                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context,model.getGuideMobile(),model.getId(),0,model.getGuideId());
                 break;
             case R.id.tv_guide_name:
                 intent = new Intent(context, GuideDetailActivity.class);
@@ -286,7 +301,14 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.btn_pay:
-                PayActivity.startActivity(context, getPayModel(model));
+                if(model.isCustom()){
+                    intent = new Intent(context,CustomSubmitActivity.class);
+                    intent.putExtra("order_id",model.getId());
+                    intent.putExtra("PAY_MODEL",getPayModel(model));
+                    startActivity(intent);
+                }else{
+                    PayActivity.startActivity(context, getPayModel(model));
+                }
                 break;
             case R.id.btn_refund:
                 intent = new Intent(context,OrderRefundActivity.class);
@@ -348,9 +370,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+
     public PayModel getPayModel(OrderDetailModel model){
         PayModel payModel = new PayModel();
-        payModel.setTotalAmount(model.getOrderPrice()+"");
+        payModel.setTotalAmount(model.getPayPrice()+"");
         payModel.setSubject(model.getLocation() + model.getGuideName()+"导游为您服务！");
         payModel.setOutTradeNo(model.getOrderNo());
         payModel.setLastPayTime(model.getLastPayTime());
@@ -457,10 +480,12 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     case Constant.ORDER_EVALUATE_NO:
                         btn_call_guide.setVisibility(View.VISIBLE);
                         btn_evaluate.setVisibility(View.VISIBLE);
+                        btn_evaluate_see.setVisibility(View.GONE);
                         break;
                     case Constant.ORDER_EVALUATE_YES:
                         btn_delete.setVisibility(View.VISIBLE);
                         btn_call_guide.setVisibility(View.VISIBLE);
+                        btn_evaluate.setVisibility(View.GONE);
                         btn_evaluate_see.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -469,11 +494,23 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                     btn_see_plan.setVisibility(View.VISIBLE);
                     btn_call_custom.setVisibility(View.GONE);
                 }
-
-            break;
+                break;
         }
 
         tv_order_price.setText(str.getOrderPriceStr());
+        tv_order_total.setText(str.getOrderPriceStr2());
+
+        if(str.getCouponPrice() > 0){
+            tv_order_coupon.setText("-￥"+str.getCouponPrice());
+            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
+            tv_order_coupon.getPaint().setFakeBoldText(true);
+            tv_order_coupon.postInvalidate();
+        }else{
+            tv_order_coupon.setText("未使用优惠卷");
+            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_99));
+            tv_order_coupon.getPaint().setFakeBoldText(false);
+            tv_order_coupon.postInvalidate();
+        }
 
         tv_guide_name.setText(str.getGuideName());
         tv_order_status.setText(str.getPayStatusStr());
@@ -481,7 +518,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         fixed_view_city.setContent(str.getLocation());
         login_view_name.setContent(str.getName());
         login_view_phone.setContent(str.getMobile());
-        login_view_num.setContent(str.getPersonNum() + "");
+        login_view_num.setContent(str.getPersonNum());
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         for (OrderDetailChildModel model: str.getNjzChildOrderVOS()){
@@ -500,6 +537,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void orderDeleteOrderSuccess(EmptyModel str) {
         showShortToast("删除成功");
+        RxBus2.getInstance().post(new OrderCancelEvent(1));
         finish();
     }
 

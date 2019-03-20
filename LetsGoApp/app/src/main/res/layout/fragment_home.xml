@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
         android:background="@color/white"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:id="@+id/tv_city_pick"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:drawablePadding="5dp"
             android:drawableRight="@mipmap/ic_city_down"
-            android:layout_centerVertical="true"
             android:gravity="center"
-            android:layout_marginRight="10dp"
             android:text="张家界" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toLeftOf="@+id/iv_release"
             android:background="@drawable/btn_ee_solid_r40"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/transparent"
                 android:drawableLeft="@mipmap/ic_search"
                 android:drawablePadding="10dp"
-                android:background="@color/transparent"
-                android:hint="搜索目的地/向导/玩法"
                 android:gravity="center_vertical"
-                android:textColor="@color/gray_999"
+                android:hint="搜索目的地/向导/玩法"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLength="15"
+                android:maxLines="1"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:inputType="text"
-                android:maxLines="1"
-                android:maxLength="15"
-                android:imeOptions="actionSearch" />
+                android:textColor="@color/gray_999" />
 
         </LinearLayout>
 
@@ -69,8 +68,8 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:overScrollMode="never"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
 
 
             <RelativeLayout
@@ -92,43 +91,44 @@
                     android:id="@+id/notice_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/convenientBanner"
                     android:background="#ffe6d5"
                     android:gravity="center_vertical"
-                    android:layout_below="@+id/convenientBanner"
                     android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:paddingRight="15dp">
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@mipmap/ic_text_banner_title"/>
+                        android:src="@mipmap/ic_text_banner_title" />
 
-                    <View android:layout_width="0.5dp"
+                    <View
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@color/white"/>
+                        android:layout_marginTop="5dp"
+                        android:background="@color/white" />
 
                     <ViewFlipper
                         android:id="@+id/view_flipper"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:inAnimation="@anim/bottom_in"
-                        android:outAnimation="@anim/top_out"/>
+                        android:outAnimation="@anim/top_out" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:visibility="gone"
-                        android:src="@mipmap/ic_text_banner_more"/>
+                        android:src="@mipmap/ic_text_banner_more"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <!-- grid -->
@@ -136,11 +136,11 @@
                     android:id="@+id/ll_grid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
-                    android:background="@color/white"
-                    android:paddingBottom="15dp"
                     android:layout_below="@+id/notice_ll"
-                    android:orientation="vertical">
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -150,32 +150,32 @@
                         <TextView
                             android:id="@+id/tv_grid_guide"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:drawablePadding="10dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
                             android:drawableTop="@mipmap/grid_guide"
-                            android:text="向导陪游"/>
-
-                        <TextView
-                            android:id="@+id/tv_grid_car"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:gravity="center"
-                            android:drawablePadding="10dp"
-                            android:layout_height="wrap_content"
-                            android:drawableTop="@mipmap/grid_car"
-                            android:text="包车接送"/>
+                            android:text="向导陪游" />
 
                         <TextView
                             android:id="@+id/tv_grid_feature"
                             android:layout_width="0dp"
-                            android:gravity="center"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
-                            android:layout_height="wrap_content"
                             android:drawableTop="@mipmap/grid_feature"
-                            android:text="特色体验"/>
+                            android:gravity="center"
+                            android:text="特色体验" />
+
+                        <TextView
+                            android:id="@+id/tv_grid_custom"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:drawableTop="@mipmap/grid_custom"
+                            android:gravity="center"
+                            android:text="私人定制" />
 
                     </LinearLayout>
 
@@ -186,34 +186,34 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_grid_custom"
+                            android:id="@+id/tv_grid_car"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:drawablePadding="10dp"
                             android:layout_height="wrap_content"
-                            android:drawableTop="@mipmap/grid_custom"
-                            android:text="私人定制"/>
-
-                        <TextView
-                            android:id="@+id/tv_grid_hotel"
-                            android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:gravity="center"
                             android:drawablePadding="10dp"
-                            android:layout_height="wrap_content"
-                            android:drawableTop="@mipmap/grid_hotel"
-                            android:text="代订酒店"/>
+                            android:drawableTop="@mipmap/grid_car"
+                            android:gravity="center"
+                            android:text="包车接送" />
 
                         <TextView
                             android:id="@+id/tv_grid_ticket"
                             android:layout_width="0dp"
-                            android:gravity="center"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
-                            android:layout_height="wrap_content"
                             android:drawableTop="@mipmap/grid_ticket"
-                            android:text="代订门票"/>
+                            android:gravity="center"
+                            android:text="代订门票" />
+
+                        <TextView
+                            android:id="@+id/tv_grid_hotel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:drawableTop="@mipmap/grid_hotel"
+                            android:gravity="center"
+                            android:text="代订酒店" />
 
                     </LinearLayout>
 
@@ -226,9 +226,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_grid"
                     android:layout_marginTop="10dp"
-                    android:paddingTop="15dp"
                     android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="15dp">
 
                     <RelativeLayout
                         android:id="@+id/rl_guide_title"
@@ -238,31 +238,31 @@
                         <View
                             android:layout_width="3dp"
                             android:layout_height="18sp"
-                            android:layout_marginLeft="7dp"
                             android:layout_centerVertical="true"
-                            android:background="@color/color_theme"/>
+                            android:layout_marginLeft="7dp"
+                            android:background="@color/color_theme" />
 
                         <TextView
                             android:id="@+id/tv_guide_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="15dp"
-                            android:textStyle="bold"
+                            android:text="优选向导"
                             android:textSize="18sp"
-                            android:text="优选向导"/>
+                            android:textStyle="bold" />
 
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="15dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:drawableRight="@mipmap/ic_arrow_right"
                             android:drawablePadding="8dp"
+                            android:drawableRight="@mipmap/ic_arrow_right"
+                            android:paddingLeft="15dp"
                             android:paddingRight="15dp"
-                            android:textSize="12sp"
-                            android:text="查看全部"/>
+                            android:text="查看全部"
+                            android:textSize="12sp" />
 
                     </RelativeLayout>
 
@@ -272,24 +272,22 @@
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recycler_view_h"
-                            android:layout_below="@+id/ll_trip"
                             android:layout_width="match_parent"
-                            android:overScrollMode="never"
-                            android:paddingTop="10dp"
-                            android:paddingLeft="15dp"
-                            android:paddingBottom="10dp"
                             android:layout_height="wrap_content"
-                            android:background="@color/white"/>
+                            android:layout_below="@+id/ll_trip"
+                            android:background="@color/white"
+                            android:overScrollMode="never"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="10dp" />
 
                         <com.njz.letsgoapp.widget.emptyView.EmptyView2
                             android:id="@+id/view_empty_guide"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </FrameLayout>
-
-
 
 
                 </LinearLayout>
@@ -299,9 +297,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_view_h"
                     android:layout_marginTop="10dp"
-                    android:paddingTop="10dp"
                     android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="10dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -310,18 +308,18 @@
                         <View
                             android:layout_width="3dp"
                             android:layout_height="18sp"
-                            android:layout_marginLeft="7dp"
                             android:layout_centerVertical="true"
-                            android:background="@color/color_theme"/>
+                            android:layout_marginLeft="7dp"
+                            android:background="@color/color_theme" />
 
                         <TextView
                             android:id="@+id/tv_dynamic_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="15dp"
+                            android:text="当地必玩"
                             android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:text="当地必玩"/>
+                            android:textStyle="bold" />
 
 
                     </RelativeLayout>
@@ -331,17 +329,15 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp">
 
-                        <include layout="@layout/base_recycler_view_layout"/>
+                        <include layout="@layout/base_recycler_view_layout" />
 
                         <com.njz.letsgoapp.widget.emptyView.EmptyView2
                             android:id="@+id/view_empty"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </FrameLayout>
-
-
 
                 </LinearLayout>
 
@@ -349,65 +345,6 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-
-        <!--&lt;!&ndash; 第一部分:CoordinatorLayout &ndash;&gt;-->
-        <!--<android.support.design.widget.CoordinatorLayout-->
-        <!--android:id="@+id/scrollview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="#ffffff">-->
-
-        <!--&lt;!&ndash;app:layout_behavior="com.njz.letsgoapp.util.appbar.FlingBehavior"&ndash;&gt;-->
-        <!--&lt;!&ndash; 第二部分:缩放控件&ndash;&gt;-->
-        <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:id="@+id/id_appbarlayout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--app:layout_behavior="com.njz.letsgoapp.util.appbar.FlingBehavior"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<android.support.design.widget.CollapsingToolbarLayout-->
-        <!--android:id="@+id/collapsing_tool_bar_test_ctl"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:fitsSystemWindows="true"-->
-        <!--app:layout_scrollFlags="scroll">-->
-
-        <!--<LinearLayout-->
-        <!--android:id="@+id/userScroreRe"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/convenientBanner"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:background="@color/white"-->
-        <!--app:canLoop="true" />-->
-
-        <!--<include layout="@layout/home_item_trip_setting" />-->
-
-        <!--</LinearLayout>-->
-
-
-        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
-
-
-        <!--<include layout="@layout/home_item_guide_title" />-->
-
-
-        <!--</android.support.design.widget.AppBarLayout>-->
-
-
-        <!--<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/recycler_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--android:overScrollMode="never"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
-
-        <!--</android.support.design.widget.CoordinatorLayout>-->
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

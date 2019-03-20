@@ -108,7 +108,6 @@
             android:windowSoftInputMode="adjustPan"/>
 
         <activity android:name=".map.MapActivity" />
-        <activity android:name=".editor.EditorActivity" />
         <activity
             android:name=".view.home.GuideDetailActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -129,8 +128,6 @@
         <!--other-->
         <activity android:name=".view.other.ReportActivity" />
         <activity android:name=".view.other.MyCityPickActivity" />
-        <activity android:name=".view.other.SearchActivity"
-            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.other.GuideSearchActivity"
             android:windowSoftInputMode="adjustPan|stateVisible"/>
         <activity android:name=".view.other.ServerSearchActivity"
@@ -142,6 +139,7 @@
         <!--发现-->
         <activity android:name=".view.find.ReleaseDynamicActivity"/>
         <activity android:name=".view.find.DynamicDetailActivity"/>
+        <activity android:name=".view.find.SpaceDynamicDetailActivity" />
 
         <!--服务-->
         <activity android:name=".view.server.CustomActivity"/>
@@ -171,6 +169,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.order.RefundRuleActivity" />
+        <activity
+            android:name=".view.order.CustomSubmitActivity" />
 
 
         <!-- 消息 -->
@@ -189,8 +189,13 @@
         <activity android:name=".view.mine.LabelActivity" />
         <activity android:name=".view.mine.MyCommentActivity" />
         <activity android:name=".view.mine.SpaceActivity" />
-        <activity android:name=".view.find.SpaceDynamicDetailActivity" />
+        <activity android:name=".view.mine.ContactUsActivity" />
+        <activity android:name=".view.mine.ContactUsContentActivity" />
 
+        <!--优惠卷-->
+        <activity android:name=".view.coupon.CouponActivity" />
+        <activity android:name=".view.coupon.OrderCouponActivity" />
+        <activity android:name=".view.coupon.CouponReceiveActivity"/>
 
         <!--IM-->
         <activity android:name=".view.im.ChatActivity" />

@@ -25,7 +25,7 @@ public class OrderFragment extends BaseFragment {
     private ViewPager mViewPager;
 
     private List<Fragment> mFragments;
-    private String[] titles = {"待付款", "已付款", "已完成", "退款单"};
+    private String[] titles = {"待付款", "已付款", "已完成", "已取消"};
     private int[] payStatus = {0,1,2,3};
 
     private OrderListFragment orderListFragment0;

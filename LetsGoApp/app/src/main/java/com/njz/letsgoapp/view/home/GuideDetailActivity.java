@@ -90,10 +90,16 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     public  Disposable serverPriceTotalDisposable;
 
+    public String location;
+
     @Override
     public void getIntentData() {
         super.getIntentData();
         guideId = intent.getIntExtra(GUIDEID, -1);
+        location = intent.getStringExtra("LOCATION");
+        if(TextUtils.isEmpty(location)){
+            location = MySelfInfo.getInstance().getDefaultCity();
+        }
     }
 
     @Override
@@ -157,7 +163,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
     public void initData() {
 
         mPresenter = new GuideDetailPresenter(context, this);
-        mPresenter.guideFindGuideDetails(MySelfInfo.getInstance().getDefaultCity(), guideId);
+        mPresenter.guideFindGuideDetails(location, guideId);
 //        mPresenter.bannerFindByType(Constant.BANNER_GUIDE, guideId);
 
         serverItems = new ArrayList<>();
@@ -208,7 +214,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
 
     public  void initViewPage(GuideDetailModel model){
         mFragments = new ArrayList<>();
-        mFragments.add(ServerListFragment.newInstance(model,serverItems));
+        mFragments.add(ServerListFragment.newInstance(model,serverItems,location));
         mFragments.add(ServerEvaluateFragment.newInstance(guideId,0,model.getGuideScore(),model.getCount()));
         mFragments.add(ServerStoryFragment.newInstance(model.getGuideStory()));
         mFragments.add(ServerBookRuleFragment.newInstance());
@@ -249,7 +255,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_call:
                 if(guideDetailModel == null) return;
-                DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile());
+                DialogUtil.getInstance().showGuideMobileDialog(context,guideDetailModel.getMobile(),0,0,guideDetailModel.getId());
                 break;
             case R.id.btn_submit:
                 if (!MySelfInfo.getInstance().isLogin()) {//登录状态
@@ -265,7 +271,7 @@ public class GuideDetailActivity extends BaseActivity implements View.OnClickLis
                 intent = new Intent(context,OrderSubmitActivity.class);
                 intent.putParcelableArrayListExtra("SERVICEMODEL", (ArrayList<ServerItem>) serverItems);
                 intent.putExtra("GUIDE_ID",guideDetailModel.getId());
-                intent.putExtra("LOCATION",MySelfInfo.getInstance().getDefaultCity());
+                intent.putExtra("LOCATION",location);
                 startActivity(intent);
 
                 break;

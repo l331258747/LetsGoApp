@@ -72,14 +72,13 @@
 
             </RelativeLayout>
 
-            <TextView
+            <ImageView
                 android:id="@+id/tv_pop_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
-                android:text="X"
-                android:textColor="@color/color_99" />
+                android:src="@mipmap/ic_pop_close"/>
 
         </RelativeLayout>
 
