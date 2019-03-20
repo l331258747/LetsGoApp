@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.order.ServiceRefundRuleModel;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.mvp.order.ServiceRefundRuleContract;
 import com.njz.letsgoapp.mvp.order.ServiceRefundRulePresenter;
 
@@ -21,18 +22,21 @@ import java.util.List;
 
 public class RefundRuleActivity extends BaseActivity implements ServiceRefundRuleContract.View{
 
-    TextView tv_refund_rule_50,tv_refund_rule_30;
+    TextView tv_refund_rule_50,tv_refund_rule_30,tv_refund_100;
 
     ServiceRefundRulePresenter mPresenter;
 
     int serviceId;
     int orderId;
+    int serverType;
 
     @Override
     public void getIntentData() {
         super.getIntentData();
         serviceId = intent.getIntExtra("serviceId",0);
         orderId = intent.getIntExtra("orderId",0);
+        serverType = intent.getIntExtra("serverType",0);
+
     }
 
     @Override
@@ -45,6 +49,7 @@ public class RefundRuleActivity extends BaseActivity implements ServiceRefundRul
         showLeftAndTitle("退订规则");
         tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
         tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
+        tv_refund_100 = $(R.id.tv_refund_100);
     }
 
     @Override
@@ -66,6 +71,10 @@ public class RefundRuleActivity extends BaseActivity implements ServiceRefundRul
             List<String> lists = getValue(str.getRenegePriceFive(),"0.5");
             tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),
                     lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+        }
+
+        if(serverType == Constant.SERVER_TYPE_CUSTOM_ID){
+            tv_refund_100.setText("私人定制订单不支持行程中退款；");
         }
     }
 

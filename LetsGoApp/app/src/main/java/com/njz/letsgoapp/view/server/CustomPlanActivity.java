@@ -96,7 +96,7 @@ public class CustomPlanActivity extends BaseActivity implements CustomPlanContra
 
     public void initViewPage(CustomPlanModel model) {
         mFragments = new ArrayList<>();
-        mFragments.add(CustomTripFragment.newInstance(model.getTravelDesign(),model.getRenegePriceThree(),model.getRenegePriceFive()));
+        mFragments.add(CustomTripFragment.newInstance(model.getTravelDesign(),model.getRenegePriceThree(),model.getRenegePriceFive(),model.getServeType()));
         mFragments.add(CustomOffersFragment.newInstance(model.getOfferDetail()));
 
         BaseFragmentAdapter adapter = new BaseFragmentAdapter(getSupportFragmentManager(), mFragments, titles);

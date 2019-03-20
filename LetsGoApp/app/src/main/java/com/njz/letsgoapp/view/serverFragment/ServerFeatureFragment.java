@@ -30,7 +30,7 @@ public class ServerFeatureFragment extends BaseFragment {
 
     LWebView webView;
     NestedScrollView scrollView;
-    TextView price_introduce_content, tv_refund_rule_30, tv_refund_rule_50;
+    TextView price_introduce_content, tv_refund_rule_30, tv_refund_rule_50,tv_refund_100;
     EmptyView3 view_empty;
     LinearLayout ll_refund_rule;
 
@@ -66,6 +66,7 @@ public class ServerFeatureFragment extends BaseFragment {
         price_introduce_content = $(R.id.price_introduce_content);
         tv_refund_rule_30 = $(R.id.tv_refund_rule_30);
         tv_refund_rule_50 = $(R.id.tv_refund_rule_50);
+        tv_refund_100 = $(R.id.tv_refund_100);
         ll_refund_rule = $(R.id.ll_refund_rule);
     }
 
@@ -84,6 +85,10 @@ public class ServerFeatureFragment extends BaseFragment {
                 List<String> lists = getValue(model.getRenegePriceFive(),"0.5");
                 tv_refund_rule_50.setText(String.format(getResources().getString(R.string.refund_rule_50),
                         lists.get(0) + "-" + lists.get(1), getProportion(lists.get(2))));
+            }
+
+            if(model.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                tv_refund_100.setText("私人定制订单不支持行程中退款；");
             }
         }
 
