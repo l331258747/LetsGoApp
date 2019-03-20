@@ -100,6 +100,8 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
         tv_submit.setOnClickListener(this);
         rl_coupon.setOnClickListener(this);
 
+        StringUtils.setHtml(tv_contract, getResources().getString(R.string.guide_service_contract));
+
     }
 
     @Override
@@ -211,8 +213,6 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
 
         getTotalPrice(str.getNjzChildOrderVOS().get(0));
 
-        StringUtils.setHtml(tv_contract, getResources().getString(R.string.guide_service_contract));
-
         couponPresenter.userCouponChooseCoupon(totalPrice);
     }
 
@@ -228,6 +228,7 @@ public class CustomSubmitActivity extends BaseActivity implements View.OnClickLi
         item.setServiceTypeName(model.getServerName());
         item.setServerType(model.getServeType());
         item.setLocation(model.getLocation());
+        item.setBugGet(model.getBugGet());
         items.add(item);
         return items;
     }

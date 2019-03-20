@@ -63,6 +63,12 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             }
             holder.tv_count_content.setText(data.getCountContent());
 
+            holder.ll_bug_get.setVisibility(View.GONE);
+            if(data.getServerType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                holder.ll_bug_get.setVisibility(View.VISIBLE);
+                holder.tv_bug_get.setText("￥"+data.getBugGet());
+            }
+
             holder.tv_time_title.setText(data.getTimeTitle());
             holder.tv_time_content.setText(data.getSelectTimeValueList());
 
@@ -84,8 +90,8 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
 
         ImageView iv_img;
         TextView tv_title, tv_serverName,  tv_price_total,tv_location_content;
-        LinearLayout ll_count;
-        TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content;
+        LinearLayout ll_count,ll_bug_get;
+        TextView tv_count_title, tv_count_content, tv_time_title, tv_time_content,tv_bug_get;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -100,6 +106,9 @@ public class OrderSubmitAdapter extends RecyclerView.Adapter<OrderSubmitAdapter.
             ll_count = itemView.findViewById(R.id.ll_count);
             tv_count_content = itemView.findViewById(R.id.tv_count_content);
             tv_count_title = itemView.findViewById(R.id.tv_count_title);
+
+            ll_bug_get = itemView.findViewById(R.id.ll_bug_get);
+            tv_bug_get = itemView.findViewById(R.id.tv_bug_get);
 
             tv_location_content = itemView.findViewById(R.id.tv_location_content);
 

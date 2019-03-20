@@ -2,9 +2,6 @@ package com.njz.letsgoapp.bean.server;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.View;
-
-import com.njz.letsgoapp.adapter.server.OrderSubmitAdapter;
 import com.njz.letsgoapp.constant.Constant;
 
 import java.util.ArrayList;
@@ -29,9 +26,7 @@ public class ServerItem implements Parcelable {
     String serviceTypeName;//服务名称
     int serverType;
     String location;
-
-    public ServerItem() {
-    }
+    float bugGet;
 
     protected ServerItem(Parcel in) {
         serveNum = in.readInt();
@@ -44,6 +39,7 @@ public class ServerItem implements Parcelable {
         serviceTypeName = in.readString();
         serverType = in.readInt();
         location = in.readString();
+        bugGet = in.readFloat();
     }
 
     public static final Creator<ServerItem> CREATOR = new Creator<ServerItem>() {
@@ -57,6 +53,18 @@ public class ServerItem implements Parcelable {
             return new ServerItem[size];
         }
     };
+
+    public float getBugGet() {
+        return bugGet;
+    }
+
+    public void setBugGet(float bugGet) {
+        this.bugGet = bugGet;
+    }
+
+    public ServerItem() {
+    }
+
 
     public int getServeNum() {
         return serveNum;
@@ -204,5 +212,6 @@ public class ServerItem implements Parcelable {
         dest.writeString(serviceTypeName);
         dest.writeInt(serverType);
         dest.writeString(location);
+        dest.writeFloat(bugGet);
     }
 }
