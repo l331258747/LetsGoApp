@@ -46,7 +46,7 @@ public class OrderRefundBeanGroup {
 
     public boolean isCustomNoPrice(){
         if(planStatus == Constant.ORDER_PLAN_GUIDE_WAIT
-                || payStatus == Constant.ORDER_PLAN_PLANING){
+                || planStatus == Constant.ORDER_PLAN_PLANING){
             return true;
         }
         return false;
