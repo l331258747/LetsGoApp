@@ -145,11 +145,11 @@ public class OrderRefundDetailChildModel {
     }
 
     public String getDefaultMoney() {
-        return "-￥"+defaultMoney;
+        return "-￥" + defaultMoney;
     }
 
-    public String getCouponPrice(){
-        return "-￥" + DecimalUtil.subtract(orderPrice,payPrice);
+    public float getCouponPrice(){
+        return DecimalUtil.subtract(orderPrice,payPrice);
     }
 
     public void setDefaultMoney(float defaultMoney) {

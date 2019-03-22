@@ -216,7 +216,7 @@ public class OrderRefundActivity extends BaseActivity implements View.OnClickLis
         mAdapter.setOrderId(str.getOrderId());
 
         tv_minus_price.setText("-￥" + str.getDefaultMoney());
-        tv_coupon_price.setText("-￥" + str.getTypeMoney());
+        tv_coupon_price.setText("-￥" + str.getCouponPrice());
         tv_last_price.setText("￥" + str.getRefundMoney());
     }
 

@@ -3,6 +3,7 @@ package com.njz.letsgoapp.bean.order;
 import android.text.TextUtils;
 
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DecimalUtil;
 
 import java.util.List;
 
@@ -76,8 +77,12 @@ public class OrderDetailModel {
 
     private float typeMoney;
 
-    public float getCouponPrice() {
-        return typeMoney;
+    public float getCouponPrice(){
+        float couponPrice = 0;
+        for (int i =0;i<njzChildOrderVOS.size();i++){
+            couponPrice = DecimalUtil.add(couponPrice,njzChildOrderVOS.get(i).getCouponPrice());
+        }
+        return couponPrice;
     }
 
     public String getCancelTime() {

@@ -67,7 +67,7 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
                 ((ViewHolder) holder).ll_coupon_price.setVisibility(View.GONE);
             }else{
                 ((ViewHolder) holder).ll_coupon_price.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).tv_coupon_content.setText(data.getCouponPrice());
+                ((ViewHolder) holder).tv_coupon_content.setText("-￥" + data.getCouponPrice());
             }
 
             if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){

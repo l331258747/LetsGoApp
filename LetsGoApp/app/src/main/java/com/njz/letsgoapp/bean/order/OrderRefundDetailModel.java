@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.bean.order;
 
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DecimalUtil;
 
 import java.util.List;
 
@@ -92,8 +93,12 @@ public class OrderRefundDetailModel {
         return createTime;
     }
 
-    public float getCouponPrice() {
-        return typeMoney;
+    public float getCouponPrice(){
+        float couponPrice = 0;
+        for (int i =0;i<njzRefundDetailsChildVOS.size();i++){
+            couponPrice = DecimalUtil.add(couponPrice,njzRefundDetailsChildVOS.get(i).getCouponPrice());
+        }
+        return couponPrice;
     }
 
     public int getGuideId() {
