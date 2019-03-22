@@ -63,6 +63,17 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             ((ViewHolder) holder).tv_server_name.setText(data.getServerName());
             ((ViewHolder) holder).tv_price_total.setText(data.getOrderPrice());
 
+            if(data.getRefundStatus() == Constant.ORDER_REFUND_CANCEL ||  data.getRefundStatus() == Constant.ORDER_REFUND_PLAN_REFUSE){
+                ((ViewHolder) holder).ll_coupon_price.setVisibility(View.GONE);
+            }else{
+                ((ViewHolder) holder).ll_coupon_price.setVisibility(View.VISIBLE);
+                ((ViewHolder) holder).tv_coupon_content.setText("-￥" + data.getCouponPrice());
+            }
+
+            if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
+                ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
+            }
+
             ((ViewHolder) holder).ll_count.setVisibility(View.VISIBLE);
             if(data.getServeType() == Constant.SERVER_TYPE_GUIDE_ID || data.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID){
                 ((ViewHolder) holder).ll_count.setVisibility(View.GONE);
@@ -122,9 +133,9 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
 
         ImageView iv_img;
         TextView tv_title, tv_server_name, tv_price_total;
-        LinearLayout ll_count,ll_travel_going,ll_refund_price;
+        LinearLayout ll_count,ll_travel_going,ll_refund_price,ll_coupon_price;
         TextView  tv_count_content, tv_time_title, tv_time_content,btn_cancel
-                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_location_content;
+                ,tv_travel_day_content,tv_used_price_content,tv_not_travel_day_content,tv_location_content,tv_coupon_content;
         FrameLayout fl_parent;
 
         TextView tv_penalty_title,tv_penalty_content,tv_refund_price_title,tv_refund_price_content;
@@ -151,6 +162,9 @@ public class OrderRefundDetailAdapter extends RecyclerView.Adapter<OrderRefundDe
             tv_used_price_content = itemView.findViewById(R.id.tv_used_price_content);
             tv_not_travel_day_content = itemView.findViewById(R.id.tv_not_travel_day_content);
             tv_location_content = itemView.findViewById(R.id.tv_location_content);
+
+            tv_coupon_content = itemView.findViewById(R.id.tv_coupon_content);
+            ll_coupon_price = itemView.findViewById(R.id.ll_coupon_price);
 
 
         }

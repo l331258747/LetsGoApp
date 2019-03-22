@@ -3,6 +3,7 @@ package com.njz.letsgoapp.bean.order;
 import android.text.TextUtils;
 
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DecimalUtil;
 
 import java.util.List;
 
@@ -76,8 +77,15 @@ public class OrderDetailModel {
 
     private float typeMoney;
 
-    public float getCouponPrice() {
-        return typeMoney;
+    public float getCouponPrice(){
+        float couponPrice = 0;
+        if(njzChildOrderVOS == null)
+            return couponPrice;
+
+        for (int i =0;i<njzChildOrderVOS.size();i++){
+            couponPrice = DecimalUtil.add(couponPrice,njzChildOrderVOS.get(i).getCouponPrice());
+        }
+        return couponPrice;
     }
 
     public String getCancelTime() {
@@ -264,9 +272,9 @@ public class OrderDetailModel {
     }
 
     public float getPayPrice() {
-        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
-            return orderPrice;
-        }
+//        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+//            return orderPrice;
+//        }
         return payPrice;
     }
 
@@ -299,9 +307,11 @@ public class OrderDetailModel {
                 && payingStatus == Constant.ORDER_WAIT_PAY
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
-        } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
-            return ("￥" + orderPrice);
-        }else {
+        }
+//        else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+//            return ("￥" + orderPrice);
+//        }
+        else {
             return ("￥" + payPrice);
         }
     }
@@ -311,9 +321,11 @@ public class OrderDetailModel {
                 && payingStatus == Constant.ORDER_WAIT_PAY
                 && (planStatus == Constant.ORDER_PLAN_GUIDE_WAIT || planStatus == Constant.ORDER_PLAN_PLANING)) {
             return ("报价待确定");
-        } else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
-            return ("￥" + orderPrice);
-        }else {
+        }
+//        else if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+//            return ("￥" + orderPrice);
+//        }
+        else {
             return ("￥" + orderPrice);
         }
     }

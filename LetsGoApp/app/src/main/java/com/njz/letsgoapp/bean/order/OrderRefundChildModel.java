@@ -1,6 +1,7 @@
 package com.njz.letsgoapp.bean.order;
 
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.DecimalUtil;
 
 /**
  * Created by LGQ
@@ -76,6 +77,10 @@ public class OrderRefundChildModel {
 
     public float getOrderPrice() {
         return orderPrice;
+    }
+
+    public float getCouponPrice(){
+        return DecimalUtil.subtract(orderPrice,payPrice);
     }
 
     public void setOrderPrice(float orderPrice) {

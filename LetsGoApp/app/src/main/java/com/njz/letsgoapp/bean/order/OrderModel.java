@@ -149,9 +149,9 @@ public class OrderModel {
     }
 
     public float getPayPrice() {
-        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
-            return orderPrice;
-        }
+//        if(payStatus == Constant.ORDER_PAY_WAIT && isCustom()){
+//            return orderPrice;
+//        }
         return payPrice;
     }
 

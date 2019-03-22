@@ -185,6 +185,37 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="优惠金额"
+                android:textColor="@color/color_99" />
+
+            <TextView
+                android:id="@+id/tv_coupon_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:text="￥266"
+                android:textColor="@color/color_ff4000" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/tv_coupon_price"
+                android:layout_marginTop="10dp"
+                android:background="@color/color_d9" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/rl_not_travel_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -42,7 +42,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
 
     OrderRefundDetailModel refundModel;
 
-    RelativeLayout rl_refund_penalty,rl_refund_price,rl_order_price,rl_refund_used_price;
+    RelativeLayout rl_refund_penalty,rl_refund_price,rl_order_price,rl_refund_used_price,rl_order_coupon;
     TextView tv_refund_penalty,tv_refund_price,tv_refund_used_price;
     FrameLayout cv_refund_reason;
     TextView tv_refund_reason,tv_refund_explain;
@@ -68,6 +68,7 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         cv_refund_reason = $(R.id.cv_refund_reason);
         tv_refund_reason = $(R.id.tv_refund_reason);
         tv_refund_explain = $(R.id.tv_refund_explain);
+        rl_order_coupon = $(R.id.rl_order_coupon);
 
         cv_refund_reason.setVisibility(View.VISIBLE);
 
@@ -181,18 +182,6 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
         et_special.setContent(TextUtils.isEmpty(str.getSpecialRequire())?"无":str.getSpecialRequire());
 
         tv_order_total.setText(str.getOrderPrice());
-        //优惠卷
-        if(str.getCouponPrice() > 0){
-            tv_order_coupon.setText("-￥"+str.getCouponPrice());
-            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
-            tv_order_coupon.getPaint().setFakeBoldText(true);
-            tv_order_coupon.postInvalidate();
-        }else{
-            tv_order_coupon.setText("未使用优惠卷");
-            tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_99));
-            tv_order_coupon.getPaint().setFakeBoldText(false);
-            tv_order_coupon.postInvalidate();
-        }
 
         if(str.getRefundStatus() == Constant.ORDER_REFUND_CANCEL || str.getRefundStatus() == Constant.ORDER_REFUND_PLAN_REFUSE){
             rl_order_price.setVisibility(View.VISIBLE);
@@ -201,6 +190,8 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
             rl_refund_penalty.setVisibility(View.GONE);
 
             tv_order_price.setText(str.getOrderPrice());
+
+            rl_order_coupon.setVisibility(View.GONE);
         }else{
             rl_order_price.setVisibility(View.GONE);
             rl_refund_price.setVisibility(View.VISIBLE);
@@ -208,6 +199,20 @@ public class OrderRefundDetailActivity extends OrderDetailActivity implements Or
 
             tv_refund_penalty.setText("-￥" + str.getDefaultMoney());
             tv_refund_price.setText("￥" + str.getRefundMoney());
+
+            //优惠卷
+            rl_order_coupon.setVisibility(View.VISIBLE);
+            if(str.getCouponPrice() > 0){
+                tv_order_coupon.setText("-￥"+str.getCouponPrice());
+                tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_theme));
+                tv_order_coupon.getPaint().setFakeBoldText(true);
+                tv_order_coupon.postInvalidate();
+            }else{
+                tv_order_coupon.setText("未使用优惠卷");
+                tv_order_coupon.setTextColor(ContextCompat.getColor(context,R.color.color_99));
+                tv_order_coupon.getPaint().setFakeBoldText(false);
+                tv_order_coupon.postInvalidate();
+            }
         }
 
         //设置子单状态 判断是否在行程中。

@@ -127,7 +127,7 @@ public class CouponReceiveActivity extends BaseActivity implements ActivityRecei
         this.model = model;
         mAdapter.setData(model.getCouponList());
         GlideUtil.LoadImage(context, model.getImage(), iv_img);
-        StringUtils.setHtml(tv_rule,model.getRule());
+        tv_rule.setText(model.getRule());
 
         if (model.getIsShare() == 0) {
             getRightIv().setVisibility(View.GONE);
