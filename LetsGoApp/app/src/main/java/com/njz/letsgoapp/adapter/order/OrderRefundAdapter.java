@@ -63,6 +63,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
         holder.tv_title.setText(data.getTitle());
         holder.tv_one_price.setText(data.getServerName());
         holder.tv_total_price.setText("￥" + data.getOrderPrice());
+        holder.tv_coupon_price.setText("-￥" + data.getCouponPrice());
 
         holder.tv_not_travel_price.setText("-￥" + data.getDefaultMoney());
 
@@ -103,7 +104,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
 
         ImageView iv_img;
         TextView tv_title,tv_one_price,tv_total_price,tv_travel_day,tv_travel_price;
-        TextView tv_not_travel_day,tv_not_travel_price,tv_refund_rule,tv_refund_price;
+        TextView tv_not_travel_day,tv_not_travel_price,tv_refund_rule,tv_refund_price,tv_coupon_price;
         RelativeLayout rl_travel_day,rl_travel_price,rl_not_travel_day,rl_not_travel_price,rl_refund_price;
 
         public ViewHolder(View itemView) {
@@ -119,6 +120,7 @@ public class OrderRefundAdapter extends RecyclerView.Adapter<OrderRefundAdapter.
             tv_not_travel_price = itemView.findViewById(R.id.tv_not_travel_price);//违约金
             tv_refund_rule = itemView.findViewById(R.id.tv_refund_rule);//规则
             tv_refund_price = itemView.findViewById(R.id.tv_refund_price);//退款金额
+            tv_coupon_price = itemView.findViewById(R.id.tv_coupon_price);//优惠金额
 
             rl_travel_day = itemView.findViewById(R.id.rl_travel_day);
             rl_travel_price = itemView.findViewById(R.id.rl_travel_price);
