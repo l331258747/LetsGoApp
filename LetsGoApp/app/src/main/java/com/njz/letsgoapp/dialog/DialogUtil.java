@@ -173,7 +173,7 @@ public class DialogUtil {
                     LogUtil.e(errorMsg);
                 }
             };
-            MethodApi.wiretapping(orderId, serveId,guideId,new OnSuccessAndFaultSub(listener, null, false));
+            MethodApi.wiretapping(orderId, serveId,guideId,new OnSuccessAndFaultSub(listener, context, false));
         }
     }
 
