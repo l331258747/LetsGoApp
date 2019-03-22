@@ -70,6 +70,9 @@ public class OrderRefundModel {
 
     public float getCouponPrice(){
         float couponPrice = 0;
+        if(njzChildOrderToRefundVOS == null)
+            return 0;
+
         for (int i =0;i<njzChildOrderToRefundVOS.size();i++){
             couponPrice = DecimalUtil.add(couponPrice,njzChildOrderToRefundVOS.get(i).getCouponPrice());
         }

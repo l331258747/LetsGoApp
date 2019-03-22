@@ -79,6 +79,9 @@ public class OrderDetailModel {
 
     public float getCouponPrice(){
         float couponPrice = 0;
+        if(njzChildOrderVOS == null)
+            return couponPrice;
+
         for (int i =0;i<njzChildOrderVOS.size();i++){
             couponPrice = DecimalUtil.add(couponPrice,njzChildOrderVOS.get(i).getCouponPrice());
         }

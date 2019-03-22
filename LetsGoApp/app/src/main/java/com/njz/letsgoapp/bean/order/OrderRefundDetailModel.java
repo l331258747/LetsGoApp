@@ -95,6 +95,9 @@ public class OrderRefundDetailModel {
 
     public float getCouponPrice(){
         float couponPrice = 0;
+        if(njzRefundDetailsChildVOS == null)
+            return couponPrice;
+
         for (int i =0;i<njzRefundDetailsChildVOS.size();i++){
             couponPrice = DecimalUtil.add(couponPrice,njzRefundDetailsChildVOS.get(i).getCouponPrice());
         }
