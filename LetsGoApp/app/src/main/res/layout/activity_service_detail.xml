@@ -35,7 +35,7 @@
                         android:id="@+id/rl_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="190dp"
+                        android:layout_marginTop="170dp"
                         android:background="@drawable/btn_white_r10_top"
                         android:paddingBottom="10dp"
                         android:paddingLeft="15dp"
