@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 
 import java.util.ArrayList;
@@ -178,8 +179,8 @@ public class WelcomeActivity extends BaseActivity {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //            if (i > 0) {
                 //当添加的小圆点的个数超过一个的时候就设置当前小圆点的左边距为20dp;
-                params.leftMargin = 20;
-                params.rightMargin = 20;
+                params.leftMargin = AppUtils.dip2px(8);
+                params.rightMargin = AppUtils.dip2px(8);
 //            }
             //设置小灰点的宽高包裹内容
             pointView.setLayoutParams(params);
