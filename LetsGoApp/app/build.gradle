@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1030500
-        versionName "1.3.5"
+        versionCode 1030600
+        versionName "1.3.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -82,6 +82,9 @@ android {
             }
             c360 {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+            }
+            sougou {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "sougou"]
             }
         } else{
             dev {
