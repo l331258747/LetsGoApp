@@ -359,7 +359,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
             dialog.setContentView(view);
 
             TextView context = (TextView) view.findViewById(R.id.tv_dialog_context);
-            context.setText("未开启推送通知，您可能错过最新活动，节日大促，导游消息。");
+            context.setText("未开启推送通知，您可能错过最新活动，节日大促，导游消息等...");
 
             TextView confirm = (TextView) view.findViewById(R.id.btn_confirm);
             confirm.setText("确定");
