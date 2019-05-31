@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:padding="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_20"
         android:src="@mipmap/ic_pop_close" />
 
     <ImageView
