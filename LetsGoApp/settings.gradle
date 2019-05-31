@@ -1,1 +1,1 @@
-include ':app', ':PhotoPicker',':convenientbanner',':PriceCalendarLib',':easeui'
+include ':app', ':PhotoPicker',':convenientbanner',':PriceCalendarLib',':easeui',':hmspush'

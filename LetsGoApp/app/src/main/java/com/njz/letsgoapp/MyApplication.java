@@ -7,11 +7,17 @@ import android.os.Environment;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.push.EMPushConfig;
+import com.hyphenate.push.EMPushHelper;
+import com.hyphenate.push.EMPushType;
+import com.hyphenate.push.PushListener;
+import com.hyphenate.util.EMLog;
 import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.im.HMSPushHelper;
 import com.njz.letsgoapp.view.im.HxEaseuiHelper;
 import com.njz.letsgoapp.wxapi.UpgradeDialogListener;
 import com.taobao.sophix.SophixManager;
@@ -30,7 +36,7 @@ import cn.jpush.android.api.JPushInterface;
  * Function:
  */
 
-public class MyApplication extends Application{
+public class MyApplication extends Application {
 
     private static MyApplication instance;
 
@@ -90,6 +96,7 @@ public class MyApplication extends Application{
 
     // 记录是否已经初始化
     private boolean isInit = false;
+
     private void initHuanXin() {
         int pid = android.os.Process.myPid();
         String processAppName = AppUtils.getAppName(pid);
@@ -97,17 +104,38 @@ public class MyApplication extends Application{
         // 为了防止环信SDK被初始化2次，加此判断会保证SDK被初始化1次
         // 默认的APP会在以包名为默认的process name下运行，如果查到的process name不是APP的process name就立即返回
 
-        if (processAppName == null ||!processAppName.equalsIgnoreCase(AppUtils.getPakgeName())) {
+        if (processAppName == null || !processAppName.equalsIgnoreCase(AppUtils.getPakgeName())) {
             LogUtil.e("enter the service process!");
             // 则此application::onCreate 是被service 调用的，直接返回
             return;
         }
 
-        if(isInit){
-            return ;
+        if (isInit) {
+            return;
         }
 
         HxEaseuiHelper.getInstance().init(context);
+
+        // 请确保环信SDK相关方法运行在主进程，子进程不会初始化环信SDK（该逻辑在EaseUI.java中）
+        if (EaseUI.getInstance().isMainProcess(this)) {
+            // 初始化华为 HMS 推送服务, 需要在SDK初始化后执行
+            HMSPushHelper.getInstance().initHMSAgent(instance);//TODO-1
+
+            EMPushHelper.getInstance().setPushListener(new PushListener() {
+                @Override
+                public void onError(EMPushType pushType, long errorCode) {
+                    LogUtil.e("Push client occur a error: " + pushType + " - " + errorCode);
+                    // TODO: 返回的errorCode仅9xx为环信内部错误，可从EMError中查询，其他错误请根据pushType去相应第三方推送网站查询。
+                    // TODO: 开发者会在这个回调中收到使用推送的相关错误信息，各推送类型的error code开发者可以自己去各推送平台官网查询错误原因。
+                }
+
+                @Override
+                public boolean isSupportPush(EMPushType pushType, EMPushConfig pushConfig) {
+                    return super.isSupportPush(pushType, pushConfig);
+                    // TODO：开发者可以复写该方法控制设备是否支持某推送的判断。
+                }
+            });
+        }
 
         // 设置初始化已经完成
         isInit = true;
@@ -148,7 +176,7 @@ public class MyApplication extends Application{
 
     }
 
-    private void initBugly(){
+    private void initBugly() {
 
         /***** Beta高级设置 *****/
         //true表示app启动自动初始化升级模块; false不会自动初始化; 开发者如果担心sdk初始化影响app启动速度，可以设置为false， 在后面某个时刻手动调用Beta.init(getApplicationContext(),false);
@@ -162,7 +190,7 @@ public class MyApplication extends Application{
         Beta.upgradeDialogLayoutId = R.layout.upgrade_dialog;
         //设置sd卡的Download为更新资源保存目录;后续更新资源会保存在此目录，需要在manifest中添加WRITE_EXTERNAL_STORAGE权限;
         Beta.storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-       //已经确认过的弹窗在APP下次启动自动检查更新时会再次显示;
+        //已经确认过的弹窗在APP下次启动自动检查更新时会再次显示;
         Beta.showInterruptedStrategy = true;
         //只允许在MainActivity上显示更新弹窗，其他activity上不显示弹窗; 不设置会默认所有activity都可以显示弹窗;
         Beta.canShowUpgradeActs.add(HomeActivity.class);

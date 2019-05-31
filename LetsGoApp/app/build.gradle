@@ -172,9 +172,13 @@ dependencies {
     compile project(':convenientbanner')
     compile project(':PriceCalendarLib')
     compile project(':easeui')
+    compile project(':hmspush')
     compile files('libs/umeng-analytics-7.5.4.jar')
     compile files('libs/umeng-common-1.5.4.jar')
     compile files('libs/open_sdk_r6019_lite.jar')
 
     compile 'com.j256.ormlite:ormlite-android:5.0'
+
+    // meizu push
+    compile 'com.meizu.flyme.internet:push-internal:3.7.0@aar' //配置集成sdk
 }

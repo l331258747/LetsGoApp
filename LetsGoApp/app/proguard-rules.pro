@@ -360,3 +360,31 @@
 -keep interface com.j256.**{*;}
 -keepclassmembers interface com.j256.** { *; }
 -dontwarn com.j256.**
+
+#华为
+-ignorewarning
+-keepattributes *Annotation*
+-keepattributes Exceptions
+-keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
+-keep class com.hianalytics.android.**{*;}
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}
+-keep class com.huawei.android.hms.agent.**{*;}
+
+#魅族
+-dontwarn com.meizu.cloud.pushsdk.**
+-keep class com.meizu.cloud.pushsdk.**{*;}
+
+#oppo
+-keep public class * extends android.app.Service
+
+#小米
+-keep class com.xiaomi.push.service.receivers.NetworkStatusReceiver {*;}
+-keep public class * extends android.content.BroadcastReceiver
+-dontwarn com.xiaomi.push.*
+#这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名
+-keep class com.xiaomi.mipush.sdk.DemoMessageReceiver {*;}
+#可以防止一个误报的 warning 导致无法成功编译，如果编译使用的 Android 版本是 23。
+-dontwarn com.xiaomi.push.**
