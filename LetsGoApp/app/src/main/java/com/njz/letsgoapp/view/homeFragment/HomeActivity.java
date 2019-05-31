@@ -1,6 +1,9 @@
 package com.njz.letsgoapp.view.homeFragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +11,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
@@ -22,6 +28,7 @@ import com.njz.letsgoapp.mvp.coupon.ActivityPopPresenter;
 import com.njz.letsgoapp.mvp.notify.NotifyMainContract;
 import com.njz.letsgoapp.mvp.notify.NotifyMainPresenter;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.notify.NotificationsUtils;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
 import com.njz.letsgoapp.view.coupon.CouponActivity;
@@ -77,6 +84,8 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         super.onCreate(savedInstanceState);
 
         getNewIntent();
+
+        getNotify();
     }
 
     @Override
@@ -339,5 +348,48 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     @Override
     public void orderPopupFailed(String msg) {
         LogUtil.e(msg);
+    }
+
+    public void getNotify() {
+        if (!NotificationsUtils.isNotificationEnabled(this)) {
+            final AlertDialog dialog = new AlertDialog.Builder(this).create();
+            dialog.show();
+
+            View view = View.inflate(this, R.layout.dialog_notify, null);
+            dialog.setContentView(view);
+
+            TextView context = (TextView) view.findViewById(R.id.tv_dialog_context);
+            context.setText("未开启推送通知，您可能错过最新活动，节日大促，导游消息。");
+
+            TextView confirm = (TextView) view.findViewById(R.id.btn_confirm);
+            confirm.setText("确定");
+            confirm.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialog.cancel();
+                    Intent localIntent = new Intent();
+                    localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (Build.VERSION.SDK_INT >= 9) {
+                        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        localIntent.setData(Uri.fromParts("package", HomeActivity.this.getPackageName(), null));
+                    } else if (Build.VERSION.SDK_INT <= 8) {
+                        localIntent.setAction(Intent.ACTION_VIEW);
+
+                        localIntent.setClassName("com.android.settings",
+                                "com.android.settings.InstalledAppDetails");
+
+                        localIntent.putExtra("com.android.settings.ApplicationPkgName",
+                                HomeActivity.this.getPackageName());
+                    }
+                    startActivity(localIntent);
+                }
+            });
+
+            ImageView cancel = (ImageView) view.findViewById(R.id.btn_off);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialog.cancel();
+                }
+            });
+        }
     }
 }
