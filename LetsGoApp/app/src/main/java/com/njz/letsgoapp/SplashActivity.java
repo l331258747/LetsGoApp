@@ -27,6 +27,7 @@ import com.njz.letsgoapp.util.SPUtils;
 import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.im.HMSPushHelper;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -96,7 +97,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        HMSPushHelper.getInstance().getHMSToken(activity);
     }
 
     /**
