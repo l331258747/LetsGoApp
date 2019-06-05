@@ -273,6 +273,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
     @Override
     public void msgPushGetSendMsgListFailed(String msg) {
         LogUtil.e(msg);
+
+        if(HxEaseuiHelper.isShow){
+            RxBus2.getInstance().post(new NotifyEvent(true));
+        }
     }
 
     @Override
