@@ -39,6 +39,7 @@ import com.njz.letsgoapp.view.homeFragment.fragment.HomeFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.MyFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.NotifyFragment;
 import com.njz.letsgoapp.view.homeFragment.fragment.OrderFragment;
+import com.njz.letsgoapp.view.im.HxEaseuiHelper;
 import com.njz.letsgoapp.view.mine.SpaceActivity;
 import com.njz.letsgoapp.view.order.OrderDetailActivity;
 import com.njz.letsgoapp.view.order.OrderRefundDetailActivity;
@@ -164,6 +165,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         return (OrderFragment) fragments[2];
     }
 
+    public NotifyFragment getNotifyFragment(){
+        return (NotifyFragment) fragments[3];
+    }
+
     //防止fragment混淆
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -257,6 +262,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabClickLi
         if (data == null || data.size() == 0) {
             RxBus2.getInstance().post(new NotifyEvent(false));
         } else {
+            RxBus2.getInstance().post(new NotifyEvent(true));
+        }
+
+        if(HxEaseuiHelper.isShow){
             RxBus2.getInstance().post(new NotifyEvent(true));
         }
     }

@@ -144,7 +144,14 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         super.onDestroyView();
         if(chatHelp != null)
             chatHelp.removeConnectionListener();
+        isMessageListInited = false;
         EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+    }
+
+    boolean isInitMsgListener;
+
+    public boolean isMessageListInited() {
+        return isMessageListInited;
     }
 
     @Override
@@ -154,6 +161,8 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             getData();
             setUpView();
         }
+
+        isMessageListInited = true;
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
     }
 

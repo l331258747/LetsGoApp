@@ -15,8 +15,12 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.push.EMPushConfig;
+import com.njz.letsgoapp.base.ActivityCollect;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.rxbus.RxBus2;
+import com.njz.letsgoapp.util.rxbus.busEvent.NotifyEvent;
+import com.njz.letsgoapp.view.homeFragment.HomeActivity;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
 
 import java.util.List;
@@ -112,13 +116,15 @@ public class HxEaseuiHelper {
         registerMessageListener();
     }
 
+    public static boolean isShow = false;
+
     protected void registerMessageListener() {
         messageListener = new EMMessageListener() {
             @Override
             public void onMessageReceived(List<EMMessage> messages) {
                 for (EMMessage message : messages) {
 
-                    LogUtil.e("onMessageReceived id : " + message.getMsgId());
+                    LogUtil.e("------------------------ onMessageReceived id : " + message.getMsgId());
                     UserCacheManager.save(message.ext());
 
                     //设置本地消息推送通知
@@ -126,6 +132,14 @@ public class HxEaseuiHelper {
                         getNotifier().notify(message);
                     }
                     EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
+                }
+
+                isShow = true;//初始化进入homeactivity 红点提示
+
+                //在homeactivty，默认首页标签，消息标签页未点过，红点提示
+                HomeActivity activity2 = (HomeActivity) ActivityCollect.getAppCollect().findActivity(HomeActivity.class);
+                if(!activity2.getNotifyFragment().isMessageListInited()){
+                    RxBus2.getInstance().post(new NotifyEvent(true));
                 }
             }
 
