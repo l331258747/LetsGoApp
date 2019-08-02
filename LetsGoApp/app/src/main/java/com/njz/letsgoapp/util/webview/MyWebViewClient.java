@@ -1,6 +1,8 @@
 package com.njz.letsgoapp.util.webview;
 
+import android.net.http.SslError;
 import android.view.View;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -32,6 +34,12 @@ public class MyWebViewClient extends WebViewClient {
         // 不重写会调用系统浏览器
 //        view.loadUrl(url);//跳转
         return true;
+    }
+
+    @Override
+    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        handler.proceed();  // 接受所有网站的证书
+//        super.onReceivedSslError(view, handler, error);
     }
 
     /**

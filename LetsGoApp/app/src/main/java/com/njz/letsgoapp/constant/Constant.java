@@ -138,6 +138,7 @@ public class Constant {
      * url 跳转链接
      **/
     public static final String EXTRA_URL = "url";
+    public static final String EXTRA_TITLE = "title";
 
 
     //im 密码

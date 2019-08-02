@@ -10,6 +10,7 @@ import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
 import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.dialog.DialogUtil;
 import com.njz.letsgoapp.mvp.login.LogoutContract;
 import com.njz.letsgoapp.mvp.login.LogoutPresenter;
@@ -19,6 +20,7 @@ import com.njz.letsgoapp.util.dialog.LoadingDialog;
 import com.njz.letsgoapp.util.rxbus.RxBus2;
 import com.njz.letsgoapp.util.rxbus.busEvent.CleanCacheEvent;
 import com.njz.letsgoapp.view.login.LoginActivity;
+import com.njz.letsgoapp.view.other.WebViewActivity;
 import com.njz.letsgoapp.widget.MineItemView;
 import com.tencent.bugly.beta.Beta;
 
@@ -33,7 +35,7 @@ import io.reactivex.functions.Consumer;
 
 public class SystemSettingActivity extends BaseActivity implements View.OnClickListener,LogoutContract.View {
 
-    MineItemView system_setting_clean, system_setting_feedback, system_setting_about,system_setting_upload;
+    MineItemView system_setting_clean, system_setting_feedback, system_setting_about,system_setting_upload,system_setting_privacy;
 
     Disposable disCleanCache;
 
@@ -57,10 +59,12 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
         system_setting_feedback = $(R.id.system_setting_feedback);
         system_setting_about = $(R.id.system_setting_about);
         system_setting_upload = $(R.id.system_setting_upload);
+        system_setting_privacy = $(R.id.system_setting_privacy);
 
         system_setting_feedback.setOnClickListener(this);
         system_setting_about.setOnClickListener(this);
         system_setting_upload.setOnClickListener(this);
+        system_setting_privacy.setOnClickListener(this);
 
         btnLoginoff = $(R.id.btn_loginoff);
         btnLoginoff.setOnClickListener(this);
@@ -139,6 +143,12 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.system_setting_about:
                 startActivity(new Intent(context, AboutActivity.class));
+                break;
+            case R.id.system_setting_privacy:
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszc/");
+                intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
+                startActivity(intent);
                 break;
             case R.id.btn_loginoff:
                 DialogUtil.getInstance().getDefaultDialog(context, "您是否确认退出?", new DialogUtil.DialogCallBack() {
