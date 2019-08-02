@@ -286,6 +286,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Base
                         case Constant.ORDER_TRAVEL_GOING://行程中，不能退整单
                             ((FootHolder) holder).btn_call_customer.setVisibility(View.VISIBLE);
                             ((FootHolder) holder).btn_call_guide.setVisibility(View.VISIBLE);
+
+                            //行程中加入点评按钮,点评后不能再点评
+                            switch (data.getReviewStatus()) {
+                                case Constant.ORDER_EVALUATE_NO:
+                                    ((FootHolder) holder).btn_evaluate.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+
                             break;
                     }
                     if(data.isCustom()){

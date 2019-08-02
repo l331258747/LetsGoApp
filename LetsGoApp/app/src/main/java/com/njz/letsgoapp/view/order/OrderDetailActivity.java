@@ -452,6 +452,18 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     btn_call_custom.setVisibility(View.VISIBLE);
                     btn_call_guide.setVisibility(View.VISIBLE);
+
+                    //行程中加入点评按钮,点评后不能再点评
+                    switch (str.getReviewStatus()) {
+                        case Constant.ORDER_EVALUATE_NO:
+                            btn_evaluate.setVisibility(View.VISIBLE);
+                            btn_evaluate_see.setVisibility(View.GONE);
+                            break;
+                        case Constant.ORDER_EVALUATE_YES:
+                            btn_evaluate.setVisibility(View.GONE);
+                            btn_evaluate_see.setVisibility(View.VISIBLE);
+                            break;
+                    }
                 }
 
                 if(str.isCustom()){
