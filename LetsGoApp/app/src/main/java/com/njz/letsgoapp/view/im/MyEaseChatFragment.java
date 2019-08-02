@@ -1,5 +1,8 @@
 package com.njz.letsgoapp.view.im;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,7 +21,9 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.other.IMUserModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -150,7 +155,15 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
     @Override
     public void onMessageBubbleLongClick(EMMessage message) {
-
+        if(message.getType() == EMMessage.Type.TXT){
+            //获取剪贴板管理器：
+            ClipboardManager cm = (ClipboardManager) AppUtils.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            // 创建普通字符型ClipData
+            ClipData mClipData = ClipData.newPlainText("Label", ((EMTextMessageBody) message.getBody()).getMessage());
+            // 将ClipData内容放到系统剪贴板里。
+            cm.setPrimaryClip(mClipData);
+            ToastUtil.showShortToast(AppUtils.getContext(),"复制成功");
+        }
     }
 
     @Override
