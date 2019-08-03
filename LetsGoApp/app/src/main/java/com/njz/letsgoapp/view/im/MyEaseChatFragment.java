@@ -10,14 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hyphenate.chat.EMChatManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
-import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.other.IMUserModel;
 import com.njz.letsgoapp.constant.Constant;
@@ -30,9 +28,9 @@ import com.njz.letsgoapp.util.http.ResponseCallback;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.GuideDetailActivity;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
+import com.njz.letsgoapp.view.server.ServiceDetailActivity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by LGQ
@@ -150,6 +148,13 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
     @Override
     public boolean onMessageBubbleClick(EMMessage message) {
+        if (message.getType() == EMMessage.Type.TXT) {
+            if (message.getBooleanAttribute("is_server",false)){
+                Intent intent = new Intent(AppUtils.getContext(), ServiceDetailActivity.class);
+                intent.putExtra(ServiceDetailActivity.SERVICEID, message.getIntAttribute("server_id",0));
+                startActivity(intent);
+            }
+        }
         return false;
     }
 
