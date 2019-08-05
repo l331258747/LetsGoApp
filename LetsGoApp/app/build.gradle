@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1040000
-        versionName "1.4.0"
+        versionCode 1050000
+        versionName "1.5.0"
         multiDexEnabled true
         ndk {
             // 设置支持的SO库架构
@@ -55,36 +55,36 @@ android {
             prod {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "prod"]
             }
-//            qq {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
-//            }
-//            baidu {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
-//            }
-//            xiaomi {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
-//            }
-//            huawei {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
-//            }
-//            ali {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
-//            }
-//            vivo {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
-//            }
-//            oppo {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
-//            }
-//            meizu {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
-//            }
-//            c360 {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
-//            }
-//            sougou {
-//                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "sougou"]
-//            }
+            qq {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
+            }
+            baidu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+            }
+            xiaomi {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+            }
+            huawei {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+            }
+            ali {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ali"]
+            }
+            vivo {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+            }
+            oppo {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+            }
+            meizu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+            }
+            c360 {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+            }
+            sougou {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "sougou"]
+            }
         } else{
             dev {
                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev"]
