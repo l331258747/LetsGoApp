@@ -213,31 +213,59 @@ public class OrderModel {
         for (int i = 0; i < njzChildOrderListVOS.size(); i++) {
             OrderChildModel childModel = njzChildOrderListVOS.get(i);
 
-            if(childModel.getPayStatus() != Constant.ORDER_PAY_FINISH)
-                continue;
-
-            if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {
-                evaluateTypeModel.setAttitude(true);
-                evaluateTypeModel.setQuality(true);
-                evaluateTypeModel.setScheduling(true);
-                evaluateTypeModel.setCustom(true);
-                break;
-            } else if (childModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID
-                    || childModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID) {
-                evaluateTypeModel.setAttitude(true);
-                evaluateTypeModel.setQuality(true);
-                evaluateTypeModel.setScheduling(true);
-                if(havCar)
+            if(childModel.getPayStatus() == Constant.ORDER_PAY_FINISH ||
+                    (childModel.getPayStatus() == Constant.ORDER_PAY_ALREADY &&
+                            childModel.getChildOrderStatus() == Constant.ORDER_TRAVEL_GOING)){
+                if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {
+                    evaluateTypeModel.setAttitude(true);
+                    evaluateTypeModel.setQuality(true);
+                    evaluateTypeModel.setScheduling(true);
+                    evaluateTypeModel.setCustom(true);
+                    break;
+                } else if (childModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID
+                        || childModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID) {
+                    evaluateTypeModel.setAttitude(true);
+                    evaluateTypeModel.setQuality(true);
+                    evaluateTypeModel.setScheduling(true);
+                    if(havCar)
+                        evaluateTypeModel.setCarCondition(true);
+                } else if (childModel.getServeType() == Constant.SERVER_TYPE_CAR_ID) {
+                    evaluateTypeModel.setAttitude(true);
+                    evaluateTypeModel.setQuality(true);
                     evaluateTypeModel.setCarCondition(true);
-            } else if (childModel.getServeType() == Constant.SERVER_TYPE_CAR_ID) {
-                evaluateTypeModel.setAttitude(true);
-                evaluateTypeModel.setQuality(true);
-                evaluateTypeModel.setCarCondition(true);
-            } else if(childModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID
-                    || childModel.getServeType() == Constant.SERVER_TYPE_HOTEL_ID){
-                evaluateTypeModel.setAttitude(true);
-                evaluateTypeModel.setQuality(true);
+                } else if(childModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID
+                        || childModel.getServeType() == Constant.SERVER_TYPE_HOTEL_ID){
+                    evaluateTypeModel.setAttitude(true);
+                    evaluateTypeModel.setQuality(true);
+                }
             }
+
+
+//            if(childModel.getPayStatus() != Constant.ORDER_PAY_FINISH)
+//                continue;
+//
+//            if (childModel.getServeType() == Constant.SERVER_TYPE_CUSTOM_ID) {
+//                evaluateTypeModel.setAttitude(true);
+//                evaluateTypeModel.setQuality(true);
+//                evaluateTypeModel.setScheduling(true);
+//                evaluateTypeModel.setCustom(true);
+//                break;
+//            } else if (childModel.getServeType() == Constant.SERVER_TYPE_GUIDE_ID
+//                    || childModel.getServeType() == Constant.SERVER_TYPE_FEATURE_ID) {
+//                evaluateTypeModel.setAttitude(true);
+//                evaluateTypeModel.setQuality(true);
+//                evaluateTypeModel.setScheduling(true);
+//                if(havCar)
+//                    evaluateTypeModel.setCarCondition(true);
+//            } else if (childModel.getServeType() == Constant.SERVER_TYPE_CAR_ID) {
+//                evaluateTypeModel.setAttitude(true);
+//                evaluateTypeModel.setQuality(true);
+//                evaluateTypeModel.setCarCondition(true);
+//            } else if(childModel.getServeType() == Constant.SERVER_TYPE_TICKET_ID
+//                    || childModel.getServeType() == Constant.SERVER_TYPE_HOTEL_ID){
+//                evaluateTypeModel.setAttitude(true);
+//                evaluateTypeModel.setQuality(true);
+//            }
         }
         return evaluateTypeModel;
     }
