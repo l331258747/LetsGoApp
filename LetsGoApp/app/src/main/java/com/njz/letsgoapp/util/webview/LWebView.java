@@ -39,24 +39,44 @@ public class LWebView extends WebView {
      *
      */
     private void init() {
+        /*
+             支持Js
+             setting.setJavaScriptEnabled(true);
+
+             设置自适应屏幕，两者合用
+             //将图片调整到适合webview的大小 setting.setUseWideViewPort(true);
+             // 缩放至屏幕的大小   setting.setLoadWithOverviewMode(true);
+
+             缩放操作
+             // 是否支持画面缩放，默认不支持 setting.setBuiltInZoomControls(true); setting.setSupportZoom(true);
+             // 是否显示缩放图标，默认显示  setting.setDisplayZoomControls(false);
+             // 设置网页内容自适应屏幕大小  setting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+             设置允许JS弹窗
+             setting.setJavaScriptCanOpenWindowsAutomatically(true);
+             setting.setDomStorageEnabled(true);
+
+             关闭webview中缓存
+             setting.setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+             设置可以访问文件
+             setting.setAllowFileAccess(true);
+             setting.setAllowFileAccessFromFileURLs(true);
+             setting.setAllowUniversalAccessFromFileURLs(true);
+         */
+
+
         WebSettings settings = getSettings();
         settings.setJavaScriptEnabled(true);//支持js
         settings.setDisplayZoomControls(false); // 关闭自动缩放
         settings.setDefaultZoom(WebSettings.ZoomDensity.FAR); //  自适应屏幕处理，不设置，低分辨率显示异常
         settings.setDefaultTextEncodingName("utf-8");
-//        settings.setCacheMode(WebSettings.LOAD_NO_CACHE); //不使用缓存
-        settings.setSupportZoom(true);
-        settings.setBuiltInZoomControls(true);
-        settings.setUseWideViewPort(true);
 
         settings.setAllowFileAccess(true); // 允许访问文件
         settings.setDomStorageEnabled(true); // h5 本地缓存
         settings.setDatabaseEnabled(true); //启用数据库
 
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setLoadWithOverviewMode(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//Android5.0上 WebView中Http和Https混合问题
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
         this.setVerticalScrollBarEnabled(false);
