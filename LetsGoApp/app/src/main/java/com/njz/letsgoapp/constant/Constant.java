@@ -139,6 +139,7 @@ public class Constant {
      **/
     public static final String EXTRA_URL = "url";
     public static final String EXTRA_TITLE = "title";
+    public static final String IS_USE_WIDE_VIEW_PORT = "isUseWideViewPort";
 
 
     //im 密码

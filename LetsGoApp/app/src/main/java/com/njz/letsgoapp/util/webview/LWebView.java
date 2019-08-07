@@ -44,25 +44,25 @@ public class LWebView extends WebView {
              setting.setJavaScriptEnabled(true);
 
              设置自适应屏幕，两者合用
-             //将图片调整到适合webview的大小 setting.setUseWideViewPort(true);
-             // 缩放至屏幕的大小   setting.setLoadWithOverviewMode(true);
+             //将图片调整到适合webview的大小 settings.setUseWideViewPort(true);
+             // 缩放至屏幕的大小   settings.setLoadWithOverviewMode(true);
 
              缩放操作
-             // 是否支持画面缩放，默认不支持 setting.setBuiltInZoomControls(true); setting.setSupportZoom(true);
-             // 是否显示缩放图标，默认显示  setting.setDisplayZoomControls(false);
-             // 设置网页内容自适应屏幕大小  setting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+             // 是否支持画面缩放，默认不支持 settings.setBuiltInZoomControls(true); setting.setSupportZoom(true);
+             // 是否显示缩放图标，默认显示  settings.setDisplayZoomControls(false);
+             // 设置网页内容自适应屏幕大小  settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
              设置允许JS弹窗
-             setting.setJavaScriptCanOpenWindowsAutomatically(true);
-             setting.setDomStorageEnabled(true);
+             settings.setJavaScriptCanOpenWindowsAutomatically(true);
+             settings.setDomStorageEnabled(true);
 
              关闭webview中缓存
-             setting.setCacheMode(WebSettings.LOAD_NO_CACHE);
+             settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
              设置可以访问文件
-             setting.setAllowFileAccess(true);
-             setting.setAllowFileAccessFromFileURLs(true);
-             setting.setAllowUniversalAccessFromFileURLs(true);
+             settings.setAllowFileAccess(true);
+             settings.setAllowFileAccessFromFileURLs(true);
+             settings.setAllowUniversalAccessFromFileURLs(true);
          */
 
 
@@ -73,12 +73,9 @@ public class LWebView extends WebView {
         settings.setDefaultTextEncodingName("utf-8");
 
         settings.setAllowFileAccess(true); // 允许访问文件
-        settings.setDomStorageEnabled(true); // h5 本地缓存
+        settings.setDomStorageEnabled(true); // h5 本地缓存 //设置DOM Storage缓存
         settings.setDatabaseEnabled(true); //启用数据库
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//Android5.0上 WebView中Http和Https混合问题
-            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
         this.setVerticalScrollBarEnabled(false);
         this.setVerticalScrollbarOverlay(false);
         this.setHorizontalScrollBarEnabled(false);

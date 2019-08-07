@@ -147,6 +147,7 @@ public class SystemSettingActivity extends BaseActivity implements View.OnClickL
             case R.id.system_setting_privacy:
                 Intent intent = new Intent(context, WebViewActivity.class);
                 intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszc/");
+                intent.putExtra(Constant.IS_USE_WIDE_VIEW_PORT,true);
                 intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
                 startActivity(intent);
                 break;

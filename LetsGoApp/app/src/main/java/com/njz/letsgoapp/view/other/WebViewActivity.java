@@ -29,6 +29,7 @@ public class WebViewActivity extends BaseActivity {
 	private LWebView webView;
 	private String url = "";
 	private String title = "";
+	private boolean isUseWideViewPort;
 
 	public LWebView getWebView() {
 		return webView;
@@ -43,6 +44,7 @@ public class WebViewActivity extends BaseActivity {
 		Intent intent = getIntent();
 		url = intent.getStringExtra(Constant.EXTRA_URL);
 		title = intent.getStringExtra(Constant.EXTRA_TITLE);
+		isUseWideViewPort = intent.getBooleanExtra(Constant.IS_USE_WIDE_VIEW_PORT,false);
 		if(TextUtils.isEmpty(url)){
 			url = "https://jingyan.baidu.com/article/6525d4b179af49ac7d2e94a1.html";
 		}
@@ -65,6 +67,11 @@ public class WebViewActivity extends BaseActivity {
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){//WebView默认不支持同时加载Https和Http混合模式
 			webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
 		}
+		if(isUseWideViewPort){
+			webView.getSettings().setUseWideViewPort(true);
+			webView.getSettings().setLoadWithOverviewMode(true);
+		}
+
 		webView.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onReceivedTitle(WebView view, String title) {
