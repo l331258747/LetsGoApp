@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.login.VerifyModel;
+import com.njz.letsgoapp.util.AESOperator;
+import com.njz.letsgoapp.util.ToastUtil;
 import com.njz.letsgoapp.util.http.MethodApi;
 import com.njz.letsgoapp.util.http.OnSuccessAndFaultSub;
 import com.njz.letsgoapp.util.http.ResponseCallback;
@@ -57,6 +59,14 @@ public class RegistPresenter implements RegistContract.Presenter {
                 iView.userSmsSendFailed(errorMsg);
             }
         };
-        MethodApi.userSmsSend(mobile, type, new OnSuccessAndFaultSub(listener, context));
+        String enString = null;
+        try {
+            enString = AESOperator.getInstance().encrypt(mobile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtil.showShortToast(context,"加密错误");
+            return;
+        }
+        MethodApi.userSmsSend(enString, type, new OnSuccessAndFaultSub(listener, context));
     }
 }

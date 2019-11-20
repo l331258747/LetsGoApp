@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1050100
-        versionName "1.5.1"
+        versionCode 1050200
+        versionName "1.5.2"
         multiDexEnabled true
         ndk {
             // 设置支持的SO库架构
@@ -173,6 +173,7 @@ dependencies {
     compile files('libs/umeng-analytics-7.5.4.jar')
     compile files('libs/umeng-common-1.5.4.jar')
     compile files('libs/open_sdk_r6019_lite.jar')
+    compile files('libs/BASE64Decoder.jar')
 
     compile 'com.j256.ormlite:ormlite-android:5.0'
 

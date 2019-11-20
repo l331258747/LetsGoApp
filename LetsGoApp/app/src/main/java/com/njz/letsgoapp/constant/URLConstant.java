@@ -22,7 +22,8 @@ public class URLConstant {
             return "http://www.njzou.net/travel-framework/";
         }else{
 //            return "http://192.168.100.115:8089/";//本地 //18826420934  //941740
-            return "http://www.njzou.cn/travel-framework/";//测试地址
+//            return "http://www.njzou.cn/travel-framework/";//测试地址
+            return "http://114.115.161.62/travel-framework/";//测试地址
 
 
 
