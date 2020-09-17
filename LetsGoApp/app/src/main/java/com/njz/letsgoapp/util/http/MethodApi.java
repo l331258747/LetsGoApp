@@ -608,4 +608,13 @@ public class MethodApi {
 
     //----------end 优惠卷
 
+
+    //-----------------IM start-------------
+    public static void saveMessage(String fromId,String toId,String chatType,String msg,DisposableObserver subscriber) {
+        Observable observable = HttpMethods.getInstance().getHttpService().saveMessage(fromId,toId,chatType,msg);
+        HttpMethods.getInstance().toSubscribe(observable, subscriber);
+    }
+
+    //-----------------IM end-------------
+
 }

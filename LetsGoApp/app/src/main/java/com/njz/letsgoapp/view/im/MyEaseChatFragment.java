@@ -16,9 +16,12 @@ import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.other.IMUserModel;
 import com.njz.letsgoapp.constant.Constant;
+import com.njz.letsgoapp.mvp.im.IMContract;
+import com.njz.letsgoapp.mvp.im.IMPresenter;
 import com.njz.letsgoapp.util.AppUtils;
 import com.njz.letsgoapp.util.DateUtil;
 import com.njz.letsgoapp.util.ToastUtil;
@@ -38,11 +41,26 @@ import java.util.List;
  * Function:
  */
 
-public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFragment.EaseChatFragmentHelper {
+public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFragment.EaseChatFragmentHelper,IMContract.View {
 
 //    private boolean isRobot;
     private boolean isRobot = true;
     String name;
+    IMPresenter mPresenter;
+
+    public Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mPresenter = new IMPresenter(context, this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -179,5 +197,36 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
     @Override
     public EaseCustomChatRowProvider onSetCustomChatRowProvider() {
         return null;
+    }
+
+    @Override
+    protected void sendTextMessage(String content) {
+        super.sendTextMessage(content);
+        LogUtil.e("sendTextMessage:" + content);
+        mPresenter.saveMessage(toChatUsername,MySelfInfo.getInstance().getImId()+"","text",content);
+    }
+
+    @Override
+    protected void sendVoiceMessage(String filePath, int length) {
+        super.sendVoiceMessage(filePath, length);
+        LogUtil.e("sendVoiceMessage:" + filePath);
+        mPresenter.saveMessage(toChatUsername,MySelfInfo.getInstance().getImId()+"","voice","语音");
+    }
+
+    @Override
+    protected void sendImageMessage(String imagePath) {
+        super.sendImageMessage(imagePath);
+        LogUtil.e("sendImageMessage:" + imagePath);
+        mPresenter.saveMessage(toChatUsername,MySelfInfo.getInstance().getImId()+"","img","图片");
+    }
+
+    @Override
+    public void saveMessageSuccess(EmptyModel model) {
+        LogUtil.e("发送服务器成功");
+    }
+
+    @Override
+    public void saveMessageFailed(String msg) {
+        LogUtil.e("发送服务器失败："+msg);
     }
 }

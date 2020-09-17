@@ -695,4 +695,17 @@ public interface HttpService {
     );
     //-----------end 优惠卷-------
 
+    //-----------start IM-------
+    @FormUrlEncoded
+    @POST("immessage/saveMessage")
+    Observable<BaseResponse<EmptyModel>> saveMessage(
+            @Field("fromId") String fromId,
+            @Field("toId") String toId,
+            @Field("chatType") String chatType,
+            @Field("msg") String msg
+    );
+    //-----------end IM-------
+
+
+
 }
