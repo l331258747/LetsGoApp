@@ -203,21 +203,21 @@ public class MyEaseChatFragment extends EaseChatFragment implements EaseChatFrag
     protected void sendTextMessage(String content) {
         super.sendTextMessage(content);
         LogUtil.e("sendTextMessage:" + content);
-        mPresenter.saveMessage(toChatUsername,MySelfInfo.getInstance().getImId()+"","text",content);
+        mPresenter.saveMessage(MySelfInfo.getInstance().getImId(),toChatUsername,"text",content);
     }
 
     @Override
     protected void sendVoiceMessage(String filePath, int length) {
         super.sendVoiceMessage(filePath, length);
         LogUtil.e("sendVoiceMessage:" + filePath);
-        mPresenter.saveMessage(toChatUsername,MySelfInfo.getInstance().getImId()+"","voice","语音");
+        mPresenter.saveMessage(MySelfInfo.getInstance().getImId(),toChatUsername,"voice","语音");
     }
 
     @Override
     protected void sendImageMessage(String imagePath) {
         super.sendImageMessage(imagePath);
         LogUtil.e("sendImageMessage:" + imagePath);
-        mPresenter.saveMessage(toChatUsername,MySelfInfo.getInstance().getImId()+"","img","图片");
+        mPresenter.saveMessage(MySelfInfo.getInstance().getImId(),toChatUsername,"img","图片");
     }
 
     @Override
