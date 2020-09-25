@@ -27,8 +27,8 @@ android {
         applicationId "com.njz.letsgoapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1050401
-        versionName "1.5.4.1"
+        versionCode 1050500
+        versionName "1.5.5"
         multiDexEnabled true
         ndk {
             // 设置支持的SO库架构
