@@ -1,14 +1,12 @@
 package com.njz.letsgoapp;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -18,8 +16,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.njz.letsgoapp.base.BaseActivity;
+import com.njz.letsgoapp.constant.Constant;
 import com.njz.letsgoapp.util.AppUtils;
+import com.njz.letsgoapp.util.StringUtils;
+import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.homeFragment.HomeActivity;
+import com.njz.letsgoapp.view.other.WebViewActivity;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,8 @@ public class WelcomeActivity extends BaseActivity {
     private ImageView ivRedPoint;
     private int mPaintDis;
     private TextView start_btn;
+    private LinearLayout ll_agreement;
+    private TextView tv_user_agreement,tv_privacy_policy;
 
     private int pagePosition = 0;
     private boolean pageChange = false;
@@ -71,7 +75,36 @@ public class WelcomeActivity extends BaseActivity {
         }
     }
 
+    private void initAgreement() {
+        ll_agreement = $(R.id.ll_agreement);
+
+        tv_user_agreement = $(R.id.tv_user_agreement);
+        StringUtils.setHtml(tv_user_agreement, getResources().getString(R.string.welcome_user_agreement));
+        tv_user_agreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GuideContractActivity.class);
+                intent.putExtra("CONTRACT_TYPE", 1);
+                startActivity(intent);
+            }
+        });
+
+        tv_privacy_policy = $(R.id.tv_privacy_policy);
+        StringUtils.setHtml(tv_privacy_policy, getResources().getString(R.string.login_privacy_policy));
+        tv_privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszc/");
+                intent.putExtra(Constant.IS_USE_WIDE_VIEW_PORT,true);
+                intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
+                startActivity(intent);
+            }
+        });
+    }
+
     public void initView() {
+        initAgreement();
         mViewPager = (ViewPager) findViewById(R.id.vp_guide);
         llContainer = (LinearLayout) findViewById(R.id.ll_container);
         ivRedPoint = (ImageView) findViewById(R.id.iv_red);
@@ -130,10 +163,12 @@ public class WelcomeActivity extends BaseActivity {
                 pagePosition = position;
                 pageChange = true;
                 if (position == mImageViewList.size() - 1) {
+                    ll_agreement.setVisibility(View.VISIBLE);
                     start_btn.setVisibility(View.VISIBLE);
                     llContainer.setVisibility(View.GONE);
                     ivRedPoint.setVisibility(View.GONE);
                 } else {
+                    ll_agreement.setVisibility(View.GONE);
                     start_btn.setVisibility(View.GONE);
                     llContainer.setVisibility(View.VISIBLE);
                     ivRedPoint.setVisibility(View.VISIBLE);

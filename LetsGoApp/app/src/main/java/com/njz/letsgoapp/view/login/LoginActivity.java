@@ -1,14 +1,11 @@
 package com.njz.letsgoapp.view.login;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +16,6 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.njz.letsgoapp.MyApplication;
 import com.njz.letsgoapp.R;
 import com.njz.letsgoapp.base.BaseActivity;
-import com.njz.letsgoapp.bean.EmptyModel;
 import com.njz.letsgoapp.bean.MySelfInfo;
 import com.njz.letsgoapp.bean.login.LoginModel;
 import com.njz.letsgoapp.bean.other.WXInfoModel;
@@ -43,6 +39,7 @@ import com.njz.letsgoapp.util.jpush.JpushAliasUtil;
 import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.home.GuideContractActivity;
 import com.njz.letsgoapp.view.im.cache.UserCacheManager;
+import com.njz.letsgoapp.view.other.WebViewActivity;
 import com.njz.letsgoapp.widget.LoginItemView2;
 import com.njz.letsgoapp.widget.LoginTabView;
 import com.njz.letsgoapp.wxapi.WXHelp;
@@ -77,7 +74,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         LoginByWxContract.View {
 
     LoginItemView2 loginViewPhone, loginViewPassword, loginViewVerify;
-    TextView btnLogin, tv_user_agreement, btnRegister, tvVerify;
+    TextView btnLogin, tv_user_agreement,tv_privacy_policy, btnRegister, tvVerify;
     ImageView iv_change_url, wx_iv, qq_iv;
     LoginTabView tabview_verify_login, tabview_login;
 
@@ -134,6 +131,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             public void onClick(View v) {
                 Intent intent = new Intent(context, GuideContractActivity.class);
                 intent.putExtra("CONTRACT_TYPE", 1);
+                startActivity(intent);
+            }
+        });
+
+        tv_privacy_policy = $(R.id.tv_privacy_policy);
+        StringUtils.setHtml(tv_privacy_policy, getResources().getString(R.string.login_privacy_policy));
+        tv_privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra(Constant.EXTRA_URL,"http://www.njzou.com/yszc/");
+                intent.putExtra(Constant.IS_USE_WIDE_VIEW_PORT,true);
+                intent.putExtra(Constant.EXTRA_TITLE,"隐私政策");
                 startActivity(intent);
             }
         });

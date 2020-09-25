@@ -30,7 +30,9 @@
     <string name="refund_rule_50">行程开始前%1$s日取消订单，收取游客已付费用%2$s%%的违约金</string>
 
 
-    <string name="login_user_agreement"><Data><![CDATA[登录代表阅读并同意<font color="#508CCA">用户协议</font>]]></Data></string>
+    <string name="login_user_agreement"><Data><![CDATA[登录代表阅读并同意<font color="#508CCA">《用户协议》</font>]]></Data></string>
+    <string name="welcome_user_agreement"><Data><![CDATA[立即体验代表阅读并同意<font color="#508CCA">《用户协议》</font>]]></Data></string>
+    <string name="login_privacy_policy"><Data><![CDATA[及<font color="#508CCA">《隐私政策》</font>]]></Data></string>
 
     <string name="comment_name"><Data><![CDATA[回复 <font color="#6cb7fe">%s: </font>]]></Data></string>
 
