@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util.http;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,11 +9,10 @@ import android.util.Log;
 
 import com.njz.letsgoapp.bean.BaseResponse;
 import com.njz.letsgoapp.bean.MySelfInfo;
-import com.njz.letsgoapp.bean.mine.MyInfoData;
 import com.njz.letsgoapp.dialog.DialogUtil;
-import com.njz.letsgoapp.util.LoginUtil;
-import com.njz.letsgoapp.util.log.LogUtil;
+import com.njz.letsgoapp.util.HasActivity;
 import com.njz.letsgoapp.util.dialog.LoadingDialog;
+import com.njz.letsgoapp.util.log.LogUtil;
 import com.njz.letsgoapp.view.login.LoginActivity;
 
 import java.io.BufferedReader;
@@ -72,8 +72,10 @@ public class OnSuccessAndFaultSub extends DisposableObserver<BaseResponse> imple
     }
 
     private void dismissProgressDialog() {
-        if (showProgress && null != progressDialog) {
-            progressDialog.dismiss();
+        if(!HasActivity.isDestroy((Activity) context)){
+            if (showProgress && null != progressDialog) {
+                progressDialog.dismiss();
+            }
         }
     }
 

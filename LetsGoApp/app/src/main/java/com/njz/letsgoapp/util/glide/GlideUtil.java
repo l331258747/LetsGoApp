@@ -1,5 +1,6 @@
 package com.njz.letsgoapp.util.glide;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.njz.letsgoapp.R;
+import com.njz.letsgoapp.util.HasActivity;
 
 /**
  * Created by LGQ
@@ -67,11 +69,12 @@ public class GlideUtil {
     //圆形加载
     public static void LoadCircleImage(Context mContext, String path,
                                        ImageView imageview) {
-        if(TextUtils.isEmpty(path)) path = "";
-        Glide.with(mContext).load(path).centerCrop().error(R.mipmap.default_head)
-                .transform(new GlideCircleTransform(mContext,0,mContext.getResources().getColor(R.color.white)))
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
-
+        if(!HasActivity.isDestroy((Activity)mContext)){
+            if(TextUtils.isEmpty(path)) path = "";
+            Glide.with(mContext).load(path).centerCrop().error(R.mipmap.default_head)
+                    .transform(new GlideCircleTransform(mContext,0,mContext.getResources().getColor(R.color.white)))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageview);
+        }
     }
 
     //加载圆角图片
